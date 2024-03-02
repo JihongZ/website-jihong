@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.21">
+<meta name="generator" content="quarto-1.5.23">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Jihong Zhang">
 <meta name="dcterms.date" content="2022-04-24">
-<title>Dr. Jihong Zhang – [Workshop] Creating Academic Blog via R</title>
+<title>Jihong Z. - Play Harder and Learn Harder – [Workshop] Creating Academic Blog via R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../icon.png" rel="icon" type="image/png">
+<link href="../../images/icon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -72,7 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -115,24 +118,30 @@ ga('send', {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">
-<meta property="og:title" content="Dr.&nbsp;Jihong Zhang - [Workshop] Creating Academic Blog via R">
+<link rel="stylesheet" href="../../assets/rwds.css">
+<meta property="og:title" content="Jihong Z. - Play Harder and Learn Harder - [Workshop] Creating Academic Blog via R">
 <meta property="og:description" content="This post reviews the procedure of creating Github Pages Website using distill package and Github Pages in a step-to-step way.">
-<meta property="og:image" content="https://jihongzhang.org/posts/2022-04-24-tutorial-of-creating-personal-blog-using-distill-package-and-github-pages/img/website_preview.png">
-<meta property="og:site_name" content="Dr. Jihong Zhang">
+<meta property="og:image" content="https://www.jihongzhang.org/posts/2022-04-24-tutorial-of-creating-personal-blog-using-distill-package-and-github-pages/img/website_preview.png">
+<meta property="og:site_name" content="Jihong Z. - Play Harder and Learn Harder">
 <meta property="og:image:height" content="1926">
 <meta property="og:image:width" content="2326">
-<meta name="twitter:title" content="Dr.&nbsp;Jihong Zhang - [Workshop] Creating Academic Blog via R">
+<meta name="twitter:title" content="Jihong Z. - Play Harder and Learn Harder - [Workshop] Creating Academic Blog via R">
 <meta name="twitter:description" content="This post reviews the procedure of creating Github Pages Website using distill package and Github Pages in a step-to-step way.">
-<meta name="twitter:image" content="https://jihongzhang.org/posts/2022-04-24-tutorial-of-creating-personal-blog-using-distill-package-and-github-pages/img/website_preview.png">
+<meta name="twitter:image" content="https://www.jihongzhang.org/posts/2022-04-24-tutorial-of-creating-personal-blog-using-distill-package-and-github-pages/img/website_preview.png">
 <meta name="twitter:creator" content="@jihongzgamma">
 <meta name="twitter:image-height" content="1926">
 <meta name="twitter:image-width" content="2326">
 <meta name="twitter:card" content="summary_large_image">
 </head>
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-sidebar floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title"><span class="icon-line"></span>JZ<span class="icon-line"></span></span>
+    </a>
+  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -140,42 +149,30 @@ ga('send', {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> <i class="bi bi-bi bi-house" role="img">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> <i class="bi bi-bi bi-house" role="img">
 </i> 
-<span class="menu-text">Home</span></a>
+<span class="menu-text"><span class="menutext-home">Home</span><span class="text-line"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
 </i> 
-<span class="menu-text">Blog</span></a>
+<span class="menu-text"><span class="menutext-blog">Blog</span><span class="text-line-blog"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
 </i> 
-<span class="menu-text">Dashboard</span></a>
+<span class="menu-text"><span class="menutext-db">Dashboard</span><span class="text-line-db"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../uploads/Curriculum_Vitae.pdf"> <i class="bi bi-bi bi-person" role="img">
 </i> 
-<span class="menu-text">C.V.</span></a>
+<span class="menu-text"><span class="menutext-cv">C.V.</span><span class="text-line-cv"></span></span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="bi bi-bi bi-three-dots" role="img">
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> <i class="bi bi-bi bi-three-dots" role="img">
 </i> 
- <span class="menu-text">More</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-more">
-<li>
-    <a class="dropdown-item" href="../../projects.html">
- <span class="dropdown-text">Projects</span></a>
+<span class="menu-text"><span class="menutext-pj">Projects</span><span class="text-line-pj"></span></span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../../links.html">
- <span class="dropdown-text">About</span></a>
-  </li>  
-    </ul>
-</li>
 </ul>
 </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -194,143 +191,67 @@ ga('send', {
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">[Workshop] Creating Academic Blog via R</li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/jihonglogo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Lecture Slides</span></a>
+ <span class="menu-text">ESRM6553-Adv.Multivariate</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Posts</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">2024 01 12 Syllabus Adv Multivariate Esrm 6553</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
- <span class="menu-text">Lecture01</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth4 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 01</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Lecture02</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 02</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
- <span class="menu-text">Lecture03</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 03</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
- <span class="menu-text">Lecture04</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 04</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
- <span class="menu-text">Lecture05</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 05</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
- <span class="menu-text">Lecture06</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 06</span></a>
   </div>
-</li>
-      </ul>
-</li>
-      </ul>
-</li>
-      </ul>
 </li>
       </ul>
 </li>
@@ -355,7 +276,7 @@ ga('send', {
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">[Workshop] Creating Academic Blog via R</h1>
 <p class="subtitle lead">This post reviews the procedure of creating Github Pages Website using distill package and Github Pages in a step-to-step way.</p>
   <div class="quarto-categories">
@@ -402,14 +323,17 @@ ga('send', {
 <mark>distill</mark> R package</li>
 </ul>
 <p>To get started with Github, please refer to the <a href="https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">official website</a>. To install <em>distill</em> package, run <code>install.packages("distill")</code> in your R console.</p>
-</section><section id="procedure" class="level2" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="procedure">
+</section><section id="procedure" class="level2 page-columns page-full" data-number="3"><h2 data-number="3" class="anchored" data-anchor-id="procedure">
 <span class="header-section-number">3</span> Procedure</h2>
 <p>To create a website with the URL &lt;username.github.io&gt;, create the directory name with same name and same Github repo name. For example, my github repo name is “jihongz.github.io”, and it is published in <a href="http://jihongz.github.io" class="uri">http://jihongz.github.io</a>.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="img/flowchart.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="306"></p>
-<figcaption>Flowchart for creating website</figcaption></figure>
+<div class="cell page-columns page-full" data-layout-align="center">
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="img/flowchart.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Flowchart for creating website"><img src="img/flowchart.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="306" alt="Flowchart for creating website"></a></p>
+</figure>
+</div>
+<figcaption class="margin-caption">Flowchart for creating website</figcaption></figure>
 </div>
 </div>
 </div>
@@ -420,19 +344,20 @@ ga('send', {
 <li>.nojekyll</li>
 <li>_posts</li>
 </ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="img/file_structure.png" class="img-fluid figure-img"></p>
-<figcaption>Example of file structure used in my github website</figcaption></figure>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><a href="img/file_structure.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Example of file structure used in my github website"><img src="img/file_structure.png" class="img-fluid figure-img" alt="Example of file structure used in my github website"></a></p>
+<figcaption class="margin-caption">Example of file structure used in my github website</figcaption></figure>
 </div>
-</section><section id="new-post" class="level2" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="new-post">
+</section><section id="new-post" class="level2 page-columns page-full" data-number="4"><h2 data-number="4" class="anchored" data-anchor-id="new-post">
 <span class="header-section-number">4</span> New Post</h2>
 <p>To create a new post, use <code>distill::create_post()</code> function with the name of the post. The function will create a new directory “2022-XX-XX-post-name” in the <em>_posts</em> folder in which there exists a Rmd file with same name. The Rmd file will be your content of the new post.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">distill</span><span class="fu">::</span><span class="fu">create_post</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tutorial of creating personal blog using distill package and Github Pages"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>distill<span class="sc">::</span><span class="fu">create_post</span>(<span class="at">title =</span> <span class="st">"Tutorial of creating personal blog using distill package and Github Pages"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="img/Rmd_file.png" class="img-fluid figure-img"></p>
-<figcaption>Files in your post folder</figcaption></figure>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><a href="img/Rmd_file.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Files in your post folder"><img src="img/Rmd_file.png" class="img-fluid figure-img" alt="Files in your post folder"></a></p>
+<figcaption class="margin-caption">Files in your post folder</figcaption></figure>
 </div>
 <p>Open the Rmd file and make sure the header of your Rmd file is like this:</p>
 <pre><code>---
@@ -448,32 +373,33 @@ output:
     self_contained: false
 ---</code></pre>
 <p>After editting the Rmd file, knit the fill and then build website using <em>Build Website</em> button in the Build pane of Rstudio.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="img/build_website.png" class="img-fluid figure-img"></p>
-<figcaption>The Build button in Rstudio</figcaption></figure>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><a href="img/build_website.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="The Build button in Rstudio"><img src="img/build_website.png" class="img-fluid figure-img" alt="The Build button in Rstudio"></a></p>
+<figcaption class="margin-caption">The Build button in Rstudio</figcaption></figure>
 </div>
 <p>It will then pop up your updated website in a window.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="img/website_preview.png" class="img-fluid figure-img"></p>
-<figcaption>Preview of updated website</figcaption></figure>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><a href="img/website_preview.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Preview of updated website"><img src="img/website_preview.png" class="img-fluid figure-img" alt="Preview of updated website"></a></p>
+<figcaption class="margin-caption">Preview of updated website</figcaption></figure>
 </div>
 <p>However, the website is not published yet. To publish the website, upload the files to Github. Following is a example of pushing the local files to the Github server via command line.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="pp">*</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"create a new post"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">git</span> add <span class="pp">*</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"create a new post"</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">git</span> push</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<section id="settings-of-github-repo" class="level3" data-number="4.1"><h3 data-number="4.1" class="anchored" data-anchor-id="settings-of-github-repo">
+<section id="settings-of-github-repo" class="level3 page-columns page-full" data-number="4.1"><h3 data-number="4.1" class="anchored" data-anchor-id="settings-of-github-repo">
 <span class="header-section-number">4.1</span> Settings of Github Repo</h3>
 <p>Go to the Github Repo &gt; Settings &gt; Pages</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="img/Settings.png" class="img-fluid figure-img"></p>
-<figcaption>Github Settings</figcaption></figure>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><a href="img/Settings.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Github Settings"><img src="img/Settings.png" class="img-fluid figure-img" alt="Github Settings"></a></p>
+<figcaption class="margin-caption">Github Settings</figcaption></figure>
 </div>
 <p>In the webpage, choose <em>_docs</em> and you will see your website is published.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="img/docs.png" class="img-fluid figure-img"></p>
-<figcaption>change settings</figcaption></figure>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full"><p><a href="img/docs.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="change settings"><img src="img/docs.png" class="img-fluid figure-img" alt="change settings"></a></p>
+<figcaption class="margin-caption">change settings</figcaption></figure>
 </div>
 </section></section><section id="reference" class="level2" data-number="5"><h2 data-number="5" class="anchored" data-anchor-id="reference">
 <span class="header-section-number">5</span> Reference</h2>
@@ -705,7 +631,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/jihongzhang\.org");
+      var filterRegex = new RegExp("https:\/\/www\.jihongzhang\.org\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -1046,7 +972,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>
   </div>
-</footer>
+</footer><script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":false,"descPosition":"bottom","openEffect":"zoom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
 
 
 </body></html>

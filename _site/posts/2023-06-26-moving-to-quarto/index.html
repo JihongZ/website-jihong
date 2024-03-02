@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.5.23">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Jihong Zhang">
 <meta name="dcterms.date" content="2023-06-25">
-<title>Dr.&nbsp;Jihong Zhang - Moving My Website to Quarto</title>
+<title>Jihong Z. - Play Harder and Learn Harder – Moving My Website to Quarto</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,9 +117,9 @@ ga('send', {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/rwds.css">
-<meta property="og:title" content="Dr.&nbsp;Jihong Zhang - Moving My Website to Quarto">
-<meta property="og:site_name" content="Dr. Jihong Zhang">
-<meta name="twitter:title" content="Dr.&nbsp;Jihong Zhang - Moving My Website to Quarto">
+<meta property="og:title" content="Jihong Z. - Play Harder and Learn Harder - Moving My Website to Quarto">
+<meta property="og:site_name" content="Jihong Z. - Play Harder and Learn Harder">
+<meta name="twitter:title" content="Jihong Z. - Play Harder and Learn Harder - Moving My Website to Quarto">
 <meta name="twitter:creator" content="@jihongzgamma">
 <meta name="twitter:card" content="summary">
 </head>
@@ -141,31 +141,31 @@ ga('send', {
 <li class="nav-item">
     <a class="nav-link active" href="../../index.html" aria-current="page"> <i class="bi bi-bi bi-house" role="img">
 </i> 
-<span class="menu-text">Home<span class="text-line"></span></span></a>
+<span class="menu-text"><span class="menutext-home">Home</span><span class="text-line"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
 </i> 
-<span class="menu-text">Blog<span class="text-line"></span></span></a>
+<span class="menu-text"><span class="menutext-blog">Blog</span><span class="text-line-blog"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
 </i> 
-<span class="menu-text">Dashboard<span class="text-line"></span></span></a>
+<span class="menu-text"><span class="menutext-db">Dashboard</span><span class="text-line-db"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../uploads/Curriculum_Vitae.pdf"> <i class="bi bi-bi bi-person" role="img">
 </i> 
-<span class="menu-text">C.V.<span class="text-line"></span></span></a>
+<span class="menu-text"><span class="menutext-cv">C.V.</span><span class="text-line-cv"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../projects.html"> <i class="bi bi-bi bi-three-dots" role="img">
 </i> 
-<span class="menu-text">Projects<span class="text-line"></span></span></a>
+<span class="menu-text"><span class="menutext-pj">Projects</span><span class="text-line-pj"></span></span></a>
   </li>  
 </ul>
 </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -237,6 +237,12 @@ ga('send', {
  <span class="menu-text">Lecture 05</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 06</span></a>
+  </div>
+</li>
       </ul>
 </li>
     </ul>
@@ -259,7 +265,7 @@ ga('send', {
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Moving My Website to Quarto</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<h1 class="title">Moving My Website to Quarto</h1>
   <div class="quarto-categories">
     <div class="quarto-category">quarto</div>
   </div>
@@ -324,14 +330,14 @@ ga('send', {
 <span class="header-section-number">2.1</span> Code highlighting</h3>
 <p>The very first trick is using <code>format &gt; html &gt; code-fold: true</code> settings in YAML metadata in <em>_quarto.yml</em> (global) or <em>.qmd</em> (local) to hide the code block as <code>|&gt; Code</code>, like:</p>
 <div class="cell">
-<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'kableExtra' was built under R version 4.2.3</code></pre>
 </div>
-<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span></span>
-<span>    html_font <span class="op">=</span> <span class="st">"Ysabeau Office"</span>,</span>
-<span>    font_size <span class="op">=</span> <span class="fl">11</span>, full_width <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">kbl</span>(<span class="fu">head</span>(iris)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="at">html_font =</span> <span class="st">"Ysabeau Office"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="at">font_size =</span> <span class="dv">11</span>, <span class="at">full_width =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <div>
 <table class="table table-sm table-striped small" data-quarto-postprocess="true">
@@ -393,23 +399,23 @@ ga('send', {
 <p>Note that the code block can be numbered and added with a left border using <code>code-block-bg: true</code> and <code>code-block-border-left: "#31BAE9"</code></p>
 <p>Code block now also can be shown with language <code>#| echo: fenced</code>. As the code chunk shown below, <code>{r}</code> is explicitly presented. I don’t hate <code>#|</code> as the new way of chuck option setup but when I test the code chuck, I found there is a space between <code>#|</code> and option keys. For example, it should be <code>#| echo: fenced</code> rather than <code>#|echo:fenced</code>. Otherwise, quarto will ignore chunk options.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| eval: false</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: false</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">kableExtra::kbl(head(iris)) |&gt; </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">  kableExtra::kable_styling(</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">    html_font = "Ysabeau Office",</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">    bootstrap_options = c('striped', 'hover'),</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">    font_size = 10, full_width = TRUE)</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="in">#| eval: false</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="in">#| code-fold: false</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="in">kableExtra::kbl(head(iris)) |&gt; </span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="in">  kableExtra::kable_styling(</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="in">    html_font = "Ysabeau Office",</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="in">    bootstrap_options = c('striped', 'hover'),</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="in">    font_size = 10, full_width = TRUE)</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<details open="" class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| eval: false</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">#| code-fold: show</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="in">import numpy as np</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">iris = np.array(iris)</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details open="" class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="in">#| eval: false</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="in">#| code-fold: show</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="in">import numpy as np</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="in">iris = np.array(iris)</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section><section id="visual-model" class="level3 page-columns page-full" data-number="2.2"><h3 data-number="2.2" class="anchored" data-anchor-id="visual-model">
@@ -423,11 +429,9 @@ ga('send', {
 <li><p>Insert code chunk<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>: <code>Alt</code> +<code>Cmd</code> +<kbd>I</kbd></p></li>
 <li><p>Edit attribute<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>: <code>F4</code></p></li>
 </ol>
-<div class="no-row-height column-margin column-container"><p><sup>1</sup>&nbsp;Like this.</p><p><sup>2</sup>&nbsp;By default, it will insert R code chunk. If another language is frequently, use <code>Tools &gt; Modify keyboard shortcuts &gt; filter 'Insert'</code>. There should be a place for setting shortcut for other language.</p><p><sup>3</sup>&nbsp;Click `F4` in any place in the div works.</p></div><p>Please also refer to the <a href="https://quarto.org/docs/visual-editor/vscode/">official document</a> for more shortcuts and features. One thing I found very interesting is single quote mark <code>`</code> . First, I’m not sure how to escape this in visual model. Second, if you close quote before typing content, like ``, visual mode will escape both quote marks. However, if you type in left quote mark then content and then close quote (i.e., type in`<code>something</code> first, and type closing quote mark), it can quote content correctly.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Like this.</p></div><div id="fn2"><p><sup>2</sup>&nbsp;By default, it will insert R code chunk. If another language is frequently, use <code>Tools &gt; Modify keyboard shortcuts &gt; filter 'Insert'</code>. There should be a place for setting shortcut for other language.</p></div><div id="fn3"><p><sup>3</sup>&nbsp;Click `F4` in any place in the div works.</p></div></div><p>Please also refer to the <a href="https://quarto.org/docs/visual-editor/vscode/">official document</a> for more shortcuts and features. One thing I found very interesting is single quote mark <code>`</code> . First, I’m not sure how to escape this in visual model. Second, if you close quote before typing content, like ``, visual mode will escape both quote marks. However, if you type in left quote mark then content and then close quote (i.e., type in`<code>something</code> first, and type closing quote mark), it can quote content correctly.</p>
 <p>Last but not least, perhaps just type <code>/</code> in rstudio is a better choice as it will pop up a list of elements to choose.</p>
 
-
-<!-- -->
 
 </section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -652,57 +656,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.jihongzhang\.org\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -737,7 +708,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1011,117 +986,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><script src="https://giscus.app/client.js" data-repo="JihongZ/quarto-academic-jihong" data-repo-id="R_kgDOJz3gyg" data-category="General" data-category-id="DIC_kwDOJz3gys4CXdYE" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
-</script><input type="hidden" id="giscus-base-theme" value="light"><input type="hidden" id="giscus-alt-theme" value="dark"><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Moving My Website to Quarto"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Jihong Zhang"</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "06/25/2023"</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">draft:</span><span class="co"> false</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">  - quarto</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true # hide code by default</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">    html-math-method: katex</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-bg: true</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">    code-block-border-left: "#31BAE9"</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Since June 25, 2023, I start to move my website from hugo/rmarkdown/blogdown/wowchemy to quarto website. It is difficult to explain why I spend so much time on that. Perhaps because some reasons same as other bloggers:</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="sc">\(</span><span class="at">1</span><span class="sc">\)</span><span class="at"> Quarto is the next generation of rmarkdown.</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="sc">\(</span><span class="at">2</span><span class="sc">\)</span><span class="at"> Quarto is independent with R or Rstudio.</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="sc">\(</span><span class="at">3</span><span class="sc">\)</span><span class="at"> Quarto has a clean file tree for website building.</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; </span><span class="sc">\(</span><span class="at">4</span><span class="sc">\)</span><span class="at"> Quarto has cleaner command than hugo (i.e., </span><span class="sc">\`</span><span class="at">quarto publish netlify</span><span class="sc">\`</span><span class="at"> for publishing website etc.).</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; This blog serves as a note how I customize quarto website bit by bit. It will not be a comprehensive tutorial (much online resources exists) but contain be some tricks.</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Useful links</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Quarto official documentation is always the best place to starts with.</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![](quarto.png)</span><span class="ot">{fig-align="center"}</span><span class="co">](https://quarto.org)</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Nicola Rennie's blog is very inspiring. Nice font setting and background. I feel like <span class="co">[</span><span class="ot">Hugo Apéro</span><span class="co">](https://github.com/hugo-apero/)</span> is the best hugo theme in the market.</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="al">![](nrennie.png)</span><span class="ot">{width="320" height="200"}</span><span class="co">](https://nrennie.rbind.io)</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Yihui's blog. As the creator of blogdown, Yihui talked about why not transfer to Quarto :P I am a old player of hugo/blogdown, but I am not good at customizing the website from the scratch. Thus, quarto suits my needs very well. For those who is very experienced at JS, hugo is still a better choice.</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="al">![](yihui.png)</span><span class="ot">{width="320" height="200"}</span><span class="co">](https://yihui.org/en/2022/04/quarto-r-markdown/#should-you-switch)</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Frank Harrel's blog: R workflow.</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">[</span><span class="al">![](FrankHarrel.png)</span><span class="ot">{width="320" height="200"}</span><span class="co">](https://www.fharrell.com/post/rflow/)</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tricks of Quarto</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Code highlighting</span></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>The very first trick is using <span class="in">`format &gt; html &gt; code-fold: true`</span> settings in YAML metadata in *\_quarto.yml* (global) or *.qmd* (local) to hide the code block as <span class="in">`|&gt; Code`</span>, like:</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">head</span>(iris)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">html_font =</span> <span class="st">"Ysabeau Office"</span>,</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">font_size =</span> <span class="dv">11</span>, <span class="at">full_width =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>Note that the code block can be numbered and added with a left border using <span class="in">`code-block-bg: true`</span> and <span class="in">`code-block-border-left: "#31BAE9"`</span></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>Code block now also can be shown with language <span class="in">`#| echo: fenced`</span>. As the code chunk shown below, <span class="in">`{r}`</span> is explicitly presented. I don't hate <span class="in">`#|`</span> as the new way of chuck option setup but when I test the code chuck, I found there is a space between <span class="in">`#|`</span> and option keys. For example, it should be <span class="in">`#| echo: fenced`</span> rather than <span class="in">`#|echo:fenced`</span>. Otherwise, quarto will ignore chunk options.</span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: fenced</span></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kbl</span>(<span class="fu">head</span>(iris)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">html_font =</span> <span class="st">"Ysabeau Office"</span>,</span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">'striped'</span>, <span class="st">'hover'</span>),</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">font_size =</span> <span class="dv">10</span>, <span class="at">full_width =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: fenced</span></span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: show</span></span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> np.array(iris)</span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visual model</span></span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>Visual model is one of the most appealing feature for Quarto but I am far from a expert in that. It looks like a visual model version of markdown editor (so called WYSIWYM editing, What you see is What you mean) but slightly different. The shortcut of switching between source and visual model is <span class="in">`Cmd`</span> + <span class="in">`Shift`</span> + <span class="in">`F4`</span> (Thanks to Yihui's <span class="co">[</span><span class="ot">JS</span><span class="co">](https://yihui.org/en/2023/02/key-buttons/)</span> for pretty keyboard styling).</span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>I list some most frequently used keyboard for visual mode editing:</span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>(a) Insert Hyperlink: <span class="in">`Cmd`</span> + &lt;kbd&gt;K&lt;/kbd&gt;</span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>(b) Add footnote<span class="ot">[^1]</span>: <span class="in">`Shift`</span>+<span class="in">`Cmd`</span>+<span class="in">`F7`</span></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>(c) Insert picture: <span class="in">`Shift`</span> +<span class="in">`Cmd`</span> +&lt;kbd&gt;I&lt;/kbd&gt;</span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>(d) Insert code chunk<span class="ot">[^2]</span>: <span class="in">`Alt`</span> +<span class="in">`Cmd`</span> +&lt;kbd&gt;I&lt;/kbd&gt;</span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>(e) Edit attribute<span class="ot">[^3]</span>: <span class="in">`F4`</span></span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>Like this.</span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a><span class="ot">[^2]: </span>By default, it will insert R code chunk. If another language is frequently, use <span class="in">`Tools &gt; Modify keyboard shortcuts &gt; filter 'Insert'`</span>. There should be a place for setting shortcut for other language.</span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a><span class="ot">[^3]: </span>Click <span class="sc">\`</span>F4<span class="sc">\`</span> in any place in the div works.</span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>Please also refer to the <span class="co">[</span><span class="ot">official document</span><span class="co">](https://quarto.org/docs/visual-editor/vscode/)</span> for more shortcuts and features. One thing I found very interesting is single quote mark <span class="in">`` ` ``</span> . First, I'm not sure how to escape this in visual model. Second, if you close quote before typing content, like <span class="sc">\`\`</span>, visual mode will escape both quote marks. However, if you type in left quote mark then content and then close quote (i.e., type in<span class="sc">\`</span><span class="in">`something`</span> first, and type closing quote mark), it can quote content correctly.</span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>Last but not least, perhaps just type <span class="in">`/`</span> in rstudio is a better choice as it will pop up a list of elements to choose.</span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</script><input type="hidden" id="giscus-base-theme" value="light"><input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">

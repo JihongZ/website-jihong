@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.21">
+<meta name="generator" content="quarto-1.5.23">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="jihong">
 <meta name="dcterms.date" content="2019-04-19">
-<title>Dr. Jihong Zhang – Make a Game in R</title>
+<title>Jihong Z. - Play Harder and Learn Harder – Make a Game in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../icon.png" rel="icon" type="image/png">
+<link href="../../images/icon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,10 +115,11 @@ ga('send', {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">
-<meta property="og:title" content="Dr.&nbsp;Jihong Zhang - Make a Game in R">
+<link rel="stylesheet" href="../../assets/rwds.css">
+<meta property="og:title" content="Jihong Z. - Play Harder and Learn Harder - Make a Game in R">
 <meta property="og:description" content="Technical and Statistical but Fun">
-<meta property="og:site_name" content="Dr. Jihong Zhang">
-<meta name="twitter:title" content="Dr.&nbsp;Jihong Zhang - Make a Game in R">
+<meta property="og:site_name" content="Jihong Z. - Play Harder and Learn Harder">
+<meta name="twitter:title" content="Jihong Z. - Play Harder and Learn Harder - Make a Game in R">
 <meta name="twitter:description" content="Technical and Statistical but Fun">
 <meta name="twitter:creator" content="@jihongzgamma">
 <meta name="twitter:card" content="summary">
@@ -127,6 +128,11 @@ ga('send', {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title"><span class="icon-line"></span>JZ<span class="icon-line"></span></span>
+    </a>
+  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -134,42 +140,30 @@ ga('send', {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> <i class="bi bi-bi bi-house" role="img">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> <i class="bi bi-bi bi-house" role="img">
 </i> 
-<span class="menu-text">Home</span></a>
+<span class="menu-text"><span class="menutext-home">Home</span><span class="text-line"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
 </i> 
-<span class="menu-text">Blog</span></a>
+<span class="menu-text"><span class="menutext-blog">Blog</span><span class="text-line-blog"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
 </i> 
-<span class="menu-text">Dashboard</span></a>
+<span class="menu-text"><span class="menutext-db">Dashboard</span><span class="text-line-db"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../uploads/Curriculum_Vitae.pdf"> <i class="bi bi-bi bi-person" role="img">
 </i> 
-<span class="menu-text">C.V.</span></a>
+<span class="menu-text"><span class="menutext-cv">C.V.</span><span class="text-line-cv"></span></span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="bi bi-bi bi-three-dots" role="img">
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> <i class="bi bi-bi bi-three-dots" role="img">
 </i> 
- <span class="menu-text">More</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-more">
-<li>
-    <a class="dropdown-item" href="../../projects.html">
- <span class="dropdown-text">Projects</span></a>
+<span class="menu-text"><span class="menutext-pj">Projects</span><span class="text-line-pj"></span></span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../../links.html">
- <span class="dropdown-text">About</span></a>
-  </li>  
-    </ul>
-</li>
 </ul>
 </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -188,143 +182,67 @@ ga('send', {
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Make a Game in R</li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/jihonglogo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Lecture Slides</span></a>
+ <span class="menu-text">ESRM6553-Adv.Multivariate</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Posts</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">2024 01 12 Syllabus Adv Multivariate Esrm 6553</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
- <span class="menu-text">Lecture01</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth4 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 01</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Lecture02</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 02</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
- <span class="menu-text">Lecture03</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 03</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
- <span class="menu-text">Lecture04</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 04</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
- <span class="menu-text">Lecture05</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 05</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
- <span class="menu-text">Lecture06</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 06</span></a>
   </div>
-</li>
-      </ul>
-</li>
-      </ul>
-</li>
-      </ul>
 </li>
       </ul>
 </li>
@@ -371,67 +289,68 @@ ga('send', {
 </blockquote>
 <p>Finally, I created the following shiny app:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">nessy</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://deanattali.com/shinyjs/">shinyjs</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">jscode</span> <span class="op">&lt;-</span> <span class="st">"shinyjs.closeWindow = function() { window.close(); }"</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">cartridge</span><span class="op">(</span></span>
-<span>  title <span class="op">=</span> <span class="st">"{Memorize the Names!}"</span>,</span>
-<span>  subtitle <span class="op">=</span> <span class="st">"Do you have some names to memorize in few minutes? Try this game!"</span>,</span>
-<span>  <span class="fu">container_with_title</span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Names you want to memorize (i.e. Jonathan, Lesa)"</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">container_with_title</span><span class="op">(</span></span>
-<span>    title <span class="op">=</span> <span class="st">"Add a Name"</span>,</span>
-<span>    <span class="fu">text_input</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"name1"</span>, label <span class="op">=</span> <span class="st">"Name"</span>, placeholder <span class="op">=</span> <span class="st">"Jonathan Templin"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">text_input</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"key"</span>, label <span class="op">=</span> <span class="st">"Keys"</span>, placeholder <span class="op">=</span> <span class="st">"Iowa/DCM"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">htmlOutput</span><span class="op">(</span><span class="st">"namelist"</span><span class="op">)</span>,</span>
-<span>    <span class="fu">button_primary</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"add"</span>, <span class="st">"Add"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu">button_success</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"play"</span>, <span class="st">"Play the Game"</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shinyjs/man/useShinyjs.html">useShinyjs</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/shinyjs/man/extendShinyjs.html">extendShinyjs</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">jscode</span>, functions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"closeWindow"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  <span class="fu">button_error</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"close"</span>, <span class="st">"Close Window"</span><span class="op">)</span>,</span>
-<span>  </span>
-<span>  <span class="co"># Game pages</span></span>
-<span>  <span class="fu">uiOutput</span><span class="op">(</span><span class="st">"gamepage"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">names</span> <span class="op">&lt;-</span> <span class="fu">reactiveValues</span><span class="op">(</span></span>
-<span>    oldnames <span class="op">=</span> <span class="st">""</span>,</span>
-<span>    allnames <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>    allkeys <span class="op">=</span> <span class="cn">NULL</span></span>
-<span>  <span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">add</span>, <span class="op">{</span></span>
-<span>    <span class="va">names</span><span class="op">$</span><span class="va">oldnames</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">names</span><span class="op">$</span><span class="va">oldnames</span>, <span class="st">"&lt;br&gt;"</span>, <span class="va">input</span><span class="op">$</span><span class="va">name1</span>, <span class="st">"  &lt;==&gt;  "</span>, <span class="va">input</span><span class="op">$</span><span class="va">key</span><span class="op">)</span></span>
-<span>    <span class="va">names</span><span class="op">$</span><span class="va">allnames</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">names</span><span class="op">$</span><span class="va">allnames</span>, <span class="va">input</span><span class="op">$</span><span class="va">name1</span><span class="op">)</span></span>
-<span>    <span class="va">names</span><span class="op">$</span><span class="va">allkeys</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">names</span><span class="op">$</span><span class="va">allkeys</span>, <span class="va">input</span><span class="op">$</span><span class="va">key</span><span class="op">)</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">namelist</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="va">names</span><span class="op">$</span><span class="va">oldnames</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">play</span>, <span class="op">{</span></span>
-<span>    <span class="va">selectedkey</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">names</span><span class="op">$</span><span class="va">allkeys</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="va">selectedname</span> <span class="op">&lt;-</span> <span class="va">names</span><span class="op">$</span><span class="va">allnames</span><span class="op">[</span><span class="va">names</span><span class="op">$</span><span class="va">allkeys</span> <span class="op">==</span> <span class="va">selectedkey</span><span class="op">]</span></span>
-<span>    <span class="va">output</span><span class="op">$</span><span class="va">gamepage</span> <span class="op">&lt;-</span> <span class="fu">renderUI</span><span class="op">(</span><span class="op">{</span></span>
-<span>      <span class="fu">container_with_title</span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Key:"</span>, <span class="va">selectedkey</span><span class="op">)</span>,</span>
-<span>        <span class="fu">text_input</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"guessname"</span>, label <span class="op">=</span> <span class="st">"Guess a Name"</span>, placeholder <span class="op">=</span> <span class="st">"Jonathan"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">}</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span>  <span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">close</span>, <span class="op">{</span></span>
-<span>    <span class="va">js</span><span class="op">$</span><span class="fu">closeWindow</span><span class="op">(</span><span class="op">)</span></span>
-<span>    <span class="fu">stopApp</span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span>  </span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(nessy)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(shinyjs)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a>jscode <span class="ot">&lt;-</span> <span class="st">"shinyjs.closeWindow = function() { window.close(); }"</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>ui <span class="ot">&lt;-</span> <span class="fu">cartridge</span>(</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="at">title =</span> <span class="st">"{Memorize the Names!}"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="at">subtitle =</span> <span class="st">"Do you have some names to memorize in few minutes? Try this game!"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="fu">container_with_title</span>(</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="at">title =</span> <span class="st">"Names you want to memorize (i.e. Jonathan, Lesa)"</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>  ),</span>
+<span id="cb1-11"><a href="#cb1-11"></a>  <span class="fu">container_with_title</span>(</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="at">title =</span> <span class="st">"Add a Name"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="fu">text_input</span>(<span class="at">id =</span> <span class="st">"name1"</span>, <span class="at">label =</span> <span class="st">"Name"</span>, <span class="at">placeholder =</span> <span class="st">"Jonathan Templin"</span>),</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="fu">text_input</span>(<span class="at">id =</span> <span class="st">"key"</span>, <span class="at">label =</span> <span class="st">"Keys"</span>, <span class="at">placeholder =</span> <span class="st">"Iowa/DCM"</span>),</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    <span class="fu">htmlOutput</span>(<span class="st">"namelist"</span>),</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    <span class="fu">button_primary</span>(<span class="at">id =</span> <span class="st">"add"</span>, <span class="st">"Add"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  ),</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="fu">button_success</span>(<span class="at">id =</span> <span class="st">"play"</span>, <span class="st">"Play the Game"</span>),</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  <span class="fu">useShinyjs</span>(),</span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="fu">extendShinyjs</span>(<span class="at">text =</span> jscode, <span class="at">functions =</span> <span class="fu">c</span>(<span class="st">"closeWindow"</span>)),</span>
+<span id="cb1-21"><a href="#cb1-21"></a>  <span class="fu">button_error</span>(<span class="at">id =</span> <span class="st">"close"</span>, <span class="st">"Close Window"</span>),</span>
+<span id="cb1-22"><a href="#cb1-22"></a>  </span>
+<span id="cb1-23"><a href="#cb1-23"></a>  <span class="co"># Game pages</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="fu">uiOutput</span>(<span class="st">"gamepage"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25"></a>)</span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a></span>
+<span id="cb1-28"><a href="#cb1-28"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb1-29"><a href="#cb1-29"></a>  names <span class="ot">&lt;-</span> <span class="fu">reactiveValues</span>(</span>
+<span id="cb1-30"><a href="#cb1-30"></a>    <span class="at">oldnames =</span> <span class="st">""</span>,</span>
+<span id="cb1-31"><a href="#cb1-31"></a>    <span class="at">allnames =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-32"><a href="#cb1-32"></a>    <span class="at">allkeys =</span> <span class="cn">NULL</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a>  )</span>
+<span id="cb1-34"><a href="#cb1-34"></a>  </span>
+<span id="cb1-35"><a href="#cb1-35"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>add, {</span>
+<span id="cb1-36"><a href="#cb1-36"></a>    names<span class="sc">$</span>oldnames <span class="ot">=</span> <span class="fu">paste</span>(names<span class="sc">$</span>oldnames, <span class="st">"&lt;br&gt;"</span>, input<span class="sc">$</span>name1, <span class="st">"  &lt;==&gt;  "</span>, input<span class="sc">$</span>key)</span>
+<span id="cb1-37"><a href="#cb1-37"></a>    names<span class="sc">$</span>allnames <span class="ot">=</span> <span class="fu">c</span>(names<span class="sc">$</span>allnames, input<span class="sc">$</span>name1)</span>
+<span id="cb1-38"><a href="#cb1-38"></a>    names<span class="sc">$</span>allkeys <span class="ot">=</span> <span class="fu">c</span>(names<span class="sc">$</span>allkeys, input<span class="sc">$</span>key)</span>
+<span id="cb1-39"><a href="#cb1-39"></a>    output<span class="sc">$</span>namelist <span class="ot">&lt;-</span> <span class="fu">renderText</span>(names<span class="sc">$</span>oldnames)</span>
+<span id="cb1-40"><a href="#cb1-40"></a>  })</span>
+<span id="cb1-41"><a href="#cb1-41"></a>  </span>
+<span id="cb1-42"><a href="#cb1-42"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>play, {</span>
+<span id="cb1-43"><a href="#cb1-43"></a>    selectedkey <span class="ot">&lt;-</span> <span class="fu">sample</span>(names<span class="sc">$</span>allkeys, <span class="dv">1</span>)</span>
+<span id="cb1-44"><a href="#cb1-44"></a>    selectedname <span class="ot">&lt;-</span> names<span class="sc">$</span>allnames[names<span class="sc">$</span>allkeys <span class="sc">==</span> selectedkey]</span>
+<span id="cb1-45"><a href="#cb1-45"></a>    output<span class="sc">$</span>gamepage <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb1-46"><a href="#cb1-46"></a>      <span class="fu">container_with_title</span>(</span>
+<span id="cb1-47"><a href="#cb1-47"></a>        <span class="fu">paste</span>(<span class="st">"Key:"</span>, selectedkey),</span>
+<span id="cb1-48"><a href="#cb1-48"></a>        <span class="fu">text_input</span>(<span class="at">id =</span> <span class="st">"guessname"</span>, <span class="at">label =</span> <span class="st">"Guess a Name"</span>, <span class="at">placeholder =</span> <span class="st">"Jonathan"</span>)</span>
+<span id="cb1-49"><a href="#cb1-49"></a>      )</span>
+<span id="cb1-50"><a href="#cb1-50"></a>    })</span>
+<span id="cb1-51"><a href="#cb1-51"></a>  })</span>
+<span id="cb1-52"><a href="#cb1-52"></a></span>
+<span id="cb1-53"><a href="#cb1-53"></a></span>
+<span id="cb1-54"><a href="#cb1-54"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>close, {</span>
+<span id="cb1-55"><a href="#cb1-55"></a>    js<span class="sc">$</span><span class="fu">closeWindow</span>()</span>
+<span id="cb1-56"><a href="#cb1-56"></a>    <span class="fu">stopApp</span>()</span>
+<span id="cb1-57"><a href="#cb1-57"></a>  })</span>
+<span id="cb1-58"><a href="#cb1-58"></a>  </span>
+<span id="cb1-59"><a href="#cb1-59"></a>}</span>
+<span id="cb1-60"><a href="#cb1-60"></a></span>
+<span id="cb1-61"><a href="#cb1-61"></a>shiny<span class="sc">::</span><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>The game is like this:</p>
 <iframe width="900" height="900" scrolling="no" frameborder="no" src="https://jihongz.shinyapps.io/Game_with_R/">
@@ -664,7 +583,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/jihongzhang\.org");
+      var filterRegex = new RegExp("https:\/\/www\.jihongzhang\.org\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

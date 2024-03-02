@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.5.23">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jihong Zhang">
 <meta name="dcterms.date" content="2024-01-13">
 
-<title>Jihong Z. - Play Harder and Learn Harder - ESRM 6553: Advanced Multivariate Analysis</title>
+<title>Jihong Z. - Play Harder and Learn Harder – ESRM 6553: Advanced Multivariate Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -183,7 +183,7 @@ ga('send', {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -742,7 +742,7 @@ ga('send', {
 </tr>
 </tbody>
 </table>
-<div class="no-row-height column-margin column-container"><p><sup>1</sup>&nbsp;SR: <em>Statistical Rethinking 2ed Edition</em> by Richard McElreath</p><p><sup>2</sup>&nbsp;BDA: <em>Bayesian Data Analysis</em> by Gelman et al.&nbsp;(2021)</p><p><sup>3</sup>&nbsp;BPM: <em>Bayesian Psychometric Modeling</em> by Levy, Mislevy (2016)</p></div></div>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;SR: <em>Statistical Rethinking 2ed Edition</em> by Richard McElreath</p></div><div id="fn2"><p><sup>2</sup>&nbsp;BDA: <em>Bayesian Data Analysis</em> by Gelman et al.&nbsp;(2021)</p></div><div id="fn3"><p><sup>3</sup>&nbsp;BPM: <em>Bayesian Psychometric Modeling</em> by Levy, Mislevy (2016)</p></div></div></div>
 <p>Academic calendar for Spring 2024: <a href="https://registrar.uark.edu/academic-dates/academic-semester-calendar/spring-2024-january-intersession-2024.php">Here</a></p>
 </section>
 <section id="other-online-materials" class="level1" data-number="6">
@@ -1051,6 +1051,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/www\.jihongzhang\.org\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1085,7 +1103,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1617,7 +1639,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

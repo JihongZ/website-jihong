@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.21">
+<meta name="generator" content="quarto-1.5.23">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Jihong Zhang">
 <meta name="dcterms.date" content="2017-11-12">
-<title>Dr. Jihong Zhang – One Example of Measurement Invariance</title>
+<title>Jihong Z. - Play Harder and Learn Harder – One Example of Measurement Invariance</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../icon.png" rel="icon" type="image/png">
+<link href="../../images/icon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -72,7 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -154,11 +157,11 @@ const typesetMath = (el) => {
 window.Quarto = {
   typesetMath
 };
-</script>
-<meta property="og:title" content="Dr.&nbsp;Jihong Zhang - One Example of Measurement Invariance">
+</script><link rel="stylesheet" href="../../assets/rwds.css">
+<meta property="og:title" content="Jihong Z. - Play Harder and Learn Harder - One Example of Measurement Invariance">
 <meta property="og:description" content="Technical and Statistical but Fun">
-<meta property="og:site_name" content="Dr. Jihong Zhang">
-<meta name="twitter:title" content="Dr.&nbsp;Jihong Zhang - One Example of Measurement Invariance">
+<meta property="og:site_name" content="Jihong Z. - Play Harder and Learn Harder">
+<meta name="twitter:title" content="Jihong Z. - Play Harder and Learn Harder - One Example of Measurement Invariance">
 <meta name="twitter:description" content="Technical and Statistical but Fun">
 <meta name="twitter:creator" content="@jihongzgamma">
 <meta name="twitter:card" content="summary">
@@ -167,6 +170,11 @@ window.Quarto = {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title"><span class="icon-line"></span>JZ<span class="icon-line"></span></span>
+    </a>
+  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -174,42 +182,30 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> <i class="bi bi-bi bi-house" role="img">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> <i class="bi bi-bi bi-house" role="img">
 </i> 
-<span class="menu-text">Home</span></a>
+<span class="menu-text"><span class="menutext-home">Home</span><span class="text-line"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
 </i> 
-<span class="menu-text">Blog</span></a>
+<span class="menu-text"><span class="menutext-blog">Blog</span><span class="text-line-blog"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
 </i> 
-<span class="menu-text">Dashboard</span></a>
+<span class="menu-text"><span class="menutext-db">Dashboard</span><span class="text-line-db"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../uploads/Curriculum_Vitae.pdf"> <i class="bi bi-bi bi-person" role="img">
 </i> 
-<span class="menu-text">C.V.</span></a>
+<span class="menu-text"><span class="menutext-cv">C.V.</span><span class="text-line-cv"></span></span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="bi bi-bi bi-three-dots" role="img">
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> <i class="bi bi-bi bi-three-dots" role="img">
 </i> 
- <span class="menu-text">More</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-more">
-<li>
-    <a class="dropdown-item" href="../../projects.html">
- <span class="dropdown-text">Projects</span></a>
+<span class="menu-text"><span class="menutext-pj">Projects</span><span class="text-line-pj"></span></span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../../links.html">
- <span class="dropdown-text">About</span></a>
-  </li>  
-    </ul>
-</li>
 </ul>
 </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -228,143 +224,67 @@ window.Quarto = {
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">One Example of Measurement Invariance</li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/jihonglogo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Lecture Slides</span></a>
+ <span class="menu-text">ESRM6553-Adv.Multivariate</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Posts</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">2024 01 12 Syllabus Adv Multivariate Esrm 6553</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
- <span class="menu-text">Lecture01</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth4 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 01</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Lecture02</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 02</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
- <span class="menu-text">Lecture03</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 03</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
- <span class="menu-text">Lecture04</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 04</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
- <span class="menu-text">Lecture05</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 05</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
- <span class="menu-text">Lecture06</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 06</span></a>
   </div>
-</li>
-      </ul>
-</li>
-      </ul>
-</li>
-      </ul>
 </li>
       </ul>
 </li>
@@ -437,7 +357,7 @@ window.Quarto = {
 </header><blockquote class="blockquote">
 <p>Recently, I was asked by my friend why should we use Measurement Invariance in real research. Why not just ignore this complex and tedious process? As far I’m concerned, measurement invariance should be widely used if you have large data scale and figure out what’s going on between groups difference. In this post, I want to elaborate some problems in <strong>Measurement Invariance</strong>: 1) What is measurement invariance 2) why should we care about measurement invariance 3) how to do measurement invariance using R <code>Lavaan</code> Package.</p>
 </blockquote>
-<p><img src="model_compare.png" class="img-fluid"></p>
+<p><a href="model_compare.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="model_compare.png" class="img-fluid"></a></p>
 <section id="what-is-measurement-invariance-mi" class="level1" data-number="1"><h1 data-number="1">
 <span class="header-section-number">1</span> What is Measurement Invariance (MI)?</h1>
 <p>In my advisor Jonathan’s lectures slide, MI is a testing tool for investigating “whether indicators measure the same construct in the same way in different groups or over time/condition”. If so, the indicator response should depend only on latent trait scores.</p>
@@ -470,6 +390,9 @@ window.Quarto = {
 <section id="data-import" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="data-import">
 <span class="header-section-number">1.1.1</span> Data Import</h3>
 <div class="cell">
+
+</div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10
 1  0  5  4  1  6  5  6  5  4   2
@@ -483,86 +406,87 @@ window.Quarto = {
 <p>The sample size of female reference groups is as same as the male. The model for 2 groups should be same and check how many changes are allowed to differ.</p>
 </section><section id="model-specification" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="model-specification">
 <span class="header-section-number">1.1.2</span> Model Specification</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model1.config</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
-<span><span class="st"># Constrain the factor loadings and intercepts of marker variable in ALL groups</span></span>
-<span><span class="st"># depress =~ c(L1F, L1M)*item1 + c(L2F, L2M)*item2 + c(L3F, L3M)*item3 +</span></span>
-<span><span class="st">#            c(L4F, L4M)*item4 + c(L5F, L5M)*item5 + c(L6F, L6M)*item6 + </span></span>
-<span><span class="st">#            c(L7F, L7M)*item7 + c(L8F, L8M)*item8 + c(L9F, L9M)*item9</span></span>
-<span><span class="st">depress =~ item1 + item2 + item3 +</span></span>
-<span><span class="st">           item4 + item5 + item6 + </span></span>
-<span><span class="st">           item7 + item8 + item9</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">#Item intercepts all freely estimated in both groups with label for each group</span></span>
-<span><span class="st">item1 ~ 1; item2 ~ 1; item3 ~ 1; </span></span>
-<span><span class="st">item4 ~ 1; item5 ~ 1; item6 ~ 1; </span></span>
-<span><span class="st">item7 ~ 1; item8 ~ 1; item9 ~ 1;</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">#Redidual variances all freely estimated with label for each group</span></span>
-<span><span class="st">item1 ~~ item1; item2 ~~ item2; item3 ~~ item3; </span></span>
-<span><span class="st">item4 ~~ item4; item5 ~~ item5; item6 ~~ item6; </span></span>
-<span><span class="st">item7 ~~ item7; item8 ~~ item8; item9 ~~ item9;</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">#Residual covariance freely estimated in both groups with label for each group</span></span>
-<span><span class="st">item1 ~~ item2</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">#==================================================</span></span>
-<span><span class="st">#Factor variance fixed to 1 for identification in each group</span></span>
-<span><span class="st">depress ~~ c(1,NA)*depress</span></span>
-<span><span class="st"></span></span>
-<span><span class="st">#Factor mean fixed to zero for identification in each group</span></span>
-<span><span class="st">depress ~ c(0,NA)*0</span></span>
-<span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section><section id="model-options" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="model-options">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>model1.config <span class="ot">&lt;-</span> <span class="st">"</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="st"># Constrain the factor loadings and intercepts of marker variable in ALL groups</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="st"># depress =~ c(L1F, L1M)*item1 + c(L2F, L2M)*item2 + c(L3F, L3M)*item3 +</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="st">#            c(L4F, L4M)*item4 + c(L5F, L5M)*item5 + c(L6F, L6M)*item6 + </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="st">#            c(L7F, L7M)*item7 + c(L8F, L8M)*item8 + c(L9F, L9M)*item9</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="st">depress =~ item1 + item2 + item3 +</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="st">           item4 + item5 + item6 + </span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="st">           item7 + item8 + item9</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="st">#Item intercepts all freely estimated in both groups with label for each group</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="st">item1 ~ 1; item2 ~ 1; item3 ~ 1; </span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="st">item4 ~ 1; item5 ~ 1; item6 ~ 1; </span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="st">item7 ~ 1; item8 ~ 1; item9 ~ 1;</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="st">#Redidual variances all freely estimated with label for each group</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="st">item1 ~~ item1; item2 ~~ item2; item3 ~~ item3; </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="st">item4 ~~ item4; item5 ~~ item5; item6 ~~ item6; </span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="st">item7 ~~ item7; item8 ~~ item8; item9 ~~ item9;</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="st">#Residual covariance freely estimated in both groups with label for each group</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="st">item1 ~~ item2</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="st">#==================================================</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="st">#Factor variance fixed to 1 for identification in each group</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="st">depress ~~ c(1,NA)*depress</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="st">#Factor mean fixed to zero for identification in each group</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="st">depress ~ c(0,NA)*0</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details></section><section id="model-options" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="model-options">
 <span class="header-section-number">1.1.3</span> Model Options</h3>
 <p>Configural Invariance Model is the first-step model which allows all estimation different for two groups except that mean and variance of factor are fixed to 0 and 1, because the model uses z-score scalling.</p>
 <p>Compared to configural invariance, metic invariance model constrains the factor loadings for two groups equal with each other. To test metric invariance, we could use absolute model fit indices (CFI, TLI, RMSEA, SRMR) and comparable model fit indices (Log-likelihood test). It deserves noting that in metric invariance model, factor means are still constrained to be equal for two groups but the variances of factor are different. The variance of factor for reference group is fixed to 1 but that for other group is free to estimate. Since if we constrain both factor loadings and factor variances to equal, then the residual variances of items will also be equal. This is next step. Freeing one group’s factor variance will let model not too strict to Residual Variance.</p>
 <p>Next model is Scalar Invariance Model, which constrain the intercepts of items to be equal.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit.config</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
-<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
-<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
-<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lv.variances"</span>, <span class="st">"means"</span><span class="op">)</span><span class="op">)</span> <span class="co"># latent variance both equal to 1</span></span>
-<span>                  </span>
-<span><span class="va">fit.metric</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
-<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
-<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
-<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>, <span class="st">"means"</span><span class="op">)</span><span class="op">)</span> <span class="co"># factor mean should be equal to 0</span></span>
-<span><span class="va">fit.scalar</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
-<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
-<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
-<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>,<span class="st">"intercepts"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># same: factor loadings, item intercepts</span></span>
-<span><span class="co"># different: reference factor mean is 1, another factor mean is 0</span></span>
-<span></span>
-<span><span class="va">fit.scalar2</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
-<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
-<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
-<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>,<span class="st">"intercepts"</span><span class="op">)</span>,</span>
-<span>                  group.partial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"item7~1"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">fit.strict</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
-<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
-<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
-<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>,<span class="st">"intercepts"</span>, <span class="st">"residuals"</span><span class="op">)</span>,</span>
-<span>                  group.partial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"item7~1"</span>, <span class="st">"item7~~item7"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">fit.strict.cov</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
-<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
-<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
-<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
-<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>,<span class="st">"intercepts"</span>, <span class="st">"residuals"</span>, </span>
-<span>                                  <span class="st">"residual.covariances"</span><span class="op">)</span>,</span>
-<span>                  group.partial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"item7~1"</span>, <span class="st">"item7~~item7"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>fit.config <span class="ot">&lt;-</span> <span class="fu">sem</span>(model1.config, <span class="at">data =</span> mddAll, </span>
+<span id="cb3-2"><a href="#cb3-2"></a>                  <span class="at">meanstructure =</span> T , <span class="at">std.lv =</span> T,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                  <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">mimic =</span> <span class="st">"mplus"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>                  <span class="at">group =</span> <span class="st">"sex"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"lv.variances"</span>, <span class="st">"means"</span>)) <span class="co"># latent variance both equal to 1</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>                  </span>
+<span id="cb3-7"><a href="#cb3-7"></a>fit.metric <span class="ot">&lt;-</span> <span class="fu">sem</span>(model1.config, <span class="at">data =</span> mddAll, </span>
+<span id="cb3-8"><a href="#cb3-8"></a>                  <span class="at">meanstructure =</span> T , <span class="at">std.lv =</span> T,</span>
+<span id="cb3-9"><a href="#cb3-9"></a>                  <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">mimic =</span> <span class="st">"mplus"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10"></a>                  <span class="at">group =</span> <span class="st">"sex"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>, <span class="st">"means"</span>)) <span class="co"># factor mean should be equal to 0</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>fit.scalar <span class="ot">&lt;-</span> <span class="fu">sem</span>(model1.config, <span class="at">data =</span> mddAll, </span>
+<span id="cb3-13"><a href="#cb3-13"></a>                  <span class="at">meanstructure =</span> T , <span class="at">std.lv =</span> T,</span>
+<span id="cb3-14"><a href="#cb3-14"></a>                  <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">mimic =</span> <span class="st">"mplus"</span>,</span>
+<span id="cb3-15"><a href="#cb3-15"></a>                  <span class="at">group =</span> <span class="st">"sex"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>,<span class="st">"intercepts"</span>))</span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co"># same: factor loadings, item intercepts</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co"># different: reference factor mean is 1, another factor mean is 0</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a>fit.scalar2 <span class="ot">&lt;-</span> <span class="fu">sem</span>(model1.config, <span class="at">data =</span> mddAll, </span>
+<span id="cb3-21"><a href="#cb3-21"></a>                  <span class="at">meanstructure =</span> T , <span class="at">std.lv =</span> T,</span>
+<span id="cb3-22"><a href="#cb3-22"></a>                  <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">mimic =</span> <span class="st">"mplus"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23"></a>                  <span class="at">group =</span> <span class="st">"sex"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>,<span class="st">"intercepts"</span>),</span>
+<span id="cb3-25"><a href="#cb3-25"></a>                  <span class="at">group.partial =</span> <span class="fu">c</span>(<span class="st">"item7~1"</span>))</span>
+<span id="cb3-26"><a href="#cb3-26"></a></span>
+<span id="cb3-27"><a href="#cb3-27"></a>fit.strict <span class="ot">&lt;-</span> <span class="fu">sem</span>(model1.config, <span class="at">data =</span> mddAll, </span>
+<span id="cb3-28"><a href="#cb3-28"></a>                  <span class="at">meanstructure =</span> T , <span class="at">std.lv =</span> T,</span>
+<span id="cb3-29"><a href="#cb3-29"></a>                  <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">mimic =</span> <span class="st">"mplus"</span>,</span>
+<span id="cb3-30"><a href="#cb3-30"></a>                  <span class="at">group =</span> <span class="st">"sex"</span>,</span>
+<span id="cb3-31"><a href="#cb3-31"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>,<span class="st">"intercepts"</span>, <span class="st">"residuals"</span>),</span>
+<span id="cb3-32"><a href="#cb3-32"></a>                  <span class="at">group.partial =</span> <span class="fu">c</span>(<span class="st">"item7~1"</span>, <span class="st">"item7~~item7"</span>))</span>
+<span id="cb3-33"><a href="#cb3-33"></a>fit.strict.cov <span class="ot">&lt;-</span> <span class="fu">sem</span>(model1.config, <span class="at">data =</span> mddAll, </span>
+<span id="cb3-34"><a href="#cb3-34"></a>                  <span class="at">meanstructure =</span> T , <span class="at">std.lv =</span> T,</span>
+<span id="cb3-35"><a href="#cb3-35"></a>                  <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">mimic =</span> <span class="st">"mplus"</span>,</span>
+<span id="cb3-36"><a href="#cb3-36"></a>                  <span class="at">group =</span> <span class="st">"sex"</span>,</span>
+<span id="cb3-37"><a href="#cb3-37"></a>                  <span class="at">group.equal =</span> <span class="fu">c</span>(<span class="st">"loadings"</span>,<span class="st">"intercepts"</span>, <span class="st">"residuals"</span>, </span>
+<span id="cb3-38"><a href="#cb3-38"></a>                                  <span class="st">"residual.covariances"</span>),</span>
+<span id="cb3-39"><a href="#cb3-39"></a>                  <span class="at">group.partial =</span> <span class="fu">c</span>(<span class="st">"item7~1"</span>, <span class="st">"item7~~item7"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section><section id="runing-model" class="level3" data-number="1.1.4"><h3 data-number="1.1.4" class="anchored" data-anchor-id="runing-model">
 <span class="header-section-number">1.1.4</span> Runing Model</h3>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.config</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">summary</span>(fit.config, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.17 ended normally after 47 iterations
 
   Estimator                                         ML
@@ -757,8 +681,8 @@ R-Square:
     item8             0.231
     item9             0.131</code></pre>
 </div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.metric</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">summary</span>(fit.metric, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.17 ended normally after 48 iterations
 
   Estimator                                         ML
@@ -954,8 +878,8 @@ R-Square:
     item8             0.253
     item9             0.115</code></pre>
 </div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.scalar</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">summary</span>(fit.scalar, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.17 ended normally after 52 iterations
 
   Estimator                                         ML
@@ -1151,8 +1075,8 @@ R-Square:
     item8             0.252
     item9             0.113</code></pre>
 </div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.scalar2</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">summary</span>(fit.scalar2, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.17 ended normally after 53 iterations
 
   Estimator                                         ML
@@ -1348,8 +1272,8 @@ R-Square:
     item8             0.253
     item9             0.113</code></pre>
 </div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.strict</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">summary</span>(fit.strict, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.17 ended normally after 54 iterations
 
   Estimator                                         ML
@@ -1545,8 +1469,8 @@ R-Square:
     item8             0.267
     item9             0.114</code></pre>
 </div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.strict.cov</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">summary</span>(fit.strict.cov, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>, <span class="at">rsquare =</span> <span class="cn">TRUE</span>, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
 <pre><code>lavaan 0.6.17 ended normally after 55 iterations
 
   Estimator                                         ML
@@ -1746,32 +1670,32 @@ R-Square:
 </section><section id="model-comparison" class="level3" data-number="1.1.5"><h3 data-number="1.1.5" class="anchored" data-anchor-id="model-comparison">
 <span class="header-section-number">1.1.5</span> Model Comparison</h3>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_fit</span> <span class="op">&lt;-</span>  <span class="kw">function</span><span class="op">(</span><span class="va">lavobject</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cfi"</span>, <span class="st">"tli"</span>, <span class="st">"rmsea"</span>, <span class="st">"rmsea.ci.lower"</span>, <span class="st">"rmsea.ci.upper"</span>, <span class="st">"rmsea.pvalue"</span>, <span class="st">"srmr"</span><span class="op">)</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu">fitmeasures</span><span class="op">(</span><span class="va">lavobject</span><span class="op">)</span><span class="op">[</span><span class="va">vars</span><span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">table_fit</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.config</span><span class="op">)</span>, <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.metric</span><span class="op">)</span>, </span>
-<span>       <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.scalar</span><span class="op">)</span>, <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.scalar2</span><span class="op">)</span>,</span>
-<span>       <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.strict</span><span class="op">)</span>, <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.strict.cov</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">reduce</span><span class="op">(</span><span class="va">rbind</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">table_fit</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Configural"</span>, <span class="st">"Metric"</span>, <span class="st">"Scalar"</span>, <span class="st">"Scalar2"</span>,<span class="st">"Strict"</span>,<span class="st">"Strict+Cov"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">table_lik.test</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.config</span>, <span class="va">fit.metric</span><span class="op">)</span>,</span>
-<span>       <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.metric</span>, <span class="va">fit.scalar</span><span class="op">)</span>,</span>
-<span>       <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.scalar</span>, <span class="va">fit.scalar2</span><span class="op">)</span>,</span>
-<span>       <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.scalar2</span>, <span class="va">fit.strict</span><span class="op">)</span>,</span>
-<span>       <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.strict</span>, <span class="va">fit.strict.cov</span><span class="op">)</span></span>
-<span>       <span class="op">)</span> <span class="op">%&gt;%</span>  </span>
-<span>  <span class="fu">reduce</span><span class="op">(</span><span class="va">rbind</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="va">.</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">9</span><span class="op">)</span>,<span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">table_lik.test</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Configural"</span>, <span class="st">"Metric"</span>, <span class="st">"Scalar"</span>, <span class="st">"Scalar2"</span>,<span class="st">"Strict"</span>,<span class="st">"Strict+Cov"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">kable</span><span class="op">(</span><span class="va">table_fit</span>, caption <span class="op">=</span> <span class="st">"Model Fit Indices Table"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>model_fit <span class="ot">&lt;-</span>  <span class="cf">function</span>(lavobject) {</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"cfi"</span>, <span class="st">"tli"</span>, <span class="st">"rmsea"</span>, <span class="st">"rmsea.ci.lower"</span>, <span class="st">"rmsea.ci.upper"</span>, <span class="st">"rmsea.pvalue"</span>, <span class="st">"srmr"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">return</span>(<span class="fu">fitmeasures</span>(lavobject)[vars] <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">t</span>())</span>
+<span id="cb16-4"><a href="#cb16-4"></a>}</span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a>table_fit <span class="ot">&lt;-</span> </span>
+<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">list</span>(<span class="fu">model_fit</span>(fit.config), <span class="fu">model_fit</span>(fit.metric), </span>
+<span id="cb16-8"><a href="#cb16-8"></a>       <span class="fu">model_fit</span>(fit.scalar), <span class="fu">model_fit</span>(fit.scalar2),</span>
+<span id="cb16-9"><a href="#cb16-9"></a>       <span class="fu">model_fit</span>(fit.strict), <span class="fu">model_fit</span>(fit.strict.cov)) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-10"><a href="#cb16-10"></a>  <span class="fu">reduce</span>(rbind)</span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="fu">rownames</span>(table_fit) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Configural"</span>, <span class="st">"Metric"</span>, <span class="st">"Scalar"</span>, <span class="st">"Scalar2"</span>,<span class="st">"Strict"</span>,<span class="st">"Strict+Cov"</span>)</span>
+<span id="cb16-13"><a href="#cb16-13"></a></span>
+<span id="cb16-14"><a href="#cb16-14"></a>table_lik.test <span class="ot">&lt;-</span> </span>
+<span id="cb16-15"><a href="#cb16-15"></a>  <span class="fu">list</span>(<span class="fu">anova</span>(fit.config, fit.metric),</span>
+<span id="cb16-16"><a href="#cb16-16"></a>       <span class="fu">anova</span>(fit.metric, fit.scalar),</span>
+<span id="cb16-17"><a href="#cb16-17"></a>       <span class="fu">anova</span>(fit.scalar, fit.scalar2),</span>
+<span id="cb16-18"><a href="#cb16-18"></a>       <span class="fu">anova</span>(fit.scalar2, fit.strict),</span>
+<span id="cb16-19"><a href="#cb16-19"></a>       <span class="fu">anova</span>(fit.strict, fit.strict.cov)</span>
+<span id="cb16-20"><a href="#cb16-20"></a>       ) <span class="sc">%&gt;%</span>  </span>
+<span id="cb16-21"><a href="#cb16-21"></a>  <span class="fu">reduce</span>(rbind) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-22"><a href="#cb16-22"></a>  .[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>),]</span>
+<span id="cb16-23"><a href="#cb16-23"></a><span class="fu">rownames</span>(table_lik.test) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Configural"</span>, <span class="st">"Metric"</span>, <span class="st">"Scalar"</span>, <span class="st">"Scalar2"</span>,<span class="st">"Strict"</span>,<span class="st">"Strict+Cov"</span>)</span>
+<span id="cb16-24"><a href="#cb16-24"></a></span>
+<span id="cb16-25"><a href="#cb16-25"></a><span class="fu">kable</span>(table_fit, <span class="at">caption =</span> <span class="st">"Model Fit Indices Table"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <caption>Model Fit Indices Table</caption>
 <colgroup>
@@ -1858,8 +1782,8 @@ R-Square:
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kable</span><span class="op">(</span><span class="va">table_lik.test</span>, caption <span class="op">=</span> <span class="st">"Model Comparision Table"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">kable</span>(table_lik.test, <span class="at">caption =</span> <span class="st">"Model Comparision Table"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <caption>Model Comparision Table</caption>
 <colgroup>
@@ -2707,7 +2631,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/jihongzhang\.org");
+      var filterRegex = new RegExp("https:\/\/www\.jihongzhang\.org\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -3048,7 +2972,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>
   </div>
-</footer>
+</footer><script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"openEffect":"zoom","descPosition":"bottom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
 
 
 </body></html>

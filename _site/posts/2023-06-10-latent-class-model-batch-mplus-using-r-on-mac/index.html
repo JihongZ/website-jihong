@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.21">
+<meta name="generator" content="quarto-1.5.23">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Jihong Zhang">
 <meta name="dcterms.date" content="2023-06-10">
-<title>Dr. Jihong Zhang – Latent Class Model: Batch Mplus using R on Mac</title>
+<title>Jihong Z. - Play Harder and Learn Harder – Latent Class Model: Batch Mplus using R on Mac</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../icon.png" rel="icon" type="image/png">
+<link href="../../images/icon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -72,7 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -116,10 +119,11 @@ ga('send', {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">
-<meta property="og:title" content="Dr.&nbsp;Jihong Zhang - Latent Class Model: Batch Mplus using R on Mac">
+<link rel="stylesheet" href="../../assets/rwds.css">
+<meta property="og:title" content="Jihong Z. - Play Harder and Learn Harder - Latent Class Model: Batch Mplus using R on Mac">
 <meta property="og:description" content="Technical and Statistical but Fun">
-<meta property="og:site_name" content="Dr. Jihong Zhang">
-<meta name="twitter:title" content="Dr.&nbsp;Jihong Zhang - Latent Class Model: Batch Mplus using R on Mac">
+<meta property="og:site_name" content="Jihong Z. - Play Harder and Learn Harder">
+<meta name="twitter:title" content="Jihong Z. - Play Harder and Learn Harder - Latent Class Model: Batch Mplus using R on Mac">
 <meta name="twitter:description" content="Technical and Statistical but Fun">
 <meta name="twitter:creator" content="@jihongzgamma">
 <meta name="twitter:card" content="summary">
@@ -128,6 +132,11 @@ ga('send', {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title"><span class="icon-line"></span>JZ<span class="icon-line"></span></span>
+    </a>
+  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -135,42 +144,30 @@ ga('send', {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> <i class="bi bi-bi bi-house" role="img">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> <i class="bi bi-bi bi-house" role="img">
 </i> 
-<span class="menu-text">Home</span></a>
+<span class="menu-text"><span class="menutext-home">Home</span><span class="text-line"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
 </i> 
-<span class="menu-text">Blog</span></a>
+<span class="menu-text"><span class="menutext-blog">Blog</span><span class="text-line-blog"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
 </i> 
-<span class="menu-text">Dashboard</span></a>
+<span class="menu-text"><span class="menutext-db">Dashboard</span><span class="text-line-db"></span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../uploads/Curriculum_Vitae.pdf"> <i class="bi bi-bi bi-person" role="img">
 </i> 
-<span class="menu-text">C.V.</span></a>
+<span class="menu-text"><span class="menutext-cv">C.V.</span><span class="text-line-cv"></span></span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="bi bi-bi bi-three-dots" role="img">
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> <i class="bi bi-bi bi-three-dots" role="img">
 </i> 
- <span class="menu-text">More</span>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-more">
-<li>
-    <a class="dropdown-item" href="../../projects.html">
- <span class="dropdown-text">Projects</span></a>
+<span class="menu-text"><span class="menutext-pj">Projects</span><span class="text-line-pj"></span></span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../../links.html">
- <span class="dropdown-text">About</span></a>
-  </li>  
-    </ul>
-</li>
 </ul>
 </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -189,143 +186,67 @@ ga('send', {
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Latent Class Model: Batch Mplus using R on Mac</li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/jihonglogo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none"></a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Lecture Slides</span></a>
+ <span class="menu-text">ESRM6553-Adv.Multivariate</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Posts</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
- <span class="menu-text">2024 01 12 Syllabus Adv Multivariate Esrm 6553</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">
-<li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
- <span class="menu-text">Lecture01</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth4 ">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 01</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Lecture02</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 02</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
- <span class="menu-text">Lecture03</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 03</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
- <span class="menu-text">Lecture04</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 04</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
- <span class="menu-text">Lecture05</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 05</span></a>
   </div>
 </li>
-      </ul>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
- <span class="menu-text">Lecture06</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">
-<li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 06</span></a>
   </div>
-</li>
-      </ul>
-</li>
-      </ul>
-</li>
-      </ul>
 </li>
       </ul>
 </li>
@@ -381,51 +302,56 @@ ga('send', {
   
 
 
-</header><blockquote class="blockquote">
+</header><div class="cell">
+
+</div>
+<blockquote class="blockquote">
 <p><a href="https://www.statmodel.com/glance.shtml">Mplus</a> is a very popular program for varied latent varaible modeling: (1) Structural equation modeling (2) multilevel analysis (3) mixture modeling (latent class model). R, in the other hand, is a general statistical programming language which not limits to certain statistical models. However, there are scarcely online resources illustrate how to run Mplus using R on Mac.</p>
 </blockquote>
 <section id="requirement" class="level2" data-number="1"><h2 data-number="1" class="anchored" data-anchor-id="requirement">
 <span class="header-section-number">1</span> Requirement</h2>
 <p>To make sure Mplus can been successfully called in R, the very first thing is checking whether your MacOS can use command-line version of Mplus. Simply type <code>Mplus</code> command in your terminal app on Mac, if you see “Mplus VERSION (Mac)”, then Mplus on MacOS should work and can be called within R. Otherwise, you should check whether you install Mplus software successfully beforehand.</p>
-<p><img src="figures/fig1-terminal-mplus.png" class="img-fluid"></p>
+<p><a href="figures/fig1-terminal-mplus.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="figures/fig1-terminal-mplus.png" class="img-fluid"></a></p>
 <p>Second, you should install R + Rstudio (Optional). Rstudio is optional but strongly recommended.</p>
 <p>Third, <code>MplusAutomation</code> package should also been installed in R:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://michaelhallquist.github.io/MplusAutomation/">MplusAutomation</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"MplusAutomation"</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span> <span class="co"># for map functions</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr">furrr</a></span><span class="op">)</span> <span class="co"># for parallel map</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MplusAutomation)) <span class="fu">install.packages</span>(<span class="st">"MplusAutomation"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(purrr) <span class="co"># for map functions</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(furrr) <span class="co"># for parallel map</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>If everything looks good, we are ready to go.</p>
 </section><section id="latent-class-analysis" class="level2" data-number="2"><h2 data-number="2" class="anchored" data-anchor-id="latent-class-analysis">
 <span class="header-section-number">2</span> Latent Class Analysis</h2>
 <p>A vanilla Mplus input file for latent class model look like followings:</p>
 <div class="cell">
-<pre class="mplus cell-code"><code>TITLE:
-Batch Analysis of Latent Class Models;
-DATA:
-FILE = "Code/Mplus/datFile.dat";
- 
-VARIABLE:
-NAMES = Male Age Chinese EduF_Med EduF_High EduM_Med EduM_High EduS_Med EduS_High YM
-     HY SD PSD YASB YRCS YO YCR SEN Subgroup CE1 SC1 SI1 YCDC1 CLDH1; 
- MISSING=.;
- 
-      CATEGORICAL = Male-SEN;
-      CLASSES = c(10);
-      AUXILIARY = CE1-CLDH1 (R3STEP);
-      
-ANALYSIS:
-
-      TYPE = MIXTURE;
-      
-OUTPUT:
-TECH1 TECH8 TECH11;
-SAVEDATA:
-
-      FILE IS model1_savedata.txt;
-      SAVE IS cprob;
-      FORMAT IS free;</code></pre>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource mplus number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>TITLE:</span>
+<span id="cb2-2"><a href="#cb2-2"></a>Batch Analysis of Latent Class Models;</span>
+<span id="cb2-3"><a href="#cb2-3"></a>DATA:</span>
+<span id="cb2-4"><a href="#cb2-4"></a>FILE = "Code/Mplus/datFile.dat";</span>
+<span id="cb2-5"><a href="#cb2-5"></a> </span>
+<span id="cb2-6"><a href="#cb2-6"></a>VARIABLE:</span>
+<span id="cb2-7"><a href="#cb2-7"></a>NAMES = Male Age Chinese EduF_Med EduF_High EduM_Med EduM_High EduS_Med EduS_High YM</span>
+<span id="cb2-8"><a href="#cb2-8"></a>     HY SD PSD YASB YRCS YO YCR SEN Subgroup CE1 SC1 SI1 YCDC1 CLDH1; </span>
+<span id="cb2-9"><a href="#cb2-9"></a> MISSING=.;</span>
+<span id="cb2-10"><a href="#cb2-10"></a> </span>
+<span id="cb2-11"><a href="#cb2-11"></a>      CATEGORICAL = Male-SEN;</span>
+<span id="cb2-12"><a href="#cb2-12"></a>      CLASSES = c(10);</span>
+<span id="cb2-13"><a href="#cb2-13"></a>      AUXILIARY = CE1-CLDH1 (R3STEP);</span>
+<span id="cb2-14"><a href="#cb2-14"></a>      </span>
+<span id="cb2-15"><a href="#cb2-15"></a>ANALYSIS:</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a>      TYPE = MIXTURE;</span>
+<span id="cb2-18"><a href="#cb2-18"></a>      </span>
+<span id="cb2-19"><a href="#cb2-19"></a>OUTPUT:</span>
+<span id="cb2-20"><a href="#cb2-20"></a>TECH1 TECH8 TECH11;</span>
+<span id="cb2-21"><a href="#cb2-21"></a>SAVEDATA:</span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a>      FILE IS model1_savedata.txt;</span>
+<span id="cb2-24"><a href="#cb2-24"></a>      SAVE IS cprob;</span>
+<span id="cb2-25"><a href="#cb2-25"></a>      FORMAT IS free;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>It looks very cumbersome to write one by one line by hand. For example, <code>VARIABLE &gt; NAMES</code> in Mplus input file contains all indicators and auxiliary variables used for latent class modeling. Any typos may give rise to Mplus throwing out error messages in the estimation.</p>
 <p>Thankfully, there’s no need to write the Mplus syntax manually in text editor. Instead, you can write R code to automatically compile Mplus input files for you. In the following sections, I will illustrate how to do that using a real example.</p>
@@ -433,9 +359,9 @@ SAVEDATA:
 <span class="header-section-number">2.1</span> An example</h3>
 <p>The example makes use of a data set including nine variables of demographic variables of youth, such as gender, age, ethnicity, education levels for father, mother and self etc. The goal is to cluster youth into multiple latent classes based on their demographic characteristics.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"exampleDat.csv"</span>, row.names <span class="op">=</span> <span class="st">"X"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"exampleDat.csv"</span>, <span class="at">row.names =</span> <span class="st">"X"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">glimpse</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2,175
 Columns: 9
 $ Male      &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, …
@@ -453,35 +379,35 @@ $ EduS_High &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 <p>In other words, we assigned text strings to three arguments -<code>VARIABLE</code>, <code>ANALYSIS</code>, <code>SAVEDATA</code> in mplusObject, which correspond to the sections in Mplus input file. Moreover, the most convenient part of MplusAutomation is allowing users to input variables’ names directly (<code>usevariables = colnames(dat)</code>). That is, <code>rdata</code> and <code>usevariables</code> arguments can be used to specify the variables’ names used for LCA in Mplus, which is equal to <code>NAMES =</code> in vanilla mplus input file.</p>
 <p>After we run and extract Mplus results using <code>mplusModeler</code> function, the next step is to parse and extract results from another Mplus model object with results - <code>res_m1</code>. Here, I’m interested in model fit indices of the model, then I can use <code>get_summaries</code> function in R to extract those information of this 2-class latent class model. Pretty neat, right?</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#------------#</span></span>
-<span><span class="co"># 2-class model</span></span>
-<span><span class="co">#------------#</span></span>
-<span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu">mplusObject</span><span class="op">(</span></span>
-<span>  TITLE <span class="op">=</span> <span class="st">"Latent Class Models using R;"</span>,</span>
-<span>  VARIABLE <span class="op">=</span> <span class="st">"</span></span>
-<span><span class="st">  CATEGORICAL = Male-EduS_High;</span></span>
-<span><span class="st">  CLASSES = c(2);"</span>,</span>
-<span>  ANALYSIS <span class="op">=</span> <span class="st">"</span></span>
-<span><span class="st">    TYPE = MIXTURE;</span></span>
-<span><span class="st">    ALGORITHM = INTEGRATION;</span></span>
-<span><span class="st">    STARTS = 500 20;</span></span>
-<span><span class="st">  "</span>,</span>
-<span>  SAVEDATA <span class="op">=</span> <span class="st">"</span></span>
-<span><span class="st">    FILE IS LCA_M1_save.txt;</span></span>
-<span><span class="st">    SAVE IS cprob;</span></span>
-<span><span class="st">    FORMAT IS free;</span></span>
-<span><span class="st">  "</span>,</span>
-<span>  OUTPUT <span class="op">=</span> <span class="st">"TECH1 TECH8;"</span>,</span>
-<span>  rdata <span class="op">=</span> <span class="va">dat</span>,</span>
-<span>  usevariables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>,</span>
-<span>  autov <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="va">res_m1</span> <span class="op">&lt;-</span> <span class="fu">mplusModeler</span><span class="op">(</span><span class="va">m1</span>, modelout <span class="op">=</span> <span class="st">"Mplus/model.inp"</span>, run <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">summary_m1</span> <span class="op">&lt;-</span> <span class="fu">get_summaries</span><span class="op">(</span><span class="va">res_m1</span>, simplify <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
-<span><span class="fu">kbl</span><span class="op">(</span><span class="va">summary_m1</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">kable_material_dark</span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span>, html_font <span class="op">=</span> <span class="st">"Maven Pro"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"condensed"</span>, <span class="st">"hover"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">#------------#</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># 2-class model</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#------------#</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>m1 <span class="ot">&lt;-</span> <span class="fu">mplusObject</span>(</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="at">TITLE =</span> <span class="st">"Latent Class Models using R;"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="at">VARIABLE =</span> <span class="st">"</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="st">  CATEGORICAL = Male-EduS_High;</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  CLASSES = c(2);"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="at">ANALYSIS =</span> <span class="st">"</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="st">    TYPE = MIXTURE;</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="st">    ALGORITHM = INTEGRATION;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="st">    STARTS = 500 20;</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="st">  "</span>,</span>
+<span id="cb5-14"><a href="#cb5-14"></a>  <span class="at">SAVEDATA =</span> <span class="st">"</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="st">    FILE IS LCA_M1_save.txt;</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="st">    SAVE IS cprob;</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="st">    FORMAT IS free;</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="st">  "</span>,</span>
+<span id="cb5-19"><a href="#cb5-19"></a>  <span class="at">OUTPUT =</span> <span class="st">"TECH1 TECH8;"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20"></a>  <span class="at">rdata =</span> dat,</span>
+<span id="cb5-21"><a href="#cb5-21"></a>  <span class="at">usevariables =</span> <span class="fu">colnames</span>(dat),</span>
+<span id="cb5-22"><a href="#cb5-22"></a>  <span class="at">autov =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-23"><a href="#cb5-23"></a>)</span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="fu">suppressWarnings</span>(res_m1 <span class="ot">&lt;-</span> <span class="fu">mplusModeler</span>(m1, <span class="at">modelout =</span> <span class="st">"Mplus/model.inp"</span>, <span class="at">run =</span> <span class="dv">1</span>L))</span>
+<span id="cb5-25"><a href="#cb5-25"></a>summary_m1 <span class="ot">&lt;-</span> <span class="fu">get_summaries</span>(res_m1, <span class="at">simplify =</span> T)</span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="fu">kbl</span>(summary_m1, <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-27"><a href="#cb5-27"></a>  <span class="fu">kable_material_dark</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">"Maven Pro"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-28"><a href="#cb5-28"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"condensed"</span>, <span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <div>
 <table class="lightable-material-dark table table-condensed table-hover table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
@@ -631,94 +557,95 @@ $ EduS_High &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 <span class="header-section-number">2.2</span> Batch LCA in R: select number of latent classes</h3>
 <p>One most important step of latent class analysis is to select the number of latent classes, which best summarize the data. This research question can be translated to “when we have multiple alternative latent class models with different number of latent class (C), which one has optimal model fit”. The general rule of model selection is using information criterion such as AIC, BIC. Alternatively, model comparison method such as likelihood ratio test can be used to compare nested models. Here, I created a function to batch run multiple LCA across different number of classes to select the optimal models.</p>
 <div class="cell" data-hl_lines="[1,3]" data-linenos="[&quot;function (..., exclude = if (useNA == &quot;no&quot;) c(NA, NaN), useNA = c(&quot;no&quot;, &quot;,&quot;    &quot;ifany&quot;, &quot;always&quot;), dnn = list.names(...), deparse.level = 1) &quot;,&quot;{&quot;,&quot;    list.names <- function(...) {&quot;,&quot;        l <- as.list(substitute(list(...)))[-1L]&quot;,&quot;        if (length(l) == 1L &amp;&amp; is.list(..1) &amp;&amp; !is.null(nm <- names(..1))) &quot;,&quot;            return(nm)&quot;,&quot;        nm <- names(l)&quot;,&quot;        fixup <- if (is.null(nm)) &quot;,&quot;            seq_along(l)&quot;,&quot;        else nm == &quot;&quot;&quot;,&quot;        dep <- vapply(l[fixup], function(x) switch(deparse.level + &quot;,&quot;            1, &quot;&quot;, if (is.symbol(x)) as.character(x) else &quot;&quot;, &quot;,&quot;            deparse(x, nlines = 1)[1L]), &quot;&quot;)&quot;,&quot;        if (is.null(nm)) &quot;,&quot;            dep&quot;,&quot;        else {&quot;,&quot;            nm[fixup] <- dep&quot;,&quot;            nm&quot;,&quot;        }&quot;,&quot;    }&quot;,&quot;    miss.use <- missing(useNA)&quot;,&quot;    miss.exc <- missing(exclude)&quot;,&quot;    useNA <- if (miss.use &amp;&amp; !miss.exc &amp;&amp; !match(NA, exclude, &quot;,&quot;        nomatch = 0L)) &quot;,&quot;        &quot;ifany&quot;&quot;,&quot;    else match.arg(useNA)&quot;,&quot;    doNA <- useNA != &quot;no&quot;&quot;,&quot;    if (!miss.use &amp;&amp; !miss.exc &amp;&amp; doNA &amp;&amp; match(NA, exclude, &quot;,&quot;        nomatch = 0L)) &quot;,&quot;        warning(&quot;'exclude' containing NA and 'useNA' != \&quot;no\&quot;' are a bit contradicting&quot;)&quot;,&quot;    args <- list(...)&quot;,&quot;    if (length(args) == 1L &amp;&amp; is.list(args[[1L]])) {&quot;,&quot;        args <- args[[1L]]&quot;,&quot;        if (length(dnn) != length(args)) &quot;,&quot;            dnn <- paste(dnn[1L], seq_along(args), sep = &quot;.&quot;)&quot;,&quot;    }&quot;,&quot;    if (!length(args)) &quot;,&quot;        stop(&quot;nothing to tabulate&quot;)&quot;,&quot;    bin <- 0L&quot;,&quot;    lens <- NULL&quot;,&quot;    dims <- integer()&quot;,&quot;    pd <- 1L&quot;,&quot;    dn <- NULL&quot;,&quot;    for (a in args) {&quot;,&quot;        if (is.null(lens)) &quot;,&quot;            lens <- length(a)&quot;,&quot;        else if (length(a) != lens) &quot;,&quot;            stop(&quot;all arguments must have the same length&quot;)&quot;,&quot;        fact.a <- is.factor(a)&quot;,&quot;        if (doNA) &quot;,&quot;            aNA <- anyNA(a)&quot;,&quot;        if (!fact.a) {&quot;,&quot;            a0 <- a&quot;,&quot;            op <- options(warn = 2)&quot;,&quot;            a <- factor(a, exclude = exclude)&quot;,&quot;            options(op)&quot;,&quot;        }&quot;,&quot;        add.na <- doNA&quot;,&quot;        if (add.na) {&quot;,&quot;            ifany <- (useNA == &quot;ifany&quot;)&quot;,&quot;            anNAc <- anyNA(a)&quot;,&quot;            add.na <- if (!ifany || anNAc) {&quot;,&quot;                ll <- levels(a)&quot;,&quot;                if (add.ll <- !anyNA(ll)) {&quot;,&quot;                  ll <- c(ll, NA)&quot;,&quot;                  TRUE&quot;,&quot;                }&quot;,&quot;                else if (!ifany &amp;&amp; !anNAc) &quot;,&quot;                  FALSE&quot;,&quot;                else TRUE&quot;,&quot;            }&quot;,&quot;            else FALSE&quot;,&quot;        }&quot;,&quot;        if (add.na) &quot;,&quot;            a <- factor(a, levels = ll, exclude = NULL)&quot;,&quot;        else ll <- levels(a)&quot;,&quot;        a <- as.integer(a)&quot;,&quot;        if (fact.a &amp;&amp; !miss.exc) {&quot;,&quot;            ll <- ll[keep <- which(match(ll, exclude, nomatch = 0L) == &quot;,&quot;                0L)]&quot;,&quot;            a <- match(a, keep)&quot;,&quot;        }&quot;,&quot;        else if (!fact.a &amp;&amp; add.na) {&quot;,&quot;            if (ifany &amp;&amp; !aNA &amp;&amp; add.ll) {&quot;,&quot;                ll <- ll[!is.na(ll)]&quot;,&quot;                is.na(a) <- match(a0, c(exclude, NA), nomatch = 0L) > &quot;,&quot;                  0L&quot;,&quot;            }&quot;,&quot;            else {&quot;,&quot;                is.na(a) <- match(a0, exclude, nomatch = 0L) > &quot;,&quot;                  0L&quot;,&quot;            }&quot;,&quot;        }&quot;,&quot;        nl <- length(ll)&quot;,&quot;        dims <- c(dims, nl)&quot;,&quot;        if (prod(dims) > .Machine$integer.max) &quot;,&quot;            stop(&quot;attempt to make a table with >= 2^31 elements&quot;)&quot;,&quot;        dn <- c(dn, list(ll))&quot;,&quot;        bin <- bin + pd * (a - 1L)&quot;,&quot;        pd <- pd * nl&quot;,&quot;    }&quot;,&quot;    names(dn) <- dnn&quot;,&quot;    bin <- bin[!is.na(bin)]&quot;,&quot;    if (length(bin)) &quot;,&quot;        bin <- bin + 1L&quot;,&quot;    y <- array(tabulate(bin, pd), dims, dimnames = dn)&quot;,&quot;    class(y) <- &quot;table&quot;&quot;,&quot;    y&quot;,&quot;}&quot;]">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fitMplus</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span> <span class="op">=</span> <span class="va">dat</span>, <span class="va">class</span>, </span>
-<span>                     <span class="va">uvars</span> <span class="op">=</span> <span class="st">"Male-EduS_High"</span>, <span class="va">auxvars</span><span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>                     <span class="va">modelout</span> <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">savedata</span> <span class="op">=</span> <span class="cn">NULL</span> <span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co">## specify the used variables</span></span>
-<span>  <span class="va">fitIndices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"LL"</span>, <span class="st">"AIC"</span>, <span class="st">"BIC"</span>, <span class="st">"aBIC"</span>, <span class="st">"Entropy"</span>, <span class="st">"T11_LMR_PValue"</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">savedata</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">savedata</span> <span class="op">=</span> <span class="st">"Mplus/model_Temp_save.txt"</span></span>
-<span>  <span class="op">}</span></span>
-<span>  </span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">auxvars</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">start_index</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">uvars</span>, <span class="st">"-"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span>    <span class="va">end_index</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">auxvars</span>, <span class="st">"-"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span>    <span class="va">modelTEMP</span> <span class="op">&lt;-</span> <span class="fu">mplusObject</span><span class="op">(</span></span>
-<span>      TITLE <span class="op">=</span> <span class="st">"Batch Analysis of Latent Class Models;"</span>,</span>
-<span>      VARIABLE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"</span></span>
-<span><span class="st">      CATEGORICAL = "</span>, <span class="va">uvars</span>, <span class="st">";</span></span>
-<span><span class="st">      CLASSES = c("</span>, <span class="va">class</span>, <span class="st">");</span></span>
-<span><span class="st">      AUXILIARY = "</span>, <span class="va">auxvars</span>,<span class="st">" (R3STEP);</span></span>
-<span><span class="st">      "</span><span class="op">)</span>,</span>
-<span>      ANALYSIS <span class="op">=</span> <span class="st">"</span></span>
-<span><span class="st">      TYPE = MIXTURE;</span></span>
-<span><span class="st">      "</span>,</span>
-<span>      SAVEDATA <span class="op">=</span> </span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"</span></span>
-<span><span class="st">      FILE IS "</span>, <span class="va">savedata</span>,<span class="st">";</span></span>
-<span><span class="st">      SAVE IS cprob;</span></span>
-<span><span class="st">      FORMAT IS free;</span></span>
-<span><span class="st">      "</span><span class="op">)</span>,</span>
-<span>      OUTPUT <span class="op">=</span> <span class="st">"TECH1 TECH8 TECH11;"</span>,</span>
-<span>      rdata <span class="op">=</span> <span class="va">data</span>,</span>
-<span>      usevariables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span><span class="va">start_index</span><span class="op">:</span><span class="va">end_index</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>      autov <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="kw">else</span><span class="op">{</span></span>
-<span>    <span class="va">start_index</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">uvars</span>, <span class="st">"-"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
-<span>    <span class="va">end_index</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span><span class="va">uvars</span>, <span class="st">"-"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span>    <span class="va">modelTEMP</span> <span class="op">&lt;-</span> <span class="fu">mplusObject</span><span class="op">(</span></span>
-<span>      TITLE <span class="op">=</span> <span class="st">"Batch Analysis of Latent Class Models;"</span>,</span>
-<span>      VARIABLE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"</span></span>
-<span><span class="st">      CATEGORICAL = "</span>, <span class="va">uvars</span>, <span class="st">";</span></span>
-<span><span class="st">      CLASSES = c("</span>, <span class="va">class</span>, <span class="st">");</span></span>
-<span><span class="st">      "</span><span class="op">)</span>,</span>
-<span>      ANALYSIS <span class="op">=</span> <span class="st">"</span></span>
-<span><span class="st">      TYPE = MIXTURE;</span></span>
-<span><span class="st">      "</span>,</span>
-<span>      SAVEDATA <span class="op">=</span> </span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"</span></span>
-<span><span class="st">      FILE IS "</span>, <span class="va">savedata</span>,<span class="st">";</span></span>
-<span><span class="st">      SAVE IS cprob;</span></span>
-<span><span class="st">      FORMAT IS free;</span></span>
-<span><span class="st">      "</span><span class="op">)</span>,</span>
-<span>      OUTPUT <span class="op">=</span> <span class="st">"TECH1 TECH8 TECH11;"</span>,</span>
-<span>      rdata <span class="op">=</span> <span class="va">data</span>,</span>
-<span>      usevariables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span><span class="va">start_index</span><span class="op">:</span><span class="va">end_index</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>      autov <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  </span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span><span class="op">(</span><span class="va">modelout</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="va">resTEMP</span> <span class="op">&lt;-</span> <span class="fu">mplusModeler</span><span class="op">(</span><span class="va">modelTEMP</span>, modelout <span class="op">=</span> <span class="va">modelout</span>, run <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="kw">else</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="va">resTEMP</span> <span class="op">&lt;-</span> <span class="fu">mplusModeler</span><span class="op">(</span><span class="va">modelTEMP</span>, modelout <span class="op">=</span> <span class="st">"Mplus/modelTEMP.inp"</span>, run <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  </span>
-<span>  <span class="va">summaryTEMP</span> <span class="op">&lt;-</span> <span class="fu">get_summaries</span><span class="op">(</span><span class="va">resTEMP</span>, simplify <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
-<span>  <span class="va">summaryTEMP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>X <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">summaryTEMP</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">summaryTEMP</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">fitIndices</span>, <span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">summaryTEMP</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">class</span>, <span class="st">"-class Model"</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># return</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>    model <span class="op">=</span> <span class="va">resTEMP</span>,</span>
-<span>    summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">summaryTEMP</span><span class="op">)</span>  </span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>fitMplus <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">data =</span> dat, class, </span>
+<span id="cb6-2"><a href="#cb6-2"></a>                     <span class="at">uvars =</span> <span class="st">"Male-EduS_High"</span>, <span class="at">auxvars=</span> <span class="cn">NULL</span>, </span>
+<span id="cb6-3"><a href="#cb6-3"></a>                     <span class="at">modelout =</span> <span class="cn">NULL</span>, <span class="at">savedata =</span> <span class="cn">NULL</span> ) {</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="do">## specify the used variables</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  fitIndices <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"LL"</span>, <span class="st">"AIC"</span>, <span class="st">"BIC"</span>, <span class="st">"aBIC"</span>, <span class="st">"Entropy"</span>, <span class="st">"T11_LMR_PValue"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>  </span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(savedata)) {</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    savedata <span class="ot">=</span> <span class="st">"Mplus/model_Temp_save.txt"</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  }</span>
+<span id="cb6-10"><a href="#cb6-10"></a>  </span>
+<span id="cb6-11"><a href="#cb6-11"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(auxvars)) {</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    start_index <span class="ot">=</span> <span class="fu">which</span>(<span class="fu">colnames</span>(data) <span class="sc">==</span> <span class="fu">str_split</span>(uvars, <span class="st">"-"</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    end_index <span class="ot">=</span> <span class="fu">which</span>(<span class="fu">colnames</span>(data) <span class="sc">==</span> <span class="fu">str_split</span>(auxvars, <span class="st">"-"</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>])</span>
+<span id="cb6-14"><a href="#cb6-14"></a>    modelTEMP <span class="ot">&lt;-</span> <span class="fu">mplusObject</span>(</span>
+<span id="cb6-15"><a href="#cb6-15"></a>      <span class="at">TITLE =</span> <span class="st">"Batch Analysis of Latent Class Models;"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16"></a>      <span class="at">VARIABLE =</span> <span class="fu">paste0</span>(<span class="st">"</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="st">      CATEGORICAL = "</span>, uvars, <span class="st">";</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="st">      CLASSES = c("</span>, class, <span class="st">");</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="st">      AUXILIARY = "</span>, auxvars,<span class="st">" (R3STEP);</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="st">      "</span>),</span>
+<span id="cb6-21"><a href="#cb6-21"></a>      <span class="at">ANALYSIS =</span> <span class="st">"</span></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="st">      TYPE = MIXTURE;</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="st">      "</span>,</span>
+<span id="cb6-24"><a href="#cb6-24"></a>      <span class="at">SAVEDATA =</span> </span>
+<span id="cb6-25"><a href="#cb6-25"></a>      <span class="fu">paste0</span>(<span class="st">"</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a><span class="st">      FILE IS "</span>, savedata,<span class="st">";</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a><span class="st">      SAVE IS cprob;</span></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="st">      FORMAT IS free;</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a><span class="st">      "</span>),</span>
+<span id="cb6-30"><a href="#cb6-30"></a>      <span class="at">OUTPUT =</span> <span class="st">"TECH1 TECH8 TECH11;"</span>,</span>
+<span id="cb6-31"><a href="#cb6-31"></a>      <span class="at">rdata =</span> data,</span>
+<span id="cb6-32"><a href="#cb6-32"></a>      <span class="at">usevariables =</span> <span class="fu">colnames</span>(data[start_index<span class="sc">:</span>end_index]),</span>
+<span id="cb6-33"><a href="#cb6-33"></a>      <span class="at">autov =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-34"><a href="#cb6-34"></a>    )</span>
+<span id="cb6-35"><a href="#cb6-35"></a>  }<span class="cf">else</span>{</span>
+<span id="cb6-36"><a href="#cb6-36"></a>    start_index <span class="ot">=</span> <span class="fu">which</span>(<span class="fu">colnames</span>(data) <span class="sc">==</span> <span class="fu">str_split</span>(uvars, <span class="st">"-"</span>)[[<span class="dv">1</span>]][<span class="dv">1</span>])</span>
+<span id="cb6-37"><a href="#cb6-37"></a>    end_index <span class="ot">=</span> <span class="fu">which</span>(<span class="fu">colnames</span>(data) <span class="sc">==</span> <span class="fu">str_split</span>(uvars, <span class="st">"-"</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>])</span>
+<span id="cb6-38"><a href="#cb6-38"></a>    modelTEMP <span class="ot">&lt;-</span> <span class="fu">mplusObject</span>(</span>
+<span id="cb6-39"><a href="#cb6-39"></a>      <span class="at">TITLE =</span> <span class="st">"Batch Analysis of Latent Class Models;"</span>,</span>
+<span id="cb6-40"><a href="#cb6-40"></a>      <span class="at">VARIABLE =</span> <span class="fu">paste0</span>(<span class="st">"</span></span>
+<span id="cb6-41"><a href="#cb6-41"></a><span class="st">      CATEGORICAL = "</span>, uvars, <span class="st">";</span></span>
+<span id="cb6-42"><a href="#cb6-42"></a><span class="st">      CLASSES = c("</span>, class, <span class="st">");</span></span>
+<span id="cb6-43"><a href="#cb6-43"></a><span class="st">      "</span>),</span>
+<span id="cb6-44"><a href="#cb6-44"></a>      <span class="at">ANALYSIS =</span> <span class="st">"</span></span>
+<span id="cb6-45"><a href="#cb6-45"></a><span class="st">      TYPE = MIXTURE;</span></span>
+<span id="cb6-46"><a href="#cb6-46"></a><span class="st">      "</span>,</span>
+<span id="cb6-47"><a href="#cb6-47"></a>      <span class="at">SAVEDATA =</span> </span>
+<span id="cb6-48"><a href="#cb6-48"></a>      <span class="fu">paste0</span>(<span class="st">"</span></span>
+<span id="cb6-49"><a href="#cb6-49"></a><span class="st">      FILE IS "</span>, savedata,<span class="st">";</span></span>
+<span id="cb6-50"><a href="#cb6-50"></a><span class="st">      SAVE IS cprob;</span></span>
+<span id="cb6-51"><a href="#cb6-51"></a><span class="st">      FORMAT IS free;</span></span>
+<span id="cb6-52"><a href="#cb6-52"></a><span class="st">      "</span>),</span>
+<span id="cb6-53"><a href="#cb6-53"></a>      <span class="at">OUTPUT =</span> <span class="st">"TECH1 TECH8 TECH11;"</span>,</span>
+<span id="cb6-54"><a href="#cb6-54"></a>      <span class="at">rdata =</span> data,</span>
+<span id="cb6-55"><a href="#cb6-55"></a>      <span class="at">usevariables =</span> <span class="fu">colnames</span>(data[start_index<span class="sc">:</span>end_index]),</span>
+<span id="cb6-56"><a href="#cb6-56"></a>      <span class="at">autov =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-57"><a href="#cb6-57"></a>    )</span>
+<span id="cb6-58"><a href="#cb6-58"></a>  }</span>
+<span id="cb6-59"><a href="#cb6-59"></a>  </span>
+<span id="cb6-60"><a href="#cb6-60"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(modelout)) {</span>
+<span id="cb6-61"><a href="#cb6-61"></a>    <span class="fu">suppressMessages</span>(resTEMP <span class="ot">&lt;-</span> <span class="fu">mplusModeler</span>(modelTEMP, <span class="at">modelout =</span> modelout, <span class="at">run =</span> <span class="dv">1</span>L))</span>
+<span id="cb6-62"><a href="#cb6-62"></a>  }<span class="cf">else</span>{</span>
+<span id="cb6-63"><a href="#cb6-63"></a>    <span class="fu">suppressMessages</span>(resTEMP <span class="ot">&lt;-</span> <span class="fu">mplusModeler</span>(modelTEMP, <span class="at">modelout =</span> <span class="st">"Mplus/modelTEMP.inp"</span>, <span class="at">run =</span> <span class="dv">1</span>L))</span>
+<span id="cb6-64"><a href="#cb6-64"></a>  }</span>
+<span id="cb6-65"><a href="#cb6-65"></a>  </span>
+<span id="cb6-66"><a href="#cb6-66"></a>  summaryTEMP <span class="ot">&lt;-</span> <span class="fu">get_summaries</span>(resTEMP, <span class="at">simplify =</span> T)</span>
+<span id="cb6-67"><a href="#cb6-67"></a>  summaryTEMP <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X =</span> <span class="fu">unlist</span>(summaryTEMP[<span class="fu">rownames</span>(summaryTEMP) <span class="sc">%in%</span> fitIndices, ]))</span>
+<span id="cb6-68"><a href="#cb6-68"></a>  <span class="fu">colnames</span>(summaryTEMP) <span class="ot">=</span> <span class="fu">paste0</span>(class, <span class="st">"-class Model"</span>)</span>
+<span id="cb6-69"><a href="#cb6-69"></a>  </span>
+<span id="cb6-70"><a href="#cb6-70"></a>  <span class="co"># return</span></span>
+<span id="cb6-71"><a href="#cb6-71"></a>  <span class="fu">list</span>(</span>
+<span id="cb6-72"><a href="#cb6-72"></a>    <span class="at">model =</span> resTEMP,</span>
+<span id="cb6-73"><a href="#cb6-73"></a>    <span class="at">summary =</span> <span class="fu">t</span>(summaryTEMP)  </span>
+<span id="cb6-74"><a href="#cb6-74"></a>  )</span>
+<span id="cb6-75"><a href="#cb6-75"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Then, I ran a series of latent class models with different number of classes (from 2 to 7 latent classes):</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lcmFit</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="https://furrr.futureverse.org/reference/future_map.html">future_map</a></span><span class="op">(</span></span>
-<span>  <span class="fl">2</span><span class="op">:</span><span class="fl">7</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">fitMplus</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, class <span class="op">=</span> <span class="va">x</span>, </span>
-<span>                     uvars <span class="op">=</span> <span class="st">"Male-EduS_High"</span>,</span>
-<span>                     modelout <span class="op">=</span> <span class="st">"Mplus/model1fit.inp"</span>,</span>
-<span>                     savedata <span class="op">=</span> <span class="st">"Mplus/model_Temp_save.txt"</span><span class="op">)</span><span class="op">$</span><span class="va">summary</span></span>
-<span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">lcmFit</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">kable_material_dark</span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span>, html_font <span class="op">=</span> <span class="st">"Maven Pro"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">kable_styling</span><span class="op">(</span>bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"condensed"</span>, <span class="st">"hover"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>lcmFit <span class="ot">=</span> <span class="fu">as.data.frame</span>(<span class="fu">Reduce</span>(rbind, <span class="fu">future_map</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>, \(x) <span class="fu">fitMplus</span>(<span class="at">data =</span> dat, <span class="at">class =</span> x, </span>
+<span id="cb7-3"><a href="#cb7-3"></a>                     <span class="at">uvars =</span> <span class="st">"Male-EduS_High"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>                     <span class="at">modelout =</span> <span class="st">"Mplus/model1fit.inp"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>                     <span class="at">savedata =</span> <span class="st">"Mplus/model_Temp_save.txt"</span>)<span class="sc">$</span>summary</span>
+<span id="cb7-6"><a href="#cb7-6"></a>)))</span>
+<span id="cb7-7"><a href="#cb7-7"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(lcmFit, <span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">kable_material_dark</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">"Maven Pro"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"condensed"</span>, <span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <div>
 <table class="lightable-material-dark table table-condensed table-hover table-sm table-striped small" data-quarto-postprocess="true">
 <thead><tr class="header">
@@ -795,59 +722,60 @@ $ EduS_High &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 <span class="header-section-number">3</span> Conclusion</h2>
 <p><code>MplusAutomation</code> + R could be good tools for LCA. However, extracting information from Mplus output file is not so easy. For example, when there are auxiliary variables exists, the regression coefficients regressed on latent classes needed to be parsed and extract manually. For example, following functions can be used to extract the regression coefficients of latent class model using the 3-step approach.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#------------#</span></span>
-<span><span class="co"># Extract output regression table from R3Step LCA</span></span>
-<span><span class="co">#------------#</span></span>
-<span><span class="va">extract_r3step</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">model_path</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="co"># browser()</span></span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_lines.html">read_lines</a></span><span class="op">(</span><span class="va">model_path</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>row1 <span class="op">=</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'NUMBER OF OBSERVATIONS USED'</span><span class="op">)</span><span class="op">]</span>,</span>
-<span>           row2 <span class="op">=</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">x</span>, </span>
-<span>                                     <span class="st">'^ODDS RATIOS FOR TESTS OF CATEGORICAL LATENT VARIABLE'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">row1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span><span class="op">:</span><span class="op">(</span><span class="va">.</span><span class="op">$</span><span class="va">row2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>type_comparison <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'Parameterization using Reference'</span><span class="op">)</span>,</span>
-<span>           type_colname <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'Estimate'</span><span class="op">)</span>,</span>
-<span>           type_classnum <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'C#[0-9]+'</span><span class="op">)</span>,</span>
-<span>           type_predictor <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">'[\\.\\-0-9]+[\\s]+[\\.\\-0-9]+'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">type_classnum</span>, <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>           predictors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">type_predictor</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">parse_predictors</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>           comparison_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">type_comparison</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">comparison_group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>class_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">type_classnum</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>comparison_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">comparison_group</span> <span class="op">==</span> <span class="fl">0</span>, </span>
-<span>                                     <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">class</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="va">comparison_group</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">comparison_group</span>, <span class="va">class_group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">class_group</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>class_group2 <span class="op">=</span> <span class="va">class</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">class</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">type_predictor</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">comparison_group</span>, <span class="va">class_group2</span>, <span class="va">predictors</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html">unnest</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>comparison_class <span class="op">=</span> <span class="va">comparison_group</span>,</span>
-<span>           class <span class="op">=</span> <span class="va">class_group2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>estimate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">estimate</span><span class="op">)</span>,</span>
-<span>           se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">se</span><span class="op">)</span>,</span>
-<span>           tval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">tval</span><span class="op">)</span>,</span>
-<span>           pval <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">pval</span><span class="op">)</span><span class="op">)</span> </span>
-<span><span class="op">}</span></span>
-<span>  </span>
-<span><span class="co">#------------#</span></span>
-<span><span class="co"># Read in save data from Mplus</span></span>
-<span><span class="co">#------------#</span></span>
-<span><span class="va">read_saveddata</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">path_output</span>, <span class="va">path_savedata</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co">## extract data and latent classes</span></span>
-<span>  <span class="va">mplusOuput</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">path_output</span><span class="op">)</span></span>
-<span>  <span class="va">top</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">mplusOuput</span>, <span class="st">"Order of variables"</span><span class="op">)</span><span class="op">)</span> <span class="co"># start linenumber</span></span>
-<span>  <span class="va">bottom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html">str_detect</a></span><span class="op">(</span><span class="va">mplusOuput</span>, <span class="st">"Save file format"</span><span class="op">)</span><span class="op">)</span> <span class="co"># end linenumber</span></span>
-<span>  <span class="va">rawVars</span> <span class="op">&lt;-</span> <span class="va">mplusOuput</span><span class="op">[</span><span class="op">(</span><span class="va">top</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="op">(</span><span class="va">bottom</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
-<span>  <span class="va">savevarnames</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/trimws.html">trimws</a></span><span class="op">(</span><span class="va">rawVars</span><span class="op">[</span><span class="va">rawVars</span> <span class="op">!=</span> <span class="st">""</span><span class="op">]</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co">## read saved data from Mplus output</span></span>
-<span>  <span class="va">savedDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="va">path_savedata</span>, na.strings <span class="op">=</span> <span class="st">"*"</span>, header <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>                         col.names <span class="op">=</span> <span class="va">savevarnames</span>, <span class="va">...</span><span class="op">)</span></span>
-<span>  <span class="va">savedDat</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold"><summary>⌘+C</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#------------#</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># Extract output regression table from R3Step LCA</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#------------#</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>extract_r3step <span class="ot">&lt;-</span> <span class="cf">function</span>(model_path){</span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="co"># browser()</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">read_lines</span>(model_path)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="fu">mutate</span>(<span class="at">row1 =</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())[<span class="fu">str_detect</span>(x, <span class="st">'NUMBER OF OBSERVATIONS USED'</span>)],</span>
+<span id="cb8-8"><a href="#cb8-8"></a>           <span class="at">row2 =</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())[<span class="fu">str_detect</span>(x, </span>
+<span id="cb8-9"><a href="#cb8-9"></a>                                     <span class="st">'^ODDS RATIOS FOR TESTS OF CATEGORICAL LATENT VARIABLE'</span>)]) <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="fu">slice</span>((.<span class="sc">$</span>row1[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">2</span>)<span class="sc">:</span>(.<span class="sc">$</span>row2[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="fu">mutate</span>(<span class="at">type_comparison =</span> <span class="fu">str_detect</span>(x, <span class="st">'Parameterization using Reference'</span>),</span>
+<span id="cb8-12"><a href="#cb8-12"></a>           <span class="at">type_colname =</span> <span class="fu">str_detect</span>(x, <span class="st">'Estimate'</span>),</span>
+<span id="cb8-13"><a href="#cb8-13"></a>           <span class="at">type_classnum =</span> <span class="fu">str_detect</span>(x, <span class="st">'C#[0-9]+'</span>),</span>
+<span id="cb8-14"><a href="#cb8-14"></a>           <span class="at">type_predictor =</span> <span class="fu">str_detect</span>(x, <span class="st">'[</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">-0-9]+[</span><span class="sc">\\</span><span class="st">s]+[</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">-0-9]+'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>    <span class="fu">mutate</span>(<span class="at">class =</span> <span class="fu">ifelse</span>(type_classnum, <span class="fu">parse_number</span>(x), <span class="cn">NA</span>),</span>
+<span id="cb8-16"><a href="#cb8-16"></a>           <span class="at">predictors =</span> <span class="fu">ifelse</span>(type_predictor, <span class="fu">map</span>(x, parse_predictors), <span class="fu">list</span>()),</span>
+<span id="cb8-17"><a href="#cb8-17"></a>           <span class="at">comparison_group =</span> <span class="fu">cumsum</span>(type_comparison)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>    <span class="fu">group_by</span>(comparison_group) <span class="sc">%&gt;%</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>    <span class="fu">mutate</span>(<span class="at">class_group =</span> <span class="fu">cumsum</span>(type_classnum)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a>    <span class="fu">mutate</span>(<span class="at">comparison_group =</span> <span class="fu">ifelse</span>(comparison_group <span class="sc">==</span> <span class="dv">0</span>, </span>
+<span id="cb8-22"><a href="#cb8-22"></a>                                     <span class="fu">max</span>(class, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), comparison_group)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a>    <span class="fu">group_by</span>(comparison_group, class_group) <span class="sc">%&gt;%</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a>    <span class="fu">filter</span>(class_group <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a>    <span class="fu">mutate</span>(<span class="at">class_group2 =</span> class[<span class="sc">!</span><span class="fu">is.na</span>(class)]) <span class="sc">%&gt;%</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a>    <span class="fu">filter</span>(type_predictor) <span class="sc">%&gt;%</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a>    <span class="fu">select</span>(comparison_group, class_group2, predictors) <span class="sc">%&gt;%</span></span>
+<span id="cb8-29"><a href="#cb8-29"></a>    <span class="fu">unnest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-30"><a href="#cb8-30"></a>    <span class="fu">rename</span>(<span class="at">comparison_class =</span> comparison_group,</span>
+<span id="cb8-31"><a href="#cb8-31"></a>           <span class="at">class =</span> class_group2) <span class="sc">%&gt;%</span></span>
+<span id="cb8-32"><a href="#cb8-32"></a>    <span class="fu">mutate</span>(<span class="at">estimate =</span> <span class="fu">as.numeric</span>(estimate),</span>
+<span id="cb8-33"><a href="#cb8-33"></a>           <span class="at">se =</span> <span class="fu">as.numeric</span>(se),</span>
+<span id="cb8-34"><a href="#cb8-34"></a>           <span class="at">tval =</span> <span class="fu">as.numeric</span>(tval),</span>
+<span id="cb8-35"><a href="#cb8-35"></a>           <span class="at">pval =</span> <span class="fu">as.numeric</span>(pval)) </span>
+<span id="cb8-36"><a href="#cb8-36"></a>}</span>
+<span id="cb8-37"><a href="#cb8-37"></a>  </span>
+<span id="cb8-38"><a href="#cb8-38"></a><span class="co">#------------#</span></span>
+<span id="cb8-39"><a href="#cb8-39"></a><span class="co"># Read in save data from Mplus</span></span>
+<span id="cb8-40"><a href="#cb8-40"></a><span class="co">#------------#</span></span>
+<span id="cb8-41"><a href="#cb8-41"></a>read_saveddata <span class="ot">&lt;-</span> <span class="cf">function</span>(path_output, path_savedata, ...) {</span>
+<span id="cb8-42"><a href="#cb8-42"></a>  <span class="do">## extract data and latent classes</span></span>
+<span id="cb8-43"><a href="#cb8-43"></a>  mplusOuput <span class="ot">&lt;-</span> <span class="fu">readLines</span>(path_output)</span>
+<span id="cb8-44"><a href="#cb8-44"></a>  top <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">str_detect</span>(mplusOuput, <span class="st">"Order of variables"</span>)) <span class="co"># start linenumber</span></span>
+<span id="cb8-45"><a href="#cb8-45"></a>  bottom <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">str_detect</span>(mplusOuput, <span class="st">"Save file format"</span>)) <span class="co"># end linenumber</span></span>
+<span id="cb8-46"><a href="#cb8-46"></a>  rawVars <span class="ot">&lt;-</span> mplusOuput[(top<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>(bottom<span class="dv">-1</span>)]</span>
+<span id="cb8-47"><a href="#cb8-47"></a>  savevarnames <span class="ot">&lt;-</span> <span class="fu">trimws</span>(rawVars[rawVars <span class="sc">!=</span> <span class="st">""</span>])</span>
+<span id="cb8-48"><a href="#cb8-48"></a>  </span>
+<span id="cb8-49"><a href="#cb8-49"></a>  <span class="do">## read saved data from Mplus output</span></span>
+<span id="cb8-50"><a href="#cb8-50"></a>  savedDat <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path_savedata, <span class="at">na.strings =</span> <span class="st">"*"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb8-51"><a href="#cb8-51"></a>                         <span class="at">col.names =</span> savevarnames, ...)</span>
+<span id="cb8-52"><a href="#cb8-52"></a>  savedDat</span>
+<span id="cb8-53"><a href="#cb8-53"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>Hope this is helpful.</p>
 
@@ -1077,7 +1005,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/jihongzhang\.org");
+      var filterRegex = new RegExp("https:\/\/www\.jihongzhang\.org\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -1418,7 +1346,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>
   </div>
-</footer>
+</footer><script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
 
 
 </body></html>
