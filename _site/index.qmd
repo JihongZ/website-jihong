@@ -1,0 +1,87 @@
+---
+title: "Jihong Zhang, Dr."
+subtitle: 'Learn harder, Play harder'
+comments: false
+page-layout: full
+toc: false
+sidebar: false
+about:
+  id: hero-heading
+  template: solana
+  image: "images/profile-2.JPG"
+  image-shape: rounded
+  image-width: 20em
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:z.john92@gmail.com
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/jihongzgamma
+    - icon: github
+      text: Github
+      href: https://github.com/JihongZ/quarto-academic-jihong
+    - icon: bi-bookmark-heart-fill
+      text: ORCID
+      href: https://orcid.org/0000-0003-2820-3734
+listing:
+  - id: posts
+    contents: posts/*/*.[Rq]md
+    type: grid
+    fields: [image, date, title]
+    sort: "date desc"
+    sort-ui: false
+    filter-ui: false
+    page-size: 3
+    feed: true
+  - id: teaching
+    contents: "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd"
+---
+
+::: {#hero-heading}
+I currently hold the position of Assistant Professor in the Educational Statistics and Research Methods (ESRM) Program at the University of Arkansas. Previously, I served as a postdoctoral fellow in the School of Social Science at the Chinese University of Hong Kong. My academic journey includes a rigorous doctoral training in the Educational Measurement and Statistics (EMS) program at the University of Iowa. My primary research focus was on Psychological and Bayesian Network, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric methodologies.
+
+My expertise lies in the application of sophisticated statistical models, including machine learning and Bayesian networks. My research endeavors are primarily aimed at assisting researchers in the social sciences to comprehend their data more effectively, interpret results accurately, and utilize the potent tools of statistics judiciously. My work is characterized by a commitment to enhancing the methodological understanding and application of statistics in educational research and beyond.
+:::
+
+::: {.panel-tabset align="left"}
+## Interests
+
+-   Bayesian Psychometric Modeling
+
+-   Psychometric network and Latent variable modeling
+
+-   Machine Learning and data mining in Education
+
+-   Diagnostic Classification Models
+
+## Education
+
+-   **Ph.D.** \| Educational Measurement & Statistics \| University of Iowa \| [2019 - 2022]{style="color:darkgrey;"}
+
+-   **M.S.** \| Educational Psychology \| University of Kansas\| [2015 - 2019]{style="color:darkgrey;"}
+
+-   **B.S.** \| Applied Psychology \| Soochow University \| [2009 - 2013]{#date style="color:darkgrey;"}
+
+-   **B.S.** \| Law \| Soochow University \| [2011 - 2013]{#date style="color:darkgrey;"}
+
+## Experience
+
+-   University of Arkansas \| **Assistant Professor** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
+
+-   The Chinese University of Hong Kong \| **Postdoctoral Fellow** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
+
+-   Stanford Research Institute (SRI) \| **Associate Researcher** \| [June 2021 - Jan 2022]{style="color:darkgrey;"}
+:::
+
+## Teaching
+
+::: {#teaching}
+:::
+
+## Recent posts
+
+::: {#posts}
+:::
+
+<a href="../posts/index.html"><button type="button" class="btn btn-primary float-end btn-sm">See all</button></a>

@@ -1,0 +1,128 @@
+//@import 'https://fonts.googleapis.com/css2?family=Maven+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Nunito:wght@300;400;500&family=JetBrains+Mono';
+$web-font-path: "No";
+
+/*-- scss:rules --*/
+@font-face {
+    font-family: 'Taub Sans';
+    src: local('Taub Sans Regular'), local('Taub-Sans-Regular'),
+         url('./fonts/TaubSans-Regular/TaubSans-Regular.woff2') format('woff2'),
+         url('./fonts/TaubSans-Regular/TaubSans-Regular.woff') format('woff'),
+         url('./fonts/TaubSans-Regular/TaubSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+@font-face {
+    font-family: 'Palatino';
+    src: local('Palatino'), local('Palatino'),
+         url('./fonts/Palatino/Palatino.woff') format('woff'),
+         url('./fonts/Palatino/Palatino.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.menu-text {
+  font-family: "Palatino", sans-serif;
+  letter-spacing: 1px;
+  font-weight: normal;
+  color: $menutext-bg;
+}
+h1, h2, h3 {
+  //color: #333333; 
+  //font-family: "Ysabeau Office", sans-serif;
+  font-family: "Palatino", sans-serif;
+  letter-spacing: 1.8px;
+  font-weight: normal;
+}
+p { // main font family of post content
+  font-family: 'Palatino', sans-serif;
+  font-weight: normal;
+}
+
+/* background color */
+//body {
+//  background-color: $soft-color1;
+//}
+//
+//nav.sidebar.sidebar-navigation:not(.rollup) {
+//  background-color: $soft-color1;
+//}
+
+/*-- scss:defaults --*/
+// colors
+$light-sage-green: #D1D9CE;
+$dark-sage-green: #98A08D;
+$darkteal: #008080;
+$lightwhite: #c0c0c0;
+$gray: #64605f;
+$menutext-bg: #000000;
+$soft-color1: #FAFAEB;
+$navbar-bg: #FFF;
+
+//$background-color: #FAFAEB; 
+// Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
+$pink:      #D4006A;
+$primary:   $darkteal !default;
+.icon-line {
+  display: block;
+  background: $primary;
+  width: 100%;
+  height: 12px;
+  margin: auto;
+  display: table;
+  margin-top: -6px;
+  margin-bottom: -6px;
+}
+.text-line {
+  display: block;
+  background: $primary;
+  width: 0%;
+  height: 3px;
+  margin: auto;
+  display: table;
+  margin-top: -1px;
+  margin-bottom: -6px;
+}
+.text-line-blog {
+  display: block;
+  background: #6636a9;
+  width: 0%;
+  height: 3px;
+  margin: auto;
+  display: table;
+  margin-top: -1px;
+  margin-bottom: -6px;
+}
+.text-line-db {
+  display: block;
+  background: #6ec742;
+  width: 0%;
+  height: 3px;
+  margin: auto;
+  display: table;
+  margin-top: -1px;
+  margin-bottom: -6px;
+}
+.text-line-cv {
+  display: block;
+  background: #4b74a9;
+  width: 0%;
+  height: 3px;
+  margin: auto;
+  display: table;
+  margin-top: -1px;
+  margin-bottom: -6px;
+}
+.text-line-pj {
+  display: block;
+  background: #ffd942;
+  width: 0%;
+  height: 3px;
+  margin: auto;
+  display: table;
+  margin-top: -1px;
+  margin-bottom: -6px;
+}
+
+$link-color: $darkteal;
+// Code blocks
+$code-block-bg-alpha: -.6;

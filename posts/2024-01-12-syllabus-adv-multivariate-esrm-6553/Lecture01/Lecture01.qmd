@@ -1,0 +1,170 @@
+---
+title: "Lecture 01"
+subtitle: "Course and Bayesian Analysis Introduction"
+author: "Jihong Zhang"
+institute: "Educational Statistics and Research Methods"
+title-slide-attributes:
+  data-background-image: ../Images/title_image.png
+  data-background-size: contain
+  data-background-opacity: "0.9"
+format: 
+  revealjs:
+    logo: ../Images/UA_Logo_Horizontal.png
+    incremental: true  # choose "false "if want to show all together
+    theme: [serif, ../pp.scss]
+    footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>
+    transition: slide
+    background-transition: fade
+    slide-number: true
+    chalkboard: true
+    multiplex: true
+    number-sections: false
+---
+
+## Today's Lecture Objectives
+
+1.  Introduce myself
+2.  Syllabus
+3.  Extra Course Information
+4.  Introduce Bayesian Analysis
+
+but, before we begin...
+
+## Introduce myself
+
+Let me introduce myself first...
+
+::: {layout-nrow="1"}
+![University if Iowa](../Images/UI.jpg){width="350"}
+
+![Hong Kong: Victoria Harbour](../Images/HK.jpg){width="350"}
+
+![Chinese University of Hong Kong](../Images/CUHK.jpg){width="350"}
+:::
+
+## Syllabus
+
+[Syllabus of ESRM 6553](https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/index.pdf)
+
+## Course Time
+
+-   Monday 5PM to 7:45PM:
+
+    -   5PM to 6:15PM: First half class
+
+    -   6:15PM to 6:30PM: 15-min break
+
+    -   6:30PM to 7:45PM: Second half class
+
+## Office Hours
+
+-   Tuesday 1:30PM to 4:30PM
+
+-   You should be able to find me in GRAD Room 109
+
+## Materials
+
+-   I will provide R codes and slides at the weekends before next class. You may download them on Blackboard or My website (jihongzhang.org)
+
+## Quiz: What is Bayesian?
+
+1.  [How to Pronounce Bayesian (Real Life Examples!)](https://www.youtube.com/watch?v=0e38NuBFqaQ)
+    -   "B-Asian" or "Bayes-ian"?
+    -   What "Bayesian" mean? Assign probabilities to everything!
+2.  [Frequentist vs Bayesian](https://www.youtube.com/watch?v=dNeo7FNlOyY)
+    -   Example: In U.S., more Male Asian Faculty or Female Asian Faculty?
+        -   Frequentist: If "Male:Female = 1:1 out of Asian Faculty" is fixed, how is the probability that the data happens?
+        -   Bayesian: If I believe Male:Female = 1:2 but the data says 1:1, to what degree I need to update my mind?
+
+## Bayesian Model Components
+
+1.  What we see: Observed Data
+2.  What we cannot see: Future Data, Data yet to be collected, Parameters
+
+------------------------------------------------------------------------
+
+**Take home Note I: Everything is random in Bayesian!**
+
+-   Observed Data: Some **random** information given a unknown generation process
+-   Parameter: The **random** components controlling the generation process
+
+------------------------------------------------------------------------
+
+**Take home Note II: Every random component can be expressed as probability!**
+
+-   The probability of observed data given parameters: $p(\text{Observed Data}|\text{Parameters})$ = **Likelihood**
+-   The probability of parameters: $p(\text{Parameters})$ = **Prior Distribution**
+-   The probability of parameters given observed data: $p(\text{Parameters}|\text{Observed Data})$ = **Posterior Distribution**\*
+
+------------------------------------------------------------------------
+
+### Bayesian Thinking Process
+
+#### A toy example:
+
+<<<<<<< HEAD:posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
+I originally thought the ratio of male Asian faculty to female is about 1:2 (**Prior**). But the data we sampled from 2000 doctoral students suggested gender ratio is 1:1 (**Data; Likelihood that the true ratio we don't know**). Based on Bayes's rule, estimate for the ratio is probably 1:1.5 (**Posterior**) after combining these two statements.
+=======
+I originally thought the ratio of male Asian faculty to female is about 1:2 (**Prior**). We obtained the information from 2000 doctoral candidates suggested gender ratio is 1:1 (**Data; Likelihood give the true ratio we don't know**). Based on Bayes's rule, estimate for the ratio is probably 1:1.5 (**Posterior**) after combining these two statements.
+>>>>>>> 6e75efe (update 2024 CV):posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/Lecture01/Lecture01.qmd
+
+## Bayesian Analysis: Why It Is Used? {.smaller}
+
+There are at least four main reasons why people use Bayesian Analysis:
+
+1.  Missing data
+    -   Multiple imputation
+    -   More complicated model for certain types of missing data
+2.  Lack of software capable of handing large sized analyses
+    -   Have a zero-inflated Poisson model with 1000 observations and 1000 parameters? No problem in Bayesian!
+
+## Bayesian Analysis: Why It Is Used? (Cont.) {.smaller}
+
+3.  New complex models not available in frequentist framework
+    -   Have a new model? (A model that estimates the probability students choose the right answers then choose the wrong answers in a multiple choice test?)
+4.  Enjoy the Bayesian thinking process
+    -   It is a way of thinking that everything is random and everything can be expressed as probability. It is a way of thinking that we can update our belief as we collect more data. It is a way of thinking that we can use our prior knowledge to help us understand the data.
+
+## Bayesian Analysis: Why It Is Used? (Cont.)
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/DAG_BN.png)
+
+## Bayesian Analysis: Issues
+
+1.  Subjective vs. Objective
+    -   Prior distribution is subjective. It is based on your prior knowledge.
+    -   However, 1) Scientific judgement is always subjective 2) you can use objective prior distribution to avoid this issue.
+2.  Computationally Intensive
+    -   It is not a problem anymore. We have computers.
+    -   But we still need weeks or months to get results for some complated model and big data
+3.  Difficult to understand
+
+## Bayesian Analysis is popular
+
+<<<<<<< HEAD:posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
+![Funding available only for NIH, CDC, FDA, AHRQ, and ACF 2020 Spring. Source: https://report.nih.gov/](../Images/histogram_fundingamount.png){width="100%"}
+
+## What topics Bayesian Analysis can cover?
+
+![Funding available only for NIH, CDC, FDA, AHRQ, and ACF 2020 Spring. Source: https://report.nih.gov/](../Images/circle_topics.png){width="100%"}
+=======
+![Funding available only for NIH, CDC, FDA, AHRQ, and ACF 2020 Spring. Source: https://report.nih.gov/](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/Images/histogram_fundingamount.png)
+
+## What topics Bayesian Analysis can cover?
+
+![Funding available only for NIH, CDC, FDA, AHRQ, and ACF 2020 Spring. Source: https://report.nih.gov/](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/Images/circle_topics.png)
+
+## Wrapping Up
+
+1.  We know what is "Bayesian" and its components.
+2.  Why Bayesian Estimation is different from other estimation, say maximum likelihood
+3.  We also know that Bayesian analysis is popular in many fields, especially complex data
+>>>>>>> 6e75efe (update 2024 CV):posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/Lecture01/Lecture01.qmd
+
+## Next Class
+
+We will talk about how Bayesian methods works in a little bit more technical way.
+
+## Suggestions
+
+Your opinions are very important to me. Feel free to let me know if you have any suggestions on the course.

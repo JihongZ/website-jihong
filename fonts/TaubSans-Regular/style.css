@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Taub Sans';
+    src: local('Taub Sans Regular'), local('Taub-Sans-Regular'),
+        url('TaubSans-Regular.woff2') format('woff2'),
+        url('TaubSans-Regular.woff') format('woff'),
+        url('TaubSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }

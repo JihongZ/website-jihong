@@ -1,0 +1,65 @@
+---
+title: Introduce Descrepancy Measures 
+author: Jihong
+date: '2018-09-11'
+slug: model-checking-in-dcm
+categories:
+  - R
+tags:
+  - DCM
+  - R
+output:
+  blogdown::html_page:
+    toc: true
+---
+> This Blog is the notes for my recent project about reliability and model checking. Next I want to organize a little about one important concept in model checking - discrepancy measures. 
+
+# Descrepancy Measures
+
+1. $\chi^2$ measures for item-pairs (Chen & Thissen, 1997)
+   $$
+   X^2_{jj'}=\sum_{k=0}^{1} \sum_{k'=0}^{1} \frac{(n_{kk'}-E(n_{kk'}))^2}{E(n_{kk'})}
+   $$
+
+2. $G^2$ for item pairs 
+
+   $$
+   G^2_{jj'}=-2\sum_{k=0}^{1} \sum_{k'=0}^{1} \ln \frac{E(n_{kk'})}{n_{kk'}}
+   $$
+
+
+3. model-based covariance (MBC; Reckase, 1997)
+   $$
+   COV_{jj'} = \frac{\sum_{i=1}^{N}(X_{ij}-\overline{X_j})(X_{ij'}-\overline{X_{j'}}) }{N} \\
+   MBC_{jj'} = \frac{\sum_{i=1}^{N}(X_{ij}-E(X_{ij}))(X_{ij'}-E(X_{ij'}))}{N}
+   $$
+
+4. $Q_3$ (Yen, 1993)
+   $$
+   Q_{3jj'} = r_{e_{ij}e_{ij'}}
+   $$
+   where $r$ refers to the correlation, $e_{ij} = X_{ij} - E(X_{ij})$, and $E(X_{ij})$
+
+5. Residual Item Covariance (Fu et al., 2005)
+   $$
+   RESIDCOV_{jj'} = \frac{[(n_{11})(n_{00})-(n{10})(n_{01})]}{N^2} - \frac{[E(n_{11})E(n_{00})-E(n_{10})E(n_{01})]}{E(N^2)}
+   $$
+
+6. natural log of the odds ratio (Agresti, 2002) 
+   $$
+   LN(OR_{jj'})= \ln[\frac{(n_{11})(n_{00})}{(n_{10})(n_{01})}] = \ln(n_{11}) +\ln(n_{00})+\ln(n_{10}) +\ln(n_{01})
+   $$
+
+7. standardized log odds ratio residual (Chen & Thissen, 1997)
+   $$
+   STDLN(OR_{jj'})-RESID =  \frac
+   {\ln[\frac{n_{11}n_{00}}{n_{10}n_{01}}]-\ln[\frac{E(n_{11})E(n_{00})}{E(n_{10})E(n_{01})}]}
+   {\sqrt{\frac{1}{n_{11}}+\frac{1}{n_{10}}+\frac{1}{n_{01}}+\frac{1}{n_{00}}}}
+   $$
+
+8. Mantel-Haenszel statistic (MH; Agresti, 2002; Sinharay et al., 2006)
+   $$
+   MH_{jj'} = \frac{\sum_rn_{11r}n_{00r}/n_r}{\sum_rn_{10r}n_{01r}/n_r}
+   $$
+   where counts of examinees with a response pattern are conditional on rest score r, defined
+   as the total test score excluding items j and j'.

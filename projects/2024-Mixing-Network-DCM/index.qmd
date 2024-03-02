@@ -1,0 +1,61 @@
+---
+title: "Shinyapp: Scoring and Reliability Analysis of Psychometric Network"
+format: html
+date: "Mar 1 2024" 
+editor: visual
+---
+
+## Minimal Example
+
+```{r}
+#| echo: false
+source("library_load.R")
+```
+
+```{r}
+#| echo: false
+centrality <- function(x) {
+  qgraph::centralityTable(x, standardized = TRUE) |> 
+  select(node:value) |> 
+  pivot_wider(names_from = measure, values_from = value)
+}
+mykbl <- function(x){
+  kable(x, digits = 3)
+}
+```
+
+```{r}
+exp1 <- matrix(c(
+  0, .8, .5,
+  .8, 0, 0.1,
+  .5, .1, 0
+), nrow = 3, ncol = 3, byrow = T)
+rownames(exp1) = colnames(exp1) = c("A", "B", "C")
+qgraph::qgraph(input = exp1, edge.labels=T, edge.label.cex = 1.7, edge.label.color = "black")
+```
+
+The centrality measures for three nodes:
+
+```{r}
+mykbl(centrality(exp1))
+```
+
+Assume that there are two individuals with different scores on three items:
+
+```{r}
+response <- data.frame(
+  A = c(1, 5),
+  B = c(1, 1),
+  C = c(5, 1)
+)
+rownames(response) <- c("Person1", "Person2")
+mykbl(response)
+```
+
+We can calculate the weighted network scores for them based on Strength centrality measures and their item scores
+
+```{r}
+as.matrix(response) %*% centrality(exp1)[['Strength']] |> mykbl()
+```
+
+The strength-based network score reflect one's **overall level of clusters of nodes in a network**.

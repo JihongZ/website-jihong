@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jihong Zhang">
+<meta name="dcterms.date" content="2024-01-13">
+
+<title>Jihong Z. - Play Harder and Learn Harder - ESRM 6553: Advanced Multivariate Analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/icon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-149871707-1', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils/js/key-buttons.min.js" defer=""></script>
+<link href="https://cdn.jsdelivr.net/npm/@xiee/utils/css/key-buttons.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../assets/rwds.css">
+<meta property="og:title" content="Jihong Z. - Play Harder and Learn Harder - ESRM 6553: Advanced Multivariate Analysis">
+<meta property="og:description" content="Spring 2024, Mondays, 5:00-7:45PM, Classroom GRAD 0229">
+<meta property="og:site_name" content="Jihong Z. - Play Harder and Learn Harder">
+<meta name="twitter:title" content="Jihong Z. - Play Harder and Learn Harder - ESRM 6553: Advanced Multivariate Analysis">
+<meta name="twitter:description" content="Spring 2024, Mondays, 5:00-7:45PM, Classroom GRAD 0229">
+<meta name="twitter:creator" content="@jihongzgamma">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title"><span class="icon-line"></span>JZ<span class="icon-line"></span></span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> <i class="bi bi-bi bi-house" role="img">
+</i> 
+<span class="menu-text"><span class="menutext-home">Home</span><span class="text-line"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
+</i> 
+<span class="menu-text"><span class="menutext-blog">Blog</span><span class="text-line-blog"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
+</i> 
+<span class="menu-text"><span class="menutext-db">Dashboard</span><span class="text-line-db"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../uploads/Curriculum_Vitae.pdf"> <i class="bi bi-bi bi-person" role="img">
+</i> 
+<span class="menu-text"><span class="menutext-cv">C.V.</span><span class="text-line-cv"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> <i class="bi bi-bi bi-three-dots" role="img">
+</i> 
+<span class="menu-text"><span class="menutext-pj">Projects</span><span class="text-line-pj"></span></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">ESRM 6553: Advanced Multivariate Analysis</li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/jihonglogo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">ESRM6553-Adv.Multivariate</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 01</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 02</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 03</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 04</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 05</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 06</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#general-information" id="toc-general-information" class="nav-link active" data-scroll-target="#general-information"><span class="header-section-number">1</span> General Information</a>
+  <ul class="collapse">
+  <li><a href="#course-topics" id="toc-course-topics" class="nav-link" data-scroll-target="#course-topics"><span class="header-section-number">1.1</span> Course Topics</a></li>
+  <li><a href="#course-description" id="toc-course-description" class="nav-link" data-scroll-target="#course-description"><span class="header-section-number">1.2</span> Course Description</a></li>
+  <li><a href="#course-objectives" id="toc-course-objectives" class="nav-link" data-scroll-target="#course-objectives"><span class="header-section-number">1.3</span> Course Objectives</a></li>
+  <li><a href="#prerequisite-knowledge" id="toc-prerequisite-knowledge" class="nav-link" data-scroll-target="#prerequisite-knowledge"><span class="header-section-number">1.4</span> Prerequisite Knowledge</a></li>
+  <li><a href="#how-to-be-successful-in-this-class" id="toc-how-to-be-successful-in-this-class" class="nav-link" data-scroll-target="#how-to-be-successful-in-this-class"><span class="header-section-number">1.5</span> How to Be Successful in This Class</a></li>
+  </ul></li>
+  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials"><span class="header-section-number">2</span> Course Materials</a>
+  <ul class="collapse">
+  <li><a href="#required-materials" id="toc-required-materials" class="nav-link" data-scroll-target="#required-materials"><span class="header-section-number">2.1</span> Required Materials</a></li>
+  <li><a href="#optional-materials" id="toc-optional-materials" class="nav-link" data-scroll-target="#optional-materials"><span class="header-section-number">2.2</span> Optional Materials</a></li>
+  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software"><span class="header-section-number">2.3</span> Software</a></li>
+  </ul></li>
+  <li><a href="#assignments" id="toc-assignments" class="nav-link" data-scroll-target="#assignments"><span class="header-section-number">3</span> Assignments</a>
+  <ul class="collapse">
+  <li><a href="#online-homework" id="toc-online-homework" class="nav-link" data-scroll-target="#online-homework"><span class="header-section-number">3.1</span> Online Homework</a></li>
+  <li><a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects"><span class="header-section-number">3.2</span> Projects</a></li>
+  <li><a href="#in-class-short-quiz" id="toc-in-class-short-quiz" class="nav-link" data-scroll-target="#in-class-short-quiz"><span class="header-section-number">3.3</span> In-Class Short Quiz</a></li>
+  <li><a href="#grading" id="toc-grading" class="nav-link" data-scroll-target="#grading"><span class="header-section-number">3.4</span> Grading</a></li>
+  </ul></li>
+  <li><a href="#academic-policies" id="toc-academic-policies" class="nav-link" data-scroll-target="#academic-policies"><span class="header-section-number">4</span> Academic Policies</a>
+  <ul class="collapse">
+  <li><a href="#ai-statement" id="toc-ai-statement" class="nav-link" data-scroll-target="#ai-statement"><span class="header-section-number">4.1</span> AI Statement</a></li>
+  <li><a href="#academic-integrity" id="toc-academic-integrity" class="nav-link" data-scroll-target="#academic-integrity"><span class="header-section-number">4.2</span> Academic Integrity</a></li>
+  <li><a href="#emergency-preparedness" id="toc-emergency-preparedness" class="nav-link" data-scroll-target="#emergency-preparedness"><span class="header-section-number">4.3</span> Emergency Preparedness</a></li>
+  <li><a href="#inclement-weather" id="toc-inclement-weather" class="nav-link" data-scroll-target="#inclement-weather"><span class="header-section-number">4.4</span> Inclement Weather</a></li>
+  <li><a href="#academic-support" id="toc-academic-support" class="nav-link" data-scroll-target="#academic-support"><span class="header-section-number">4.5</span> Academic Support</a></li>
+  <li><a href="#religious-holidays" id="toc-religious-holidays" class="nav-link" data-scroll-target="#religious-holidays"><span class="header-section-number">4.6</span> Religious Holidays</a></li>
+  </ul></li>
+  <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule"><span class="header-section-number">5</span> Schedule</a></li>
+  <li><a href="#other-online-materials" id="toc-other-online-materials" class="nav-link" data-scroll-target="#other-online-materials"><span class="header-section-number">6</span> Other Online Materials</a>
+  <ul class="collapse">
+  <li><a href="#applied-statistics" id="toc-applied-statistics" class="nav-link" data-scroll-target="#applied-statistics"><span class="header-section-number">6.1</span> Applied Statistics</a></li>
+  <li><a href="#cognitive-science" id="toc-cognitive-science" class="nav-link" data-scroll-target="#cognitive-science"><span class="header-section-number">6.2</span> Cognitive Science</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">ESRM 6553: Advanced Multivariate Analysis</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">Spring 2024, Mondays, 5:00-7:45PM, Classroom GRAD 0229</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">class</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jihong Zhang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 13, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">February 7, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="Images/UA_Logo_Horizontal.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="Images/UA_Logo_Horizontal.png" class="img-fluid" width="2700"></a></p>
+<section id="general-information" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> General Information</h1>
+<ul>
+<li><strong>Course Code:</strong> ESRM 6553</li>
+<li><strong>Course ID:</strong> 026376</li>
+<li><strong>Course time and location:</strong> Mon 17:00-19:45; GRAD 229</li>
+<li><strong>Instructor:</strong> Jihong Zhang</li>
+<li><strong>Contact Information:</strong> jzhang@uark.edu</li>
+<li><strong>Personal Website:</strong> http://jihongzhang.org</li>
+<li><strong>Office Location:</strong> GRAD 0109</li>
+<li><strong>Office Hours:</strong> Tu 1:30-4:30PM</li>
+<li><strong>Office Phone</strong> +1 479-575-5235</li>
+<li><strong>Classroom:</strong> GRAD 229</li>
+<li><strong>Semester:</strong> Spring 2024</li>
+<li><strong>Credits:</strong> 3 credit hours</li>
+</ul>
+<section id="course-topics" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="course-topics"><span class="header-section-number">1.1</span> Course Topics</h2>
+<ol type="1">
+<li><strong>Introduction to Bayesian Statistics</strong>
+<ul>
+<li>Bayes Theorem;</li>
+<li>Probability distributions, such as likelihood, priors and posteriors;</li>
+<li>Theoretical foundations of Bayesian inference;</li>
+</ul></li>
+<li><strong>Bayesian analysis in Stan</strong>
+<ul>
+<li>Basic Stan coding;</li>
+<li>R package <code>cmdstanr</code> ;</li>
+<li>Efficient programming using vectorization;</li>
+</ul></li>
+<li><strong>Bayesian Inference and Computational Methods</strong>
+<ul>
+<li>Markov Chain Monte Carlo (MCMC) estimation procedures, such as Gibbs/Hamiltonian sampling;</li>
+<li>MCMC sampling settings, such as burnins, warmups, and MCMC chains;</li>
+</ul></li>
+<li><strong>Bayesian Modeling Evaluation</strong>
+<ul>
+<li>Model specification, estimation, and testing;</li>
+<li>Model fit and model comparison, such as convergence diagnostics, posterior predictive checks, information criteria;</li>
+</ul></li>
+<li><strong>Bayesian Modeling</strong>
+<ul>
+<li>Estimating and making inferences from psychometric models such as Confirmatory Factor Analysis (CFA) or Item Response Theory (IRT) models;</li>
+</ul></li>
+<li><strong>Advanced Topics in Bayesian Multivariate Analysis</strong>
+<ul>
+<li>Bayesian networks;</li>
+<li>Multilevel/Hierarchical models, mixture models;</li>
+<li>Missing data, non-normal data;</li>
+</ul></li>
+</ol>
+</section>
+<section id="course-description" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="course-description"><span class="header-section-number">1.2</span> Course Description</h2>
+<p>This course offers an in-depth exploration of multivariate statistics within the context of Bayesian inferences. Bayesian statistics have been widely used in public health, education, and psychology. Bayesian techniques are increasingly used in Artificial Intelligence and Brain models for decision-making under uncertainty. Designed for graduate students in educational statistics and research methods, it focuses on the theoretical underpinnings and practical applications of Bayesian approaches in psychometric modeling. Prerequisites include basic knowledge of multivariate statistics and psychometrics.</p>
+</section>
+<section id="course-objectives" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="course-objectives"><span class="header-section-number">1.3</span> Course Objectives</h2>
+<p>Upon completion of ESRM 6554 - Adv. Multivariate, students will:</p>
+<ol type="1">
+<li>Comprehend fundamental concepts and principles of Bayesian multivariate analysis;</li>
+<li>Articulate the rationale of Bayesian approaches to data analysis and statistical inference;</li>
+<li>Compare Bayesian inference to MLE;</li>
+<li>Develop conceptual and mathematical Bayesian literacy, as well as computer software skills (e.g., R, Stan, or JAGS) required to conduct Bayesian data analyses in educational research;</li>
+<li>Gain technical foundations necessary to be contributors to applied and methodological research that use Bayesian methods;</li>
+<li>Conduct analyses on empirical data, interpret results, and communicate work in written and oral presentations.</li>
+</ol>
+</section>
+<section id="prerequisite-knowledge" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="prerequisite-knowledge"><span class="header-section-number">1.4</span> Prerequisite Knowledge</h2>
+<p>It is assumed that students have has solid statistical training up to and including topics in multivariate statistics (ESRM 6413, 6423, and 6453). In addition, it is assumed you are familiar with R programming (python or SAS are fine). SPSS may not be sufficient for this course.</p>
+<ul>
+<li>Lectures for theoretical understanding.</li>
+<li>Hands-on sessions with statistical software.</li>
+<li>Group discussions and presentations.</li>
+<li>Research project guidance.</li>
+</ul>
+</section>
+<section id="how-to-be-successful-in-this-class" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="how-to-be-successful-in-this-class"><span class="header-section-number">1.5</span> How to Be Successful in This Class</h2>
+<ul>
+<li>Come to class ready to learn.</li>
+<li>Complete the out-of-class exercises prior to each class.</li>
+<li>If you become confused or don’t fully grasp a concept, ask for help from your instructor</li>
+<li>Know what is going on: keep up with email, course announcements, and the course schedule.</li>
+<li>Try to apply the information to your area of interest — if you have a cool research idea, come talk to me!</li>
+</ul>
+</section>
+</section>
+<section id="course-materials" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Course Materials</h1>
+<section id="required-materials" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="required-materials"><span class="header-section-number">2.1</span> Required Materials</h2>
+<ul>
+<li><strong>Primary Text:</strong> Richard McElreath (2019), <a href="https://github.com/Booleans/statistical-rethinking/blob/master/Statistical%20Rethinking%202nd%20Edition.pdf"><em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em></a>. Free to download it online.</li>
+<li><strong>Primary Text:</strong> Levy, Mislevy (2016), <a href="https://www.routledge.com/Bayesian-Psychometric-Modeling/Levy-Mislevy/p/book/9780367737092"><em>Bayesian Psychometric Modeling</em></a>. Chapters will be uploaded before class.</li>
+</ul>
+</section>
+<section id="optional-materials" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="optional-materials"><span class="header-section-number">2.2</span> Optional Materials</h2>
+<ul>
+<li>Kaplan, D. (2014), Bayesian Statistics for the Social Sciences. New York: Guilford Press.</li>
+<li>Gelman, A., Carlin, J. B., Stern, H. S., and Rubin, D. B. (2020), Bayesian Data Analysis 3rd edition. Chapman and Hall.</li>
+<li><a href="http://andrewgelman.com">Andrew Gelman’s Website</a> for an unfiltered, stream of consciousness Bayesian commentary</li>
+<li><strong>Supplementary Texts:</strong>
+<ul>
+<li><a href="https://mc-stan.org/docs/2_33/stan-users-guide-2_33.pdf">Stan User’s Guide (PDF)</a></li>
+<li><a href="https://mc-stan.org/docs/stan-users-guide/index.html">Stan User’s Guide (HTML)</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="software" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="software"><span class="header-section-number">2.3</span> Software</h2>
+<ul>
+<li>R and R packages (tidyverse)</li>
+<li>Stan is gaining in popularity and has an avid user community. To use Stan in R, you need to download RStan or cmdstanr package. Here is the <a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started">tutorial</a> of installing RStan or click <a href="https://mc-stan.org/cmdstanr/">here</a> for installing cmdstanr package.</li>
+<li>(Optional) Mplus, JAGS, <a href="http://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/">WinBUGS</a></li>
+</ul>
+</section>
+</section>
+<section id="assignments" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Assignments</h1>
+<section id="online-homework" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="online-homework"><span class="header-section-number">3.1</span> Online Homework</h2>
+<p><a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Homeworks/Homework.html">Online Homework Portal</a></p>
+</section>
+<section id="projects" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="projects"><span class="header-section-number">3.2</span> Projects</h2>
+<p>Students will complete a project utilizing your knowledge learnt from the class. You may work individually. I will provide data and questions for this project OR you can use data that is of interest to you in your GA position or dissertation research. The primary objective of the research project is to facilitate the application and understanding of concepts learned in this course.</p>
+<p>There will be a short project proposal due around week 15 - it can be sooner if you want to get started early. Required for this proposal is an NCME-type conference proposal (800 words maximum). Please see <a href="https://higherlogicdownload.s3.amazonaws.com/NCME/4b7590fc-3903-444d-b89d-c45b7fa3da3f/UploadedImages/2024_Annual_Meeting/NCME_2024_Call_for_Proposals_Final.pdf">Individual Paper Presentations</a> for more details</p>
+<p>Typical components of the research proposal include:</p>
+<ul>
+<li>Title (no more than 12 words)</li>
+<li>Summary of research (no more than 800 words)
+<ul>
+<li>Background of research</li>
+<li>Research questions/hypotheses</li>
+<li>Method (Data, Analysis Plan)</li>
+<li>Preliminary findings</li>
+<li>References/Table/Figure</li>
+</ul></li>
+</ul>
+</section>
+<section id="in-class-short-quiz" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="in-class-short-quiz"><span class="header-section-number">3.3</span> In-Class Short Quiz</h2>
+<p>At the commencement of each class session, a brief quiz consisting of one to three questions will be administered. These quizzes are intended for formative assessment purposes only and will not contribute to your overall score. However, regular attendance is essential, as it will ensure full credit in the final grading process.</p>
+</section>
+<section id="grading" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="grading"><span class="header-section-number">3.4</span> Grading</h2>
+<ol type="1">
+<li>Brief quiz: 60%</li>
+<li>Project Presentation: 20%</li>
+<li>Project Proposal: 20%</li>
+</ol>
+</section>
+</section>
+<section id="academic-policies" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Academic Policies</h1>
+<section id="ai-statement" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ai-statement"><span class="header-section-number">4.1</span> AI Statement</h2>
+<p>Specific permissions will be provided to students regarding the use of generative artificial intelligence tools on certain graded activities in this course. In these instances, I will communicate explicit permission as well as expectations and any pertinent limitations for use and attribution. Without this permission, the use of generative artificial intelligence tools in any capacity while completing academic work submitted for credit, independently or collaboratively, will be considered academic dishonesty and reported to the Office of Academic Initiatives and Integrity.</p>
+</section>
+<section id="academic-integrity" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="academic-integrity"><span class="header-section-number">4.2</span> Academic Integrity</h2>
+<p>You are responsible for reading and understanding the University of Arkansas’ Academic Integrity Policy. You are expected to complete all assignments and exams with the highest level of integrity. Any form of academic dishonesty will result in a failing grade for the course and will be reported to the Office of Academic Integrity. If you have any questions about what constitutes academic dishonesty, please ask me.</p>
+</section>
+<section id="emergency-preparedness" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="emergency-preparedness"><span class="header-section-number">4.3</span> Emergency Preparedness</h2>
+<p>The University of Arkansas is committed to providing a safe and healthy environment for study and work. In that regard, the university has developed a campus safety plan and an emergency preparedness plan to respond to a variety of emergency situations. The emergency preparedness plan can be found at emergency.uark.edu. Additionally, the university uses a campus-wide emergency notification system, UARKAlert, to communicate important emergency information via email and text messaging. To learn more and to sign up: http://safety.uark.edu/emergency-preparedness/emergency-notification-system/</p>
+</section>
+<section id="inclement-weather" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="inclement-weather"><span class="header-section-number">4.4</span> Inclement Weather</h2>
+<p>Each faculty member is responsible for determining whether or not to cancel class due to inclement weather. If you have any questions about whether or not class will be held, please contact me. If I cancel class, I will notify you via email and/or Blackboard. In general, students need to know how and when they will be notified in the event that class is cancelled for weather-related reasons. Please see <a href="http://safety.uark.edu/inclement-weather/">here</a> for more information.</p>
+</section>
+<section id="academic-support" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="academic-support"><span class="header-section-number">4.5</span> Academic Support</h2>
+<p>A complete list and brief description of academic support programs can be found on the University’s Academic Support site, along with links to the specific services, hours, and locations. Faculty are encouraged to be familiar with these programs and to assist students with finding an using the support services that will help them be successful. Please see <a href="http://www.uark.edu/academics/academic-support.php">here</a> for more information.</p>
+</section>
+<section id="religious-holidays" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="religious-holidays"><span class="header-section-number">4.6</span> Religious Holidays</h2>
+<p>The university does not observe religious holidays; however Campus Council has passed the following resolution concerning individual observance of religious holidays and class attendance:</p>
+<blockquote class="blockquote">
+<p>When members of any religion seek to be excused from class for religious reasons, they are expected to provide their instructors with a schedule of religious holidays that they intend to observe, in writing, before the completion of the first week of classes.</p>
+</blockquote>
+</section>
+</section>
+<section id="schedule" class="level1 page-columns page-full" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Schedule</h1>
+<p>Weekly breakdown of topics and readings：</p>
+<div class="table-responsive-xl page-columns page-full">
+<table class="table-striped table-hover table-bordered table">
+<colgroup>
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 17%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Week</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Topic</th>
+<th style="text-align: left;">Reading</th>
+<th>Topic</th>
+<th style="text-align: left;">Slides</th>
+<th>Code/Data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">01/15</td>
+<td style="text-align: left;">No Class</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">01/22</td>
+<td style="text-align: left;">Introduction to Bayesian Statistics Part I</td>
+<td style="text-align: left;">SR<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Chapter 1; BDA<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Chapter 1 (Optional)</td>
+<td>Course and Bayesian Analysis Introduction</td>
+<td style="text-align: left;"><a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.html">Lecture01_Jan22</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">01/29</td>
+<td style="text-align: left;">Introduction to Bayesian Statistics Part II</td>
+<td style="text-align: left;">SR Chapter 2</td>
+<td>Introduction to Bayesian Concepts</td>
+<td style="text-align: left;"><a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.html">Lecture02_Jan29</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">02/05</td>
+<td style="text-align: left;">Bayesian Inference and Computational Methods I</td>
+<td style="text-align: left;">SR Chapter 9</td>
+<td>Linear Regression Model with Stan</td>
+<td style="text-align: left;"><a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.html">Lecture03_Feb05</a></td>
+<td><ol type="1">
+<li><a href="./Lecture03/Code/DietData.csv">DietGroup.csv</a></li>
+<li><a href="./Lecture03/Code/DietDataExample.R">DietDataExample.R</a></li>
+<li><a href="./Lecture03/Code/EmptyModel.stan">EmptyModel.stan</a></li>
+<li><a href="./Lecture03/Code/EmptyModelPoor.stan">EmptyModelPoor.stan</a></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">02/12</td>
+<td style="text-align: left;">Bayesian Inference and Computational Methods II</td>
+<td style="text-align: left;"><a href="https://mc-stan.org/docs/2_18/stan-users-guide/vectorization.html">StanUserGuide:Chapter21</a></td>
+<td>Linear Regression Model with Stan II</td>
+<td style="text-align: left;"><p><a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.html">Lecture04_Feb12</a></p>
+<p><a href="Lecture04/Lecture04_Feb12_recording.mp4">Lecture04:recording.mp4</a></p></td>
+<td><ol type="1">
+<li><a href="Lecture04/Code/DietDataExample2.R">DietDataExample2.R</a></li>
+<li><a href="Lecture04/Code/FullModel_Old.stan">FullModel_Old.stan</a></li>
+<li><a href="Lecture04/Code/FullModel_New.stan">FullModel_New.stan</a></li>
+<li><a href="Lecture04/Code/FullModel_compute.stan">FullModel_compute.stan</a></li>
+<li><a href="Lecture04/Code/FullModel_contrast.stan">FullModel_contrast.stan</a></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">02/19</td>
+<td style="text-align: left;">Bayesian Inference and Computational Methods III</td>
+<td style="text-align: left;">SR Chapter 9.2 &amp; 9.3</td>
+<td>Bayesian Model Fit and Comparisons</td>
+<td style="text-align: left;"><a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.html">Lecture05_Feb19</a></td>
+<td><ol type="1">
+<li><a href="Lecture05/Code/Lecture05.R">Lecture05.R</a></li>
+<li><a href="Lecture05/Code/FullModel_PPP.stan">FullModel_PPP.stan</a></li>
+</ol></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">02/26</td>
+<td style="text-align: left;">Bayesian Modeling Evaluation I: Model diagnosis</td>
+<td style="text-align: left;">SR Chapter 7.1 &amp; BPM<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Chapter 10</td>
+<td>Bayesian Confirmatory Factor Analysis with Stan</td>
+<td style="text-align: left;"><a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html">Lecture06_Feb26</a></td>
+<td><ol type="1">
+<li><a href="Lecture06/Code/Lecture06.R">Lecture06.R</a></li>
+<li><a href="Lecture06/Code/simulation_loc.stan">simulation_loc.stan</a></li>
+<li><a href="Lecture06/Code/simulation_exp2.stan">simulation_exp2.stan</a></li>
+</ol></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">03/04</td>
+<td style="text-align: left;">Bayesian Modeling Evaluation II</td>
+<td style="text-align: left;">SR Chapter 7.4 &amp; 7.5</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">03/11</td>
+<td style="text-align: left;">Bayesian Modeling I: CFA</td>
+<td style="text-align: left;">BPM Chapter 9</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">03/18</td>
+<td style="text-align: left;">Spring Break</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">03/25</td>
+<td style="text-align: left;">Bayesian Modeling II: IRT</td>
+<td style="text-align: left;">BPM Chapter 11</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">04/01</td>
+<td style="text-align: left;">Bayesian Modeling III: CDM</td>
+<td style="text-align: left;">BPM Chapter 13</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">04/08</td>
+<td style="text-align: left;">Advanced Topics I: Non-normal data</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">04/15</td>
+<td style="text-align: left;">Advanced Topics II: Multilevel</td>
+<td style="text-align: left;">SR Chapter 11</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">04/22</td>
+<td style="text-align: left;">Advanced Topics III: Missing Data, Measurement Error</td>
+<td style="text-align: left;">SR Chapter 15</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">04/29</td>
+<td style="text-align: left;">Student Presentations</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="no-row-height column-margin column-container"><p><sup>1</sup>&nbsp;SR: <em>Statistical Rethinking 2ed Edition</em> by Richard McElreath</p><p><sup>2</sup>&nbsp;BDA: <em>Bayesian Data Analysis</em> by Gelman et al.&nbsp;(2021)</p><p><sup>3</sup>&nbsp;BPM: <em>Bayesian Psychometric Modeling</em> by Levy, Mislevy (2016)</p></div></div>
+<p>Academic calendar for Spring 2024: <a href="https://registrar.uark.edu/academic-dates/academic-semester-calendar/spring-2024-january-intersession-2024.php">Here</a></p>
+</section>
+<section id="other-online-materials" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Other Online Materials</h1>
+<section id="applied-statistics" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="applied-statistics"><span class="header-section-number">6.1</span> Applied Statistics</h2>
+<ol type="1">
+<li><a href="http://www.stat.columbia.edu/~gelman/book/BDA3.pdf">Bayesian Data Analysis, by Andrew Gelman, John Carlin, Hal Stern, David Dunson, Aki Vehtari, and Donald Rubin.</a></li>
+</ol>
+</section>
+<section id="cognitive-science" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="cognitive-science"><span class="header-section-number">6.2</span> Cognitive Science</h2>
+<ol type="1">
+<li><a href="https://vasishth.github.io/bayescogsci/book/">An Introduction to Bayesian Data Analysis for Cognitive Science, by Bruno Nicenboim, Daniel Schad, and Shravan Vasishth)</a></li>
+</ol>
+
+
+<!-- -->
+
+</section>
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-citation"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{zhang2024,
+  author = {Zhang, Jihong},
+  title = {ESRM 6553: {Advanced} {Multivariate} {Analysis}},
+  date = {2024-01-13},
+  url = {https://www.jihongzhang.org//posts/2024-01-12-syllabus-adv-multivariate-esrm-6553},
+  langid = {en}
+}
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-zhang2024" class="csl-entry quarto-appendix-citeas" role="listitem">
+Zhang, Jihong. 2024. <span>“ESRM 6553: Advanced Multivariate
+Analysis.”</span> January 13, 2024. <a href="https://www.jihongzhang.org//posts/2024-01-12-syllabus-adv-multivariate-esrm-6553">https://www.jihongzhang.org//posts/2024-01-12-syllabus-adv-multivariate-esrm-6553</a>.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="JihongZ/quarto-academic-jihong" data-repo-id="R_kgDOJz3gyg" data-category="General" data-category-id="DIC_kwDOJz3gys4CXdYE" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark"><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="an">title:</span><span class="co"> "ESRM 6553: Advanced Multivariate Analysis"</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="an">subtitle:</span><span class="co"> "Spring 2024, Mondays, 5:00-7:45PM, Classroom GRAD 0229"</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="an">author:</span><span class="co"> "Jihong Zhang"</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="an">date:</span><span class="co"> "Jan 13 2024" </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="an">date-modified:</span><span class="co"> "Feb 7 2024"</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="an">categories:</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">  - class</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">  html:</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">    code-tools: true</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="an">citation:</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co">  type: webpage</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">  issued: 2024-01-13</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="co">---</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="al">![](Images/UA_Logo_Horizontal.png)</span>{width="2700"}</span>
+<span id="cb1-18"><a href="#cb1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="fu"># General Information</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21"></a><span class="ss">-   </span>**Course Code:** ESRM 6553</span>
+<span id="cb1-22"><a href="#cb1-22"></a><span class="ss">-   </span>**Course ID:** 026376</span>
+<span id="cb1-23"><a href="#cb1-23"></a><span class="ss">-   </span>**Course time and location:** Mon 17:00-19:45; GRAD 229</span>
+<span id="cb1-24"><a href="#cb1-24"></a><span class="ss">-   </span>**Instructor:** Jihong Zhang</span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="ss">-   </span>**Contact Information:** jzhang\@uark.edu</span>
+<span id="cb1-26"><a href="#cb1-26"></a><span class="ss">-   </span>**Personal Website:** http://jihongzhang.org</span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="ss">-   </span>**Office Location:** GRAD 0109</span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="ss">-   </span>**Office Hours:** Tu 1:30-4:30PM</span>
+<span id="cb1-29"><a href="#cb1-29"></a><span class="ss">-   </span>**Office Phone** +1 479-575-5235</span>
+<span id="cb1-30"><a href="#cb1-30"></a><span class="ss">-   </span>**Classroom:** GRAD 229</span>
+<span id="cb1-31"><a href="#cb1-31"></a><span class="ss">-   </span>**Semester:** Spring 2024</span>
+<span id="cb1-32"><a href="#cb1-32"></a><span class="ss">-   </span>**Credits:** 3 credit hours</span>
+<span id="cb1-33"><a href="#cb1-33"></a></span>
+<span id="cb1-34"><a href="#cb1-34"></a><span class="fu">## Course Topics</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a></span>
+<span id="cb1-36"><a href="#cb1-36"></a><span class="ss">1.  </span>**Introduction to Bayesian Statistics**</span>
+<span id="cb1-37"><a href="#cb1-37"></a><span class="ss">    -   </span>Bayes Theorem;</span>
+<span id="cb1-38"><a href="#cb1-38"></a><span class="ss">    -   </span>Probability distributions, such as likelihood, priors and posteriors;</span>
+<span id="cb1-39"><a href="#cb1-39"></a><span class="ss">    -   </span>Theoretical foundations of Bayesian inference;</span>
+<span id="cb1-40"><a href="#cb1-40"></a><span class="ss">2.  </span>**Bayesian analysis in Stan**</span>
+<span id="cb1-41"><a href="#cb1-41"></a><span class="ss">    -   </span>Basic Stan coding;</span>
+<span id="cb1-42"><a href="#cb1-42"></a><span class="ss">    -   </span>R package <span class="in">`cmdstanr`</span> ;</span>
+<span id="cb1-43"><a href="#cb1-43"></a><span class="ss">    -   </span>Efficient programming using vectorization;</span>
+<span id="cb1-44"><a href="#cb1-44"></a><span class="ss">3.  </span>**Bayesian Inference and Computational Methods**</span>
+<span id="cb1-45"><a href="#cb1-45"></a><span class="ss">    -   </span>Markov Chain Monte Carlo (MCMC) estimation procedures, such as Gibbs/Hamiltonian sampling;</span>
+<span id="cb1-46"><a href="#cb1-46"></a><span class="ss">    -   </span>MCMC sampling settings, such as burnins, warmups, and MCMC chains;</span>
+<span id="cb1-47"><a href="#cb1-47"></a><span class="ss">4.  </span>**Bayesian Modeling Evaluation**</span>
+<span id="cb1-48"><a href="#cb1-48"></a><span class="ss">    -   </span>Model specification, estimation, and testing;</span>
+<span id="cb1-49"><a href="#cb1-49"></a><span class="ss">    -   </span>Model fit and model comparison, such as convergence diagnostics, posterior predictive checks, information criteria;</span>
+<span id="cb1-50"><a href="#cb1-50"></a><span class="ss">5.  </span>**Bayesian Modeling**</span>
+<span id="cb1-51"><a href="#cb1-51"></a><span class="ss">    -   </span>Estimating and making inferences from psychometric models such as Confirmatory Factor Analysis (CFA) or Item Response Theory (IRT) models;</span>
+<span id="cb1-52"><a href="#cb1-52"></a><span class="ss">6.  </span>**Advanced Topics in Bayesian Multivariate Analysis**</span>
+<span id="cb1-53"><a href="#cb1-53"></a><span class="ss">    -   </span>Bayesian networks;</span>
+<span id="cb1-54"><a href="#cb1-54"></a><span class="ss">    -   </span>Multilevel/Hierarchical models, mixture models;</span>
+<span id="cb1-55"><a href="#cb1-55"></a><span class="ss">    -   </span>Missing data, non-normal data;</span>
+<span id="cb1-56"><a href="#cb1-56"></a></span>
+<span id="cb1-57"><a href="#cb1-57"></a><span class="fu">## Course Description</span></span>
+<span id="cb1-58"><a href="#cb1-58"></a></span>
+<span id="cb1-59"><a href="#cb1-59"></a>This course offers an in-depth exploration of multivariate statistics within the context of Bayesian inferences. Bayesian statistics have been widely used in public health, education, and psychology. Bayesian techniques are increasingly used in Artificial Intelligence and Brain models for decision-making under uncertainty. Designed for graduate students in educational statistics and research methods, it focuses on the theoretical underpinnings and practical applications of Bayesian approaches in psychometric modeling. Prerequisites include basic knowledge of multivariate statistics and psychometrics.</span>
+<span id="cb1-60"><a href="#cb1-60"></a></span>
+<span id="cb1-61"><a href="#cb1-61"></a><span class="fu">## Course Objectives</span></span>
+<span id="cb1-62"><a href="#cb1-62"></a></span>
+<span id="cb1-63"><a href="#cb1-63"></a>Upon completion of ESRM 6554 - Adv. Multivariate, students will:</span>
+<span id="cb1-64"><a href="#cb1-64"></a></span>
+<span id="cb1-65"><a href="#cb1-65"></a><span class="ss">1.  </span>Comprehend fundamental concepts and principles of Bayesian multivariate analysis;</span>
+<span id="cb1-66"><a href="#cb1-66"></a><span class="ss">2.  </span>Articulate the rationale of Bayesian approaches to data analysis and statistical inference;</span>
+<span id="cb1-67"><a href="#cb1-67"></a><span class="ss">3.  </span>Compare Bayesian inference to MLE;</span>
+<span id="cb1-68"><a href="#cb1-68"></a><span class="ss">4.  </span>Develop conceptual and mathematical Bayesian literacy, as well as computer software skills (e.g., R, Stan, or JAGS) required to conduct Bayesian data analyses in educational research;</span>
+<span id="cb1-69"><a href="#cb1-69"></a><span class="ss">5.  </span>Gain technical foundations necessary to be contributors to applied and methodological research that use Bayesian methods;</span>
+<span id="cb1-70"><a href="#cb1-70"></a><span class="ss">6.  </span>Conduct analyses on empirical data, interpret results, and communicate work in written and oral presentations.</span>
+<span id="cb1-71"><a href="#cb1-71"></a></span>
+<span id="cb1-72"><a href="#cb1-72"></a><span class="fu">## Prerequisite Knowledge</span></span>
+<span id="cb1-73"><a href="#cb1-73"></a></span>
+<span id="cb1-74"><a href="#cb1-74"></a>It is assumed that students have has solid statistical training up to and including topics in multivariate statistics (ESRM 6413, 6423, and 6453). In addition, it is assumed you are familiar with R programming (python or SAS are fine). SPSS may not be sufficient for this course.</span>
+<span id="cb1-75"><a href="#cb1-75"></a></span>
+<span id="cb1-76"><a href="#cb1-76"></a><span class="ss">-   </span>Lectures for theoretical understanding.</span>
+<span id="cb1-77"><a href="#cb1-77"></a><span class="ss">-   </span>Hands-on sessions with statistical software.</span>
+<span id="cb1-78"><a href="#cb1-78"></a><span class="ss">-   </span>Group discussions and presentations.</span>
+<span id="cb1-79"><a href="#cb1-79"></a><span class="ss">-   </span>Research project guidance.</span>
+<span id="cb1-80"><a href="#cb1-80"></a></span>
+<span id="cb1-81"><a href="#cb1-81"></a><span class="fu">## How to Be Successful in This Class</span></span>
+<span id="cb1-82"><a href="#cb1-82"></a></span>
+<span id="cb1-83"><a href="#cb1-83"></a><span class="ss">-   </span>Come to class ready to learn.</span>
+<span id="cb1-84"><a href="#cb1-84"></a><span class="ss">-   </span>Complete the out-of-class exercises prior to each class.</span>
+<span id="cb1-85"><a href="#cb1-85"></a><span class="ss">-   </span>If you become confused or don't fully grasp a concept, ask for help from your instructor</span>
+<span id="cb1-86"><a href="#cb1-86"></a><span class="ss">-   </span>Know what is going on: keep up with email, course announcements, and the course schedule.</span>
+<span id="cb1-87"><a href="#cb1-87"></a><span class="ss">-   </span>Try to apply the information to your area of interest --- if you have a cool research idea, come talk to me!</span>
+<span id="cb1-88"><a href="#cb1-88"></a></span>
+<span id="cb1-89"><a href="#cb1-89"></a><span class="fu"># Course Materials</span></span>
+<span id="cb1-90"><a href="#cb1-90"></a></span>
+<span id="cb1-91"><a href="#cb1-91"></a><span class="fu">## Required Materials</span></span>
+<span id="cb1-92"><a href="#cb1-92"></a></span>
+<span id="cb1-93"><a href="#cb1-93"></a><span class="ss">-   </span>**Primary Text:** Richard McElreath (2019), <span class="co">[</span><span class="ot">*Statistical Rethinking: A Bayesian Course with Examples in R and Stan*</span><span class="co">](https://github.com/Booleans/statistical-rethinking/blob/master/Statistical%20Rethinking%202nd%20Edition.pdf)</span>. Free to download it online.</span>
+<span id="cb1-94"><a href="#cb1-94"></a><span class="ss">-   </span>**Primary Text:** Levy, Mislevy (2016), <span class="co">[</span><span class="ot">*Bayesian Psychometric Modeling*</span><span class="co">](https://www.routledge.com/Bayesian-Psychometric-Modeling/Levy-Mislevy/p/book/9780367737092)</span>. Chapters will be uploaded before class.</span>
+<span id="cb1-95"><a href="#cb1-95"></a></span>
+<span id="cb1-96"><a href="#cb1-96"></a><span class="fu">## Optional Materials</span></span>
+<span id="cb1-97"><a href="#cb1-97"></a></span>
+<span id="cb1-98"><a href="#cb1-98"></a><span class="ss">-   </span>Kaplan, D. (2014), Bayesian Statistics for the Social Sciences. New York: Guilford Press.</span>
+<span id="cb1-99"><a href="#cb1-99"></a><span class="ss">-   </span>Gelman, A., Carlin, J. B., Stern, H. S., and Rubin, D. B. (2020), Bayesian Data Analysis 3rd edition. Chapman and Hall.</span>
+<span id="cb1-100"><a href="#cb1-100"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Andrew Gelman's Website</span><span class="co">](http://andrewgelman.com)</span> for an unfiltered, stream of consciousness Bayesian commentary</span>
+<span id="cb1-101"><a href="#cb1-101"></a><span class="ss">-   </span>**Supplementary Texts:**</span>
+<span id="cb1-102"><a href="#cb1-102"></a><span class="ss">    -   </span><span class="co">[</span><span class="ot">Stan User's Guide (PDF)</span><span class="co">](https://mc-stan.org/docs/2_33/stan-users-guide-2_33.pdf)</span></span>
+<span id="cb1-103"><a href="#cb1-103"></a><span class="ss">    -   </span><span class="co">[</span><span class="ot">Stan User's Guide (HTML)</span><span class="co">](https://mc-stan.org/docs/stan-users-guide/index.html)</span></span>
+<span id="cb1-104"><a href="#cb1-104"></a></span>
+<span id="cb1-105"><a href="#cb1-105"></a><span class="fu">## Software</span></span>
+<span id="cb1-106"><a href="#cb1-106"></a></span>
+<span id="cb1-107"><a href="#cb1-107"></a><span class="ss">-   </span>R and R packages (tidyverse)</span>
+<span id="cb1-108"><a href="#cb1-108"></a><span class="ss">-   </span>Stan is gaining in popularity and has an avid user community. To use Stan in R, you need to download RStan or cmdstanr package. Here is the <span class="co">[</span><span class="ot">tutorial</span><span class="co">](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)</span> of installing RStan or click <span class="co">[</span><span class="ot">here</span><span class="co">](https://mc-stan.org/cmdstanr/)</span> for installing cmdstanr package.</span>
+<span id="cb1-109"><a href="#cb1-109"></a><span class="ss">-   </span>(Optional) Mplus, JAGS, <span class="co">[</span><span class="ot">WinBUGS</span><span class="co">](http://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/)</span></span>
+<span id="cb1-110"><a href="#cb1-110"></a></span>
+<span id="cb1-111"><a href="#cb1-111"></a><span class="fu"># Assignments</span></span>
+<span id="cb1-112"><a href="#cb1-112"></a></span>
+<span id="cb1-113"><a href="#cb1-113"></a><span class="fu">## Online Homework</span></span>
+<span id="cb1-114"><a href="#cb1-114"></a></span>
+<span id="cb1-115"><a href="#cb1-115"></a><span class="co">[</span><span class="ot">Online Homework Portal</span><span class="co">](./Homeworks/Homework.qmd)</span></span>
+<span id="cb1-116"><a href="#cb1-116"></a></span>
+<span id="cb1-117"><a href="#cb1-117"></a><span class="fu">## Projects</span></span>
+<span id="cb1-118"><a href="#cb1-118"></a></span>
+<span id="cb1-119"><a href="#cb1-119"></a>Students will complete a project utilizing your knowledge learnt from the class. You may work individually. I will provide data and questions for this project OR you can use data that is of interest to you in your GA position or dissertation research. The primary objective of the research project is to facilitate the application and understanding of concepts learned in this course.</span>
+<span id="cb1-120"><a href="#cb1-120"></a></span>
+<span id="cb1-121"><a href="#cb1-121"></a>There will be a short project proposal due around week 15 - it can be sooner if you want to get started early. Required for this proposal is an NCME-type conference proposal (800 words maximum). Please see <span class="co">[</span><span class="ot">Individual Paper Presentations</span><span class="co">](https://higherlogicdownload.s3.amazonaws.com/NCME/4b7590fc-3903-444d-b89d-c45b7fa3da3f/UploadedImages/2024_Annual_Meeting/NCME_2024_Call_for_Proposals_Final.pdf)</span> for more details</span>
+<span id="cb1-122"><a href="#cb1-122"></a></span>
+<span id="cb1-123"><a href="#cb1-123"></a>Typical components of the research proposal include:</span>
+<span id="cb1-124"><a href="#cb1-124"></a></span>
+<span id="cb1-125"><a href="#cb1-125"></a><span class="ss">-   </span>Title (no more than 12 words)</span>
+<span id="cb1-126"><a href="#cb1-126"></a><span class="ss">-   </span>Summary of research (no more than 800 words)</span>
+<span id="cb1-127"><a href="#cb1-127"></a><span class="ss">    -   </span>Background of research</span>
+<span id="cb1-128"><a href="#cb1-128"></a><span class="ss">    -   </span>Research questions/hypotheses</span>
+<span id="cb1-129"><a href="#cb1-129"></a><span class="ss">    -   </span>Method (Data, Analysis Plan)</span>
+<span id="cb1-130"><a href="#cb1-130"></a><span class="ss">    -   </span>Preliminary findings</span>
+<span id="cb1-131"><a href="#cb1-131"></a><span class="ss">    -   </span>References/Table/Figure</span>
+<span id="cb1-132"><a href="#cb1-132"></a></span>
+<span id="cb1-133"><a href="#cb1-133"></a><span class="fu">## In-Class Short Quiz</span></span>
+<span id="cb1-134"><a href="#cb1-134"></a></span>
+<span id="cb1-135"><a href="#cb1-135"></a>At the commencement of each class session, a brief quiz consisting of one to three questions will be administered. These quizzes are intended for formative assessment purposes only and will not contribute to your overall score. However, regular attendance is essential, as it will ensure full credit in the final grading process.</span>
+<span id="cb1-136"><a href="#cb1-136"></a></span>
+<span id="cb1-137"><a href="#cb1-137"></a><span class="fu">## Grading</span></span>
+<span id="cb1-138"><a href="#cb1-138"></a></span>
+<span id="cb1-139"><a href="#cb1-139"></a><span class="ss">1.  </span>Brief quiz: 60%</span>
+<span id="cb1-140"><a href="#cb1-140"></a><span class="ss">2.  </span>Project Presentation: 20%</span>
+<span id="cb1-141"><a href="#cb1-141"></a><span class="ss">3.  </span>Project Proposal: 20%</span>
+<span id="cb1-142"><a href="#cb1-142"></a></span>
+<span id="cb1-143"><a href="#cb1-143"></a><span class="fu"># Academic Policies</span></span>
+<span id="cb1-144"><a href="#cb1-144"></a></span>
+<span id="cb1-145"><a href="#cb1-145"></a><span class="fu">## AI Statement</span></span>
+<span id="cb1-146"><a href="#cb1-146"></a></span>
+<span id="cb1-147"><a href="#cb1-147"></a>Specific permissions will be provided to students regarding the use of generative artificial intelligence tools on certain graded activities in this course. In these instances, I will communicate explicit permission as well as expectations and any pertinent limitations for use and attribution. Without this permission, the use of generative artificial intelligence tools in any capacity while completing academic work submitted for credit, independently or collaboratively, will be considered academic dishonesty and reported to the Office of Academic Initiatives and Integrity.</span>
+<span id="cb1-148"><a href="#cb1-148"></a></span>
+<span id="cb1-149"><a href="#cb1-149"></a><span class="fu">## Academic Integrity</span></span>
+<span id="cb1-150"><a href="#cb1-150"></a></span>
+<span id="cb1-151"><a href="#cb1-151"></a>You are responsible for reading and understanding the University of Arkansas' Academic Integrity Policy. You are expected to complete all assignments and exams with the highest level of integrity. Any form of academic dishonesty will result in a failing grade for the course and will be reported to the Office of Academic Integrity. If you have any questions about what constitutes academic dishonesty, please ask me.</span>
+<span id="cb1-152"><a href="#cb1-152"></a></span>
+<span id="cb1-153"><a href="#cb1-153"></a><span class="fu">## Emergency Preparedness</span></span>
+<span id="cb1-154"><a href="#cb1-154"></a></span>
+<span id="cb1-155"><a href="#cb1-155"></a>The University of Arkansas is committed to providing a safe and healthy environment for study and work. In that regard, the university has developed a campus safety plan and an emergency preparedness plan to respond to a variety of emergency situations. The emergency preparedness plan can be found at emergency.uark.edu. Additionally, the university uses a campus-wide emergency notification system, UARKAlert, to communicate important emergency information via email and text messaging. To learn more and to sign up: http://safety.uark.edu/emergency-preparedness/emergency-notification-system/</span>
+<span id="cb1-156"><a href="#cb1-156"></a></span>
+<span id="cb1-157"><a href="#cb1-157"></a><span class="fu">## Inclement Weather</span></span>
+<span id="cb1-158"><a href="#cb1-158"></a></span>
+<span id="cb1-159"><a href="#cb1-159"></a>Each faculty member is responsible for determining whether or not to cancel class due to inclement weather. If you have any questions about whether or not class will be held, please contact me. If I cancel class, I will notify you via email and/or Blackboard. In general, students need to know how and when they will be notified in the event that class is cancelled for weather-related reasons. Please see <span class="co">[</span><span class="ot">here</span><span class="co">](http://safety.uark.edu/inclement-weather/)</span> for more information.</span>
+<span id="cb1-160"><a href="#cb1-160"></a></span>
+<span id="cb1-161"><a href="#cb1-161"></a><span class="fu">## Academic Support</span></span>
+<span id="cb1-162"><a href="#cb1-162"></a></span>
+<span id="cb1-163"><a href="#cb1-163"></a>A complete list and brief description of academic support programs can be found on the University's Academic Support site, along with links to the specific services, hours, and locations. Faculty are encouraged to be familiar with these programs and to assist students with finding an using the support services that will help them be successful. Please see <span class="co">[</span><span class="ot">here</span><span class="co">](http://www.uark.edu/academics/academic-support.php)</span> for more information.</span>
+<span id="cb1-164"><a href="#cb1-164"></a></span>
+<span id="cb1-165"><a href="#cb1-165"></a><span class="fu">## Religious Holidays</span></span>
+<span id="cb1-166"><a href="#cb1-166"></a></span>
+<span id="cb1-167"><a href="#cb1-167"></a>The university does not observe religious holidays; however Campus Council has passed the following resolution concerning individual observance of religious holidays and class attendance:</span>
+<span id="cb1-168"><a href="#cb1-168"></a></span>
+<span id="cb1-169"><a href="#cb1-169"></a><span class="at">&gt; When members of any religion seek to be excused from class for religious reasons, they are expected to provide their instructors with a schedule of religious holidays that they intend to observe, in writing, before the completion of the first week of classes.</span></span>
+<span id="cb1-170"><a href="#cb1-170"></a></span>
+<span id="cb1-171"><a href="#cb1-171"></a><span class="fu"># Schedule</span></span>
+<span id="cb1-172"><a href="#cb1-172"></a></span>
+<span id="cb1-173"><a href="#cb1-173"></a>Weekly breakdown of topics and readings：</span>
+<span id="cb1-174"><a href="#cb1-174"></a></span>
+<span id="cb1-175"><a href="#cb1-175"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-176"><a href="#cb1-176"></a>| Week   | Date   | Topic                                                | Reading                                                                                      | Topic                                           | Slides                                                             | Code/Data                                                             |</span>
+<span id="cb1-177"><a href="#cb1-177"></a>+:=======+:=======+:=====================================================+:=============================================================================================+=================================================+:===================================================================+=======================================================================+</span>
+<span id="cb1-178"><a href="#cb1-178"></a>| 1      | 01/15  | No Class                                             |                                                                                              |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-179"><a href="#cb1-179"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-180"><a href="#cb1-180"></a>| 2      | 01/22  | Introduction to Bayesian Statistics Part I           | SR<span class="ot">[^1]</span> Chapter 1; BDA<span class="ot">[^2]</span> Chapter 1 (Optional)                                               | Course and Bayesian Analysis Introduction       | <span class="co">[</span><span class="ot">Lecture01_Jan22</span><span class="co">](./Lecture01/Lecture01.qmd)</span>                       |                                                                       |</span>
+<span id="cb1-181"><a href="#cb1-181"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-182"><a href="#cb1-182"></a>| 3      | 01/29  | Introduction to Bayesian Statistics Part II          | SR Chapter 2                                                                                 | Introduction to Bayesian Concepts               | <span class="co">[</span><span class="ot">Lecture02_Jan29</span><span class="co">](./Lecture02/Lecture02.qmd)</span>                       |                                                                       |</span>
+<span id="cb1-183"><a href="#cb1-183"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-184"><a href="#cb1-184"></a>| 4      | 02/05  | Bayesian Inference and Computational Methods I       | SR Chapter 9                                                                                 | Linear Regression Model with Stan               | <span class="co">[</span><span class="ot">Lecture03_Feb05</span><span class="co">](./Lecture03/Lecture03.qmd)</span>                       | 1.  <span class="co">[</span><span class="ot">DietGroup.csv</span><span class="co">](./Lecture03/Code/DietData.csv)</span>                    |</span>
+<span id="cb1-185"><a href="#cb1-185"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 2.  <span class="co">[</span><span class="ot">DietDataExample.R</span><span class="co">](./Lecture03/Code/DietDataExample.R)</span>           |</span>
+<span id="cb1-186"><a href="#cb1-186"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 3.  <span class="co">[</span><span class="ot">EmptyModel.stan</span><span class="co">](./Lecture03/Code/EmptyModel.stan)</span>               |</span>
+<span id="cb1-187"><a href="#cb1-187"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 4.  <span class="co">[</span><span class="ot">EmptyModelPoor.stan</span><span class="co">](./Lecture03/Code/EmptyModelPoor.stan)</span>       |</span>
+<span id="cb1-188"><a href="#cb1-188"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-189"><a href="#cb1-189"></a>| 5      | 02/12  | Bayesian Inference and Computational Methods II      | <span class="co">[</span><span class="ot">StanUserGuide:Chapter21</span><span class="co">](https://mc-stan.org/docs/2_18/stan-users-guide/vectorization.html)</span> | Linear Regression Model with Stan II            | <span class="co">[</span><span class="ot">Lecture04_Feb12</span><span class="co">](Lecture04/Lecture04.qmd)</span>                         | 1.  <span class="co">[</span><span class="ot">DietDataExample2.R</span><span class="co">](Lecture04/Code/DietDataExample2.R)</span>           |</span>
+<span id="cb1-190"><a href="#cb1-190"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 2.  <span class="co">[</span><span class="ot">FullModel_Old.stan</span><span class="co">](Lecture04/Code/FullModel_Old.stan)</span>           |</span>
+<span id="cb1-191"><a href="#cb1-191"></a>|        |        |                                                      |                                                                                              |                                                 | <span class="co">[</span><span class="ot">Lecture04:recording.mp4</span><span class="co">](Lecture04/Lecture04_Feb12_recording.mp4)</span> | 3.  <span class="co">[</span><span class="ot">FullModel_New.stan</span><span class="co">](Lecture04/Code/FullModel_New.stan)</span>           |</span>
+<span id="cb1-192"><a href="#cb1-192"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 4.  <span class="co">[</span><span class="ot">FullModel_compute.stan</span><span class="co">](Lecture04/Code/FullModel_compute.stan)</span>   |</span>
+<span id="cb1-193"><a href="#cb1-193"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 5.  <span class="co">[</span><span class="ot">FullModel_contrast.stan</span><span class="co">](Lecture04/Code/FullModel_contrast.stan)</span> |</span>
+<span id="cb1-194"><a href="#cb1-194"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-195"><a href="#cb1-195"></a>| 6      | 02/19  | Bayesian Inference and Computational Methods III     | SR Chapter 9.2 &amp; 9.3                                                                         | Bayesian Model Fit and Comparisons              | <span class="co">[</span><span class="ot">Lecture05_Feb19</span><span class="co">](Lecture05/Lecture05.qmd)</span>                         | 1.  <span class="co">[</span><span class="ot">Lecture05.R</span><span class="co">](Lecture05/Code/Lecture05.R)</span>                         |</span>
+<span id="cb1-196"><a href="#cb1-196"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 2.  <span class="co">[</span><span class="ot">FullModel_PPP.stan</span><span class="co">](Lecture05/Code/FullModel_PPP.stan)</span>           |</span>
+<span id="cb1-197"><a href="#cb1-197"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-198"><a href="#cb1-198"></a>| 7      | 02/26  | Bayesian Modeling Evaluation I: Model diagnosis      | SR Chapter 7.1 &amp; BPM<span class="ot">[^3]</span> Chapter 10                                                          | Bayesian Confirmatory Factor Analysis with Stan | <span class="co">[</span><span class="ot">Lecture06_Feb26</span><span class="co">](Lecture06/Lecture06.qmd)</span>                         | 1.  <span class="co">[</span><span class="ot">Lecture06.R</span><span class="co">](Lecture06/Code/Lecture06.R)</span>                         |</span>
+<span id="cb1-199"><a href="#cb1-199"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 2.  <span class="co">[</span><span class="ot">simulation_loc.stan</span><span class="co">](Lecture06/Code/simulation_loc.stan)</span>         |</span>
+<span id="cb1-200"><a href="#cb1-200"></a>|        |        |                                                      |                                                                                              |                                                 |                                                                    | 3.  <span class="co">[</span><span class="ot">simulation_exp2.stan</span><span class="co">](Lecture06/Code/simulation_exp2.stan)</span>       |</span>
+<span id="cb1-201"><a href="#cb1-201"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-202"><a href="#cb1-202"></a>| 8      | 03/04  | Bayesian Modeling Evaluation II                      | SR Chapter 7.4 &amp; 7.5                                                                         |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-203"><a href="#cb1-203"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-204"><a href="#cb1-204"></a>| 9      | 03/11  | Bayesian Modeling I: CFA                             | BPM Chapter 9                                                                                |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-205"><a href="#cb1-205"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-206"><a href="#cb1-206"></a>| 10     | 03/18  | Spring Break                                         |                                                                                              |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-207"><a href="#cb1-207"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-208"><a href="#cb1-208"></a>| 11     | 03/25  | Bayesian Modeling II: IRT                            | BPM Chapter 11                                                                               |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-209"><a href="#cb1-209"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-210"><a href="#cb1-210"></a>| 12     | 04/01  | Bayesian Modeling III: CDM                           | BPM Chapter 13                                                                               |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-211"><a href="#cb1-211"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-212"><a href="#cb1-212"></a>| 13     | 04/08  | Advanced Topics I: Non-normal data                   |                                                                                              |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-213"><a href="#cb1-213"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-214"><a href="#cb1-214"></a>| 14     | 04/15  | Advanced Topics II: Multilevel                       | SR Chapter 11                                                                                |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-215"><a href="#cb1-215"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-216"><a href="#cb1-216"></a>| 15     | 04/22  | Advanced Topics III: Missing Data, Measurement Error | SR Chapter 15                                                                                |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-217"><a href="#cb1-217"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-218"><a href="#cb1-218"></a>| 16     | 04/29  | Student Presentations                                |                                                                                              |                                                 |                                                                    |                                                                       |</span>
+<span id="cb1-219"><a href="#cb1-219"></a>+--------+--------+------------------------------------------------------+----------------------------------------------------------------------------------------------+-------------------------------------------------+--------------------------------------------------------------------+-----------------------------------------------------------------------+</span>
+<span id="cb1-220"><a href="#cb1-220"></a></span>
+<span id="cb1-221"><a href="#cb1-221"></a>: {.striped .hover .bordered .responsive-xl tbl-colwidths="<span class="sc">\[</span>1,2,17,13,17,20,30<span class="sc">\]</span>"}</span>
+<span id="cb1-222"><a href="#cb1-222"></a></span>
+<span id="cb1-223"><a href="#cb1-223"></a><span class="ot">[^1]: </span>SR: *Statistical Rethinking 2ed Edition* by Richard McElreath</span>
+<span id="cb1-224"><a href="#cb1-224"></a></span>
+<span id="cb1-225"><a href="#cb1-225"></a><span class="ot">[^2]: </span>BDA: *Bayesian Data Analysis* by Gelman et al. (2021)</span>
+<span id="cb1-226"><a href="#cb1-226"></a></span>
+<span id="cb1-227"><a href="#cb1-227"></a><span class="ot">[^3]: </span>BPM: *Bayesian Psychometric Modeling* by Levy, Mislevy (2016)</span>
+<span id="cb1-228"><a href="#cb1-228"></a></span>
+<span id="cb1-229"><a href="#cb1-229"></a>Academic calendar for Spring 2024: <span class="co">[</span><span class="ot">Here</span><span class="co">](https://registrar.uark.edu/academic-dates/academic-semester-calendar/spring-2024-january-intersession-2024.php)</span></span>
+<span id="cb1-230"><a href="#cb1-230"></a></span>
+<span id="cb1-231"><a href="#cb1-231"></a><span class="fu"># Other Online Materials</span></span>
+<span id="cb1-232"><a href="#cb1-232"></a></span>
+<span id="cb1-233"><a href="#cb1-233"></a><span class="fu">## Applied Statistics</span></span>
+<span id="cb1-234"><a href="#cb1-234"></a></span>
+<span id="cb1-235"><a href="#cb1-235"></a><span class="ss">1.  </span><span class="co">[</span><span class="ot">Bayesian Data Analysis, by Andrew Gelman, John Carlin, Hal Stern, David Dunson, Aki Vehtari, and Donald Rubin.</span><span class="co">](http://www.stat.columbia.edu/~gelman/book/BDA3.pdf)</span></span>
+<span id="cb1-236"><a href="#cb1-236"></a></span>
+<span id="cb1-237"><a href="#cb1-237"></a><span class="fu">## Cognitive Science</span></span>
+<span id="cb1-238"><a href="#cb1-238"></a></span>
+<span id="cb1-239"><a href="#cb1-239"></a><span class="ss">1.  </span><span class="co">[</span><span class="ot">An Introduction to Bayesian Data Analysis for Cognitive Science, by Bruno Nicenboim, Daniel Schad, and Shravan Vasishth)</span><span class="co">](https://vasishth.github.io/bayescogsci/book/)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2015-2024, JihongZhang</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
+
+
+
+
+</body></html>

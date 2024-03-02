@@ -1,0 +1,146 @@
+// Include theme-specific fonts
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+
+
+/*-- scss:defaults --*/
+// Override theme settings (see ../template/settings.scss)
+// Base settings for all themes that can optionally be
+// overridden by the super-theme
+// see https://github.com/mcanouil/quarto-revealjs-storybook/blob/main/_extensions/storybook/storybook.scss for more details of SCSS variables
+
+$font-family-sans-serif: "Hina Mincho", "Jost", Palatino, FreeSerif, serif !default;
+$font-family-monospace: 'Ubuntu Mono', 'Inconsolata', monospace !default;
+
+// code chunk
+//$code-block-bg: #fdfdfd ;
+// $fontcolor: #333;
+$code-block-font-size: 0.6em;
+
+table {
+  font-size: .8em
+}
+
+// picture
+.picture {
+  border-style: solid;
+  border-width: 3pt;
+  border-color: #b22222;
+  border-radius: 50%;
+  padding: 5pt;
+  height: 50%;
+  width: auto;
+}
+
+.reveal {
+  // background-image: "_extensions/cover.jpg" !important;
+  // background-size: cover;
+  outline: thick double #EEB422;
+  outline-offset: -10px;
+
+  .backgrounds {
+    z-index: -1;
+  }
+}
+
+#title-slide {
+  // Title
+  .title, .subtitle {
+    opacity: 0.80;
+    margin-top: 1.8em;
+    margin-bottom: 0px;
+    font-weight: 700;
+    font-family: "Jost";
+    text-shadow: 2px 2px 2px #b22222;
+    color: #EEB422 !important;
+  }
+
+  .institute, .quarto-title-author, .date {
+    opacity: 0.50;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1em;
+    color: #333 !important;
+  }
+
+  p,
+  a,
+  .slide-menu-button,
+  .footer,
+  .footer a,
+  .slide-number,
+  .reveal.has-logo .slide-number {
+    color: #333 !important;
+  }
+  
+}
+
+.footer {
+  // bottom: 17px !important;
+  bottom: 6px !important;
+  color: #b22222 !important;
+  a {
+    font-size: 0.8em;
+    color: #b22222 !important;
+  }
+}
+// Background of the presentation
+$backgroundColor: #fcfbf9;
+
+// Primary/body text
+$presentation-font-size-root: 26px;
+$mainColor: #333;
+
+// Vertical spacing between blocks of text
+$blockMargin: 13px;
+
+// Headings
+$headingMargin: 0 0 $blockMargin 0;
+$headingFont: 'Jost', Impact, sans-serif;
+$headingColor: #EEB422;
+$headingLineHeight: 1.2;
+$headingLetterSpacing: normal;
+$headingTextTransform: none;
+$headingTextShadow: 2px 2px 2px #b22222;
+$headingFontWeight: normal;
+$heading1TextShadow: $headingTextShadow;
+
+$heading1Size: 1.88em;
+$heading2Size: 1.55em;
+$heading3Size: 1.33em;
+$heading4Size: 1.00em;
+
+// Links and actions
+$linkColor: #437597;
+$linkColorHover: darken( $linkColor, 20% );
+
+// Text selection
+$selectionBackgroundColor: #FF5E99;
+$selectionColor: #fff;
+
+// logo
+.slide-logo {
+  z-index: 25;
+  display: block !important;
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 35px !important;
+  max-height: 5% !important;
+  height: 100% !important;
+  width: auto !important;
+}
+
+#title-slide {
+  top: 0 !important;
+}
+
+#title-slide > .author:first-of-type {
+  margin-top: 320px;
+}
+
+

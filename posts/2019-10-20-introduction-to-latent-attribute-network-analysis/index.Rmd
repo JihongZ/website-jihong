@@ -1,0 +1,92 @@
+---
+title: Introduction to Latent Attribute Network Analysis
+summary: "A brief introduction of using Network Model to visualize latent attributes' hierarchy of Diagnostic Modeling."
+toc: true
+date: '2019-10-20'
+slug: introduction-to-latent-attribute-network-analysis
+categories:
+  - blog
+  - Network
+  - DCM
+draft: false
+---
+
+> Network analysis is a very useful tool. This post show how to visualize the latent attribute network in Diagnostic Classification Modeling(DCM). There are a ton of R package could be used to visualize network structure.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,fig.align = "default", eval = TRUE)
+```
+
+```{r pacs, echo=TRUE}
+library(CDM)
+library(tidyverse)
+library(network)
+```
+
+## Data Preparation
+
+I will use a simulated hierachial data from `CDM` package. The *node.list* depicts the traget nodes and starting nodes. Those information could be extracted from the $Q^{T}Q$ square matrix, in which $Q$ is the Q matrix of the model.
+
+As shown below, there are 6 latent attributes including A1, A2, A3, B1, C1, C2. The A attributes share common items and the C attributes share common items but B attribute does not share common items with other attributes. The numbers in each cell represents the number of items shared by the pair of attributes. The number of common items will be used for the weights of network edges.
+
+```{r}
+data("data.cdm10")
+q.matrix <- data.cdm10$q.matrix
+t(q.matrix) %*% q.matrix
+
+## prepare the edge and node table based on t(Q)%*%Q
+edge.list = tibble(from = c(1,1,2,2,3,3,5,6), 
+                   to = c(2,3,1,3,1,2,6,5), 
+                   weight = c(4,2,4,2,2,2,3,3))
+node.list = tibble(label = c("A1", "A2", "A3", "B1", "C1", "C2")) %>% rowid_to_column("id")
+
+```
+
+## `Network` package
+
+```{r}
+## Network package
+library(network)
+routes_work <- network(x = edge.list, vertex.attr = node.list, 
+                       matrix.type = "edgelist", ignore.eval = FALSE)
+plot(routes_work, vertex.cex = 3, mode = "circle")
+```
+
+## `igraph` package
+
+```{r}
+## igraph package 
+detach(package:network)
+rm(routes_work)
+library(igraph)
+routes_igraph <- graph_from_data_frame(d = edge.list, vertices = node.list, directed = TRUE)
+plot(routes_igraph, edge.arrow.size = 0.5, layout = layout_with_graphopt)
+```
+
+## `tidygraph` and `ggraph`
+
+```{r}
+library(tidygraph)
+library(ggraph)
+routes_tidy <- tbl_graph(nodes = node.list, edges = edge.list, directed = FALSE)
+```
+
+```{r}
+ggraph(routes_tidy, layout = "graphopt") + 
+  geom_node_point() +
+  geom_edge_link(aes(width = weight), alpha = 0.8) + 
+  scale_edge_width(range = c(0.2, 2)) +
+  geom_node_text(aes(label = label), repel = TRUE) +
+  labs(edge_width = "Number of Common Items") +
+  theme_graph()
+```
+
+```{r}
+### Linear Layout
+ggraph(routes_tidy, layout = "linear") + 
+  geom_edge_arc(aes(width = weight), alpha = 0.8) + 
+  scale_edge_width(range = c(0.2, 2)) +
+  geom_node_text(aes(label = label)) +
+  labs(edge_width = "Number of Common Items") +
+  theme_graph()
+```

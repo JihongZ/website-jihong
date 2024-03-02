@@ -1,0 +1,23 @@
+---
+title: '[Pre-print] A Model Comparison Approach to Posterior Predictive Model Checks in Bayesian Confirmatory Factor Analysis'
+author: Jihong
+date: '2021-01-31'
+slug: 
+draft: false
+categories:
+  - R
+tags:
+  - Tutor
+---
+
+## Abstract
+
+Posterior Predictive Model Checking (PPMC) is frequently used for model fit evaluation in Bayesian Confirmatory Factor Analysis (BCFA). In standard PPMC procedures, model misfit is quantified by the location of a ML-based estimate to the predictive distribution of a statistic for a model. When the ML-based point estimate is far away from the center of the density of the posterior predictive distribution, model fit is poor. One main critique of such standard PPMC procedures is the strong link to the ML-based point estimates of the observed data. Not included in this approach, however, is how variable the ML-based point estimates are and their use in general as the reference point for Bayesian analyses. We propose a new method of PPMC based on the Posterior Predictive distribution of Bayesian saturated model for BCFA models. The method uses the predictive distribution from parameters of the posterior distribution of the saturated model as reference to detect the local misfit of hypothesized models. The results of the simulation study suggest that the saturated model PPMC approach was an accurate method of determining local model misfit and could be used for model comparison. A real example is also provided in this study.
+
+## Citation
+
+Zhang, J., Templin, J., & Mintz, C. E. (2021, February 9). A Model Comparison Approach to Posterior Predictive Model Checks in Bayesian Confirmatory Factor Analysis. https://doi.org/10.31234/osf.io/rf64x
+
+## Download
+
+The document can be viewed and downloaded [here](/files/publications/ppmc_cfa.pdf).

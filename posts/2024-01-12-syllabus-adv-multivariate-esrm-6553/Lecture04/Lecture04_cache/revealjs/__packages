@@ -1,0 +1,7 @@
+StanHeaders
+rstan
+cmdstanr
+bayesplot
+tidyr
+dplyr
+ggplot2

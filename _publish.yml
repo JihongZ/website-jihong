@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 7b06112d-4fa7-4a6c-8a16-e8cfeda8b050
+      url: 'https://jihongzhang.org'

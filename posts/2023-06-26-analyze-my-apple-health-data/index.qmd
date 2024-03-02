@@ -1,0 +1,22 @@
+---
+title: "Analyze Apple Health data"
+author: "Jihong Zhang"
+description: ""
+date: "2023-06-26"
+categories: []
+draft: true
+---
+
+> Inspire by these two blogs: [new one](https://www.rostrum.blog/2023/06/11/apple-health-redux/) and [old one](https://www.rostrum.blog/2021/03/23/xml-health/#warm-up), I ignited my interests in analyzing my Apple Health data again! I have [tried it out before](../2021-07-06-health-care-data-analysis-with-apple-watch/index.en.Rmd), but in that post, I stopped with printing a table of my health data. This time I want to do more data visualization.
+
+```{r}
+pacman::p_load('xml2', 
+               'patchwork' # for easy plot layouts
+               )
+```
+
+```{r}
+
+```
+
+

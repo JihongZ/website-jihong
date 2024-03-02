@@ -1,0 +1,38 @@
+---
+title: 'Useful Blog Resource: Bayesian Analysis'
+author: Jihong Zhang
+date: '2022-05-10'
+draft: true
+slug: useful-blog-resource-bayesian-analysis
+categories: ["Blog", "Resource"]
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-05-10T22:06:10-05:00'
+featured: no
+projects: []
+toc: true
+---
+
+This is a checklist for some useful blogs.
+
+
+## Model Selection
+
++ [Joshua Loftus’ website](https://joshualoftus.com/)
+  1. [Model Selection Bias Invalidates Significance Tests](https://joshualoftus.com/posts/2020-12-22-model-selection-bias-invalidates-significance-tests/)
+  
++ [Aki Vehtari's website](https://avehtari.github.io/modelselection/index.html)
+  1. [Bayesian variable selection use rstanarm](https://avehtari.github.io/modelselection/candy.html)
+  
++ [Anjali Agarwal's thesis](https://etd.ohiolink.edu/apexprod/rws_etd/send_file/send?accession=osu1461940937&disposition=inline)
+
+## Practical Bayesian Analysis
+
++ [Michael Clark's website](https://m-clark.github.io/)
+  1. [Practical Bayes Part I](https://m-clark.github.io/posts/2021-02-28-practical-bayes-part-i/)
+
+## Markdown
+
++ [Short Interactive Markdown Tutorial](https://commonmark.org/help/tutorial/)

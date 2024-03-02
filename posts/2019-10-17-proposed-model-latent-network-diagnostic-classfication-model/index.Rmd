@@ -1,0 +1,30 @@
+---
+title: 'Latent Networking Diagnostic Classfication Modeling'
+author: Jihong Zhang
+date: '2019-10-17'
+slug: proposed-model-latent-network-diagnostic-classfication-model
+categories:
+  - blog
+  - proposal
+tags:
+  - DCM
+  - Network
+draft: true
+---
+
+![Fig1](/img/Fig1_LNDCM.png)
+This post aims to discuss the possibility of combining Diagnostic Classification Model (DCM) with Network Modeling. Epskamp(2017) introduces a network model as a formal psychometric model by conceptualizing the covariance between psychometric indicators as resulting from pairwise interactions between observable variabls in a network structure.
+
+$$
+\alpha_1 = \beta_{12}\alpha_2 +\beta_{13}\alpha_3 +...+\beta_{1k}\alpha_k \\
+\alpha_2 = \beta_{21}\alpha_1 + \beta_{23}\alpha_3 +...+\beta_{2k}\alpha_k \\
+\vdots \\
+\alpha_{k} = \beta_{k1}\alpha_1 + \beta_{k2}\alpha_2 + ... +\beta_{(k-1)k}\alpha_k\\
+$$
+
+where $\alpha_k$ is the $k$th latent attributes and $\beta$ is the conditional independence relationships between latent attributes. For example, $\beta_{12}$ the conditional relationship between $\alpha_1$ and $\alpha_2$ when controlling for other attributes.
+
+While DCM is a powerful tool for understanding the attribute profiles of individuals, this is not fully efficient when estimating and testing the Hierarchical structue of latent attributes (Templin & Bradshaw, 2014). The LNDCM could be employed to examine the relationships among latent attributes and then help better understand the kownledge structure.
+
+## Reference
+Jonathan T, Laine Bradshaw, 2014. THE USE AND MISUSE OF PSYCHOMETRIC MODELS

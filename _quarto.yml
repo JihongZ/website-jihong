@@ -1,0 +1,104 @@
+project:
+  type: website
+  output-dir: "_site"
+    
+website:
+  title: "Jihong Z. - Play Harder and Learn Harder"
+  site-url: "https://www.jihongzhang.org/"
+  favicon: "images/icon.png"
+  description: "Technical and Statistical but Fun"
+  google-analytics:
+    tracking-id: "UA-149871707-1"
+  page-navigation: true
+  back-to-top-navigation: true
+  reader-mode: true
+  twitter-card: 
+    creator: "@jihongzgamma"
+  open-graph: true
+  page-footer: "Copyright 2015-2024, JihongZhang" 
+  
+  # starting sidebar
+  sidebar:
+    style: "floating"
+    logo: "images/jihonglogo.png"
+    search: true
+    collapse-level: 0
+    contents:
+      - section: ESRM6553-Adv.Multivariate
+        contents: 
+          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
+          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
+          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd
+          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.qmd
+          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.qmd
+          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.qmd
+  navbar:
+    #background: '#FFFFFF'
+    collapse-below: lg
+    pinned: true
+    title: "<span class='icon-line'></span>JZ<span class='icon-line'></span>"
+    right:
+      - text: "<span class='menutext-home'>Home</span><span class='text-line'></span>"
+        icon: 'bi bi-house' # https://icons.getbootstrap.com
+        file: index.qmd
+      - text: "<span class='menutext-blog'>Blog</span><span class='text-line-blog'></span>"     
+        icon: 'bi bi-pencil-square'
+        file: posts.qmd 
+      - text: "<span class='menutext-db'>Dashboard</span><span class='text-line-db'></span>"
+        icon: "bi bi-speedometer2"
+        file: dashboards/template.qmd  
+      - text: "<span class='menutext-cv'>C.V.</span><span class='text-line-cv'></span>"
+        icon: "bi bi-person" # somehow the file path only works in nav. bar, not link in index
+        file: uploads/Curriculum_Vitae.pdf
+      - text: "<span class='menutext-pj'>Projects</span><span class='text-line-pj'></span>"
+        icon: 'bi bi-three-dots'
+        file: projects.qmd
+    
+format:
+  html:
+    theme: 
+      light: [default, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
+      dark: [darkly, assets/rwds-dark.scss]
+    css: assets/rwds.css
+    highlight-style:
+      light: assets/custom-light.theme
+      dark: assets/custom-dark.theme
+    grid:
+      sidebar-width: 250px
+      body-width: 900px
+      margin-width: 250px
+    comments:
+      giscus:
+        repo: JihongZ/quarto-academic-jihong
+    header-includes: |
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/@xiee/utils/js/key-buttons.min.js" defer></script>
+      <link href="https://cdn.jsdelivr.net/npm/@xiee/utils/css/key-buttons.min.css" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    html-math-method: katex
+    lightbox: true # Lightbox Figure
+    # code settings
+    fontsize: 1.1em
+    mainfont: 'Palatino'
+    monofont: 'JetBrains Mono'
+    code-link: true
+    code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
+    code-line-numbers: true
+    code-overflow: scroll
+    code-fold: true
+    linestretch: 1.5
+    # toc
+    toc: true
+    table-of-contents: true
+    toc-location: right
+    fig-cap-location: margin # put captions of figure in the margin
+    reference-location: margin
+    citation-location: margin
+    footnotes-hover: true
+    
+editor: visual
+
+execute: 
+  freeze: true

@@ -1,0 +1,10 @@
+---
+title: "Communities in psychometric networks?"
+author: "Jihong Zhang"
+description: ""
+date: "2023-07-07"
+categories: []
+draft: true
+---
+
+A friend of mine talk to me: in her recent research, a network without community defined has different estimation with the one with community define. A [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) talks about community detection in psychometric network analysis.

@@ -1,0 +1,88 @@
+---
+title: Make a Game in R
+author: jihong
+date: '2019-04-19'
+slug: make-a-game-in-r
+categories:
+  - blog
+tags:
+  - Blog
+authors: []
+---
+
+> Recently I found a interesting R package call nessy which allows you to create a simple game driven by shiny. Thus. I tried a little bit about this package. Making a interactive app in R is promising in the files like teaching, presentation and visualization.
+
+Finally, I created the following shiny app:
+
+```{r eval=FALSE, echo=TRUE}
+library(nessy)
+library(shinyjs)
+
+jscode <- "shinyjs.closeWindow = function() { window.close(); }"
+ui <- cartridge(
+  title = "{Memorize the Names!}",
+  subtitle = "Do you have some names to memorize in few minutes? Try this game!",
+  container_with_title(
+    title = "Names you want to memorize (i.e. Jonathan, Lesa)"
+  ),
+  container_with_title(
+    title = "Add a Name",
+    text_input(id = "name1", label = "Name", placeholder = "Jonathan Templin"),
+    text_input(id = "key", label = "Keys", placeholder = "Iowa/DCM"),
+    htmlOutput("namelist"),
+    button_primary(id = "add", "Add")
+  ),
+  button_success(id = "play", "Play the Game"),
+  useShinyjs(),
+  extendShinyjs(text = jscode, functions = c("closeWindow")),
+  button_error(id = "close", "Close Window"),
+  
+  # Game pages
+  uiOutput("gamepage")
+)
+
+
+server <- function(input, output, session) {
+  names <- reactiveValues(
+    oldnames = "",
+    allnames = NULL,
+    allkeys = NULL
+  )
+  
+  observeEvent(input$add, {
+    names$oldnames = paste(names$oldnames, "<br>", input$name1, "  <==>  ", input$key)
+    names$allnames = c(names$allnames, input$name1)
+    names$allkeys = c(names$allkeys, input$key)
+    output$namelist <- renderText(names$oldnames)
+  })
+  
+  observeEvent(input$play, {
+    selectedkey <- sample(names$allkeys, 1)
+    selectedname <- names$allnames[names$allkeys == selectedkey]
+    output$gamepage <- renderUI({
+      container_with_title(
+        paste("Key:", selectedkey),
+        text_input(id = "guessname", label = "Guess a Name", placeholder = "Jonathan")
+      )
+    })
+  })
+
+
+  observeEvent(input$close, {
+    js$closeWindow()
+    stopApp()
+  })
+  
+}
+
+shiny::shinyApp(ui, server)
+
+
+
+```
+
+The game is like this:
+
+<iframe width="900" height="900" scrolling="no" frameborder="no" src="https://jihongz.shinyapps.io/Game_with_R/">
+
+</iframe>

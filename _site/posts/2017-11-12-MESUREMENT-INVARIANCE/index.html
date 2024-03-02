@@ -1,0 +1,3054 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.21">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Jihong Zhang">
+<meta name="dcterms.date" content="2017-11-12">
+<title>Dr. Jihong Zhang – One Example of Measurement Invariance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../icon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-149871707-1', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils/js/key-buttons.min.js" defer=""></script><link href="https://cdn.jsdelivr.net/npm/@xiee/utils/css/key-buttons.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+<meta property="og:title" content="Dr.&nbsp;Jihong Zhang - One Example of Measurement Invariance">
+<meta property="og:description" content="Technical and Statistical but Fun">
+<meta property="og:site_name" content="Dr. Jihong Zhang">
+<meta name="twitter:title" content="Dr.&nbsp;Jihong Zhang - One Example of Measurement Invariance">
+<meta name="twitter:description" content="Technical and Statistical but Fun">
+<meta name="twitter:creator" content="@jihongzgamma">
+<meta name="twitter:card" content="summary">
+</head>
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-bi bi-house" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
+</i> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
+</i> 
+<span class="menu-text">Dashboard</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../uploads/Curriculum_Vitae.pdf"> <i class="bi bi-bi bi-person" role="img">
+</i> 
+<span class="menu-text">C.V.</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-bi bi-three-dots" role="img">
+</i> 
+ <span class="menu-text">More</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-more">
+<li>
+    <a class="dropdown-item" href="../../projects.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../links.html">
+ <span class="dropdown-text">About</span></a>
+  </li>  
+    </ul>
+</li>
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">One Example of Measurement Invariance</li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Lecture Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Posts</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">2024 01 12 Syllabus Adv Multivariate Esrm 6553</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Lecture01</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 01</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Lecture02</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 02</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Lecture03</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 03</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Lecture04</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 04</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Lecture05</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 05</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Lecture06</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 06</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+      </ul>
+</li>
+      </ul>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#what-is-measurement-invariance-mi" id="toc-what-is-measurement-invariance-mi" class="nav-link active" data-scroll-target="#what-is-measurement-invariance-mi"><span class="header-section-number">1</span> What is Measurement Invariance (MI)?</a>
+  <ul class="collapse">
+<li>
+<a href="#an-example-of-multiple-group-cfa-invariance" id="toc-an-example-of-multiple-group-cfa-invariance" class="nav-link" data-scroll-target="#an-example-of-multiple-group-cfa-invariance"><span class="header-section-number">1.1</span> An example of Multiple Group CFA Invariance:</a>
+  <ul class="collapse">
+<li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import"><span class="header-section-number">1.1.1</span> Data Import</a></li>
+  <li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification"><span class="header-section-number">1.1.2</span> Model Specification</a></li>
+  <li><a href="#model-options" id="toc-model-options" class="nav-link" data-scroll-target="#model-options"><span class="header-section-number">1.1.3</span> Model Options</a></li>
+  <li><a href="#runing-model" id="toc-runing-model" class="nav-link" data-scroll-target="#runing-model"><span class="header-section-number">1.1.4</span> Runing Model</a></li>
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison"><span class="header-section-number">1.1.5</span> Model Comparison</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#structual-invariance-tests" id="toc-structual-invariance-tests" class="nav-link" data-scroll-target="#structual-invariance-tests"><span class="header-section-number">1.2</span> STRUCTUAL INVARIANCE TESTS</a>
+  <ul class="collapse">
+<li><a href="#factor-variance-invariance-model" id="toc-factor-variance-invariance-model" class="nav-link" data-scroll-target="#factor-variance-invariance-model"><span class="header-section-number">1.2.1</span> Factor Variance Invariance Model</a></li>
+  <li><a href="#factor-mean-invariance-model" id="toc-factor-mean-invariance-model" class="nav-link" data-scroll-target="#factor-mean-invariance-model"><span class="header-section-number">1.2.2</span> Factor Mean Invariance Model</a></li>
+  <li><a href="#model-comparison-1" id="toc-model-comparison-1" class="nav-link" data-scroll-target="#model-comparison-1"><span class="header-section-number">1.2.3</span> Model Comparison</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">One Example of Measurement Invariance</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">SEM</div>
+    <div class="quarto-category">lavaan</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jihong Zhang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 12, 2017</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><blockquote class="blockquote">
+<p>Recently, I was asked by my friend why should we use Measurement Invariance in real research. Why not just ignore this complex and tedious process? As far I’m concerned, measurement invariance should be widely used if you have large data scale and figure out what’s going on between groups difference. In this post, I want to elaborate some problems in <strong>Measurement Invariance</strong>: 1) What is measurement invariance 2) why should we care about measurement invariance 3) how to do measurement invariance using R <code>Lavaan</code> Package.</p>
+</blockquote>
+<p><img src="model_compare.png" class="img-fluid"></p>
+<section id="what-is-measurement-invariance-mi" class="level1" data-number="1"><h1 data-number="1">
+<span class="header-section-number">1</span> What is Measurement Invariance (MI)?</h1>
+<p>In my advisor Jonathan’s lectures slide, MI is a testing tool for investigating “whether indicators measure the same construct in the same way in different groups or over time/condition”. If so, the indicator response should depend only on latent trait scores.</p>
+<p>It is a neat and clear definition of MI. In my opinion, we should first know different piles of variances of indicator responses. We know that in CFA, latent trait is identified by covariances among indicators. Imaging your items responses have significant group difference (male with female, international students with native speaker), there are at least three sources of distinct:</p>
+<p>(I start from 0 numbering because I love Python!)</p>
+<ol start="0" type="1">
+<li><p>the measurement measure different traits for groups</p></li>
+<li><p>the difference of true latent trait (<span class="math inline">\theta</span>)</p></li>
+<li><p>the difference of effects of trait on measurements (<span class="math inline">\lambda</span>).</p></li>
+</ol>
+<p>The zero and first are easy to understand. For international math assessment, it may measure native speaker’s math ability but on the other hand measures English proficiency of international students.Or if male and female have different math ability, they might (not must) have different item responses on math assessment.</p>
+<p>The final group difference means, even if male and females have exactly same level of trait, they will still have different item responses since same item reflect efficiently or not efficiently the latent trait for male and female. For example, one item of Daily Living Ability Survey is “How often do you cook in a week?”. The item may be biased toward men, because most males may hate cooking but still have high daily living ability (such as driving, fixing), some females loving cooking but have low daily living ability. Thus, this item doesn’t account for female’s or men’s daily ability at same extent.</p>
+<p>Actually all parameters in CFA model (factor variances, factor covariance, factor means, factor loadings, item intercepts and residential variances, co-variances) could be different for different groups. Testing the difference coming from factor part is called Structural invariance. Testing the difference coming from measurement part is called Measurement Invariance. In previous paragraph, the 0st and 1st differences are measured by Structural Invariance. The 3rd differences are measured by Measurement Invariance.</p>
+<section id="an-example-of-multiple-group-cfa-invariance" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="an-example-of-multiple-group-cfa-invariance">
+<span class="header-section-number">1.1</span> An example of Multiple Group CFA Invariance:</h2>
+<p>This example data is from Brown Chapter 7. Major Depression Criteria across Men and Women (n =345)</p>
+<p>9 items rated by clinicians on a scale of 0 to 8 (0=none, 8 =very severely disturbing/disabling)</p>
+<ol type="1">
+<li>Depressed mood</li>
+<li>Loss of interest in usual activities</li>
+<li>Weight/appetite change</li>
+<li>Sleep disturbance</li>
+<li>Psychomotor agitation/retardation</li>
+<li>Fatigue/loss of energy</li>
+<li>Feelings of worthless/guilt</li>
+<li>Concentration difficulties</li>
+<li>Thoughts of death/suicidality</li>
+</ol>
+<p>Jonathan in his Measurement Invariance Example elaborated the manual version so that learner could learn what you are doing first. I will show you how to use shortcuts.</p>
+<section id="data-import" class="level3" data-number="1.1.1"><h3 data-number="1.1.1" class="anchored" data-anchor-id="data-import">
+<span class="header-section-number">1.1.1</span> Data Import</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10
+1  0  5  4  1  6  5  6  5  4   2
+2  0  5  5  5  5  4  5  4  5   4
+3  0  4  5  4  2  6  6  0  0   0
+4  0  5  5  3  3  5  5  6  4   0
+5  0  5  5  0  5  0  4  6  0   0
+6  0  6  6  4  6  4  6  5  6   2</code></pre>
+</div>
+</div>
+<p>The sample size of female reference groups is as same as the male. The model for 2 groups should be same and check how many changes are allowed to differ.</p>
+</section><section id="model-specification" class="level3" data-number="1.1.2"><h3 data-number="1.1.2" class="anchored" data-anchor-id="model-specification">
+<span class="header-section-number">1.1.2</span> Model Specification</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model1.config</span> <span class="op">&lt;-</span> <span class="st">"</span></span>
+<span><span class="st"># Constrain the factor loadings and intercepts of marker variable in ALL groups</span></span>
+<span><span class="st"># depress =~ c(L1F, L1M)*item1 + c(L2F, L2M)*item2 + c(L3F, L3M)*item3 +</span></span>
+<span><span class="st">#            c(L4F, L4M)*item4 + c(L5F, L5M)*item5 + c(L6F, L6M)*item6 + </span></span>
+<span><span class="st">#            c(L7F, L7M)*item7 + c(L8F, L8M)*item8 + c(L9F, L9M)*item9</span></span>
+<span><span class="st">depress =~ item1 + item2 + item3 +</span></span>
+<span><span class="st">           item4 + item5 + item6 + </span></span>
+<span><span class="st">           item7 + item8 + item9</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">#Item intercepts all freely estimated in both groups with label for each group</span></span>
+<span><span class="st">item1 ~ 1; item2 ~ 1; item3 ~ 1; </span></span>
+<span><span class="st">item4 ~ 1; item5 ~ 1; item6 ~ 1; </span></span>
+<span><span class="st">item7 ~ 1; item8 ~ 1; item9 ~ 1;</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">#Redidual variances all freely estimated with label for each group</span></span>
+<span><span class="st">item1 ~~ item1; item2 ~~ item2; item3 ~~ item3; </span></span>
+<span><span class="st">item4 ~~ item4; item5 ~~ item5; item6 ~~ item6; </span></span>
+<span><span class="st">item7 ~~ item7; item8 ~~ item8; item9 ~~ item9;</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">#Residual covariance freely estimated in both groups with label for each group</span></span>
+<span><span class="st">item1 ~~ item2</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">#==================================================</span></span>
+<span><span class="st">#Factor variance fixed to 1 for identification in each group</span></span>
+<span><span class="st">depress ~~ c(1,NA)*depress</span></span>
+<span><span class="st"></span></span>
+<span><span class="st">#Factor mean fixed to zero for identification in each group</span></span>
+<span><span class="st">depress ~ c(0,NA)*0</span></span>
+<span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section><section id="model-options" class="level3" data-number="1.1.3"><h3 data-number="1.1.3" class="anchored" data-anchor-id="model-options">
+<span class="header-section-number">1.1.3</span> Model Options</h3>
+<p>Configural Invariance Model is the first-step model which allows all estimation different for two groups except that mean and variance of factor are fixed to 0 and 1, because the model uses z-score scalling.</p>
+<p>Compared to configural invariance, metic invariance model constrains the factor loadings for two groups equal with each other. To test metric invariance, we could use absolute model fit indices (CFI, TLI, RMSEA, SRMR) and comparable model fit indices (Log-likelihood test). It deserves noting that in metric invariance model, factor means are still constrained to be equal for two groups but the variances of factor are different. The variance of factor for reference group is fixed to 1 but that for other group is free to estimate. Since if we constrain both factor loadings and factor variances to equal, then the residual variances of items will also be equal. This is next step. Freeing one group’s factor variance will let model not too strict to Residual Variance.</p>
+<p>Next model is Scalar Invariance Model, which constrain the intercepts of items to be equal.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit.config</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
+<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
+<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
+<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lv.variances"</span>, <span class="st">"means"</span><span class="op">)</span><span class="op">)</span> <span class="co"># latent variance both equal to 1</span></span>
+<span>                  </span>
+<span><span class="va">fit.metric</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
+<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
+<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
+<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>, <span class="st">"means"</span><span class="op">)</span><span class="op">)</span> <span class="co"># factor mean should be equal to 0</span></span>
+<span><span class="va">fit.scalar</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
+<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
+<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
+<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>,<span class="st">"intercepts"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># same: factor loadings, item intercepts</span></span>
+<span><span class="co"># different: reference factor mean is 1, another factor mean is 0</span></span>
+<span></span>
+<span><span class="va">fit.scalar2</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
+<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
+<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
+<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>,<span class="st">"intercepts"</span><span class="op">)</span>,</span>
+<span>                  group.partial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"item7~1"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fit.strict</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
+<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
+<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
+<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>,<span class="st">"intercepts"</span>, <span class="st">"residuals"</span><span class="op">)</span>,</span>
+<span>                  group.partial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"item7~1"</span>, <span class="st">"item7~~item7"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">fit.strict.cov</span> <span class="op">&lt;-</span> <span class="fu">sem</span><span class="op">(</span><span class="va">model1.config</span>, data <span class="op">=</span> <span class="va">mddAll</span>, </span>
+<span>                  meanstructure <span class="op">=</span> <span class="cn">T</span> , std.lv <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                  estimator <span class="op">=</span> <span class="st">"MLR"</span>, mimic <span class="op">=</span> <span class="st">"mplus"</span>,</span>
+<span>                  group <span class="op">=</span> <span class="st">"sex"</span>,</span>
+<span>                  group.equal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"loadings"</span>,<span class="st">"intercepts"</span>, <span class="st">"residuals"</span>, </span>
+<span>                                  <span class="st">"residual.covariances"</span><span class="op">)</span>,</span>
+<span>                  group.partial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"item7~1"</span>, <span class="st">"item7~~item7"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="runing-model" class="level3" data-number="1.1.4"><h3 data-number="1.1.4" class="anchored" data-anchor-id="runing-model">
+<span class="header-section-number">1.1.4</span> Runing Model</h3>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.config</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.17 ended normally after 47 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        56
+
+  Number of observations per group:                   
+    Female                                         375
+    Male                                           375
+  Number of missing patterns per group:               
+    Female                                           1
+    Male                                             1
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                                98.911      94.175
+  Degrees of freedom                                52          52
+  P-value (Chi-square)                           0.000       0.000
+  Scaling correction factor                                  1.050
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    Female                                      52.954      50.418
+    Male                                        45.957      43.756
+
+Model Test Baseline Model:
+
+  Test statistic                              1343.575    1218.364
+  Degrees of freedom                                72          72
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.103
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.963       0.963
+  Tucker-Lewis Index (TLI)                       0.949       0.949
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.965
+  Robust Tucker-Lewis Index (TLI)                            0.952
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13706.898  -13706.898
+  Scaling correction factor                                  0.981
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -13657.442  -13657.442
+  Scaling correction factor                                  1.014
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               27525.796   27525.796
+  Bayesian (BIC)                             27784.520   27784.520
+  Sample-size adjusted Bayesian (SABIC)      27606.698   27606.698
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.049       0.047
+  90 Percent confidence interval - lower         0.034       0.031
+  90 Percent confidence interval - upper         0.064       0.061
+  P-value H_0: RMSEA &lt;= 0.050                    0.522       0.636
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.048
+  90 Percent confidence interval - lower                     0.032
+  90 Percent confidence interval - upper                     0.063
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.581
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.039       0.039
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Female]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1             1.251    0.095   13.155    0.000    1.251    0.730
+    item2             1.385    0.103   13.426    0.000    1.385    0.688
+    item3             0.911    0.104    8.775    0.000    0.911    0.435
+    item4             1.140    0.115    9.874    0.000    1.140    0.516
+    item5             1.015    0.106    9.615    0.000    1.015    0.477
+    item6             1.155    0.103   11.238    0.000    1.155    0.577
+    item7             0.764    0.115    6.618    0.000    0.764    0.371
+    item8             1.224    0.113   10.817    0.000    1.224    0.569
+    item9             0.606    0.094    6.412    0.000    0.606    0.339
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.393    0.166    2.364    0.018    0.393    0.230
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             4.184    0.089   47.258    0.000    4.184    2.440
+   .item2             3.725    0.104   35.848    0.000    3.725    1.851
+   .item3             1.952    0.108   18.058    0.000    1.952    0.933
+   .item4             3.589    0.114   31.458    0.000    3.589    1.624
+   .item5             2.256    0.110   20.522    0.000    2.256    1.060
+   .item6             3.955    0.103   38.237    0.000    3.955    1.975
+   .item7             3.869    0.106   36.382    0.000    3.869    1.879
+   .item8             3.595    0.111   32.331    0.000    3.595    1.670
+   .item9             1.205    0.092   13.053    0.000    1.205    0.674
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             1.375    0.194    7.090    0.000    1.375    0.468
+   .item2             2.132    0.236    9.049    0.000    2.132    0.527
+   .item3             3.551    0.201   17.678    0.000    3.551    0.810
+   .item4             3.583    0.272   13.166    0.000    3.583    0.734
+   .item5             3.501    0.223   15.733    0.000    3.501    0.773
+   .item6             2.677    0.269    9.967    0.000    2.677    0.667
+   .item7             3.658    0.276   13.270    0.000    3.658    0.862
+   .item8             3.137    0.291   10.785    0.000    3.137    0.677
+   .item9             2.831    0.195   14.538    0.000    2.831    0.885
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.532
+    item2             0.473
+    item3             0.190
+    item4             0.266
+    item5             0.227
+    item6             0.333
+    item7             0.138
+    item8             0.323
+    item9             0.115
+
+
+Group 2 [Male]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1             1.024    0.099   10.384    0.000    1.024    0.642
+    item2             1.266    0.112   11.283    0.000    1.266    0.628
+    item3             0.805    0.115    7.011    0.000    0.805    0.385
+    item4             1.193    0.123    9.729    0.000    1.193    0.535
+    item5             0.982    0.113    8.678    0.000    0.982    0.466
+    item6             1.159    0.116   10.010    0.000    1.159    0.549
+    item7             0.784    0.131    5.994    0.000    0.784    0.343
+    item8             1.043    0.121    8.610    0.000    1.043    0.480
+    item9             0.647    0.102    6.359    0.000    0.647    0.362
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.920    0.205    4.499    0.000    0.920    0.479
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             4.171    0.082   50.608    0.000    4.171    2.613
+   .item2             3.685    0.104   35.414    0.000    3.685    1.829
+   .item3             1.739    0.108   16.098    0.000    1.739    0.831
+   .item4             3.357    0.115   29.160    0.000    3.357    1.506
+   .item5             2.235    0.109   20.560    0.000    2.235    1.062
+   .item6             3.661    0.109   33.598    0.000    3.661    1.735
+   .item7             3.421    0.118   29.014    0.000    3.421    1.498
+   .item8             3.517    0.112   31.372    0.000    3.517    1.620
+   .item9             1.259    0.092   13.649    0.000    1.259    0.705
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             1.499    0.216    6.932    0.000    1.499    0.588
+   .item2             2.459    0.274    8.989    0.000    2.459    0.606
+   .item3             3.727    0.205   18.167    0.000    3.727    0.852
+   .item4             3.547    0.291   12.189    0.000    3.547    0.713
+   .item5             3.467    0.236   14.716    0.000    3.467    0.783
+   .item6             3.111    0.296   10.520    0.000    3.111    0.698
+   .item7             4.599    0.279   16.457    0.000    4.599    0.882
+   .item8             3.626    0.296   12.267    0.000    3.626    0.769
+   .item9             2.770    0.208   13.291    0.000    2.770    0.869
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.412
+    item2             0.394
+    item3             0.148
+    item4             0.287
+    item5             0.217
+    item6             0.302
+    item7             0.118
+    item8             0.231
+    item9             0.131</code></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.metric</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.17 ended normally after 48 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        57
+  Number of equality constraints                     9
+
+  Number of observations per group:                   
+    Female                                         375
+    Male                                           375
+  Number of missing patterns per group:               
+    Female                                           1
+    Male                                             1
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               102.839      99.532
+  Degrees of freedom                                60          60
+  P-value (Chi-square)                           0.000       0.001
+  Scaling correction factor                                  1.033
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    Female                                      54.745      52.985
+    Male                                        48.094      46.547
+
+Model Test Baseline Model:
+
+  Test statistic                              1343.575    1218.364
+  Degrees of freedom                                72          72
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.103
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.966       0.966
+  Tucker-Lewis Index (TLI)                       0.960       0.959
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.968
+  Robust Tucker-Lewis Index (TLI)                            0.961
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13708.862  -13708.862
+  Scaling correction factor                                  0.834
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -13657.442  -13657.442
+  Scaling correction factor                                  1.014
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               27513.724   27513.724
+  Bayesian (BIC)                             27735.488   27735.488
+  Sample-size adjusted Bayesian (SABIC)      27583.069   27583.069
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.044       0.042
+  90 Percent confidence interval - lower         0.029       0.027
+  90 Percent confidence interval - upper         0.058       0.056
+  P-value H_0: RMSEA &lt;= 0.050                    0.758       0.818
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.043
+  90 Percent confidence interval - lower                     0.027
+  90 Percent confidence interval - upper                     0.057
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.785
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.042       0.042
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Female]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.180    0.082   14.455    0.000    1.180    0.701
+    item2   (.p2.)    1.386    0.088   15.667    0.000    1.386    0.687
+    item3   (.p3.)    0.888    0.084   10.542    0.000    0.888    0.426
+    item4   (.p4.)    1.202    0.091   13.153    0.000    1.202    0.538
+    item5   (.p5.)    1.035    0.084   12.301    0.000    1.035    0.485
+    item6   (.p6.)    1.191    0.084   14.198    0.000    1.191    0.591
+    item7   (.p7.)    0.792    0.092    8.642    0.000    0.792    0.383
+    item8   (.p8.)    1.186    0.094   12.595    0.000    1.186    0.555
+    item9   (.p9.)    0.647    0.073    8.813    0.000    0.647    0.359
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.439    0.158    2.777    0.005    0.439    0.249
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             4.184    0.089   47.258    0.000    4.184    2.484
+   .item2             3.725    0.104   35.848    0.000    3.725    1.846
+   .item3             1.952    0.108   18.058    0.000    1.952    0.936
+   .item4             3.589    0.114   31.458    0.000    3.589    1.608
+   .item5             2.256    0.110   20.522    0.000    2.256    1.058
+   .item6             3.955    0.103   38.237    0.000    3.955    1.961
+   .item7             3.869    0.106   36.382    0.000    3.869    1.869
+   .item8             3.595    0.111   32.331    0.000    3.595    1.684
+   .item9             1.205    0.092   13.053    0.000    1.205    0.669
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             1.444    0.189    7.646    0.000    1.444    0.509
+   .item2             2.151    0.220    9.794    0.000    2.151    0.528
+   .item3             3.556    0.190   18.738    0.000    3.556    0.818
+   .item4             3.540    0.261   13.543    0.000    3.540    0.710
+   .item5             3.479    0.206   16.850    0.000    3.479    0.765
+   .item6             2.648    0.261   10.140    0.000    2.648    0.651
+   .item7             3.656    0.271   13.482    0.000    3.656    0.853
+   .item8             3.153    0.275   11.465    0.000    3.153    0.692
+   .item9             2.827    0.195   14.492    0.000    2.827    0.871
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.491
+    item2             0.472
+    item3             0.182
+    item4             0.290
+    item5             0.235
+    item6             0.349
+    item7             0.147
+    item8             0.308
+    item9             0.129
+
+
+Group 2 [Male]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.180    0.082   14.455    0.000    1.097    0.675
+    item2   (.p2.)    1.386    0.088   15.667    0.000    1.288    0.638
+    item3   (.p3.)    0.888    0.084   10.542    0.000    0.825    0.393
+    item4   (.p4.)    1.202    0.091   13.153    0.000    1.117    0.506
+    item5   (.p5.)    1.035    0.084   12.301    0.000    0.961    0.458
+    item6   (.p6.)    1.191    0.084   14.198    0.000    1.107    0.529
+    item7   (.p7.)    0.792    0.092    8.642    0.000    0.736    0.324
+    item8   (.p8.)    1.186    0.094   12.595    0.000    1.102    0.503
+    item9   (.p9.)    0.647    0.073    8.813    0.000    0.601    0.339
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.862    0.187    4.610    0.000    0.862    0.463
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             4.171    0.082   50.608    0.000    4.171    2.568
+   .item2             3.685    0.104   35.414    0.000    3.685    1.827
+   .item3             1.739    0.108   16.098    0.000    1.739    0.828
+   .item4             3.357    0.115   29.160    0.000    3.357    1.522
+   .item5             2.235    0.109   20.560    0.000    2.235    1.064
+   .item6             3.661    0.109   33.598    0.000    3.661    1.748
+   .item7             3.421    0.118   29.014    0.000    3.421    1.506
+   .item8             3.517    0.112   31.372    0.000    3.517    1.605
+   .item9             1.259    0.092   13.649    0.000    1.259    0.710
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             1.436    0.203    7.060    0.000    1.436    0.544
+   .item2             2.412    0.245    9.854    0.000    2.412    0.593
+   .item3             3.731    0.196   19.064    0.000    3.731    0.846
+   .item4             3.617    0.258   14.027    0.000    3.617    0.744
+   .item5             3.488    0.216   16.176    0.000    3.488    0.790
+   .item6             3.161    0.270   11.688    0.000    3.161    0.721
+   .item7             4.619    0.260   17.798    0.000    4.619    0.895
+   .item8             3.587    0.276   12.998    0.000    3.587    0.747
+   .item9             2.781    0.208   13.395    0.000    2.781    0.885
+    depress           0.863    0.112    7.728    0.000    1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.456
+    item2             0.407
+    item3             0.154
+    item4             0.256
+    item5             0.210
+    item6             0.279
+    item7             0.105
+    item8             0.253
+    item9             0.115</code></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.scalar</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.17 ended normally after 52 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        58
+  Number of equality constraints                    18
+
+  Number of observations per group:                   
+    Female                                         375
+    Male                                           375
+  Number of missing patterns per group:               
+    Female                                           1
+    Male                                             1
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               115.309     111.951
+  Degrees of freedom                                68          68
+  P-value (Chi-square)                           0.000       0.001
+  Scaling correction factor                                  1.030
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    Female                                      60.715      58.946
+    Male                                        54.594      53.004
+
+Model Test Baseline Model:
+
+  Test statistic                              1343.575    1218.364
+  Degrees of freedom                                72          72
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.103
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.963       0.962
+  Tucker-Lewis Index (TLI)                       0.961       0.959
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.964
+  Robust Tucker-Lewis Index (TLI)                            0.962
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13715.097  -13715.097
+  Scaling correction factor                                  0.681
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -13657.442  -13657.442
+  Scaling correction factor                                  1.014
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               27510.194   27510.194
+  Bayesian (BIC)                             27694.997   27694.997
+  Sample-size adjusted Bayesian (SABIC)      27567.981   27567.981
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.043       0.042
+  90 Percent confidence interval - lower         0.029       0.027
+  90 Percent confidence interval - upper         0.056       0.055
+  P-value H_0: RMSEA &lt;= 0.050                    0.794       0.846
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.042
+  90 Percent confidence interval - lower                     0.028
+  90 Percent confidence interval - upper                     0.056
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.817
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.046       0.046
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Female]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.171    0.081   14.385    0.000    1.171    0.696
+    item2   (.p2.)    1.377    0.089   15.534    0.000    1.377    0.683
+    item3   (.p3.)    0.894    0.084   10.621    0.000    0.894    0.429
+    item4   (.p4.)    1.209    0.091   13.343    0.000    1.209    0.541
+    item5   (.p5.)    1.033    0.084   12.275    0.000    1.033    0.485
+    item6   (.p6.)    1.199    0.083   14.424    0.000    1.199    0.593
+    item7   (.p7.)    0.803    0.091    8.853    0.000    0.803    0.386
+    item8   (.p8.)    1.184    0.094   12.534    0.000    1.184    0.555
+    item9   (.p9.)    0.640    0.074    8.604    0.000    0.640    0.356
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.454    0.159    2.852    0.004    0.454    0.255
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.240    0.077   54.984    0.000    4.240    2.520
+   .item2   (.11.)    3.773    0.092   41.111    0.000    3.773    1.872
+   .item3   (.12.)    1.897    0.087   21.735    0.000    1.897    0.909
+   .item4   (.13.)    3.541    0.096   37.066    0.000    3.541    1.584
+   .item5   (.14.)    2.303    0.090   25.622    0.000    2.303    1.080
+   .item6   (.15.)    3.882    0.091   42.556    0.000    3.882    1.921
+   .item7   (.16.)    3.711    0.087   42.428    0.000    3.711    1.784
+   .item8   (.17.)    3.620    0.094   38.567    0.000    3.620    1.696
+   .item9   (.18.)    1.268    0.072   17.592    0.000    1.268    0.704
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             1.460    0.193    7.576    0.000    1.460    0.516
+   .item2             2.166    0.223    9.726    0.000    2.166    0.533
+   .item3             3.555    0.191   18.619    0.000    3.555    0.816
+   .item4             3.535    0.261   13.520    0.000    3.535    0.708
+   .item5             3.478    0.206   16.880    0.000    3.478    0.765
+   .item6             2.648    0.260   10.183    0.000    2.648    0.648
+   .item7             3.682    0.267   13.767    0.000    3.682    0.851
+   .item8             3.155    0.277   11.377    0.000    3.155    0.692
+   .item9             2.834    0.192   14.790    0.000    2.834    0.874
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.484
+    item2             0.467
+    item3             0.184
+    item4             0.292
+    item5             0.235
+    item6             0.352
+    item7             0.149
+    item8             0.308
+    item9             0.126
+
+
+Group 2 [Male]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.171    0.081   14.385    0.000    1.089    0.671
+    item2   (.p2.)    1.377    0.089   15.534    0.000    1.280    0.635
+    item3   (.p3.)    0.894    0.084   10.621    0.000    0.831    0.395
+    item4   (.p4.)    1.209    0.091   13.343    0.000    1.123    0.509
+    item5   (.p5.)    1.033    0.084   12.275    0.000    0.960    0.457
+    item6   (.p6.)    1.199    0.083   14.424    0.000    1.114    0.531
+    item7   (.p7.)    0.803    0.091    8.853    0.000    0.746    0.327
+    item8   (.p8.)    1.184    0.094   12.534    0.000    1.100    0.502
+    item9   (.p9.)    0.640    0.074    8.604    0.000    0.595    0.336
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.879    0.185    4.754    0.000    0.879    0.468
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.240    0.077   54.984    0.000    4.240    2.611
+   .item2   (.11.)    3.773    0.092   41.111    0.000    3.773    1.870
+   .item3   (.12.)    1.897    0.087   21.735    0.000    1.897    0.902
+   .item4   (.13.)    3.541    0.096   37.066    0.000    3.541    1.604
+   .item5   (.14.)    2.303    0.090   25.622    0.000    2.303    1.097
+   .item6   (.15.)    3.882    0.091   42.556    0.000    3.882    1.850
+   .item7   (.16.)    3.711    0.087   42.428    0.000    3.711    1.625
+   .item8   (.17.)    3.620    0.094   38.567    0.000    3.620    1.653
+   .item9   (.18.)    1.268    0.072   17.592    0.000    1.268    0.715
+    depress          -0.112    0.083   -1.345    0.179   -0.120   -0.120
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             1.451    0.200    7.258    0.000    1.451    0.550
+   .item2             2.431    0.240   10.124    0.000    2.431    0.597
+   .item3             3.730    0.196   19.059    0.000    3.730    0.844
+   .item4             3.611    0.258   13.975    0.000    3.611    0.741
+   .item5             3.489    0.216   16.166    0.000    3.489    0.791
+   .item6             3.161    0.276   11.468    0.000    3.161    0.718
+   .item7             4.658    0.277   16.831    0.000    4.658    0.893
+   .item8             3.588    0.274   13.119    0.000    3.588    0.748
+   .item9             2.788    0.213   13.105    0.000    2.788    0.887
+    depress           0.864    0.112    7.720    0.000    1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.450
+    item2             0.403
+    item3             0.156
+    item4             0.259
+    item5             0.209
+    item6             0.282
+    item7             0.107
+    item8             0.252
+    item9             0.113</code></pre>
+</div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.scalar2</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.17 ended normally after 53 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        58
+  Number of equality constraints                    17
+
+  Number of observations per group:                   
+    Female                                         375
+    Male                                           375
+  Number of missing patterns per group:               
+    Female                                           1
+    Male                                             1
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               109.216     106.031
+  Degrees of freedom                                67          67
+  P-value (Chi-square)                           0.001       0.002
+  Scaling correction factor                                  1.030
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    Female                                      57.897      56.209
+    Male                                        51.318      49.822
+
+Model Test Baseline Model:
+
+  Test statistic                              1343.575    1218.364
+  Degrees of freedom                                72          72
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.103
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.967       0.966
+  Tucker-Lewis Index (TLI)                       0.964       0.963
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.968
+  Robust Tucker-Lewis Index (TLI)                            0.966
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13712.050  -13712.050
+  Scaling correction factor                                  0.699
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -13657.442  -13657.442
+  Scaling correction factor                                  1.014
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               27506.100   27506.100
+  Bayesian (BIC)                             27695.523   27695.523
+  Sample-size adjusted Bayesian (SABIC)      27565.332   27565.332
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.041       0.039
+  90 Percent confidence interval - lower         0.026       0.025
+  90 Percent confidence interval - upper         0.055       0.053
+  P-value H_0: RMSEA &lt;= 0.050                    0.855       0.896
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.040
+  90 Percent confidence interval - lower                     0.025
+  90 Percent confidence interval - upper                     0.054
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.873
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.044       0.044
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Female]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.174    0.082   14.377    0.000    1.174    0.698
+    item2   (.p2.)    1.381    0.089   15.564    0.000    1.381    0.685
+    item3   (.p3.)    0.894    0.084   10.598    0.000    0.894    0.428
+    item4   (.p4.)    1.208    0.091   13.309    0.000    1.208    0.540
+    item5   (.p5.)    1.034    0.084   12.287    0.000    1.034    0.485
+    item6   (.p6.)    1.198    0.083   14.364    0.000    1.198    0.592
+    item7   (.p7.)    0.791    0.092    8.603    0.000    0.791    0.382
+    item8   (.p8.)    1.185    0.094   12.561    0.000    1.185    0.555
+    item9   (.p9.)    0.642    0.074    8.630    0.000    0.642    0.356
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.449    0.159    2.825    0.005    0.449    0.253
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.228    0.078   54.510    0.000    4.228    2.512
+   .item2   (.11.)    3.761    0.092   40.840    0.000    3.761    1.865
+   .item3   (.12.)    1.887    0.087   21.651    0.000    1.887    0.904
+   .item4   (.13.)    3.529    0.096   36.780    0.000    3.529    1.578
+   .item5   (.14.)    2.292    0.090   25.462    0.000    2.292    1.075
+   .item6   (.15.)    3.870    0.092   42.207    0.000    3.870    1.915
+   .item7             3.869    0.106   36.382    0.000    3.869    1.869
+   .item8   (.17.)    3.609    0.094   38.382    0.000    3.609    1.690
+   .item9   (.18.)    1.261    0.072   17.570    0.000    1.261    0.700
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             1.455    0.191    7.595    0.000    1.455    0.513
+   .item2             2.160    0.222    9.738    0.000    2.160    0.531
+   .item3             3.557    0.191   18.613    0.000    3.557    0.817
+   .item4             3.539    0.261   13.545    0.000    3.539    0.708
+   .item5             3.478    0.206   16.874    0.000    3.478    0.765
+   .item6             2.651    0.260   10.205    0.000    2.651    0.649
+   .item7             3.658    0.271   13.485    0.000    3.658    0.854
+   .item8             3.154    0.277   11.404    0.000    3.154    0.692
+   .item9             2.832    0.192   14.743    0.000    2.832    0.873
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.487
+    item2             0.469
+    item3             0.183
+    item4             0.292
+    item5             0.235
+    item6             0.351
+    item7             0.146
+    item8             0.308
+    item9             0.127
+
+
+Group 2 [Male]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.174    0.082   14.377    0.000    1.091    0.672
+    item2   (.p2.)    1.381    0.089   15.564    0.000    1.283    0.636
+    item3   (.p3.)    0.894    0.084   10.598    0.000    0.830    0.395
+    item4   (.p4.)    1.208    0.091   13.309    0.000    1.122    0.508
+    item5   (.p5.)    1.034    0.084   12.287    0.000    0.961    0.457
+    item6   (.p6.)    1.198    0.083   14.364    0.000    1.113    0.530
+    item7   (.p7.)    0.791    0.092    8.603    0.000    0.735    0.324
+    item8   (.p8.)    1.185    0.094   12.561    0.000    1.101    0.503
+    item9   (.p9.)    0.642    0.074    8.630    0.000    0.597    0.337
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.872    0.186    4.696    0.000    0.872    0.466
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.228    0.078   54.510    0.000    4.228    2.604
+   .item2   (.11.)    3.761    0.092   40.840    0.000    3.761    1.864
+   .item3   (.12.)    1.887    0.087   21.651    0.000    1.887    0.897
+   .item4   (.13.)    3.529    0.096   36.780    0.000    3.529    1.598
+   .item5   (.14.)    2.292    0.090   25.462    0.000    2.292    1.091
+   .item6   (.15.)    3.870    0.092   42.207    0.000    3.870    1.844
+   .item7             3.493    0.123   28.376    0.000    3.493    1.538
+   .item8   (.17.)    3.609    0.094   38.382    0.000    3.609    1.647
+   .item9   (.18.)    1.261    0.072   17.570    0.000    1.261    0.712
+    depress          -0.090    0.083   -1.087    0.277   -0.097   -0.097
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1             1.445    0.201    7.186    0.000    1.445    0.548
+   .item2             2.423    0.242   10.026    0.000    2.423    0.595
+   .item3             3.733    0.196   19.086    0.000    3.733    0.844
+   .item4             3.615    0.260   13.913    0.000    3.615    0.742
+   .item5             3.488    0.216   16.160    0.000    3.488    0.791
+   .item6             3.166    0.277   11.417    0.000    3.166    0.719
+   .item7             4.620    0.259   17.804    0.000    4.620    0.895
+   .item8             3.587    0.274   13.071    0.000    3.587    0.747
+   .item9             2.787    0.212   13.148    0.000    2.787    0.887
+    depress           0.864    0.112    7.725    0.000    1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.452
+    item2             0.405
+    item3             0.156
+    item4             0.258
+    item5             0.209
+    item6             0.281
+    item7             0.105
+    item8             0.253
+    item9             0.113</code></pre>
+</div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.strict</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.17 ended normally after 54 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        58
+  Number of equality constraints                    25
+
+  Number of observations per group:                   
+    Female                                         375
+    Male                                           375
+  Number of missing patterns per group:               
+    Female                                           1
+    Male                                             1
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               114.059     112.019
+  Degrees of freedom                                75          75
+  P-value (Chi-square)                           0.002       0.004
+  Scaling correction factor                                  1.018
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    Female                                      60.752      59.666
+    Male                                        53.306      52.353
+
+Model Test Baseline Model:
+
+  Test statistic                              1343.575    1218.364
+  Degrees of freedom                                72          72
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.103
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.969       0.968
+  Tucker-Lewis Index (TLI)                       0.971       0.969
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.970
+  Robust Tucker-Lewis Index (TLI)                            0.971
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13714.472  -13714.472
+  Scaling correction factor                                  0.572
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -13657.442  -13657.442
+  Scaling correction factor                                  1.014
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               27494.944   27494.944
+  Bayesian (BIC)                             27647.406   27647.406
+  Sample-size adjusted Bayesian (SABIC)      27542.618   27542.618
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.037       0.036
+  90 Percent confidence interval - lower         0.022       0.021
+  90 Percent confidence interval - upper         0.051       0.050
+  P-value H_0: RMSEA &lt;= 0.050                    0.942       0.956
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.037
+  90 Percent confidence interval - lower                     0.021
+  90 Percent confidence interval - upper                     0.050
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.948
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.048       0.048
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Female]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.167    0.082   14.180    0.000    1.167    0.696
+    item2   (.p2.)    1.372    0.089   15.358    0.000    1.372    0.671
+    item3   (.p3.)    0.888    0.083   10.655    0.000    0.888    0.422
+    item4   (.p4.)    1.203    0.090   13.341    0.000    1.203    0.537
+    item5   (.p5.)    1.031    0.084   12.316    0.000    1.031    0.484
+    item6   (.p6.)    1.197    0.083   14.492    0.000    1.197    0.575
+    item7   (.p7.)    0.787    0.092    8.593    0.000    0.787    0.381
+    item8   (.p8.)    1.178    0.093   12.608    0.000    1.178    0.540
+    item9   (.p9.)    0.639    0.074    8.602    0.000    0.639    0.356
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.484    0.160    3.030    0.002    0.484    0.266
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.229    0.078   53.943    0.000    4.229    2.522
+   .item2   (.11.)    3.763    0.093   40.533    0.000    3.763    1.840
+   .item3   (.12.)    1.886    0.087   21.609    0.000    1.886    0.895
+   .item4   (.13.)    3.528    0.096   36.880    0.000    3.528    1.574
+   .item5   (.14.)    2.292    0.090   25.455    0.000    2.292    1.076
+   .item6   (.15.)    3.862    0.091   42.539    0.000    3.862    1.855
+   .item7             3.869    0.106   36.382    0.000    3.869    1.872
+   .item8   (.17.)    3.609    0.094   38.326    0.000    3.609    1.655
+   .item9   (.18.)    1.261    0.071   17.668    0.000    1.261    0.703
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.19.)    1.447    0.145    9.954    0.000    1.447    0.515
+   .item2   (.20.)    2.300    0.177   12.965    0.000    2.300    0.550
+   .item3   (.21.)    3.646    0.143   25.449    0.000    3.646    0.822
+   .item4   (.22.)    3.574    0.197   18.123    0.000    3.574    0.712
+   .item5   (.23.)    3.479    0.161   21.647    0.000    3.479    0.766
+   .item6   (.24.)    2.903    0.199   14.558    0.000    2.903    0.670
+   .item7             3.653    0.271   13.462    0.000    3.653    0.855
+   .item8   (.26.)    3.367    0.207   16.293    0.000    3.367    0.708
+   .item9   (.27.)    2.809    0.143   19.650    0.000    2.809    0.873
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.485
+    item2             0.450
+    item3             0.178
+    item4             0.288
+    item5             0.234
+    item6             0.330
+    item7             0.145
+    item8             0.292
+    item9             0.127
+
+
+Group 2 [Male]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.167    0.082   14.180    0.000    1.097    0.674
+    item2   (.p2.)    1.372    0.089   15.358    0.000    1.289    0.648
+    item3   (.p3.)    0.888    0.083   10.655    0.000    0.834    0.400
+    item4   (.p4.)    1.203    0.090   13.341    0.000    1.130    0.513
+    item5   (.p5.)    1.031    0.084   12.316    0.000    0.968    0.461
+    item6   (.p6.)    1.197    0.083   14.492    0.000    1.124    0.551
+    item7   (.p7.)    0.787    0.092    8.593    0.000    0.739    0.325
+    item8   (.p8.)    1.178    0.093   12.608    0.000    1.107    0.516
+    item9   (.p9.)    0.639    0.074    8.602    0.000    0.600    0.337
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.832    0.151    5.497    0.000    0.832    0.456
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.229    0.078   53.943    0.000    4.229    2.598
+   .item2   (.11.)    3.763    0.093   40.533    0.000    3.763    1.890
+   .item3   (.12.)    1.886    0.087   21.609    0.000    1.886    0.905
+   .item4   (.13.)    3.528    0.096   36.880    0.000    3.528    1.602
+   .item5   (.14.)    2.292    0.090   25.455    0.000    2.292    1.091
+   .item6   (.15.)    3.862    0.091   42.539    0.000    3.862    1.892
+   .item7             3.493    0.123   28.381    0.000    3.493    1.535
+   .item8   (.17.)    3.609    0.094   38.326    0.000    3.609    1.684
+   .item9   (.18.)    1.261    0.071   17.668    0.000    1.261    0.708
+    depress          -0.091    0.084   -1.084    0.279   -0.097   -0.097
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.19.)    1.447    0.145    9.954    0.000    1.447    0.546
+   .item2   (.20.)    2.300    0.177   12.965    0.000    2.300    0.581
+   .item3   (.21.)    3.646    0.143   25.449    0.000    3.646    0.840
+   .item4   (.22.)    3.574    0.197   18.123    0.000    3.574    0.737
+   .item5   (.23.)    3.479    0.161   21.647    0.000    3.479    0.788
+   .item6   (.24.)    2.903    0.199   14.558    0.000    2.903    0.697
+   .item7             4.629    0.260   17.815    0.000    4.629    0.894
+   .item8   (.26.)    3.367    0.207   16.293    0.000    3.367    0.733
+   .item9   (.27.)    2.809    0.143   19.650    0.000    2.809    0.886
+    depress           0.883    0.111    7.936    0.000    1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.454
+    item2             0.419
+    item3             0.160
+    item4             0.263
+    item5             0.212
+    item6             0.303
+    item7             0.106
+    item8             0.267
+    item9             0.114</code></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit.strict.cov</span>, fit.measures <span class="op">=</span> <span class="cn">TRUE</span>, rsquare <span class="op">=</span> <span class="cn">TRUE</span>, standardized <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.17 ended normally after 55 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        58
+  Number of equality constraints                    26
+
+  Number of observations per group:                   
+    Female                                         375
+    Male                                           375
+  Number of missing patterns per group:               
+    Female                                           1
+    Male                                             1
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               123.351     119.281
+  Degrees of freedom                                76          76
+  P-value (Chi-square)                           0.000       0.001
+  Scaling correction factor                                  1.034
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    Female                                      65.102      62.954
+    Male                                        58.248      56.327
+
+Model Test Baseline Model:
+
+  Test statistic                              1343.575    1218.364
+  Degrees of freedom                                72          72
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.103
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.963       0.962
+  Tucker-Lewis Index (TLI)                       0.965       0.964
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.965
+  Robust Tucker-Lewis Index (TLI)                            0.967
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13719.118  -13719.118
+  Scaling correction factor                                  0.534
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -13657.442  -13657.442
+  Scaling correction factor                                  1.014
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               27502.235   27502.235
+  Bayesian (BIC)                             27650.078   27650.078
+  Sample-size adjusted Bayesian (SABIC)      27548.465   27548.465
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.041       0.039
+  90 Percent confidence interval - lower         0.027       0.025
+  90 Percent confidence interval - upper         0.054       0.052
+  P-value H_0: RMSEA &lt;= 0.050                    0.877       0.920
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.040
+  90 Percent confidence interval - lower                     0.025
+  90 Percent confidence interval - upper                     0.053
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.897
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.048       0.048
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Female]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.164    0.082   14.182    0.000    1.164    0.695
+    item2   (.p2.)    1.355    0.088   15.395    0.000    1.355    0.666
+    item3   (.p3.)    0.883    0.084   10.551    0.000    0.883    0.420
+    item4   (.p4.)    1.200    0.091   13.260    0.000    1.200    0.536
+    item5   (.p5.)    1.031    0.084   12.293    0.000    1.031    0.484
+    item6   (.p6.)    1.191    0.083   14.394    0.000    1.191    0.573
+    item7   (.p7.)    0.782    0.091    8.554    0.000    0.782    0.378
+    item8   (.p8.)    1.173    0.094   12.528    0.000    1.173    0.539
+    item9   (.p9.)    0.637    0.074    8.581    0.000    0.637    0.355
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2   (.28.)    0.671    0.132    5.072    0.000    0.671    0.366
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.231    0.079   53.848    0.000    4.231    2.524
+   .item2   (.11.)    3.767    0.092   40.777    0.000    3.767    1.850
+   .item3   (.12.)    1.886    0.087   21.608    0.000    1.886    0.896
+   .item4   (.13.)    3.528    0.096   36.854    0.000    3.528    1.576
+   .item5   (.14.)    2.292    0.090   25.422    0.000    2.292    1.077
+   .item6   (.15.)    3.862    0.091   42.534    0.000    3.862    1.857
+   .item7             3.869    0.106   36.382    0.000    3.869    1.873
+   .item8   (.17.)    3.610    0.094   38.318    0.000    3.610    1.657
+   .item9   (.18.)    1.261    0.071   17.661    0.000    1.261    0.703
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.19.)    1.455    0.147    9.904    0.000    1.455    0.518
+   .item2   (.20.)    2.309    0.179   12.908    0.000    2.309    0.557
+   .item3   (.21.)    3.648    0.143   25.433    0.000    3.648    0.824
+   .item4   (.22.)    3.570    0.197   18.084    0.000    3.570    0.712
+   .item5   (.23.)    3.470    0.161   21.569    0.000    3.470    0.765
+   .item6   (.24.)    2.906    0.199   14.565    0.000    2.906    0.672
+   .item7             3.658    0.272   13.465    0.000    3.658    0.857
+   .item8   (.26.)    3.368    0.207   16.303    0.000    3.368    0.710
+   .item9   (.27.)    2.808    0.143   19.650    0.000    2.808    0.874
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.482
+    item2             0.443
+    item3             0.176
+    item4             0.288
+    item5             0.235
+    item6             0.328
+    item7             0.143
+    item8             0.290
+    item9             0.126
+
+
+Group 2 [Male]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.164    0.082   14.182    0.000    1.103    0.675
+    item2   (.p2.)    1.355    0.088   15.395    0.000    1.284    0.645
+    item3   (.p3.)    0.883    0.084   10.551    0.000    0.836    0.401
+    item4   (.p4.)    1.200    0.091   13.260    0.000    1.137    0.516
+    item5   (.p5.)    1.031    0.084   12.293    0.000    0.977    0.464
+    item6   (.p6.)    1.191    0.083   14.394    0.000    1.128    0.552
+    item7   (.p7.)    0.782    0.091    8.554    0.000    0.741    0.325
+    item8   (.p8.)    1.173    0.094   12.528    0.000    1.111    0.518
+    item9   (.p9.)    0.637    0.074    8.581    0.000    0.603    0.339
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2   (.28.)    0.671    0.132    5.072    0.000    0.671    0.366
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.231    0.079   53.848    0.000    4.231    2.589
+   .item2   (.11.)    3.767    0.092   40.777    0.000    3.767    1.894
+   .item3   (.12.)    1.886    0.087   21.608    0.000    1.886    0.904
+   .item4   (.13.)    3.528    0.096   36.854    0.000    3.528    1.600
+   .item5   (.14.)    2.292    0.090   25.422    0.000    2.292    1.090
+   .item6   (.15.)    3.862    0.091   42.534    0.000    3.862    1.890
+   .item7             3.493    0.123   28.383    0.000    3.493    1.535
+   .item8   (.17.)    3.610    0.094   38.318    0.000    3.610    1.683
+   .item9   (.18.)    1.261    0.071   17.661    0.000    1.261    0.708
+    depress          -0.091    0.084   -1.086    0.278   -0.097   -0.097
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.19.)    1.455    0.147    9.904    0.000    1.455    0.545
+   .item2   (.20.)    2.309    0.179   12.908    0.000    2.309    0.584
+   .item3   (.21.)    3.648    0.143   25.433    0.000    3.648    0.839
+   .item4   (.22.)    3.570    0.197   18.084    0.000    3.570    0.734
+   .item5   (.23.)    3.470    0.161   21.569    0.000    3.470    0.784
+   .item6   (.24.)    2.906    0.199   14.565    0.000    2.906    0.696
+   .item7             4.630    0.260   17.825    0.000    4.630    0.894
+   .item8   (.26.)    3.368    0.207   16.303    0.000    3.368    0.732
+   .item9   (.27.)    2.808    0.143   19.650    0.000    2.808    0.885
+    depress           0.897    0.113    7.932    0.000    1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.455
+    item2             0.416
+    item3             0.161
+    item4             0.266
+    item5             0.216
+    item6             0.304
+    item7             0.106
+    item8             0.268
+    item9             0.115</code></pre>
+</div>
+</div>
+</section><section id="model-comparison" class="level3" data-number="1.1.5"><h3 data-number="1.1.5" class="anchored" data-anchor-id="model-comparison">
+<span class="header-section-number">1.1.5</span> Model Comparison</h3>
+<div class="cell">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">model_fit</span> <span class="op">&lt;-</span>  <span class="kw">function</span><span class="op">(</span><span class="va">lavobject</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cfi"</span>, <span class="st">"tli"</span>, <span class="st">"rmsea"</span>, <span class="st">"rmsea.ci.lower"</span>, <span class="st">"rmsea.ci.upper"</span>, <span class="st">"rmsea.pvalue"</span>, <span class="st">"srmr"</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu">fitmeasures</span><span class="op">(</span><span class="va">lavobject</span><span class="op">)</span><span class="op">[</span><span class="va">vars</span><span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">table_fit</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.config</span><span class="op">)</span>, <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.metric</span><span class="op">)</span>, </span>
+<span>       <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.scalar</span><span class="op">)</span>, <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.scalar2</span><span class="op">)</span>,</span>
+<span>       <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.strict</span><span class="op">)</span>, <span class="fu">model_fit</span><span class="op">(</span><span class="va">fit.strict.cov</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">reduce</span><span class="op">(</span><span class="va">rbind</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">table_fit</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Configural"</span>, <span class="st">"Metric"</span>, <span class="st">"Scalar"</span>, <span class="st">"Scalar2"</span>,<span class="st">"Strict"</span>,<span class="st">"Strict+Cov"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">table_lik.test</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.config</span>, <span class="va">fit.metric</span><span class="op">)</span>,</span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.metric</span>, <span class="va">fit.scalar</span><span class="op">)</span>,</span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.scalar</span>, <span class="va">fit.scalar2</span><span class="op">)</span>,</span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.scalar2</span>, <span class="va">fit.strict</span><span class="op">)</span>,</span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">fit.strict</span>, <span class="va">fit.strict.cov</span><span class="op">)</span></span>
+<span>       <span class="op">)</span> <span class="op">%&gt;%</span>  </span>
+<span>  <span class="fu">reduce</span><span class="op">(</span><span class="va">rbind</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="va">.</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">9</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">table_lik.test</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Configural"</span>, <span class="st">"Metric"</span>, <span class="st">"Scalar"</span>, <span class="st">"Scalar2"</span>,<span class="st">"Strict"</span>,<span class="st">"Strict+Cov"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">kable</span><span class="op">(</span><span class="va">table_fit</span>, caption <span class="op">=</span> <span class="st">"Model Fit Indices Table"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Model Fit Indices Table</caption>
+<colgroup>
+<col style="width: 14%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 17%">
+<col style="width: 6%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">cfi</th>
+<th style="text-align: right;">tli</th>
+<th style="text-align: right;">rmsea</th>
+<th style="text-align: right;">rmsea.ci.lower</th>
+<th style="text-align: right;">rmsea.ci.upper</th>
+<th style="text-align: right;">rmsea.pvalue</th>
+<th style="text-align: right;">srmr</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Configural</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Metric</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scalar</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scalar2</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Strict</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Strict+Cov</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kable</span><span class="op">(</span><span class="va">table_lik.test</span>, caption <span class="op">=</span> <span class="st">"Model Comparision Table"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Model Comparision Table</caption>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 4%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 15%">
+<col style="width: 11%">
+<col style="width: 15%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">Chisq</th>
+<th style="text-align: right;">Chisq diff</th>
+<th style="text-align: right;">Df diff</th>
+<th style="text-align: right;">Pr(&gt;Chisq)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Configural</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">27525.80</td>
+<td style="text-align: right;">27784.52</td>
+<td style="text-align: right;">98.91085</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Metric</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">27513.72</td>
+<td style="text-align: right;">27735.49</td>
+<td style="text-align: right;">102.83941</td>
+<td style="text-align: right;">4.259305</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.8330029</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scalar</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">27510.19</td>
+<td style="text-align: right;">27695.00</td>
+<td style="text-align: right;">115.30933</td>
+<td style="text-align: right;">12.398256</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.1342996</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scalar2</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">27510.19</td>
+<td style="text-align: right;">27695.00</td>
+<td style="text-align: right;">115.30933</td>
+<td style="text-align: right;">5.929566</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0148889</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Strict</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">27494.94</td>
+<td style="text-align: right;">27647.41</td>
+<td style="text-align: right;">114.05887</td>
+<td style="text-align: right;">5.269043</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.7284714</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Strict+Cov</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">27502.24</td>
+<td style="text-align: right;">27650.08</td>
+<td style="text-align: right;">123.35057</td>
+<td style="text-align: right;">4.172431</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.0410868</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section></section><section id="structual-invariance-tests" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="structual-invariance-tests">
+<span class="header-section-number">1.2</span> STRUCTUAL INVARIANCE TESTS</h2>
+<section id="factor-variance-invariance-model" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="factor-variance-invariance-model">
+<span class="header-section-number">1.2.1</span> Factor Variance Invariance Model</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.17 ended normally after 54 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        57
+  Number of equality constraints                    25
+
+  Number of observations per group:                   
+    Female                                         375
+    Male                                           375
+  Number of missing patterns per group:               
+    Female                                           1
+    Male                                             1
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               114.904     113.113
+  Degrees of freedom                                76          76
+  P-value (Chi-square)                           0.003       0.004
+  Scaling correction factor                                  1.016
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    Female                                      61.213      60.259
+    Male                                        53.691      52.854
+
+Model Test Baseline Model:
+
+  Test statistic                              1343.575    1218.364
+  Degrees of freedom                                72          72
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.103
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.969       0.968
+  Tucker-Lewis Index (TLI)                       0.971       0.969
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.970
+  Robust Tucker-Lewis Index (TLI)                            0.972
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13714.894  -13714.894
+  Scaling correction factor                                  0.567
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -13657.442  -13657.442
+  Scaling correction factor                                  1.014
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               27493.789   27493.789
+  Bayesian (BIC)                             27641.631   27641.631
+  Sample-size adjusted Bayesian (SABIC)      27540.019   27540.019
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.037       0.036
+  90 Percent confidence interval - lower         0.022       0.021
+  90 Percent confidence interval - upper         0.050       0.049
+  P-value H_0: RMSEA &lt;= 0.050                    0.947       0.958
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.036
+  90 Percent confidence interval - lower                     0.021
+  90 Percent confidence interval - upper                     0.050
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.952
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.050       0.050
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Female]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.132    0.069   16.495    0.000    1.132    0.685
+    item2   (.p2.)    1.332    0.076   17.634    0.000    1.332    0.660
+    item3   (.p3.)    0.861    0.076   11.269    0.000    0.861    0.411
+    item4   (.p4.)    1.169    0.083   14.123    0.000    1.169    0.526
+    item5   (.p5.)    1.000    0.076   13.226    0.000    1.000    0.473
+    item6   (.p6.)    1.162    0.077   15.167    0.000    1.162    0.564
+    item7   (.p7.)    0.765    0.086    8.889    0.000    0.765    0.371
+    item8   (.p8.)    1.142    0.082   13.922    0.000    1.142    0.528
+    item9   (.p9.)    0.620    0.069    8.931    0.000    0.620    0.347
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.490    0.159    3.077    0.002    0.490    0.268
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.229    0.078   53.980    0.000    4.229    2.558
+   .item2   (.11.)    3.763    0.093   40.555    0.000    3.763    1.864
+   .item3   (.12.)    1.886    0.087   21.616    0.000    1.886    0.900
+   .item4   (.13.)    3.528    0.096   36.887    0.000    3.528    1.588
+   .item5   (.14.)    2.292    0.090   25.463    0.000    2.292    1.083
+   .item6   (.15.)    3.862    0.091   42.543    0.000    3.862    1.873
+   .item7             3.869    0.106   36.382    0.000    3.869    1.879
+   .item8   (.17.)    3.610    0.094   38.348    0.000    3.610    1.670
+   .item9   (.18.)    1.261    0.071   17.671    0.000    1.261    0.706
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.19.)    1.452    0.145    9.988    0.000    1.452    0.531
+   .item2   (.20.)    2.301    0.178   12.925    0.000    2.301    0.565
+   .item3   (.21.)    3.646    0.143   25.467    0.000    3.646    0.831
+   .item4   (.22.)    3.571    0.197   18.119    0.000    3.571    0.723
+   .item5   (.23.)    3.478    0.161   21.626    0.000    3.478    0.777
+   .item6   (.24.)    2.900    0.199   14.536    0.000    2.900    0.682
+   .item7             3.655    0.271   13.480    0.000    3.655    0.862
+   .item8   (.26.)    3.368    0.207   16.280    0.000    3.368    0.721
+   .item9   (.27.)    2.809    0.143   19.649    0.000    2.809    0.880
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.469
+    item2             0.435
+    item3             0.169
+    item4             0.277
+    item5             0.223
+    item6             0.318
+    item7             0.138
+    item8             0.279
+    item9             0.120
+
+
+Group 2 [Male]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.132    0.069   16.495    0.000    1.132    0.685
+    item2   (.p2.)    1.332    0.076   17.634    0.000    1.332    0.660
+    item3   (.p3.)    0.861    0.076   11.269    0.000    0.861    0.411
+    item4   (.p4.)    1.169    0.083   14.123    0.000    1.169    0.526
+    item5   (.p5.)    1.000    0.076   13.226    0.000    1.000    0.473
+    item6   (.p6.)    1.162    0.077   15.167    0.000    1.162    0.564
+    item7   (.p7.)    0.765    0.086    8.889    0.000    0.765    0.335
+    item8   (.p8.)    1.142    0.082   13.922    0.000    1.142    0.528
+    item9   (.p9.)    0.620    0.069    8.931    0.000    0.620    0.347
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.834    0.152    5.483    0.000    0.834    0.456
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.229    0.078   53.980    0.000    4.229    2.558
+   .item2   (.11.)    3.763    0.093   40.555    0.000    3.763    1.864
+   .item3   (.12.)    1.886    0.087   21.616    0.000    1.886    0.900
+   .item4   (.13.)    3.528    0.096   36.887    0.000    3.528    1.588
+   .item5   (.14.)    2.292    0.090   25.463    0.000    2.292    1.083
+   .item6   (.15.)    3.862    0.091   42.543    0.000    3.862    1.873
+   .item7             3.493    0.123   28.386    0.000    3.493    1.530
+   .item8   (.17.)    3.610    0.094   38.348    0.000    3.610    1.670
+   .item9   (.18.)    1.261    0.071   17.671    0.000    1.261    0.706
+    depress          -0.094    0.085   -1.098    0.272   -0.094   -0.094
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.19.)    1.452    0.145    9.988    0.000    1.452    0.531
+   .item2   (.20.)    2.301    0.178   12.925    0.000    2.301    0.565
+   .item3   (.21.)    3.646    0.143   25.467    0.000    3.646    0.831
+   .item4   (.22.)    3.571    0.197   18.119    0.000    3.571    0.723
+   .item5   (.23.)    3.478    0.161   21.626    0.000    3.478    0.777
+   .item6   (.24.)    2.900    0.199   14.536    0.000    2.900    0.682
+   .item7             4.626    0.260   17.771    0.000    4.626    0.888
+   .item8   (.26.)    3.368    0.207   16.280    0.000    3.368    0.721
+   .item9   (.27.)    2.809    0.143   19.649    0.000    2.809    0.880
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.469
+    item2             0.435
+    item3             0.169
+    item4             0.277
+    item5             0.223
+    item6             0.318
+    item7             0.112
+    item8             0.279
+    item9             0.120</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Scaled Chi-Squared Difference Test (method = "satorra.bentler.2001")
+
+lavaan NOTE:
+    The "Chisq" column contains standard test statistics, not the
+    robust test that should be reported per model. A robust difference
+    test is a function of two standard (not robust) statistics.
+ 
+                       Df   AIC   BIC  Chisq Chisq diff Df diff Pr(&gt;Chisq)
+fit.strict             75 27495 27647 114.06                              
+fit.structuralVariance 76 27494 27642 114.90     1.0095       1      0.315</code></pre>
+</div>
+</div>
+</section><section id="factor-mean-invariance-model" class="level3" data-number="1.2.2"><h3 data-number="1.2.2" class="anchored" data-anchor-id="factor-mean-invariance-model">
+<span class="header-section-number">1.2.2</span> Factor Mean Invariance Model</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.17 ended normally after 54 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        56
+  Number of equality constraints                    25
+
+  Number of observations per group:                   
+    Female                                         375
+    Male                                           375
+  Number of missing patterns per group:               
+    Female                                           1
+    Male                                             1
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               116.143     114.340
+  Degrees of freedom                                77          77
+  P-value (Chi-square)                           0.003       0.004
+  Scaling correction factor                                  1.016
+    Yuan-Bentler correction (Mplus variant)                       
+  Test statistic for each group:
+    Female                                      61.790      60.831
+    Male                                        54.353      53.509
+
+Model Test Baseline Model:
+
+  Test statistic                              1343.575    1218.364
+  Degrees of freedom                                72          72
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.103
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.969       0.967
+  Tucker-Lewis Index (TLI)                       0.971       0.970
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.970
+  Robust Tucker-Lewis Index (TLI)                            0.972
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -13715.514  -13715.514
+  Scaling correction factor                                  0.559
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -13657.442  -13657.442
+  Scaling correction factor                                  1.014
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               27493.027   27493.027
+  Bayesian (BIC)                             27636.250   27636.250
+  Sample-size adjusted Bayesian (SABIC)      27537.813   27537.813
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.037       0.036
+  90 Percent confidence interval - lower         0.022       0.021
+  90 Percent confidence interval - upper         0.050       0.049
+  P-value H_0: RMSEA &lt;= 0.050                    0.950       0.961
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.036
+  90 Percent confidence interval - lower                     0.021
+  90 Percent confidence interval - upper                     0.050
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.954
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.050       0.050
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+
+Group 1 [Female]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.135    0.068   16.637    0.000    1.135    0.686
+    item2   (.p2.)    1.336    0.075   17.802    0.000    1.336    0.661
+    item3   (.p3.)    0.860    0.077   11.228    0.000    0.860    0.411
+    item4   (.p4.)    1.168    0.083   14.063    0.000    1.168    0.526
+    item5   (.p5.)    1.001    0.076   13.194    0.000    1.001    0.473
+    item6   (.p6.)    1.161    0.077   15.096    0.000    1.161    0.563
+    item7   (.p7.)    0.766    0.086    8.914    0.000    0.766    0.372
+    item8   (.p8.)    1.144    0.082   13.946    0.000    1.144    0.529
+    item9   (.p9.)    0.622    0.069    9.001    0.000    0.622    0.348
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.485    0.159    3.047    0.002    0.485    0.266
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.176    0.060   69.282    0.000    4.176    2.525
+   .item2   (.11.)    3.702    0.074   50.291    0.000    3.702    1.833
+   .item3   (.12.)    1.845    0.077   24.121    0.000    1.845    0.881
+   .item4   (.13.)    3.473    0.081   42.797    0.000    3.473    1.563
+   .item5   (.14.)    2.245    0.077   29.048    0.000    2.245    1.061
+   .item6   (.15.)    3.808    0.075   50.564    0.000    3.808    1.846
+   .item7             3.842    0.104   37.048    0.000    3.842    1.866
+   .item8   (.17.)    3.556    0.079   45.035    0.000    3.556    1.644
+   .item9   (.18.)    1.232    0.065   18.878    0.000    1.232    0.689
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.19.)    1.447    0.145    9.949    0.000    1.447    0.529
+   .item2   (.20.)    2.295    0.178   12.893    0.000    2.295    0.563
+   .item3   (.21.)    3.649    0.143   25.557    0.000    3.649    0.831
+   .item4   (.22.)    3.576    0.197   18.172    0.000    3.576    0.724
+   .item5   (.23.)    3.478    0.161   21.617    0.000    3.478    0.776
+   .item6   (.24.)    2.906    0.199   14.596    0.000    2.906    0.683
+   .item7             3.654    0.271   13.478    0.000    3.654    0.862
+   .item8   (.26.)    3.368    0.207   16.275    0.000    3.368    0.720
+   .item9   (.27.)    2.807    0.143   19.666    0.000    2.807    0.879
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.471
+    item2             0.437
+    item3             0.169
+    item4             0.276
+    item5             0.224
+    item6             0.317
+    item7             0.138
+    item8             0.280
+    item9             0.121
+
+
+Group 2 [Male]:
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  depress =~                                                            
+    item1   (.p1.)    1.135    0.068   16.637    0.000    1.135    0.686
+    item2   (.p2.)    1.336    0.075   17.802    0.000    1.336    0.661
+    item3   (.p3.)    0.860    0.077   11.228    0.000    0.860    0.411
+    item4   (.p4.)    1.168    0.083   14.063    0.000    1.168    0.526
+    item5   (.p5.)    1.001    0.076   13.194    0.000    1.001    0.473
+    item6   (.p6.)    1.161    0.077   15.096    0.000    1.161    0.563
+    item7   (.p7.)    0.766    0.086    8.914    0.000    0.766    0.336
+    item8   (.p8.)    1.144    0.082   13.946    0.000    1.144    0.529
+    item9   (.p9.)    0.622    0.069    9.001    0.000    0.622    0.348
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+ .item1 ~~                                                              
+   .item2             0.829    0.152    5.448    0.000    0.829    0.455
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.10.)    4.176    0.060   69.282    0.000    4.176    2.525
+   .item2   (.11.)    3.702    0.074   50.291    0.000    3.702    1.833
+   .item3   (.12.)    1.845    0.077   24.121    0.000    1.845    0.881
+   .item4   (.13.)    3.473    0.081   42.797    0.000    3.473    1.563
+   .item5   (.14.)    2.245    0.077   29.048    0.000    2.245    1.061
+   .item6   (.15.)    3.808    0.075   50.564    0.000    3.808    1.846
+   .item7             3.448    0.116   29.819    0.000    3.448    1.510
+   .item8   (.17.)    3.556    0.079   45.035    0.000    3.556    1.644
+   .item9   (.18.)    1.232    0.065   18.878    0.000    1.232    0.689
+    depress           0.000                               0.000    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .item1   (.19.)    1.447    0.145    9.949    0.000    1.447    0.529
+   .item2   (.20.)    2.295    0.178   12.893    0.000    2.295    0.563
+   .item3   (.21.)    3.649    0.143   25.557    0.000    3.649    0.831
+   .item4   (.22.)    3.576    0.197   18.172    0.000    3.576    0.724
+   .item5   (.23.)    3.478    0.161   21.617    0.000    3.478    0.776
+   .item6   (.24.)    2.906    0.199   14.596    0.000    2.906    0.683
+   .item7             4.625    0.260   17.769    0.000    4.625    0.887
+   .item8   (.26.)    3.368    0.207   16.275    0.000    3.368    0.720
+   .item9   (.27.)    2.807    0.143   19.666    0.000    2.807    0.879
+    depress           1.000                               1.000    1.000
+
+R-Square:
+                   Estimate
+    item1             0.471
+    item2             0.437
+    item3             0.169
+    item4             0.276
+    item5             0.224
+    item6             0.317
+    item7             0.113
+    item8             0.280
+    item9             0.121</code></pre>
+</div>
+</div>
+</section><section id="model-comparison-1" class="level3" data-number="1.2.3"><h3 data-number="1.2.3" class="anchored" data-anchor-id="model-comparison-1">
+<span class="header-section-number">1.2.3</span> Model Comparison</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Model Fit Indices Table</caption>
+<colgroup>
+<col style="width: 22%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 15%">
+<col style="width: 6%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">cfi</th>
+<th style="text-align: right;">tli</th>
+<th style="text-align: right;">rmsea</th>
+<th style="text-align: right;">rmsea.ci.lower</th>
+<th style="text-align: right;">rmsea.ci.upper</th>
+<th style="text-align: right;">rmsea.pvalue</th>
+<th style="text-align: right;">srmr</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Configural</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.04</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">structuralVariance</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">structuralMean</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Model Comparision Table</caption>
+<colgroup>
+<col style="width: 23%">
+<col style="width: 3%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 13%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">Chisq</th>
+<th style="text-align: right;">Chisq diff</th>
+<th style="text-align: right;">Df diff</th>
+<th style="text-align: right;">Pr(&gt;Chisq)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Configural</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">27525.80</td>
+<td style="text-align: right;">27784.52</td>
+<td style="text-align: right;">98.91085</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">structuralVariance</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">27493.79</td>
+<td style="text-align: right;">27641.63</td>
+<td style="text-align: right;">114.90425</td>
+<td style="text-align: right;">16.993054</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0.8489582</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">structuralMean</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">27493.03</td>
+<td style="text-align: right;">27636.25</td>
+<td style="text-align: right;">116.14270</td>
+<td style="text-align: right;">1.225188</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.2683450</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+</section></section></section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jihongzhang\.org");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><script src="https://giscus.app/client.js" data-repo="JihongZ/quarto-academic-jihong" data-repo-id="R_kgDOJz3gyg" data-category="General" data-category-id="DIC_kwDOJz3gys4CXdYE" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script><input type="hidden" id="giscus-base-theme" value="light"><input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2015-2024, JihongZhang</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

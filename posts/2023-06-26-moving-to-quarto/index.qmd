@@ -1,0 +1,108 @@
+---
+title: "Moving My Website to Quarto"
+author: "Jihong Zhang"
+date: "06/25/2023"
+draft: false
+categories:
+  - quarto
+format:
+  html:
+    toc: true
+    code-fold: true # hide code by default
+    html-math-method: katex
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+---
+
+> Since June 25, 2023, I start to move my website from hugo/rmarkdown/blogdown/wowchemy to quarto website. It is difficult to explain why I spend so much time on that. Perhaps because some reasons same as other bloggers:
+>
+> \(1\) Quarto is the next generation of rmarkdown.
+>
+> \(2\) Quarto is independent with R or Rstudio.
+>
+> \(3\) Quarto has a clean file tree for website building.
+>
+> \(4\) Quarto has cleaner command than hugo (i.e., \`quarto publish netlify\` for publishing website etc.).
+>
+> This blog serves as a note how I customize quarto website bit by bit. It will not be a comprehensive tutorial (much online resources exists) but contain be some tricks.
+
+## Useful links
+
+1.  Quarto official documentation is always the best place to starts with.
+
+[![](quarto.png){fig-align="center"}](https://quarto.org)
+
+2.  Nicola Rennie's blog is very inspiring. Nice font setting and background. I feel like [Hugo Apéro](https://github.com/hugo-apero/) is the best hugo theme in the market.
+
+    [![](nrennie.png){width="320" height="200"}](https://nrennie.rbind.io)
+
+3.  Yihui's blog. As the creator of blogdown, Yihui talked about why not transfer to Quarto :P I am a old player of hugo/blogdown, but I am not good at customizing the website from the scratch. Thus, quarto suits my needs very well. For those who is very experienced at JS, hugo is still a better choice.
+
+    [![](yihui.png){width="320" height="200"}](https://yihui.org/en/2022/04/quarto-r-markdown/#should-you-switch)
+
+4.  Frank Harrel's blog: R workflow.
+
+    [![](FrankHarrel.png){width="320" height="200"}](https://www.fharrell.com/post/rflow/)
+
+## Tricks of Quarto
+
+### Code highlighting
+
+The very first trick is using `format > html > code-fold: true` settings in YAML metadata in *\_quarto.yml* (global) or *.qmd* (local) to hide the code block as `|> Code`, like:
+
+```{r}
+library(kableExtra)
+kbl(head(iris)) |> 
+  kable_styling(
+    html_font = "Ysabeau Office",
+    font_size = 11, full_width = TRUE)
+```
+
+Note that the code block can be numbered and added with a left border using `code-block-bg: true` and `code-block-border-left: "#31BAE9"`
+
+Code block now also can be shown with language `#| echo: fenced`. As the code chunk shown below, `{r}` is explicitly presented. I don't hate `#|` as the new way of chuck option setup but when I test the code chuck, I found there is a space between `#|` and option keys. For example, it should be `#| echo: fenced` rather than `#|echo:fenced`. Otherwise, quarto will ignore chunk options.
+
+```{r}
+#| echo: fenced
+#| eval: false
+#| code-fold: false
+kableExtra::kbl(head(iris)) |> 
+  kableExtra::kable_styling(
+    html_font = "Ysabeau Office",
+    bootstrap_options = c('striped', 'hover'),
+    font_size = 10, full_width = TRUE)
+```
+
+```{python}
+#| echo: fenced
+#| eval: false
+#| code-fold: show
+import numpy as np
+iris = np.array(iris)
+```
+
+### Visual model
+
+Visual model is one of the most appealing feature for Quarto but I am far from a expert in that. It looks like a visual model version of markdown editor (so called WYSIWYM editing, What you see is What you mean) but slightly different. The shortcut of switching between source and visual model is `Cmd` + `Shift` + `F4` (Thanks to Yihui's [JS](https://yihui.org/en/2023/02/key-buttons/) for pretty keyboard styling).
+
+I list some most frequently used keyboard for visual mode editing:
+
+(a) Insert Hyperlink: `Cmd` + <kbd>K</kbd>
+
+(b) Add footnote[^1]: `Shift`+`Cmd`+`F7`
+
+(c) Insert picture: `Shift` +`Cmd` +<kbd>I</kbd>
+
+(d) Insert code chunk[^2]: `Alt` +`Cmd` +<kbd>I</kbd>
+
+(e) Edit attribute[^3]: `F4`
+
+[^1]: Like this.
+
+[^2]: By default, it will insert R code chunk. If another language is frequently, use `Tools > Modify keyboard shortcuts > filter 'Insert'`. There should be a place for setting shortcut for other language.
+
+[^3]: Click \`F4\` in any place in the div works.
+
+Please also refer to the [official document](https://quarto.org/docs/visual-editor/vscode/) for more shortcuts and features. One thing I found very interesting is single quote mark `` ` `` . First, I'm not sure how to escape this in visual model. Second, if you close quote before typing content, like \`\`, visual mode will escape both quote marks. However, if you type in left quote mark then content and then close quote (i.e., type in\``something` first, and type closing quote mark), it can quote content correctly.
+
+Last but not least, perhaps just type `/` in rstudio is a better choice as it will pop up a list of elements to choose.

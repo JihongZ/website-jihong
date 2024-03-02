@@ -1,0 +1,24 @@
+TITLE:
+Batch Analysis of Latent Class Models;
+DATA:
+FILE = "Mplus/model_82a9762875492c29b1aa630600ea31af.dat";
+ 
+VARIABLE:
+NAMES = Male Age Chinese EduF_Med EduF_High EduM_Med EduM_High EduS_Med EduS_High; 
+ MISSING=.;
+ 
+      CATEGORICAL = Male-EduS_High;
+      CLASSES = c(5);
+      
+ANALYSIS:
+
+      TYPE = MIXTURE;
+      
+OUTPUT:
+TECH1 TECH8 TECH11;
+SAVEDATA:
+
+      FILE IS model_Temp_save.txt;
+      SAVE IS cprob;
+      FORMAT IS free;
+      

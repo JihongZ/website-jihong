@@ -1,0 +1,24 @@
+---
+title: My New Shiny App Cut Score Consistency
+author: Jihong Zhang
+date: '2018-03-10'
+categories:
+  - R
+  - Shiny
+format: 
+  html: 
+    code-fold: show
+    code-overflow: wrap
+    code-summary: ' R Code'
+    number-sections: false
+---
+
+
+```{r}
+#| results: asis
+knitr::include_app("https://jihongz.shinyapps.io/Cutscore-1/", height = 1200) 
+```
+
+```{=html}
+<iframe width="100%" height="400" src="https://jihongz.shinyapps.io/Cutscore-1/" style="border:2px solid #F3DCD4;"></iframe>
+```

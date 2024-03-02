@@ -1,0 +1,60 @@
+---
+title: "Initialize R Project"
+author: "Jihong Zhang"
+date: "Feb 18 2024" 
+date-modified: "Feb 18 2024"
+categories:
+  - project
+---
+
+![A screenshot of files for Project](directory.png){width="800"}
+
+A great file management is important when revisiting project file when getting feedback from reviewers. I created a R file to generate the folders required for a project. Typically, I follow following step:
+
+1.  Create a empty folder in your project file "Project A"
+2.  Open rstudio, `File` \> `New Project ...` then select `Project A`, you should find a `.Rproj` file in the folder. Open it.
+3.  Then, create a new R file named "InitializeProject.R", then copy and run following codes in the file.
+4.  Finnally, you should have similar folders in `Project A`
+
+```{r filename="InitializeProject.R"}
+#| eval: false
+if(!require(fs)) {
+  install.packages("fs")
+}
+suppressPackageStartupMessages(library(fs))
+
+getwd()
+
+folders <- c(
+  "00_Code",# for R/Stan/Python syntax files
+  "01_OriginalData", # for original data
+  "02_TransformedData", # for transformed data, intermedian data
+  "03_Figure", # for output figure
+  "03_Table", # for output table (.csv)
+  "04_Modeling", # sometimes model results are large (MCMC), for models' results
+  "05_Manuscript",  # for ppt, pdf, word
+  "97_Reference", # for pdf files which have tutorials
+  "98_TempData" # for temporate files which will not be used 
+)
+
+fs::dir_create(
+  path = folders
+)
+
+# Library Load
+library_load <- function(){
+  if(!require(pacman)){install.packages("pacman")}
+  pacman::p_load(
+    "tidyverse",
+    "modeltime",
+    "psychonetrics"
+  )
+}
+
+
+lib_funs <- "library_load"
+dump(
+  list = lib_funs,
+  file = "00_Code/library_load.R"
+)
+```

@@ -1,0 +1,272 @@
+---
+title: "How to set up High Performance Computing of University of Arkansas"
+author: Jihong Zhang
+date: 2024-01-14
+categories: 
+  - tutorial
+  - hpc
+citation:
+  type: webpage
+  issued: 2024-01-14
+---
+
+## General Information
+
+Arkansas High Performance Computing Center (AHPCC) is available for research and instructional use to faculty and students of any Arkansas university and their research collaborators. There is no charge for use of our computing resources.
+
+To use the HPC, an AHPCC account must be requested through [Internal Account Request Form](http://hpc.uark.edu/hpc-support/user-account-requests/internal.php). Please see [here](https://dartproject.org/hpc/) for more information about AHPPC inventory.
+
+## Connect to HPC
+
+As long as you have an AHPCC account, you can connect to HPC through SSH. For Windows users, you can use [PuTTY](http://www.putty.org/) to connect to HPC. For Mac and Linux users, you can use the terminal to connect to HPC. The command is:
+
+``` bash
+ssh [loginname]@hpc-portal2.hpc.uark.edu
+```
+
+If your account was successfully setted up, passwords will be required. After you enter your password, you will be connected to HPC.
+
+![Login Screenshot](login.png)
+
+Note: Pinnacle is a new resource at the University of Arkansas in 2019. It consists of 100 Intel based nodes with 20 NVIDIA V100 GPU nodes enabling data science and machine learning and 8 big memory nodes with 768 Gb ram/each for projects requiring a large memory footprint.
+
+### SSH login without password
+
+1.  Generate a pair of authentication keys in your local machine and do not enter a passphrase using the following codes:
+
+``` bash
+ssh-keygen -t rsa   
+```
+
+Please note that make the passphrase empty:
+
+```         
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/[username]/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/[username]/.ssh/id_rsa
+Your public key has been saved in /Users/[username]/.ssh/id_rsa.pub
+```
+
+2.  In your local machine, type in following commands to copy local public key to the hpc server.
+
+``` bash
+scp ~/.ssh/id_rsa.pub [loginname]@hpc-portal2.hpc.uark.edu:/home/[loginname]/.ssh/authorized_keys
+```
+
+3.  Now you should be able to login the hpc login node without password:
+
+``` bash
+ssh [loginname]@hpc-portal2.hpc.uark.edu
+```
+
+## Moving data
+
+For moving data files from local machine to HPC, type in following codes on your local machine:
+
+``` bash
+scp program.c loginname@hpc-portal2.hpc.uark.edu:/home/loginname/
+```
+
+To copy an entire directory tree `src` using SCP, use `-r` for recursive:
+
+``` bash
+scp -r src loginname@hpc-portal2.hpc.uark.edu:/home/loginname/
+```
+
+Similarly, for moving data files from HPC to local machine, type in following codes on your local machine:
+
+``` bash
+scp -r loginname@hpc-portal2.hpc.uark.edu:/home/loginname/src ./
+```
+
+## Jobs submission
+
+There are multiple steps to submit the R file to cluster to run.
+
+**First**, we need to determine the computing nodes we want to use. Please refer to this [link](https://hpcwiki.uark.edu/doku.php?id=equipment) for detailed information about HPC equipment. A general 'submitting' command is like this:
+
+``` bash
+sbatch -q q06h32c -l walltime=1:00 -l nodes=1:ppn=32 example.sh
+```
+
+::: {.callout-note appearance="simple"}
+## Note
+
+`sbatch` command aims to submit a job with the job file `example.sh`. The command above submitted the job to the q06h32c queue with a wall-time of 1 minute requesting all 32 cores on 1 node.
+:::
+
+**Second**, create a job file with `.sh` extension. Here's a simple example of a job file `example.sh` that can tell HPC **how** to run your R code:
+
+``` bash
+#!/bin/bash
+#SBATCH --job-name=mpi
+#SBATCH --output=zzz.slurm
+#SBATCH --partition comp06
+#SBATCH --nodes=2
+#SBATCH --tasks-per-node=32
+#SBATCH --time=6:00:00
+module load gcc/11.2.1 mkl/19.0.5 R/4.2.2
+
+Rscript HelloWorld/example.R
+```
+
+::: {.callout-note appearance="simple"}
+**Note**
+
+Where <mark>Line 8</mark> loaded all required modules:
+
+-   `gcc` and `mkl` are required for R package installation (Note: To the date, `gcc/11.2.1` is the latest version of `gcc` than can compile the `cmdstanr` successfully). Please see [here](https://hpcwiki.uark.edu/doku.php?id=r) for more details.
+
+-   `Rscript` is the bash command to execute R file on HPC. `HelloWorld/example.R` is the path of your R script.
+
+-   Anything behind the `#SBATCH` are options for the SLURM scheduler. Please see following summary or view [it](https://slurm.schedmd.com/pdfs/summary.pdf) online:
+:::
+
+```{r, echo=FALSE}
+xfun::embed_file("summary.pdf")
+```
+
+**Third**, you may want to use R interactively to test your R code is running well. Use the following bash command to start a brand new R in terminal:
+
+``` bash
+srun -N1 -n1 -c1 -p cloud72 -q cloud -t 2:00:00 --pty /bin/bash
+```
+
+::: {.callout-note appearance="simple"}
+## Note
+
+This command will redirect to cloud72 queue, which includes virtual machines and containers, usually single processor, 72 hour limit, 3 nodes.
+:::
+
+| slurm commands      | compatibility commands   | Meaning                            |
+|-------------------|-----------------------|-------------------------------|
+| sbatch              | qsub                     | submit \<job file\>                |
+| srun                | qsub -I                  | submit interactive job             |
+| squeue              | qstat                    | list all queued jobs               |
+| squeue -u -rfeynman | qstat -u rfeynman        | list queued jobs for user rfeynman |
+| scancel             | qdel                     | cancel \<job#\>                    |
+| sinfo               | shownodes -l -n;qstat -q | node status;list of queues         |
+
+::: callout-note
+## Note
+
+For slurm, please use the commands in the 1st column. Then you should be able to start R in an interactive job and install required packages. If you load `R/4.2.2` module, those packages installed via an interactive job will be stored at `$HOME$/R/x86_64-pc-linux-gnu/4.2/`. See [here](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) for more details about interactive job.
+:::
+
+**Finnally,** the whole workflow of job submission is as follows:
+
+``` bash
+c1331:jzhang:~/HelloWorld$ cat exampleJob.sh
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --tasks-per-node=2
+#SBATCH --job-name=Exp0
+module purge
+module load os/el7 gcc/9.3.1 mkl/19.0.5 R/4.2.2
+cd $SLURM_SUBMIT_DIR
+Rscript example.R
+c1331:jzhang:~/HelloWorld$ rm slurm-334001.out
+c1331:jzhang:~/HelloWorld$ sbatch exampleJob.sh
+Submitted batch job 334002
+c1331:jzhang:~/HelloWorld$ ls
+exampleJob.sh  example.R  gene_up.txt  MS_entrez_id_alldata.txt  slurm-334002.out
+c1331:jzhang:~/HelloWorld$
+```
+
+## Checking job
+
+``` bash
+squeue -u loginname
+```
+
+Below shows the information of all running/down task for the queue `comp06` (there are 9 Jobs but only 7 are running). Note that comp06 and comp72 queues share the same nodes, both belonging to pinnacle cluster. There are 49 public standard compute nodes. Thus, if there are 49 running jobs in both queues, then your job has to be waitting until some jobs finished.
+
+For example, below shows all 47 running jobs in comp06/comp72 queues. Some have been running like 2 days. There are 72 hours limit though for all computation nodes.
+
+``` bash
+squeue -p comp06,comp72 -t R
+ JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+ 362406    comp06    measr   jzhang  R    1:04:24      1 c1501
+ 362385    comp06 sys/dash ashmitau  R    2:07:25      1 c1402
+ 362309    comp06 sys/dash    igorf  R    4:14:32      1 c1402
+ 362361    comp06 03a_iqtr amatthew  R      55:02      1 c1420
+ 362311    comp06  mystery cdgoolsb  R    4:09:10      1 c1410
+ 362310    comp06  mystery cdgoolsb  R    4:09:40      1 c1410
+ 362308    comp06  mystery cdgoolsb  R    4:14:41      1 c1410
+ 362454    comp72 test_str pradeepk  R      11:03      1 c1512
+ 362150    comp72   cv0_rf    igorf  R 1-00:43:47      1 c1410
+ 362151    comp72   cv1_rf    igorf  R 1-00:43:47      1 c1410
+ 362152    comp72   cv2_rf    igorf  R 1-00:43:47      1 c1410
+ 362137    comp72 sys/dash maghamoh  R 1-03:12:27      1 c1410
+ 362340    comp72  cv1_pls    igorf  R    1:00:24      1 c1512
+ 362341    comp72  cv2_pls    igorf  R    1:00:24      1 c1512
+ 362339    comp72  cv0_pls    igorf  R    1:04:24      1 c1501
+ 360997    comp72  TiS2-ph bothinah  R 2-04:46:42      1 c1609
+ 360877    comp72 Temp_230 sppoudel  R      54:55      1 c1419
+ 360875    comp72 Temp_220 sppoudel  R    6:19:42      1 c1415
+ 360876    comp72 Temp_225 sppoudel  R    6:19:42      1 c1509
+ 354260    comp72 peep19-0   djo001  R   11:27:37      1 c1506
+ 354262    comp72 peep20-0   djo001  R   11:27:37      1 c1514
+ 354263    comp72 peep21-0   djo001  R   11:27:37      1 c1515
+ 351991    comp72 peep16-0   djo001  R   12:31:45      1 c1507
+ 351988    comp72 peep18-2   djo001  R   14:00:48      1 c1603
+ 351987    comp72 peep17-2   djo001  R   14:07:24      1 c1519
+ 360873    comp72 Temp_210 sppoudel  R   14:49:25      1 c1408
+ 360874    comp72 Temp_215 sppoudel  R   14:49:25      1 c1418
+ 351989    comp72 peep18-0   djo001  R   14:49:55      1 c1516
+ 351990    comp72 peep17-0   djo001  R   14:49:55      1 c1518
+ 351986    comp72 peep16-2   djo001  R   15:36:01      1 c1605
+ 360824    comp72 SmNiO3-2 paillard  R   16:23:51      4 c[1405-1406,1503,1508]
+ 360871    comp72 Temp_205 sppoudel  R   16:23:51      1 c1511
+ 360821    comp72 SmNiO3-2 paillard  R 1-01:41:15      4 c[1412-1413,1513,1517]
+ 360869    comp72 Temp_200 sppoudel  R 1-01:41:15      1 c1606
+ 360868    comp72 Temp_195 sppoudel  R 1-14:30:28      1 c1504
+ 349719    comp72  peep8-2   djo001  R 1-16:02:28      1 c1608
+ 360867    comp72 Temp_190 sppoudel  R 1-20:18:00      1 c1610
+ 360818    comp72 SmNiO3-2 paillard  R 1-20:18:01      4 c[1404,1409,1502,1505]
+ 360866    comp72 Temp_180 sppoudel  R 2-04:52:43      1 c1411
+ 349718    comp72  peep9-2   djo001  R 2-05:37:18      1 c1604
+ 349717    comp72 peep10-2   djo001  R 2-05:51:48      1 c1520
+ 349715    comp72 peep12-2   djo001  R 2-09:11:29      1 c1417
+ 349716    comp72 peep11-2   djo001  R 2-09:11:29      1 c1607
+ 349714    comp72 peep13-2   djo001  R 2-09:30:18      1 c1510
+ 338160    comp72 INT3-WT- dgirodat  R 2-10:20:18      1 c1407
+ 338164    comp72 C1069T-p dgirodat  R 2-10:20:18      1 c1414
+```
+
+When you want to get the worst case scenario estimate of when your waiting jobs will start, you can always run following command,
+
+``` bash
+squeue -u [loginname] --start
+```
+
+### Queues
+
+Most frequently used queues are from `pinnacle` cluster.
+
+Below is a list of queues in the `pinnacle` cluster. The number after the queue is the time limit for a running job. For example, `comp72` has 72 hour limits while `comp06` has only 6 hour limit, but they share same nodes. Thus, for efficiency, maybe use `comp01` for quick examination of coding and use `comp72` for time consuming jobs.
+
+``` bash
+comp72/06/01: standard compute nodes, 72/6/1 hour limit, 42/46/48 nodes
+gpu72/06:     gpu nodes: 72/6 hour limit, 19 nodes
+agpu72/06:    a100 gpu nodes: 72/6 hour limit
+himem72/06:   768 GB nodes, 72/6 hour limit, 6 nodes
+pubcondo06:   condo nodes all-user use, 6 hour limit, various constraints required, 25 nodes
+pcon06:       same as pubcondo06, shortened name for easier printout, use this going forward
+cloud72:      virtual machines and containers, usually single processor, 72 hour limit, 3 nodes
+condo:        condo nodes, no time limit, authorization required, various constraints required, 25 nodes
+tres72/06:    reimaged trestles nodes, 72/06 hour limit, 126 nodes
+razr72/06:    reimaged razor nodes, 72 hour limit, in progress
+```
+
+Here's some useful information regarding selecting queue from https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage
+
+> Generally the nodes are reserved for the most efficient use, especially for expensive features such as GPU and extra memory. Pinnacle compute nodes are very busy (comp.. and himem.. partitions) are reserved for scalable programs that can use all 32/24 cores (except for the cloud partition, and condo usage by the owner). Cores are allocated by the product of ntasks-per-node x cpus-per-task. Exceptions: (1) serial/single core jobs that use more memory than available on Razor/Trestles (64 to 192 GB) (2) multiple jobs submitted together that use a whole node, such as 4 x 8 cores (3) two jobs on one high-memory node (2 x 12 cores) that each use more than 192 GB (and less than 384 GB so that they can run on the himem node)
+
+### Troubleshooting
+
+1.  Revise `.bashrc` so that the ssh cannot login?
+
+    You potential can try `ctrl+c` to avoid the ssh to execute bashrc. Try multiple time if not succeed. See [here](https://serverfault.com/questions/206544/i-screwed-up-exit-in-bashrc) for reference.

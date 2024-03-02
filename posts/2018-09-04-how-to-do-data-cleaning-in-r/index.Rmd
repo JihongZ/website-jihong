@@ -1,0 +1,110 @@
+---
+title: How to do Data Cleaning in R
+author: Jihong Zhang
+date: '2018-09-04'
+categories: 
+  - blog
+  - R
+  - tidyverse
+toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> This blog is trying to elaborate steps for cleaning the data. Since datasets varied, this blog could not cover all. Depedent on the data you're using, different methods should be used.
+
+## Libraries
+
+I use tidyverse as my main tool to clean the data. Tidyverse is a very useful package created by Hadley. It includes several sub-packages, such as dplyr (data manipulation), tidyr (data transforming), readr (data import), ggplot2 (data visulization) etc. If you haven't installed this package yet, please run `install.packages("tidyverse")` in your R console.
+
+```{r , results='hide', message=FALSE }
+library(tidyverse)
+```
+
+## Step 1: Import Data
+
+If your data is csv format, you could use `read.csv()` to import the data into R. Be careful to add `stringsAsFactors = FALSE` argument in the function, or all string variables will automate convert to factor by default. This will lead to some issues when you do further checking. \# Configuration of Academic \# Documentation: <https://sourcethemes.com/academic/> \# \# This file is formatted using TOML syntax - learn more at <https://learnxinyminutes.com/docs/toml/> \# Each configuration section is defined by a name in square brackets (e.g. `[outputs]`).
+
+```{r}
+dat1 <- read.csv("nfl_2010-2017.csv", stringsAsFactors = FALSE)
+```
+
+## Step 2: Initial Check
+
+Perform some initial check before doing further manipulation. This step is to let you get familiar with you data and have a big picture on what you need to do next.
+
+### Step 2.1: check variables
+
+`str()` is a very useful fuction in R base package which provides you sample sizes, number of variabels, variables names, variabile types and several sample responses. In the sample data, there are 81,525 observations and 23 variables.
+
+```{r}
+str(dat1)
+```
+
+### step 2.2: check missing values and ranges
+
+Missing values could be checked one by one variables or in case-level. Knowing which one or more variablea have high missing values will help you think about the reasons.
+
+```{r}
+summary(dat1)
+```
+
+In this sample, variables **rush_att, rush_yds, rush_avg, rush_tds, rush_fumbles** have 47,710 missing values; variables **rec, rec_yds, rec_avg, rec_tds, rec_fumbles** have 16,722 missing values, variables **pass_att, pass_yds, pass_tds, int, sck, pass_fumbles, rate** have 71,044 missing values.
+
+Also, look at the range (Min., Max.) of variables in `summary` output, sometimes the responses may exceed expected range. You may have to delete those cases in this situation.
+
+### step 2.3: check first and last cases
+
+Sometimes you may find the second row of data including some information you don't want. For example, Qualtrics survey data will put some background log information in row 2. Thus, it's better to check the head and tail of dataset. You can use functions below:
+
+```{r}
+head(dat1)
+tail(dat1)
+```
+
+The R output provide first 6 cases and last 6 case. You can use `head(dat1, 10)` to output first 10 cases.
+
+## Step 3: Select and rename Variables
+
+After initial checks, some basic data cleaning could be done. You may want to select some variables you want and remove others. You can use `select` function to do that:
+
+```{r}
+dat2 <- dat1 %>% select(name, team, pass_att)
+```
+
+I selected 3 variables (name, team, pass_att) from the dat1 and assign 3-variables data to "dat2".
+
+```{r}
+head(dat2)
+```
+
+To rename the variables' names, you could use `set_names()` from purrr packages.
+
+```{r}
+dat2 %>% purrr::set_names(nm = "Players", "Team", "Pass_Attribute") %>% head()
+dat2 %>% purrr::set_names(nm = "V1", "V2", "V3") %>% head()
+```
+
+## Step 4: Remove missing values
+
+If you prefer cases with no missing cases at all. You can use the function below.
+
+```{r}
+dat_complete_cases <- dat2 %>% 
+  filter_all(all_vars(!is.na(.)))
+
+summary(dat_complete_cases)
+```
+
+Or if you want remove the cases whose **Pass_Attribute** is missing, you can use:
+
+```{r}
+dat_partialcomplete_cases <- dat2 %>% 
+  filter(!is.na(pass_att))
+
+summary(dat_complete_cases)
+```
+
+To be continued...

@@ -1,0 +1,190 @@
+---
+title: "Data visualization for survey data"
+author: "Jihong Zhang"
+description: "Many tutorials online are about general data visualization. This post aims to showcase some tricks for survey data"
+date: "2023-07-04"
+draft: false
+categories: 
+  - blog
+  - ggplot2
+execute: 
+  eval: false
+format:
+  html:
+    toc: true
+    code-fold: show
+    code-summary: ' R Code'
+    code-line-numbers: false
+    number-sections: true
+    number-offset: 1
+---
+
+## R package - survey
+
+### What ChatGPT say about `survey` package
+
+> Me: I don't know much about `survey` R package. Can you tell me know about core features of this package?
+
+Sure, the `survey` package in R is designed specifically for analysis of data from complex surveys. It provides functions for descriptive statistics and general regression models for survey data that includes design features such as clustering, stratification, and weighting.
+
+Here are some of the core features of the `survey` package:
+
+1.  **Descriptive Statistics:** The package provides functions for computing descriptive statistics on survey data, including mean, total, and quantiles.
+
+2.  **Regression Models:** The package provides a variety of model fitting functions for binary and multi-category response, count data, survival data, and continuous response.
+
+3.  **Design Effects:** It allows calculation of design effects for complex survey designs.
+
+4.  **Post-stratification and Raking:** The package allows for adjusting the sampling weights to match known population margins.
+
+5.  **Subpopulation Analysis:** It includes functions for correctly handling analyses that are limited to a subset of the population (a subpopulation).
+
+6.  **Variance Estimation:** The `survey` package supports multiple methods of variance estimation, including Taylor series linearization, replication weights, and subbootstrap.
+
+Remember that before you can use these functions, you will need to define a survey design object that specifies the features of your survey's design (like the sampling method, strata, clustering, and weights).
+
+Here's an example of how you might use it to calculate the mean of a variable from a survey:
+
+```{r}
+# Load the necessary package
+library(survey)
+
+mydata <- iris
+
+# Define the survey design
+des <- svydesign(ids = ~1, data = mydata, weights = ~Sepal.Length)
+
+# Calculate the mean of a variable
+mean <- svymean(~Species, design = des)
+
+mean
+```
+
+::: callout-note
+## Note
+
+|             |                                                                                                                               |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `variables` | Formula or data frame specifying the variables measured in the survey. If `NULL`, the `data` argument is used.                |
+| `ids`       | Formula or data frame specifying cluster ids from largest level to smallest level, `~0` or `~1` is a formula for no clusters. |
+| `probs`     | Formula or data frame specifying cluster sampling probabilities                                                               |
+:::
+
+Please replace `mydata`, `weight`, and `variable` with your actual data frame, weight column, and the variable you're interested in, respectively.
+
+Remember, working with survey data can be complex due to the design features of surveys. The `survey` package in R provides a robust set of tools for dealing with this complexity.
+
+## An empirical example
+
+The example I used here is a tody data exacted from a real data about eating disorders. The sample size is 500.
+
+The measurement data contains 12 items, each ranging from 0 to 3. The demographic data contains 6 variables: age, gender, race, birthplace, height, weight. The very first thing is to visualize the characteristics of the samples to have a big picture of respondents.
+
+```{r}
+#| label: setup
+#| eval: true
+#| code-fold: true
+#| message: false
+#| warning: false
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warnings=FALSE, include = TRUE)
+library(here)
+library(glue)
+library(readr)
+library(bruceR)
+library(xtable)
+library(survey)
+library(formattable) # format styles of table 
+library(reshape2)
+library(tidyverse)
+library(ggtext) 
+library(kableExtra)
+options(knitr.kable.NA = '')
+mycolors = c("#4682B4", "#B4464B", "#B4AF46", 
+             "#1B9E77", "#D95F02", "#7570B3",
+             "#E7298A", "#66A61E", "#B4F60A")
+softcolors = c("#B4464B", "#F3DCD4", "#ECC9C7", 
+               "#D9E3DA", "#D1CFC0", "#C2C2B4")
+mykbl <- function(x, ...){
+  kbl(x, digits = 2, ...) |> kable_styling(bootstrap_options = c("striped", "condensed")) }
+
+```
+
+```{r}
+datList <- readRDS(here::here("posts/2023-07-04-data-visualization-for-survey-data/Example_Data.RDS"))
+str(datList)
+```
+
+### Descriptive statistics
+
+We can use multiple R tools for descriptive statistics. `bruceR` is one of them.
+
+```{r}
+description <- datList$description
+bruceR::Freq(dplyr::select(description, gender:birthplace), 
+             varname = "gender")
+```
+
+```{r}
+#| include: true
+freqTblVars = c("gender", "race", "birthplace")
+freqTable <- function(tbl, var) {
+  tbl |> as.data.frame() |> 
+    tibble::rownames_to_column("Levels") |> 
+    dplyr::mutate(Variable = var)
+}
+freqTableComb = NULL
+for (var in freqTblVars) {
+  tbl = bruceR::Freq(dplyr::select(description, gender:birthplace), varname = var)
+  freqTableComb = rbind(freqTableComb, freqTable(tbl = tbl, var = var))
+  freqTableComb <- freqTableComb |> 
+    relocate("Variable")
+}
+```
+
+```{r}
+mykbl(freqTableComb)
+```
+
+Or we can use `survey` package for descriptive analysis
+
+```{r}
+library(survey)
+dexample = svydesign(ids = ~1,
+                     data = datList$measurement)
+summary(dexample)
+
+## summay statistics for all measurement indicators
+vars <- colnames(datList$measurement)
+svymean(make.formula(vars), design = dexample, na.rm = TRUE)
+svytotal(make.formula(vars), design = dexample, na.rm = TRUE)
+```
+
+### Stacked barplot for survey data responses
+
+```{r}
+survey = datList$measurement
+survey <- survey |> 
+  mutate(ID = 1:nrow(survey)) |> 
+  mutate(across(starts_with("EDEQS"), \(x) factor(x, levels = 0:3))) |> 
+  pivot_longer(starts_with("EDEQS"), names_to = "items", values_to = "values") |> 
+  group_by(items) |> 
+  dplyr::count(values) |> 
+  dplyr::mutate(perc = n/sum(n) * 100)
+
+p = ggplot(survey) +
+  geom_col(aes(y = factor(items, levels = paste0("EDEQS", 1:12)),
+               x = perc,
+               fill = values), 
+           position = position_stack(reverse = TRUE)) +
+  labs(y = "", x = "Proportion (%)", title = "N and proportion of responses for items")
+
+p = p + geom_text(aes(y = factor(items, levels = paste0("EDEQS", 1:12)),
+                  x = perc, group = items,
+                  label = ifelse(n >= 50, paste0(n, "(", round(perc, 1), "%)"), "")), 
+              size = 3, color = "white",
+              position = position_stack(reverse = TRUE, vjust = 0.5))
+p = p + scale_fill_manual(values = mycolors)
+p
+```
+
+We can clearly identify item 7 has highest proportion of level 0, and needed to be theoretically justified.

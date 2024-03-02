@@ -1,0 +1,98 @@
+---
+title: 'Study Notes: gt package and format table'
+author: Jihong
+date: '2020-05-25'
+slug: study-notes-gt-package-and-format-table
+draft: false
+categories:
+  - R
+tags:
+  - Tutor
+toc: true
+---
+
+A introduction about `gt` package  is [here](https://themockup.blog/posts/2020-05-16-gt-a-grammer-of-tables/)
+
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE,
+                      fig.align = "default", 
+                      eval = TRUE)
+
+library(gt)
+suppressMessages(library(tidyverse))
+```
+
+## Basics of `gt`
+
+
+A basic `gt` table can be created as so 
+
+```{r}
+data("iris")
+glimpse(iris)
+
+iris %>% 
+  head() %>% 
+  gt()
+```
+
+
+You can add row names (`rowname_col` argument) and add group names (`groupname_col` argument) into the table:
+
+```{r}
+iris %>% 
+  arrange(desc(Sepal.Length)) %>% # 6 types of iris with largest sepal length
+  mutate(Rank = paste0("ID", 1:nrow(.))) %>% 
+  head(20) %>% 
+  gt(groupname_col = "Species", 
+     rowname_col = "Rank")
+```
+
+
+Next, the boarder could be added into the table:
+```{r}
+iris %>% 
+  arrange(desc(Sepal.Length)) %>% # 6 types of iris with largest sepal length
+  mutate(Rank = paste0("ID", 1:nrow(.))) %>% 
+  head(20) %>% 
+  gt(groupname_col = "Species", 
+     rowname_col = "Rank") %>% 
+  ########################### 
+  # Below is changed
+  ###########################
+  tab_style( # tab_style to change style of cells, 
+    # cells_borders provides the formatting
+    # locations tells it where add black borders to all column labels
+    style = list(
+      cell_borders(
+        sides = "left",
+        color = "black",
+        weight = px(1.2)
+      )
+    ),
+    locations = list(
+      cells_body(
+        columns = colnames(iris)
+      )
+    )
+  ) %>% 
+  # Add botton line below the column names
+  tab_style(
+    style = list(
+      cell_borders(
+        sides = "bottom",
+        color = "black",
+        weight = px(3)
+      )
+    ),
+    locations = list(
+      cells_column_labels(
+        columns = gt::everything()
+      )
+    )
+  )
+```
+

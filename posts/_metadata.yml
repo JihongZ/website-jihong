@@ -1,0 +1,15 @@
+# options apply to all posts in this folder
+
+# freeze computational output
+author: "Jihong Zhang"
+number-sections: true
+number-depth: 3
+
+# <script src="https://utteranc.es/client.js"
+#         repo="[ENTER REPO HERE]"
+#         issue-term="title"
+#         theme="photon-dark"
+#         crossorigin="anonymous"
+#         async>
+# </script>
+

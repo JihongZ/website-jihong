@@ -1,0 +1,116 @@
+---
+title: "MMM 2023 Archive"
+author: "Jihong Zhang"
+format: 
+  dashboard:
+    orientation: columns
+---
+
+```{r}
+#| echo: false
+library(stringr)
+library(tidyverse)
+library(rvest)
+
+## 2023 archive
+scrape_url = "https://modeling.uconn.edu/2023archive/"
+html_from_page <- read_html(scrape_url)
+
+
+# session
+Session <- html_from_page |> html_elements('strong') |> html_text(trim = TRUE)
+Session <- trimws(Session)
+Session[3] <- paste0(Session[3], " ", Session[4])
+Session <- Session[-4]
+Session <- Session[Session != ""]
+SessionTBL <- data.frame(
+  Session_Content = Session,
+  Index = 1:length(Session)) |> 
+  mutate(MaxNum = ifelse(str_detect(Session, "Convenience Samples"), Index, 0))
+
+SessionInfo <- SessionTBL |> 
+  mutate(
+    Session = ifelse(str_detect(Session_Content, "Session|Posters"), Session_Content, ""),
+    Presentation = ifelse(!str_detect(Session_Content, "Session|Posters"), Session_Content, ""),
+  ) |> 
+  select(-Session_Content, -Index, -MaxNum)
+
+## Calculate each session
+Index <- rep(NA, nrow(SessionTBL))
+Index[1] <- 1
+for (i in 2:nrow(SessionTBL)) {
+  Index[i] = ifelse(str_detect(SessionTBL$Session_Content[i], "Session|Posters"), Index[i-1]+1, Index[i-1])
+}
+Session_list <- as.data.frame(table(Index)-1) |> 
+  mutate(Session = SessionInfo$Session[SessionInfo$Session!=""]) 
+
+```
+
+## Column {width="30%"}
+
+```{r}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>% 
+  addMarkers(lat=41.807, lng=-72.253,
+             popup="University of Connecticut")
+```
+
+```{r}
+custom.col <- c("#FFDB6D", "#C4961A", "#F4EDCA", 
+                "#D16103", "#C3D7A4", "#52854C", "#4E84C4", "#293352")
+Topics <- data.frame(
+  SEM = sum(str_detect(SessionInfo$Presentation, "Structural|SEM")),
+  Bayesian = sum(str_detect(SessionInfo$Presentation, "Bayesian|Bayes")),
+  `Model Fit` = sum(str_detect(SessionInfo$Presentation, "fit|Fit")),
+  IRT = sum(str_detect(SessionInfo$Presentation, "Item Response")),
+  DIF = sum(str_detect(SessionInfo$Presentation, "DIF|Differential")),
+  `Multilevel|Longitudinal` = sum(str_detect(SessionInfo$Presentation, "Multilevel|Latent Growth|Longitudinal")),
+  `Factor Analysis` = sum(str_detect(SessionInfo$Presentation, "Latent Variable|Bifactor"))
+)
+
+Topics |> 
+  pivot_longer(everything(), names_to = 'Topic', values_to = 'Frequency') |> 
+  ggplot() +
+  geom_col(aes(x = fct_reorder(Topic, Frequency), y = Frequency, fill = fct_reorder(Topic, Frequency))) +
+  geom_text(aes(x = fct_reorder(Topic, Frequency), y = Frequency, label = paste0(Frequency, " / ", sum(str_length(SessionInfo$Presentation) > 0)) ), nudge_y = 0.3) +
+  labs(x = "Topics") +
+  scale_fill_manual(values = custom.col) +
+  theme(text = element_text(size = 14)) +
+  theme_classic() +
+  guides(fill = "none") # remove legends
+```
+
+## Column {width="70%"}
+
+```{r}
+#| title: Session and Presentation
+DT::datatable(SessionInfo, style = 'bootstrap4') |> 
+  DT::formatStyle(columns = c("Session"), fontWeight = 'bold', `text-align` = 'left') |> 
+  DT::formatStyle(columns = c("Presentation"), color = "#293352", `text-align` = 'left')
+```
+
+### Row
+
+```{r}
+#| content: valuebox
+#| title: Posters
+list(
+  icon = "arrow-repeat",
+  color = "danger",
+  value = Session_list[which.max(Session_list$Freq), "Freq"]
+)
+# Session_list[which.max(Session_list$Freq), "Session"]
+```
+
+```{r}
+#| title: 'Session 8D: Sample Heterogeneity in Dynamic Psychological Processes'
+#| content: valuebox
+#| color: warning
+
+Session_list2 = Session_list |> filter(Session != "Posters")
+list(
+  icon = 'chat',
+  value = Session_list2[which.max(Session_list2$Freq), "Freq"]
+)
+```

@@ -1,0 +1,405 @@
+---
+title: 'How to use lavaan package to perform Confirmatory Factor Analysis'
+author: 'Jihong'
+date: '2017-10-19'
+categories:
+  - Manual
+  - R
+  - Lavaan
+---
+
+> This is one of my homework in Structural Equation Modeling in Fall 2017. Dr. Templin provided a excelent example showing how to perform Confirmatory Factor Analysis (CFA) using `Lavaan` Package. I elaborated each step as following.
+
+<!--more-->
+
+-   First, load packages needed: If you don't have the packages installed below, please use `install.packages()` to install them.
+
+```{r setup, comment=FALSE, echo=FALSE, results="hide", comment=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE
+)
+```
+
+```{r, results='hide', message=FALSE}
+library(tidyverse)
+library(lavaan)
+#library(semPlot)
+library(psych)
+library(knitr)
+library(kableExtra)
+```
+
+## Background
+
+### CFA on Attitude towards Inclusive Education Survey (N = 507)
+
+The affective dimension of attitudes subscale includes 6 items on a 6-point likert scale (1 = Strongly Agree, 6 = Strongly Disagree), measuring teachers' feelings and emotions associated with inclusive education:
+
+1.  I get frustrated when I have difficulty communicating with students with a disability.
+2.  I get upset when students with a disability cannot keep up with the day-to-day curriculum in my classroom.
+3.  I get irritated when I am unable to understand students with a disability.
+4.  I am uncomfortable including students with a disability in a regular classroom with other students without a disability.
+5.  I am disconcerted that students with a disability are included in the regular classroom, regardless of the severity of the disability.
+6.  I get frustrated when I have to adapt the curriculum to meet the individual needs of all students.
+
+The sample size (**N**) is 507, which includes 6 males and 501 females. I used one-factor model as first step. All items are loaded on one general factor - affective attitude towards inclusive education. Higher response score means more positive attitude towards inclusive education.
+
+```{r data}
+dat <- read.csv("AttitudeForInclusiveEducation.csv")
+# head(dat)
+dat2 <- dat %>% select(X,Aff.1:Aff.6)
+colnames(dat2) <- c("PersonID", paste0("Aff",1:6))
+```
+
+## Descriptive Statistics
+
+The descriptive statistics for all items are provided below. It appears that item 4 is the least difficult item as it has the highest mean ($\mu = 4.189, sd = 1.317$); item 5 is the most difficult item as it has lowest mean score ($\mu = 3.604, sd = 1.423$). All responses for each item range from 1 to 6 (1 = Strongly agree, 6 = Strongly disagree). Thus, all categories are responded. In term of item discrimination, as item 3 has the largest standard deviation ($sd = 1.364$) and item 6 has the smallest, item 3 has highest discrimination whearas item 6 has lowest in CTT.
+
+```{r pressure, echo=FALSE, results='asis'}
+describe(dat2) %>% round(3) %>% kable()
+```
+
+Item-total correlation table was provided below. All item-total correlation coefficients are higher than 0.7, which suggests good internal consistence. Item 1 has lowest item-total correlation ($r = 0.733, sd = 1.337$).
+
+```{r itemstats, echo=FALSE, results='asis'}
+## item-total correlation
+a1 <- psych::alpha(dat2[,-1])
+a1$item.stats %>% round(3) %>% kable(caption = "Item-total Correlation Table")
+```
+
+### Sample Correlation Matrix
+
+According to Pearson Correlation Matrix below, we can see all items have fairly high pearson correlation coefficients ranging from 0.44 to 0.72. This provides the evidence of dimensionality. Item 2 and item 3 has highest correlation coefficient($r_{23} = 0.717$). The lowest correlations lies between item 1 and item 4 as well as item 1 and item 5.
+
+```{r}
+cor(dat2[2:7]) %>% round(3) %>% kable(caption = "Pearson Correlation Matrix")
+```
+
+### Sample Mean and Variance
+
+```{r}
+means <- dat2[,2:7] %>% 
+  summarise_all(funs(mean)) %>% round(3) %>% t() %>% as.data.frame()
+sds <- dat2[,2:7] %>% 
+  summarise_all(funs(sd)) %>% round(3) %>% t() %>% as.data.frame()
+table1 <- cbind(means,sds)
+
+colnames(table1) <- c("Mean", "SD")
+table1
+```
+
+### Sample Item Response Distributions
+
+Those items did not exactly match normal distribution but acceptable.
+
+```{r dist,results='asis'}
+# stack data
+dat2_melted <- dat2 %>% gather(key, value,Aff1:Aff6) %>% arrange(PersonID)
+
+# plot by variable
+ggplot(dat2_melted, aes(value)) + 
+  geom_histogram(aes(y=..density..), colour="black", fill="white", binwidth = 1) +
+  geom_density(alpha=.2, fill="#FF6666") +
+  scale_x_continuous(breaks = 1:6) +
+  facet_wrap(~ key)
+```
+
+## Estimation with CFA
+
+### One-factor Model
+
+One-factor model was conducted as first step. The model has one latent facor - affective attitude and six indicators. In general, one-factor model does not provide great model fit except SRMR. The test statistics for chi-square is 75.835 ($p < 0.05$). CFI is 0.929, which larger than 0.95 suggests good model fit. RMSEA is 0.121, which lower than 0.05 suggest good model fit. SRMR is 0.04, which lower than 0.08. The standardized factor loadings range from 0.66 to 0.8. All factor loadings are significant at the level of alpha equals 0.05.
+
+```{r}
+model1.syntax <- '
+  AA =~ Aff1 + Aff2 + Aff3 + Aff4 + Aff5 + Aff6
+'
+model1 <- cfa(model1.syntax, data = dat2,std.lv = TRUE, mimic = "mplus", estimator = "MLR")
+summary(model1, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Local Misfit for One-factor Model
+
+By looking into local misfit with residual variance-covariance matrix we can get the clues to improve the model. According to the model residuals, item 4 has relatively high positive residual covariance with item 5 and item 6. It suggests that the one-factor model underestimates the correlations among item 4, item 5 and item 6. In other words, another latent factor may be needed to explain the strong relations among item 4, 5, 6 which cannot be explained by a general Affective attitude factor.
+
+Moreover, modification indices below also suggest that adding the error covariances among item 4, 5 and 6 will improve chi-square much better.
+
+Thus, I decided to add one more factor - AAE. AAE was labeled as affective attitude towards educational environment which indicated by item 4, 5, 6. The other latent factor - AAC which was indicated by item 1, 2, 3 was labeled as Affective Attitude towards communication.
+
+```{r misfit}
+resid(model1)$cov %>% kable(caption = "Normalized Residual Variance-Covariance Matrix",digits = 3)
+
+modificationindices(model1, standardized = TRUE,sort. = TRUE) %>% slice(1:10) %>% kable(caption = "Modification Indices", digits = 3)
+```
+
+### Two-factor Model
+
+The neccessity of adding another factor was tested by specifying a two-factor model.
+
+In term of model fit indices, it appears that the global model fit indices are great with two-factor model (CFI = 0.986; RMSEA = 0.058; SRMR = 0.022). Ideally, two latent factors could be labeled as moderately correlated aspects of attitudes towards inclusive education. Thus, the first factor (AAC) could be labeled as how teachers feel about communicating with students with disability. The second (AAE) could be labeled as how teachers feel about evironment of inclusive education. All standardized factor loadings are statistically significant ranging from 0.676 to 0.865. The factor correlation between 2 factors is high ($r = 0.838,p = 0.00$).
+
+```{r model2}
+model2.syntax <- '
+  AAC =~ Aff1 + Aff2 + Aff3
+  AAE =~ Aff4 + Aff5 + Aff6
+'
+model2 <- cfa(model2.syntax, data = dat2, std.lv = TRUE, mimic = "mplus", estimator = "MLR")
+summary(model2, fit.measures = TRUE, standardized = TRUE)
+```
+
+### Local Misfit for two-factor model
+
+The local misfit indices for two-factor model also suggest that the model fits data well. The largest normalized residuals is 1.215. Modification indices suggest that add covariance between item 5 and item 6. These local misfit is not theoretically defensible. Thus, the final model is two-factor model.
+
+```{r}
+resid(model2)$cov %>% kable(caption = "Normalized Residual Variance-Covariance Matrix",digits = 3)
+modificationindices(model2, standardized = TRUE,sort. = TRUE) %>% slice(1:10) %>% kable(caption = "Modification Indices", digits = 3)
+```
+
+## Path Diagram
+
+```{r plot2, results='asis'}
+#semPlot::semPaths(model2, what = "est")
+```
+
+## Reliability in Factor Analysis
+
+To get the estimates of reliabilities, Omega coefficients were calculated for each factor($\Omega_{AAC} = 0.832, p < 0.01; \Omega_{AAE} = 0.830, p < 0.01$).
+
+```{r}
+model03SyntaxOmega = "
+  # AAC loadings (all estimated)
+  AAC =~ L1*Aff1 + L2*Aff2 + L3*Aff3
+  
+  # AAE loadings (all estimated)
+  AAE =~ L4*Aff4 + L5*Aff5 + L6*Aff6
+  
+  # Unique Variances:
+  Aff1 ~~ E1*Aff1; Aff2 ~~ E2*Aff2; Aff3 ~~ E3*Aff3; Aff4 ~~ E4*Aff4; Aff5 ~~ E5*Aff5; Aff6 ~~ E6*Aff6; 
+  
+  
+  # Calculate Omega Reliability for Sum Scores:
+  OmegaAAC := ((L1 + L2 + L3)^2) / ( ((L1 + L2 + L3)^2) + E1 + E2 + E3)
+  OmegaAAE := ((L4 + L5 + L6)^2) / ( ((L4 + L5 + L6)^2) + E4 + E5 + E6)
+"
+
+model03EstimatesOmega = sem(model = model03SyntaxOmega, data = dat2, estimator = "MLR", mimic = "mplus", std.lv = TRUE)
+summary(model03EstimatesOmega, fit.measures = FALSE, rsquare = FALSE, standardized = FALSE, header = FALSE)
+```
+
+## Factor Scores and Distributions
+
+The AAC factor scores have an estimated mean of 0 with a variance of 0.88 due to the effect of the prior distribution. The SE for each person's AAC factor score is 0.347; 95% confidence interval for AAC factor score is $Score \pm 2*0.347$ = $Score \pm 0.694$. The AAE factor scores have an estimated mean of 0 with a variance of 0.881 due to the effect of the prior distribution. The SE for each person's AAC factor score is 0.357; 95% confidence interval for AAC factor score is $Score \pm 2*0.357$ = $Score \pm 0.714$.
+
+Factor Realiability for AAC is 0.892 and factor realibility for AAE is 0.887. Both factor reliability are larger than omega.
+
+The resulting distribution of the EAP estimates of factor score as shown in Figure 1. Figure 2 shows the predicted response for each item as a linear function of the latent factor based on the estimated model parameters. As shown, for AAE factor, the predicted item response goes above the highest response option just before a latent factor score of 2 (i.e., 2 SDs above the mean), resulting in a ceiling effect for AAE factor, as also shown in Figure 1.
+
+The extent to which the items within each factor could be seen as exchangeable was then examined via an additional set of nested model comparisons, as reported in Table 1 (for fit) and Table 2 (for comparisons of fit). Two-factor has better model fit than one-facor model. Moreover, according to chi-square difference test, two-factor is significantly better than one-factor in model fit.
+
+```{r functions, echo=FALSE}
+factorScores = function(lavObject){
+  output = inspect(object = lavObject, what = "est")
+  
+  sigma = output$lambda %*% output$psi %*% t(output$lambda) + output$theta
+  modelData = lavObject@Data@X[[1]]
+  
+  scores = t(output$alpha%*%matrix(1, nrow=1, ncol=dim(modelData)[1]) +
+    output$psi %*% t(output$lambda) %*% solve(sigma)%*%(t(modelData) - output$nu%*%matrix(1, nrow=1, ncol=dim(modelData)[1])))
+
+  varscores = output$psi - output$psi %*% t(output$lambda) %*% solve(sigma) %*% output$lambda %*% output$psi
+  factorSE = sqrt(diag(varscores))
+  names(factorSE) = paste0(names(factorSE), ".SE")
+  factorSEmat = matrix(1, nrow=nrow(scores), ncol = 1) %*% matrix(factorSE, nrow = 1, ncol = ncol(scores))
+  colnames(factorSEmat) = names(factorSE)
+  
+  result = data.frame(cbind(scores, factorSEmat))
+  names(result)
+  odds = seq(1, ncol(result)-1, 2)
+  evens = seq(2, ncol(result), 2)
+  result = result[c(odds,evens)]
+  
+  factorCov = varscores
+  factorCorr = solve(sqrt(diag(diag(varscores)))) %*% varscores %*% solve(sqrt(diag(diag(varscores))))
+  
+  return(list(scores = result, factorCov = factorCov, factorCorr = factorCorr))
+}
+
+
+factorScoreReliability = function(lavObject){
+  output = inspect(object = lavObject, what = "est")
+  sigma = output$lambda %*% output$psi %*% t(output$lambda) + output$theta
+  varscores = output$psi - output$psi %*% t(output$lambda) %*% solve(sigma) %*% output$lambda %*% output$psi
+  
+  return(diag(output$psi)/(diag(output$psi) + diag(varscores)))
+  
+}
+
+factorScoreReliability(model2)
+```
+
+## Figures
+
+### Figure 1 : Factor Score Distribution
+
+```{r , echo=FALSE}
+# calculate factor scores using function above:
+fscores = factorScores(lavObject = model2)
+
+
+#show variance of factor score:
+#var(fscores$scores$AAC) # 0.8813355
+
+par(mfrow = c(1,2))
+# Histogram overlaid with kernel density curve
+ggplot(fscores$scores, aes(x=AAC)) +
+  geom_histogram(aes(y=..density..),      # Histogram with density instead of count on y-axis
+                 binwidth=.5,
+                 colour="black", fill="white") + 
+  xlim(c(-4,4)) + 
+  labs(title = "Affective Attitude towards communication Factor Score") +
+  geom_density(alpha=.2, fill="#FF6666")    # Overlay with transparent density plot
+
+# calculate factor scores using function above:
+fscores = factorScores(lavObject = model2)
+
+
+#show variance of factor score:
+#var(fscores$scores$AAE) # 0.8813355
+
+# Histogram overlaid with kernel density curve
+ggplot(fscores$scores, aes(x=AAE)) +
+  geom_histogram(aes(y=..density..),      # Histogram with density instead of count on y-axis
+                 binwidth=.5,
+                 colour="black", fill="white") + 
+  xlim(c(-4,4)) + 
+  labs(title = "Affective Attitude towards communication Factor Score") +
+  geom_density(alpha=.2, fill="#FF6666")    # Overlay with transparent density plot
+
+```
+
+### Figure 2 : Expected Item Response Plots
+
+```{r item-response, echo=FALSE}
+cfaPlots = function(lavObject){
+  output = inspect(object = lavObject, what = "est")
+  
+  #build matrix plot elements
+  
+  #get factor scores
+  fscores = factorScores(lavObject = lavObject)
+  
+  nfactors = ncol(fscores$scores)/2
+  
+  #get max observed data
+  itemMax = max(apply(X = lavObject@Data@X[[1]], MARGIN = 2, FUN = max))
+  itemMin = min(apply(X = lavObject@Data@X[[1]], MARGIN = 2, FUN = min))
+    
+  #get range for all scores
+  factorMax = max(apply(X = fscores$scores[seq(1, ncol(fscores$scores), 2)], MARGIN = 2, FUN = max))
+  factorMin = min(apply(X = fscores$scores[seq(1, ncol(fscores$scores), 2)], MARGIN = 2, FUN = min))
+  
+  #set up x values
+  x = seq(factorMin, factorMax, .01)
+  
+  par(mfrow = c(1, nfactors))
+  #make plots by factor
+  factor=1
+  for (factor in 1:nfactors){
+    xmat = NULL
+    ymat = NULL
+    inames = NULL
+    for (item in 1:nrow(output$lambda)){
+      if (output$lambda[item, factor] != 0){
+        inames = c(inames, rownames(output$lambda)[item])
+        y = output$nu[item] + output$lambda[item, factor]*x
+        xmat = cbind(xmat, x)
+        ymat = cbind(ymat, y)
+      }
+      
+    }
+    matplot(x = xmat, y = ymat, type = "l", lwd = 5, lty=2:(ncol(xmat)+1), ylim = c(itemMin-1, itemMax+1), xlim = c(factorMin, factorMax),  
+            ylab = "Predicted Item Response", xlab = colnames(output$lambda)[factor], col = 2:(ncol(xmat)+1)) 
+    lines(x = c(factorMin,factorMax), y = c(itemMin, itemMin), lty = 3, lwd = 5)
+    lines(x = c(factorMin,factorMax), y = c(itemMax, itemMax), lty = 3, lwd = 5)
+    legend(x = -2.5, y = 7, legend = inames, lty = 2:(ncol(xmat)+1), lwd = 5, col = 2:(ncol(xmat)+1))
+  }
+  par(mfrow = c(1,1))
+}
+par(mfrow = c(1,2))
+cfaPlots(lavObject = model2)
+```
+
+## Tables
+
+### Table 1: Model Fit Statistics Using MLR
+
+```{r ,echo=FALSE}
+fitstats01 = fitmeasures(object = model1)
+fitstats02 = fitmeasures(object = model2)
+
+table1 = cbind(ncol(model1@SampleStats@cov[[1]]), fitstats01[1], fitstats01[6], fitstats01[9], fitstats01[7], fitstats01[8], fitstats01[25],
+               fitstats01[48], fitstats01[49], fitstats01[50], fitstats01[51])
+
+colnames(table1) = c("# Items", "# Parameters", "Scaled Chi-Square", "Chi-Square Scale Factor", "DF", "p-value", "CFI", "RMSEA", "RMSEA Lower", 
+                     "RMSEA Upper", "RMSEA p-value")
+rownames(table1) = "One-Factor"
+
+table1 = rbind(table1, cbind(ncol(model2@SampleStats@cov[[1]]), fitstats02[1], fitstats02[6], fitstats02[9], fitstats02[7], fitstats02[8],
+                         fitstats02[25], fitstats02[48], fitstats02[49], fitstats02[50], fitstats02[51]))
+rownames(table1)[2] = "Two-Factor"
+
+kable(table1, format = "html", digits = 3) %>% kable_styling("striped")
+```
+
+### Table 2: Model Comparisons
+
+```{r, echo=FALSE}
+table2 = anova(model2, model1)[2,-c(2:4)]
+rownames(table2) = "One-Factor vs. Two-Factor"
+
+kable(table2, format = "html", digits = 3) %>% kable_styling("striped")
+```
+
+### Table 3: Model Estimates
+
+```{r, echo=FALSE}
+unstandardizedLoadings = inspect(object = model2, what = "est")
+unstandardizedSE = inspect(object = model2, what = "se")
+standardizedLoadings = inspect(object = model2, what = "std.all")
+
+table3 = cbind(unstandardizedLoadings$lambda[1:3,1], unstandardizedSE$lambda[1:3,1], standardizedLoadings$lambda[1:3,1])
+
+colnames(table3) = c("Estimate", "SE", "Estimate")
+rownames(table3) = c("Item 1", "Item 2", "Item 3")
+
+table3 = rbind(table3, cbind(cbind(unstandardizedLoadings$lambda[4:6,2]),
+                             cbind(unstandardizedSE$lambda[4:6,2]),
+                             cbind(standardizedLoadings$lambda[4:6,2])))
+rownames(table3)[4:6] = c("Item 4", "Item 5", "Item 6")
+
+table3 = rbind(table3, c(unstandardizedLoadings$psi[2,1], unstandardizedSE$psi[2,1], standardizedLoadings$psi[2,1]))
+rownames(table3)[7] = "Factor Covariance"
+
+interceptsOrder = c(4,1,5,2,6,3)
+table3 = rbind(table3,
+               cbind(cbind(unstandardizedLoadings$nu[1:6,1]),
+                     cbind(unstandardizedSE$nu[1:6,1]),
+                     cbind(standardizedLoadings$nu[1:6,1])))
+
+rownames(table3)[8:13] = paste("Item", 1:6)
+table3 = rbind(table3, cbind(cbind(diag(unstandardizedLoadings$theta)),
+                             cbind(diag(unstandardizedSE$theta)),
+                             cbind(diag(standardizedLoadings$theta))))
+
+rownames(table3)[14:19] = paste("Item", 1:6)
+
+
+kable(table3, format = "html", digits = 3) %>% kable_styling("striped") %>% 
+  add_header_above(c(" " = 1, "Unstandardized" = 2, "Standardized" = 1)) %>% 
+  group_rows("Forgiveness Factor Loadings", 1,3) %>% 
+  group_rows("Not Unforgiveness Factor Loadings", 4,6) %>% 
+  group_rows("Factor Covariance", 7,7) %>% 
+  group_rows("Item Intercepts", 8,13) %>%
+  group_rows("Item Unique Variances", 14, 19)
+```

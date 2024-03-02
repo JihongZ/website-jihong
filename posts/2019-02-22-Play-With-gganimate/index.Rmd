@@ -1,0 +1,78 @@
+---
+title: Introduce gganimate for Psychometric
+author: Jihong
+date: '2019-02-22'
+categories:
+  - R
+  - Tutorial
+tags:
+  - gganimate
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gganimate)
+library(datasets)
+library(gifski)
+theme_set(theme_bw())
+```
+
+> A new R packge (`gganimate` ) provides some new features for animation in R. Its big advantage is it could make use of ggplot API and embeded into ggplot. Next, I will use a sample data to show the example. Then I will use some real educational data to explore a little bit what we can do in psychometric area.
+
+
+
+
+
+# A Simple Example
+
+I want to introduce this package.
+
+## 1.0 Load the packages requried
+```{r libraies, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(gganimate)
+library(ggplot2)
+library(datasets)
+library(gifski)
+theme_set(theme_bw())
+```
+
+## 1.1 prepare the data
+```{r}
+data("austres")
+dt <- data.frame(x=as.matrix(austres), date=time(austres))
+dt$y <- rnorm(nrow(dt))
+dt$date  <- as.numeric(dt$date)
+```
+
+```{r}
+p <- ggplot(dt,
+            aes(y = y, x =x)) +
+  geom_line(alpha = 0.7) +
+  geom_point()
+p
+```
+
+### `transition_reveal`: gradually reveal the data
+```{r}
+p + transition_reveal(date)
+```
+
+```{r}
+dt$g <- rep( c("red", "green", "blue"), length.out = nrow(dt))
+```
+
+```{r}
+p_bygroup <- ggplot(dt,
+            aes(y = y, x =x, col = g)) +
+  geom_line(alpha = 0.7) +
+  geom_point()
+p_bygroup
+```
+
+```{r}
+p_bygroup + transition_reveal(date)
+```
+
+###
+

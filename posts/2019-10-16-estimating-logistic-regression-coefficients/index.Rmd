@@ -1,0 +1,73 @@
+---
+title: Estimating Logistic Regression Coefficients
+date: '2019-10-16'
+slug: estimating-logistic-regression-coefficients
+categories:
+  - Math
+tags: []
+draft: true
+authors: ['Jihong Zhang']
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,fig.align = "default", 
+                      eval = TRUE, results = "asis")
+```
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(ISLR)
+library(tidyverse)
+```
+
+## Descriptive Statistics
+
+```{r}
+head(Default)
+```
+
+```{r message=FALSE, warning=FALSE, out.width='33%',fig.show = "hold"}
+fig <- Default %>% ggplot(aes(x = default))
+
+fig + geom_boxplot(aes(fill = default, y = balance))
+fig + geom_boxplot(aes(fill = default, y = income))
+
+Default_stu<-Default %>% 
+  group_by(default, student) %>% 
+  summarise(n_stu = n())
+
+Default_stu %>% ggplot() + geom_histogram(aes(y = n_stu, x= student, fill = default), data = Default_stu, 
+                     stat = "identity",position = "dodge")
+
+```
+
+## Estimation
+
+The estimation process is based on the [Eq.17 here](https://czep.net/stat/mlelr.pdf)
+
+```{r}
+Y = as.numeric(Default$default) - 1
+X = Default[,3:4]
+X = cbind(beta0 = 1, X)
+X = as.matrix(X)
+N = nrow(Default)
+K = ncol(X) # student balance and income
+pi = c(table(Y)/N)
+betas = matrix(0, K)
+W= diag(N)
+mu = pi[Y]
+nrep = 500
+
+betas.old = betas
+for (rep in 1:nrep) {
+  betas.new = betas.old + solve(t(X) %*% W %*% X) %*% t(X) %*% (Y - mu)
+  if (abs(betas.new[1]-betas.old[1]) < 0.01) {
+    print(betas)
+    break
+  }
+  
+  print(betas.new[1])
+  print(paste0("Repete ", rep, " Times"))
+  betas.old = betas.new
+}
+
+```

@@ -1,0 +1,2412 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.21">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Jihong Zhang">
+<meta name="dcterms.date" content="2017-11-10">
+<title>Dr. Jihong Zhang – Simulation Study of Linking Using Mirt</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../icon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script type="text/javascript">
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-149871707-1', 'auto');
+
+ga('send', {
+  hitType: 'pageview',
+  'anonymizeIp': true,
+});
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils/js/key-buttons.min.js" defer=""></script><link href="https://cdn.jsdelivr.net/npm/@xiee/utils/css/key-buttons.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">
+<script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script><script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+<meta property="og:title" content="Dr.&nbsp;Jihong Zhang - Simulation Study of Linking Using Mirt">
+<meta property="og:description" content="Technical and Statistical but Fun">
+<meta property="og:site_name" content="Dr. Jihong Zhang">
+<meta name="twitter:title" content="Dr.&nbsp;Jihong Zhang - Simulation Study of Linking Using Mirt">
+<meta name="twitter:description" content="Technical and Statistical but Fun">
+<meta name="twitter:creator" content="@jihongzgamma">
+<meta name="twitter:card" content="summary">
+</head>
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-bi bi-house" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
+</i> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
+</i> 
+<span class="menu-text">Dashboard</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../uploads/Curriculum_Vitae.pdf"> <i class="bi bi-bi bi-person" role="img">
+</i> 
+<span class="menu-text">C.V.</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-bi bi-three-dots" role="img">
+</i> 
+ <span class="menu-text">More</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-more">
+<li>
+    <a class="dropdown-item" href="../../projects.html">
+ <span class="dropdown-text">Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../links.html">
+ <span class="dropdown-text">About</span></a>
+  </li>  
+    </ul>
+</li>
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Simulation Study of Linking Using Mirt</li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Lecture Slides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Posts</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">2024 01 12 Syllabus Adv Multivariate Esrm 6553</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">
+<li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Lecture01</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 01</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Lecture02</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 02</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Lecture03</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 03</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Lecture04</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 04</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Lecture05</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 05</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+ <span class="menu-text">Lecture06</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth4 ">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 06</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+      </ul>
+</li>
+      </ul>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a></li>
+  <li>
+<a href="#calibration-of-form-a" id="toc-calibration-of-form-a" class="nav-link" data-scroll-target="#calibration-of-form-a"><span class="header-section-number">3</span> Calibration of Form A</a>
+  <ul class="collapse">
+<li><a href="#look-at-the-data" id="toc-look-at-the-data" class="nav-link" data-scroll-target="#look-at-the-data"><span class="header-section-number">3.1</span> Look at the data</a></li>
+  <li><a href="#plot-the-density-of-true-theta-of-group-a" id="toc-plot-the-density-of-true-theta-of-group-a" class="nav-link" data-scroll-target="#plot-the-density-of-true-theta-of-group-a"><span class="header-section-number">3.2</span> Plot the density of true <span class="math inline">\theta</span> of Group A</a></li>
+  <li>
+<a href="#ctt-table" id="toc-ctt-table" class="nav-link" data-scroll-target="#ctt-table"><span class="header-section-number">3.3</span> CTT Table</a>
+  <ul class="collapse">
+<li><a href="#clean-data" id="toc-clean-data" class="nav-link" data-scroll-target="#clean-data"><span class="header-section-number">3.3.1</span> Clean data</a></li>
+  <li><a href="#classical-test-theory" id="toc-classical-test-theory" class="nav-link" data-scroll-target="#classical-test-theory"><span class="header-section-number">3.3.2</span> Classical Test Theory</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#final-calibration-of-form-a" id="toc-final-calibration-of-form-a" class="nav-link" data-scroll-target="#final-calibration-of-form-a"><span class="header-section-number">3.4</span> Final Calibration of Form A</a>
+  <ul class="collapse">
+<li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification"><span class="header-section-number">3.4.1</span> Model Specification</a></li>
+  </ul>
+</li>
+  </ul>
+</li>
+  <li>
+<a href="#calibration-of-form-b" id="toc-calibration-of-form-b" class="nav-link" data-scroll-target="#calibration-of-form-b"><span class="header-section-number">4</span> Calibration of Form B</a>
+  <ul class="collapse">
+<li>
+<a href="#final-calibration-of-form-a-1" id="toc-final-calibration-of-form-a-1" class="nav-link" data-scroll-target="#final-calibration-of-form-a-1"><span class="header-section-number">4.1</span> Final Calibration of Form A</a>
+  <ul class="collapse">
+<li><a href="#model-specification-of-b" id="toc-model-specification-of-b" class="nav-link" data-scroll-target="#model-specification-of-b"><span class="header-section-number">4.1.1</span> Model Specification of B</a></li>
+  </ul>
+</li>
+  <li><a href="#b-plot" id="toc-b-plot" class="nav-link" data-scroll-target="#b-plot"><span class="header-section-number">4.2</span> b-plot</a></li>
+  <li><a href="#a-plot" id="toc-a-plot" class="nav-link" data-scroll-target="#a-plot"><span class="header-section-number">4.3</span> a-plot</a></li>
+  </ul>
+</li>
+  <li><a href="#linking" id="toc-linking" class="nav-link" data-scroll-target="#linking"><span class="header-section-number">5</span> Linking</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Simulation Study of Linking Using Mirt</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">mirt</div>
+    <div class="quarto-category">linking</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jihong Zhang </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 10, 2017</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header><blockquote class="blockquote">
+<p>This simulation study is to show how to do IRT Linking Process using mirt R Package. The simulation data includes 2 forms - Form A and Form B. These 2 forms are simulated based on 2 groups of individual, one group has 0 mean trait, another has 0.25 mean trait. Both groups have same sd. <!--more--></p>
+</blockquote>
+<section id="introduction" class="level1" data-number="2"><h1 data-number="2">
+<span class="header-section-number">2</span> Introduction</h1>
+<p>The means and sds of simulated Form A and B are like:</p>
+<p><span class="math display">
+\theta_{A} = \theta_{B} - 0.25 \\
+\sigma_A^2 = \sigma_B^2
+</span></p>
+</section><section id="calibration-of-form-a" class="level1" data-number="3"><h1 data-number="3">
+<span class="header-section-number">3</span> Calibration of Form A</h1>
+<p>The mean of <span class="math inline">\theta</span> for individuals administrated with form A is 0, the standard deviation (SD=1). In the dataset, X is ID, V1 is true trait (<span class="math inline">\theta</span>), V3 to V52 is unique items, V54 to V63 are common items.</p>
+<section id="look-at-the-data" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="look-at-the-data">
+<span class="header-section-number">3.1</span> Look at the data</h2>
+<p>First of all, have a look at the data</p>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(mirt)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.2.3</code></pre>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="do">### Read in Raw data from Form A:</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">"FormA.csv"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="fu">glimpse</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5,000
+Columns: 64
+$ X   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,…
+$ V1  &lt;dbl&gt; -0.79498, -0.05589, 0.62650, -1.26832, 0.74921, 1.00922, -0.19147,…
+$ V2  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ V3  &lt;int&gt; 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, …
+$ V4  &lt;int&gt; 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, …
+$ V5  &lt;int&gt; 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, …
+$ V6  &lt;int&gt; 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, …
+$ V7  &lt;int&gt; 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, …
+$ V8  &lt;int&gt; 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, …
+$ V9  &lt;int&gt; 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, …
+$ V10 &lt;int&gt; 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, …
+$ V11 &lt;int&gt; 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, …
+$ V12 &lt;int&gt; 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, …
+$ V13 &lt;int&gt; 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, …
+$ V14 &lt;int&gt; 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, …
+$ V15 &lt;int&gt; 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, …
+$ V16 &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, …
+$ V17 &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ V18 &lt;int&gt; 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, …
+$ V19 &lt;int&gt; 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, …
+$ V20 &lt;int&gt; 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, …
+$ V21 &lt;int&gt; 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ V22 &lt;int&gt; 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, …
+$ V23 &lt;int&gt; 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, …
+$ V24 &lt;int&gt; 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, …
+$ V25 &lt;int&gt; 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, …
+$ V26 &lt;int&gt; 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, …
+$ V27 &lt;int&gt; 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, …
+$ V28 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, …
+$ V29 &lt;int&gt; 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, …
+$ V30 &lt;int&gt; 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, …
+$ V31 &lt;int&gt; 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, …
+$ V32 &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, …
+$ V33 &lt;int&gt; 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, …
+$ V34 &lt;int&gt; 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, …
+$ V35 &lt;int&gt; 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, …
+$ V36 &lt;int&gt; 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, …
+$ V37 &lt;int&gt; 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, …
+$ V38 &lt;int&gt; 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, …
+$ V39 &lt;int&gt; 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, …
+$ V40 &lt;int&gt; 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, …
+$ V41 &lt;int&gt; 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, …
+$ V42 &lt;int&gt; 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, …
+$ V43 &lt;int&gt; 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, …
+$ V44 &lt;int&gt; 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, …
+$ V45 &lt;int&gt; 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, …
+$ V46 &lt;int&gt; 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, …
+$ V47 &lt;int&gt; 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, …
+$ V48 &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, …
+$ V49 &lt;int&gt; 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, …
+$ V50 &lt;int&gt; 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, …
+$ V51 &lt;int&gt; 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, …
+$ V52 &lt;int&gt; 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, …
+$ V53 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ V54 &lt;int&gt; 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, …
+$ V55 &lt;int&gt; 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, …
+$ V56 &lt;int&gt; 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, …
+$ V57 &lt;int&gt; 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, …
+$ V58 &lt;int&gt; 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, …
+$ V59 &lt;int&gt; 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, …
+$ V60 &lt;int&gt; 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, …
+$ V61 &lt;int&gt; 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, …
+$ V62 &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, …
+$ V63 &lt;int&gt; 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, …</code></pre>
+</div>
+</div>
+</section><section id="plot-the-density-of-true-theta-of-group-a" class="level2" data-number="3.2"><h2 data-number="3.2" class="anchored" data-anchor-id="plot-the-density-of-true-theta-of-group-a">
+<span class="header-section-number">3.2</span> Plot the density of true <span class="math inline">\theta</span> of Group A</h2>
+<p>From the density function, <span class="math inline">mu_{\theta}</span> is 0, <span class="math inline">sd_{\theta}</span> is 1.</p>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(dat<span class="sc">$</span>V1), <span class="at">main =</span> <span class="st">"Group A True Trait Density"</span>, </span>
+<span id="cb6-2"><a href="#cb6-2"></a>     <span class="at">xlab=</span><span class="fu">expression</span>(theta) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/theta-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="ctt-table" class="level2" data-number="3.3"><h2 data-number="3.3" class="anchored" data-anchor-id="ctt-table">
+<span class="header-section-number">3.3</span> CTT Table</h2>
+<p>CTT table could provide a brief description of table. 2 key valables in the table is item difficulty (<em>item.diff</em>) calculated by item means <span class="math inline">P(y=1)</span> and item discrimination (item.disc), which is item-total correlation.</p>
+<section id="clean-data" class="level3" data-number="3.3.1"><h3 data-number="3.3.1" class="anchored" data-anchor-id="clean-data">
+<span class="header-section-number">3.3.1</span> Clean data</h3>
+<p>By cleaning, data has 60 items including 50 unique item (from item1 to item50) and 10 common items (from item51 to item60). The sample size is 5000.</p>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dat_cali <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span> <span class="fu">select</span>(V3<span class="sc">:</span>V52, V54<span class="sc">:</span>V63)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">colnames</span>(dat_cali) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"item"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat_cali)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(dat_cali)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="classical-test-theory" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="classical-test-theory">
+<span class="header-section-number">3.3.2</span> Classical Test Theory</h3>
+<p>Then calculate the CTT table for Form A. The item discrimination and difficulty could be compared between Form A and Form B. Because the relationship between trait and total score is non-linear, so there is effect of shrinkage.</p>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># item stats</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="do">## item discrimnation</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>item.disc <span class="ot">&lt;-</span> <span class="fu">apply</span>(dat_cali, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">cor</span>(x, <span class="fu">rowSums</span>(dat_cali, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="do">## item difficulty</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>item.diff <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(dat_cali)</span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="do">## item response frequency</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>item.freq <span class="ot">&lt;-</span> <span class="fu">reduce</span>(<span class="fu">lapply</span>(dat_cali, table), bind_rows)</span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a>CTT <span class="ot">&lt;-</span> <span class="fu">cbind</span>(item.disc, item.diff, item.freq)</span>
+<span id="cb8-12"><a href="#cb8-12"></a></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="fu">kable</span>(CTT, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">"CTT Table for Form A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>CTT Table for Form A</caption>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">item.disc</th>
+<th style="text-align: right;">item.diff</th>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">1</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">item1</td>
+<td style="text-align: right;">0.365</td>
+<td style="text-align: right;">0.761</td>
+<td style="text-align: right;">1197</td>
+<td style="text-align: right;">3803</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item2</td>
+<td style="text-align: right;">0.464</td>
+<td style="text-align: right;">0.833</td>
+<td style="text-align: right;">835</td>
+<td style="text-align: right;">4165</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item3</td>
+<td style="text-align: right;">0.457</td>
+<td style="text-align: right;">0.539</td>
+<td style="text-align: right;">2305</td>
+<td style="text-align: right;">2695</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item4</td>
+<td style="text-align: right;">0.471</td>
+<td style="text-align: right;">0.524</td>
+<td style="text-align: right;">2380</td>
+<td style="text-align: right;">2620</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item5</td>
+<td style="text-align: right;">0.385</td>
+<td style="text-align: right;">0.221</td>
+<td style="text-align: right;">3893</td>
+<td style="text-align: right;">1107</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item6</td>
+<td style="text-align: right;">0.400</td>
+<td style="text-align: right;">0.563</td>
+<td style="text-align: right;">2183</td>
+<td style="text-align: right;">2817</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item7</td>
+<td style="text-align: right;">0.261</td>
+<td style="text-align: right;">0.457</td>
+<td style="text-align: right;">2717</td>
+<td style="text-align: right;">2283</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item8</td>
+<td style="text-align: right;">0.264</td>
+<td style="text-align: right;">0.365</td>
+<td style="text-align: right;">3176</td>
+<td style="text-align: right;">1824</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item9</td>
+<td style="text-align: right;">0.331</td>
+<td style="text-align: right;">0.560</td>
+<td style="text-align: right;">2198</td>
+<td style="text-align: right;">2802</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item10</td>
+<td style="text-align: right;">0.505</td>
+<td style="text-align: right;">0.431</td>
+<td style="text-align: right;">2843</td>
+<td style="text-align: right;">2157</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item11</td>
+<td style="text-align: right;">0.306</td>
+<td style="text-align: right;">0.354</td>
+<td style="text-align: right;">3228</td>
+<td style="text-align: right;">1772</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item12</td>
+<td style="text-align: right;">0.528</td>
+<td style="text-align: right;">0.560</td>
+<td style="text-align: right;">2199</td>
+<td style="text-align: right;">2801</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item13</td>
+<td style="text-align: right;">0.362</td>
+<td style="text-align: right;">0.550</td>
+<td style="text-align: right;">2251</td>
+<td style="text-align: right;">2749</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item14</td>
+<td style="text-align: right;">0.427</td>
+<td style="text-align: right;">0.761</td>
+<td style="text-align: right;">1196</td>
+<td style="text-align: right;">3804</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item15</td>
+<td style="text-align: right;">0.433</td>
+<td style="text-align: right;">0.241</td>
+<td style="text-align: right;">3793</td>
+<td style="text-align: right;">1207</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item16</td>
+<td style="text-align: right;">0.377</td>
+<td style="text-align: right;">0.458</td>
+<td style="text-align: right;">2710</td>
+<td style="text-align: right;">2290</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item17</td>
+<td style="text-align: right;">0.524</td>
+<td style="text-align: right;">0.545</td>
+<td style="text-align: right;">2275</td>
+<td style="text-align: right;">2725</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item18</td>
+<td style="text-align: right;">0.351</td>
+<td style="text-align: right;">0.578</td>
+<td style="text-align: right;">2112</td>
+<td style="text-align: right;">2888</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item19</td>
+<td style="text-align: right;">0.429</td>
+<td style="text-align: right;">0.509</td>
+<td style="text-align: right;">2455</td>
+<td style="text-align: right;">2545</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item20</td>
+<td style="text-align: right;">0.330</td>
+<td style="text-align: right;">0.307</td>
+<td style="text-align: right;">3465</td>
+<td style="text-align: right;">1535</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item21</td>
+<td style="text-align: right;">0.399</td>
+<td style="text-align: right;">0.403</td>
+<td style="text-align: right;">2984</td>
+<td style="text-align: right;">2016</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item22</td>
+<td style="text-align: right;">0.418</td>
+<td style="text-align: right;">0.609</td>
+<td style="text-align: right;">1957</td>
+<td style="text-align: right;">3043</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item23</td>
+<td style="text-align: right;">0.356</td>
+<td style="text-align: right;">0.354</td>
+<td style="text-align: right;">3232</td>
+<td style="text-align: right;">1768</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item24</td>
+<td style="text-align: right;">0.460</td>
+<td style="text-align: right;">0.670</td>
+<td style="text-align: right;">1651</td>
+<td style="text-align: right;">3349</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item25</td>
+<td style="text-align: right;">0.388</td>
+<td style="text-align: right;">0.507</td>
+<td style="text-align: right;">2465</td>
+<td style="text-align: right;">2535</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item26</td>
+<td style="text-align: right;">0.209</td>
+<td style="text-align: right;">0.310</td>
+<td style="text-align: right;">3451</td>
+<td style="text-align: right;">1549</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item27</td>
+<td style="text-align: right;">0.242</td>
+<td style="text-align: right;">0.476</td>
+<td style="text-align: right;">2618</td>
+<td style="text-align: right;">2382</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item28</td>
+<td style="text-align: right;">0.495</td>
+<td style="text-align: right;">0.502</td>
+<td style="text-align: right;">2492</td>
+<td style="text-align: right;">2508</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item29</td>
+<td style="text-align: right;">0.441</td>
+<td style="text-align: right;">0.481</td>
+<td style="text-align: right;">2593</td>
+<td style="text-align: right;">2407</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item30</td>
+<td style="text-align: right;">0.450</td>
+<td style="text-align: right;">0.731</td>
+<td style="text-align: right;">1344</td>
+<td style="text-align: right;">3656</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item31</td>
+<td style="text-align: right;">0.601</td>
+<td style="text-align: right;">0.399</td>
+<td style="text-align: right;">3006</td>
+<td style="text-align: right;">1994</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item32</td>
+<td style="text-align: right;">0.396</td>
+<td style="text-align: right;">0.682</td>
+<td style="text-align: right;">1588</td>
+<td style="text-align: right;">3412</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item33</td>
+<td style="text-align: right;">0.584</td>
+<td style="text-align: right;">0.613</td>
+<td style="text-align: right;">1933</td>
+<td style="text-align: right;">3067</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item34</td>
+<td style="text-align: right;">0.489</td>
+<td style="text-align: right;">0.557</td>
+<td style="text-align: right;">2216</td>
+<td style="text-align: right;">2784</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item35</td>
+<td style="text-align: right;">0.467</td>
+<td style="text-align: right;">0.759</td>
+<td style="text-align: right;">1203</td>
+<td style="text-align: right;">3797</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item36</td>
+<td style="text-align: right;">0.312</td>
+<td style="text-align: right;">0.367</td>
+<td style="text-align: right;">3166</td>
+<td style="text-align: right;">1834</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item37</td>
+<td style="text-align: right;">0.410</td>
+<td style="text-align: right;">0.778</td>
+<td style="text-align: right;">1109</td>
+<td style="text-align: right;">3891</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item38</td>
+<td style="text-align: right;">0.443</td>
+<td style="text-align: right;">0.571</td>
+<td style="text-align: right;">2143</td>
+<td style="text-align: right;">2857</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item39</td>
+<td style="text-align: right;">0.519</td>
+<td style="text-align: right;">0.755</td>
+<td style="text-align: right;">1224</td>
+<td style="text-align: right;">3776</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item40</td>
+<td style="text-align: right;">0.280</td>
+<td style="text-align: right;">0.327</td>
+<td style="text-align: right;">3365</td>
+<td style="text-align: right;">1635</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item41</td>
+<td style="text-align: right;">0.413</td>
+<td style="text-align: right;">0.582</td>
+<td style="text-align: right;">2088</td>
+<td style="text-align: right;">2912</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item42</td>
+<td style="text-align: right;">0.338</td>
+<td style="text-align: right;">0.395</td>
+<td style="text-align: right;">3024</td>
+<td style="text-align: right;">1976</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item43</td>
+<td style="text-align: right;">0.430</td>
+<td style="text-align: right;">0.634</td>
+<td style="text-align: right;">1830</td>
+<td style="text-align: right;">3170</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item44</td>
+<td style="text-align: right;">0.348</td>
+<td style="text-align: right;">0.382</td>
+<td style="text-align: right;">3088</td>
+<td style="text-align: right;">1912</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item45</td>
+<td style="text-align: right;">0.370</td>
+<td style="text-align: right;">0.530</td>
+<td style="text-align: right;">2351</td>
+<td style="text-align: right;">2649</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item46</td>
+<td style="text-align: right;">0.286</td>
+<td style="text-align: right;">0.337</td>
+<td style="text-align: right;">3314</td>
+<td style="text-align: right;">1686</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item47</td>
+<td style="text-align: right;">0.456</td>
+<td style="text-align: right;">0.403</td>
+<td style="text-align: right;">2985</td>
+<td style="text-align: right;">2015</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item48</td>
+<td style="text-align: right;">0.340</td>
+<td style="text-align: right;">0.397</td>
+<td style="text-align: right;">3014</td>
+<td style="text-align: right;">1986</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item49</td>
+<td style="text-align: right;">0.310</td>
+<td style="text-align: right;">0.291</td>
+<td style="text-align: right;">3544</td>
+<td style="text-align: right;">1456</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item50</td>
+<td style="text-align: right;">0.435</td>
+<td style="text-align: right;">0.357</td>
+<td style="text-align: right;">3214</td>
+<td style="text-align: right;">1786</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item51</td>
+<td style="text-align: right;">0.283</td>
+<td style="text-align: right;">0.821</td>
+<td style="text-align: right;">895</td>
+<td style="text-align: right;">4105</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item52</td>
+<td style="text-align: right;">0.272</td>
+<td style="text-align: right;">0.324</td>
+<td style="text-align: right;">3382</td>
+<td style="text-align: right;">1618</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item53</td>
+<td style="text-align: right;">0.474</td>
+<td style="text-align: right;">0.531</td>
+<td style="text-align: right;">2347</td>
+<td style="text-align: right;">2653</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item54</td>
+<td style="text-align: right;">0.298</td>
+<td style="text-align: right;">0.336</td>
+<td style="text-align: right;">3318</td>
+<td style="text-align: right;">1682</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item55</td>
+<td style="text-align: right;">0.427</td>
+<td style="text-align: right;">0.546</td>
+<td style="text-align: right;">2271</td>
+<td style="text-align: right;">2729</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item56</td>
+<td style="text-align: right;">0.471</td>
+<td style="text-align: right;">0.667</td>
+<td style="text-align: right;">1667</td>
+<td style="text-align: right;">3333</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item57</td>
+<td style="text-align: right;">0.410</td>
+<td style="text-align: right;">0.470</td>
+<td style="text-align: right;">2652</td>
+<td style="text-align: right;">2348</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item58</td>
+<td style="text-align: right;">0.483</td>
+<td style="text-align: right;">0.433</td>
+<td style="text-align: right;">2834</td>
+<td style="text-align: right;">2166</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item59</td>
+<td style="text-align: right;">0.363</td>
+<td style="text-align: right;">0.232</td>
+<td style="text-align: right;">3841</td>
+<td style="text-align: right;">1159</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item60</td>
+<td style="text-align: right;">0.376</td>
+<td style="text-align: right;">0.666</td>
+<td style="text-align: right;">1670</td>
+<td style="text-align: right;">3330</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section></section><section id="final-calibration-of-form-a" class="level2" data-number="3.4"><h2 data-number="3.4" class="anchored" data-anchor-id="final-calibration-of-form-a">
+<span class="header-section-number">3.4</span> Final Calibration of Form A</h2>
+<section id="model-specification" class="level3" data-number="3.4.1"><h3 data-number="3.4.1" class="anchored" data-anchor-id="model-specification">
+<span class="header-section-number">3.4.1</span> Model Specification</h3>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>SPECS <span class="ot">&lt;-</span> <span class="fu">mirt.model</span>(<span class="st">'F = 1-60</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">                    PRIOR = (1-60, a1, lnorm, 0, 1),</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">                    (1-60,  d,  norm, 0, 1),</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">                    (1-60,  g,  norm, -1.39,1)'</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>mod_A3PL <span class="ot">&lt;-</span> <span class="fu">mirt</span>(<span class="at">data=</span>dat_cali, <span class="at">model=</span>SPECS, <span class="at">itemtype=</span><span class="st">'3PL'</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>parms_a <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod_A3PL, <span class="at">simplify=</span><span class="cn">TRUE</span>, <span class="at">IRTpars =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>items</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>a_A <span class="ot">&lt;-</span> parms_a[,<span class="dv">1</span>] </span>
+<span id="cb10-2"><a href="#cb10-2"></a>b_A <span class="ot">&lt;-</span> parms_a[,<span class="dv">2</span>] </span>
+<span id="cb10-3"><a href="#cb10-3"></a>c_A <span class="ot">&lt;-</span> parms_a[,<span class="dv">3</span>] </span>
+<span id="cb10-4"><a href="#cb10-4"></a>theta_A <span class="ot">&lt;-</span> <span class="fu">fscores</span>(mod_A3PL,<span class="at">method=</span><span class="st">"EAP"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5"></a>                   <span class="at">full.scores=</span><span class="cn">TRUE</span>, <span class="at">full.scores.SE=</span><span class="cn">TRUE</span>,</span>
+<span id="cb10-6"><a href="#cb10-6"></a>                   <span class="at">scores.only=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Using 3-PL for irt model of form A. Extracting the cofficients (a, b, c) of IRT. The model-implied theta was outputed, whose mean is 0.1314938</p>
+<p>The plot below suggest that SE is low when theta is close to mean, but low theta and high theta has large SE.</p>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">plot</span>(theta_A[,<span class="dv">1</span>],theta_A[,<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/SE-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section></section><section id="calibration-of-form-b" class="level1" data-number="4"><h1 data-number="4">
+<span class="header-section-number">4</span> Calibration of Form B</h1>
+<p>The structure of Form B is as same as Form A.</p>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>dat_b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">"FormB.csv"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">glimpse</span>(dat_b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Rows: 5,000
+Columns: 64
+$ X   &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,…
+$ V1  &lt;dbl&gt; 1.12513, 0.29724, -0.54719, 1.18477, 0.37517, 0.05821, 1.11918, 1.…
+$ V2  &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ V3  &lt;int&gt; 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, …
+$ V4  &lt;int&gt; 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, …
+$ V5  &lt;int&gt; 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, …
+$ V6  &lt;int&gt; 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, …
+$ V7  &lt;int&gt; 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, …
+$ V8  &lt;int&gt; 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, …
+$ V9  &lt;int&gt; 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, …
+$ V10 &lt;int&gt; 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, …
+$ V11 &lt;int&gt; 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, …
+$ V12 &lt;int&gt; 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, …
+$ V13 &lt;int&gt; 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, …
+$ V14 &lt;int&gt; 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, …
+$ V15 &lt;int&gt; 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, …
+$ V16 &lt;int&gt; 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, …
+$ V17 &lt;int&gt; 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, …
+$ V18 &lt;int&gt; 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, …
+$ V19 &lt;int&gt; 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, …
+$ V20 &lt;int&gt; 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, …
+$ V21 &lt;int&gt; 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, …
+$ V22 &lt;int&gt; 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, …
+$ V23 &lt;int&gt; 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, …
+$ V24 &lt;int&gt; 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, …
+$ V25 &lt;int&gt; 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, …
+$ V26 &lt;int&gt; 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, …
+$ V27 &lt;int&gt; 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, …
+$ V28 &lt;int&gt; 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, …
+$ V29 &lt;int&gt; 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, …
+$ V30 &lt;int&gt; 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, …
+$ V31 &lt;int&gt; 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, …
+$ V32 &lt;int&gt; 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, …
+$ V33 &lt;int&gt; 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, …
+$ V34 &lt;int&gt; 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, …
+$ V35 &lt;int&gt; 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, …
+$ V36 &lt;int&gt; 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, …
+$ V37 &lt;int&gt; 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, …
+$ V38 &lt;int&gt; 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, …
+$ V39 &lt;int&gt; 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, …
+$ V40 &lt;int&gt; 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, …
+$ V41 &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, …
+$ V42 &lt;int&gt; 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, …
+$ V43 &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, …
+$ V44 &lt;int&gt; 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, …
+$ V45 &lt;int&gt; 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ V46 &lt;int&gt; 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, …
+$ V47 &lt;int&gt; 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, …
+$ V48 &lt;int&gt; 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, …
+$ V49 &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, …
+$ V50 &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, …
+$ V51 &lt;int&gt; 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, …
+$ V52 &lt;int&gt; 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, …
+$ V53 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ V54 &lt;int&gt; 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, …
+$ V55 &lt;int&gt; 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, …
+$ V56 &lt;int&gt; 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, …
+$ V57 &lt;int&gt; 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, …
+$ V58 &lt;int&gt; 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, …
+$ V59 &lt;int&gt; 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, …
+$ V60 &lt;int&gt; 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, …
+$ V61 &lt;int&gt; 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, …
+$ V62 &lt;int&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, …
+$ V63 &lt;int&gt; 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-2"><a href="#cb14-2"></a></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dat_b) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">ggtitle</span>(<span class="st">"Group B True Trait Density"</span>) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> V1), <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">col =</span> <span class="st">"skyblue"</span>, <span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">xlab</span>(<span class="st">"True Latent Trait"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/theta_b-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>dat_cali2 <span class="ot">&lt;-</span> dat_b <span class="sc">%&gt;%</span> <span class="fu">select</span>(V3<span class="sc">:</span>V52, V54<span class="sc">:</span>V63)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">colnames</span>(dat_cali2) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"item"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dat_cali2)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(dat_cali2)</span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="co"># item stats</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="do">## item discrimnation</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>item.disc <span class="ot">&lt;-</span> <span class="fu">apply</span>(dat_cali2, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">cor</span>(x, <span class="fu">rowSums</span>(dat_cali, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb15-10"><a href="#cb15-10"></a></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="do">## item difficulty</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>item.diff <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(dat_cali2)</span>
+<span id="cb15-13"><a href="#cb15-13"></a></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="do">## item response frequency</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a>item.freq <span class="ot">&lt;-</span> <span class="fu">reduce</span>(<span class="fu">lapply</span>(dat_cali2, table), bind_rows)</span>
+<span id="cb15-16"><a href="#cb15-16"></a></span>
+<span id="cb15-17"><a href="#cb15-17"></a>CTT2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(item.disc, item.diff, item.freq)</span>
+<span id="cb15-18"><a href="#cb15-18"></a></span>
+<span id="cb15-19"><a href="#cb15-19"></a><span class="fu">kable</span>(CTT2, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">"CTT Table for Form A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>CTT Table for Form A</caption>
+<thead><tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">item.disc</th>
+<th style="text-align: right;">item.diff</th>
+<th style="text-align: right;">0</th>
+<th style="text-align: right;">1</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">item1</td>
+<td style="text-align: right;">-0.029</td>
+<td style="text-align: right;">0.517</td>
+<td style="text-align: right;">2415</td>
+<td style="text-align: right;">2585</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item2</td>
+<td style="text-align: right;">-0.005</td>
+<td style="text-align: right;">0.573</td>
+<td style="text-align: right;">2137</td>
+<td style="text-align: right;">2863</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item3</td>
+<td style="text-align: right;">-0.037</td>
+<td style="text-align: right;">0.552</td>
+<td style="text-align: right;">2242</td>
+<td style="text-align: right;">2758</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item4</td>
+<td style="text-align: right;">0.008</td>
+<td style="text-align: right;">0.519</td>
+<td style="text-align: right;">2405</td>
+<td style="text-align: right;">2595</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item5</td>
+<td style="text-align: right;">0.013</td>
+<td style="text-align: right;">0.709</td>
+<td style="text-align: right;">1455</td>
+<td style="text-align: right;">3545</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item6</td>
+<td style="text-align: right;">-0.012</td>
+<td style="text-align: right;">0.804</td>
+<td style="text-align: right;">979</td>
+<td style="text-align: right;">4021</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item7</td>
+<td style="text-align: right;">0.017</td>
+<td style="text-align: right;">0.687</td>
+<td style="text-align: right;">1567</td>
+<td style="text-align: right;">3433</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item8</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0.641</td>
+<td style="text-align: right;">1794</td>
+<td style="text-align: right;">3206</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item9</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.626</td>
+<td style="text-align: right;">1869</td>
+<td style="text-align: right;">3131</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item10</td>
+<td style="text-align: right;">-0.021</td>
+<td style="text-align: right;">0.392</td>
+<td style="text-align: right;">3038</td>
+<td style="text-align: right;">1962</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item11</td>
+<td style="text-align: right;">0.021</td>
+<td style="text-align: right;">0.821</td>
+<td style="text-align: right;">893</td>
+<td style="text-align: right;">4107</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item12</td>
+<td style="text-align: right;">-0.012</td>
+<td style="text-align: right;">0.474</td>
+<td style="text-align: right;">2629</td>
+<td style="text-align: right;">2371</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item13</td>
+<td style="text-align: right;">-0.026</td>
+<td style="text-align: right;">0.687</td>
+<td style="text-align: right;">1564</td>
+<td style="text-align: right;">3436</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item14</td>
+<td style="text-align: right;">0.008</td>
+<td style="text-align: right;">0.517</td>
+<td style="text-align: right;">2414</td>
+<td style="text-align: right;">2586</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item15</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">0.475</td>
+<td style="text-align: right;">2626</td>
+<td style="text-align: right;">2374</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item16</td>
+<td style="text-align: right;">-0.012</td>
+<td style="text-align: right;">0.525</td>
+<td style="text-align: right;">2375</td>
+<td style="text-align: right;">2625</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item17</td>
+<td style="text-align: right;">-0.025</td>
+<td style="text-align: right;">0.363</td>
+<td style="text-align: right;">3185</td>
+<td style="text-align: right;">1815</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item18</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.393</td>
+<td style="text-align: right;">3036</td>
+<td style="text-align: right;">1964</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item19</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0.490</td>
+<td style="text-align: right;">2550</td>
+<td style="text-align: right;">2450</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item20</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.505</td>
+<td style="text-align: right;">2477</td>
+<td style="text-align: right;">2523</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item21</td>
+<td style="text-align: right;">0.006</td>
+<td style="text-align: right;">0.710</td>
+<td style="text-align: right;">1451</td>
+<td style="text-align: right;">3549</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item22</td>
+<td style="text-align: right;">0.015</td>
+<td style="text-align: right;">0.248</td>
+<td style="text-align: right;">3759</td>
+<td style="text-align: right;">1241</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item23</td>
+<td style="text-align: right;">0.007</td>
+<td style="text-align: right;">0.594</td>
+<td style="text-align: right;">2030</td>
+<td style="text-align: right;">2970</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item24</td>
+<td style="text-align: right;">-0.010</td>
+<td style="text-align: right;">0.360</td>
+<td style="text-align: right;">3200</td>
+<td style="text-align: right;">1800</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item25</td>
+<td style="text-align: right;">0.011</td>
+<td style="text-align: right;">0.664</td>
+<td style="text-align: right;">1681</td>
+<td style="text-align: right;">3319</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item26</td>
+<td style="text-align: right;">-0.002</td>
+<td style="text-align: right;">0.790</td>
+<td style="text-align: right;">1050</td>
+<td style="text-align: right;">3950</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item27</td>
+<td style="text-align: right;">0.011</td>
+<td style="text-align: right;">0.395</td>
+<td style="text-align: right;">3026</td>
+<td style="text-align: right;">1974</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item28</td>
+<td style="text-align: right;">0.009</td>
+<td style="text-align: right;">0.353</td>
+<td style="text-align: right;">3236</td>
+<td style="text-align: right;">1764</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item29</td>
+<td style="text-align: right;">-0.003</td>
+<td style="text-align: right;">0.335</td>
+<td style="text-align: right;">3325</td>
+<td style="text-align: right;">1675</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item30</td>
+<td style="text-align: right;">-0.015</td>
+<td style="text-align: right;">0.346</td>
+<td style="text-align: right;">3268</td>
+<td style="text-align: right;">1732</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item31</td>
+<td style="text-align: right;">0.005</td>
+<td style="text-align: right;">0.340</td>
+<td style="text-align: right;">3301</td>
+<td style="text-align: right;">1699</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item32</td>
+<td style="text-align: right;">0.007</td>
+<td style="text-align: right;">0.613</td>
+<td style="text-align: right;">1935</td>
+<td style="text-align: right;">3065</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item33</td>
+<td style="text-align: right;">-0.026</td>
+<td style="text-align: right;">0.377</td>
+<td style="text-align: right;">3117</td>
+<td style="text-align: right;">1883</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item34</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0.500</td>
+<td style="text-align: right;">2502</td>
+<td style="text-align: right;">2498</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item35</td>
+<td style="text-align: right;">-0.007</td>
+<td style="text-align: right;">0.436</td>
+<td style="text-align: right;">2821</td>
+<td style="text-align: right;">2179</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item36</td>
+<td style="text-align: right;">-0.009</td>
+<td style="text-align: right;">0.767</td>
+<td style="text-align: right;">1166</td>
+<td style="text-align: right;">3834</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item37</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">0.428</td>
+<td style="text-align: right;">2861</td>
+<td style="text-align: right;">2139</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item38</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.593</td>
+<td style="text-align: right;">2033</td>
+<td style="text-align: right;">2967</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item39</td>
+<td style="text-align: right;">0.011</td>
+<td style="text-align: right;">0.663</td>
+<td style="text-align: right;">1683</td>
+<td style="text-align: right;">3317</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item40</td>
+<td style="text-align: right;">0.020</td>
+<td style="text-align: right;">0.606</td>
+<td style="text-align: right;">1968</td>
+<td style="text-align: right;">3032</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item41</td>
+<td style="text-align: right;">-0.010</td>
+<td style="text-align: right;">0.840</td>
+<td style="text-align: right;">799</td>
+<td style="text-align: right;">4201</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item42</td>
+<td style="text-align: right;">0.015</td>
+<td style="text-align: right;">0.554</td>
+<td style="text-align: right;">2232</td>
+<td style="text-align: right;">2768</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item43</td>
+<td style="text-align: right;">0.012</td>
+<td style="text-align: right;">0.824</td>
+<td style="text-align: right;">880</td>
+<td style="text-align: right;">4120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item44</td>
+<td style="text-align: right;">-0.018</td>
+<td style="text-align: right;">0.433</td>
+<td style="text-align: right;">2837</td>
+<td style="text-align: right;">2163</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item45</td>
+<td style="text-align: right;">-0.005</td>
+<td style="text-align: right;">0.429</td>
+<td style="text-align: right;">2855</td>
+<td style="text-align: right;">2145</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item46</td>
+<td style="text-align: right;">-0.019</td>
+<td style="text-align: right;">0.316</td>
+<td style="text-align: right;">3421</td>
+<td style="text-align: right;">1579</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item47</td>
+<td style="text-align: right;">-0.007</td>
+<td style="text-align: right;">0.827</td>
+<td style="text-align: right;">867</td>
+<td style="text-align: right;">4133</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item48</td>
+<td style="text-align: right;">-0.023</td>
+<td style="text-align: right;">0.760</td>
+<td style="text-align: right;">1201</td>
+<td style="text-align: right;">3799</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item49</td>
+<td style="text-align: right;">0.009</td>
+<td style="text-align: right;">0.389</td>
+<td style="text-align: right;">3055</td>
+<td style="text-align: right;">1945</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item50</td>
+<td style="text-align: right;">-0.013</td>
+<td style="text-align: right;">0.317</td>
+<td style="text-align: right;">3413</td>
+<td style="text-align: right;">1587</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item51</td>
+<td style="text-align: right;">-0.002</td>
+<td style="text-align: right;">0.848</td>
+<td style="text-align: right;">762</td>
+<td style="text-align: right;">4238</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item52</td>
+<td style="text-align: right;">-0.018</td>
+<td style="text-align: right;">0.362</td>
+<td style="text-align: right;">3191</td>
+<td style="text-align: right;">1809</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item53</td>
+<td style="text-align: right;">0.007</td>
+<td style="text-align: right;">0.580</td>
+<td style="text-align: right;">2101</td>
+<td style="text-align: right;">2899</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item54</td>
+<td style="text-align: right;">-0.013</td>
+<td style="text-align: right;">0.363</td>
+<td style="text-align: right;">3184</td>
+<td style="text-align: right;">1816</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item55</td>
+<td style="text-align: right;">-0.023</td>
+<td style="text-align: right;">0.581</td>
+<td style="text-align: right;">2096</td>
+<td style="text-align: right;">2904</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item56</td>
+<td style="text-align: right;">-0.034</td>
+<td style="text-align: right;">0.731</td>
+<td style="text-align: right;">1344</td>
+<td style="text-align: right;">3656</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item57</td>
+<td style="text-align: right;">-0.007</td>
+<td style="text-align: right;">0.524</td>
+<td style="text-align: right;">2379</td>
+<td style="text-align: right;">2621</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item58</td>
+<td style="text-align: right;">-0.017</td>
+<td style="text-align: right;">0.491</td>
+<td style="text-align: right;">2547</td>
+<td style="text-align: right;">2453</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">item59</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">0.275</td>
+<td style="text-align: right;">3627</td>
+<td style="text-align: right;">1373</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">item60</td>
+<td style="text-align: right;">0.022</td>
+<td style="text-align: right;">0.715</td>
+<td style="text-align: right;">1423</td>
+<td style="text-align: right;">3577</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="final-calibration-of-form-a-1" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="final-calibration-of-form-a-1">
+<span class="header-section-number">4.1</span> Final Calibration of Form A</h2>
+<section id="model-specification-of-b" class="level3" data-number="4.1.1"><h3 data-number="4.1.1" class="anchored" data-anchor-id="model-specification-of-b">
+<span class="header-section-number">4.1.1</span> Model Specification of B</h3>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>SPECS2 <span class="ot">&lt;-</span> <span class="fu">mirt.model</span>(<span class="st">'F = 1-60</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="st">                    PRIOR = (1-60, a1, lnorm, 0, 1),</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="st">                    (1-60,  d,  norm, 0, 1),</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="st">                    (1-60,  g,  norm, -1.39,1)'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>mod_B3PL <span class="ot">&lt;-</span> <span class="fu">mirt</span>(<span class="at">data=</span>dat_cali2, <span class="at">model=</span>SPECS, <span class="at">itemtype=</span><span class="st">'3PL'</span>)</span>
+<span id="cb16-6"><a href="#cb16-6"></a>parms_b <span class="ot">&lt;-</span> <span class="fu">coef</span>(mod_B3PL, <span class="at">simplify=</span><span class="cn">TRUE</span>, <span class="at">IRTpars =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>items</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>a_B <span class="ot">&lt;-</span> parms_b[,<span class="dv">1</span>] </span>
+<span id="cb17-2"><a href="#cb17-2"></a>b_B <span class="ot">&lt;-</span> parms_b[,<span class="dv">2</span>] </span>
+<span id="cb17-3"><a href="#cb17-3"></a>c_B <span class="ot">&lt;-</span> parms_b[,<span class="dv">3</span>] </span>
+<span id="cb17-4"><a href="#cb17-4"></a>theta_B <span class="ot">&lt;-</span> <span class="fu">fscores</span>(mod_B3PL,<span class="at">method=</span><span class="st">"EAP"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5"></a>                   <span class="at">full.scores=</span><span class="cn">TRUE</span>, <span class="at">full.scores.SE=</span><span class="cn">TRUE</span>,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>                   <span class="at">scores.only=</span><span class="cn">TRUE</span>)</span>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="fu">head</span>(theta_B, <span class="dv">20</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">"Model-implied Theta of B"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<caption>Model-implied Theta of B</caption>
+<thead><tr class="header">
+<th style="text-align: right;">F</th>
+<th style="text-align: right;">SE_F</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.933</td>
+<td style="text-align: right;">0.214</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.193</td>
+<td style="text-align: right;">0.220</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.783</td>
+<td style="text-align: right;">0.293</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.865</td>
+<td style="text-align: right;">0.208</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.233</td>
+<td style="text-align: right;">0.261</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.217</td>
+<td style="text-align: right;">0.239</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.890</td>
+<td style="text-align: right;">0.215</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.369</td>
+<td style="text-align: right;">0.232</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.875</td>
+<td style="text-align: right;">0.306</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.411</td>
+<td style="text-align: right;">0.266</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.091</td>
+<td style="text-align: right;">0.223</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.638</td>
+<td style="text-align: right;">0.261</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1.253</td>
+<td style="text-align: right;">0.321</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.784</td>
+<td style="text-align: right;">0.261</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.436</td>
+<td style="text-align: right;">0.228</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.135</td>
+<td style="text-align: right;">0.211</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1.841</td>
+<td style="text-align: right;">0.491</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.491</td>
+<td style="text-align: right;">0.259</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">0.065</td>
+<td style="text-align: right;">0.225</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.339</td>
+<td style="text-align: right;">0.240</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section></section><section id="b-plot" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="b-plot">
+<span class="header-section-number">4.2</span> b-plot</h2>
+<p>The relationship between b parameters of A and B reflect the latent traits of A and B:</p>
+<p><span class="math display">
+\theta_{A} = \theta_{B} - 0.25 \\
+\sigma_A^2 = \sigma_B^2
+</span> thus, <span class="math inline">b_B -b_A</span> should also be -0.25. the estimated difference of b is calculate by the mean of b parametes of Form A’s common items and that of Form B’s common items, which is -0.2756443. Thus, it is very close to difference of true traits.</p>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="do">### b-plot</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">plot</span>(b_A[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>],b_B[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>],</span>
+<span id="cb18-3"><a href="#cb18-3"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"r ="</span>, <span class="fu">round</span>(<span class="fu">cor</span>(b_A[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>],b_B[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>]),<span class="dv">5</span>)), </span>
+<span id="cb18-4"><a href="#cb18-4"></a>     <span class="at">xlab =</span> <span class="st">"b_A"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5"></a>     <span class="at">ylab =</span> <span class="st">"b_B"</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a>     )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># mean(b_B[51:60])-mean(b_A[51:60])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section><section id="a-plot" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="a-plot">
+<span class="header-section-number">4.3</span> a-plot</h2>
+<p>Because <span class="math inline">\theta_B - \theta_A = 0.25</span>, so a parametes are: <span class="math display">
+a_A / a_B = 1
+</span></p>
+<p>The true ratio of (means of) a parameters is 1.016284, which is very close to 1. SD of A and B are both close to 1.</p>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="do">### a-plot</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">plot</span>(a_A[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>],a_B[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>],</span>
+<span id="cb20-3"><a href="#cb20-3"></a>     <span class="at">main=</span><span class="fu">round</span>(<span class="fu">cor</span>(a_A[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>],a_B[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>]),<span class="dv">5</span>)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>     )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># mean(a_A[51:60]) / mean(a_B[51:60]) </span></span>
+<span id="cb21-2"><a href="#cb21-2"></a></span>
+<span id="cb21-3"><a href="#cb21-3"></a></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="co">#SDs of b-values across forms</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a>SD_bA <span class="ot">&lt;-</span> <span class="fu">sd</span>(b_A[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>])</span>
+<span id="cb21-6"><a href="#cb21-6"></a>SD_bB <span class="ot">&lt;-</span> <span class="fu">sd</span>(b_B[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>])</span>
+<span id="cb21-7"><a href="#cb21-7"></a></span>
+<span id="cb21-8"><a href="#cb21-8"></a>Mean_bA <span class="ot">&lt;-</span> <span class="fu">mean</span>(b_A[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>])</span>
+<span id="cb21-9"><a href="#cb21-9"></a>Mean_bB <span class="ot">&lt;-</span> <span class="fu">mean</span>(b_B[<span class="dv">51</span><span class="sc">:</span><span class="dv">60</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section></section><section id="linking" class="level1" data-number="5"><h1 data-number="5">
+<span class="header-section-number">5</span> Linking</h1>
+<div class="cell">
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="do">###</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="do">### Run one or the other, NOT BOTH!</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="do">###</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="do">### MS linking: place item parameters from</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="do">### Form B on the scale of Form A</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a>slope <span class="ot">&lt;-</span> SD_bA <span class="sc">/</span> SD_bB</span>
+<span id="cb22-8"><a href="#cb22-8"></a>inter <span class="ot">&lt;-</span> Mean_bA <span class="sc">-</span> slope<span class="sc">*</span>Mean_bB</span>
+<span id="cb22-9"><a href="#cb22-9"></a></span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="do">### MM linking: place item parameters from</span></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="do">### Form B on the scale of Form A</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="co"># slope &lt;- Mean_aA / Mean_aB</span></span>
+<span id="cb22-13"><a href="#cb22-13"></a><span class="co"># inter &lt;- Mean_bA - slope*Mean_bB</span></span>
+<span id="cb22-14"><a href="#cb22-14"></a></span>
+<span id="cb22-15"><a href="#cb22-15"></a></span>
+<span id="cb22-16"><a href="#cb22-16"></a><span class="do">###</span></span>
+<span id="cb22-17"><a href="#cb22-17"></a><span class="do">### Perform the Linking</span></span>
+<span id="cb22-18"><a href="#cb22-18"></a><span class="do">###</span></span>
+<span id="cb22-19"><a href="#cb22-19"></a></span>
+<span id="cb22-20"><a href="#cb22-20"></a>LINKED_items <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,<span class="dv">50</span>,<span class="dv">3</span>)</span>
+<span id="cb22-21"><a href="#cb22-21"></a></span>
+<span id="cb22-22"><a href="#cb22-22"></a><span class="co">#Column 3 is c, it stays the same</span></span>
+<span id="cb22-23"><a href="#cb22-23"></a>LINKED_items[,<span class="dv">3</span>] <span class="ot">&lt;-</span> c_B[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>]</span>
+<span id="cb22-24"><a href="#cb22-24"></a></span>
+<span id="cb22-25"><a href="#cb22-25"></a><span class="co">#Column 2 is b, it is linked:</span></span>
+<span id="cb22-26"><a href="#cb22-26"></a>LINKED_items[,<span class="dv">2</span>] <span class="ot">&lt;-</span> b_B[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>]<span class="sc">*</span>slope <span class="sc">+</span> inter</span>
+<span id="cb22-27"><a href="#cb22-27"></a></span>
+<span id="cb22-28"><a href="#cb22-28"></a><span class="co">#Column 1 is a, it is also linked:</span></span>
+<span id="cb22-29"><a href="#cb22-29"></a>LINKED_items[,<span class="dv">1</span>] <span class="ot">&lt;-</span> a_B[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>] <span class="sc">/</span> slope</span>
+<span id="cb22-30"><a href="#cb22-30"></a></span>
+<span id="cb22-31"><a href="#cb22-31"></a><span class="do">### Now the ITEM BANK has 110 items all</span></span>
+<span id="cb22-32"><a href="#cb22-32"></a><span class="do">### linked to a common metric!</span></span>
+<span id="cb22-33"><a href="#cb22-33"></a><span class="fu">rownames</span>(LINKED_items) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"item_B"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>)</span>
+<span id="cb22-34"><a href="#cb22-34"></a>ITEM.BANK <span class="ot">&lt;-</span> <span class="fu">rbind</span>(parms_a[,<span class="sc">-</span><span class="dv">4</span>], LINKED_items)</span>
+<span id="cb22-35"><a href="#cb22-35"></a><span class="co"># write.csv(ITEM.BANK,file="item_bank.csv")</span></span>
+<span id="cb22-36"><a href="#cb22-36"></a></span>
+<span id="cb22-37"><a href="#cb22-37"></a><span class="co">#Link the theta estimates</span></span>
+<span id="cb22-38"><a href="#cb22-38"></a>LINKED_theta <span class="ot">&lt;-</span> theta_B[,<span class="dv">1</span>]<span class="sc">*</span>slope <span class="sc">+</span> inter</span>
+<span id="cb22-39"><a href="#cb22-39"></a>LINKED_se <span class="ot">&lt;-</span> theta_B[,<span class="dv">2</span>]<span class="sc">/</span>slope</span>
+<span id="cb22-40"><a href="#cb22-40"></a></span>
+<span id="cb22-41"><a href="#cb22-41"></a><span class="co"># write.csv(cbind(LINKED_theta,LINKED_se),file="LINKED_FormB_theta_est.csv")</span></span>
+<span id="cb22-42"><a href="#cb22-42"></a><span class="fu">paste0</span>(<span class="st">"Mean of Theta of B is "</span>,<span class="fu">mean</span>(theta_B[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mean of Theta of B is -0.013"</code></pre>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">paste0</span>(<span class="st">"SD of Theta of B is "</span>, <span class="fu">sd</span>(theta_B[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "SD of Theta of B is 0.97"</code></pre>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># after Linked</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">print</span>(<span class="st">"After Linking:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "After Linking:"</code></pre>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">paste0</span>(<span class="st">"Mean of Theta of B is "</span>,<span class="fu">mean</span>(LINKED_theta) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mean of Theta of B is 0.269"</code></pre>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">paste0</span>(<span class="st">"SD of Theta of B is "</span>,<span class="fu">sd</span>(LINKED_theta) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "SD of Theta of B is 0.935"</code></pre>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Theta of A is</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="fu">paste0</span>(<span class="st">"Mean of Theta of A is "</span>,<span class="fu">mean</span>(theta_A[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "Mean of Theta of A is -0.021"</code></pre>
+</div>
+<details class="code-fold"><summary>R Code</summary><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">paste0</span>(<span class="st">"SD of Theta of A is "</span>, <span class="fu">sd</span>(theta_A[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "SD of Theta of A is 0.965"</code></pre>
+</div>
+</div>
+
+
+</section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jihongzhang\.org");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><script src="https://giscus.app/client.js" data-repo="JihongZ/quarto-academic-jihong" data-repo-id="R_kgDOJz3gyg" data-category="General" data-category-id="DIC_kwDOJz3gys4CXdYE" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script><input type="hidden" id="giscus-base-theme" value="light"><input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2015-2024, JihongZhang</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

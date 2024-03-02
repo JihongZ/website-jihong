@@ -1,0 +1,73 @@
+---
+title: "A tutorial for forester R package"
+author: "Jihong Zhang"
+description: ""
+date: "2023-06-28"
+categories: 
+  - tutorial
+  - package
+toc: true
+code-fold: show
+code-summary: ' R Code'
+code-line-numbers: false
+number-sections: true
+number-offset: 1
+---
+
+![Workflow of forester](intro.png){fig-align="center" width="1000"}
+
+```{r}
+#| label: setup
+#| eval: false
+#| message: false
+#| warning: false
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warnings=FALSE, include = FALSE)
+options(knitr.kable.NA = '')
+library('tidyverse')
+library('forester')
+mycolors = c("#4682B4", "#B4464B", "#B4AF46", 
+             "#1B9E77", "#D95F02", "#7570B3",
+             "#E7298A", "#66A61E", "#B4F60A")
+softcolors = c("#B4464B", "#F3DCD4", "#ECC9C7", 
+               "#D9E3DA", "#D1CFC0", "#C2C2B4")
+mykbl <- function(x, ...){
+  kbl(x, digits = 2, ...) |> kable_styling(bootstrap_options = c("striped", "condensed")) 
+}
+```
+
+
+
+As contributors of the R package said in their [github website](https://github.com/ModelOriented/forester):
+
+> "The *forester* package is **an AutoML tool in R** that wraps up all machine learning processes into a single `train()` function, which includes:"
+
+-   rendering a brief **data check** report,
+-   **preprocessing** initial dataset enough for models to be trained,
+-   **training** 5 tree-based models with default parameters, random search and Bayesian optimization,
+-   **evaluating** them and providing a ranked list.
+
+In this blog, I will introduce `forester` package as a case study using a simulation example and a real example.
+
+```{mermaid}
+graph TD;
+    A[data check]-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
+## Useful links
+
+-   One of the contributor, Hubert Ruczynski, wrote up a detailed [tutorial](https://medium.com/responsibleml/forester-predicting-house-prices-use-case-b537253b6142) published in Mar 1, 2023.
+
+## An example
+
+First of all, `forester::check_data` is a very convenient function to glimpse the data for data analysis. By default it will output a "CHECK DATA REPORT", including some data quality checking list, meanwhile it will also do Spearman correlations.
+
+```{r}
+check_dat_res <- forester::check_data(iris, 'Species')
+```
+
+```{r}
+str(check_dat_res$str)
+```
