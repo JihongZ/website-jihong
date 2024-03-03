@@ -538,3 +538,9 @@ One plot that can help provide information about the item parameters is the **it
 ![](Code/ICC_Item10.png)
 
 ## Review Our R files
+
+## Next Class
+
+-   More results from conspiracy data
+
+-   Compare results to `blavaan` package
