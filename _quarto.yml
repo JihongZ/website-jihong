@@ -66,7 +66,7 @@ format:
       dark: assets/custom-dark.theme
     grid:
       sidebar-width: 250px
-      body-width: 900px
+      body-width: 1200px
       margin-width: 250px
     comments:
       giscus:
