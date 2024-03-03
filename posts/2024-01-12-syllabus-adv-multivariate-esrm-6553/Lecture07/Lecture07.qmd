@@ -535,6 +535,6 @@ One plot that can help provide information about the item parameters is the **it
 
 -   Using ICC, we can check the predicted response on item 10 given one's belief in conspiracy.
 
-![](Code/ICC_Item10.png){width="80%"}
+![](Code/ICC_Item10.png)
 
 ## Review Our R files
