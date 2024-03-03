@@ -1,11 +1,11 @@
 ---
 title: "闲散时光"
 subtitle: ""
-author: 吉鸿
+author: 旅客
 date: "Mar 3 2024" 
 date-modified: "Mar 3 2024"
 categories:
-  - daily
+  - 日常
 format: 
   html:
     code-tools: true

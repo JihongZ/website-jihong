@@ -1,0 +1,15 @@
+{
+  "hash": "5da5cfcfc798069335ca2c0cf24fae38",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: LASSO回归中的凸优化问题\nauthor: 吉鸿\ndate: '2019-03-03'\ncategories:\n  - 教程\n---\n\n\n> 本文主要是关于最优化的学习笔记，参考的来源有各个博客，教材。\n\n# 梯度类方法(gradient)\n\n梯度类方法是无约束优化中非常常用的方法。其基本依据是梯度的负方向是函数值下降最快的方向。\n\n## Gradient Descent\n\n梯度下降法的迭代公式为：\n\n$$\nx^{(k)} = x^{(k-1)} - t_k \\nabla f(x^{(k-1)})\n$$ 上标(k)表示第k次迭代，而$t_k$则表示步长，$\\nabla f(x^{(k-1)})$表示在点$x^{(k-1)}$的梯度。\n\n不同的步长$t_k$会影响收敛的速度。最简单的方法是选一个恒定的步长，当然也可以选择可变的(adaptive)的步长，即根据每次迭代依照一定的规则来改变步长。下面介绍两种：(1)*backtracking line search* (2) *exact line search*。\n\n### backtracking line search\n\n先选择两个固定参数$\\alpha, \\beta$，要求$0 < \\beta < 1$，$0< \\alpha < 1/2$\n\n每次迭代的时候，判断以下公式成不成立：\n\n$$\nf(x - t \\nabla f(x)) > f(x) - at||\\nabla f(x)||^2_2\n$$ 成立则改变步长为$t = \\beta t$, 否则步长保持不变。其逻辑是假如步长太大使得假想点超过来最优点，则减少步长。否则就保持步长不变。\n\n### extact line search\n\n先计算当前点的梯度$\\nabla f(x^{(k-1)})$。设$t_k = z$,则求以下函数的导数：\n\n$$\nf(z) = f(x^{(k-1)} - z \\nabla f(x^{(k-1)})) \\\\\n\\frac {\\partial f(z)} {\\partial z} = 0\n$$\n\n求出的$t_k$则为最优步长，使得当前的迭代下降的距离最大。这种方法也被称为最速下降法。\n\n## Subgradient Descent\n\n*subgradient descent*相比于*gradient descent*可用于求导某些连续不可导的函数梯度不存在的问题。对于可微的凸函数，一阶特性可以表达为：\n\n$$\nf(y) \\ge f(x) + \\nabla^T f(x)(y-x)\n$$\n\n对于函数$f(x) = |x|$, *subgradient*为\n\n$$\n\\begin{eqnarray}\ng = \\{_{[-1, 1] \\space \\space x = 0}^{sign(x) \\space \\space x \\neq 0}\\\\\n\\end{eqnarray}\n$$\n\n## Lasso的凸优化\n\nLASSO对应如下的一个优化问题 $$\n\\color{red}{\\min_w \\sum_{i=1}^N {(w^Tx_i - y_i)}^2} + \\color{skyblue}{\\lambda\\sum_{j=1}^n |w^j|}\n$$ 整体上来看，红色的部分是Likelihood function，而蓝色的部分则叫做regularizer。其中$x_i$是数据或特征量，$y_i$是对应的值，$w^j$便是向量$w$的第j该 component，该优化问题使用线性回归模型去拟合给定的数据，而向量$w \\in \\mathbb{R^n}$。当regularizer系数$\\lambda$控制得当的话，最优解w则会有很多的component会是零。\n\n要得到最优解，则一个重要部分是需要对regularizer中的$\\mathbb{l}_1-norm$求导。首先，得要知道对于一个可测函数，存在以下性质： $$\nf(x) = f^+(x) -f^-(x), |f(x)| = f^+(x) + f^-(x)\n$$\n\n$f^+(x)$和$f^-(x)$分别称为$f(x)$的正部和负部。回到LASSO优化问题，任意实数$w^j$也可以表示成正部和负部之差$w^j = w_+^j - {w^j}_-$。因此，LASSO优化可以等价于 $$\n\\min_{w^+, w^-}\\sum_{i =1}^{N}((w^+ - w^-)^Tx_i - y_i)^2 + \n\\color{skyblue}{\\lambda\\sum_{j=1}^{N}{(w_j^+ + w_j^-)}} \\\\\ns.t. \\space{  } w^+ \\ge 0,w^- \\ge0\n$$\n\n## Reference\n\n1.  [凸优化总结](http://wulc.me/2017/05/20/%E5%87%B8%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93/)\n2.  [freemind的博客-Projected Gradient Method and LASSO](http://freemind.pluskid.org/machine-learning/projected-gradient-method-and-lasso/)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

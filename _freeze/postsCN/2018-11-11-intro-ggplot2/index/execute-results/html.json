@@ -1,0 +1,15 @@
+{
+  "hash": "ab4a10612009ca6bc80f238b59a760d7",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"ggplot2展览馆\"\nauthor: \"Jihong Zhang\"\ndate: \"2018-11-11\"\ncategories:\n  - 教程\n---\n\n\n1.  Histogram\n\n\n\n\n\nA simple histogram is like this:\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# load the dataset\ndata(midwest)\nhist(midwest$percbelowpoverty, main = \"A simple histogram\", xlab = \"Percentage below poverty\")\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n\n```{.r .cell-code}\nggplot(data = midwest, mapping = aes(x = percbelowpoverty)) + theme_bw() + geom_histogram(aes(y = ..density..,\n    fill = percbelowpoverty)) + labs(x = \"Poverty Percentage\", y = \"Counts\", title = \"this plot\") +\n    geom_density(aes(y = ..density..), col = \"red\", fill = \"red\", alpha = 0.5)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-1-2.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nmidwest2 <- midwest %>%\n    mutate(bluepoint = ifelse(perchsd > 70 & percbelowpoverty < 20, 1, 0))\nggplot(midwest2, aes(x = percbelowpoverty, y = perchsd)) + geom_point(aes(col = as.factor(state)),\n    size = 2) + geom_smooth(col = \"red\", se = FALSE)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nclass_agg <- data.frame(table(mpg$class))\ncolnames(class_agg) <- c(\"a\", \"b\")\nggplot(class_agg, aes(x = a, y = b)) + geom_bar(stat = \"identity\", aes(fill = a)) +\n    scale_fill_brewer(type = \"qual\", palette = 4, direction = -1)\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

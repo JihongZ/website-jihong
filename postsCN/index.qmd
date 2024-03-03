@@ -3,8 +3,8 @@ title: "PostsCN"
 listing:
   - id: postsCN
     contents: "*/*.[Rq]md"
-    type: grid
-    fields: [image, date, title, subtitle]
+    type: table
+    fields: [image, date, title]
     sort: "date desc"
     categories: cloud
     sort-ui: true

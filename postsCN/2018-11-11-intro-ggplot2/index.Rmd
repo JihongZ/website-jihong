@@ -1,0 +1,59 @@
+---
+title: "ggplot2展览馆"
+author: "Jihong Zhang"
+date: "2018-11-11"
+categories:
+  - 教程
+---
+
+1.  Histogram
+
+```{r knitr_init, echo=FALSE, cache=FALSE, include=FALSE}
+library(knitr)
+library(ggplot2)
+library(dplyr)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=TRUE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+A simple histogram is like this:
+
+```{r}
+# load the dataset
+data(midwest)
+hist(midwest$percbelowpoverty, main = "A simple histogram",xlab = "Percentage below poverty" )
+
+ggplot(data = midwest, 
+       mapping = aes(x = percbelowpoverty)) + 
+  theme_bw() +
+  geom_histogram(aes(y = ..density.., fill = percbelowpoverty)) +
+  labs(x = "Poverty Percentage", y = "Counts", title = "this plot") +
+  geom_density(aes(y = ..density..),col = "red", fill = "red", alpha = 0.5)
+
+```
+
+```{r}
+midwest2 <- midwest %>% 
+  mutate(bluepoint = ifelse(perchsd > 70 & percbelowpoverty < 20, 1, 0))
+ggplot(midwest2,
+       aes(x = percbelowpoverty,
+           y = perchsd)) + 
+  geom_point(aes(col = as.factor(state)), size = 2) +
+  geom_smooth(col = "red", se = FALSE)
+```
+
+```{r}
+class_agg <- data.frame(table(mpg$class))
+colnames(class_agg) <- c("a", "b")
+ggplot(class_agg, aes(x = a, y = b)) + geom_bar(stat = "identity", aes(fill = a )) +
+  scale_fill_brewer(type = "qual", palette = 4, direction = -1)
+```

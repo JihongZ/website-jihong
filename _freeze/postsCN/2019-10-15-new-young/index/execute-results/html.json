@@ -1,0 +1,15 @@
+{
+  "hash": "e57dd31c3978e1a6dc3e4d7183d5ae0c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: 喜\nauthor: 吉鸿\ndate: '2019-10-15'\nslug: new-young\ncategories:\n  - 随笔\n---\n\n\n一抹朝阳是喜，一碗热粥是喜，一杯咖啡亦是喜。\n\n一段相遇是喜，一缕思念是喜，一丝惆怅亦是喜。\n\n拼勇进取是喜，漫读闲书是喜，平平庸庸亦是喜。\n\n或为微尘是喜，或为烈阳是喜，或为飘絮亦是喜。\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

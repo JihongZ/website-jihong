@@ -1,0 +1,15 @@
+{
+  "hash": "20dea85d04a8732b2d81d658b93fcc7f",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: 'TinyTex:在R中运行Latex'\nauthor: 吉鸿\ndate: '2018-09-25'\ncategories:\n  - 教程\n---\n\n\n## 开始\n\n这篇博客是用TidyTex在Manjaro Linux下的测试报告。\n\n## 测试环境\n\n\n::: {.cell}\n\n```{.r .cell-code}\nsessionInfo()\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\nR version 4.2.1 (2022-06-23)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS 14.3.1\n\nMatrix products: default\nLAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nloaded via a namespace (and not attached):\n [1] htmlwidgets_1.6.4 compiler_4.2.1    fastmap_1.1.1     cli_3.6.2        \n [5] tools_4.2.1       htmltools_0.5.7   parallel_4.2.1    rstudioapi_0.15.0\n [9] yaml_2.3.8        rmarkdown_2.25    knitr_1.45        jsonlite_1.8.8   \n[13] xfun_0.42         digest_0.6.34     rlang_1.1.3       evaluate_0.23    \n```\n\n\n:::\n:::\n\n\n## 删除texlive\n\n这一步最简单的方法就是用软件包管理器搜索\"texlive\"，把已安装的都删掉。当然还有一些零碎的文件夹，如果是强迫症患者（我），可以都删除掉。在网上找到的最全步骤是：\n\n```         \nsudo rm -rf /usr/local/texlive/\nsudo rm -rf ~/.texlive*\nsudo rm -rf /usr/local/share/texmf\nsudo rm -rf /var/lib/texmf\nsudo rm -rf /etc/texmf\nrm -rf ~/.texlive\nfind -L /usr/local/bin/ -lname /usr/local/texlive/*/bin/* | xargs rm\n```\n\n不过测试下来，好像我就只有`texmf`文件夹需要删除。\n\n## 安装tinytext\n\n我根据yihui的document安装，没发现什么问题。\n\n```         \ninstall.packages('tinytex')\ntinytex::install_tinytex(force=TRUE)\n```\n\n安装好之后，`R`提示说TinyTex被安装在用户目录（`/home/USER/.TinyTex`），看得见的东西真是舒坦。比起texlive猫在电脑不知道的角落好多了。\n\n## 编译tex文件\n\n```         \nsetwd(\"~/Dropbox/Phd Admission/CV/\")\ntinytex::xelatex(\"cv.tex\")\n```\n\n出现错误`错误: Failed to compile /home/jihong/Dropbox/Phd Admission/CV/cv.tex. See cv.log for more info.`\n\n然后我就去目标文件目录（`~/Dropbox/Phd Admission/CV/`）找`cv.log`，结果没有。我一拍脑袋，想到在可能在工作目录里，一看果然有。不过除了`cv.log`，还有一个文件`missfont.log`。 这里记录了我tex编译中缺少的字体。\n\n安装后，终于编译成功，在目标目录会显示`\"cv.pdf\"`。而且速度还是非常快的。\n\n## 总结与疑问\n\n总体来说，在linux中安装和使用都是非常简单易懂的。唯一的报错就是和文件路径有关。 我是在Rmarkdown里用chunck运行的。在chunck里，我只有把`working directory`设置到tex文件所在目录才能成功编译，如果在xelatex()中输入文件的完整路径是无法编译，报错说缺少文件。但是我可以直接在R console里面成功运行`tinytex::xelatex(\"~/Dropbox/Phd Admission/CV/cv.tex\")`，比如这样我是无法运行的：\n\n```         \ntinytex::xelatex(\"/home/jihong/Dropbox/Phd Admission/CV/cv.tex\")\n```\n\n而这样是可以的：\n\n```         \nsetwd(\"/home/jihong/Dropbox/Phd Admission/CV/\")\ntinytex::xelatex(\"cv.tex\")\n```\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

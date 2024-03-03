@@ -1,0 +1,17 @@
+{
+  "hash": "7904d8ad9c4524773b79038a3ff4aa53",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: 浪漫主义者的学R之旅-1\nauthor: 吉鸿\ndate: '2018-10-09'\ncategories:\n  - 教程\n---\n\n\n> 开启这个R的教程系列是需求。这份需求由内在动机和外在诱因驱动。内在动机是从2015年进入研究生院以来，成为R的中毒粉丝已逾三年。终于开始筹划写自己的包（其实已经有一个相当不成熟的[包](https://github.com/JihongZ/usefulR)了)。我开始在内心反问自己究竟在R上面我还需要在哪方面进行提高。这份对自己能力的疑问就是我的内在动机。外在诱因自然是DENG同学对未来的忧虑，我回望我第一年的时候，我何尝不也是如此迷惘（现在依然还是！）。当时我真的非常希望有人能够支持我帮助我，哪怕是安装R这种很简单的事情。于是我下定决心一定要给予我的后辈一些力所能及的帮助。当然这个系列自然还是会有非常多的不足，望理解。\n>\n> --- Jihong\n\n# 一 浪漫主义\n\n写这个系列我要解决以下疑问：\n\n-   Q： 网上已经有这么多课程和书籍，为什么还要费心自己写呢？直接贴出链接和淘宝地址就行了阿？\n\nA：说的没错，我就是要疯狂贴上超链接，哈哈哈！不过，我还是想谈很多心得和体悟，也许人需要“有情绪”的学习才能记住（海马体yell at you），而不是理性的学习。\n\n-   Q: 这个系列想要达到的目标是什么？入门R还是学会特定的技能？\n\nA： 我觉得没啥目标，就算是看个乐呵也行。最重要的是我自己写得开心（并不是）。 (正经脸)我觉得入门者在正式进入之前，首先修炼下心法来平复自己因为急于求成造成的内息紊乱。\n\n## 1. 什么？我把你当R友，你却想浪漫我！\n\n为什么把这个系列叫做“浪漫主义者的学R之旅”呢？很多人把学计算机语言看成是一个很nerd的事情：重复在电脑前盯着编辑器敲着代码，对外界感知低到如同植物人，喝着肥宅快乐水（可乐）。但我觉得用R可以很浪漫，这份浪漫不单单是处于我们对外在事物的审美需求，也是我们学习编程语言的激情所在。正如《优秀到无法忽视》中提到的：\n\n> > 关注于寻找自己所热爱的事情并非能幸福，而是我们越是优秀，越是热爱自己的事情。\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(grid)\n# heart function\nheart <- function(lcolor) {\n  t = seq(0, 2 * pi, by = 0.1)\n  x = 16 * sin(t)^3\n  y = 13 * cos(t) - 5 * cos(2 * t) - 2 * cos(3 * t) - cos(4 * t)\n  a = (x - min(x))/(max(x) - min(x))\n  b = (y - min(y))/(max(y) - min(y))\n  grid.lines(a, b, gp = gpar(col = lcolor, lty = \"solid\", lwd = 3))\n}\n\n# pattern 1\n# pushViewport(viewport(x = 0.1, y = 0.1, w = 0.2, h = 0.2))\ngrid.newpage()\nfor (j in 1:30) {\n  vp <- viewport(0.5, 0.5, w = 0.9, h = 0.9)\n  pushViewport(vp)\n  heart(\"skyblue\")\n}\n```\n\n::: {.cell-output-display}\n![用R绘制情人节的礼物](index_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\n(转载自https://cosx.org/2012/02/valentines-gift-by-using-r/)\n\n上面有人用R来绘制爱心，我觉得有趣而浪漫。守住这份浪漫，然后一点点去挖掘它。不光光是对学习R，对人生亦如此。\n\n## 2. 好了，你灌好了鸡汤，你到底啥时候教R？！\n\n写到这儿终于要开始正文了吗？ 好啦，其实我觉得与其一开始就从R和Rstudio的安装，写一个“Hello world”代码老生常谈开始，还不如先悄悄其他初学者怎么学习的。我打算在网络上罗列一些有趣的关于R初学者博文，也许我们的学R之旅不寂寞呢：\n\n0.  Chris Qi（[戳这看原文链接](https://bookdown.org/qiyuandong/intro_r/)）的前言部分可以一看。但是看了其实也等于没看。\n1.  @dancingapple（[戳这看原文链接](https://steemit.com/cn/@dancingapple/r-1)）提到了刚写出R时的喜悦之情。激动到居然全程用手机拍。\n2.  @drunkevil（[戳这看原文链接](https://steemit.com/cn-reader/@drunkevil/reading-of-learning-r)）提到了从实用主义的角度想要快速入门R的迫切欲望。我没有读过《学R》这本书，我最基础的知识积累都是从[Datacamp](https://www.datacamp.com/)中学的。在网站上搜索**Introduction** **to R**这门课，然后跟着过一遍，我是吃着中午饭学的。\n3.  @Guangchuang（[戳这看原文链接](https://guangchuangyu.github.io/cn/2017/07/swirl/)）提到了一个swirl包，可以教你交互学习，啊哈哈，很多年前我也用过，好久远的记忆。只要知道一些R的基础就可以用这个学习。\n4.  知乎专栏上的回答（[戳这看原文链接](https://zhuanlan.zhihu.com/p/24766425)）。系统的整理了一些学习资料。仔细看了下，其实除了Introduction to R和Stack Overflow，其他我都没用过哈哈。当你有了一定的基础之后，[R-bloggers](https://www.r-bloggers.com/)也许也可以经常逛逛。\n5.  我强烈推荐[谢益辉的中文博客](https://yihui.name/cn/)，就喜欢听他吐槽(~~骂街~~)。\n\n好啦，我觉得第一篇就写到这差不多了（~~明明是上班时间摸完鱼准备回家了~~）。如果你有什么建议，请在下方给出建议哦。\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
