@@ -140,3 +140,27 @@ body.quarto-dark .menu-text:hover > .menutext-pj {
 
 
 
+/* Color switching for 中文 */
+body.quarto-light .menu-text:hover > .menutext-cn {
+  animation-duration: 400ms;
+  animation-name: changecolor-cn-light;
+  animation-fill-mode: forwards;
+}
+body.quarto-dark .menu-text:hover > .menutext-cn {
+  animation-duration: 400ms;
+  animation-name: changecolor-cn-dark;
+  animation-fill-mode: forwards;
+}
+@keyframes changecolor-cn-light {
+  from {color: #000000;}
+  to {color: #666699;}
+}
+@keyframes changecolor-cn-dark {
+  from {color: #FFF;}
+  to {color: #ccccff;}
+}
+.menu-text:hover > .text-line-cn {
+  animation-duration: 400ms;
+  animation-name: line-expand;
+  animation-fill-mode: forwards;
+}

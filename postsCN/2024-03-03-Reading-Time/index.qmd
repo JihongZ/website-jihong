@@ -1,0 +1,25 @@
+---
+title: "闲散时光"
+subtitle: ""
+author: 吉鸿
+date: "Mar 3 2024" 
+date-modified: "Mar 3 2024"
+categories:
+  - daily
+format: 
+  html:
+    code-tools: true
+citation:
+  type: webpage
+  issued: 2024-03-3
+---
+
+## 费耶特维尔
+
+费耶特维尔的三月阳光和煦，大多数树木都还没有抽出新芽。我的新家在公寓的三楼。每天清晨，阳光洒满走廊，像是一片金色的地毯。
+
+星期日是大扫除的日子。美国床单有两种，一种就是带松紧带带fitted sheet（中文里也叫床罩），一种是贴在床罩上没有松紧带的flat sheet（床单）。后者又分为压在身体下（“下”床单）和盖在身体上的“上”床单。很多酒店配置这三种床单，这样方便清洗（[详见此科普](https://www.dealmoon.com/guide/63)）。因为紧贴皮肤，我会将上下床单和枕套拿去清洗。
+
+三月费耶特维尔的微风已经落了威势。我穿着短袖也可以扛着住。但是吹久了还是有点冷，所以窗户没有全部打开。我在卧室设置了阅读角，忙碌了一周，周末是我的阅读时间。最近在看乌贼的《宿命之环》，比起现实的波澜不惊，小说里的主角的际遇颇让人动容。
+
+![星期日的走廊](/postsCN/imagesCN/2024-03-03-fayetteville-home.jpg){fig-align="center" width="300"}

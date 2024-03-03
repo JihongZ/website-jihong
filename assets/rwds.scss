@@ -122,6 +122,16 @@ $primary:   $darkteal !default;
   margin-top: -1px;
   margin-bottom: -6px;
 }
+.text-line-cn {
+  display: block;
+  background: #666699;
+  width: 0%;
+  height: 3px;
+  margin: auto;
+  display: table;
+  margin-top: -1px;
+  margin-bottom: -6px;
+}
 
 $link-color: $darkteal;
 // Code blocks
