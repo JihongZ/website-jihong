@@ -105,7 +105,7 @@ modelCFA_samples$summary(c("mu", "lambda", "psi"))
 # show relationship between item means and mu parameters
 colMeans(conspiracyItems, na.rm = TRUE)
 modelCFA_samples$summary("mu") 
-
+modelCFA_samples$summary("psi") 
 
 # investigating item parameters -------------------------------------------
 itemNumber = 10
@@ -154,3 +154,24 @@ ggplot(predicted_y_alldraws) +
   theme(text = element_text(size = 20),
         legend.position	= 'bottom')
 ggsave(here(root_dir, "ICC_Item10.png"), width = 12, height = 7)
+
+
+# blavaan -----------------------------------------------------------------
+library(blavaan)
+
+blavaan.model <- ' theta  =~ item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8 + item9 + item10 '
+
+fit <- bcfa(blavaan.model, data=conspiracyItems,
+            n.chains = 4, burnin = 1000, sample = 2000,
+            target = 'stan', seed = 09102022,
+            save.lvs = TRUE, # save sampled latent variable
+            std.lv = TRUE,
+            bcontrol = list(cores = 4)) # standardized latent variable
+
+summary(fit)
+coef(fit)
+blavaanObj <- blavInspect(fit, "mcobj")
+blavaanLambdasummary <- summary(blavaanObj, 'ly_sign', prob = c(.05, .95))
+blavaanLambdasummary$summary
+
+saveRDS(fit, here(save_dir, "model01_blv.RDS"))
