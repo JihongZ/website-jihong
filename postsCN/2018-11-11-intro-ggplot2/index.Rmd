@@ -1,6 +1,6 @@
 ---
 title: "ggplot2展览馆"
-author: "Jihong Zhang"
+author: 学徒
 date: "2018-11-11"
 categories:
   - 教程

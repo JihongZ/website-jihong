@@ -1,6 +1,6 @@
 ---
 title: 喜
-author: 吉鸿
+author: 诗人
 date: '2019-10-15'
 slug: new-young
 categories:

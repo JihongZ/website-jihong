@@ -1,6 +1,6 @@
 ---
 title: 'TinyTex:在R中运行Latex'
-author: 吉鸿
+author: 学徒
 date: '2018-09-25'
 categories:
   - 教程

@@ -1,8 +1,8 @@
 {
-  "hash": "ff53b9fe0e3377d70abde7e9380685ef",
+  "hash": "ab60acac1017debdfb61b2afbbd6c919",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: 鲜花广场和摇滚乐\nauthor: Jihong\ndate: '2019-06-28'\ncategories:\n  - Life\ntags:\n  - Blog\n\n---\n\n\nWashinton St.和Dubuque St.交叉口的对面是一段狭长的鲜花广场，此时正盛放着兰花。广场尽头是联合酒吧，周五晚上乐队就在那儿弹奏摇滚乐。高昂的女声和架子鼓的鼓点穿透在广场的每个角落。我半倚在广场一角的木椅上，感觉生活有点荒诞和苦涩，像是一杯特调的鸡尾酒。比起前几天的心神不宁，我发现现在的情绪是有力量和准头的。望着熄着屏幕的手机，它似乎在嘲笑着我的蠢样。\n\n霎那间，女主唱结束了最后一个音，风触动了花。\n",
+    "markdown": "---\ntitle: 鲜花广场和摇滚乐\nauthor: 旅客\ndate: '2019-06-28'\ncategories:\n  - 随笔\n---\n\n\nWashinton St.和Dubuque St.交叉口的对面是一段狭长的鲜花广场，此时正盛放着兰花。广场尽头是联合酒吧，周五晚上乐队就在那儿弹奏摇滚乐。高昂的女声和架子鼓的鼓点穿透在广场的每个角落。我半倚在广场一角的木椅上，感觉生活有点荒诞和苦涩，像是一杯特调的鸡尾酒。比起前几天的心神不宁，我发现现在的情绪是有力量和准头的。望着熄着屏幕的手机，它似乎在嘲笑着我的蠢样。\n\n霎那间，主唱结束了最后一个音，风触动了花。\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

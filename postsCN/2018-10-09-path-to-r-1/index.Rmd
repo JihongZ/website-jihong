@@ -1,6 +1,6 @@
 ---
 title: 浪漫主义者的学R之旅-1
-author: 吉鸿
+author: 学徒
 date: '2018-10-09'
 categories:
   - 教程

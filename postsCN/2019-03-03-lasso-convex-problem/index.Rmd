@@ -1,6 +1,6 @@
 ---
 title: LASSO回归中的凸优化问题
-author: 吉鸿
+author: 学徒
 date: '2019-03-03'
 categories:
   - 教程
