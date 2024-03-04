@@ -40,14 +40,10 @@ p { // main font family of post content
 
 /* background color */
 //body {
-//  background-color: $soft-color1;
-//}
-//
-//nav.sidebar.sidebar-navigation:not(.rollup) {
-//  background-color: $soft-color1;
+//  background-color: #e6f4f7;
 //}
 
-/*-- scss:defaults --*/
+/*-- scss:uses --*/
 // colors
 $light-sage-green: #D1D9CE;
 $dark-sage-green: #98A08D;
@@ -55,10 +51,12 @@ $darkteal: #008080;
 $lightwhite: #c0c0c0;
 $gray: #64605f;
 $menutext-bg: #000000;
-$soft-color1: #FAFAEB;
-$navbar-bg: #FFF;
+$soft-color1: #eeeee4;
+$navbar-bg: $soft-color1;
+$body-bg: $soft-color1;
+$code-block-bg-alpha: -.3; // Code blocks
 
-//$background-color: #FAFAEB; 
+
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
 $pink:      #e3abdb;
 $primary:   $darkteal !default;
@@ -145,5 +143,3 @@ $primary:   $darkteal !default;
 
 
 $link-color: $darkteal;
-// Code blocks
-$code-block-bg-alpha: -.6;

@@ -34,7 +34,6 @@ website:
           - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.qmd
           - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Lecture07.qmd
   navbar:
-    #background: '#FFFFFF'
     collapse-below: lg
     pinned: true
     title: "<span class='icon-line'></span>JZ<span class='icon-line'></span>"
