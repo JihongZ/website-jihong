@@ -106,7 +106,8 @@ It is assumed that students have has solid statistical training up to and includ
 ## Software
 
 -   R and R packages (tidyverse)
--   Stan is gaining in popularity and has an avid user community. To use Stan in R, you need to download RStan or cmdstanr package. Here is the [tutorial](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started) of installing RStan or click [here](https://mc-stan.org/cmdstanr/) for installing cmdstanr package.
+-   Stan is gaining in popularity and has an avid user community.
+    -   To use Stan in R, you need to download [rstan](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started) or [cmdstanr](https://mc-stan.org/cmdstanr/) package.
 -   (Optional) Mplus, JAGS, [WinBUGS](http://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/)
 
 # Assignments

@@ -5,6 +5,9 @@ date: 2024-01-14
 categories: 
   - Tutorial
   - HPC
+format: 
+  html: 
+    code-line-numbers: false
 citation:
   type: webpage
   issued: 2024-01-14

@@ -93,9 +93,12 @@ format:
     monofont: 'JetBrains Mono'
     code-link: true
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
+    code-block-bg: '#D1D9CE'
+    code-block-border-left: '#df5925'
     code-line-numbers: true
     code-overflow: scroll
     code-fold: true
+    code-tools: true
     linestretch: 1.5
     # toc
     toc: true

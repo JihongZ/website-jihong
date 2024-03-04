@@ -13,19 +13,18 @@ format:
   html:
     toc: true
     code-fold: show
-    code-summary: ' R Code'
     code-line-numbers: false
     number-sections: true
     number-offset: 1
 ---
 
+## Question
+
+I am looking for R package than can analyze big data of survey.
+
 ## R package - survey
 
-### What ChatGPT say about `survey` package
-
-> Me: I don't know much about `survey` R package. Can you tell me know about core features of this package?
-
-Sure, the `survey` package in R is designed specifically for analysis of data from complex surveys. It provides functions for descriptive statistics and general regression models for survey data that includes design features such as clustering, stratification, and weighting.
+The `survey` package in R is designed specifically for analysis of data from complex surveys. It provides functions for descriptive statistics and general regression models for survey data that includes design features such as clustering, stratification, and weighting.
 
 Here are some of the core features of the `survey` package:
 
@@ -64,7 +63,7 @@ mean
 ## Note
 
 |             |                                                                                                                               |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------|
+|-------------|-----------------------------------------------------------|
 | `variables` | Formula or data frame specifying the variables measured in the survey. If `NULL`, the `data` argument is used.                |
 | `ids`       | Formula or data frame specifying cluster ids from largest level to smallest level, `~0` or `~1` is a formula for no clusters. |
 | `probs`     | Formula or data frame specifying cluster sampling probabilities                                                               |
