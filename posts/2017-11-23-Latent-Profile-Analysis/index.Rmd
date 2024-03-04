@@ -4,8 +4,8 @@ author: Jihong Zhang
 date: '2017-11-23'
 categories:
   - R
-  - clustering
-  - latent class
+  - Clustering
+  - Latent Class
 ---
 
 Hi there! This is Jihong. This is a webpage folked from [JOSHUA M. ROSENBERG](https://jrosen48.github.io/blog/lpa-in-r-using-mclust/). It aims to provid a very clear example about how to conduct Latent Profile Analysis using MCLUST in r.

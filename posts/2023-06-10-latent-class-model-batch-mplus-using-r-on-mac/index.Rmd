@@ -4,8 +4,8 @@ author: 'Jihong Zhang'
 date: '2023-06-10'
 slug: latent-class-model-batch-mplus-using-r-on-mac
 categories:
+  - Latent Class
   - blog
-  - LCM
   - R
 
 lastmod: '2023-06-10T07:38:47+08:00'

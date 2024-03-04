@@ -3,7 +3,7 @@ title: "Posts"
 listing:
   - id: posts
     contents: "*/*.[Rq]md"
-    type: grid
+    type: table
     fields: [image, date, title, subtitle]
     sort: "date desc"
     categories: cloud

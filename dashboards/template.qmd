@@ -99,7 +99,7 @@ Source:
 
 -   <https://rstudio.github.io/DT/>
 
--   [bslib github page for theming components ](https://rstudio.github.io/bslib/articles/bs5-variables/index.html)
+-   [bslib github page for theming components](https://rstudio.github.io/bslib/articles/bs5-variables/index.html)
 
 ### Row
 
