@@ -3,6 +3,9 @@ title: "MMM 2023 Archive"
 author: "Jihong Zhang"
 format: 
   dashboard:
+    theme: 
+      light: yeti
+      dark: materia
     orientation: columns
 ---
 
@@ -11,7 +14,8 @@ format:
 library(stringr)
 library(tidyverse)
 library(rvest)
-
+library(kableExtra)
+library(DT)
 ## 2023 archive
 scrape_url = "https://modeling.uconn.edu/2023archive/"
 html_from_page <- read_html(scrape_url)
@@ -85,10 +89,17 @@ Topics |>
 
 ```{r}
 #| title: Session and Presentation
-DT::datatable(SessionInfo, style = 'bootstrap4') |> 
-  DT::formatStyle(columns = c("Session"), fontWeight = 'bold', `text-align` = 'left') |> 
-  DT::formatStyle(columns = c("Presentation"), color = "#293352", `text-align` = 'left')
+datatable(SessionInfo, style = 'bootstrap', filter = 'bottom',
+          options = list(pageLength = 5)) |> 
+  formatStyle(columns = c("Session"), fontWeight = 'bold', `text-align` = 'left') |> 
+  formatStyle(columns = c("Presentation"), `text-align` = 'left') 
 ```
+
+Source:
+
+-   <https://rstudio.github.io/DT/>
+
+-   [bslib github page for theming components ](https://rstudio.github.io/bslib/articles/bs5-variables/index.html)
 
 ### Row
 
