@@ -3,11 +3,10 @@ title: Gradient Descent Algorithm via julia
 date: '2021-08-30'
 slug: gradient-descent-via-julia
 categories:
+  - Tutorial
+  - Algorithm
   - julia
-  - algorithm
 tags:
-  - tutorial
-  - julia
 subtitle: 'This tutorial illustrate how to use julia to conduct a gradient descent algorithm'
 summary: 'This blog build GD algorithm via Julia programming language'
 authors: ['Jihong Zhang']

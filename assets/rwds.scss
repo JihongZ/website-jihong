@@ -60,7 +60,7 @@ $navbar-bg: #FFF;
 
 //$background-color: #FAFAEB; 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
-$pink:      #D4006A;
+$pink:      #e3abdb;
 $primary:   $darkteal !default;
 .icon-line {
   display: block;
@@ -132,6 +132,17 @@ $primary:   $darkteal !default;
   margin-top: -1px;
   margin-bottom: -6px;
 }
+.text-line-note {
+  display: block;
+  background: #e3abdb;
+  width: 0%;
+  height: 3px;
+  margin: auto;
+  display: table;
+  margin-top: -1px;
+  margin-bottom: -6px;
+}
+
 
 $link-color: $darkteal;
 // Code blocks

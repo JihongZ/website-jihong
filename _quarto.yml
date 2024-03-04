@@ -54,6 +54,9 @@ website:
       - text: "<span class='menutext-pj'>Projects</span><span class='text-line-pj'></span>"
         icon: 'bi bi-three-dots'
         file: projects.qmd
+      - text: "<span class='menutext-note'>Notes</span><span class='text-line-note'></span>"
+        icon: 'bi bi-journal-bookmark-fill'
+        file: notes.qmd
       - text: "<span class='menutext-cn'>中文</span><span class='text-line-cn'></span>"
         icon: 'bi bi-globe-asia-australia'
         file: postsCN.qmd

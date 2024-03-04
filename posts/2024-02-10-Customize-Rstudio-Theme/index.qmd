@@ -5,8 +5,8 @@ date: 2024-02-10
 execute:
   eval: true
 categories: 
-  - tutorial
-  - theming
+  - Tutorial
+  - Theme
 format:
   html:
     code-line-numbers: true

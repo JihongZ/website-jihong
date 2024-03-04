@@ -3,8 +3,8 @@ title: "How to set up High Performance Computing of University of Arkansas"
 author: Jihong Zhang
 date: 2024-01-14
 categories: 
-  - tutorial
-  - hpc
+  - Tutorial
+  - HPC
 citation:
   type: webpage
   issued: 2024-01-14
@@ -141,7 +141,7 @@ This command will redirect to cloud72 queue, which includes virtual machines and
 :::
 
 | slurm commands      | compatibility commands   | Meaning                            |
-|-------------------|-----------------------|-------------------------------|
+|-------------------|-----------------------|------------------------------|
 | sbatch              | qsub                     | submit \<job file\>                |
 | srun                | qsub -I                  | submit interactive job             |
 | squeue              | qstat                    | list all queued jobs               |

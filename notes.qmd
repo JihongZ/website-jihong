@@ -1,0 +1,11 @@
+---
+title: '<span style="color:#e3abdb">Note</span>'
+subtitle: '<span style="color:#e3abdb">Some Notes or Snippets</span>'
+listing:
+  contents: notes/*/*.[Rq]md
+  sort: "date desc"
+  type: table
+  categories: numbered
+  fields: [image, date, title, categories, reading-time]
+  filter-ui: [title, date]
+---

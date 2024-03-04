@@ -5,11 +5,11 @@ authors: Jihong Zhang
 date: '2022-04-29'
 categories:
   - R
-  - rshiny
-  - webpower
-  - lavaan
+  - Rshiny
+  - Webpower
+  - Lavaan
   - blog
-  - tutorial
+  - Tutorial
 lastmod: '2022-04-29T16:53:41-05:00'
 bibliography: 'PowerAnalysis.bib'
 toc: true

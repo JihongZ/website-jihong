@@ -6,7 +6,7 @@ slug: visualization-for-process-data
 categories:
   - R
   - ggplot2
-  - tutorial
+  - Tutorial
 subtitle: ''
 summary: 'This tutorial aims to explore various types of tools of visualizing the process data.'
 lastmod: '2021-07-04T22:13:27-05:00'

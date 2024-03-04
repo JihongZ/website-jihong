@@ -14,7 +14,7 @@ citation:
   issued: 2024-01-13
 ---
 
-![A Bayesian Network as Saturated Model of Diagnostic Model](Images/DAG_BN.png){fig-align="center" width="600"}
+![](Images/UA_Logo.png){fig-align="center" width="300"}
 
 # General Information
 
