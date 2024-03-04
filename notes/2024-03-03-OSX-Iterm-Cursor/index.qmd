@@ -36,3 +36,5 @@ In addition, as in iTem2, "next Tab" was bind to `⌘→`(`Command-Right`), whic
 -   Using `Next Tab` for "move to next tab", I bind this `⌥⌘→` (`Option-Command-Right`)
 
 -   Using `Previous Tab` for "move to previous tab", I bind this `⌥⌘←` (`Option-Command-Left`)
+
+You can download this file for my keymapping file [iterm2mapping.itermkeymap](notes/2024-03-03-OSX-Iterm-Cursor/iterm2mapping.itermkeymap) for iTerm2
