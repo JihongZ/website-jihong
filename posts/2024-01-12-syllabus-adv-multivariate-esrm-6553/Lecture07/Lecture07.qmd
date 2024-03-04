@@ -171,16 +171,16 @@ If we replace $X_p$ with latent variable $\theta_p$, and replace $\beta$ as fact
 We can get the linear regression function (**IRF**) for each item
 
 $$
-Y_{p1} =\mu_{0} +\lambda_{1} \theta_p + e_{p1}; \ \ \ \ \ e_{p1}\sim N(0, \psi_1^2)
-Y_{p2} =\mu_{2} +\lambda_{2} \theta_p + e_{p2}; \ \ \ \ \ e_{p2}\sim N(0, \psi_{2}^2)
-Y_{p3} =\mu_{3} +\lambda_{3} \theta_p + e_{p3}; \ \ \ \ \ e_{p3}\sim N(0, \psi_{3}^2)
-Y_{p4} =\mu_{4} +\lambda_{4} \theta_p + e_{p4}; \ \ \ \ \ e_{p4}\sim N(0, \psi_{4}^2)
-Y_{p5} =\mu_{5} +\lambda_{5} \theta_p + e_{p5}; \ \ \ \ \ e_{p5}\sim N(0, \psi_{5}^2)
-Y_{p6} =\mu_{6} +\lambda_{6} \theta_p + e_{p6}; \ \ \ \ \ e_{p6}\sim N(0, \psi_{6}^2)
-Y_{p7} =\mu_{7} +\lambda_{7} \theta_p + e_{p7}; \ \ \ \ \ e_{p7}\sim N(0, \psi_{7}^2)
-Y_{p8} =\mu_{8} +\lambda_{8} \theta_p + e_{p8}; \ \ \ \ \ e_{p8}\sim N(0, \psi_{8}^2)
-Y_{p9} =\mu_{9} +\lambda_{9} \theta_p + e_{p9}; \ \ \ \ \ e_{p9}\sim N(0, \psi_{9}^2)
-Y_{p10} =\mu_{10} +\lambda_{10} \theta_p + e_{p10}; \ \ \ \ \ e_{p10}\sim N(0, \psi_1{0}^2)
+Y_{p1} =\mu_{0} +\lambda_{1} \theta_p + e_{p1}; \ \ \ \ \ e_{p1}\sim N(0, \psi_1^2) \\
+Y_{p2} =\mu_{2} +\lambda_{2} \theta_p + e_{p2}; \ \ \ \ \ e_{p2}\sim N(0, \psi_{2}^2) \\
+Y_{p3} =\mu_{3} +\lambda_{3} \theta_p + e_{p3}; \ \ \ \ \ e_{p3}\sim N(0, \psi_{3}^2) \\
+Y_{p4} =\mu_{4} +\lambda_{4} \theta_p + e_{p4}; \ \ \ \ \ e_{p4}\sim N(0, \psi_{4}^2) \\
+Y_{p5} =\mu_{5} +\lambda_{5} \theta_p + e_{p5}; \ \ \ \ \ e_{p5}\sim N(0, \psi_{5}^2) \\
+Y_{p6} =\mu_{6} +\lambda_{6} \theta_p + e_{p6}; \ \ \ \ \ e_{p6}\sim N(0, \psi_{6}^2) \\
+Y_{p7} =\mu_{7} +\lambda_{7} \theta_p + e_{p7}; \ \ \ \ \ e_{p7}\sim N(0, \psi_{7}^2) \\
+Y_{p8} =\mu_{8} +\lambda_{8} \theta_p + e_{p8}; \ \ \ \ \ e_{p8}\sim N(0, \psi_{8}^2) \\
+Y_{p9} =\mu_{9} +\lambda_{9} \theta_p + e_{p9}; \ \ \ \ \ e_{p9}\sim N(0, \psi_{9}^2) \\
+Y_{p10} =\mu_{10} +\lambda_{10} \theta_p + e_{p10}; \ \ \ \ \ e_{p10}\sim N(0, \psi_1{0}^2) \\
 $$
 
 ## Interpretation of Parameters
