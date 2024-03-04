@@ -9,6 +9,7 @@ categories:
 format: 
   html:
     code-tools: true
+    code-line-numbers: false
 citation:
   type: webpage
   issued: 2024-01-13

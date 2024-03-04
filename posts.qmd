@@ -1,11 +1,15 @@
 ---
-title: '<span style="color:#6636a9">Blog</span>'
-subtitle: '<span style="color:#6636a9">R, Python, machine learning, data science, and visualisation</span>'
+title: ''
+subtitle: ''
 listing:
   contents: posts/*/*.[Rq]md
   sort: "date desc"
-  type: table
+  type: default
   categories: numbered
-  fields: [image, date, title, categories, reading-time]
+  fields: [date, title, description, categories, author, reading-time]
+  sort-ui: true
   filter-ui: [title, date]
+  page-size: 10
+page-layout: full
+title-block-banner: false
 ---

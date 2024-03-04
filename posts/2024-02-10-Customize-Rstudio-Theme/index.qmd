@@ -9,6 +9,8 @@ categories:
   - Theme
 format:
   html:
+    code-fold: true
+    code-summary: 'Code'
     code-line-numbers: true
 citation:
   type: webpage
@@ -78,7 +80,7 @@ To change the font family for Zotero window, create a new folder "Chrome" in abo
 
 If you want to use my theme file, you can cope&paste following syntax into your `userChrome.css` file.
 
-``` {.css filename="userChrome.css" code-line-numbers="3-5"}
+``` {.css .css filename="userChrome.css" code-line-numbers="3-5" code-fold="true"}
 
 /*:::::::::::::::::::::::::::::::::::::::::::::::::::: Zotero :::::::::::::::::::::::::::::::::::::::::::::::::::*/
 * {border: 0 !important; 

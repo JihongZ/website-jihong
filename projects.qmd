@@ -1,6 +1,6 @@
 ---
-title: "Projects"
-subtitle: 'You can find resources for projects here'
+title: ""
+subtitle: ''
 resources:  
   - "*.qmd"
   - "*.csv"
@@ -8,4 +8,10 @@ resources:
   - "uploads/*"
 listing: 
   contents: projects
+  sort: "date desc"
+  type: table
+  categories: numbered
+  fields: [date, title, description, categories, reading-time]
+  filter-ui: [title, date]
+  sort-ui: true
 ---

@@ -50,11 +50,15 @@ $dark-sage-green: #98A08D;
 $darkteal: #008080;
 $lightwhite: #c0c0c0;
 $gray: #64605f;
+$orange: #df5925;
 $menutext-bg: #000000;
 $soft-color1: #eeeee4;
-$navbar-bg: $soft-color1;
-$body-bg: $soft-color1;
-$code-block-bg-alpha: -.3; // Code blocks
+$navbar-bg: $soft-color1; // navigation bar bg
+$body-bg: $soft-color1; // body bg
+$code-bg: $soft-color1; // code's bg
+$input-group-addon-bg: $soft-color1;
+$code-block-bg-alpha: .3; // Code blocks
+$link-color: $orange;
 
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
@@ -142,4 +146,4 @@ $primary:   $darkteal !default;
 }
 
 
-$link-color: $darkteal;
+

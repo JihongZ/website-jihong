@@ -106,7 +106,7 @@ Please also refer to the [official document](https://quarto.org/docs/visual-edit
 
 Last but not least, perhaps just type `/` in rstudio is a better choice as it will pop up a list of elements to choose.
 
-### giscus comments box light/dark toggle
+### giscus comments box theme toggle (not work any more for Quarto 1.5.23)
 
 giscus comments box needs some tweaks to switch light/dark based on the toggle switcher of quarto. Please find [Ella's post](https://ellakaye.co.uk/posts/2022-12-11_welcome-quarto/#giscus-comments-box-lightdark-toggle) and [Ella's giscus issue discussion](https://github.com/giscus/giscus/issues/336#issuecomment-1214401296) and [original Javascript](https://github.com/giscus/giscus/issues/336#issuecomment-1214366281).
 
