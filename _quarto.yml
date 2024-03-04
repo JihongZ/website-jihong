@@ -74,9 +74,9 @@ format:
       sidebar-width: 250px
       body-width: 1200px
       margin-width: 250px
-    comments:
-      giscus:
-        repo: JihongZ/quarto-academic-jihong
+    #comments:
+    #  giscus:
+    #    repo: JihongZ/quarto-academic-jihong
     include-in-header: 
       - toggle.js # Maybe change for automate change theme: https://github.com/quarto-dev/quarto-cli/discussions/2588
     header-includes: |

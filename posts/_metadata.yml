@@ -4,7 +4,8 @@
 author: "Jihong Zhang"
 number-sections: true
 number-depth: 3
-
+include-in-header: giscus-mode-toggle.html
+include-after-body: div-giscus.html
 # <script src="https://utteranc.es/client.js"
 #         repo="[ENTER REPO HERE]"
 #         issue-term="title"
