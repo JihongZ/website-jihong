@@ -66,9 +66,9 @@ format:
       light: [default, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
       dark: [darkly, assets/rwds-dark.scss]
     css: assets/rwds.css
-    highlight-style:
-      light: assets/custom-light.theme
-      dark: assets/custom-dark.theme
+    #highlight-style:
+    #  light: assets/custom-light.theme
+    #  dark: assets/custom-dark.theme
     grid:
       sidebar-width: 250px
       body-width: 1200px
@@ -93,7 +93,6 @@ format:
     monofont: 'JetBrains Mono'
     code-link: true
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
-    code-block-bg: '#D1D9CE'
     code-block-border-left: '#df5925'
     code-line-numbers: true
     code-overflow: scroll

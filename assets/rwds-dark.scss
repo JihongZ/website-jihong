@@ -44,6 +44,16 @@ $lightwhite: #c0c0c0;
 $gray: #64605f;
 $navbar-bg: rgb(34, 34, 34);
 $menutext-bg: #FFFFFF;
+$code-bg: rgb(34, 34, 34); // for in-line code background
+$pre-bg: $darkteal;
+$code-block-bg: #475c6c; // code block's bg
+
+.cell-output {
+  background-color: $navbar-bg;
+  border-radius: 4px;
+}
+
+.cell-output pre { border: $darkteal 1px dashed;}
 
 #quarto-content {
   color: $lightwhite;
