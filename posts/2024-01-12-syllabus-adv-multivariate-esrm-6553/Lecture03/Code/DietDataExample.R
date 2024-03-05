@@ -55,7 +55,7 @@ model00.fromFile = cmdstan_model(stan_file = "EmptyModel.stan")
 # build R list containing data for Stan: Must be named what "data" are listed in analysis
 stanData = list(
   N = nrow(dat),
-  y = dat$WeightLB
+  weightLB = dat$WeightLB
 )
 
 # snippet of Stan syntax:

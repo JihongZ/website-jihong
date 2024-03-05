@@ -185,7 +185,7 @@ $$
 
 ## Interpretation of Parameters
 
--   $\mu_1$: Item intercept
+-   $\mu_i$: Item intercept
 
     -   Interpretation: the expected score on the item $i$ when $\theta_p=0$
 
