@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+.rdb
 .Ruserdata
 .DS_Store
 /_site/
