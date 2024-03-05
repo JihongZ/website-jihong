@@ -61,6 +61,13 @@ $input-group-addon-bg: $soft-color1;
 $code-block-bg-alpha: -.3; // Code blocks
 $link-color: $orange;
 
+/* output color for R chunck */
+.cell-output {
+  background-color: #c0c0c0;
+  border-radius: 4px;
+}
+
+.cell-output pre { border: black 1px solid;}
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
 $pink:      #e3abdb;

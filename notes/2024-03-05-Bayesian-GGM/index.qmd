@@ -1,0 +1,80 @@
+---
+title: 'How to use BGGM to Estimate Bayesian Gaussian Graphical Models'
+author: 'Jihong Zhang'
+subtitle: 'Bayesian version of GGM allows multiple Bayesian techniques to be used in psychological network.'
+date: 'Mar 5 2024'
+categories:
+  - R
+  - Bayesian
+  - Tutorial
+  - Network Analysis
+execute: 
+  eval: true
+  echo: true
+format: 
+  html: 
+    code-fold: true
+    code-summary: 'Click to see the code'
+---
+
+> This is a quick note illustrate some importance functions of `BGGM` and illustrate them using one or more example(s).
+
+## Overview
+
+1.  The [Github page](https://github.com/donaldRwilliams/BGGM) showcases some publications regarding algorithms of `GGGM`
+
+## Illustrative Example 1 
+
+A dataset containing items that measure Post-traumatic stress disorder symptoms (Armour et al. 2017). There are 20 variables (*p*) and 221 observations (*n*).
+
+```{r}
+#| message: false
+library(BGGM)
+library(tidyverse) # for ggplot2 and dplyr
+library(psychonetrics) # the frequentist way for GGM
+
+# data
+Y <- ptsd[, 1:5] + 1 # add + 1 to make sure the ordinal variable start from '1'
+
+# ordinal model
+fit <- estimate(Y, type = 'ordinal', analytic = FALSE)
+
+#summary(fit)
+pcor_mat(fit)
+```
+
+Let's compare the partial correlation estimates to `psychonetrics`
+
+```{r}
+mod_saturated <- ggm(Y)
+PCE <- mod_saturated |> getmatrix('omega')
+colnames(PCE) = rownames(PCE) = paste0('B', 1:5) 
+PCE
+```
+
+```{r}
+freqEst <- as.data.frame(PCE) |> 
+  rownames_to_column('Start') |> 
+  pivot_longer(-Start, names_to = 'End', values_to = 'Mean') |> 
+  filter(Start != End) |> 
+  mutate(Label = paste0(Start,'-', End))
+
+# transform partial corr. mat. of BGGM into df.
+PCE_Bayes <- pcor_mat(fit)
+BayesEst <- as.data.frame(PCE_Bayes) |> 
+  rownames_to_column('Start') |> 
+  pivot_longer(-Start, names_to = 'End', values_to = 'Mean') |> 
+  filter(Start != End) |> 
+  mutate(Label = paste0(Start,'-', End))
+
+combEst <- rbind(
+  freqEst |> mutate(Type = 'psychonetrics'),
+  BayesEst |> mutate(Type = 'BGGM')
+)
+ggplot(combEst) +
+  geom_col(aes(x = fct_rev(Label), y = Mean, fill = Type, col = Type), position = position_dodge()) +
+  labs(x = '') +
+  coord_flip()
+```
+
+We can see that estimates of partial correlations by `BGGM` are slightly **higher** than estimates by `psychonetrics`.

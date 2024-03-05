@@ -1,0 +1,17 @@
+{
+  "hash": "22f9e40257fafaeda3e412836336aa63",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: 'How to use BGGM to Estimate Bayesian Gaussian Graphical Models'\nauthor: 'Jihong Zhang'\nsubtitle: 'Bayesian version of GGM allows multiple Bayesian techniques to be used in psychological network.'\ndate: 'Mar 5 2024'\ncategories:\n  - R\n  - Bayesian\n  - Tutorial\n  - Network Analysis\nexecute: \n  eval: true\n  echo: true\nformat: \n  html: \n    code-fold: true\n    code-summary: 'Click to see the code'\n---\n\n\n\n> This is a quick note illustrate some importance functions of `BGGM` and illustrate them using one or more example(s).\n\n## Overview\n\n1.  The [Github page](https://github.com/donaldRwilliams/BGGM) showcases some publications regarding algorithms of `GGGM`\n\n## Illustrative Example 1 \n\nA dataset containing items that measure Post-traumatic stress disorder symptoms (Armour et al. 2017). There are 20 variables (*p*) and 221 observations (*n*).\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(BGGM)\nlibrary(tidyverse) # for ggplot2 and dplyr\nlibrary(psychonetrics) # the frequentist way for GGM\n\n# data\nY <- ptsd[, 1:5] + 1 # add + 1 to make sure the ordinal variable start from '1'\n\n# ordinal model\nfit <- estimate(Y, type = 'ordinal', analytic = FALSE)\n\n#summary(fit)\npcor_mat(fit)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n      B1     B2    B3     B4    B5\nB1 0.000  0.240 0.054  0.338 0.127\nB2 0.240  0.000 0.502 -0.061 0.128\nB3 0.054  0.502 0.000  0.245 0.190\nB4 0.338 -0.061 0.245  0.000 0.353\nB5 0.127  0.128 0.190  0.353 0.000\n```\n\n\n:::\n:::\n\n\n\nLet's compare the partial correlation estimates to `psychonetrics`\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmod_saturated <- ggm(Y)\nPCE <- mod_saturated |> getmatrix('omega')\ncolnames(PCE) = rownames(PCE) = paste0('B', 1:5) \nPCE\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n          B1          B2        B3          B4        B5\nB1 0.0000000  0.22629337 0.0587752  0.33357369 0.1547986\nB2 0.2262934  0.00000000 0.4993419 -0.03224366 0.1071399\nB3 0.0587752  0.49934190 0.0000000  0.22054421 0.1841798\nB4 0.3335737 -0.03224366 0.2205442  0.00000000 0.3407634\nB5 0.1547986  0.10713988 0.1841798  0.34076340 0.0000000\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nfreqEst <- as.data.frame(PCE) |> \n  rownames_to_column('Start') |> \n  pivot_longer(-Start, names_to = 'End', values_to = 'Mean') |> \n  filter(Start != End) |> \n  mutate(Label = paste0(Start,'-', End))\n\n# transform partial corr. mat. of BGGM into df.\nPCE_Bayes <- pcor_mat(fit)\nBayesEst <- as.data.frame(PCE_Bayes) |> \n  rownames_to_column('Start') |> \n  pivot_longer(-Start, names_to = 'End', values_to = 'Mean') |> \n  filter(Start != End) |> \n  mutate(Label = paste0(Start,'-', End))\n\ncombEst <- rbind(\n  freqEst |> mutate(Type = 'psychonetrics'),\n  BayesEst |> mutate(Type = 'BGGM')\n)\nggplot(combEst) +\n  geom_col(aes(x = fct_rev(Label), y = Mean, fill = Type, col = Type), position = position_dodge()) +\n  labs(x = '') +\n  coord_flip()\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\n\nWe can see that estimates of partial correlations by `BGGM` are slightly **higher** than estimates by `psychonetrics`.\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
