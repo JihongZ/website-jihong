@@ -108,10 +108,12 @@ We can find that:
 2.  Partial correlations with **continuous** responses estimated by `psychonetric` **align well with** partial correlations with **continuous** responses estimated by `BGGM`
 3.  Violating the continuous assumption of items responses usually underestimate the partial correlations (see `BGGM_cont` vs. `BGGM_ord`)
 
-## Regularization
+### Regularization
+
+It is easy to conduct regularization using `Graph Selection` using hypothesis testing
 
 ```{r}
-fit_reg <- BGGM::select(fit)
+fit_reg <- BGGM::select(fit, alternative = "greater")
 plot(fit_reg)
 ```
 
