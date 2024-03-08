@@ -1,0 +1,35 @@
+---
+title: "Lecture 08"
+subtitle: "Generalized Measurement Models: Modeling Observed Data II"
+author: "Jihong Zhang"
+institute: "Educational Statistics and Research Methods"
+title-slide-attributes:
+  data-background-image: ../Images/title_image.png
+  data-background-size: cover
+execute: 
+  echo: true
+  eval: false
+format: 
+  revealjs:
+    logo: ../Images/UA_Logo_Horizontal.png
+    incremental: false  # choose "false "if want to show all together
+    theme: [serif, ../pp.scss]
+    footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>
+    transition: slide
+    scrollable: true
+    background-transition: fade
+    slide-number: true
+    chalkboard: true
+    number-sections: false
+    code-line-numbers: true
+    code-annotations: below
+    code-copy: true
+    highlight-style: arrow
+    mermaid:
+      theme: neutral
+---
+
+## Resource
+
+1.  Dr. Jonathan Templin's [Lecture 4](https://jonathantemplin.github.io/Bayesian-Psychometric-Modeling-Course-Fall2022/lectures/lecture04b/04b_Modeling_Observed_Data#/title-slide) for Bayesian Psychometric Modeling.
+2.  Dr. Jonathan Templin's [workshop](https://jonathantemplin.com/wp-content/uploads/2022/10/sem15pre906_lecture11.pdf) for Factor scores, reliability and comparison to sum scores.
