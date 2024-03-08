@@ -1,0 +1,82 @@
+---
+title: "Lecture 08"
+subtitle: "Generalized Measurement Models: Modeling Observed Data II"
+author: "Jihong Zhang"
+institute: "Educational Statistics and Research Methods"
+title-slide-attributes:
+  data-background-image: ../Images/title_image.png
+  data-background-size: contain
+execute: 
+  echo: false
+  eval: true
+format: 
+  revealjs:
+    logo: ../Images/UA_Logo_Horizontal.png
+    incremental: false  # choose "false "if want to show all together
+    transition: slide
+    background-transition: fade
+    theme: [simple, ../pp.scss]
+    footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>
+    scrollable: true
+    slide-number: true
+    chalkboard: true
+    number-sections: false
+    code-line-numbers: true
+    code-annotations: below
+    code-copy: true
+    code-summary: ''
+    highlight-style: arrow
+    view: 'scroll' # Activate the scroll view
+    scrollProgress: true # Force the scrollbar to remain visible
+    mermaid:
+      theme: neutral
+
+#bibliography: references.bib
+---
+
+# Review Previous Class
+
+## In Previous Class...
+
+1.  We introduced a self-reported survey data, called `Conspiracy Theories`
+
+-   10 items in total with 5-point Likert scale response
+-   Items have varied item difficult and Positive skewed item response distribution
+
+2.  We talked about using if factor analysis is a proper method when normality assumption is violated
+3.  We checked the item characteristics curves
+
+```{r}
+#| fig-width: 18
+library(tidyverse)
+library(here)
+self_color <- c("#DB7093", "#AFEEEE", "#3CB371", "#9370DB", "#FFD700")
+root_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code"
+dat <- read.csv(here(root_dir, 'conspiracies.csv'))
+itemResp <- dat[,1:10]
+colnames(itemResp) <- paste0('item', 1:10)
+conspiracyItems = itemResp
+itemResp |> 
+  rownames_to_column("ID") |> 
+  pivot_longer(-ID, names_to = "Item", values_to = "Response") |> 
+  mutate(Item = factor(Item, levels = paste0('item', 1:10)),
+         Response = factor(Response, levels = 1:5)) |> 
+  ggplot() +
+  geom_bar(aes(x = Response, fill = Response, group = Response), 
+           position = position_stack()) +
+  facet_wrap(~ Item, nrow = 1, ncol = 10) +
+  theme_bw() +
+  scale_fill_manual(values = self_color)
+```
+
+## Today's Lecture Objectives
+
+1.  Quickly go through our R code file so far
+2.  Show different modeling specifications for different types of item response data
+3.  Show how parameterization differs for standardized latent variables vs. marker item scale identification
+
+## Next Class
+
+-   More results from conspiracy data
+
+-   Compare results to `blavaan` package

@@ -1,0 +1,21 @@
+{
+  "hash": "4c6b0debb521716de61b2d1098d10330",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Lecture 08\"\nsubtitle: \"Generalized Measurement Models: Modeling Observed Data II\"\nauthor: \"Jihong Zhang\"\ninstitute: \"Educational Statistics and Research Methods\"\ntitle-slide-attributes:\n  data-background-image: ../Images/title_image.png\n  data-background-size: contain\nexecute: \n  echo: false\n  eval: true\nformat: \n  revealjs:\n    logo: ../Images/UA_Logo_Horizontal.png\n    incremental: false  # choose \"false \"if want to show all together\n    transition: slide\n    background-transition: fade\n    theme: [simple, ../pp.scss]\n    footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>\n    scrollable: true\n    slide-number: true\n    chalkboard: true\n    number-sections: false\n    code-line-numbers: true\n    code-annotations: below\n    code-copy: true\n    code-summary: ''\n    highlight-style: arrow\n    view: 'scroll' # Activate the scroll view\n    scrollProgress: true # Force the scrollbar to remain visible\n    mermaid:\n      theme: neutral\n\n#bibliography: references.bib\n---\n\n\n\n# Review Previous Class\n\n## In Previous Class...\n\n1.  We introduced a self-reported survey data, called `Conspiracy Theories`\n\n-   10 items in total with 5-point Likert scale response\n-   Items have varied item difficult and Positive skewed item response distribution\n\n2.  We talked about using if factor analysis is a proper method when normality assumption is violated\n3.  We checked the item characteristics curves\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](Lecture08_files/figure-revealjs/unnamed-chunk-1-1.png){width=1728}\n:::\n:::\n\n\n\n## Today's Lecture Objectives\n\n1.  Quickly go through our R code file so far\n2.  Show different modeling specifications for different types of item response data\n3.  Show how parameterization differs for standardized latent variables vs. marker item scale identification\n\n## Next Class\n\n-   More results from conspiracy data\n\n-   Compare results to `blavaan` package\n",
+    "supporting": [
+      "Lecture08_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -18,7 +18,7 @@ $font-family-monospace: 'Ubuntu Mono', 'Inconsolata', monospace !default;
 // code chunk
 //$code-block-bg: #fdfdfd ;
 // $fontcolor: #333;
-$code-block-font-size: 0.6em;
+$code-block-font-size: 0.65em;
 
 table {
   font-size: .8em
@@ -53,19 +53,21 @@ table {
     margin-top: 1.8em;
     margin-bottom: 0px;
     font-weight: 700;
-    font-family: "Jost";
+    font-family: "Palatino";
     text-shadow: 2px 2px 2px #b22222;
     color: #EEB422 !important;
   }
 
-  .institute, .quarto-title-author, .date {
-    opacity: 0.50;
+  .quarto-title-author, .date {
+    opacity: 0.80;
     margin-top: 0px;
     margin-bottom: 0px;
-    font-weight: 600;
+    font-weight: 900;
     font-style: normal;
-    font-size: 1em;
-    color: #333 !important;
+    font-size: 1.1em;
+    font-family: "Palatino";
+    text-shadow: 2px 2px 2px #b22222;
+    color: #000000 !important;
   }
 
   p,
@@ -93,15 +95,16 @@ table {
 $backgroundColor: #fcfbf9;
 
 // Primary/body text
-$presentation-font-size-root: 26px;
+$presentation-font-size-root: 28px;
 $mainColor: #333;
+
 
 // Vertical spacing between blocks of text
 $blockMargin: 13px;
 
 // Headings
 $headingMargin: 0 0 $blockMargin 0;
-$headingFont: 'Jost', Impact, sans-serif;
+$headingFont: 'Palatino', Impact, sans-serif;
 $headingColor: #EEB422;
 $headingLineHeight: 1.2;
 $headingLetterSpacing: normal;
@@ -141,6 +144,7 @@ $selectionColor: #fff;
 
 #title-slide > .author:first-of-type {
   margin-top: 320px;
+  color: #333;
 }
 
 
