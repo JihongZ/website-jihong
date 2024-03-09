@@ -367,3 +367,7 @@ Today, we showed how to model observed data using a normal distribution
 -   Next up, categorical distributions for observed data
 
     -   More appropriate for these data as they are discrete categorical responses
+
+## Resources
+
+-   [Dr. Templin's slide](https://jonathantemplin.github.io/Bayesian-Psychometric-Modeling-Course-Fall2022/lectures/lecture04b/04b_Modeling_Observed_Data#/title-slide)
