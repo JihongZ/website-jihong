@@ -8,7 +8,7 @@ title-slide-attributes:
   data-background-size: contain
 execute: 
   echo: false
-  eval: true
+  eval: false
 format: 
   revealjs:
     logo: ../Images/UA_Logo_Horizontal.png
@@ -48,6 +48,7 @@ format:
 
 ```{r}
 #| fig-width: 18
+#| eval: true
 library(tidyverse)
 library(here)
 self_color <- c("#DB7093", "#AFEEEE", "#3CB371", "#9370DB", "#FFD700")
@@ -102,12 +103,15 @@ $$
 The estimated latent variables are then:
 
 ```{r}
+#| eval: true
 save_dir <- "~/Library/CloudStorage/OneDrive-Personal/2024 Spring/ESRM6553 - Advanced Multivariate Modeling/Lecture07"
 modelCFA_samples <- readRDS(here(save_dir, "model01.RDS"))
 modelCFA_samplesFail <- readRDS(here(save_dir, "model01fail.RDS"))
+modelCFA_samplesFix <- readRDS(here(save_dir, "model03fix.RDS"))
 ```
 
 ```{r}
+#| eval: true
 modelCFA_samples$summary('theta')
 ```
 
@@ -166,6 +170,7 @@ Here:
 ## Recall: Stan's `parameters {}` Block
 
 ```{stan, output.var='display'}
+#| echo: true
 parameters {
   vector[nObs] theta;                // the latent variables (one for each person)
   vector[nItems] mu;                 // the item intercepts (one for each item)
@@ -189,7 +194,8 @@ Here, the parameterization of $\lambda$ (factor loadings / discrimination parame
 ## New Samples Syntax
 
 ```{r}
-#| eval: false
+#| echo: true
+#| code-line-numbers: "|3"
 modelCFA_samplesFail = modelCFA_stan$sample(
   data = modelCFA_data,
   seed = 25102022,
@@ -198,13 +204,13 @@ modelCFA_samplesFail = modelCFA_stan$sample(
   iter_warmup = 1000,
   iter_sampling = 2000
 )
-max(modelCFA_samplesFail$summary()$'rhat')
 ```
 
 Convergence fail with maximum of $\hat R$ as:
 
 ```{r}
-max(modelCFA_samplesFail$summary()$'rhat')
+#| eval: true
+max(modelCFA_samplesFail$summary(.cores =4)$'rhat')
 ```
 
 ## Why Convergence Failed
@@ -212,17 +218,152 @@ max(modelCFA_samplesFail$summary()$'rhat')
 -   The issue of exchangeable likelihood: $\lambda_i\theta_p=(-\lambda_i)(-\theta_p)$
 
 ```{r}
-print(modelCFA_samplesFail$summary('lambda'))
+#| eval: true
+#| echo: false
+modelCFA_samplesFail$summary('lambda', .cores =4) |> mutate(across(-variable, \(x) round(x, 3)))
 ```
 
 ## Posterior Trace Plots of λ
 
 Unfortunately, we are unable to extract initial values that were generated automatically by `cmdstanr`. See [here](https://mc-stan.org/cmdstanr/reference/fit-method-init.html) for more details.
 
-![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/Posterior_lambda.png)
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/Posterior_lambda.png){fig-align="center"}
+
+## Posterior Density Plots of λ
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/Posterior_lambda_density.png){fig-align="center"}
+
+## Examining Latent Variable
+
+```{r}
+#| eval: true
+#| echo: false
+print(modelCFA_samplesFail$summary('theta', .cores = 4) |> mutate(across(c(mean, median), \(x) round(x, 3))), 
+      n = Inf)
+```
+
+## Posterior Trace Plots of θ
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/Posterior_theta_traceplot.png){fig-align="center"}
+
+## Posterior Density Plots of θ
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/Posterior_theta_density.png)
+
+## Fixing Convergence
+
+`Stan` allows starting values to be set via `cmdstanr`
+
+-   Documentation is very lacking, I can show you one method but it may change in the future.
+
+Alternatively:
+
+-   In `Stan` file, restrict $\lambda$ to be positive: `vector<lower=0>[nItems] lambda;`
+
+-   Can also choose prior that has strictly positive range (like log-normal distribution)
+
+-   Note: the restriction on the space of $\lambda$ will not permit truely negative values
+
+    -   Not ideals as negative $\lambda$ values are informative as a problem with data
+
+    ```{stan, output.var='display'}
+    #| echo: true
+    parameters {
+      vector[nObs] theta;                // the latent variables (one for each person)
+      vector[nItems] mu;                 // the item intercepts (one for each item)
+      vector<lower=0>[nItems] lambda;    // the factor loadings/item discriminations (one for each item)
+      vector<lower=0>[nItems] psi;       // the unique standard deviations (one for each item)   
+    }
+    ```
+
+## Setting Starting (Inital) Values in `Stan`
+
+Starting values (initial values) are the first values used when an MCMC chain starts
+
+-   In `Stan`, by default, parameters are randomly started between -2 and 2
+
+    -   Bounded parameters are transformed so they are unbounded in the algorithm
+
+-   What we need:
+
+    -   Randomly start all $\lambda$ parameters so that they converge to the $\lambda_i\theta_p$ mode
+
+    -   As opposed to the (-$\lambda_i$)(-$\theta_p$) mode
+
+## `cmdstanr` Syntax for Initial Values
+
+Add the init option to the `$sample()` function of the `cmdstanr` object:
+
+```{stan, output.var='display'}
+#| echo: true
+# set starting values for some of the parameters
+modelCFA_samples2fixed = modelCFA_stan$sample(
+  data = modelCFA_data,
+  seed = 25102022,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 2000,
+  iter_sampling = 2000, 
+  init = function() list(lambda=rnorm(nItems, mean=10, sd=2))
+)
+```
+
+The `init` option can be specified as a function, here, randomly starting each $\lambda$ following a normal distribution
+
+## Initialization Process
+
+See the lecture R syntax for information on how to confirm starting values are set.
+
+You should find the initial values using `$init()` function
+
+```{r}
+#| eval: true
+#| echo: true
+modelCFA_samplesFix$init()
+```
+
+## Final Results: Parameters
+
+```{r}
+#| eval: true
+#| echo: true
+# Check convergence
+max(modelCFA_samplesFix$summary()$'rhat')
+
+print(modelCFA_samplesFix$summary(c("mu", "lambda", "psi"),.cores = 4) |> mutate(across(c(mean, median), \(x) round(x, 3))), n = Inf)
+```
+
+## Comparing Results with different inits
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/EAP_mu_lambda_psi_theta.png){fig-align="center"}
+
+Correlation of all parameters across both algorithm runs:
+
+```{r}
+#| echo: true
+#| eval: true
+cor(modelCFA_samplesFix$summary(variables = c("mu", "lambda", "psi", "theta"), .cores = 4)$mean,
+    modelCFA_samples$summary(variables = c("mu", "lambda", "psi", "theta"), .cores = 4)$mean)
+```
+
+## Wrapping up
+
+Today, we showed how to model observed data using a normal distribution
+
+-   Assumptions of Confirmatory Factor Analysis
+
+    -   Not appropriate for our data
+
+    -   May not be appropriate for many data sets
+
+-   We will have to keep our loading/discrimination parameters positive to ensure converges to the same posterior mode
+
+    -   This will continue through the next types of data
+
+    -   
 
 ## Next Class
 
--   More results from conspiracy data
+-   Next up, categorical distributions for observed data
 
--   Compare results to `blavaan` package
+    -   More appropriate for these data as they are discrete categorical responses

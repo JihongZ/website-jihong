@@ -1,6 +1,7 @@
 library(tidyverse)
 library(here)
 library(cmdstanr)
+library(bayesplot)
 
 self_color <- c("#DB7093", "#AFEEEE", "#3CB371", "#9370DB", "#FFD700")
 root_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code"
@@ -279,13 +280,55 @@ max(modelCFA_samplesFail$summary()$'rhat')
 bayesplot::mcmc_trace(modelCFA_samplesFail$draws(paste0('lambda[',1:9,']')), size = 1.2) +
   scale_color_manual(values = alpha(c("#DB7093", "#3CB371", "#9370DB", "#FFD700"), .8)) +
   theme_classic()
-ggsave("Posterior_lambda.png", width = 7, height = 6)
+ggsave("Posterior_lambda.png", width = 10, height = 6)
 
 ## Check posterior densities
-bayesplot::mcmc_trace(modelCFA_samplesFail$draws(paste0('lambda[',1:9,']')), size = 1.2) +
-  scale_color_manual(values = alpha(c("#DB7093", "#3CB371", "#9370DB", "#FFD700"), .8)) +
-  theme_classic()
+color_scheme_set(scheme = 'red')
+bayesplot_theme_set(theme_classic())
+mcmc_dens(modelCFA_samplesFail$draws(paste0('lambda[',1:9,']')), size = 1.2) 
+ggsave("Posterior_lambda_density.png", width = 10, height = 6)
 
+## Check Posterior trace plots of θ
+mcmc_trace(modelCFA_samplesFail$draws(paste0('theta[',1:2,']')), size = 1.2) +
+  scale_color_manual(values = alpha(c("#DB7093", "#3CB371", "#9370DB", "#FFD700"), .8))
+ggsave("Posterior_theta_traceplot.png", width = 10, height = 6)
+
+## Check Posterior density plots of θ
+mcmc_dens(modelCFA_samplesFail$draws(paste0('theta[',1:2,']')), size = 1.2)
+ggsave("Posterior_theta_density.png", width = 10, height = 6)
+
+
+# Model 3: Fixing convergence ---------------------------------------------
+modelCFA_samplesFix = modelCFA_stan$sample(
+  data = modelCFA_data,
+  seed = 25102022,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 1000,
+  iter_sampling = 2000,
+  init = \() list(lambda=rnorm(nItems, mean = 10, sd = 2))
+)
+# save object
+if (file.exists(here(save_dir, "model03fix.RDS"))) {
+  modelCFA_samplesFix <- readRDS(here(save_dir, "model03fix.RDS"))
+}else{
+  modelCFA_samplesFix$save_object(here(save_dir, "model03fix.RDS"))
+}
+# Check convergence
+max(modelCFA_samplesFix$summary()$'rhat')
+
+## compare model 01 with model 03
+tibble(y = modelCFA_samplesFix$summary(variables = c("mu", "lambda", "psi", "theta"), .cores = 4)$mean,
+       x = modelCFA_samples$summary(variables = c("mu", "lambda", "psi", "theta"), .cores = 4)$mean) |> 
+  ggplot() +
+  geom_point(aes(x = x, y = y), shape = 1, size = 3) +
+  labs(
+    title = "Comparing Results from Converged based on EAP of mu, lambda, psi and theta", 
+    x = "Without Starting Values",
+    y = "With Starting Values"
+  )
+ggsave("EAP_mu_lambda_psi_theta.png", width = 10, height = 6)
+     
 # blavaan -----------------------------------------------------------------
 library(blavaan)
 
