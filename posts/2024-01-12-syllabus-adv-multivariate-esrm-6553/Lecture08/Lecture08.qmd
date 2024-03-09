@@ -40,7 +40,7 @@ format:
 
 1.  We introduced a self-reported survey data, called `Conspiracy Theories`
 
--   10 items in total with 5-point Likert scale response
+-   The scale has 10 items with 5-point Likert scale response
 -   Items have varied item difficult and Positive skewed item response distribution
 
 2.  We talked about using if factor analysis is a proper method when normality assumption is violated
@@ -74,6 +74,152 @@ itemResp |>
 1.  Quickly go through our R code file so far
 2.  Show different modeling specifications for different types of item response data
 3.  Show how parameterization differs for standardized latent variables vs. marker item scale identification
+
+## Posterior Distribution for Item Parameters
+
+Before moving onto the latent variable, let's note the posterior distribution of item parameters (for a single item):
+
+$$
+f(\mu_i,\lambda_i,\psi_i\mid\boldsymbol{Y})\propto f(\boldsymbol{Y}\mid\mu_i,\lambda_i,\psi_i)f(\mu_i, \lambda_i,\psi_i)
+$$
+
+where $f(\boldsymbol{Y}\mid\mu_i,\lambda_i,\psi_i)$ is the (joint) posterior distribution of the parameters for item $i$ conditional on the adta
+
+$f(\boldsymbol{Y}\mid\mu_i,\lambda_i,\psi_i)$ is the distribution we defined for our observed data:
+
+$$
+f(\boldsymbol{Y}\mid\mu_i,\lambda_i,\psi_i)\sim N(\mu_i+\lambda_i\theta_p, \psi_i)
+$$
+
+$f(\mu_i, \lambda_i, \psi_i)$ is the (joint) prior distribution for each of the parameters, which, are independent:
+
+$$
+f(\mu_i, \lambda_i, \psi_i) = f(\mu_i)f(\lambda_i)f(\psi_i)
+$$
+
+## Investigating the Latent Variables
+
+The estimated latent variables are then:
+
+```{r}
+save_dir <- "~/Library/CloudStorage/OneDrive-Personal/2024 Spring/ESRM6553 - Advanced Multivariate Modeling/Lecture07"
+modelCFA_samples <- readRDS(here(save_dir, "model01.RDS"))
+modelCFA_samplesFail <- readRDS(here(save_dir, "model01fail.RDS"))
+```
+
+```{r}
+modelCFA_samples$summary('theta')
+```
+
+## EAP Estimates of Latent Variables
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/EAP_Estimates.png)
+
+## Density of EAP Estimates
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/EAP_Estimates_density.png)
+
+## Density of 500 Posterior draws of θ
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/Theta_Draws_density.png)
+
+## Comparing Posterior Distribution for Individuals
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/Theta_density_ThreeIndividuals.png)
+
+## Comparing EAP Estimate with Posterior SD
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/EAP_SD.png)
+
+## Comparing EAP Estimate with Sum Score
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/EAP_SumScore.png)
+
+## Comparing EAP Estimate with Factor Score by `lavaan`
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/EAP_FactorScore.png)
+
+## Posterior Distribution for Person Parameter θ
+
+The posterior distribution of the person parameters (the latent variable for a single person):
+
+$$
+f(\theta_p\mid\boldsymbol{Y}) \propto f(\boldsymbol{Y} \mid \theta_p)f(\theta_p)
+$$
+
+Here:
+
+-   $f(\theta_p\mid\boldsymbol{Y})$ is the posterior distribution of the latent variable conditional on the observed data;
+
+-   $f(\boldsymbol{Y} \mid \theta_p)$ is the model (data) likelihood:
+
+    $$
+    f(\boldsymbol{Y} \mid \theta_p) = \prod_{i=1}^{I} f(Y_i\mid\theta_p)
+    $$
+
+    -   $f(Y_i \mid \theta_p)$ is one individual item's data likelihood: $f(Y_i \mid \theta_p) \sim N(\mu_i+\lambda_i\theta_p, \psi_i)$;
+
+-   $f(\theta_p) \sim N(0,1)$ is the prior distribution for the latent variable – $\theta_p$
+
+# Measurement Model Estimation Fails
+
+## Recall: Stan's `parameters {}` Block
+
+```{stan, output.var='display'}
+parameters {
+  vector[nObs] theta;                // the latent variables (one for each person)
+  vector[nItems] mu;                 // the item intercepts (one for each item)
+  vector[nItems] lambda;             // the factor loadings/item discriminations (one for each item)
+  vector<lower=0>[nItems] psi;       // the unique standard deviations (one for each item)   
+}
+```
+
+Here, the parameterization of $\lambda$ (factor loadings / discrimination parameters) can lead to problems in estimation
+
+-   The issue is $\lambda_i\theta_p=(-\lambda_i)(-\theta_p)$
+
+    -   Depending on the random starting values of each of these parameters (per Markov chain), a given chain may converge to different region with others
+
+-   To demonstrate, we will start with different random number seend
+
+    -   Currently use 09102022: works fine
+
+    -   Change to 25102022: big problem
+
+## New Samples Syntax
+
+```{r}
+#| eval: false
+modelCFA_samplesFail = modelCFA_stan$sample(
+  data = modelCFA_data,
+  seed = 25102022,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 1000,
+  iter_sampling = 2000
+)
+max(modelCFA_samplesFail$summary()$'rhat')
+```
+
+Convergence fail with maximum of $\hat R$ as:
+
+```{r}
+max(modelCFA_samplesFail$summary()$'rhat')
+```
+
+## Why Convergence Failed
+
+-   The issue of exchangeable likelihood: $\lambda_i\theta_p=(-\lambda_i)(-\theta_p)$
+
+```{r}
+print(modelCFA_samplesFail$summary('lambda'))
+```
+
+## Posterior Trace Plots of λ
+
+Unfortunately, we are unable to extract initial values that were generated automatically by `cmdstanr`. See [here](https://mc-stan.org/cmdstanr/reference/fit-method-init.html) for more details.
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/Posterior_lambda.png)
 
 ## Next Class
 

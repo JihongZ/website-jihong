@@ -156,6 +156,136 @@ ggplot(predicted_y_alldraws) +
 ggsave(here(root_dir, "ICC_Item10.png"), width = 12, height = 7)
 
 
+# Investigating latent variables ------------------------------------------
+print(modelCFA_samples$summary('theta'),n=Inf)
+
+## EAP distribution
+EAP_forplot <- data.frame(
+  Theta = modelCFA_samples$summary('theta')$mean,
+  ID = 1:nObs
+) 
+ggplot(EAP_forplot) +
+  geom_histogram(aes(x = Theta), binwidth = .5) +
+  labs(
+    x = expression(theta),
+    y = 'Frequency',
+    title = expression('EAP Estimates of theta')
+  )
+ggsave("EAP_Estimates.png", width = 7, height = 6)
+
+ggplot(EAP_forplot) +
+  geom_density(aes(x = Theta), col = 'red', linewidth = 1.2) +
+  scale_x_continuous(limits = c(-2, 4)) +
+  labs(
+    x = expression(theta),
+    y = 'Frequency',
+    title = expression('EAP Estimates of theta')
+  )
+
+## Density of 500 draws
+set.seed(1234)
+theta_all_draws <- modelCFA_samples$draws('theta', format = 'draws_matrix')
+theta_all_draws_long <- as_tibble(theta_all_draws) |> 
+  rownames_to_column('draw') |> 
+  pivot_longer(starts_with('theta'), names_to = 'ID', values_to = 'theta') |> 
+  mutate(theta = as.numeric(theta)) |> 
+  filter(draw %in% sample(1:2000, 500))
+
+ggplot() +
+  geom_density(aes(x = theta, group = draw), col = alpha('black', .1), 
+               data = theta_all_draws_long) +
+  geom_density(aes(x = Theta), col = 'red', linewidth = 1.2, data = EAP_forplot) +
+  labs(
+    x = expression(theta),
+    y = 'Frequency',
+    title = expression('EAP Estimates and 500 draws of θ')
+  ) + 
+  theme_classic() 
+ggsave("Theta_Draws_density.png", width = 7, height = 6)
+  
+## Plotting three theta distribution side-by-side
+theta_all_draws_long |> 
+  filter(ID %in% paste0('theta[', c(106, 162, 166), ']')) |> 
+  ggplot() +
+  geom_density(aes(x = theta, fill = ID), alpha = .4) +
+  labs(
+    x = expression(theta),
+    y = 'Frequency',
+    title = expression('Density of θ for three individuals')
+  ) + 
+  theme_classic() 
+ggsave("Theta_density_ThreeIndividuals.png", width = 7, height = 6)
+
+## Comparing EAP estimates with posterior SDs
+tibble(
+  y = modelCFA_samples$summary('theta')$sd,
+  x = modelCFA_samples$summary('theta')$mean
+) |> 
+  ggplot() +
+  geom_point(aes(x = x, y = y), shape = 1, size = 3) +
+  labs(x = 'E(θ|Y)', y = 'SD(θ|Y)') + 
+  theme_classic() 
+ggsave("EAP_SD.png", width = 7, height = 6)
+
+## Comparing EAP estimates with sum scores
+tibble(
+  sumscore = rowSums(itemResp),
+  EAP = modelCFA_samples$summary('theta')$mean
+)|> 
+  ggplot() +
+  geom_point(aes(x = sumscore, y = EAP), shape = 1, size = 3) +
+  labs(x = 'Sum Score', y = 'EAP') + 
+  theme_classic() 
+ggsave("EAP_SumScore.png", width = 7, height = 6)
+
+## Comparing EAP estimates with factor scores by lavaan
+library(lavaan)
+lavaan.model <- ' theta  =~ item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8 + item9 + item10 '
+
+fit <- cfa(lavaan.model, data=conspiracyItems, std.lv = TRUE)
+fs <- as.numeric(predict(fit))
+tibble(
+  fs = fs,
+  EAP = modelCFA_samples$summary('theta')$mean
+)|> 
+  ggplot() +
+  geom_point(aes(x = fs, y = EAP), shape = 1, size = 3) +
+  labs(x = 'Factor Score', y = 'EAP') + 
+  theme_classic() 
+ggsave("EAP_FactorScore.png", width = 7, height = 6)
+
+
+
+
+# Model 2 with seed 24102022 ----------------------------------------------
+modelCFA_samplesFail = modelCFA_stan$sample(
+  data = modelCFA_data,
+  seed = 25102022,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 1000,
+  iter_sampling = 2000
+)
+# save object
+if (file.exists(here(save_dir, "model01fail.RDS"))) {
+  modelCFA_samplesFail <- readRDS(here(save_dir, "model01fail.RDS"))
+}else{
+  modelCFA_samplesFail$save_object(here(save_dir, "model01fail.RDS"))
+}
+# Check convergence
+max(modelCFA_samplesFail$summary()$'rhat')
+
+## Check posterior trace for lambda for first 100 people
+bayesplot::mcmc_trace(modelCFA_samplesFail$draws(paste0('lambda[',1:9,']')), size = 1.2) +
+  scale_color_manual(values = alpha(c("#DB7093", "#3CB371", "#9370DB", "#FFD700"), .8)) +
+  theme_classic()
+ggsave("Posterior_lambda.png", width = 7, height = 6)
+
+## Check posterior densities
+bayesplot::mcmc_trace(modelCFA_samplesFail$draws(paste0('lambda[',1:9,']')), size = 1.2) +
+  scale_color_manual(values = alpha(c("#DB7093", "#3CB371", "#9370DB", "#FFD700"), .8)) +
+  theme_classic()
+
 # blavaan -----------------------------------------------------------------
 library(blavaan)
 
