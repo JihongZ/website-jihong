@@ -1,0 +1,83 @@
+{
+  "cells": [
+    {
+      "cell_type": "raw",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: 'Tips about Git and Github'\n",
+        "author: 'Jihong Zhang'\n",
+        "date: 'Mar 10 2024'\n",
+        "categories:\n",
+        "  - Git\n",
+        "  - Github\n",
+        "execute: \n",
+        "  echo: fenced\n",
+        "  eval: false\n",
+        "format: \n",
+        "  html: \n",
+        "    code-summary: 'Code'\n",
+        "    code-fold: false\n",
+        "    code-line-numbers: false\n",
+        "---"
+      ],
+      "id": "96f12a61"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "-   Scenario: My local changes are ahead of remote but I want to discard those changes.\n",
+        "\n",
+        "This happens when I pull the remote repo to local but I have some random changes at local. Those random changes should be discarded but using `git pull` makes those changes ahead. Thus, I have to restore to previous commit to align with previous commit.\n",
+        "\n",
+        "In following code, I type `git reset` and `tab` key which will list all recent commits. `f17c6d9` is the commit I'm gonna go.\n",
+        "\n",
+        "-   `git reset f17c6d9` can reset HEAD to the target comit in history, which make local changes as **unstaged changes**\n",
+        "\n",
+        "-   To discard unstaged changes, use \\`git restore .\\`\n",
+        "\n",
+        "\n",
+        "```{bash}\n",
+        "➜  website-jihong git:(main) git reset            \n",
+        "FETCH_HEAD     HEAD           ORIG_HEAD      main           office         origin/main    origin/office\n",
+        "d636b58  -- [HEAD]    add lecture08 (7 minutes ago)\n",
+        "66dde99  -- [HEAD^]   add lecture08 (9 minutes ago)\n",
+        "f17c6d9  -- [HEAD^^]  adjust sidebar to include previous posts (66 minutes ago)\n",
+        "1211a8e  -- [HEAD~3]  add one new note (14 hours ago)\n",
+        "e4e27b7  -- [HEAD~4]  revide sidebar to include lec08 in quarto.yml (2 days ago)\n",
+        "e479890  -- [HEAD~5]  finish lecture08 (2 days ago)\n",
+        "5f19afd  -- [HEAD~6]  add updates to lecture 08 (2 days ago)\n",
+        "5b90ec6  -- [HEAD~7]  Merge remote-tracking branch 'origin/main' (3 days ago)\n",
+        "d7a9508  -- [HEAD~8]  local changes (3 days ago)\n",
+        "fb69016  -- [fb69016] update lecture08 (4 days ago)\n",
+        "c4f4e29  -- [HEAD~9]  add .rdb in .gitignore (6 days ago)\n",
+        "8feff97  -- [HEAD~10] revise BGGM note (6 days ago)\n",
+        "8b98ac9  -- [HEAD~11] add note of BGGM (6 days ago)\n",
+        "119c64d  -- [HEAD~12] add video link for lecture 4 and 7 (6 days ago)\n",
+        "8417f4a  -- [HEAD~13] revise Lecture07.qmd (7 days ago)\n",
+        "1537f56  -- [HEAD~14] add lecture07 slide11 (7 days ago)\n",
+        "b0bd066  -- [HEAD~15] add keymap doc for iTerm2 (7 days ago)\n",
+        "ff6c8c7  -- [HEAD~16] change color bg and left border (8 days ago)\n",
+        "af18b92  -- [HEAD~17] adjust link and other elements' bg-color (8 days ago)\n",
+        "3370b97  -- [HEAD~18] revert back to original giscus setting (8 days ago)\n",
+        "➜  website-jihong git:(main) git reset f17c6d9\n",
+        "Unstaged changes after reset:\n",
+        "M       posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd\n",
+        "➜  website-jihong git:(main) ✗ git restore .    \n",
+        "➜  website-jihong git:(main) \n",
+        "```"
+      ],
+      "id": "88b45d3e"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
