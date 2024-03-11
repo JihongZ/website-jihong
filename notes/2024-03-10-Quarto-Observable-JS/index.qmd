@@ -1,0 +1,127 @@
+---
+title: 'Observable JS in Quarto document'
+author: 'Jihong Zhang'
+date: 'Mar 10 2024'
+categories:
+  - OJS
+  - Quarto
+execute: 
+  echo: fenced
+format: 
+  html: 
+    code-summary: 'Code'
+    code-fold: false
+    code-line-numbers: false
+---
+
+The documents regarding how to use Observable Javascript in Quarto is extremely lacking. Two main sources for this topic are [quarto.org](https://quarto.org/docs/interactive/ojs/) and [quarto dashboard](https://quarto.org/docs/dashboards/interactivity/observable.html).
+
+The note reproduces the example shown in quarto.org and displays some issues and their solutions I encountered.
+
+## Example
+
+Currently, OJS doesn't work interactively with RStudio (see the [github discussion](https://github.com/quarto-dev/quarto-cli/issues/1242#issuecomment-1169863641)). As the [document](https://quarto.org/docs/interactive/ojs/#example) shows, the example based on Allison Horst's [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/).
+
+```{r}
+#| message: false
+#| output: false
+library(palmerpenguins)
+library(here)
+root_dir <- "/Users/jihong/Documents/Projects/website-jihong"
+data(penguins)
+write.csv(penguins, file = here(root_dir, "notes", '2024-03-10-Quarto-Observable-JS', 'palmer-penguins.csv'))
+```
+
+```{ojs}
+data = FileAttachment('palmer-penguins.csv').csv({ typed: true})
+```
+
+```{ojs}
+viewof bill_length_min = Inputs.range(
+  [32, 50], 
+  {value: 35, step: 1, label: "Bill length (min):"}
+)
+viewof islands = Inputs.checkbox(
+  ["Torgersen", "Biscoe", "Dream"], 
+  { value: ["Torgersen", "Biscoe"], 
+    label: "Islands:"
+  }
+)
+```
+
+```{ojs}
+filtered = data.filter(function(penguin) {
+  return bill_length_min < penguin.bill_length_mm &&
+         islands.includes(penguin.island);
+})
+```
+
+```{ojs}
+Plot.rectY(filtered, 
+  Plot.binX(
+    {y: "count"}, 
+    {x: "body_mass_g", fill: "species", thresholds: 20}
+  ))
+  .plot({
+    facet: {
+      data: filtered,
+      x: "sex",
+      y: "species",
+      marginRight: 80
+    },
+    marks: [
+      Plot.frame(),
+    ]
+  }
+)
+```
+
+## Transfer from R to OJS
+
+There's a nice post from [Duke library](https://intro2r.library.duke.edu/interactive.html), introducing a nicer way of embedding R and OJS. The [getting-started](https://observablehq.com/plot/getting-started) page of OJS official website has many examples of different types of plots.
+
+```{r}
+#| output: false
+ojs_define(penguins = penguins)
+```
+
+### Dot (scatter) plot
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  inset: 10,
+  marks: [
+    Plot.dot(transpose(penguins), {
+      x: "bill_length_mm",
+      y: "bill_depth_mm",
+      stroke: "species"
+    }),
+  ]
+})
+```
+
+### Histgram 
+
+```{r}
+#| output: false
+library(tidyverse)
+penguins_summarized <- penguins |> 
+  mutate(body_mass_group = cut(body_mass_g / 1000, 10)) |> 
+  group_by(body_mass_group) |> 
+  summarise(frequency = n())
+ojs_define(penguins_summarized = penguins_summarized)
+```
+
+```{ojs}
+Plot.plot({
+  x: {padding: 0.1},
+  marginTop: 50,
+  marginRight: 0,
+  marginBottom: 50,
+  marks: [
+    Plot.barY(transpose(penguins_summarized), {x: "body_mass_group", y: "frequency", dx: 2, dy: 2}),
+    Plot.barY(transpose(penguins_summarized), {x: "body_mass_group", y: "frequency", fill: "green", dx: -2, dy: -2})
+  ]
+})
+```

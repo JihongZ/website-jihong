@@ -1,5 +1,5 @@
 //@import 'https://fonts.googleapis.com/css2?family=Maven+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Nunito:wght@300;400;500&family=JetBrains+Mono';
-$web-font-path: "No";
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
 /*-- scss:rules --*/
 @font-face {
@@ -21,7 +21,7 @@ $web-font-path: "No";
   }
 
 .menu-text {
-  font-family: "Palatino", sans-serif;
+  font-family: "Jost", sans-serif;
   letter-spacing: 1px;
   font-weight: normal;
   color: $menutext-bg;
@@ -30,11 +30,12 @@ h1, h2, h3 {
   //color: #333333; 
   //font-family: "Ysabeau Office", sans-serif;
   font-family: "Palatino", sans-serif;
-  letter-spacing: 1.8px;
+  letter-spacing: 1.6px;
+  letter-spacing: 0.8px;
   font-weight: normal;
 }
 p { // main font family of post content
-  font-family: 'Palatino', sans-serif;
+  font-family: 'Jost', sans-serif;
   font-weight: normal;
 }
 
@@ -64,7 +65,7 @@ $link-color: $orange;
 
 /* output color for R chunck */
 .cell-output {
-  background-color: #c0c0c0;
+  background-color: $light-soft-pink;
   border-radius: 4px;
 }
 

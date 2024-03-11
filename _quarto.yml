@@ -90,7 +90,7 @@ format:
     lightbox: true # Lightbox Figure
     # code settings
     fontsize: 1.1em
-    mainfont: 'Palatino'
+    mainfont: 'Jost'
     monofont: 'JetBrains Mono'
     code-link: true
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
