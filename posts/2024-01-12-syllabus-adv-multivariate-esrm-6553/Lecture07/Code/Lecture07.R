@@ -338,7 +338,9 @@ model01_blv <- bcfa(blavaan.model, data=conspiracyItems,
             target = 'stan', seed = 09102022,
             save.lvs = TRUE, # save sampled latent variable
             std.lv = TRUE,
-            bcontrol = list(cores = 4)) # standardized latent variable
+            bcontrol = list(cores = 4),
+            mcmcfile=TRUE # save Stan file
+            ) # standardized latent variable
 
 summary(model01_blv)
 
