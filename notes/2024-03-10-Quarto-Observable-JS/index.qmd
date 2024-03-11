@@ -101,7 +101,7 @@ Plot.plot({
 })
 ```
 
-### Histgram 
+### Histgram
 
 ```{r}
 #| output: false

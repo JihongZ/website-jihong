@@ -12,7 +12,7 @@ format:
   html: 
     code-summary: 'Code'
     code-fold: false
-    code-line-numbers: false
+    code-line-numbers: true
 ---
 
 #### Scenario: My local changes are ahead of the remote but I want to discard those changes.
@@ -78,4 +78,60 @@ $ git pull
 $ git stash
 $ git pull
 $ git stash pop
+```
+
+#### Scenario: I change the local files after I've already git commit
+
+I committed the changes but I change my mind and revise more files. In this case, I do not want to duplicate the commit then complicates my commit history. In this case, I can use `--amend` to append the new changes to the local changes committed without changing the message.
+
+```{.bash}
+$ git add the_left_out_file
+# The --no-edit flag allows to make an amendment to the commit without changing the commit message.
+$ git commit --amend --no-edit
+```
+
+::: callout-warning
+## Warning
+
+You should never amend public commits that you already pushed to a public repository, because amend is actually removing the last commit from the history and creating a new commit with the combined changes from that commit and new added when amending.
+:::
+
+Previous code works only when I did not push changes yet, if I already pushed, I can do reset.
+
+```{.bash}
+➜  website-jihong git:(main) git reset f17c6d9
+FETCH_HEAD     HEAD           ORIG_HEAD      main           office         origin/main    origin/office
+3605a71  -- [HEAD]    add tips about git note (7 minutes ago)
+12ceecd  -- [HEAD^]   add tips about git note (8 minutes ago)
+f17c6d9  -- [HEAD^^]  adjust sidebar to include previous posts (2 hours ago)
+...
+3370b97  -- [HEAD~18] revert back to original giscus setting (8 days ago)
+➜  website-jihong git:(main) ✗ git reset 12ceecd       
+Unstaged changes after reset:
+M       notes/2024-03-11-Git-How-To-Use/index.qmd
+D       notes/2024-03-11-Git-How-To-Use/index.quarto_ipynb
+➜  website-jihong git:(main) ✗ git add .
+```
+
+Because your local commits are different from the remote, note that you should add `-f` argument to force the remote discards the conflicts.
+
+```{.bash}
+➜  website-jihong git:(main) git push                                          
+To github.com:JihongZ/website-jihong.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:JihongZ/website-jihong.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+➜  website-jihong git:(main) git push -f origin main                                             
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (7/7), 1.22 KiB | 1.22 MiB/s, done.
+Total 7 (delta 4), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (4/4), completed with 4 local objects.
+To github.com:JihongZ/website-jihong.git
+ + 3605a71...07ff463 main -> main (forced update)
 ```
