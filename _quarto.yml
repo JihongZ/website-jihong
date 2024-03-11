@@ -22,10 +22,20 @@ website:
     style: "floating"
     logo: "images/jihonglogo.png"
     search: true
-    collapse-level: 0
+    collapse-level: 1
     contents:
-      - section: ESRM6553-Adv.Multivariate
+      - section: Latent Variable Model
         contents: 
+          - text: 'Power Analysis'
+            file: posts/2022-04-29-power-analysis-for-sem/index.Rmd
+          - text: "CFA via `lavaan`"
+            file: posts/2017-11-08-sem-homework/index.Rmd
+          - text: "Measurement Invariance"
+            file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
+      - section: ESRM6553 - Advanced Multivariate
+        contents: 
+          - text: 'Syllabus'
+            file: posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd
           - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
           - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
           - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd

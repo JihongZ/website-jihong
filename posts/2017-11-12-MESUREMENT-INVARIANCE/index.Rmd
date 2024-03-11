@@ -1,5 +1,6 @@
 ---
-title: One Example of Measurement Invariance
+title: CFA Measurement Invariance
+subtitle: 'One example from Major Depression Criteria'
 author: Jihong Zhang
 date: '2017-11-12'
 categories:
@@ -18,25 +19,26 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
 ![](model_compare.png)
 
-# What is Measurement Invariance (MI)?
+# What and Why?
 
-In my advisor Jonathan's lectures slide, MI is a testing tool for investigating "whether indicators measure the same construct in the same way in different groups or over time/condition". If so, the indicator response should depend only on latent trait scores.
+In my advisor Jonathan's lectures slides, **measurement invariance** (MI) is a testing procedure in latent variable modeling to investigate "*whether indicators measure the same construct in the same way in different groups or over time/condition*".
 
-It is a neat and clear definition of MI. In my opinion, we should first know different piles of variances of indicator responses. We know that in CFA, latent trait is identified by covariances among indicators. Imaging your items responses have significant group difference (male with female, international students with native speaker), there are at least three sources of distinct:
+It is a neat and clear definition of MI. In my opinion, we should first know different piles of variances of indicator responses. We know that in CFA, latent trait is identified by covariances among indicators (observable features). Imaging item responses have "significant" group differences (e.g., male vs. female, international students with native speakers), then there are at least three sources of deviations between groups:
 
-(I start from 0 numbering because I love Python!)
+1.  the scale measures varied trait(s) for different groups (e.g., for group A, the scale actually measures trait $\alpha$ while the scale measures trait $\beta$ for group B)
+2.  the difference of true latent trait ($\theta$; the scale scores for group A has varied location and scale with the scale scores for group B)
+3.  the difference of item effects on trait ($\lambda$; the scale items have varied difficulties/discrimination between group A and group B).
 
-(0) the measurement measure different traits for groups
+The first two points are straightforward. Taking an international math assessment for example, it may measure native speaker's math ability while it may also measure English proficiency of international students. Or if male and female have different math ability, they might (not must) have different item responses on math assessment.
 
-(1) the difference of true latent trait ($\theta$)
+The third point suggests that even for two groups with exactly same average level of target trait, they will still have different item properties since same item have different power to measure the latent trait for male and female. For example, one item of Daily Living Ability Survey is "*How often do you cook in a week?*". The item may be biased toward men, because most males may hate cooking (that is a stereotype!!!) but still have high daily living ability (such as driving, fixing), some females loving cooking but have low daily living ability. Thus, this item doesn't account for female's or men's daily ability at same extent.
 
-(2) the difference of effects of trait on measurements ($\lambda$).
+Actually all parameters in CFA model (e.g., factor variances, factor covariance, factor means, factor loadings, item intercepts and residential variances, co-variances) could be potentially different across groups, which leads to some problems in interpreting results. In psychometrics, the MI is splitted into multiple parts:
 
-The zero and first are easy to understand. For international math assessment, it may measure native speaker's math ability but on the other hand measures English proficiency of international students.Or if male and female have different math ability, they might (not must) have different item responses on math assessment.
+1.  Testing the difference coming from factor part is called Structural invariance.
+2.  Testing the difference coming from measurement part is called Measurement invariance.
 
-The final group difference means, even if male and females have exactly same level of trait, they will still have different item responses since same item reflect efficiently or not efficiently the latent trait for male and female. For example, one item of Daily Living Ability Survey is "How often do you cook in a week?". The item may be biased toward men, because most males may hate cooking but still have high daily living ability (such as driving, fixing), some females loving cooking but have low daily living ability. Thus, this item doesn't account for female's or men's daily ability at same extent.
-
-Actually all parameters in CFA model (factor variances, factor covariance, factor means, factor loadings, item intercepts and residential variances, co-variances) could be different for different groups. Testing the difference coming from factor part is called Structural invariance. Testing the difference coming from measurement part is called Measurement Invariance. In previous paragraph, the 0st and 1st differences are measured by Structural Invariance. The 3rd differences are measured by Measurement Invariance.
+In previous paragraph, the first two differences are measured by Structural Invariance. The 3rd differences are measured by Measurement Invariance.
 
 ## An example of Multiple Group CFA Invariance:
 
@@ -64,24 +66,30 @@ library(lavaan)
 library(knitr)
 # library(kableExtra)
 library(tidyverse)
+library(here)
 ```
 
 ```{r}
-mddAll = read.table(file = "MDDALL.dat", header = FALSE, 
+root_dir <- "~/Documents/Projects/website-jihong/posts/2017-11-12-MESUREMENT-INVARIANCE"
+mddAll = read.table(file = here(root_dir, "MDDALL.dat"), header = FALSE, 
                     quote = "", na.strings = "99999")
 
 # use dim() to check the dimensions of data
 # there are 750 rows and 10 columns
+colnames(mddAll) = c("sex", paste0("item",1:9)) # assign names, first col is sex, another 9 are items
 
 head(mddAll) # check the first several rows of data
 
-colnames(mddAll) = c("sex", paste0("item",1:9)) # assign names, first col is sex, another 9 are items
 
 #recoding sex to specify each group name, set it as factors
 mddAll$sex <- mddAll$sex %>% 
   as.factor() %>% 
   recode(`0` = "Female", `1` = "Male", .default = levels(mddAll$sex))
 
+ggplot(mddAll |> group_by(sex) |> summarise(Freq = n())) +
+  geom_col(aes(x = sex, y = Freq, fill = sex)) +
+  geom_text(aes(x = sex, y = Freq, label = Freq), nudge_y = .8)
+  
 # stardard deviation
 # dat1.sd <- as.vector(data[2,]) %>% as.numeric()
 # dat2.sd <- as.vector(data[19,]) %>% as.numeric()
@@ -95,6 +103,7 @@ The sample size of female reference groups is as same as the male. The model for
 ### Model Specification
 
 ```{r eval=TRUE, echo=TRUE, results='asis'}
+#| code-fold: show
 model1.config <- "
 # Constrain the factor loadings and intercepts of marker variable in ALL groups
 # depress =~ c(L1F, L1M)*item1 + c(L2F, L2M)*item2 + c(L3F, L3M)*item3 +

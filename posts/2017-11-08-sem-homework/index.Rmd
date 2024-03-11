@@ -1,11 +1,13 @@
 ---
 title: 'How to use lavaan package to perform Confirmatory Factor Analysis'
-author: 'Jihong'
-date: '2017-10-19'
+author: 'Jihong Zhang'
+date: '2017-11-08'
+execute: 
+  warning: false
 categories:
   - Manual
   - R
-  - Lavaan
+  - lavaan
 ---
 
 > This is one of my homework in Structural Equation Modeling in Fall 2017. Dr. Templin provided a excelent example showing how to perform Confirmatory Factor Analysis (CFA) using `Lavaan` Package. I elaborated each step as following.
@@ -14,13 +16,13 @@ categories:
 
 -   First, load packages needed: If you don't have the packages installed below, please use `install.packages()` to install them.
 
-```{r setup, comment=FALSE, echo=FALSE, results="hide", comment=FALSE}
+```{r setup, comment=FALSE, echo=FALSE, results="hide", comment=FALSE, warning=FALSE}
 knitr::opts_chunk$set(
 	echo = TRUE
 )
 ```
 
-```{r, results='hide', message=FALSE}
+```{r, results='hide', message=FALSE, warning=FALSE}
 library(tidyverse)
 library(lavaan)
 #library(semPlot)
@@ -51,6 +53,12 @@ dat2 <- dat %>% select(X,Aff.1:Aff.6)
 colnames(dat2) <- c("PersonID", paste0("Aff",1:6))
 ```
 
+::: callout-tip
+## Tip
+
+Note that for such unbalanced data (# of females \>\> \# of males), the interpretation should be cautious. In the Limitation, authors mentioned that the results can not be overgeneralized to the population.
+:::
+
 ## Descriptive Statistics
 
 The descriptive statistics for all items are provided below. It appears that item 4 is the least difficult item as it has the highest mean ($\mu = 4.189, sd = 1.317$); item 5 is the most difficult item as it has lowest mean score ($\mu = 3.604, sd = 1.423$). All responses for each item range from 1 to 6 (1 = Strongly agree, 6 = Strongly disagree). Thus, all categories are responded. In term of item discrimination, as item 3 has the largest standard deviation ($sd = 1.364$) and item 6 has the smallest, item 3 has highest discrimination whearas item 6 has lowest in CTT.
@@ -77,7 +85,7 @@ cor(dat2[2:7]) %>% round(3) %>% kable(caption = "Pearson Correlation Matrix")
 
 ### Sample Mean and Variance
 
-```{r}
+```{r , warning=FALSE}
 means <- dat2[,2:7] %>% 
   summarise_all(funs(mean)) %>% round(3) %>% t() %>% as.data.frame()
 sds <- dat2[,2:7] %>% 

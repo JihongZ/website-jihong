@@ -1,44 +1,54 @@
 ---
-title: '[Manual]Using Jags and R2jags in R'
-author: Jihong
+title: 'Brief Introducation to JAGS and R2jags in R'
+author: Jihong Zhang
 date: '2018-09-12'
-slug: manual-learn-jags-in-rins
+date-modified: 'Mar 11 2024'
 categories:
   - Manual
-tags:
   - R
   - Jags
   - MCMC
+format: 
+  html: 
+    code-fold: false
+    code-line-numbers: false
 ---
+
 > This post is aimed to introduce the basics of using jags in R programming. Jags is a frequently used program for conducting Bayesian statistics.Most of information below is borrowed from [Jeromy Anglim’s Blog](http://jeromyanglim.blogspot.com/2012/04/getting-started-with-jags-rjags-and.html). I will keep editing this post if I found more resources about jags.
 
 ## What is JAGS?
+
 JAGS stands for Just Another Gibbs Sampler. To quote the program author, Martyn Plummer, "It is a program for analysis of Bayesian hierarchical models using Markov Chain Monte Carlo (MCMC) simulation..." It uses a dialect of the BUGS language, similar but a little different to OpenBUGS and WinBUGS.
 
-## Installation 
+## Installation
+
 To run jags with R, There is an interface with R called `rjags`.
-1. [Download and install Jags](http://mcmc-jags.sourceforge.net/) based on your operating system.
-2. Install additional R packages: type `install.packages(c(“rjags”,”coda”))` in R console. `rjags` is to interface with JAGS and `coda` is to process MCMC output.
+
+1\. [Download and install Jags](http://mcmc-jags.sourceforge.net/) based on your operating system.
+
+2\. Install additional R packages: type in `install.packages(c(“rjags”,”coda”))` in R console. `rjags` is to interface with JAGS and `coda` is to process MCMC output.
 
 ## JAGS Examples
+
 There are a lot of examples online. The following provides links or simple codes to JAGS code.
 
-- Justin Esarey
-	- An entire course on [Bayesian Statistics](http://jee3.web.rice.edu/teaching.htm) with examples in R and JAGS. It includes 10 lectures and each lecture lasts around 2 hours. The content is designed for a social science audience and it includes a syllabus linking with Simon Jackman's text. The videos are linked from above or available direclty on [YouTube](http://www.youtube.com/playlist?list=PLAFC5F02F224FA59F).
+-   Justin Esarey
+    -   An entire course on [Bayesian Statistics](http://jee3.web.rice.edu/teaching.htm) with examples in R and JAGS. It includes 10 lectures and each lecture lasts around 2 hours. The content is designed for a social science audience and it includes a syllabus linking with Simon Jackman's text. The videos are linked from above or available direclty on [YouTube](http://www.youtube.com/playlist?list=PLAFC5F02F224FA59F).
+-   Jeromy Anglim
+    -   The author of this blog also provides a few examples. He shared the codes on his [github account](https://github.com/jeromyanglim)
+-   John Myles White
+    -   A course on statistical models that is under development with [JAGS scripts on github](https://github.com/johnmyleswhite/JAGSExamples).
+    -   [Simple introductory examples of fitting a normal distribution, linear regression, and logistic regression](http://www.johnmyleswhite.com/notebook/2010/08/20/using-jags-in-r-with-the-rjags-package/)
+    -   A follow-up post demonstrating the use of the coda package with rjags to perform [MCMC diagnostics](http://www.johnmyleswhite.com/notebook/2010/08/29/mcmc-diagnostics-in-r-with-the-coda-package/).
+-   A simple simulation sample:
 
-- Jeromy Anglim
-	- The author of this blog also provides a few examples. He shared the codes on his [github account](https://github.com/jeromyanglim)
-- John Myles White
-	- A course on statistical models that is under development with [JAGS scripts on github](https://github.com/johnmyleswhite/JAGSExamples).
-	- [Simple introductory examples of fitting a normal distribution, linear regression, and logistic regression](http://www.johnmyleswhite.com/notebook/2010/08/20/using-jags-in-r-with-the-rjags-package/)
-	- A follow-up post demonstrating the use of the coda package with rjags to perform [MCMC diagnostics](http://www.johnmyleswhite.com/notebook/2010/08/29/mcmc-diagnostics-in-r-with-the-coda-package/).
-- A simple simulation sample:
 ```{r setup, include=FALSE, message=FALSE}
 # close echo until you want to echo your codes.
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
-First, simulate the Data: 
+First, simulate the Data:
+
 ```{r }
 library(R2jags)
 n.sim <- 100; set.seed(123)
@@ -48,6 +58,7 @@ e <- rnorm(n.sim, mean = 0, sd = 1)
 ```
 
 Next, we create the outcome y based on coefficients $b_1$ and $b_2$ for the respective predictors and an intercept a:
+
 ```{r }
 b1 <- 1.2
 b2 <- -3.1
@@ -56,17 +67,20 @@ y <- b1*x1 + b2*x2 + e
 ```
 
 Now, we combine the variables into one dataframe for processing later:
+
 ```{r}
 sim.dat <- data.frame(y, x1, x2)
 ```
 
 And we create and summarize a (frequentist) linear model fit on these data:
+
 ```{r}
 freq.mod <- lm(y ~ x1 + x2, data = sim.dat)
 summary(freq.mod)
 ```
 
 ### Beyesian Model
+
 ```{r}
 bayes.mod <- function() {
  for(i in 1:N){
@@ -81,6 +95,7 @@ bayes.mod <- function() {
 ```
 
 Now define the vectors of the data matrix for JAGS:
+
 ```{r}
 y <- sim.dat$y
 x1 <- sim.dat$x1
@@ -89,16 +104,19 @@ N <- nrow(sim.dat)
 ```
 
 Read in the data frame for JAGS
+
 ```{r}
 sim.dat.jags <- list("y", "x1", "x2", "N")
 ```
 
 Define the parameters whose posterior distributions you are interested in summarizing later:
+
 ```{r}
 bayes.mod.params <- c("alpha", "beta1", "beta2")
 ```
 
 Setting up starting values
+
 ```{r}
 bayes.mod.inits <- function(){
  list("alpha" = rnorm(1), "beta1" = rnorm(1), "beta2" = rnorm(1))
@@ -111,6 +129,7 @@ bayes.mod.inits <- function(){
 ```
 
 ### Fitting the model
+
 ```{r ,message=TRUE}
 set.seed(123)
 bayes.mod.fit <- jags(data = sim.dat.jags, inits = bayes.mod.inits,
@@ -119,6 +138,7 @@ bayes.mod.fit <- jags(data = sim.dat.jags, inits = bayes.mod.inits,
 ```
 
 ### Diagnostics
+
 ```{r}
 print(bayes.mod.fit)
 ```
