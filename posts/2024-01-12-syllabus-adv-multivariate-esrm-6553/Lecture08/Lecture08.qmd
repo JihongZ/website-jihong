@@ -51,6 +51,7 @@ format:
 #| eval: true
 library(tidyverse)
 library(here)
+library(blavaan)
 self_color <- c("#DB7093", "#AFEEEE", "#3CB371", "#9370DB", "#FFD700")
 root_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code"
 dat <- read.csv(here(root_dir, 'conspiracies.csv'))
@@ -72,8 +73,8 @@ itemResp |>
 
 ## Today's Lecture Objectives
 
-1.  Quickly go through our R code file so far
-2.  Show different modeling specifications for different types of item response data
+1.  Dive deep into factor scoring
+2.  Show how different initial values affect Bayesian model estimation
 3.  Show how parameterization differs for standardized latent variables vs. marker item scale identification
 
 ## Posterior Distribution for Item Parameters
@@ -108,6 +109,7 @@ save_dir <- "~/Library/CloudStorage/OneDrive-Personal/2024 Spring/ESRM6553 - Adv
 modelCFA_samples <- readRDS(here(save_dir, "model01.RDS"))
 modelCFA_samplesFail <- readRDS(here(save_dir, "model01fail.RDS"))
 modelCFA_samplesFix <- readRDS(here(save_dir, "model03fix.RDS"))
+model01_blv <- readRDS(here(save_dir, "model01_blv.RDS"))
 ```
 
 ```{r}
@@ -346,6 +348,41 @@ cor(modelCFA_samplesFix$summary(variables = c("mu", "lambda", "psi", "theta"), .
     modelCFA_samples$summary(variables = c("mu", "lambda", "psi", "theta"), .cores = 4)$mean)
 ```
 
+## CFA model with `blavaan` 
+
+```{r}
+#| echo: true
+blavaan.model <- ' theta  =~ item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8 + item9 + item10 '
+model01_blv <- bcfa(blavaan.model, data=conspiracyItems,
+                    n.chains = 4, burnin = 1000, sample = 2000,
+                    target = 'stan', seed = 09102022,
+                    save.lvs = TRUE, # save sampled latent variable
+                    std.lv = TRUE,
+                    bcontrol = list(cores = 4)) # standardized latent variable
+```
+
+------------------------------------------------------------------------
+
+### `blavaan` Results
+
+```{r}
+#| eval: true
+#| echo: true
+summary(model01_blv)
+```
+
+------------------------------------------------------------------------
+
+### Comparing factors score
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/EAP_FactorScore_Stan_blavaan.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+### Comparing Parameters
+
+![](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code/EAP_psi_lambda_Stan_blavaan.png){fig-align="center"}
+
 ## Wrapping up
 
 Today, we showed how to model observed data using a normal distribution
@@ -359,8 +396,6 @@ Today, we showed how to model observed data using a normal distribution
 -   We will have to keep our loading/discrimination parameters positive to ensure converges to the same posterior mode
 
     -   This will continue through the next types of data
-
-    -   
 
 ## Next Class
 

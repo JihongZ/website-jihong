@@ -333,18 +333,49 @@ ggsave("EAP_mu_lambda_psi_theta.png", width = 10, height = 6)
 library(blavaan)
 
 blavaan.model <- ' theta  =~ item1 + item2 + item3 + item4 + item5 + item6 + item7 + item8 + item9 + item10 '
-
-fit <- bcfa(blavaan.model, data=conspiracyItems,
+model01_blv <- bcfa(blavaan.model, data=conspiracyItems,
             n.chains = 4, burnin = 1000, sample = 2000,
             target = 'stan', seed = 09102022,
             save.lvs = TRUE, # save sampled latent variable
             std.lv = TRUE,
             bcontrol = list(cores = 4)) # standardized latent variable
 
-summary(fit)
-coef(fit)
-blavaanObj <- blavInspect(fit, "mcobj")
+summary(model01_blv)
+
+blavaanObj <- blavInspect(model01_blv, "mcobj")
 blavaanLambdasummary <- summary(blavaanObj, 'ly_sign', prob = c(.05, .95))
 blavaanLambdasummary$summary
 
-saveRDS(fit, here(save_dir, "model01_blv.RDS"))
+# saveRDS(fit, here(save_dir, "model01_blv.RDS"))
+tibble(y = as.numeric(c(modelCFA_samples$summary(variables = "lambda", .cores = 4)$mean,
+                        ## psi is sd in stan, we need to compute psi^2 
+                        (modelCFA_samples$summary(variables = "psi", .cores = 4)$mean)^2)),
+       x = as.numeric(coef(model01_blv)),
+       param = c(rep("factor loadings", 10), rep('unique variances', 10))
+) |> 
+  ggplot() +
+  geom_abline(aes(slope = 1, intercept = 0), col = 'grey', linewidth = 1.5) +
+  geom_point(aes(x = x, y = y, col = param), shape = 1, size = 5, stroke = 2) +
+  labs(
+    title = "Comparing Parameters Between Stan and blavaan", 
+    x = "Stan Model",
+    y = "blavaan Model"
+  ) +
+  scale_color_manual(values = self_color[c(1,3)]) +
+  theme_classic()
+ggsave(here(root_dir, "EAP_psi_lambda_Stan_blavaan.png"), width = 10, height = 6)
+
+fs_blav <- rowMeans(Reduce(cbind, blavPredict(model01_blv)))
+tibble(y = as.numeric(modelCFA_samples$summary(variables = c("theta"), .cores = 4)$mean),
+       x = as.numeric(fs_blav)
+  ) |> 
+  ggplot() +
+  geom_abline(aes(slope = 1, intercept = 0), col = 'grey', linewidth = 1.5) +
+  geom_point(aes(x = x, y = y), shape = 1, size = 5, stroke = 2, col = self_color[1]) +
+  labs(
+    title = "Comparing Factor Scores Between Stan and blavaan", 
+    x = "Stan Model",
+    y = "blavaan Model"
+  ) +
+theme_classic()
+ggsave(here(root_dir, "EAP_FactorScore_Stan_blavaan.png"), width = 6, height = 6)
