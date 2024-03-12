@@ -1,0 +1,162 @@
+---
+title: 'Sum Score, Factor Score, and Reliability'
+author: 'Jihong Zhang'
+date: 'Mar 12 2024'
+categories:
+  - Scoring
+  - Reliability
+  - CTT
+  - Factor Analysis
+execute: 
+  warning: false
+  message: false
+format: 
+  html:
+    code-fold: false
+    code-line-numbers: false
+bibliography: references.bib
+---
+
+Overall, the purpose of this post is to illustrate the definition, assumption, psychometric properties, usage, and interpretation of factor scores in Structural Equation Models (SEM), and how those features of factor scores compare to sum scores in Classical Test Theory (CTT).
+
+This post is draft by Dr. Jihong Zhang and was inspired by Dr. Templin's [2022 presentation](https://jonathantemplin.com/wp-content/uploads/2022/10/sem15pre906_lecture11.pdf).
+
+## Definition of Test Score
+
+In CTT, the test score is unit of analysis of the whole test, which can be statistically expressed as:
+
+$$
+Y_{total} = T+e
+$$
+
+Where $Y_{total}$ denotes test scores, $T$ denotes true score, and $e$ denotes error. There are some assumptions:
+
+1.  Items are assumed exchangeable;
+2.  Expected value of $e$ is 0;
+3.  Error $e$ is expected to be uncorrelated with true score $T$
+
+## Reliability of Test Score
+
+***Reliability*** is computed as the proportion of variance in the sum score that is due to variation in the latent trait or true score.
+
+### CTT-based reliability
+
+We can derive the reliability as following:
+
+$$
+\text{Var}(Y_{total}) = \text{Var}(T+e) = \text{Var}(T)+\text{Var}(e)+2\text{Cov}(T,e)
+$$
+
+But, since T and e are assumed independent $\text{Cov}(T, e) = 0$, so,
+
+$$
+\text{Var}(Y_{total}) = \text{Var}(T)+\text{Var}(e)
+$$
+
+Then, reliability can be computed as:
+
+$$
+\rho = \frac{\text{Var}(T)}{\text{Var}(Y)} = \frac{\text{Var}(T)}{\text{Var}(T)+\text{Var}(e)} 
+$$
+
+Where,
+
+-   $\text{Var}(T)$ is variance of true score and could be interpreted as variability in the latent trait in the context of factor analysis.
+
+-   $\text{Var}(e)$ is variance of error, and could be interpreted as measurement error
+
+#### Mini example
+
+```{r}
+#| code-fold: true
+library(tidyverse)
+library(here)
+library(kableExtra)
+library(psych)
+dat_path <- '~/Documents/Projects/website-jihong/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code'
+conspiracy <- read.csv(here(dat_path, 'conspiracies.csv'))
+itemResp <- conspiracy |> select(starts_with('PolConsp'))
+conspiracy |> 
+  mutate(ID = 1:177) |> 
+  pivot_longer(starts_with('PolConsp'), names_to = 'Item', values_to = 'Resp') |> 
+  mutate(Item = factor(Item, paste0('PolConsp', 1:10))) |> 
+  group_by(Item) |> 
+  summarise(
+    Mean = mean(Resp),
+    SD = sd(Resp),
+    Min = min(Resp),
+    Max = max(Resp),
+    Skew = psych::skew(Resp)
+  ) |> 
+  kable(digits = 3)
+```
+
+One estimate of the internal consistency reliability of a stest is Cronbach's $\alpha$. The standard Cronbach's $\alpha$ is .93. The average Iter-Item Correlation is .564. Ideally, the average inter-item correlation for a set of items should be between .20 and .40, suggesting that while the items are reasonably homogenous, they do contain sufficiently unique variance so as to not be isomorphic with each other [@piedmont2014].
+
+```{r}
+kable(alpha(itemResp)$total, digits = 3)
+```
+
+Using factor analysis and `lavaan`, we can reproduce average inter-item correlations assuming items are tau-equavalent:
+
+-   Item responses are standardized (mean as 0, variance as 1)
+
+-   Factor loadings are constrained to be equal as 1
+
+-   Residual variances of items are constrained to be equal
+
+Then, iter-item correlation and Cronbach alpha can be computed as:
+
+$$
+\rho = \frac{\text{Var}(\theta)}{\text{Var}(\theta)+\text{Var}(\psi)}
+$$
+
+$$
+\alpha = \frac{N\rho}{\sigma^2 +(N-1)\rho}
+$$
+
+where N is sample size, $\rho$ is average iter-item correlation, and $\sigma^2$ are average item variances and equal to 1 if items are standardized.
+
+```{r}
+library(lavaan)
+itemResp_std <- itemResp |> 
+  mutate(across(everything(), scale))
+unifac_model <- '
+F1 =~ 1*PolConsp1+1*PolConsp2+1*PolConsp3+1*PolConsp4+1*PolConsp5+1*PolConsp6+1*PolConsp7+1*PolConsp8+1*PolConsp9+1*PolConsp10
+PolConsp1 ~~equal("e1")*PolConsp1
+PolConsp2 ~~equal("e1")*PolConsp2
+PolConsp3 ~~equal("e1")*PolConsp3
+PolConsp4 ~~equal("e1")*PolConsp4
+PolConsp5 ~~equal("e1")*PolConsp5
+PolConsp6 ~~equal("e1")*PolConsp6
+PolConsp7 ~~equal("e1")*PolConsp7
+PolConsp8 ~~equal("e1")*PolConsp8
+PolConsp9 ~~equal("e1")*PolConsp9
+PolConsp10~~equal("e1")*PolConsp10
+'
+fit = cfa(model = unifac_model, data = itemResp_std, std.lv = FALSE)
+# summary(fit)
+Var_F1 = as.numeric(coef(fit)['F1~~F1'])
+Var_errors= as.numeric(coef(fit)[1])
+rho = Var_F1 / (Var_F1 + Var_errors) # reliability 
+rho # average iter-item correlation
+Cron_alpha = 10*rho / (1 + (10-1)*rho )
+Cron_alpha # Cronbach's alpha
+```
+
+Cronbach's alpha is related to number of items:
+
+```{r}
+#| code-fold: true
+#| fig-align: center
+library(greekLetters)  
+tibble(nItems = 2:20, alpha = nItems*rho / (1 + (nItems-1)*rho )) |> 
+  ggplot() +
+  aes(x = nItems, y = alpha) +
+  geom_point(size = 3, shape = 1) +
+  geom_path(group = 1) +
+  scale_x_continuous(breaks = 2:20) +
+  scale_y_continuous(breaks = seq(0.7, 1, .025), limits = c(0.7, 1)) +
+  labs(x = 'Retrospective Number of items', y = paste0("Cronbach's ", greeks('alpha')),
+       title = 'Relationship between number of items with alpha')
+```
