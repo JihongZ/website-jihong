@@ -348,7 +348,7 @@ cor(modelCFA_samplesFix$summary(variables = c("mu", "lambda", "psi", "theta"), .
     modelCFA_samples$summary(variables = c("mu", "lambda", "psi", "theta"), .cores = 4)$mean)
 ```
 
-## CFA model with `blavaan` 
+## CFA model with `blavaan`
 
 ```{r}
 #| echo: true

@@ -67,13 +67,15 @@ Where,
 
 #### Mini example
 
+Using a 10-item example with each having 1-5 scale.
+
 ```{r}
 #| code-fold: true
 library(tidyverse)
 library(here)
 library(kableExtra)
 library(psych)
-dat_path <- '~/Documents/Projects/website-jihong/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code'
+dat_path <- 'posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code'
 conspiracy <- read.csv(here(dat_path, 'conspiracies.csv'))
 itemResp <- conspiracy |> select(starts_with('PolConsp'))
 conspiracy |> 
@@ -91,7 +93,9 @@ conspiracy |>
   kable(digits = 3)
 ```
 
-One estimate of the internal consistency reliability of a stest is Cronbach's $\alpha$. The standard Cronbach's $\alpha$ is .93. The average Iter-Item Correlation is .564. Ideally, the average inter-item correlation for a set of items should be between .20 and .40, suggesting that while the items are reasonably homogenous, they do contain sufficiently unique variance so as to not be isomorphic with each other [@piedmont2014].
+One estimate of the internal consistency reliability of a test is <mark>Cronbach's $\alpha$</mark>, which summarizes the average item-test correlation. 
+
+The standard Cronbach's $\alpha$ is .93. The average Iter-Item Correlation is .564. Ideally, the average inter-item correlation for a set of items should be between .20 and .40, suggesting that while the items are reasonably homogenous, they do contain sufficiently unique variance so as to not be isomorphic with each other [@piedmont2014].
 
 ```{r}
 kable(alpha(itemResp)$total, digits = 3)
@@ -105,7 +109,7 @@ Using factor analysis and `lavaan`, we can reproduce average inter-item correlat
 
 -   Residual variances of items are constrained to be equal
 
-Then, iter-item correlation and Cronbach alpha can be computed as:
+Then, iter-item correlation and Cronbach's alpha can be computed as:
 
 $$
 \rho = \frac{\text{Var}(\theta)}{\text{Var}(\theta)+\text{Var}(\psi)}
