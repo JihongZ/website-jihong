@@ -27,6 +27,8 @@ jobs:
         with: 
           version: '1.6.2'
           include-all-prereleases: true
+      - run: quarto check jupyter
+        shell: bash
       - run: julia -e 'using Pkg; Pkg.add("IJulia");'
         shell: bash
       # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
