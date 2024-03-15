@@ -1,0 +1,123 @@
+---
+title: 'How to use Julia in Quarto'
+author: 'Jihong Zhang'
+date: 'Mar 10 2024'
+categories:
+  - Julia
+  - Quarto
+toc: true
+number-sections: true
+execute: 
+  eval: true
+  output: false
+format: 
+  html: 
+    code-summary: 'Code'
+    code-fold: false
+    code-line-numbers: false
+jupyter: julia-1.6
+---
+
+## Previous posts
+
+This [post](../../posts/2021-08-30-gradient-descent-via-julia/index.md) illustrates how to use Julia to create a gradient descent algorithm. What has not been introduced, however, is how to perform the data analysis using Julia in Quarto. This post will illustrate the workflow step by step.
+
+## Initial Setup
+
+First of all, refer to this [Quarto.org](https://quarto.org/docs/computations/julia.html), [JuliaHub](https://help.juliahub.com/juliahub/stable/tutorials/quarto/), and Patrick Altmeyer's [post](https://www.paltmeyer.com/blog/posts/tips-and-tricks-for-using-quarto-with-julia/). The first step is to install following components:
+
+1.  IJulia
+2.  Revise.jl
+3.  Jupyter Cache
+
+``` {.bash filename="Terminal"}
+using Pkg
+Pkg.add("IJulia")
+using IJulia
+notebook()
+```
+
+Second, when you create the new quarto document, make sure the yaml header contains the "jupyter" setting. For example, the yaml of this post is:
+
+``` yaml
+title: 'How to use Julia in Quarto'
+author: 'Jihong Zhang'
+date: 'Mar 10 2024'
+categories:
+  - Julia
+  - Quarto
+format: 
+  html: 
+    code-summary: 'Code'
+    code-fold: false
+    code-line-numbers: false
+jupyter: julia-1.6
+```
+
+After the installation, you should be able to run the julia code in quarto.
+
+```{julia}
+#| output: true
+print("Hello World!")
+```
+
+## Import dataset
+
+```{julia}
+# import packages
+using DataFrames
+using CSV
+# load in the diamonds.csv
+diamonds = DataFrame(CSV.File("/Users/jihong/Documents/Projects/website-jihong/notes/2024-03-15-Julia-in-quarto/diamonds.csv"))
+```
+
+```{julia}
+#| output: true
+first(diamonds, 7)
+```
+
+## Basic Statistical Modeling
+
+Following the previous post, we can easily model a generalized linear regression using `GLM` module:
+
+```{julia}
+#| output: true
+using GLM
+lm_fit = lm(@formula(price ~ depth), diamonds)
+```
+
+Let's do some more advanced measurement - Factor analysis:
+
+```{julia}
+#| output: true
+using MultivariateStats
+# only sample first 300 cases and four variables
+Xtr = diamonds[1:300 , [:x, :y, :z]]
+# with each observation in a column
+Xtr = Matrix(Xtr)' # somehow the data matrix has size of (d, n), which is the trasponse of data matrix in R 
+# train a one-factor model
+M = fit(FactorAnalysis, Xtr; maxoutdim=1, method=:em)
+```
+
+You can refer to this [doc](https://multivariatestatsjl.readthedocs.io/en/latest/fa.html) for more details for parameter estimation of factor analysis
+
+```{julia}
+#| output: true
+loadings(M)
+```
+
+Let's quickly compare the results of `lavaan`
+
+``` r
+library(ggplot2)
+library(lavaan)
+data('diamonds')
+X = diamonds[1:300, c('x', 'y', 'z')]
+fa_model = "
+F1 =~ x + y + z
+"
+fit = cfa(fa_model, data = X, std.lv = TRUE)
+coef(fit)[1:3] # factor loading
+    F1=~x     F1=~y     F1=~z 
+0.7802245 0.7673664 0.4752576 
+```

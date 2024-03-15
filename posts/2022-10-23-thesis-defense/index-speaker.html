@@ -9,11 +9,11 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.550">
+  <meta name="generator" content="quarto-1.5.23">
 
   <meta name="author" content="Jihong Zhang">
   <meta name="dcterms.date" content="2022-10-24">
-  <title>Jihong Z. - Play Harder and Learn Harder - Dissertation Defence</title>
+  <title>Jihong Z. - Play Harder and Learn Harder – Dissertation Defence</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -770,7 +770,7 @@ Table&nbsp;1: Mean and SD of Posterior Predictive M2 for Models across condition
 <section id="path-plot-for-pp-m2" class="slide level2" data-number="3.2">
 <h2><span class="header-section-number">3.2</span> Path plot for PP-M2</h2>
 
-<img data-src="images/ppm2summary.png" class="quarto-figure quarto-figure-center r-stretch"><p class="caption">Title: Path Plot for Average Posterior Predictive M2</p></section>
+<img data-src="images/ppm2summary.png" class="r-stretch quarto-figure-center"><p class="caption">Title: Path Plot for Average Posterior Predictive M2</p></section>
 <section id="findings" class="slide level2" data-number="3.3">
 <h2><span class="header-section-number">3.3</span> Findings</h2>
 <ol type="1">
@@ -1543,6 +1543,24 @@ Gelman, A., &amp; Hill, J. (2006). <em>Data Analysis Using Regression and Multil
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp("https:\/\/www\.jihongzhang\.org\/");
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -1579,7 +1597,11 @@ Gelman, A., &amp; Hill, J. (2006). <em>Data Analysis Using Regression and Multil
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
