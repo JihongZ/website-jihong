@@ -28,6 +28,7 @@ jobs:
           version: '1.6.2'
           include-all-prereleases: true
       - run: julia -e 'using Pkg; Pkg.build("IJulia");'
+        shell: bash
       # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
