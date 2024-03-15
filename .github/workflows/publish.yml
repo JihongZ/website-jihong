@@ -21,6 +21,11 @@ jobs:
       # From https://github.com/actions/setup-python
       #- name: Setup Python
       #  uses: actions/setup-python@v3
+      # https://github.com/julia-actions/setup-julia
+      - name: Setup Julia
+        uses: julia-actions/setup-julia@v1
+        with: 
+          version: '1.6'
       # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
