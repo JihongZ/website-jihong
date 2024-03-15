@@ -25,7 +25,8 @@ jobs:
       - name: Setup Julia
         uses: julia-actions/setup-julia@v1
         with: 
-          version: '1.6'
+          version: '1.6.2'
+          include-all-prereleases: true
       # From https://github.com/r-lib/actions/tree/v2-branch/setup-r
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
