@@ -190,7 +190,7 @@ tibble(nItems = 2:20, alpha = nItems*rho / (1 + (nItems-1)*rho )) |>
 
 ## Scoring of Factor Analysis
 
-In factor analysis, factor scores are computed by using factor loadings and factor correlations. In most modern statistical software (i.e., lavaan, Mplus etc), factor scores are estimated by multivariate methods that use various aspects of the reduced or unreduced correlation matrix and factor analysis coefficients [@timothy2015]. A frequently used method of estimating factor scores is Thurstone's (1935) least squared regression approach, although several other strategies have been developed (e.g., Bartlett, 1937; Harman, 1976; McDonald, 1982).
+In factor analysis, factor scores are computed by using factor loadings and factor correlations. In most modern statistical software (i.e., lavaan, Mplus etc), factor scores are estimated by multivariate methods that use various aspects of the reduced or unreduced correlation matrix and factor analysis coefficients [@brownConfirmatoryFactorAnalysis2015]. A frequently used method of estimating factor scores is Thurstone's (1935) least squared regression approach, although several other strategies have been developed (e.g., Bartlett, 1937; Harman, 1976; McDonald, 1982).
 
 For confirmatory factor analysis that is identified, the scoring method discussed by Thurston (1935) and Thomson (1934) has the closed form [@ferrando2018]:
 
