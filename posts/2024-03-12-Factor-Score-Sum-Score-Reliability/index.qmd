@@ -10,6 +10,7 @@ categories:
 execute: 
   warning: false
   message: false
+citation: true
 format: 
   html:
     code-fold: false
@@ -17,9 +18,15 @@ format:
 bibliography: references.bib
 ---
 
-Overall, the purpose of this post is to illustrate the definition, assumption, psychometric properties, usage, and interpretation of factor scores in Structural Equation Models (SEM), and how those features of factor scores compare to sum scores in Classical Test Theory (CTT).
+Network psychometrics has become an alternative approach to factor analysis and item response theory in multiple fields of psychology and education, such as psychopathology, personality, measurement validation, and dimensionality determancy. However, individual scoring differences between psychometric network analysis and traditional psychometric modeling has not been well investigated. Some questions arise regarding individual scoring:
 
-This post is draft by Dr. Jihong Zhang and was inspired by Dr. Templin's [2022 presentation](https://jonathantemplin.com/wp-content/uploads/2022/10/sem15pre906_lecture11.pdf).
+1.  What will be individual scores in psychometric network analysis? Or, how can we evaluate the average level of each individuals?
+2.  If we can build individual scoring in psychometric network, what is the relationship between this scoring with factor scores.
+3.  How can we use this scoring method to evaluate measurement quality, such as reliability or validity?
+
+To answer these questions, we first need to review how individuals are scored in factor analysis method and classical test theory. Borrowing the theoretical framework and purpose of factor scoring, we can construct the scoring method for psychometric network. Then, we can show that there are statistical relationship between network scores with factor scores. Thus, depending on the psychometric methods researchers use, they can be free to use either factor score or network score to report. They can also compute the other without constructing the other model.
+
+Overall, the purpose of this post is to illustrate the definition, assumption, psychometric properties, usage, and interpretation of factor scores in Structural Equation Models (SEM), and how those features of factor scores compare to sum scores in Classical Test Theory (CTT). This post is inspired by Dr. Templin's [2022 presentation](https://jonathantemplin.com/wp-content/uploads/2022/10/sem15pre906_lecture11.pdf).
 
 ## Definition of Test Score
 
@@ -35,11 +42,19 @@ Where $Y_{total}$ denotes test scores, $T$ denotes true score, and $e$ denotes e
 2.  Expected value of $e$ is 0;
 3.  Error $e$ is expected to be uncorrelated with true score $T$
 
-## Reliability of Test Score
+## Scoring of Classical test theory
 
-***Reliability*** is computed as the proportion of variance in the sum score that is due to variation in the latent trait or true score.
+In classical test theory (CTT), the test score is construct as sum of item scores. CTT assumes that there is a true score exists that reflect the true ability of test takers and the observed sum scores of each individual is a combination of true score and random error.
+
+$$
+Y_{total} = T + e
+$$
+
+Where $Y_{total}$ denotes a vector of observed sum scores of respondents, $T$ denotes a vector of true scores of respondents, and $e$ denotes the random error for respondents. True scores and random errors are independent.
 
 ### CTT-based reliability
+
+Multiple reliability coefficients have been proposed in previous literature. Each reliability has their advantages and disadvantages. Let's take the average iter-item correlation as one example. Average iter-item correlation is computed as the proportion of variance in the sum score that is due to variation in the latent trait or true score.
 
 We can derive the reliability as following:
 
@@ -93,7 +108,7 @@ conspiracy |>
   kable(digits = 3)
 ```
 
-One estimate of the internal consistency reliability of a test is <mark>Cronbach's $\alpha$</mark>, which summarizes the average item-test correlation. 
+One estimate of the internal consistency reliability of a test is <mark>Cronbach's $\alpha$</mark>, which summarizes the average item-test correlation.
 
 The standard Cronbach's $\alpha$ is .93. The average Iter-Item Correlation is .564. Ideally, the average inter-item correlation for a set of items should be between .20 and .40, suggesting that while the items are reasonably homogenous, they do contain sufficiently unique variance so as to not be isomorphic with each other [@piedmont2014].
 
@@ -164,3 +179,55 @@ tibble(nItems = 2:20, alpha = nItems*rho / (1 + (nItems-1)*rho )) |>
   labs(x = 'Retrospective Number of items', y = paste0("Cronbach's ", greeks('alpha')),
        title = 'Relationship between number of items with alpha')
 ```
+
+## Scoring of Factor Analysis
+
+In factor analysis, factor scores are computed by using factor loadings and factor correlations. In most modern statistical software (i.e., lavaan, Mplus etc), factor scores are estimated by multivariate methods that use various aspects of the reduced or unreduced correlation matrix and factor analysis coefficients [@timothy2015]. A frequently used method of estimating factor scores is Thurstone's (1935) least squared regression approach, although several other strategies have been developed (e.g., Bartlett, 1937; Harman, 1976; McDonald, 1982).
+
+For confirmatory factor analysis that is identified, the scoring method discussed by Thurston (1935) and Thomson (1934) has the closed form[@ferrando2018]:
+
+$$
+EAP(\theta_i) = \Phi\Lambda'R^{-1}X_i=S'R^{-1}X_i
+$$
+
+Where $\theta_i$ is the factor score estimate for individual $i$, and $\Phi$ is the factor correlation matrix (for example, for single factor model, $\Phi$ is 1 $\times$ 1 matrix ), $\Lambda$ is the pattern loading matrix, and $R$ is the structural correlation matrix between items.
+
+Using the previous consipiracy theory data, we can calculate the factor scores directly using Thurston's method and compare to factor score by `lavaan`.
+
+```{r}
+model2 <- '
+    F1 =~ PolConsp1+PolConsp2+PolConsp3+PolConsp4+PolConsp5+PolConsp6+PolConsp7+PolConsp8+PolConsp9+PolConsp10
+'
+fit2 = cfa(model = model2, data = itemResp_std, std.lv = TRUE)
+summary(fit2)
+```
+
+```{r}
+## extract factor loadings and unique variances
+lambdas = as.numeric(coef(fit2)[paste0("F1=~PolConsp", 1:10)])
+Lambda = matrix(lambdas, ncol = 1)
+psis = as.numeric(coef(fit2)[paste0("PolConsp", 1:10, "~~PolConsp", 1:10)])
+Psi = diag(psis)
+
+## Estimated Structural correlation matrix
+R = Lambda %*% t(Lambda) + Psi
+Theta = as.numeric(diag(1) %*% t(Lambda) %*% solve(R) %*% t(itemResp_std))
+Theta_lav = as.numeric(predict(fit2))
+```
+
+```{r}
+fs = tibble(
+   Theta = Theta,
+   Theta_lav =  Theta_lav
+)
+fs
+ggplot(fs) +
+  geom_point(aes(x = Theta, y = Theta_lav)) +
+  labs(x = "Factor score by Thurston's method", y = "Factor score by `lavaan`")
+```
+
+::: callout-note
+## Relationship between factor score and network score
+
+The official paper will show network score is a special case of factor score.
+:::
