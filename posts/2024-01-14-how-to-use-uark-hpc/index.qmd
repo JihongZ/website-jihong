@@ -286,14 +286,16 @@ The workflow for this job task is like this:
 
 First of all, we need a masterJob.R file (could be replaced as bash file if you are more familiar with bash language) for two purposes: (1) creating multiple bash job files with each corresponding to each model or multiple models; (2) submitting the bash job file. The masterJob.R contains a for loop with data index as iterators.
 
-For example, below is an example masterJob.R file containing multiple models. Iterator `i` represents the index of data set. If we want to iterate over all N data sets, we can set `for (i in 1:N)`. The `initial` partical contains the settings of HPC jobs: 1 node, each node run 6 tasks, and each task uses 4 cpus. If we run a Bayesian model with 3 chains, we can set `--cpus-per-task=3` instead. Each modeling file (for example, *Analysis_ModelA_AlignedSV_asym1000.R*) will be subjected to run using `Rscript` with two arguments: (1) data set index (i); (2) root directory containing all codes and data sets (root_path). The first argument make sure each file will be fed to modeling file. The second argument makes the masterJob file more generic to run on varied HPC accounts.
+For example, below is an example masterJob.R file in order to run multiple models. Iterator `i` represents the index of data set. If we want to iterate over all N data sets, we can set `for (i in 1:N)`. The `initial` partical contains the settings of HPC jobs: 1 node, each node run 6 tasks, and each task uses 4 cpus. If we run a Bayesian model with 3 chains, we can set `--cpus-per-task=3` instead. Each modeling file (for example, *Analysis_ModelA_AlignedSV_asym1000.R*) will be subjected to run using `Rscript` with two arguments: (1) data set index (i); (2) root directory containing all codes and data sets (root_path). The first argument make sure each file will be fed to modeling file. The second argument makes the masterJob file more generic to run on varied HPC accounts.
 
 `write_lines` function saves the text of job file into a local directory in root direcotry – JobFile. `system` is a R function that can run bash code in R. Here we echo `sbatch [OneJobFile].R` to make R automatically submit the JobFile for specific data set.
 
-``` {.R filename="masterjob_All.R"}
+``` {r filename="masterjob_All.R"}
+#| eval: false
+#| code-fold: false
+#| code-line-numbers: true
 library(tidyverse)
-# root_path = "/home/jzhang/JZ/"
-root_path = "~/Downloads/JZ/"
+root_path = "~/Downloads/JZ/" # change to folder in your HPC
 for (i in 1:10) {
   jobfile <- paste0("AllModelRunning_data", i, ".sh")
   ## --ntasks-per-node=6 : there are 6 R files to be running parallels.
@@ -324,6 +326,41 @@ cd $SLURM_SUBMIT_DIR
 }
 ```
 
+Alternatively, we can set up the masterJob file to run one model only:
+
+```{r filename="masterJob_AlignsedSV_asym100.R"}
+#| eval: false
+#| code-fold: false
+#| code-line-numbers: true
+library(tidyverse)
+root_path = "~/Downloads/JZ/"
+for (i in 1:10) {
+  jobfile <- paste0("AlignsedSV_asym100_ModelRunning_data", i, ".sh") # change file for specific model
+  ## --ntasks-per-node=6 : there are 6 R files to be running parallels.
+  ## --cpus-per-task=3: for each R files, there are 3 chains
+  initial <- "#!/bin/bash
+#SBATCH --partition tres288
+#SBATCH --qos tres
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=6
+#SBATCH --cpus-per-task=4
+#SBATCH --time=288:00:00
+
+source /etc/profile.d/modules.sh
+module purge
+module load intel/21.2.0 mkl/21.3.0 R/4.2.2 gcc/11.2.1
+cd $SLURM_SUBMIT_DIR
+  "
+  ## adding all R files simultaneously
+  jobfile_content <- paste0(initial,  
+                            paste0("\nRscript ", root_path,"RcodeJZ2/Analysis_ModelA_AlignedSV_asym1000.R "), 
+                            i, " '" , root_path, "'")
+  write_lines(jobfile_content, file = paste0(root_path, "JobFiles/", jobfile))
+  # message(commd)
+  system(paste0("sbatch ", paste0(root_path, "JobFiles/", jobfile)))
+}
+```
+
 To make sure it running without error, we need to check each modeling file carefully.
 
 For example, below is one of six modeling files: *Analysis_ModelA_AlignedSV_sym1000.R.*
@@ -333,6 +370,7 @@ Part I of this modeling file is to read in two arguments of `Rscript` specified 
 ```{r, filename="Analysis_ModelA_AlignedSV_sym1000.R"}
 #| code-fold: false
 #| eval: false
+#| code-line-numbers: true
 #########################################
 ###### Part I 
 #########################################
