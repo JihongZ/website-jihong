@@ -144,7 +144,7 @@ This command will redirect to cloud72 queue, which includes virtual machines and
 :::
 
 | slurm commands      | compatibility commands   | Meaning                            |
-|---------------------|--------------------------|------------------------------------|
+|-------------------|-----------------------|------------------------------|
 | sbatch              | qsub                     | submit \<job file\>                |
 | srun                | qsub -I                  | submit interactive job             |
 | squeue              | qstat                    | list all queued jobs               |
@@ -268,8 +268,104 @@ Here's some useful information regarding selecting queue from https://hpcwiki.ua
 
 > Generally the nodes are reserved for the most efficient use, especially for expensive features such as GPU and extra memory. Pinnacle compute nodes are very busy (comp.. and himem.. partitions) are reserved for scalable programs that can use all 32/24 cores (except for the cloud partition, and condo usage by the owner). Cores are allocated by the product of ntasks-per-node x cpus-per-task. Exceptions: (1) serial/single core jobs that use more memory than available on Razor/Trestles (64 to 192 GB) (2) multiple jobs submitted together that use a whole node, such as 4 x 8 cores (3) two jobs on one high-memory node (2 x 12 cores) that each use more than 192 GB (and less than 384 GB so that they can run on the himem node)
 
-### Troubleshooting
+## Troubleshooting
 
 1.  Revise `.bashrc` so that the ssh cannot login?
 
     You potential can try `ctrl+c` to avoid the ssh to execute bashrc. Try multiple time if not succeed. See [here](https://serverfault.com/questions/206544/i-screwed-up-exit-in-bashrc) for reference.
+
+## One example for parallelization of Stan
+
+Let's assume we have a job task to run multiple Bayesian models with ***K*** Markov Chains. For each Bayesian model, we have an independent R file. In total, we have ***J*** .R modeling files. For each independent R file, we input one data set. There are ***N*** data sets in total with multiple simulation conditions.
+
+The workflow for this job task is like this:
+
+![Workflow for HPC Job](Workflow.png){fig-align="center"}
+
+### Overall Procedure
+
+First of all, we need a masterJob.R file (could be replaced as bash file if you are more familiar with bash language) for two purposes: (1) creating multiple bash job files with each corresponding to each model or multiple models; (2) submitting the bash job file. The masterJob.R contains a for loop with data index as iterators.
+
+For example, below is an example masterJob.R file containing multiple models. Iterator `i` represents the index of data set. If we want to iterate over all N data sets, we can set `for (i in 1:N)`. The `initial` partical contains the settings of HPC jobs: 1 node, each node run 6 tasks, and each task uses 4 cpus. If we run a Bayesian model with 3 chains, we can set `--cpus-per-task=3` instead. Each modeling file (for example, *Analysis_ModelA_AlignedSV_asym1000.R*) will be subjected to run using `Rscript` with two arguments: (1) data set index (i); (2) root directory containing all codes and data sets (root_path). The first argument make sure each file will be fed to modeling file. The second argument makes the masterJob file more generic to run on varied HPC accounts.
+
+`write_lines` function saves the text of job file into a local directory in root direcotry – JobFile. `system` is a R function that can run bash code in R. Here we echo `sbatch [OneJobFile].R` to make R automatically submit the JobFile for specific data set.
+
+``` {.R filename="masterjob_All.R"}
+library(tidyverse)
+# root_path = "/home/jzhang/JZ/"
+root_path = "~/Downloads/JZ/"
+for (i in 1:10) {
+  jobfile <- paste0("AllModelRunning_data", i, ".sh")
+  ## --ntasks-per-node=6 : there are 6 R files to be running parallels.
+  ## --cpus-per-task=3: for each R files, there are 3 chains
+  initial <- "#!/bin/bash
+#SBATCH --partition tres288
+#SBATCH --qos tres
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=6
+#SBATCH --cpus-per-task=4
+#SBATCH --time=288:00:00
+
+source /etc/profile.d/modules.sh
+module purge
+module load intel/21.2.0 mkl/21.3.0 R/4.2.2 gcc/11.2.1
+cd $SLURM_SUBMIT_DIR
+  "
+  ## adding all R files simultaneously
+  jobfile_content <- paste0(initial,         paste0("\nRscript ", root_path,"RcodeJZ2/Analysis_ModelA_AlignedSV_asym1000.R "), i, " '" , root_path, "' | at now &")
+  jobfile_content <- paste0(jobfile_content, paste0("\nRscript ", root_path,"RcodeJZ2/Analysis_ModelA_AlignedSV_sym1000.R "), i, " '" , root_path, "' | at now &")
+  jobfile_content <- paste0(jobfile_content, paste0("\nRscript ", root_path,"RcodeJZ2/Analysis_ModelA_Diffuse_asym500.R "), i, " '", root_path, "' | at now &")
+  jobfile_content <- paste0(jobfile_content, paste0("\nRscript ", root_path,"RcodeJZ2/Analysis_ModelA_Diffuse_sym500.R "), i, " '", root_path, "' | at now &")
+  jobfile_content <- paste0(jobfile_content, paste0("\nRscript ", root_path,"RcodeJZ2/Analysis_ModelA_DivergentSV_asym100.R "), i, " '", root_path, "' | at now &")
+  jobfile_content <- paste0(jobfile_content, paste0("\nRscript ", root_path,"RcodeJZ2/Analysis_ModelA_DivergentSV_sym100.R "), i, " '", root_path, "' | at now & wait")
+  write_lines(jobfile_content, file = paste0(root_path, "JobFiles/", jobfile))
+  # message(commd)
+  system(paste0("sbatch ", paste0(root_path, "JobFiles/", jobfile)))
+}
+```
+
+To make sure it running without error, we need to check each modeling file carefully.
+
+For example, below is one of six modeling files: *Analysis_ModelA_AlignedSV_sym1000.R.*
+
+Part I of this modeling file is to read in two arguments of `Rscript` specified in *masterJob_All.R*. Part II contains all functions needed for Bayesian models running. Part III screens all data sets saved in the folder `dataJZ` and creates a vector of paths of the data set `dataset_fullpaths`. It also creates a list of unique identifiers for each result of model `datset_prefix`. Finally, it run the Bayesian model with 3 Markov chains.
+
+```{r, filename="Analysis_ModelA_AlignedSV_sym1000.R"}
+#| code-fold: false
+#| eval: false
+#########################################
+###### Part I 
+#########################################
+args <- commandArgs(trailingOnly = TRUE)
+which_dat <- as.numeric(args[1])
+root_path = as.character(args[2]) # root directory
+
+#########################################
+###### Part II 
+#########################################
+## function 1: for one Bayesian model running
+BayAna <- function(mod, dat, ncores) {...}
+## function 2: run four Bayesian models with different model structure and save results
+BayFit_new <- function(dname, ncores, outputpath, prefix){...}
+
+#########################################
+###### Part III 
+#########################################
+datset_paths <- list.files(paste0(root_path, "dataJZ/"), pattern = '.dat',recursive = TRUE)
+datset_fullpaths <- paste0(paste0(root_path, "dataJZ/"), datset_paths)
+datset_prefix <- stringr::str_replace_all(datset_paths, "/", "_")
+
+BayFit_new(dname = datset_fullpaths[which_dat],
+           outputpath = paste0(root_path, "ResultJZ/"),
+           prefix = datset_prefix[which_dat],
+           ncores = 3)
+```
+
+For better illustration, below is the top 10 elements of `datset_fullpaths` :
+
+```{r}
+root_path = "~/Library/CloudStorage/OneDrive-Personal/2024 Spring/Ejike Bayesian Modeling on HPC/JZ/"
+datset_paths <- list.files(paste0(root_path, "dataJZ/"), pattern = '.dat',recursive = TRUE)
+datset_fullpaths <- paste0(paste0(root_path, "dataJZ/"), datset_paths)
+head(datset_fullpaths)
+```
