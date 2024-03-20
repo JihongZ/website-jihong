@@ -197,15 +197,38 @@ For confirmatory factor analysis that is identified, the scoring method discusse
 
 $$
 \text{EAP}(\boldsymbol{\theta}_i) = \boldsymbol{\Phi}\boldsymbol{\Lambda}'\boldsymbol{R}^{-1}\boldsymbol{X}_i=\boldsymbol{S}'\boldsymbol{R}^{-1}\boldsymbol{X}_i
-$$
+$$ {#eq-thurston}
 
-and $\boldsymbol{R}$ is the the estimated item correlation matrix if the $\lambda$s are standardized loadings in $\boldsymbol{\Lambda}$:
+and $\boldsymbol{R}$ is the the estimated item covaraince matrix:
 
 $$
 \boldsymbol{R} = \boldsymbol{\Lambda}\boldsymbol{\Phi}\boldsymbol{\Lambda}'+\boldsymbol{\Psi}
 $$
 
 Where $\theta_i$ is the factor score estimate for individual $i$, and $\Phi$ is the factor correlation matrix (for example, for single factor model, $\Phi$ is 1 $\times$ 1 matrix ), $\Psi$ is $J \times J$ unique varainces of items, and $\Lambda$ is the pattern loading matrix. $\boldsymbol{S}$ is the factor loading structure matrix with the size $I \times P$ where $I$ denotes number of item and $P$ denotes number of latent factors. For unidimensional structure, $\boldsymbol{S} = \boldsymbol{\Lambda}$.
+
+To derive the Thurston's method, we can first partition joint distribution of all $I$ items and $K$ factor scores as
+
+$$
+f(\boldsymbol{\theta, Y}) = f(\begin{bmatrix}\Theta\\Y\end{bmatrix}) \\
+= N_{I+K}(\begin{bmatrix}\mu_\Theta \\ \mu+\Lambda'\mu_\Theta \end{bmatrix},
+\begin{bmatrix}
+\Phi\Lambda' \space\space\space\space\space\space\space\space\space \Phi \\
+\Lambda\Phi\Lambda'+\Psi \space\space \Lambda\Phi
+\end{bmatrix})
+$$ Based on relationship between conditional distribution of $f(\theta|Y)$ and joint distribution of $f(Y, \theta)$:
+
+$$
+\boldsymbol{\mu^*=\mu_1+\Sigma_{12}\Sigma_{22}^{-1}(Y-\mu_2)}
+$$
+
+Where $\mu_1$ and $\mu_2$ are mean components of partitioned joint distribution, and $\Sigma_{12}$ and $\Sigma_{22}$ are \[1,2\] and \[2,2\] elements of variance components of partitioned joint distribution.Then,
+
+$$
+f(\boldsymbol{\theta|Y}) = \mu_\Theta + \Phi\Lambda'(\Lambda\Phi\Lambda'+\Psi)^{-1}(Y'-(\mu+\Lambda'\mu_\Theta))
+$$
+
+Assume factor scores and item responses are standardized, $\mu_\Theta = 0$ and $\mu = 0$, then this is equivalent to @eq-thurston.
 
 Alternatively, using [Bartlett's (1937, 1938)]{.underline} method [@skrondalRegressionFactorScores2001], factor scores can be estimated as:
 
@@ -270,7 +293,7 @@ ggplot(fs) +
   theme_classic()
 ```
 
-### Mplus 
+### Mplus
 
 In Mplus, latent factor score estimation can have varied methods under two condition: (1) when individual level factor scores are of interests, factor scores are estimated based on either Maximum-likelihood estimators or Bayes estimators; (2) when factor scores are used for secondary analysis (dependent variables of regression models), factor scores are viewed as one type of imputed values, thus they are also known as plausible values and estimated by Bayesian imputation and Rubin's (1978) method [@rubinMultipleImputationNonresponse1978; @vondavierWhatArePlausible2009; @asparouhovPlausibleValuesLatent2010].
 
