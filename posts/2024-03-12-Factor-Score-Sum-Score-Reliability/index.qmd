@@ -16,6 +16,7 @@ format:
     code-fold: true
     code-line-numbers: false
 bibliography: references.bib
+csl: apa.csl
 ---
 
 Network psychometrics has become an alternative approach to factor analysis and item response theory in multiple fields of psychology and education, such as psychopathology, personality, measurement validation, and dimensionality determancy. However, individual scoring differences between psychometric network analysis and traditional psychometric modeling has not been well investigated. Some questions arise regarding individual scoring:
@@ -192,7 +193,7 @@ tibble(nItems = 2:20, alpha = nItems*rho / (1 + (nItems-1)*rho )) |>
 
 In factor analysis, factor scores are computed by using factor loadings and factor correlations. In most modern statistical software (i.e., lavaan, Mplus etc), factor scores are estimated by multivariate methods that use various aspects of the reduced or unreduced correlation matrix and factor analysis coefficients [@brownConfirmatoryFactorAnalysis2015]. A frequently used method of estimating factor scores is Thurstone's (1935) least squared regression approach, although several other strategies have been developed (e.g., Bartlett, 1937; Harman, 1976; McDonald, 1982).
 
-For confirmatory factor analysis that is identified, the scoring method discussed by Thurston (1935) and Thomson (1934) has the closed form [@ferrando2018]:
+For confirmatory factor analysis that is identified, the scoring method discussed by Thurston (1935) and Thomson (1934) has the closed form [@ferrando2018; @skrondalRegressionFactorScores2001]:
 
 $$
 \text{EAP}(\boldsymbol{\theta}_i) = \boldsymbol{\Phi}\boldsymbol{\Lambda}'\boldsymbol{R}^{-1}\boldsymbol{X}_i=\boldsymbol{S}'\boldsymbol{R}^{-1}\boldsymbol{X}_i
@@ -204,7 +205,15 @@ $$
 \boldsymbol{R} = \boldsymbol{\Lambda}\boldsymbol{\Phi}\boldsymbol{\Lambda}'+\boldsymbol{\Psi}
 $$
 
-Where $\theta_i$ is the factor score estimate for individual $i$, and $\Phi$ is the factor correlation matrix (for example, for single factor model, $\Phi$ is 1 $\times$ 1 matrix ), and $\Lambda$ is the pattern loading matrix. $\boldsymbol{S}$ is the factor loading structure matrix with the size $I \times P$ where $I$ denotes number of item and $P$ denotes number of latent factors. For unidimensional structure, $\boldsymbol{S} = \boldsymbol{\Lambda}$.
+Where $\theta_i$ is the factor score estimate for individual $i$, and $\Phi$ is the factor correlation matrix (for example, for single factor model, $\Phi$ is 1 $\times$ 1 matrix ), $\Psi$ is $J \times J$ unique varainces of items, and $\Lambda$ is the pattern loading matrix. $\boldsymbol{S}$ is the factor loading structure matrix with the size $I \times P$ where $I$ denotes number of item and $P$ denotes number of latent factors. For unidimensional structure, $\boldsymbol{S} = \boldsymbol{\Lambda}$.
+
+Alternatively, using [Bartlett's (1937, 1938)]{.underline} method [@skrondalRegressionFactorScores2001], factor scores can be estimated as:
+
+$$
+\text{EAP}(\theta_i) = \boldsymbol{(\Lambda'\Psi^{-1}\Lambda)^{-1}\Lambda'\Psi^{-1}X_i}
+$$
+
+### lavaan
 
 Using the consipiracy theory data, we can calculate the factor scores based on the equation mention above using Thurston's method and compare to the estimated factor score by `lavaan`.
 
@@ -218,7 +227,7 @@ summary(fit2)
 ```
 
 ```{r}
-#| code-summary: "Thurston's method"
+#| code-summary: "Thurston's and Bartlett's method"
 ## extract factor loadings and unique variances
 lambdas = as.numeric(coef(fit2)[paste0("F1=~PolConsp", 1:10)])
 Lambda = matrix(lambdas, ncol = 1)
@@ -227,8 +236,13 @@ Psi = diag(psis)
 
 ## Estimated Structural correlation matrix
 R = Lambda %*% t(Lambda) + Psi
-Theta = as.numeric(diag(1) %*% t(Lambda) %*% solve(R) %*% t(itemResp_std))
+
+## Thurston's method
+Theta_thurston = as.numeric(diag(1) %*% t(Lambda) %*% solve(R) %*% t(itemResp_std))
+## Bartlett's method
+Theta_bartlett = as.numeric(solve(t(Lambda) %*% solve(Psi) %*% Lambda) %*% t(Lambda) %*% solve(Psi) %*% t(itemResp_std))
 Theta_lav = as.numeric(predict(fit2))
+
 ```
 
 We can find that Thurston's method is consistent with `lavaan` 's output of factor scores:
@@ -236,14 +250,29 @@ We can find that Thurston's method is consistent with `lavaan` 's output of fact
 ```{r}
 #| code-summary: 'Comparison'
 fs = tibble(
-   Theta = Theta,
+   Thurston = Theta_thurston,
+   Bartlett = Theta_bartlett,
    Theta_lav =  Theta_lav
-)
+) |> 
+  pivot_longer(c(Thurston, Bartlett), names_to = "Method", values_to = "Score")
 fs
 ggplot(fs) +
-  geom_point(aes(x = Theta, y = Theta_lav)) +
-  labs(x = "Factor score by Thurston's method", y = "Factor score by `lavaan`")
+  geom_abline(aes(slope = 1, intercept = 0), color = "grey") +
+  geom_point(aes(x = Theta_lav, y = Score, color = Method, shape = Method), size = 3) +
+  labs(x = "Factor score by lavaan", y = "Factor score by Thurston's and Bartlett's method") +
+  scale_shape_manual(values = c(2, 1)) +
+  scale_y_continuous(limits = c(-1.1, 4)) +
+  scale_x_continuous(limits = c(-1.1, 4)) +
+  theme_classic()
 ```
+
+### Mplus 
+
+In Mplus, latent factor score estimation can have varied methods under two condition: (1) when individual level factor scores are of interests, factor scores are estimated based on either Maximum-likelihood estimators or Bayes estimators; (2) when factor scores are used for secondary analysis (dependent variables of regression models), factor scores are viewed as one type of imputed values, thus they are also known as plausible values and estimated by Bayesian imputation and Rubin's (1978) method [@rubinMultipleImputationNonresponse1978; @vondavierWhatArePlausible2009; @asparouhovPlausibleValuesLatent2010].
+
+Under the first condition, according to simulation study of @asparouhovPlausibleValuesLatent2010, [using ML estimators and small sample size]{.underline}, standardized errors for factor scores is underestimated. Another finding is that the larger the absolute factor score value is the larger the standard error is. This is because large absolute factor score values are generally in the tail of the factor score distribution, i.e., in a region with fewer observations.
+
+With continuous variable, Mplus estimates factor scores as the maximum of posterior distribution of the factor (also called the *Maximum A Posterior* method), which is the same as the Regression Method for factor score estimation [@asparouhovPlausibleValuesLatent2010; @skrondalRegressionFactorScores2001]. It should be noted that, with this method, using factor scores as predictors given unbiased regression slopes, but using factor scores as dependent variables gives biased slopes. With categorical variables and the maximum-likelihood estimator, Mplus estimates factor scores as the expected value of the posterior distribution of the factor, which is also called the Expected A Posteriori (EAP) method.
 
 ::: callout-note
 ## Relationship between factor score and network score
