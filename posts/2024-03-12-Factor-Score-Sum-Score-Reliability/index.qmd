@@ -250,17 +250,21 @@ We can find that Thurston's method is consistent with `lavaan` 's output of fact
 ```{r}
 #| code-summary: 'Comparison'
 fs = tibble(
+   Theta_lav =  Theta_lav,
    Thurston = Theta_thurston,
    Bartlett = Theta_bartlett,
-   Theta_lav =  Theta_lav
-) |> 
-  pivot_longer(c(Thurston, Bartlett), names_to = "Method", values_to = "Score")
+   Sumscore = as.numeric(scale(rowSums(itemResp)))
+) 
 fs
+
+fs = fs |> 
+  pivot_longer(c(Sumscore, Thurston, Bartlett), names_to = "Method", values_to = "Score") |> 
+  mutate(Method = factor(Method, levels = c("Sumscore", "Thurston", "Bartlett")))
 ggplot(fs) +
   geom_abline(aes(slope = 1, intercept = 0), color = "grey") +
-  geom_point(aes(x = Theta_lav, y = Score, color = Method, shape = Method), size = 3) +
+  geom_point(aes(x = Theta_lav, y = Score, color = Method, shape = Method), size = 2, alpha = .8) +
   labs(x = "Factor score by lavaan", y = "Factor score by Thurston's and Bartlett's method") +
-  scale_shape_manual(values = c(2, 1)) +
+  scale_shape_manual(values = 1:3) +
   scale_y_continuous(limits = c(-1.1, 4)) +
   scale_x_continuous(limits = c(-1.1, 4)) +
   theme_classic()
