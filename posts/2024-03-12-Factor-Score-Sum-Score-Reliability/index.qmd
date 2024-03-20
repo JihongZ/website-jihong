@@ -191,12 +191,12 @@ tibble(nItems = 2:20, alpha = nItems*rho / (1 + (nItems-1)*rho )) |>
 
 ## Scoring of Factor Analysis
 
-In factor analysis, factor scores are computed by using factor loadings and factor correlations. In most modern statistical software (i.e., lavaan, Mplus etc), factor scores are estimated by multivariate methods that use various aspects of the reduced or unreduced correlation matrix and factor analysis coefficients [@brownConfirmatoryFactorAnalysis2015]. A frequently used method of estimating factor scores is Thurstone's (1935) least squared regression approach, although several other strategies have been developed (e.g., Bartlett, 1937; Harman, 1976; McDonald, 1982).
+In factor analysis, factor scores are computed using parameters of CFA, i.e., unique variances ($\Psi$), factor loadings ($\Lambda$) and factor correlations ($\Phi$). In most modern statistical software (i.e., lavaan or Mplus), factor scores are estimated by multivariate methods that use various aspects of the reduced or unreduced correlation matrix and factor analysis coefficients [@brownConfirmatoryFactorAnalysis2015]. A frequently used method of estimating factor scores is Thurston's (1935) least squared regression approach, although several other strategies have been developed (e.g., Bartlett, 1937; Harman, 1976; McDonald, 1982).
 
 For confirmatory factor analysis that is identified, the scoring method discussed by Thurston (1935) and Thomson (1934) has the closed form [@ferrando2018; @skrondalRegressionFactorScores2001]:
 
 $$
-\text{EAP}(\boldsymbol{\theta}_i) = \boldsymbol{\Phi}\boldsymbol{\Lambda}'\boldsymbol{R}^{-1}\boldsymbol{X}_i=\boldsymbol{S}'\boldsymbol{R}^{-1}\boldsymbol{X}_i
+\text{EAP}(\boldsymbol{\theta}_i) = \boldsymbol{\Phi}\boldsymbol{\Lambda}'\boldsymbol{R}^{-1}\boldsymbol{Y}_i=\boldsymbol{S}'\boldsymbol{R}^{-1}\boldsymbol{Y}_i
 $$ {#eq-thurston}
 
 and $\boldsymbol{R}$ is the the estimated item covaraince matrix:
@@ -205,7 +205,7 @@ $$
 \boldsymbol{R} = \boldsymbol{\Lambda}\boldsymbol{\Phi}\boldsymbol{\Lambda}'+\boldsymbol{\Psi}
 $$
 
-Where $\theta_i$ is the factor score estimate for individual $i$, and $\Phi$ is the factor correlation matrix (for example, for single factor model, $\Phi$ is 1 $\times$ 1 matrix ), $\Psi$ is $J \times J$ unique varainces of items, and $\Lambda$ is the pattern loading matrix. $\boldsymbol{S}$ is the factor loading structure matrix with the size $I \times P$ where $I$ denotes number of item and $P$ denotes number of latent factors. For unidimensional structure, $\boldsymbol{S} = \boldsymbol{\Lambda}$.
+Where $\boldsymbol{\theta_i}$ and $\boldsymbol{Y}_i$ are factor score estimates and item responses for individual $i$, respectively; $\Phi$ is the factor correlation matrix (for example, for single factor model, $\Phi$ is 1 $\times$ 1 matrix ), $\Psi$ is $J \times J$ unique variances of items, and $\Lambda$ is the pattern loading matrix. $\boldsymbol{S}$ is the factor loading structure matrix with the size $I \times P$ where $I$ denotes number of item and $P$ denotes number of latent factors. For unidimensional structure, $\boldsymbol{S} = \boldsymbol{\Lambda}$.
 
 To derive the Thurston's method, we can first partition joint distribution of all $I$ items and $K$ factor scores as
 
@@ -233,7 +233,7 @@ Assume factor scores and item responses are standardized, $\mu_\Theta = 0$ and $
 Alternatively, using [Bartlett's (1937, 1938)]{.underline} method [@skrondalRegressionFactorScores2001], factor scores can be estimated as:
 
 $$
-\text{EAP}(\theta_i) = \boldsymbol{(\Lambda'\Psi^{-1}\Lambda)^{-1}\Lambda'\Psi^{-1}X_i}
+\text{EAP}(\boldsymbol{\theta_i}) = \boldsymbol{(\Lambda'\Psi^{-1}\Lambda)^{-1}\Lambda'\Psi^{-1}X_i}
 $$
 
 ### lavaan
@@ -295,7 +295,7 @@ ggplot(fs) +
 
 ### Mplus
 
-In Mplus, latent factor score estimation can have varied methods under two condition: (1) when individual level factor scores are of interests, factor scores are estimated based on either Maximum-likelihood estimators or Bayes estimators; (2) when factor scores are used for secondary analysis (dependent variables of regression models), factor scores are viewed as one type of imputed values, thus they are also known as plausible values and estimated by Bayesian imputation and Rubin's (1978) method [@rubinMultipleImputationNonresponse1978; @vondavierWhatArePlausible2009; @asparouhovPlausibleValuesLatent2010].
+In Mplus, latent factor score estimation can have varied methods under two condition: (1) when individual level factor scores are of interests, factor scores are estimated based on either Maximum-likelihood estimators or Bayes estimators; (2) when factor scores are used for secondary analysis (dependent variables of regression models), factor scores are viewed as one type of imputed values, thus they are also known as plausible values and estimated by Bayesian imputation and Rubin's (1978) method [@rubinMultipleImputationNonresponse1978; @asparouhovPlausibleValuesLatent2010; @vondavierWhatArePlausible2009].
 
 Under the first condition, according to simulation study of @asparouhovPlausibleValuesLatent2010, [using ML estimators and small sample size]{.underline}, standardized errors for factor scores is underestimated. Another finding is that the larger the absolute factor score value is the larger the standard error is. This is because large absolute factor score values are generally in the tail of the factor score distribution, i.e., in a region with fewer observations.
 
