@@ -306,3 +306,5 @@ With continuous variable, Mplus estimates factor scores as the maximum of poster
 
 The official paper will show network score is a special case of factor score.
 :::
+
+![Correlation between factor scores and network scores](Sim_FactorScore_NetworkScore_Correlation.png){fig-align="center"}
