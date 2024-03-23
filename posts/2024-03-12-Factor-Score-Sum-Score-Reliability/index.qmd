@@ -317,7 +317,11 @@ $$
 \hat \Sigma = \Delta(I-\Omega)^{-1}\Delta
 $$
 
-where $\Omega$ is a edge weight matrix or a standardized partial correlation matrix with diagonal elements as zeros, $\Delta$ is the diagonal matrix with element $\delta_{jj} =\kappa_{jj}^{-\frac{1}{2}}$.
+where $\Omega$ is a edge weight matrix or a standardized partial correlation matrix with diagonal elements as zeros, $\Delta$ is the diagonal matrix with element $\delta_{jj} =\kappa_{jj}^{-\frac{1}{2}}$. That is,
+
+$$
+\Delta = \text{diag}(\hat K)^{-\frac12}
+$$
 
 We can derive the above Equation by assuming the precision matrix $\kappa$ and partial correlation $\omega_{jk}$ has following relationship:
 
@@ -344,13 +348,13 @@ $$
 We can show that
 
 $$
-(I-\Omega)^{-1} = \text{diag}{(\hat K)}^{\frac12}(\boldsymbol{\Lambda \Phi \Lambda'+\Psi})\text{diag}{(\hat K)}^{\frac12}
+(I-\Omega)^{-1} = \Delta^{-1}(\boldsymbol{\Lambda \Phi \Lambda'+\Psi})\Delta^{-1}
 $$
 
 Thus,
 
 $$
-I - \Omega = \text{diag}{(\hat K)}^{-\frac12}(\boldsymbol{\Lambda \Phi \Lambda'+\Psi})^{-1}\text{diag}{(\hat K)}^{-\frac12}
+I - \Omega = \Delta(\boldsymbol{\Lambda \Phi \Lambda'+\Psi})^{-1}\Delta
 $$
 
 Based on @eq-thurston Thurston's regression method, we know that
@@ -360,11 +364,13 @@ $$
 $$
 
 $$
-\boldsymbol {\hat \theta_i = \Lambda' \text{diag}{(\hat K)}^{\frac12}(I-\Omega)\text{diag}(\hat K)^{\frac12}Y_i}
+\boldsymbol {\hat \theta_i = \Lambda' \Delta^{-1}(I-\Omega)\Delta^{-1}Y_i}
 $$
 
-Then, $\boldsymbol{\hat\eta_i=\dot I\Lambda^{-1}\hat\theta_i}$, if
+Then, if we set network scores as
 
 $$
-\boldsymbol{\hat\eta_i= \dot I \text{diag}{(\hat K)}^{\frac12}(I-\Omega)\text{diag}(\hat K)^{\frac12}Y_i}
-$$ Where $\boldsymbol{\dot I}$ is a $1 \times J$ matrix with elements as 1s.
+\boldsymbol{\hat\eta_i= W \Delta^{-1}(I-\Omega)\Delta^{-1} Y_i}
+$$ Where $\boldsymbol{W}$ is a $1 \times J$ weight matrix suggesting the contribution of items.
+
+When $\boldsymbol{W \approx \Lambda}$, then $\boldsymbol{\hat\eta \approx \hat\theta}$
