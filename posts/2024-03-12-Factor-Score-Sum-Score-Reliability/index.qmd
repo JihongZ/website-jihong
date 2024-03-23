@@ -261,6 +261,8 @@ Psi = diag(psis)
 R = Lambda %*% t(Lambda) + Psi
 
 ## Thurston's method
+# FNS_influence <- Y %*% rowSums(precision_mat) # calculate FNS based on expected influence
+# LNS_influence <- Y %*% precision_mat %*% rowSums(precision_mat) # calculate LNS based on expected inlfuence
 Theta_thurston = as.numeric(diag(1) %*% t(Lambda) %*% solve(R) %*% t(itemResp_std))
 ## Bartlett's method
 Theta_bartlett = as.numeric(solve(t(Lambda) %*% solve(Psi) %*% Lambda) %*% t(Lambda) %*% solve(Psi) %*% t(itemResp_std))
@@ -308,3 +310,61 @@ The official paper will show network score is a special case of factor score.
 :::
 
 ![Correlation between factor scores and network scores](Sim_FactorScore_NetworkScore_Correlation.png){fig-align="center"}
+
+For network model,
+
+$$
+\hat \Sigma = \Delta(I-\Omega)^{-1}\Delta
+$$
+
+where $\Omega$ is a edge weight matrix or a standardized partial correlation matrix with diagonal elements as zeros, $\Delta$ is the diagonal matrix with element $\delta_{jj} =\kappa_{jj}^{-\frac{1}{2}}$.
+
+We can derive the above Equation by assuming the precision matrix $\kappa$ and partial correlation $\omega_{jk}$ has following relationship:
+
+$$
+\omega_{jk} = -\frac{\kappa_{jk}}{\sqrt{\kappa_{jj}}\sqrt{\kappa_{kk}}}
+$$
+
+Then, since the diagnal elements of matrix $\Omega$ are zeros, it is easy to show that
+
+$$
+\hat K = \text{diag}{(\hat K)}^{\frac12}(I-\Omega)\text{diag}{(\hat K)}^{\frac12}
+$$
+
+$$
+\hat \Sigma = \hat K^{-1} = \text{diag}{(\hat K)}^{-\frac12}(I-\Omega)^{-1}\text{diag}{(\hat K)}^{-\frac12}
+$$
+
+For factor analysis,
+
+$$
+\hat \Sigma  = \boldsymbol{\Lambda \Phi \Lambda'+\Psi}
+$$
+
+We can show that
+
+$$
+(I-\Omega)^{-1} = \text{diag}{(\hat K)}^{\frac12}(\boldsymbol{\Lambda \Phi \Lambda'+\Psi})\text{diag}{(\hat K)}^{\frac12}
+$$
+
+Thus,
+
+$$
+I - \Omega = \text{diag}{(\hat K)}^{-\frac12}(\boldsymbol{\Lambda \Phi \Lambda'+\Psi})^{-1}\text{diag}{(\hat K)}^{-\frac12}
+$$
+
+Based on @eq-thurston Thurston's regression method, we know that
+
+$$
+\boldsymbol{\hat \theta_i = \Lambda'(\Lambda \Phi \Lambda'+\Psi)^{-1}Y_i}
+$$
+
+$$
+\boldsymbol {\hat \theta_i = \Lambda' \text{diag}{(\hat K)}^{\frac12}(I-\Omega)\text{diag}(\hat K)^{\frac12}Y_i}
+$$
+
+Then, $\boldsymbol{\hat\eta_i=\dot I\Lambda^{-1}\hat\theta_i}$, if
+
+$$
+\boldsymbol{\hat\eta_i= \dot I \text{diag}{(\hat K)}^{\frac12}(I-\Omega)\text{diag}(\hat K)^{\frac12}Y_i}
+$$ Where $\boldsymbol{\dot I}$ is a $1 \times J$ matrix with elements as 1s.
