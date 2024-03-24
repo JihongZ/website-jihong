@@ -306,7 +306,7 @@ With continuous variable, Mplus estimates factor scores as the maximum of poster
 ::: callout-note
 ## Relationship between factor score and network score
 
-The official paper will show network score is a special case of factor score.
+The official paper will show both factor score and network score of unidimensional factor analysis is a special case of general scoring form when weight matrix is factor loadings or centrality measures.
 :::
 
 ![Correlation between factor scores and network scores](Sim_FactorScore_NetworkScore_Correlation.png){fig-align="center"}
@@ -360,17 +360,14 @@ $$
 Based on @eq-thurston Thurston's regression method, we know that
 
 $$
-\boldsymbol{\hat \theta_i = \Lambda'(\Lambda \Phi \Lambda'+\Psi)^{-1}Y_i}
+\boldsymbol{\hat \theta_i = \Lambda'(\Lambda \Phi \Lambda'+\Psi)^{-1}Y_i \\ 
+= \Lambda' \Delta^{-1}(I-\Omega)\Delta^{-1}Y_i}
 $$
 
-$$
-\boldsymbol {\hat \theta_i = \Lambda' \Delta^{-1}(I-\Omega)\Delta^{-1}Y_i}
-$$
-
-Then, if we set network scores as
+Then, if we set general scoring formular as
 
 $$
 \boldsymbol{\hat\eta_i= W \Delta^{-1}(I-\Omega)\Delta^{-1} Y_i}
-$$ Where $\boldsymbol{W}$ is a $1 \times J$ weight matrix suggesting the contribution of items.
+$$ {#eq-generalform} Where $\boldsymbol{W}$ is a $1 \times J$ weight matrix suggesting the "importance" of items.
 
-When $\boldsymbol{W \approx \Lambda}$, then $\boldsymbol{\hat\eta \approx \hat\theta}$
+Thus, as shown in @eq-generalform, we can conclude that when $\boldsymbol{W \approx \Lambda}$, then $\boldsymbol{\hat\eta \approx \hat\theta}$; when $\boldsymbol{W \approx S}$, then $\boldsymbol{\hat\eta \approx \hat{FS}}$
