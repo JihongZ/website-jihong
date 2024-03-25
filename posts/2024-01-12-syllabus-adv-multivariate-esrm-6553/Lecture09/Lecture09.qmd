@@ -751,6 +751,14 @@ plot(y = rowSums(conspiracyItemsDichtomous),
      ylab = "Sum Score", xlab = expression(theta))
 ```
 
+## Extension: Factor Score
+
+1.  Thurston's Regression Method
+2.  Bartlett's Method (maximum-likelihood)
+3.  Bayesian approach
+
+See more on my [website](https://jihongzhang.org/posts/2024-03-12-Factor-Score-Sum-Score-Reliability/)
+
 ## Next Class
 
 -   Discrimination/Difficulty Parameterization
