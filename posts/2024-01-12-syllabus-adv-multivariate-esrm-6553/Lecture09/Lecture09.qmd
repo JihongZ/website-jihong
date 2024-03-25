@@ -30,7 +30,6 @@ format:
     scrollProgress: true # Force the scrollbar to remain visible
     mermaid:
       theme: neutral
-
 #bibliography: references.bib
 ---
 
@@ -51,23 +50,14 @@ format:
 ## Example Data: Conspiracy Theories
 
 -   Today's example is from a bootstrap resample of 177 undergraduate students at a large state university in the Midwest.
-
 -   The survey was a measure of 10 questions about their beliefs in various conspiracy theories that were being passed around the internet in the early 2010s
-
 -   All item responses were on a 5-point Likert scale with:
-
-    -   Strong Disagree
-
-    -   Disagree
-
-    -   Neither Agree nor Disagree
-
-    -   Agree
-
-    -   Strongly Agree
-
+    1.  Strong Disagree $\rightarrow$ 0
+    2.  Disagree $\rightarrow$ 0
+    3.  Neither Agree nor Disagree $\rightarrow$ 0
+    4.  Agree $\rightarrow$ 1
+    5.  Strongly Agree $\rightarrow$ 1
 -   The purpose of this survey was to study individual beliefs regarding conspiracies.
-
 -   Our purpose in using this instrument is to provide a context that we all may find relevant as many of these conspiracies are still prevalent.
 
 ## Make Our Data Dichotomous ([not a good idea in practice]{.underline})
@@ -268,16 +258,42 @@ To define a LVM for binary responses using a Bernoulli Distribution
 For an item $i$ and a person $p$, the model becomes:
 
 $$
-logit(P(Y=1|\theta_p)) = \mu_i + \lambda_i\theta_p
+P(Y_{pi}=1|\theta_p) = \text{logit}^{-1}(\mu_i + \lambda_i\theta_p)
 $$
 
 -   Note: the mean $\pi_i$ is replaced by $P(Y_{pi}=1|\theta_p)$
 
     -   This is the mean of the observed variable, conditional on $\theta_p$;
 
--   The item intercept is $\mu_i$: the expected logit when $\theta_p=0$
+-   The item intercept (easiness, location) is $\mu_i$: the expected logit when $\theta_p=0$
 
 -   The item discrimination is $\lambda_i$: the change in the logit for a one-unit increase in $\theta_p$
+
+## Extension: A more general form
+
+A 3-PL Item Response Theory Model with same statistical form but different notations:
+
+$$
+P(Y_{pi}=1|\theta_p,c_i,a_i,b_j)=c_i+(1-c_i)\text{logit}^{-1}(\alpha_i\theta_p+d_i)
+$$
+
+$$
+P(Y_{pi}=1|\theta_p,c_i,a_i,b_j)=c_i+(1-c_i)\text{logit}^{-1}(\alpha_i(\theta_p-b_i))
+$$
+
+where
+
+-   $\theta_p$ is the latent variable for examinee $p$, representing the examinee's proficiency such that higher values indicate more proficency
+
+-   $a_i$, $d_i$, $c_i$ are item parameters:
+
+    -   $a_i$: the capability of item to discriminate between examinees with lower and higher values along the latent variables;
+
+    -   $d_i$: item "easiness"
+
+    -   $b_i$: item "difficulty", $b_i=d_i/(-a_i)$
+
+    -   $c_i$: "pseudo-guessing" parameter – examinees with low proficiency may have a nonzero probability of a correct response due to guessing
 
 ## Model Family Names
 
