@@ -505,6 +505,7 @@ LogLike_dat2 |>
 ## Stan's `model` Block
 
 ```{stan, output.var='display'}
+#| echo: true
 model {
   
   lambda ~ multi_normal(meanLambda, covLambda); // Prior for item discrimination/factor loadings
@@ -532,6 +533,7 @@ Also, note that there are few differences from the model with normal outcomes (C
 ## Stan's `parameters` Block
 
 ```{stan, output.var='display'}
+#| echo: true
 parameters {
   vector[nObs] theta;                // the latent variables (one for each person)
   vector[nItems] mu;                 // the item intercepts (one for each item)
@@ -543,9 +545,10 @@ Only change from normal outcomes (CFA) model:
 
 -   No $\psi$ (psi) parameters
 
-Stan's `data{}` Block
+## Stan's `data{}` Block
 
 ```{stan, output.var='display'}
+#| echo: true
 data {
   int<lower=0> nObs;                            // number of observations
   int<lower=0> nItems;                          // number of items

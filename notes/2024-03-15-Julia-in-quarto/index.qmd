@@ -69,7 +69,7 @@ print("Hello World!")
 using DataFrames
 using CSV
 # load in the diamonds.csv
-diamonds = DataFrame(CSV.File("/Users/jihong/Documents/Projects/website-jihong/notes/2024-03-15-Julia-in-quarto/diamonds.csv"))
+diamonds = DataFrame(CSV.File("diamonds.csv"))
 ```
 
 ```{julia}

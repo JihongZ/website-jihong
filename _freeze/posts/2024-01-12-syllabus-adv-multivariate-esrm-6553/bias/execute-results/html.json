@@ -1,0 +1,15 @@
+{
+  "hash": "a08425e9aad0c30547f68b45b235ff4d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Bias Correction for Varainces\"\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nValues <- rnorm(10000, mean = 0, sd = 1)\nSigma2 <- var(Values)\n\nS2_get <- function(N) {\n  Values_sample <- sample(1:length(Values), N)\n  S2 <- var(Sigma)\n}\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
