@@ -163,7 +163,7 @@ For slurm, please use the commands in the 1st column. Then you should be able to
 **Finally,** the whole workflow of job submission is as follows:
 
 ``` bash
-c1331:jzhang:~/HelloWorld$ cat exampleJob.sh
+$ cat exampleJob.sh
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --tasks-per-node=2
@@ -172,12 +172,11 @@ module purge
 module load os/el7 gcc/9.3.1 mkl/19.0.5 R/4.2.2
 cd $SLURM_SUBMIT_DIR
 Rscript example.R
-c1331:jzhang:~/HelloWorld$ rm slurm-334001.out
-c1331:jzhang:~/HelloWorld$ sbatch exampleJob.sh
+$ rm slurm-334001.out
+$ sbatch exampleJob.sh
 Submitted batch job 334002
-c1331:jzhang:~/HelloWorld$ ls
+$ ls
 exampleJob.sh  example.R  gene_up.txt  MS_entrez_id_alldata.txt  slurm-334002.out
-c1331:jzhang:~/HelloWorld$
 ```
 
 ### Multiple Job Submission
@@ -186,7 +185,7 @@ Sometimes, we want to submit multiple jobs iterating over data files, conditions
 
 Following is one example of how to submit and run multiple data analysis jobs on HPC using 162th to 240th data files.
 
-Note that `#SBATCH --output='/home/jzhang/BSEM/OutputFiles/himem72-%j.out'` redirect output files (`.out`) to the user-specified directory (which is BSEM/OutputFiles in this case).
+Note that `#SBATCH --output=/home/jzhang/BSEM/OutputFiles/himem72-%j.out` redirect output files (`.out`) to the user-specified directory (which is BSEM/OutputFiles in this case).
 
 ```{r}
 #| eval: false
@@ -200,13 +199,16 @@ for (i in 162:240) { #80
   ## --cpus-per-task=3: for each R files, there are 3 chains
   initial <- "#!/bin/bash
 #SBATCH --job-name=himem72
-#SBATCH --output='/home/jzhang/BSEM/OutputFiles/himem72-%j.out'
+#SBATCH --output=/home/jzhang/BSEM/OutputFiles/himem72-%j.out
 #SBATCH --partition himem72
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=3
-#SBATCH --time=72:00:00
-
+#SBATCH --ntasks-per-node=1     # adjust this if you want to use multiple threads
+#SBATCH --cpus-per-task=3       # adjust this if you are using parallel commands
+#SBATCH --time=72:00:00         # adjust this if you want to request more running time
+#SBATCH --mem=1000              # adjust this according to the memory requirement per node you need
+#SBATCH --mail-user=YOUR-EMAIL  # adjust this to match your email address
+#SBATCH --mail-type=ALL
+  
 source /etc/profile.d/modules.sh
 module purge
 module load intel/21.2.0 mkl/21.3.0 R/4.2.2 gcc/11.2.1
@@ -223,18 +225,38 @@ cd $SLURM_SUBMIT_DIR
 }
 ```
 
-## Checking job
+Alternatively, you can use array jobs for similar jobs submission. See more details in [slurm wiki](https://slurm.schedmd.com/job_array.html).
 
-``` bash
-squeue -u loginname
+```{.bash}
+# Submit a job array with index values between 0 and 31
+$ sbatch --array=0-31    -N1 tmp
+
+# Submit a job array with index values of 1, 3, 5 and 7
+$ sbatch --array=1,3,5,7 -N1 tmp
+
+# Submit a job array with index values between 1 and 7
+# with a step size of 2 (i.e. 1, 3, 5 and 7)
+$ sbatch --array=1-7:2   -N1 tmp
 ```
 
-Below shows the information of all running/down task for the queue `comp06` (there are 9 Jobs but only 7 are running). Note that comp06 and comp72 queues share the same nodes, both belonging to pinnacle cluster. There are 49 public standard compute nodes. Thus, if there are 49 running jobs in both queues, then your job has to be waitting until some jobs finished.
+Job arrays will have additional environment variables set.
+
+-   **SLURM_ARRAY_JOB_ID** will be set to the first job ID of the array.
+-   **SLURM_ARRAY_TASK_ID** will be set to the job array index value.
+-   **SLURM_ARRAY_TASK_COUNT** will be set to the number of tasks in the job array.
+-   **SLURM_ARRAY_TASK_MAX** will be set to the highest job array index value.
+-   **SLURM_ARRAY_TASK_MIN** will be set to the lowest job array index value.
+
+## Checking job
+
+### `squeue` command
+
+`squeue` can check jobs that are running or pending. Below shows the information of all running/down task for the queue `comp06` (there are 9 Jobs but only 7 are running). Note that comp06 and comp72 queues share the same nodes, both belonging to pinnacle cluster. There are 49 public standard compute nodes. Thus, if there are 49 running jobs in both queues, then your job has to be waitting until some jobs finished.
 
 For example, below shows all 47 running jobs in comp06/comp72 queues. Some have been running like 2 days. There are 72 hours limit though for all computation nodes.
 
 ``` bash
-squeue -p comp06,comp72 -t R
+$ squeue -p comp06,comp72 -t R -u jzhang
  JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
  362406    comp06    measr   jzhang  R    1:04:24      1 c1501
  362385    comp06 sys/dash ashmitau  R    2:07:25      1 c1402
@@ -290,7 +312,33 @@ When you want to get the worst case scenario estimate of when your waiting jobs 
 squeue -u [loginname] --start
 ```
 
-### Queues
+### `sacct` command
+
+`sacct` can check your job history
+
+```{.bash}
+$ sacct --format Jobid,ReqMem,MaxRSS,TimeLimit,AllocCPUS,CPUTIME,TotalCPU
+JobID            ReqMem     MaxRSS  Timelimit  AllocCPUS    CPUTime   TotalCPU
+------------ ---------- ---------- ---------- ---------- ---------- ----------
+466693             192M              02:00:00          1   02:00:25  08:17.128
+466693.0                  7018740K                     1   02:00:55  08:17.128
+466694              64M            12-00:00:+          3   00:00:15  00:03.511
+466694.batch                                           3   00:00:15  00:03.511
+466752              64M            12-00:00:+          3   00:07:15  05:11.966
+466752.batch              1720012K                     3   00:07:15  05:11.966
+466756              64M            12-00:00:+          3   14:57:42   05:26:19
+466756.batch              2230252K                     3   14:57:42   05:26:19
+466758              64M            12-00:00:+          3   15:35:27   00:00:00
+```
+
+1.  JobID - Job ID . Step ID of the job step
+2.  ReqMem - Requested memory (Gc: GigaByte per core)
+3.  MaxRSS - Actually-used memory (Resident Set Size)
+4.  Timelimit - Time limit requested for the job with `--time`
+5.  Elapsed - Actual time used by the job
+6.  AllocCPUs - Number of allocated CPUs to the job
+7.  CPUTime - CPUtime allocated to the job (Elapsed \* AllocCPUs)
+8.  TotalCPU - Actual CPU time consumed by the job
 
 Most frequently used queues are from `pinnacle` cluster.
 
@@ -462,3 +510,10 @@ datset_paths <- list.files(paste0(root_path, "dataJZ/"), pattern = '.dat',recurs
 datset_fullpaths <- paste0(paste0(root_path, "dataJZ/"), datset_paths)
 head(datset_fullpaths)
 ```
+
+## Resources
+
+1.  [New Mexico State University HPC Wiki](https://hpc.nmsu.edu/discovery/slurm/)
+2.  [Slurm Official Documentation](https://slurm.schedmd.com/documentation.html)
+3.  [University of Arkansas HPC Center Wiki](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) (not very useful and outdated)
+4.  [Slides fo Jobs Submission in Slurms by Damien Francios](https://indico.cism.ucl.ac.be/event/121/contributions/60/attachments/130/287/slurm2022.pdf)
