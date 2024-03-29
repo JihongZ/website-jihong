@@ -8,6 +8,8 @@ categories:
 format: 
   html: 
     code-line-numbers: false
+    toc: true
+    toc-depth: 3
 citation:
   type: webpage
   issued: 2024-01-14
@@ -158,7 +160,7 @@ This command will redirect to cloud72 queue, which includes virtual machines and
 For slurm, please use the commands in the 1st column. Then you should be able to start R in an interactive job and install required packages. If you load `R/4.2.2` module, those packages installed via an interactive job will be stored at `$HOME$/R/x86_64-pc-linux-gnu/4.2/`. See [here](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) for more details about interactive job.
 :::
 
-**Finnally,** the whole workflow of job submission is as follows:
+**Finally,** the whole workflow of job submission is as follows:
 
 ``` bash
 c1331:jzhang:~/HelloWorld$ cat exampleJob.sh
@@ -176,6 +178,49 @@ Submitted batch job 334002
 c1331:jzhang:~/HelloWorld$ ls
 exampleJob.sh  example.R  gene_up.txt  MS_entrez_id_alldata.txt  slurm-334002.out
 c1331:jzhang:~/HelloWorld$
+```
+
+### Multiple Job Submission
+
+Sometimes, we want to submit multiple jobs iterating over data files, conditions, or repetitions. Then, one easiest way is to create a `masterJob` R file that can (1) create multiple bash job submission file (`.sh`) and (2) submit those bash files using `sbatch`.
+
+Following is one example of how to submit and run multiple data analysis jobs on HPC using 162th to 240th data files.
+
+Note that `#SBATCH --output='/home/jzhang/BSEM/OutputFiles/himem72-%j.out'` redirect output files (`.out`) to the user-specified directory (which is BSEM/OutputFiles in this case).
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: false
+library(tidyverse)
+root_path = "/home/jzhang/"
+for (i in 162:240) { #80
+  jobfile <- paste0("Analysis_ModelA_DivergentSV", i, ".sh") # change file for specific model
+  ## --ntasks-per-node=6 : there are 6 R files to be running parallels.
+  ## --cpus-per-task=3: for each R files, there are 3 chains
+  initial <- "#!/bin/bash
+#SBATCH --job-name=himem72
+#SBATCH --output='/home/jzhang/BSEM/OutputFiles/himem72-%j.out'
+#SBATCH --partition himem72
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=3
+#SBATCH --time=72:00:00
+
+source /etc/profile.d/modules.sh
+module purge
+module load intel/21.2.0 mkl/21.3.0 R/4.2.2 gcc/11.2.1
+cd $SLURM_SUBMIT_DIR
+  "
+  ## adding all R files simultaneously
+  jobfile_content <- paste0(initial,
+                            paste0("\nRscript ", root_path,"BSEM/Rcode/Analysis_ModelA_DivergentSV.R "),
+                            i, " '" , root_path, "'")
+  write_lines(jobfile_content, file = paste0(root_path, "BSEM/JobFiles/", jobfile))
+  # message(commd)
+  system(paste0("sbatch ", paste0(root_path, "BSEM/JobFiles/", jobfile)))
+
+}
 ```
 
 ## Checking job
@@ -274,7 +319,7 @@ Following bash command is a general command to cound running jobs on himem72 que
 
 You can check running jobs for multiple users. For example, `squeue -t R -u user1,user2 | wc` counts user1's and user2's running jobs.
 
-```{.bash}
+``` bash
 squeue -u jzhang -t R -p himem72 | wc
 ```
 

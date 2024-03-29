@@ -167,7 +167,7 @@ Likewise, we can identify the scale of the latent variable as before, too:
 
 -   $\theta_p \sim N(0,1)$
 
-## `model{}`  for the Binomial Model in Stan
+## `model{}` for the Binomial Model in Stan
 
 ```{stan, output.var='display'}
 #| echo: true
