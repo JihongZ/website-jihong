@@ -264,9 +264,19 @@ tres72/06:    reimaged trestles nodes, 72/06 hour limit, 126 nodes
 razr72/06:    reimaged razor nodes, 72 hour limit, in progress
 ```
 
-Here's some useful information regarding selecting queue from https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage
+Here's some useful information regarding selecting queue from [hpcwiki](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage).
 
 > Generally the nodes are reserved for the most efficient use, especially for expensive features such as GPU and extra memory. Pinnacle compute nodes are very busy (comp.. and himem.. partitions) are reserved for scalable programs that can use all 32/24 cores (except for the cloud partition, and condo usage by the owner). Cores are allocated by the product of ntasks-per-node x cpus-per-task. Exceptions: (1) serial/single core jobs that use more memory than available on Razor/Trestles (64 to 192 GB) (2) multiple jobs submitted together that use a whole node, such as 4 x 8 cores (3) two jobs on one high-memory node (2 x 12 cores) that each use more than 192 GB (and less than 384 GB so that they can run on the himem node)
+
+### Count running jobs
+
+Following bash command is a general command to cound running jobs on himem72 queue. `-p himem72` filters jobs running on the partition `himem72`. `-t R` filters the "running" status (other status include 'PD' which means pending). `wc` is a bash command to count number of lines/bytes.
+
+You can check running jobs for multiple users. For example, `squeue -t R -u user1,user2 | wc` counts user1's and user2's running jobs.
+
+```{.bash}
+squeue -u jzhang -t R -p himem72 | wc
+```
 
 ## Troubleshooting
 
@@ -290,7 +300,7 @@ For example, below is an example masterJob.R file in order to run multiple model
 
 `write_lines` function saves the text of job file into a local directory in root direcotry – JobFile. `system` is a R function that can run bash code in R. Here we echo `sbatch [OneJobFile].R` to make R automatically submit the JobFile for specific data set.
 
-``` {r filename="masterjob_All.R"}
+```{r filename="masterjob_All.R"}
 #| eval: false
 #| code-fold: false
 #| code-line-numbers: true
