@@ -29,7 +29,7 @@ As long as you have an AHPCC account, you can connect to HPC through SSH. For Wi
 ssh [loginname]@hpc-portal2.hpc.uark.edu
 ```
 
-If your account was successfully setted up, passwords will be required. After you enter your password, you will be connected to HPC.
+If your account was successfully settled up, passwords will be required. After you enter your password, you will be connected to HPC.
 
 ![Login Screenshot](login.png)
 
@@ -146,7 +146,7 @@ This command will redirect to cloud72 queue, which includes virtual machines and
 :::
 
 | slurm commands      | compatibility commands   | Meaning                            |
-|-------------------|-----------------------|------------------------------|
+|---------------------|--------------------------|------------------------------------|
 | sbatch              | qsub                     | submit \<job file\>                |
 | srun                | qsub -I                  | submit interactive job             |
 | squeue              | qstat                    | list all queued jobs               |
@@ -227,7 +227,7 @@ cd $SLURM_SUBMIT_DIR
 
 Alternatively, you can use array jobs for similar jobs submission. See more details in [slurm wiki](https://slurm.schedmd.com/job_array.html).
 
-```{.bash}
+``` bash
 # Submit a job array with index values between 0 and 31
 $ sbatch --array=0-31    -N1 tmp
 
@@ -316,7 +316,7 @@ squeue -u [loginname] --start
 
 `sacct` can check your job history
 
-```{.bash}
+``` bash
 $ sacct --format Jobid,ReqMem,MaxRSS,TimeLimit,AllocCPUS,CPUTIME,TotalCPU
 JobID            ReqMem     MaxRSS  Timelimit  AllocCPUS    CPUTime   TotalCPU
 ------------ ---------- ---------- ---------- ---------- ---------- ----------
