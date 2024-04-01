@@ -45,6 +45,7 @@ website:
           - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Lecture07.qmd
           - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd
           - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture09/Lecture09.qmd
+          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture10/Lecture10.qmd
   navbar:
     collapse-below: lg
     pinned: true
