@@ -374,3 +374,50 @@ $$
 $$ {#eq-generalform} Where $\boldsymbol{W}$ is a $1 \times J$ weight matrix suggesting the "importance" of items.
 
 Thus, as shown in @eq-generalform, we can conclude that when $\boldsymbol{W \approx \Lambda}$, then $\boldsymbol{\hat\eta \approx \hat\theta}$; when $\boldsymbol{W \approx S}$, then $\boldsymbol{\hat\eta \approx \hat{FS}}$
+
+## Correlation between estimated factor scores and true factor scores
+
+When item responses and factor scores are standardized, based on Thurston's regression method (see @eq-thurston), the estimated factor scores are:
+
+$$
+\hat\theta_i =\Lambda'R^{-1}Y_i \\=\Lambda'(\Lambda\Lambda'+\Psi)^{-1}(\Lambda\theta_i^T+e_i) \\
+=\Lambda'(\Lambda\Lambda'+\Psi)^{-1}\Lambda\theta_i^T+\Lambda'(\Lambda\Lambda'+\Psi)^{-1}e_i
+$$
+
+The relationship between estimated factor scores and true factor scures is a [**simple linear regression**]{.underline} with $\Lambda'(\Lambda\Lambda'+\Psi)^{-1}\Lambda$ as the estimated linear slope.
+
+For simple linear regression $Y=b_0+b_1X$, the Pearson's correlation is $r = b_1 * \frac{S_X}{S_Y}$. Then, when both $\hat \theta_i$ and $\theta_i^T$ are normal distributed, then the correlation between estimated and true factor score is as:
+
+$$
+r_{\hat\theta\theta^T}^{Turston}= \Lambda'(\Lambda'\Lambda+\Psi)^{-1}\Lambda\frac{S_{\theta^T}}{S_{\hat\theta}} 
+$$
+
+```{r}
+#| fig-height: 10
+#| code-fold: false
+suppressMessages(library(tidyverse))
+corr_true_est_theta <- function(lambda, J) {
+  Lambdas = matrix(rep(lambda, J), ncol = 1)
+  Psi = diag(1 - lambda^2, J)
+  
+  corr <- t(Lambdas) %*% solve(Lambdas %*% t(Lambdas) + Psi) %*% Lambdas
+  corr
+}
+corr_true_est_theta(0.7, 6)
+
+dat <- expand.grid(lambda=seq(.1,.9,.1), J = c(6, 12 , 24)) |> 
+  as.data.frame() |> 
+  rowwise() |> 
+  mutate(cor = corr_true_est_theta(lambda = lambda, J = J))
+
+J_labeller <- paste0("J = ", c(6, 12, 24))
+names(J_labeller) <- c("6", "12", "24")
+ggplot(dat) +
+  geom_point(aes(x=lambda, y = cor)) +
+  geom_path(aes(x=lambda, y = cor, group = J)) +
+  scale_x_continuous(breaks =  seq(.1,.9,.1)) +
+  scale_y_continuous(breaks =  seq(.1, 1,.1)) +
+  facet_wrap(~ J, nrow = 3, labeller = labeller(J = J_labeller)) +
+  labs(x = greekLetters::greeks("lambda"), title = "Expected Correlation between Estimated Factor scores and True Factor Scores") +
+  theme_bw()
+```
