@@ -145,7 +145,10 @@ y_posteriorMean = sapply(theta, function(x){
     (1+exp(as.numeric(itemParameters[1,labelMu]) + as.numeric(itemParameters[1,labelLambda])*x)) +1
 })
 
+
+get_result(a)
 y_draws <- sapply(2:nrow(itemParameters), function(draw){
+  browser()
   4*exp(as.numeric(itemParameters[draw,labelMu]) + as.numeric(itemParameters[draw,labelLambda])*theta)/
     (1+exp(as.numeric(itemParameters[draw,labelMu]) + as.numeric(itemParameters[draw,labelLambda])*theta)) +1 
 })
