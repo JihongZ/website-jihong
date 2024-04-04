@@ -1,0 +1,165 @@
+---
+title: 'How to choose network analysis estimation for application research'
+author: 'Jihong Zhang'
+subtitle: 'Compare multiple R packages for psychological network analysis'
+date: 'April 4 2024'
+categories:
+  - R
+  - Bayesian
+  - Tutorial
+  - Network Analysis
+execute: 
+  eval: true
+  echo: true
+  warning: false
+format: 
+  html: 
+    code-fold: true
+    code-summary: 'Click to see the code'
+bibliography: references.bib
+---
+
+# Background
+
+Multiple estimation methods for network analysis have been proposed, from regularized to unregularized, from frequentist to Bayesian approach, from one-step to multiple steps. @isvoranuWhichEstimationMethod2023a provides an throughout illustration of current network estimation methods and simulation study. This post tries to reproduce the procedures and coding illustrated by the paper and compare the results for packages with up-to-date version. Five packages will be used for network modeling: (1) `qgraph`, (2)`psychonetrics`, (3)`MGM`, (4)`BGGM`, (5)`GGMnonreg`. Note that the tutorial of each R package is not the scope of this post. The specific variants of estimation is described in @fig-usedestimation. Please see [here](../2024-03-05-Bayesian-GGM/index.qmd) for `BGGM` R package for more detailed example.
+
+![Estimation methods used in Isvoranu and Epskamp (2023)](estimation_methods_table.png){#fig-usedestimation fig-align="center"}
+
+# Data Generation
+
+For the sake of simplicity, I will only pick one condition from the simulation settings. To simulate data, I used the same code from the paper. The function is a wrapper of `bootnet::ggmGenerator` function
+
+```{r}
+#| code-summary: 'dataGenerator() function'
+library("bootnet")
+dataGenerator <- function(
+  trueNet,  # true network models: DASS21, PTSD, BFI
+  sampleSize, # sample size
+  data = c("normal","skewed","uniform ordered","skewed ordered"), # type of data
+  nLevels = 4,
+  missing = 0
+){
+  data <- match.arg(data)
+  nNode <- ncol(trueNet)
+  
+  if (data == "normal" || data == "skewed"){
+    # Generator function:
+    gen <- ggmGenerator()
+    
+    # Generate data:
+    Data <- gen(sampleSize,trueNet)
+    
+    # Generate replication data:
+    Data2 <- gen(sampleSize,trueNet)
+    
+    if (data == "skewed"){ ## exponential transformation to make data skewed
+      for (i in 1:ncol(trueNet)){
+        Data[,i] <- exp(Data[,i])
+        Data2[,i] <- exp(Data2[,i])
+      }
+    }
+  
+  } else {
+    # Skew factor:
+    skewFactor <- switch(data,
+                         "uniform ordered" = 1,
+                         "skewed ordered" = 2,
+                         "very skewed ordered" = 4)
+    
+    # Generator function:
+    gen <- ggmGenerator(ordinal = TRUE, nLevels = nLevels)
+    
+    # Make thresholds:
+    thresholds <- lapply(seq_len(nNode),function(x)qnorm(seq(0,1,length=nLevels + 1)[-c(1,nLevels+1)]^(1/skewFactor)))
+    
+    # Generate data:
+    Data <- gen(sampleSize, list(
+      graph = trueNet,
+      thresholds = thresholds
+    ))
+    
+    # Generate replication data:
+    Data2 <- gen(sampleSize, list(
+      graph = trueNet,
+      thresholds = thresholds
+    ))
+  }
+  
+  # Add missings:
+  if (missing > 0){
+    for (i in 1:ncol(Data)){
+      Data[runif(sampleSize) < missing,i] <- NA
+      Data2[runif(sampleSize) < missing,i] <- NA
+    }
+  }
+  
+  return(list(
+    data1 = Data,
+    data2 = Data2
+  ))
+}
+```
+
+BFI contains 26 columns: first columns are the precision matrix with 25 $\times$ 25 and second columns as clusters. We will use the structure of BFI for the simulation.
+
+```{r}
+library(here)
+BFI <- read.csv(here("notes", "2024-04-04-Network-Estimation-Methods", 
+                     "weights matrices", "BFI.csv"))
+round(BFI[, 1:25], 2)[1:5, 1:5]
+```
+
+To generate data from `bootnet::ggmGenerator()`, we can generate a function `gen` from it with first argument as sample size and second argument as partial correlation matrix.
+
+```{r}
+gen <- bootnet::ggmGenerator()
+gen(20, as.matrix(BFI[1:5, 1:5]))
+data <- gen(600, as.matrix(BFI[, 1:25]))
+```
+
+# Estimation
+
+## Method 1 - EBICglasso
+
+This method uses the `bootnet::estimateNetwork` function.
+
+`EBICtuning <- 0.5` sets up the hyperparameter ($\gamma$) as .5 that controls how much the EBIC prefers simpler models (fewer edges), which by default is .5.
+
+$$
+\text{EBIC} =-2L+E(\log(N))+4\gamma E(\log(P))
+$$
+
+Another important setting is the tuning parameter ($\lambda$) of EBICglasso that controls the sparsity level in the penalized likelihood function as:
+
+$$
+\log \det(\boldsymbol{K}) - \text{trace}(\boldsymbol{SK})-\lambda \Sigma|\kappa_{ij}|
+$$
+
+where $\boldsymbol{S}$ represents the sample variance-covariance matrix and $\boldsymbol{K}$ represents the precision matrix that *lasso* aims to estimate. Overall, the regularization limits the sum of absolute partial correlation coefficients.
+
+`sampleSize="pairwise_average"` will set the sample size to the average of sample sizes used for each individual correlation in `EBICglasso`.
+
+@fig-bfi is the estimated network structure with BFI-25 data.
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 1: EBICglasso"
+#| fig-width: 8
+#| fig-height: 8
+#| label: fig-bfi
+#| fig-cap: "Network Plot for BFI-25"
+library("qgraph")
+sampleAdjust  <-  "pairwise_average"
+EBICtuning <- 0.5
+transformation <- "polychoric/categorical" # EBICglasso use cor_auto
+res <- estimateNetwork(data, 
+                       default = "EBICglasso",
+                       sampleSize = sampleAdjust,
+                       tuning = EBICtuning,
+                       corMethod = ifelse(transformation == "polychoric/categorical",
+                                          "cor_auto",
+                                          "cor"))
+    
+estnet <- res$graph
+qgraph(estnet)
+```
