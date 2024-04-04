@@ -19,7 +19,7 @@ bibliography: references.bib
 csl: apa.csl
 ---
 
-Network psychometrics has become an alternative approach to factor analysis and item response theory in multiple fields of psychology and education, such as psychopathology, personality, measurement validation, and dimensionality determancy. However, individual scoring differences between psychometric network analysis and traditional psychometric modeling has not been well investigated. Some questions arise regarding individual scoring:
+Network psychometrics has become an alternative approach to factor analysis and item response theory in multiple fields of psychology and education, such as psychopathology, personality, measurement validation, and dimensionality determancy etc. However, individual scoring differences between psychometric network analysis and traditional psychometric modeling has not been well investigated. Some questions arise regarding individual scoring:
 
 1.  What will be individual scores in psychometric network analysis? Or, how can we evaluate the average level of each individuals?
 2.  If we can build individual scoring in psychometric network, what is the relationship between this scoring with factor scores.
@@ -392,32 +392,47 @@ $$
 r_{\hat\theta\theta^T}^{Turston}= \Lambda'(\Lambda'\Lambda+\Psi)^{-1}\Lambda\frac{S_{\theta^T}}{S_{\hat\theta}} 
 $$
 
+Using R, we can estimate "unscaled" correlation for $\lambda = .7$ and $J = 6$ as
+
 ```{r}
 #| fig-height: 10
 #| code-fold: false
 suppressMessages(library(tidyverse))
-corr_true_est_theta <- function(lambda, J) {
+set.seed(1234)
+corr_true_est_theta <- function(lambda, J, N) {
   Lambdas = matrix(rep(lambda, J), ncol = 1)
   Psi = diag(1 - lambda^2, J)
   
   corr <- t(Lambdas) %*% solve(Lambdas %*% t(Lambdas) + Psi) %*% Lambdas
+  
+  true_fac_score = rnorm(N, 0, 1)
+  
+  Y = t(Lambdas %*% true_fac_score) + mvtnorm::rmvnorm(N, sigma = Psi)
+  est_fac_score = as.numeric(t(Lambdas) %*% solve(Lambdas %*% t(Lambdas) + Psi) %*% t(Y))
+  corr = corr * (sd(true_fac_score)/sd(est_fac_score))
   corr
 }
-corr_true_est_theta(0.7, 6)
+corr_true_est_theta(lambda = 0.7, J = 6, N = 500)
+```
 
-dat <- expand.grid(lambda=seq(.1,.9,.1), J = c(6, 12 , 24)) |> 
+```{r}
+#| fig-height: 5
+#| fig-align: center
+#| code-fold: false
+dat <- expand.grid(lambda=seq(.1,.9,.1), J = c(6, 12 , 24), N = c(100, 500, 1000)) |> 
   as.data.frame() |> 
   rowwise() |> 
-  mutate(cor = corr_true_est_theta(lambda = lambda, J = J))
+  mutate(cor = corr_true_est_theta(lambda = lambda, J = J, N = N),
+         J = factor(J, levels = c(6, 12 , 24)),
+         N = factor(N, levels = c(100, 500, 1000)))
 
-J_labeller <- paste0("J = ", c(6, 12, 24))
-names(J_labeller) <- c("6", "12", "24")
 ggplot(dat) +
-  geom_point(aes(x=lambda, y = cor)) +
-  geom_path(aes(x=lambda, y = cor, group = J)) +
+  geom_point(aes(x=lambda, y = cor, col = J)) +
+  geom_path(aes(x=lambda, y = cor, group = J, col = J)) +
   scale_x_continuous(breaks =  seq(.1,.9,.1)) +
   scale_y_continuous(breaks =  seq(.1, 1,.1)) +
-  facet_wrap(~ J, nrow = 3, labeller = labeller(J = J_labeller)) +
-  labs(x = greekLetters::greeks("lambda"), title = "Expected Correlation between Estimated Factor scores and True Factor Scores") +
+  facet_wrap(~ N) +
+  labs(x = greekLetters::greeks("lambda"), 
+       title = "Unscaled Correlation between Estimated Factor scores and True Factor Scores") +
   theme_bw()
 ```
