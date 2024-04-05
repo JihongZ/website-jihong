@@ -104,17 +104,133 @@ BFI contains 26 columns: first columns are the precision matrix with 25 $\times$
 
 ```{r}
 library(here)
-BFI <- read.csv(here("notes", "2024-04-04-Network-Estimation-Methods", 
-                     "weights matrices", "BFI.csv"))
-round(BFI[, 1:25], 2)[1:5, 1:5]
+bfi_truenetwork <- read.csv(here("notes", "2024-04-04-Network-Estimation-Methods", 
+                                 "weights matrices", "BFI.csv"))
+bfi_truenetwork <- bfi_truenetwork[,1:25]
+head(psychTools::bfi)
 ```
 
 To generate data from `bootnet::ggmGenerator()`, we can generate a function `gen` from it with first argument as sample size and second argument as partial correlation matrix.
 
 ```{r}
+#| code-fold: show
 gen <- bootnet::ggmGenerator()
-gen(20, as.matrix(BFI[1:5, 1:5]))
-data <- gen(600, as.matrix(BFI[, 1:25]))
+data <- gen(2800, as.matrix(bfi_truenetwork))
+```
+
+# Performance Metrics
+
+Structure accuracy measures such as *sensitivity*, specificity, and precision investigate if an true edge is include or not or an false edge is include or not. Several edge weight accuracy measures include: (1) correlation between absolute values of estimated edge weigts and true edge weights, (2) average absolute bias between estimated edge weights and true weights, (3) average absolute bias for true edges.
+
+```{r}
+cor0 <- function(x,y,...){
+  if (sum(!is.na(x)) < 2 || sum(!is.na(y)) < 2 || sd(x,na.rm=TRUE)==0 | sd(y,na.rm=TRUE) == 0){
+    return(0)
+  } else {
+    return(cor(x,y,...))
+  }
+}
+
+bias <- function(x,y) mean(abs(x-y),na.rm=TRUE)
+
+
+### Inner function:
+comparison_metrics <- function(real, est, name = "full"){
+  
+  # Output list:
+  out <- list()
+  
+  # True positives:
+  TruePos <- sum(est != 0 &  real != 0)
+  
+  # False pos:
+  FalsePos <- sum(est != 0 & real == 0)
+  
+  # True Neg:
+  TrueNeg <- sum(est == 0 & real == 0)
+  
+  # False Neg:
+  FalseNeg <- sum(est == 0 & real != 0)
+  
+  # Sensitivity:
+  out$sensitivity <- TruePos / (TruePos + FalseNeg)
+  
+  # Sensitivity top 50%:
+  top50 <- which(abs(real) > median(abs(real[real!=0])))
+  out[["sensitivity_top50"]] <- sum(est[top50]!=0 & real[top50] != 0) / sum(real[top50] != 0)
+  
+  # Sensitivity top 25%:
+  top25 <- which(abs(real) > quantile(abs(real[real!=0]), 0.75))
+  out[["sensitivity_top25"]] <- sum(est[top25]!=0 & real[top25] != 0) / sum(real[top25] != 0)
+  
+  # Sensitivity top 10%:
+  top10 <- which(abs(real) > quantile(abs(real[real!=0]), 0.90))
+  out[["sensitivity_top10"]] <- sum(est[top10]!=0 & real[top10] != 0) / sum(real[top10] != 0)
+  
+  # Specificity:
+  out$specificity <- TrueNeg / (TrueNeg + FalsePos)
+  
+  # Precision (1 - FDR):
+  out$precision <- TruePos / (FalsePos + TruePos)
+  
+  # precision top 50% (of estimated edges):
+  top50 <- which(abs(est) > median(abs(est[est!=0])))
+  out[["precision_top50"]] <- sum(est[top50]!=0 & real[top50] != 0) / sum(est[top50] != 0)
+  
+  # precision top 25%:
+  top25 <- which(abs(est) > quantile(abs(est[est!=0]), 0.75))
+  out[["precision_top25"]] <- sum(est[top25]!=0 & real[top25] != 0) / sum(est[top25] != 0)
+  
+  # precision top 10%:
+  top10 <- which(abs(est) > quantile(abs(est[est!=0]), 0.90))
+  out[["precision_top10"]] <- sum(est[top10]!=0 & real[top10] != 0) / sum(est[top10] != 0)
+  
+  # Signed sensitivity:
+  TruePos_signed <- sum(est != 0 &  real != 0 & sign(est) == sign(real))
+  out$sensitivity_signed <- TruePos_signed / (TruePos + FalseNeg)
+  
+  # Correlation:
+  out$correlation <- cor0(est,real)
+  
+  # Correlation between absolute edges:
+  out$abs_cor <- cor0(abs(est),abs(real))
+  
+  #
+  out$bias <- bias(est,real)
+  
+  ## Some measures for true edges only:
+  if (TruePos > 0){
+    
+    trueEdges <- est != 0 & real != 0
+    
+    out$bias_true_edges <- bias(est[trueEdges],real[trueEdges])
+    out$abs_cor_true_edges <- cor0(abs(est[trueEdges]),abs(real[trueEdges]))
+  } else {
+    out$bias_true_edges <- NA
+    out$abs_cor_true_edges <- NA
+  }
+  
+  out$truePos <- TruePos
+  out$falsePos <- FalsePos
+  out$trueNeg <- TrueNeg
+  out$falseNeg <- FalseNeg
+  
+  # Mean absolute weight false positives:
+  false_edges <- (est != 0 &  real == 0) | (est != 0 & real != 0 & sign(est) != sign(real) )
+  out$mean_false_edge_weight <- mean(abs(est[false_edges]))
+  out$SD_false_edge_weight <- sd(abs(est[false_edges]))
+  
+  # Fading:
+  out$maxfade_false_edge <- max(abs(est[false_edges])) / max(abs(est))
+  out$meanfade_false_edge <- mean(abs(est[false_edges])) / max(abs(est))
+  
+  
+  # Set naname
+  if (name != ""){
+    names(out) <- paste0(names(out),"_",name)  
+  }
+  out
+}
 ```
 
 # Estimation
@@ -149,10 +265,11 @@ where $\boldsymbol{S}$ represents the sample variance-covariance matrix and $\bo
 #| label: fig-bfi
 #| fig-cap: "Network Plot for BFI-25"
 library("qgraph")
+library("bootnet")
 sampleAdjust  <-  "pairwise_average"
 EBICtuning <- 0.5
 transformation <- "polychoric/categorical" # EBICglasso use cor_auto
-res <- estimateNetwork(data, 
+res <- estimateNetwork(data, # input as polychoric correlation
                        default = "EBICglasso",
                        sampleSize = sampleAdjust,
                        tuning = EBICtuning,
@@ -161,5 +278,23 @@ res <- estimateNetwork(data,
                                           "cor"))
     
 estnet <- res$graph
+
 qgraph(estnet)
 ```
+
+```{r}
+res_comparison <- comparison_metrics(real = as.matrix(bfi_truenetwork), est = as.matrix(estnet))
+c(
+  sensitivity = res_comparison$sensitivity_full,
+  specificity = res_comparison$specificity_full,
+  precision = res_comparison$precision_full,
+  
+  abs_corr = res_comparison$abs_cor_true_edges_full, # The Pearson correlation between the absolute edge weights
+  bias = res_comparison$bias_full, # The average absolute deviation
+  bias_true = res_comparison$bias_true_edges_full # The average absolute deviation between the true edge weight and the estimated edge weight
+)
+```
+
+## Method 2 - ggmModSelect
+
+The *ggmModSelect* algorithm is a non-regularized method.
