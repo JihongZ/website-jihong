@@ -17,6 +17,7 @@ format:
     code-fold: true
     code-summary: 'Click to see the code'
 bibliography: references.bib
+csl: apa.csl
 ---
 
 # Background
@@ -118,9 +119,25 @@ gen <- bootnet::ggmGenerator()
 data <- gen(2800, as.matrix(bfi_truenetwork))
 ```
 
-# Performance Metrics
+# Measures
 
-Structure accuracy measures such as *sensitivity*, specificity, and precision investigate if an true edge is include or not or an false edge is include or not. Several edge weight accuracy measures include: (1) correlation between absolute values of estimated edge weigts and true edge weights, (2) average absolute bias between estimated edge weights and true weights, (3) average absolute bias for true edges.
+## Overview of Centrality Measures
+
+Centrality measures are used as one characteristic of network model to summarize the importance of nodes/items given a network. Some ideas of centrality measures come from social network. Some may not make much sense in psychometric network. I also listed the centrality measures that have been used in literatures of psychological or psychometric modeling. Following the terminology of @christensen2018, centrality measures include: (1) betweenness centrality (BC); (2) the randomized shortest paths betweeness centrality (RSPBC); (3) closeness centrality (CC); (4)node degree (ND); (5) node strength (NS); (6) expected influence (EI); (7) engenvector centrality (EC); (8) Eccentricity (*k;* @hage1995); (9) hybrid centrality (HC; @christensen2018a).
+
+They can be grouped into three categories:
+
+[*Type 1*]{.underline}—Number of path relevant metrics: BC measures how often a node is on the shortest path from one node to another. RSPBC is a adjusted BC measure which measures how oftern a node is on the random shortest path from one to another; CC measures the average number of paths from one node to all other nodes in the network. ND measures how many connections are connected to each node. Eccentricity (*k*) measures the maximum "distance" between one node with other nodes with lower values suggests higher centrality, where one node's distance is the length of a shortest path between this node to other nodes.
+
+[*Type 2*]{.underline}—Path strength relevant metrics: **NS** measures the sum of the absolute values of edge weights connected to a single node. **EI** measures the sum of the positive or negative values of edge weights connected to a single node.
+
+[*Type 3*]{.underline}—Composite of multiple centrality measures: **HC** measures nodes on the basis of their centrality values across multiple measures of centrality (BC, LC, *k*, EC, and NS) which describes highly central nodes with large values and highly peripheral nodes with small values [@christensen2018b].
+
+Some literature of network psychometrics criticized the use of Type 1 centrality measures and some Type II centrality measures [@hallquist2021; @neal2022]. For example, @hallquist2021 argued that some Type I centrality measures such as BC and CC derive from the concept of distance, which builds on the physical nature of many traditional graph theory applications, including railways and compute networks. In association networks, the idea of network distance does not have physical reference. @bringmann2019 also think distance-based centrality like closeness centrality (CC) and betweenness centrality (BC) do not have "shortest path", or "node exchangeability" assumptions in psychological networks so they are not suitable in the context of psychological network. In addition, ND (degree), CC (closeness), and BC (betweenness) do not take negative values of edge weights into account that may lose important information in the context of psychology.
+
+## Network level accuracy metrics
+
+Structure accuracy measures such as *sensitivity*, specificity, and precision investigate if an true edge is include or not or an false edge is include or not. Several edge weight accuracy measures include: (1) correlation between absolute values of estimated edge weights and true edge weights, (2) average absolute bias between estimated edge weights and true weights, (3) average absolute bias for true edges.
 
 ```{r}
 cor0 <- function(x,y,...){
