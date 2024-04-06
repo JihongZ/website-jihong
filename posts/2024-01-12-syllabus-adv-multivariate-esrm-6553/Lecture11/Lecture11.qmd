@@ -30,6 +30,8 @@ format:
     scrollProgress: true # Force the scrollbar to remain visible
     mermaid:
       theme: neutral
+    include-in-header:
+      - macros.tex
 #bibliography: references.bib
 ---
 
@@ -98,9 +100,33 @@ Where:
 
 -   $\mu_1$ is the item intercept
 
--   $\lambda_{11}$ is the factor loading for item 1 (the first subscript)
+-   $\lambda_{\bf{1}1}$ is the factor loading for item 1 (the first subscript) loaded on factor 1 (the second subscript)
 
-## 
+-   $\theta_{p1}$ is the value of the latent variable for person *p* and factor 1
+
+The second factor is not included in the model for the item
+
+## More Q-matrix
+
+We could generalize the previous function with Q-matrix
+
+$$
+Q=\begin{bmatrix}q_{11}\ \ \ 0\\0\ \ \  q_{12}\end{bmatrix}
+$$
+
+$$
+\begin{align}
+f(E(Y_{p1}|\boldsymbol{\theta_p})
+&=\mu_1+q_{11}(\lambda_{11}\theta_{p1})+q_{12}(\lambda_{12}\theta_{p2})\\
+&= \mu_1 + \boldsymbol{\theta_p\text{diag}(q)\lambda}
+\end{align} 
+$$
+
+Where:
+
+-   \$\\lambda_1\$ = $\bb{Q}$ contains all possible factor loadings for item 1 (size 2 $\times$ 1)
+
+-   $\theta_p$
 
 # Missing Data
 
@@ -150,4 +176,4 @@ Note that all code will work with as missing as you have
 
 ## Resources
 
--   [Dr. Templin's slide](https://jonathantemplin.github.io/Bayesian-Psychometric-Modeling-Course-Fall2022/lectures/lecture04d/04d_Modeling_Observed_Polytomous_Data#/binomial-model-data-block)
+-   [Dr. Templin's slide](https://jonathantemplin.github.io/Bayesian-Psychometric-Modeling-Course-Fall2022/lectures/lecture04e/04e_Modeling_Multidimensional_Latent_Variables#/from-q-matrix-to-model-1)
