@@ -1,0 +1,153 @@
+---
+title: "Lecture 11"
+subtitle: "Multidimensionality and Missing Data"
+author: "Jihong Zhang"
+institute: "Educational Statistics and Research Methods"
+title-slide-attributes:
+  data-background-image: ../Images/title_image.png
+  data-background-size: contain
+execute: 
+  echo: false
+  eval: false
+format: 
+  revealjs:
+    logo: ../Images/UA_Logo_Horizontal.png
+    incremental: false  # choose "false "if want to show all together
+    transition: slide
+    background-transition: fade
+    theme: [simple, ../pp.scss]
+    footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>
+    scrollable: true
+    slide-number: true
+    chalkboard: true
+    number-sections: false
+    code-line-numbers: true
+    code-annotations: below
+    code-copy: true
+    code-summary: ''
+    highlight-style: arrow
+    view: 'scroll' # Activate the scroll view
+    scrollProgress: true # Force the scrollbar to remain visible
+    mermaid:
+      theme: neutral
+#bibliography: references.bib
+---
+
+## Previous Class
+
+1.  Show how to estimate unidimensional latent variable models with polytomous data
+    -   Also know as [Polytomous]{.underline} I[tem response theory]{.underline} (IRT) or [Item factor analysis]{.underline} (IFA)
+2.  Distributions appropriate for polytomous (discrete; data with lower/upper limits)
+
+## Today's Lecture Objectives
+
+1.  How to model multidimensional factor structures
+2.  Show how to estimate models with missing data
+
+## Example Data: Conspiracy Theories
+
+-   Today's example is from a bootstrap resample of 177 undergraduate students at a large state university in the Midwest.
+-   The survey was a measure of 10 questions about their beliefs in various conspiracy theories that were being passed around the internet in the early 2010s
+-   All item responses were on a 5-point Likert scale with:
+    1.  Strong Disagree
+    2.  Disagree
+    3.  Neither Agree nor Disagree
+    4.  Agree
+    5.  Strongly Agree
+-   The purpose of this survey was to study individual beliefs regarding conspiracies.
+-   Our purpose in using this instrument is to provide a context that we all may find relevant as many of these conspiracies are still prevalent.
+
+# Multidimensionality
+
+## More than one Latent Variable - Latent Parameter Space
+
+We need to create latent variables by specifying which items measure which latent variables in an analysis model
+
+-   This procedure Called different names by different fields:
+
+    -   Alignment (education measurement)
+
+    -   Factor pattern matrix (factor analysis)
+
+    -   Q-matrix (Question matrix; diagnostic models and multidimensional IRT)
+
+## From Q-matrix to Model
+
+The alignment provides a specification of which latent variables are measured by which items
+
+-   Sometimes we say items "load onto" factors
+
+The math definition of either of these terms is simply whether or not a latent variable appears as a predictor for an item
+
+-   For instance, item one appears to measure nongovernment conspiracies, meaning its alignment (row vector of the Q-matrix)
+
+    ```{.r}
+             Gov NonGov 
+    item1     0      1 
+    ```
+
+## From Q-matrix to Model (Cont.)
+
+The model for the first item is then built with only the factors measured by the item as being present:
+
+$$
+f(E(Y_{p1}|\boldsymbol{\theta_p})=\mu_1 + \boldsymbol{0}*\lambda_{11}\theta_{p1} +\boldsymbol{1}*\lambda_{21}\theta_{p2} \\=\mu_1 + \lambda_{21}\theta_{p2} 
+$$
+
+Where:
+
+-   $\mu_1$ is the item intercept
+
+-   $\lambda_{11}$ is the factor loading for item 1 (the first subscript)
+
+## 
+
+# Missing Data
+
+## Dealing with Missing Data in Stan
+
+If you ever attempted to analyze missing data in `Stan`, you likely received an error message:
+
+`Error: Variable 'Y' has NA values.`
+
+That is because, by default, `Stan` does not model missing data
+
+-   Instead, we have to get `Stan` to work with the data we have (the values that are not missing)
+
+-   That does not mean remove cases where any observed variables are missing
+
+## Example Missing Data
+
+To make things a bit easier, I'm only turning one value into missing data (the first person's response to the first item)
+
+```{r}
+#| eval: true
+library(tidyverse)
+library(kableExtra)
+library(here)
+library(blavaan)
+self_color <- c("#DB7093", "#AFEEEE", "#3CB371", "#9370DB", "#FFD700")
+root_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code"
+current_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture10/Code"
+save_dir <- "~/Library/CloudStorage/OneDrive-Personal/2024 Spring/ESRM6553 - Advanced Multivariate Modeling/Lecture10"
+```
+
+```{r}
+#| eval: true
+#| echo: true
+# Import data ===============================================================================
+dat <- read.csv(here(root_dir, 'conspiracies.csv'))
+conspiracyItems <- dat[,1:10]
+colnames(conspiracyItems) <- paste0('item', 1:10)
+
+# make some cases missing for demonstration:
+conspiracyItems[1,1] = NA
+```
+
+Note that all code will work with as missing as you have
+
+-   Observed variables do have to have some values that are not missing
+
+## Resources
+
+-   [Dr. Templin's slide](https://jonathantemplin.github.io/Bayesian-Psychometric-Modeling-Course-Fall2022/lectures/lecture04d/04d_Modeling_Observed_Polytomous_Data#/binomial-model-data-block)
