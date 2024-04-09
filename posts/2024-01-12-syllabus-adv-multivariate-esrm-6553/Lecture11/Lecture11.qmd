@@ -83,7 +83,7 @@ The math definition of either of these terms is simply whether or not a latent v
 
 -   For instance, item one appears to measure nongovernment conspiracies, meaning its alignment (row vector of the Q-matrix)
 
-    ```{.r}
+    ``` r
              Gov NonGov 
     item1     0      1 
     ```
@@ -114,19 +114,46 @@ $$
 Q=\begin{bmatrix}q_{11}\ \ \ 0\\0\ \ \  q_{12}\end{bmatrix}
 $$
 
+If item 1 is only measured by `NonGov`, we can map item responses to factor loadings and theta via Q-matrix
+
 $$
 \begin{align}
 f(E(Y_{p1}|\boldsymbol{\theta_p})
 &=\mu_1+q_{11}(\lambda_{11}\theta_{p1})+q_{12}(\lambda_{12}\theta_{p2})\\
-&= \mu_1 + \boldsymbol{\theta_p\text{diag}(q)\lambda}
+&= \mu_1 + \boldsymbol{\theta_p\text{diag}(q)\lambda_1}\\
+&= \mu_1 + [\theta_{p1}\ \ \theta_{p2}]\begin{bmatrix}0\ \ 0\\0\ \ 1\end{bmatrix}\begin{bmatrix}\lambda_{11}\\\lambda_{12}\end{bmatrix}\\
+&= \mu_1 + [\theta_{p1}\ \ \theta_{p2}]\begin{bmatrix}0\\\lambda_{12}\end{bmatrix}\\
+&= \mu_1 + \lambda_{12}\theta_{p2}
 \end{align} 
 $$
 
 Where:
 
--   \$\\lambda_1\$ = $\bb{Q}$ contains all possible factor loadings for item 1 (size 2 $\times$ 1)
+-   $\boldsymbol\lambda_1$ = $\begin{bmatrix}\lambda_{11}\\\lambda_{12}\end{bmatrix}$ contains all possible factor loadings for item 1 (size 2 $\times$ 1)
 
--   $\theta_p$
+-   $\boldsymbol\theta_p=[\theta_{p1}\ \ \theta_{p2}]$ contains the factor scores for person *p*
+
+-   $\text{diag}(\boldsymbol q_i)=\boldsymbol q_i \begin{bmatrix}1\ 0 \\0\ 1 \end{bmatrix}=[0\ \ 1]\begin{bmatrix}1\ 0 \\0\ 1 \end{bmatrix}=\begin{bmatrix}0\ \ 0 \\0\ \ 1 \end{bmatrix}$ is a diagonal matrix of ones times the vector of Q-matrix entries for item 1.
+
+## Today's Q-matrix
+
+``` r
+        Gov NonGov
+item1    0      1
+item2    1      0
+item3    0      1
+item4    0      1
+item5    1      0
+item6    0      1
+item7    1      0
+item8    1      0
+item9    1      0
+item10   0      1
+```
+
+Given the Q-matrix each item has its own model using the alignment specifications.
+
+<https://jonathantemplin.github.io/Bayesian-Psychometric-Modeling-Course-Fall2022/lectures/lecture04e/04e_Modeling_Multidimensional_Latent_Variables#/todays-q-matrix>
 
 # Missing Data
 
