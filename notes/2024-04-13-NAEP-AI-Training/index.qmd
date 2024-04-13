@@ -1,0 +1,61 @@
+---
+title: 'Large-Scale Assessments using EdSurvey R Package'
+author: 'Jihong Zhang'
+subtitle: 'AERA 2024 Workshop by AIR'
+date: 'April 13 2024'
+categories:
+  - R
+  - NAEP
+  - Tutorial
+  - EdSurvey
+execute: 
+  eval: true
+  echo: true
+  warning: false
+format: 
+  html: 
+    code-fold: true
+    code-summary: 'Click to see the code'
+#bibliography: references.bib
+#csl: apa.csl
+---
+
+## Clustering methods
+
+1.  jackknife repeated replication (By default TIMSS and NAEP)
+2.  Taylor series approximations
+3.  Hierarchical linear models / Mixture model
+
+## Sampling (takeaway)
+
+1.  Schools are sampled with probability proportional to size: larger schools are more likely to be selected
+2.  Thus, sample weights should be used to correct the sampling bias
+3.  Student weight is the inverse of the probability of selection
+
+$$
+W_{final} = \frac{1}{P_{school}*P_{student}*P_{adj}}
+$$
+
+Where
+
+1.  $P_{student}$ is the probability of one student being selected within one school
+2.  $P_{school}$ is the probability of one school being selected
+3.  $P_{adj}$ are non-participation adjustments
+
+## Plausible Values
+
+1.  the distribution of latent scores for each individual is estimated by both IRT and latent regression with survey variables[^1]
+
+[^1]: For each student, there are hundreds of context factors, so PCA was used for dimension reduction
+
+## EdSurvey-GPT
+
+EdSurvey-GPT is a chatbot.
+
+### Takeaways:
+
+1.  Examples of using functions of `EdSurvey`
+2.  Code debuggging
+3.  Data download using R functions
+
+## 
