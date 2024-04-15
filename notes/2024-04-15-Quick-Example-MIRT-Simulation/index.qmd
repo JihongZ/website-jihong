@@ -1,0 +1,222 @@
+---
+title: "Simulate response patterns under Multidimensional IRT"
+author: 'Jihong Zhang'
+subtitle: "Using mirt package"
+date: 'April 15 2024'
+categories:
+  - R
+  - Simulation
+  - Mirt
+execute: 
+  eval: true
+  echo: true
+  warning: false
+format: 
+  html: 
+    code-fold: false
+    code-summary: 'Click to see the code'
+---
+
+We need to pre-specify `a` (item slopes) and `b` (item intercepts). `mu` (factor mean) and `sigma` (factor correlation) are optional.
+
+```{r}
+library(mirt)
+# Simulation for 6 5-category items
+set.seed(1234)
+J = 6 # number of items
+N = 1000 # number of participants
+a <- matrix(rlnorm(J, mean = 0, sd = 1), ncol = 1)
+a
+
+# for the graded model, ensure that there is enough space between the intercepts,
+# otherwise closer categories will not be selected often (minimum distance of 0.3 here)
+diffs <- t(apply(matrix(runif(J*4, .3, 1), nrow = J), 1, cumsum))
+d <- -diffs + rnorm(J) + 4
+d
+```
+
+## Data Generation
+
+### Model 1: Population Data
+
+```{r}
+## population data: 5-category: 0-4
+dat1 <- simdata(a, d, N, itemtype = rep('graded', 6))
+head(dat1)
+apply(dat1, 2, min)
+apply(dat1, 2, max)
+```
+
+### Model 2: 4-category Data with first two categories merged
+
+```{r}
+## Data2: Merged-category data: 4-category, 0-1->0,2->1,3->2,4->3
+dat2 <- dat1
+dat2[dat2%in%0:1] <- 0
+dat2[dat2==2] <- 1
+dat2[dat2==3] <- 2
+dat2[dat2==4] <- 3
+apply(dat2, 2, min)
+apply(dat2, 2, max)
+
+```
+
+### Model 3: 4-category Data with middle 2 categories merged
+
+```{r}
+## Data3: Merged-category data: 4-category, 0->0,1-2->1,3->2,4->3
+dat3 <- dat1
+dat3[dat3%in%1:2] <- 1
+dat3[dat3==3] <- 2
+dat3[dat3==4] <- 3
+apply(dat3, 2, min)
+apply(dat3, 2, max)
+```
+
+## Data Analysis
+
+```{r}
+#| message: false
+#| results: hide
+## Population model
+mod1 <- mirt(dat1, model = 1)
+mod1_param <- coef(mod1, simplify = TRUE)$items
+mod1_itemfit <- itemfit(mod1)
+
+## Tail merge model: model2
+mod2 <- mirt(dat2, model = 1)
+mod2_param <- coef(mod2, simplify = TRUE)$items
+mod2_itemfit <- itemfit(mod2)
+
+## middle category merge model: model3
+mod3 <- mirt(dat3, model = 1)
+mod3_param <- coef(mod3, simplify = TRUE)$items
+mod3_itemfit <- itemfit(mod3)
+
+```
+
+## Parameter Recovery
+
+```{r}
+d
+mod1_param[,2:5]
+```
+
+```{r}
+#| message: true
+rev_bias <- function(true, est) {
+  diffs = abs(true - est)
+  mean(diffs)
+}
+
+rmse <- function(true, est) {
+  sqrt(mean((true - est)^2))
+}
+
+
+message("Model 1 Absolute Bias: ", rev_bias(true = as.numeric(a), est = mod1_param[,'a1']))
+message("Model 2 Absolute Bias: ", rev_bias(true = as.numeric(a), est = mod2_param[,'a1']))
+message("Model 3 Absolute Bias: ", rev_bias(true = as.numeric(a), est = mod3_param[,'a1']))
+message("Model 1 RMSE: ", rmse(true = as.numeric(a), est = mod1_param[,'a1']))
+message("Model 2 RMSE: ", rmse(true = as.numeric(a), est = mod2_param[,'a1']))
+message("Model 3 RMSE: ", rmse(true = as.numeric(a), est = mod3_param[,'a1']))
+```
+
+## Item Fit
+
+```{r}
+RMSEA_mat <- rbind(
+  mod1 = mod1_itemfit$RMSEA.S_X2,
+  mod2 = mod2_itemfit$RMSEA.S_X2,
+  mod3 = mod3_itemfit$RMSEA.S_X2
+)
+colnames(RMSEA_mat) <- paste0('Item', 1:6)
+RMSEA_mat
+```
+
+## Global Fit
+
+```{r}
+M2_df <- rbind(
+  M2(mod1, "C2"),
+  M2(mod2, "C2"),
+  M2(mod3, "C2")
+)
+rownames(M2_df) <- paste0("Model", 1:3)
+kableExtra::kable(M2_df)
+```
+
+## MCMC Simulation
+
+```{r}
+#| message: false
+#| results: hide
+#| cache: true
+library(parSim)
+Results <- parSim(
+  J = c(6, 10, 20),
+  N = c(100, 500, 1000),
+  # Number of repititions?
+  reps = 20, # more is better!
+  
+  # Parallel?
+  nCores = 5,
+  export = c("rev_bias"),
+  expression = {
+      library(mirt)
+      a <- matrix(rlnorm(J, mean = 0, sd = 1), ncol = 1)
+      diffs <- t(apply(matrix(runif(J*4, .3, 1), nrow = J), 1, cumsum))
+      d <- -diffs + rnorm(J) + 4
+      dat1 <- simdata(a, d, N, itemtype = rep('graded', J))
+      dat2 <- dat1
+      dat2[dat2%in%0:1] <- 0
+      dat2[dat2==2] <- 1
+      dat2[dat2==3] <- 2
+      dat2[dat2==4] <- 3
+      dat3 <- dat1
+      dat3[dat3%in%1:2] <- 1
+      dat3[dat3==3] <- 2
+      dat3[dat3==4] <- 3
+      ## Population model
+      mod1 <- mirt(dat1, model = 1)
+      mod1_param <- coef(mod1, simplify = TRUE)$items
+      mod1_itemfit <- itemfit(mod1)
+      
+      ## Tail merge model: model2
+      mod2 <- mirt(dat2, model = 1)
+      mod2_param <- coef(mod2, simplify = TRUE)$items
+      mod2_itemfit <- itemfit(mod2)
+      
+      ## middle category merge model: model3
+      mod3 <- mirt(dat3, model = 1)
+      mod3_param <- coef(mod3, simplify = TRUE)$items
+      mod3_itemfit <- itemfit(mod3)
+      ## output
+      data.frame(
+       bias_mod1 = rev_bias(true = as.numeric(a), est = mod1_param[,'a1']),
+       bias_mod2 = rev_bias(true = as.numeric(a), est = mod2_param[,'a1']),
+       bias_mod3 = rev_bias(true = as.numeric(a), est = mod3_param[,'a1']),
+       SRMSR_mod1 = M2(mod1, "C2")$SRMSR,
+       SRMSR_mod2 = M2(mod2, "C2")$SRMSR,
+       SRMSR_mod3 = M2(mod3, "C2")$SRMSR
+      )
+  }
+)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+Results_plot <- Results |> 
+  pivot_longer(c(starts_with("bias"), starts_with("SRMSR")), 
+               names_to = 'Model', values_to = 'Value') |> 
+  separate(Model, into = c("Measure", "Model")) |> 
+  group_by(J, N, Model, Measure) |> 
+  summarise(Value = mean(Value))
+
+Results_plot |> 
+  ggplot() +
+  geom_path(aes(x = N, y = Value, col = Model, group = Model)) +
+  facet_wrap(Measure ~ J, scales = "free")
+```

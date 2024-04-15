@@ -115,10 +115,10 @@ The second factor is not included in the model for the item
 
 ## More Q-matrix
 
-We could generalize the previous function with Q-matrix
+We could generalize the previous function with Q-matrix: Item 1 is loaded on Factor 1 and Item 2 is loaded on Factor 2.
 
 $$
-Q=\begin{bmatrix}q_{11}\ \ \ 0\\0\ \ \  q_{12}\end{bmatrix}
+Q=\begin{bmatrix}q_{11}\ \ \ 0\\0\ \ \  q_{22}\end{bmatrix}
 $$
 
 If item 1 is only measured by `NonGov`, we can map item responses to factor loadings and theta via Q-matrix
@@ -142,20 +142,20 @@ Where:
 
 -   $\text{diag}(\boldsymbol q_i)=\boldsymbol q_i \begin{bmatrix}1\ 0 \\0\ 1 \end{bmatrix}=[0\ \ 1]\begin{bmatrix}1\ 0 \\0\ 1 \end{bmatrix}=\begin{bmatrix}0\ \ 0 \\0\ \ 1 \end{bmatrix}$ is a diagonal matrix of ones times the vector of Q-matrix entries for item 1.
 
-## Today's Q-matrix
+## Q-matrix for Conspiracy Data
 
 ``` r
         Gov NonGov
-item1    0      1
-item2    1      0
-item3    0      1
-item4    0      1
-item5    1      0
-item6    0      1
-item7    1      0
-item8    1      0
-item9    1      0
-item10   0      1
+item1    0      1(q12)
+item2    1(q21) 0
+item3    0      1(q32)
+item4    0      1(q42)
+item5    1(q51) 0
+item6    0      1(q61)
+item7    1(q71) 0
+item8    1(q81) 0
+item9    1(q91) 0
+item10   0      1(q10,1)
 ```
 
 Given the Q-matrix each item has its own model using the alignment specifications.
@@ -173,7 +173,7 @@ GRM is one of the most popular model for ordered categorical response
 
 $$
 P(Y_{ic}|\theta) = 1 - P^*(Y_{i1}|\theta) \ \ \text{if}\ c=1\\
-P(Y_{ic}|\theta) = P^*(Y_{i,c-1}|\theta)-P^*(Y_{i,c}|\theta) \ \ \text{if}\ 1<c<C\\
+P(Y_{ic}|\theta) = P^*(Y_{i,c-1}|\theta)-P^*(Y_{i,c}|\theta) \ \ \text{if}\ 1<c<C_i\\
 P(Y_{ic}|\theta) = P^*(Y_{i,C-1}|\theta) \ \ \text{if}\ c=C_i\\
 $$where probability of response larger than $c$:
 
@@ -193,9 +193,9 @@ With:
 ```{stan, output.var='display'}
 #| echo: true
 parameters {
-  array[nObs] vector[nFactors] theta;                // the latent variables (one for each person)
+  array[nObs] vector[nFactors] theta;       // the latent variables (one for each person)
   array[nItems] ordered[maxCategory-1] thr; // the item thresholds (one for each item category minus one)
-  vector[nLoadings] lambda;             // the factor loadings/item discriminations (one for each item)
+  vector[nLoadings] lambda;                 // the factor loadings/item discriminations (one for each item)
   cholesky_factor_corr[nFactors] thetaCorrL;
 }
 ```
@@ -212,13 +212,13 @@ Note:
 ```{stan, output.var='display'}
 #| echo: true
 transformed data{
-  int<lower=0> nLoadings = 0;                                      // number of loadings in model
+  int<lower=0> nLoadings = 0;                               // number of loadings in model
   
   for (factor in 1:nFactors){
-    nLoadings = nLoadings + sum(Qmatrix[1:nItems, factor]);
+    nLoadings = nLoadings + sum(Qmatrix[1:nItems, factor]); // Total number of loadings to be estimated
   }
 
-  array[nLoadings, 2] int loadingLocation;                     // the row/column positions of each loading
+  array[nLoadings, 2] int loadingLocation;                  // the row/column positions of each loading
   int loadingNum=1;
   
   for (item in 1:nItems){
@@ -230,7 +230,6 @@ transformed data{
       }
     }
   }
-
 }
 ```
 
