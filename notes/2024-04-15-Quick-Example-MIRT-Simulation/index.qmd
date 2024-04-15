@@ -17,6 +17,12 @@ format:
     code-summary: 'Click to see the code'
 ---
 
+## Research Questions:
+
+1.  How different methods of cutting item response affecting parameter estimation accuracy?
+    -   Merge first two categories
+    -   Merge the middle category into the neighboring category
+
 We need to pre-specify `a` (item slopes) and `b` (item intercepts). `mu` (factor mean) and `sigma` (factor correlation) are optional.
 
 ```{r}

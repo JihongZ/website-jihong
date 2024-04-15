@@ -179,8 +179,10 @@ $$
 With:
 
 -   *j* denotes which factor the item loads on
--   $C_i-1$ has ordered intercept intercepts: $\mu_i > \mu_2 > \cdots > \mu_{C_i-1}$
+-   $C_i-1$ has ordered intercept intercepts[^1]: $\mu_1 > \mu_2 > \cdots > \mu_{C_i-1}$
 -   In `Stan`, we model item thresholds (difficulty) $\tau_{c}$ =$\mu_c$, so that $\tau_1<\tau_2<\cdots<\tau_{C_i-1}$
+
+[^1]: For example, for 5-category items, there are 4 item intercepts.
 
 ## Stan Parameter Block
 
@@ -301,7 +303,7 @@ We need to convert `theta` from array to a matrix in `transformed parameters` bl
 
 ## Stan Model Block - Factor Loadings
 
-loading location matrix `Loc`
+From `Q` matrix to loading location matrix `Loc`
 
 $$
 Q= \bmatrix{
@@ -316,31 +318,38 @@ Q= \bmatrix{
  1\      0\\
  1\      1\\
 }
-$$
-
-$$
 \text{Loc} = \bmatrix{
-1\ 2\\
-2\ 1\\
-3\ 2\\
-4\ 2\\
-5\ 1\\
-6\ 2\\
-7\ 1\\
-8\ 1\\
-9\ 1\\
+1\ \ 2\\
+2\ \ 1\\
+3\ \ 2\\
+4\ \ 2\\
+5\ \ 1\\
+6\ \ 2\\
+7\ \ 1\\
+8\ \ 1\\
+9\ \ 1\\
 10\ 1\\
 10\ 2\\
 }
 $$
 
 $$
-\bb\Lambda_{[\text{Loc}[j, 1], \text{Loc[j,2]}]}=\lambda_{jk}
+\bb\Lambda_{[\text{Loc}[j, 1], \text{Loc[j,2]}]}=\lambda_{jk} \\
+\bb\Lambda= \bmatrix{
+ 0\      .3\\ 
+ .5\      0\\
+ 0\      .5\\
+ 0\      .3\\
+ .7\      0\\
+ 0\      .5\\
+ .2\      0\\
+ .7\      0\\
+ .8\      0\\
+ .3\      .2\\
+}
 $$
 
-where j denotes the index of lambda
-
-------------------------------------------------------------------------
+Where $j$ denotes the index of lambda.
 
 ```{stan, output.var='display'}
 #| echo: true
@@ -390,7 +399,7 @@ transformed parameters{
 }
 ```
 
--   `lambdaMatrix` puts the loadings and zeros from the Q-matrix into correct position
+-   `lambdaMatrix` puts the proposed loadings and zeros from the Q-matrix into correct position
 
 ## Stan Data Block
 
@@ -497,7 +506,39 @@ max(modelOrderedLogit_samples$summary(.cores = 6)$rhat, na.rm = TRUE)
 
 # item parameter results
 print(modelOrderedLogit_samples$summary(variables = c("lambda", "mu", "thetaCorr"), .cores = 6) ,n=Inf)
+```
 
+## Results: Factor Loadings
+
+```{r}
+#| eval: true
+#| echo: true
+#| code-fold: true
+Lambda_postmean <- modelOrderedLogit_samples$summary(variables = "lambda", .cores = 5)$mean
+Q = matrix(c(
+0, 1,
+1, 0,
+0, 1,
+0, 1,
+1, 0,
+0, 1,
+1, 0,
+1, 0,
+1, 0,
+0, 1), ncol=2, byrow = T)
+Lambda_mat <- Q
+i = 0
+for (r in 1:nrow(Q)) {
+  for (c in 1:ncol(Q)) {
+    if (Q[r, c]) {
+      i = i + 1
+      Lambda_mat[r, c] <- Lambda_postmean[i]
+    }
+  }
+}
+colnames(Lambda_mat) <- c("F1", "F2")
+rownames(Lambda_mat) <- paste0("Item", 1:10)
+Lambda_mat
 ```
 
 ## Results: Factor Correlation
@@ -573,7 +614,6 @@ To make things a bit easier, I'm only turning one value into missing data (the f
 current_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Code"
 save_dir <- "/Users/jihong/Library/CloudStorage/OneDrive-Personal/2024 Spring/ESRM6553 - Advanced Multivariate Modeling/Lecture11"
 conspiracyData = read.csv(here("posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code", "conspiracies.csv"))
-
 ```
 
 ```{r}
@@ -802,7 +842,18 @@ modelOrderedLogitNoMiss_samples <- readRDS(here(save_dir, "modelOrderedLogitNoMi
 max(modelOrderedLogitNoMiss_samples$summary(.cores = 6)$rhat, na.rm = TRUE)
 # item parameter results
 print(modelOrderedLogitNoMiss_samples$summary(variables = c("lambda", "mu"), .cores = 6) ,n=Inf)
+```
 
+## Factor Loadings Comparison
+
+```{r}
+#| eval: true
+#| echo: true
+#| code-fold: true
+LambdaNomissing_postmean <- modelOrderedLogitNoMiss_samples$summary(variables = "lambda", .cores = 5)$mean
+
+matrix(LambdaNomissing_postmean, ncol = 1)
+Lambda_mat
 ```
 
 ## Wrapping Up
