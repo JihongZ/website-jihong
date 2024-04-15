@@ -115,12 +115,6 @@ The second factor is not included in the model for the item
 
 ## More Q-matrix
 
-We could generalize the previous function with Q-matrix: Item 1 is loaded on Factor 1 and Item 2 is loaded on Factor 2.
-
-$$
-Q=\begin{bmatrix}q_{11}\ \ \ 0\\0\ \ \  q_{22}\end{bmatrix}
-$$
-
 If item 1 is only measured by `NonGov`, we can map item responses to factor loadings and theta via Q-matrix
 
 $$

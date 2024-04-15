@@ -155,12 +155,12 @@ kableExtra::kable(M2_df)
 library(parSim)
 Results <- parSim(
   J = c(6, 10, 20),
-  N = c(100, 500, 1000),
+  N = c(300, 500, 1000),
   # Number of repititions?
-  reps = 20, # more is better!
+  reps = 30, # more is better!
   
   # Parallel?
-  nCores = 5,
+  nCores = 8,
   export = c("rev_bias"),
   expression = {
       library(mirt)
@@ -180,25 +180,34 @@ Results <- parSim(
       ## Population model
       mod1 <- mirt(dat1, model = 1)
       mod1_param <- coef(mod1, simplify = TRUE)$items
-      mod1_itemfit <- itemfit(mod1)
+      mod1_gfi <- M2(mod1, "C2")
       
       ## Tail merge model: model2
       mod2 <- mirt(dat2, model = 1)
       mod2_param <- coef(mod2, simplify = TRUE)$items
-      mod2_itemfit <- itemfit(mod2)
+      mod2_gfi <- M2(mod2, "C2")
       
       ## middle category merge model: model3
       mod3 <- mirt(dat3, model = 1)
       mod3_param <- coef(mod3, simplify = TRUE)$items
-      mod3_itemfit <- itemfit(mod3)
+      mod3_gfi <- M2(mod3, "C2")
       ## output
       data.frame(
        bias_mod1 = rev_bias(true = as.numeric(a), est = mod1_param[,'a1']),
        bias_mod2 = rev_bias(true = as.numeric(a), est = mod2_param[,'a1']),
        bias_mod3 = rev_bias(true = as.numeric(a), est = mod3_param[,'a1']),
-       SRMSR_mod1 = M2(mod1, "C2")$SRMSR,
-       SRMSR_mod2 = M2(mod2, "C2")$SRMSR,
-       SRMSR_mod3 = M2(mod3, "C2")$SRMSR
+       RMSEA_mod1 = mod1_gfi$RMSEA,
+       RMSEA_mod2 = mod2_gfi$RMSEA,
+       RMSEA_mod3 = mod3_gfi$RMSEA,
+       M2_mod1 = mod1_gfi$M2,
+       M2_mod2 = mod2_gfi$M2,
+       M2_mod3 = mod3_gfi$M2,
+       SRMSR_mod1 = mod1_gfi$SRMSR,
+       SRMSR_mod2 = mod2_gfi$SRMSR,
+       SRMSR_mod3 = mod3_gfi$SRMSR,
+       TLI_mod1 = mod1_gfi$TLI,
+       TLI_mod2 = mod2_gfi$TLI,
+       TLI_mod3 = mod3_gfi$TLI
       )
   }
 )
@@ -209,14 +218,20 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 Results_plot <- Results |> 
-  pivot_longer(c(starts_with("bias"), starts_with("SRMSR")), 
+  pivot_longer(c(starts_with("bias"), 
+                 starts_with("RMSEA"), 
+                 starts_with("SRMSR"), 
+                 starts_with("TLI")), 
                names_to = 'Model', values_to = 'Value') |> 
   separate(Model, into = c("Measure", "Model")) |> 
   group_by(J, N, Model, Measure) |> 
-  summarise(Value = mean(Value))
+  summarise(Value = mean(Value)) |> 
+  mutate(N = factor(N, levels = c(300, 500, 1000)))
 
 Results_plot |> 
   ggplot() +
   geom_path(aes(x = N, y = Value, col = Model, group = Model)) +
-  facet_wrap(Measure ~ J, scales = "free")
+  geom_point(aes(x = N, y = Value, col = Model)) +
+  facet_grid(Measure ~ J, scales = "free") +
+  theme_bw()
 ```
