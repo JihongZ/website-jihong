@@ -9,10 +9,5 @@ listing:
   fields: [date, title, description, categories, reading-time]
   filter-ui: [title, date]
   sort-ui: true
-format: 
-  html:
-    grid:
-      sidebar-width: 250px
-      body-width: 1200px
-      margin-width: 250px
+format: html
 ---
