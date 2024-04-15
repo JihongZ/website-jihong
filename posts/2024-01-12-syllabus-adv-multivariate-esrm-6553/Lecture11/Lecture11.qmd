@@ -41,8 +41,13 @@ format:
 
 ## Today's Lecture Objectives
 
-1.  How to model multidimensional factor structures
-2.  Show how to estimate models with missing data
+1.  Course evaluation
+2.  How to model multidimensional factor structures
+3.  How to estimate models with missing data
+
+## Course evaluation
+
+The course evaluation will be open on April 23 and end on May 3. It is important for me. Please make sure fill out the survey.
 
 ## Example Data: Conspiracy Theories
 
