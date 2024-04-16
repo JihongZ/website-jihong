@@ -252,7 +252,7 @@ comparison_metrics <- function(real, est, name = "full"){
 
 # Estimation
 
-## Method 1 - EBICglasso
+## Method 1 - EBICglasso in `bootnet`
 
 This method uses the `bootnet::estimateNetwork` function.
 
@@ -280,38 +280,322 @@ where $\boldsymbol{S}$ represents the sample variance-covariance matrix and $\bo
 #| fig-width: 8
 #| fig-height: 8
 #| label: fig-bfi
-#| fig-cap: "Network Plot for BFI-25"
+#| fig-cap: "Method 1: Network Plot for BFI-25 with EBICglasso"
 library("qgraph")
 library("bootnet")
 sampleAdjust  <-  "pairwise_average"
 EBICtuning <- 0.5
 transformation <- "polychoric/categorical" # EBICglasso use cor_auto
-res <- estimateNetwork(data, # input as polychoric correlation
-                       default = "EBICglasso",
-                       sampleSize = sampleAdjust,
-                       tuning = EBICtuning,
-                       corMethod = ifelse(transformation == "polychoric/categorical",
-                                          "cor_auto",
-                                          "cor"))
+res_m1 <- estimateNetwork(data, # input as polychoric correlation
+                          default = "EBICglasso",
+                          sampleSize = sampleAdjust,
+                          tuning = EBICtuning,
+                          corMethod = ifelse(transformation == "polychoric/categorical",
+                                             "cor_auto",
+                                             "cor"))
     
-estnet <- res$graph
+estnet_m1 <- res_m1$graph
 
-qgraph(estnet)
+qgraph(estnet_m1)
 ```
 
 ```{r}
-res_comparison <- comparison_metrics(real = as.matrix(bfi_truenetwork), est = as.matrix(estnet))
-c(
-  sensitivity = res_comparison$sensitivity_full,
-  specificity = res_comparison$specificity_full,
-  precision = res_comparison$precision_full,
-  
-  abs_corr = res_comparison$abs_cor_true_edges_full, # The Pearson correlation between the absolute edge weights
-  bias = res_comparison$bias_full, # The average absolute deviation
-  bias_true = res_comparison$bias_true_edges_full # The average absolute deviation between the true edge weight and the estimated edge weight
-)
+performance <- function(network) {
+  res_comparison <- comparison_metrics(real = as.matrix(bfi_truenetwork), est = as.matrix(network))
+  c(
+    sensitivity = res_comparison$sensitivity_full,
+    specificity = res_comparison$specificity_full,
+    precision = res_comparison$precision_full,
+    
+    abs_corr = res_comparison$abs_cor_true_edges_full, # The Pearson correlation between the absolute edge weights
+    bias = res_comparison$bias_full, # The average absolute deviation
+    bias_true = res_comparison$bias_true_edges_full # The average absolute deviation between the true edge weight and the estimated edge weight
+  )
+}
+performance(estnet_m1)
 ```
 
-## Method 2 - ggmModSelect
+## Method 2 - ggmModSelect in `bootnet`
 
 The *ggmModSelect* algorithm is a non-regularized method.
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 2: ggmModSelect"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m2_1
+#| cache: true
+#| fig-cap: "Method 2.1: Network Plot for BFI-25 with ggmModSelect and Stepwise"
+
+# With stepwise
+res_m2_1 <- estimateNetwork(data, default = "ggmModSelect",
+                           sampleSize = sampleAdjust, stepwise = TRUE,
+                           tuning = EBICtuning,
+                           corMethod = ifelse(transformation == "polychoric/categorical",
+                                              "cor_auto",
+                                              "cor"))
+
+estnet_m2_1 <- res_m2_1$graph
+qgraph(estnet_m2_1)
+```
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 2: ggmModSelect"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m2_2
+#| fig-cap: "Method 2.1: Network Plot for BFI-25 with ggmModSelect and No Stepwise"
+
+# Without stepwise
+res_m2_2 <- estimateNetwork(data, default = "ggmModSelect",
+                           sampleSize = sampleAdjust, stepwise = FALSE,
+                           tuning = EBICtuning,
+                           corMethod = ifelse(transformation == "polychoric/categorical",
+                                              "cor_auto",
+                                              "cor"))
+estnet_m2_2 <- res_m2_2$graph
+qgraph(estnet_m2_2)
+```
+
+```{r}
+performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2), performance))
+rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise")
+kableExtra::kable(performance_compr)
+```
+
+## Method 3 - FIML in `psychonetrics`
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 3: FIML"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m3_1
+#| cache: true
+#| fig-cap: "Method 3: Network Plot for BFI-25 with FIML and Prue"
+
+library(psychonetrics)
+library(magrittr)
+# With stepwise
+res_m3_1 <- ggm(data, estimator = "FIML", standardize = "z") %>% 
+  prune(alpha = .01, recursive = FALSE) 
+    
+estnet_m3_1 <- getmatrix(res_m3_1, "omega")
+
+qgraph(estnet_m3_1)
+```
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 3: FIML"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m3_2
+#| cache: true
+#| fig-cap: "Method 3: Network Plot for BFI-25 with FIML and Stepup"
+
+# With stepwise
+res_m3_2 <- ggm(data, estimator = "FIML", standardize = "z") %>% 
+  prune(alpha = .01, recursive = FALSE) |> 
+  stepup(alpha = .01)
+    
+estnet_m3_2 <- getmatrix(res_m3_2, "omega")
+
+qgraph(estnet_m3_2)
+```
+
+```{r}
+performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2, 
+                                               estnet_m3_1, estnet_m3_2), performance))
+rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise",
+                                 "FIML_prune", "FIML_stepup")
+kableExtra::kable(performance_compr, digits = 3)
+```
+
+## Method 4 - WLS in `psychonetrics`
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 4: WLS"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m4_1
+#| cache: true
+#| fig-cap: "Method 4: Network Plot for BFI-25 with WLS and prune"
+
+# With stepwise
+res_m4_1 <- ggm(data, estimator = "WLS", standardize = "z") %>% 
+  prune(alpha = .01, recursive = FALSE) 
+    
+estnet_m4_1 <- getmatrix(res_m4_1, "omega")
+
+qgraph(estnet_m4_1)
+```
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 4: WLS"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m4_2
+#| cache: true
+#| fig-cap: "Method 4: Network Plot for BFI-25 with WLS, prune, and modelsearch"
+
+res_m4_2 <- ggm(data, estimator = "WLS", standardize = "z") %>% 
+  prune(alpha = .01, recursive = FALSE) |> 
+  modelsearch(prunealpha = .01, addalpha = .01)
+    
+estnet_m4_2 <- getmatrix(res_m4_2, "omega")
+
+qgraph(estnet_m4_2)
+```
+
+```{r}
+performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2, 
+                                               estnet_m3_1, estnet_m3_2,
+                                               estnet_m4_1, estnet_m4_2), performance))
+rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise",
+                                 "FIML_prune", "FIML_stepup",
+                                 "WLS_prune", "WLS_prune_modelsearch")
+kableExtra::kable(performance_compr, digits = 3)
+```
+
+## Method 5 - mgm in `mgm`
+
+`mgm` package is used for estimating mixed graphical models. Node type can be "g" for Gaussian or "c" for categorical. For continuous variables, set `level` to 1 and `type` to g.
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 5: mgm"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m5_1
+#| cache: true
+#| fig-cap: "Method 5: Network Plot for BFI-25 with mgm and CV" 
+library(mgm)
+## mgm with CV
+res_m5_1 <- mgm(na.omit(data), type = rep("g", ncol(data)), level = rep(1, ncol(data)), 
+           lambdaFolds = 20,
+           lambdaSel = "CV", lambdaGam = EBICtuning, 
+           pbar = FALSE)
+getmatrix_mgm <- function(res) {
+  sign = ifelse(is.na(res$pairwise$signs), 1, res$pairwise$signs)
+  sign * res$pairwise$wadj
+}
+estnet_m5_1 <- getmatrix_mgm(res_m5_1)
+qgraph(estnet_m5_1)
+```
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 5: mgm"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m5_2
+#| cache: true
+#| fig-cap: "Method 5: Network Plot for BFI-25 with mgm and EBIC" 
+
+## mgm with EBIC
+res_m5_2 <- mgm(na.omit(data), type = rep("g", ncol(data)), level = rep(1, ncol(data)), 
+           lambdaFolds = 20,
+           lambdaSel = "EBIC", lambdaGam = EBICtuning,
+           pbar = FALSE)
+estnet_m5_2 <- getmatrix_mgm(res_m5_2)
+qgraph(estnet_m5_2)
+```
+
+```{r}
+performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2, 
+                                               estnet_m3_1, estnet_m3_2,
+                                               estnet_m4_1, estnet_m4_2,
+                                               estnet_m5_1, estnet_m5_2), performance))
+rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise",
+                                 "FIML_prune", "FIML_stepup",
+                                 "WLS_prune", "WLS_prune_modelsearch",
+                                 "mgm_CV", "mgm_EBIC")
+kableExtra::kable(performance_compr, digits = 3)
+```
+
+## Method 6 - BGGM in `BGGM`
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 6: BGGM"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m6_1
+#| cache: true
+#| fig-cap: "Method 6: Network Plot for BFI-25 with BGGM and explore" 
+
+res_m6_1 <- BGGM::explore(data, type = "continuous") |> 
+  BGGM:::select.explore(BF_cut = 3)
+estnet_m6_1 <- res_m6_1$pcor_mat_zero
+qgraph(estnet_m6_1)
+```
+
+```{r}
+#| code-fold: show
+#| code-summary: "Method 6: BGGM"
+#| fig-width: 5
+#| fig-height: 5
+#| label: fig-m6_2
+#| cache: true
+#| fig-cap: "Method 6: Network Plot for BFI-25 with BGGM and estimate" 
+
+res_m6_2 <- BGGM::explore(data, type = "continuous") |> 
+  BGGM:::select.estimate(cred = 0.95)
+estnet_m6_2 <- res_m6_2$pcor_adj
+qgraph(estnet_m6_2)
+```
+
+```{r}
+performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2, 
+                                               estnet_m3_1, estnet_m3_2,
+                                               estnet_m4_1, estnet_m4_2,
+                                               estnet_m5_1, estnet_m5_2,
+                                               estnet_m6_1, estnet_m6_2), performance))
+rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise",
+                                 "FIML_prune", "FIML_stepup",
+                                 "WLS_prune", "WLS_prune_modelsearch",
+                                 "mgm_CV", "mgm_EBIC",
+                                 "BGGM_explore", "BGGM_estimate")
+kableExtra::kable(performance_compr, digits = 3)
+```
+
+# Summary
+
+```{r}
+#| fig-width: 8
+#| fig-height: 8
+#| label: fig-summary01
+#| fig-cap: "Specificity and Sensitivity Balance"
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+performance_tbl <- performance_compr |> 
+  as.data.frame() |> 
+  mutate(method = rownames(performance_compr)) |> 
+  mutate(method = factor(method, levels = rownames(performance_compr)))
+ggplot(performance_tbl) +
+  geom_point(aes(x = sensitivity, y = specificity, col = method), size = 3) +
+  theme_bw() +
+  theme(legend.position = 'bottom')
+```
+
+`FLML_prune` and `BGGM_estimation` seem to perform best among all methods regarding balance between sensitivity and specificity of network weights.
+
+```{r}
+#| fig-width: 10
+#| fig-height: 5
+#| label: fig-summary02
+#| fig-cap: "Precision among all methods"
+ggplot(performance_tbl) +
+  geom_col(aes(y = forcats::fct_reorder(method, precision), x = precision, fill = method)) +
+  theme_bw() +
+  labs(y = "") +
+  theme(legend.position = 'bottom')
+```
+
+`ggmMoSelect` with the stepwise procedure appears to have highest precision, followed by BGGM explore.
