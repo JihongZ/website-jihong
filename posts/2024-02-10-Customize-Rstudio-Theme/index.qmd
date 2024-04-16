@@ -1,5 +1,5 @@
 ---
-title: "Customize font family of Visual Mode in Rstudio and in Zotero"
+title: "Customize font family of visual mode in Rstudio and in Zotero"
 author: Jihong Zhang
 date: 2024-02-10
 execute:

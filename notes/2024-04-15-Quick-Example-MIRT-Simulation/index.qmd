@@ -1,5 +1,5 @@
 ---
-title: "Simulate response patterns under Multidimensional IRT"
+title: "Simulate response patterns under the framework of IRT"
 author: 'Jihong Zhang'
 subtitle: "Using mirt package"
 date: 'April 15 2024'
@@ -15,9 +15,10 @@ format:
   html: 
     code-fold: false
     code-summary: 'Click to see the code'
+    number-sections: true
 ---
 
-## Research Questions:
+## Research question:
 
 1.  How different methods of cutting item response affecting parameter estimation accuracy?
     -   Merge first two categories
@@ -41,19 +42,19 @@ d <- -diffs + rnorm(J) + 4
 d
 ```
 
-## Data Generation
+## Data generation
 
-### Model 1: Population Data
+### Model 1: population Data
 
 ```{r}
-## population data: 5-category: 0-4
+## Population data: 5-category: 0-4
 dat1 <- simdata(a, d, N, itemtype = rep('graded', 6))
 head(dat1)
 apply(dat1, 2, min)
 apply(dat1, 2, max)
 ```
 
-### Model 2: 4-category Data with first two categories merged
+### Model 2: 4-category data with first two categories merged
 
 ```{r}
 ## Data2: Merged-category data: 4-category, 0-1->0,2->1,3->2,4->3
@@ -64,10 +65,9 @@ dat2[dat2==3] <- 2
 dat2[dat2==4] <- 3
 apply(dat2, 2, min)
 apply(dat2, 2, max)
-
 ```
 
-### Model 3: 4-category Data with middle 2 categories merged
+### Model 3: 4-category data with middle 2 categories merged
 
 ```{r}
 ## Data3: Merged-category data: 4-category, 0->0,1-2->1,3->2,4->3
@@ -79,7 +79,7 @@ apply(dat3, 2, min)
 apply(dat3, 2, max)
 ```
 
-## Data Analysis
+## Data analysis
 
 ```{r}
 #| message: false
@@ -94,18 +94,17 @@ mod2 <- mirt(dat2, model = 1)
 mod2_param <- coef(mod2, simplify = TRUE)$items
 mod2_itemfit <- itemfit(mod2)
 
-## middle category merge model: model3
+## Middle category merge model: model3
 mod3 <- mirt(dat3, model = 1)
 mod3_param <- coef(mod3, simplify = TRUE)$items
 mod3_itemfit <- itemfit(mod3)
-
 ```
 
-## Parameter Recovery
+## Parameter recovery
 
 ```{r}
 d
-mod1_param[,2:5]
+kableExtra::kable(mod1_param[,2:5], digits = 3)
 ```
 
 ```{r}
@@ -120,15 +119,25 @@ rmse <- function(true, est) {
 }
 
 
-message("Model 1 Absolute Bias: ", rev_bias(true = as.numeric(a), est = mod1_param[,'a1']))
-message("Model 2 Absolute Bias: ", rev_bias(true = as.numeric(a), est = mod2_param[,'a1']))
-message("Model 3 Absolute Bias: ", rev_bias(true = as.numeric(a), est = mod3_param[,'a1']))
-message("Model 1 RMSE: ", rmse(true = as.numeric(a), est = mod1_param[,'a1']))
-message("Model 2 RMSE: ", rmse(true = as.numeric(a), est = mod2_param[,'a1']))
-message("Model 3 RMSE: ", rmse(true = as.numeric(a), est = mod3_param[,'a1']))
+Results <- data.frame(
+  Bias = c(
+    rev_bias(true = as.numeric(a), est = mod1_param[,'a1']),
+    rev_bias(true = as.numeric(a), est = mod2_param[,'a1']),
+    rev_bias(true = as.numeric(a), est = mod3_param[,'a1'])
+  ),
+  RMSE = c(
+    rmse(true = as.numeric(a), est = mod1_param[,'a1']),
+    rmse(true = as.numeric(a), est = mod2_param[,'a1']),
+    rmse(true = as.numeric(a), est = mod3_param[,'a1'])
+  )
+)
+rownames(Results) <- paste0("Model ", 1:3)
+kableExtra::kable(Results, digits = 3)
 ```
 
-## Item Fit
+## Item fit
+
+Model 1 (population model) seems to have overall best item fits. Model 2 (tail merged model) seems to have most worst-fitting items. Model 3 (middle-range merged model) seems to have the worst-fitting item (item 6).
 
 ```{r}
 RMSEA_mat <- rbind(
@@ -137,10 +146,11 @@ RMSEA_mat <- rbind(
   mod3 = mod3_itemfit$RMSEA.S_X2
 )
 colnames(RMSEA_mat) <- paste0('Item', 1:6)
-RMSEA_mat
+rownames(RMSEA_mat) <- paste0('Model ', 1:3)
+kableExtra::kable(RMSEA_mat, digits = 3)
 ```
 
-## Global Fit
+## Global fit
 
 ```{r}
 M2_df <- rbind(
@@ -148,11 +158,11 @@ M2_df <- rbind(
   M2(mod2, "C2"),
   M2(mod3, "C2")
 )
-rownames(M2_df) <- paste0("Model", 1:3)
-kableExtra::kable(M2_df)
+rownames(M2_df) <- paste0("Model ", 1:3)
+kableExtra::kable(M2_df, digits = 3)
 ```
 
-## MCMC Simulation
+## MCMC simulation
 
 ```{r}
 #| message: false
@@ -163,7 +173,7 @@ Results <- parSim(
   J = c(6, 10, 20),
   N = c(300, 500, 1000),
   # Number of repititions?
-  reps = 30, # more is better!
+  reps = 100, # more is better!
   
   # Parallel?
   nCores = 8,
@@ -220,6 +230,8 @@ Results <- parSim(
 ```
 
 ```{r}
+#| fig-align: 'center'
+#| fig-cap: 'Performance measures across conditions'
 library(ggplot2)
 library(dplyr)
 library(tidyr)
@@ -231,7 +243,7 @@ Results_plot <- Results |>
                names_to = 'Model', values_to = 'Value') |> 
   separate(Model, into = c("Measure", "Model")) |> 
   group_by(J, N, Model, Measure) |> 
-  summarise(Value = mean(Value)) |> 
+  summarise(Value = mean(Value, na.rm = T)) |> 
   mutate(N = factor(N, levels = c(300, 500, 1000)))
 
 Results_plot |> 
@@ -241,3 +253,10 @@ Results_plot |>
   facet_grid(Measure ~ J, scales = "free") +
   theme_bw()
 ```
+
+## Conclusion
+
+1.  There are not much differences in global model fits regarding varied cutting methods of Likert-scale item responses under the conditions in the simulation.
+2.  Increases of test length and sample sizes will increase estimation accuracy for both cutting methods.
+3.  Item fits will differ by varied cutting methods.
+4.  Goodness-of-fit may not perform well evaluating cutting methods of item responses.
