@@ -31,7 +31,7 @@ format:
     scrollProgress: true # Force the scrollbar to remain visible
     mermaid:
       theme: neutral
-#bibliography: references.bib
+bibliography: references.bib
 ---
 
 ## Today's Objectives
@@ -77,15 +77,14 @@ All 5 analysis methods have a network-shaped diagram. [**Graphical modeling**]{.
 
 ## Network Psychometrics
 
-Network psychometrics is a novel area thaat allows representing complex phenomena of measured constructs in terms of a set of elements that interact with each other.
+1.  Network psychometrics is a novel area that allows representing complex phenomena of measured constructs in terms of a set of elements that interact with each other.
+2.  It is inspired by the so-called [mutualism model]{.underline} and research in ecosystem modeling [@kan2019].
+    -   A mutualism model proposes that basic cognitive abilities directly and positively interact during development.
+3.  Psychometric network arises as [dynamics or reciprocal causation]{.underline} among variables are getting more attentions.
+4.  For example, individual differences in depression could arise from, and could be maintained by, vicious cycles of mutual relationships among symptoms.
+5.  A depression symptom such as insomnia can cause another symptom, such as fatigue, which in turn can determine concentration problems and worrying, which can result in more insomnia and so on.
 
-It arises as [psychological phenomena]{.underline} such as individual differences in psychopathology and personality is getting much more complex.
-
--   For example, individual differences in depression could arise from, and could be maintained by, vicious cycles of mutual relationships among symptoms.
-
--   A depression symptom such as insomnia can cause another symptom, such as fatigue, which in turn can determine concentration problems and worrying, which can result in more insomnia and so on.
-
-## Varied Perspectives between Network and Common Factor
+## Comparison to factor analysis
 
 [**Factor analysis**]{.underline} (common factor model) assumes the associations between observed features can be explained by one or more common factors.
 
@@ -93,7 +92,7 @@ It arises as [psychological phenomena]{.underline} such as individual difference
 
 [**Psychometric network**]{.underline}, however, assumes the associations between observed features ARE the reason of the development of depression. Or "depression" is the network itself.
 
--   unavoidable cycle of "fatigue -\> worring -\> insomnia -\> fatigue" will leads to higher "depression"
+-   unavoidable cycle of "fatigue -\> worrying -\> insomnia -\> fatigue" will leads to higher "depression"
 
 ## Utility of Psychometric Network
 
@@ -397,8 +396,8 @@ density_nonzero_edge(BGGMfit$pcor_mat_zero)
 
 ## Network Structure
 
-::: {layout-nrow=2} 
-::: {.column}
+::: {layout-nrow="2"}
+::: column
 ```{r}
 #| echo: false
 #| fig-cap: "EBICglasso"
@@ -407,7 +406,7 @@ qgraph(EBICgraph, groups = big5groups)
 ```
 :::
 
-::: {.column}
+::: column
 ```{r}
 #| echo: false
 #| fig-cap: "Sig. Test" 
@@ -429,6 +428,7 @@ qgraph(BGGMfit_omega,  labels=colnames(bfi[,1:25]), groups = big5groups)
 :::
 
 ## Centrality - Strength
+
 Strength centrality measures suggest that `C4` and `E4` or `N1` have highest centrality indicating they play most imporatant roles in the networks.
 
 ```{r}
@@ -455,6 +455,7 @@ p3 + geom_point(aes(color = hl3), size = 10)+ theme(text = element_text(size = 3
 ```
 
 ## Centrality - Bridge
+
 `E4` and `E5` has highest bridge strength, indicating they serve as bridges linking communities of personality. They are important elements connecting varied types of personality
 
 ```{r}
@@ -488,13 +489,14 @@ bridge_plot(p2)
 bridge_plot(p3)
 ```
 
-
 ## Wrapping up
 
-1. Network analysis is an alternative way of modeling dependency among variables.
-2. Gaussian graphical model is used for multivariate continuous data.
-3. The goal is to estimate network structure, node importance, and stability.
+1.  Network analysis is an alternative way of modeling dependency among variables.
+2.  Gaussian graphical model is used for multivariate continuous data.
+3.  The goal is to estimate network structure, node importance, and stability.
 
 ## Other Materials:
 
 1.  [Jihong's post: how to choose network analysis estimation](https://jihongzhang.org/notes/2024-04-04-Network-Estimation-Methods)
+
+## Reference
