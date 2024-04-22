@@ -140,7 +140,7 @@ This procedure is typically called edge selection. One popular edge selection me
 
 ::: columns
 ::: {.column width="50%"}
-![](../Images/Lecture12_Network/girls_betweensubject_MG.jpg){width="70%"}
+![Emotion regulation (Awareness), Interpersonal problems and eating disorder](../Images/Lecture12_Network/girls_betweensubject_MG.jpg){width="70%"}
 :::
 
 ::: {.column width="50%"}
