@@ -5,7 +5,6 @@ library(blavaan)
 library(cmdstanr)
 
 # Read in data ------------------------------------------------------------
-
 root_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code"
 current_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture09/Code"
 save_dir <- "~/Library/CloudStorage/OneDrive-Personal/2024 Spring/ESRM6553 - Advanced Multivariate Modeling/Lecture09/"
@@ -19,7 +18,6 @@ conspiracyItemsDichtomous <- itemResp |>
 
 
 # Run the model -----------------------------------------------------------
-
 modelIRT_2PL_SI_stan <- cmdstanr::cmdstan_model(here(current_dir, 'lecture09.stan'))
 nObs = nrow(conspiracyItems)
 nItems = ncol(conspiracyItems)
@@ -61,8 +59,7 @@ modelIRT_2PL_SI_samples = modelIRT_2PL_SI_stan$sample(
 summary(modelIRT_2PL_SI_samples$summary(.cores =4)['rhat'])
 # modelIRT_2PL_SI_samples$save_object(here(save_dir, "modelIRT_2PL_SI_samples.RDS"))
 modelIRT_2PL_SI_samples$summary(.cores =4)
-
-
+modelIRT_2PL_SI_samples$diagnostic_summary()
 
 ### ICC plots  ----------------------------------------
 thetas = seq(-5, 5, .1)

@@ -80,7 +80,12 @@ modelCFA_data = list(
   psiRate = psiRateVecHP
 )
 
+## Model 1: Hypothesis model
 modelCFA_stan <- cmdstan_model(here(root_dir, "Lecture07.stan"))
+
+## Empty model
+modelEmpty_stan <- cmdstan_model(here(root_dir, "Lecture07Empty.stan"))
+modelSaturated_stan <- cmdstan_model(here(root_dir, "Lecture07Saturated.stan"))
 
 modelCFA_samples = modelCFA_stan$sample(
   data = modelCFA_data,
@@ -91,6 +96,24 @@ modelCFA_samples = modelCFA_stan$sample(
   iter_sampling = 2000
 )
 
+modelEmpty_samples = modelEmpty_stan$sample(
+  data = modelCFA_data,
+  seed = 09102022,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 1000,
+  iter_sampling = 2000
+)
+modelSaturated_samples = modelSaturated_stan$sample(
+  data = modelCFA_data,
+  seed = 09102022,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 1000,
+  iter_sampling = 2000
+)
+
+
 # save object
 if (file.exists(here(save_dir, "model01.RDS"))) {
   modelCFA_samples <- readRDS(here(save_dir, "model01.RDS"))
@@ -99,6 +122,18 @@ if (file.exists(here(save_dir, "model01.RDS"))) {
 }
 # Check convergence
 max(modelCFA_samples$summary()$rhat, na.rm=TRUE)
+
+# Check log-likelihood
+LL_H0 <- as.numeric(modelCFA_samples$draws("mean_log_lik", format = "draws_matrix"))
+LL_H0_rep <- as.numeric(modelCFA_samples$draws("mean_log_lik_rep", format = "draws_matrix"))
+LL_Empty <- as.numeric(modelEmpty_samples$draws("mean_log_lik", format = "draws_matrix"))
+LL_H1 <- as.numeric(modelSaturated_samples$draws("mean_log_lik", format = "draws_matrix"))
+
+D_obs <- LL_H0 - LL_Empty
+RMSEA2 = ((LL_H0 - LL_H0_rep + 2*LL_H1) - (p_star - pD)) / (p_star - pD) * nObs
+RMSEA = sqrt(RMSEA2[RMSEA2 > 0])
+hist(CFI)
+hist(RMSEA)
 
 # item parameter results
 modelCFA_samples$summary(c("mu", "lambda", "psi")) 
