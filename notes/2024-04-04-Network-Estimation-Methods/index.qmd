@@ -262,6 +262,10 @@ $$
 \text{EBIC} =-2L+E(\log(N))+4\gamma E(\log(P))
 $$
 
+$$
+\text{AIC} = -2L + 2E(\log(P))
+$$
+
 Another important setting is the tuning parameter ($\lambda$) of EBICglasso that controls the sparsity level in the penalized likelihood function as:
 
 $$
@@ -295,7 +299,10 @@ res_m1 <- estimateNetwork(data, # input as polychoric correlation
                                              "cor"))
     
 estnet_m1 <- res_m1$graph
-
+summary(res_m1)
+str(res_m1$results)
+EBIC = min(res_m1$results$ebic) # EBIC of the final model
+(AIC = EBIC - 2 * log(nrow(data))) # AIC =  52287.32
 qgraph(estnet_m1)
 ```
 
