@@ -259,11 +259,15 @@ This method uses the `bootnet::estimateNetwork` function.
 `EBICtuning <- 0.5` sets up the hyperparameter ($\gamma$) as .5 that controls how much the EBIC prefers simpler models (fewer edges), which by default is .5.
 
 $$
-\text{EBIC} =-2L+E(\log(N))+4\gamma E(\log(P))
+\text{EBIC} =-2L+\log(N)+4\gamma \log(P)
 $$
 
 $$
-\text{AIC} = -2L + 2E(\log(P))
+\text{AIC} = -2L + 2P
+$$
+
+$$
+\text{BIC} = -2L + P\log(N) 
 $$
 
 Another important setting is the tuning parameter ($\lambda$) of EBICglasso that controls the sparsity level in the penalized likelihood function as:
@@ -301,7 +305,7 @@ res_m1 <- estimateNetwork(data, # input as polychoric correlation
 estnet_m1 <- res_m1$graph
 summary(res_m1)
 str(res_m1$results)
-EBIC = min(res_m1$results$ebic) # EBIC of the final model
+EBIC = mean(res_m1$results$ebic) # EBIC of the final model
 (AIC = EBIC - 2 * log(nrow(data))) # AIC =  52287.32
 qgraph(estnet_m1)
 ```
@@ -390,7 +394,7 @@ res_m3_1 <- ggm(data, estimator = "FIML", standardize = "z") %>%
   prune(alpha = .01, recursive = FALSE) 
     
 estnet_m3_1 <- getmatrix(res_m3_1, "omega")
-
+fit(res_m3_1)
 qgraph(estnet_m3_1)
 ```
 
