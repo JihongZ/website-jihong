@@ -3,6 +3,7 @@ project:
   output-dir: "_site"
     
 website:
+  search: false
   title: "Jihong Z. - Play Harder and Learn Harder"
   site-url: "https://www.jihongzhang.org/"
   favicon: "images/icon.png"
