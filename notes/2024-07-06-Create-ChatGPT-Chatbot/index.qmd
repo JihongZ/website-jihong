@@ -1,0 +1,46 @@
+---
+title: "Create a ChatGPT chatbot for personal website"
+author: 'Jihong Zhang'
+subtitle: "Using FlowiseAI"
+date: 'April 15 2024'
+categories:
+  - Quarto
+  - ChatGPT
+  - AI
+execute: 
+  eval: true
+  echo: true
+  warning: false
+format: 
+  html: 
+    code-fold: false
+    code-summary: 'Click to see the code'
+    number-sections: true
+---
+
+![Screenshot of a virtual teaching assistant for my website](figures/Screenshot_TA.png)
+
+AI products powered by Large language models (LLM) are getting more and more popular in many field. AI agents using ChatGPT can serve as an assistant or efficient workers for jobs with certain patterns, such as composite songs, image generations, slides theming, or paper writing. I am always wondering if AI could become a "teaching assistant" for my lectures. In the academia, TA's jobs are basically answering students questions, such as consulting assignment due date, textbooks information, summary of previous lectures. TA also need to answer some academic questions relevant to the classes, such as *what is the definition of certain concept*? From my point of view, LLM can definitely serve as these kinda of tasks.
+
+To get started, some requirement needed before moving forward:
+
+1.  Basic knowledge of LLM
+2.  Github account
+3.  [Render.com](https://render.com/) account
+4.  OpenAI account
+
+## FlowiseAI
+
+From their [website](https://flowiseai.com/), FlowiseAI is described as an "[Open source low-code tool for developers to build customized LLM orchestration flow & AI agents]{.underline}". There are 21K stars in their [GitHub](https://github.com/FlowiseAI/Flowise), which is impressive. To make it simple, FlowiseAI allows users to quickly create a AI product, such as Chatbot, by dragging and dropping UI elements.
+
+One of most advantage FlowiseAI has is the detailed user-friendly [tutorials](https://www.youtube.com/watch?v=nqAK_L66sIQ&list=PL4HikwTaYE0H7wBxhvQqxYcKOkZ4O3zXh) on Youtube and [documentation](https://docs.flowiseai.com/).
+
+![Screenshot for one FlowiseAI project](figures/Screenshot_Flowise.png)
+
+## Chatbot powered by FlowiseAI and ChatGPT
+
+For TA, the suitable tool is "Conversational Retrieval QA Chain". It allows the LLM app to consider your own data (your slides or syllabus) as the context when answering any users' questions related to the classes. It is known as RAG (Retrieval-Augumented Generation). To know more about how to let the LLM app have access to your own data, please look at the [YouTube video](https://www.youtube.com/watch?v=V7uBy3VQJAc&list=PL4HikwTaYE0H7wBxhvQqxYcKOkZ4O3zXh&index=6).
+
+After you create the virtual TA, the next step is embedding it into your own website. To do that, following the YouTube video [here](https://www.youtube.com/watch?v=G1ZSxKNdPG4&list=PL4HikwTaYE0H7wBxhvQqxYcKOkZ4O3zXh&index=10).
+
+Let me know your thoughts.
