@@ -7,7 +7,7 @@ website:
   title: "Jihong Z. - Play Harder and Learn Harder"
   site-url: "https://www.jihongzhang.org/"
   favicon: "images/icon.png"
-  description: "Technical and Statistical but Fun"
+  description: ""
   google-analytics:
     tracking-id: "UA-149871707-1"
   page-navigation: true
@@ -53,27 +53,30 @@ website:
     collapse-below: lg
     pinned: true
     title: "<span class='icon-line'></span>JZ<span class='icon-line'></span>"
-    right:
+    left:
       - text: "<span class='menutext-home'>Home</span><span class='text-line'></span>"
         icon: 'bi bi-house' # https://icons.getbootstrap.com
         file: index.qmd
       - text: "<span class='menutext-blog'>Blog</span><span class='text-line-blog'></span>"     
         icon: 'bi bi-pencil-square'
         file: posts.qmd 
+      - text: "<span class='menutext-note'>Note</span><span class='text-line-note'></span>"
+        icon: 'bi bi-journal-bookmark-fill'
+        file: notes.qmd
+      - text: "<span class='menutext-pj'>Project</span><span class='text-line-pj'></span>"
+        icon: 'bi bi-clipboard-data'
+        file: projects.qmd
       - text: "<span class='menutext-db'>Dashboard</span><span class='text-line-db'></span>"
         icon: "bi bi-speedometer2"
         file: dashboards/template.qmd  
-      - text: "<span class='menutext-cv'>C.V.</span><span class='text-line-cv'></span>"
-        icon: "bi bi-person" # somehow the file path only works in nav. bar, not link in index
+    tools:
+      - icon: "bi bi-person-square" # somehow the file path only works in nav. bar, not link in index
         file: uploads/Curriculum_Vitae.pdf
-      - text: "<span class='menutext-pj'>Projects</span><span class='text-line-pj'></span>"
-        icon: 'bi bi-three-dots'
-        file: projects.qmd
-      - text: "<span class='menutext-note'>Notes</span><span class='text-line-note'></span>"
-        icon: 'bi bi-journal-bookmark-fill'
-        file: notes.qmd
-      - text: "<span class='menutext-cn'>中文</span><span class='text-line-cn'></span>"
-        icon: 'bi bi-globe-asia-australia'
+      - icon: twitter
+        href: https://x.com/jihongzgamma
+      - icon: github
+        href: https://github.com/JihongZ
+      - icon: 'bi bi-globe-asia-australia'
         file: postsCN.qmd
     
 format:

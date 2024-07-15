@@ -2,7 +2,7 @@
 title: "Jihong Zhang, Dr."
 subtitle: 'Learn harder, Play harder'
 comments: false
-page-layout: full
+# page-layout: full
 toc: false
 sidebar: false
 about:
@@ -14,7 +14,7 @@ about:
   links:
     - icon: envelope
       text: Email
-      href: mailto:z.john92@gmail.com
+      href: mailto:jzhang@uark.edu
     - icon: twitter
       text: Twitter
       href: https://twitter.com/jihongzgamma
@@ -39,9 +39,7 @@ listing:
 ---
 
 ::: {#hero-heading}
-I currently hold the position of Assistant Professor in the Educational Statistics and Research Methods (ESRM) Program at the University of Arkansas. Previously, I served as a postdoctoral fellow in the School of Social Science at the Chinese University of Hong Kong. My academic journey includes a rigorous doctoral training in the Educational Measurement and Statistics (EMS) program at the University of Iowa. My primary research focus was on Psychological and Bayesian Network, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric methodologies.
-
-My expertise lies in the application of sophisticated statistical models, including machine learning and Bayesian networks. My research endeavors are primarily aimed at assisting researchers in the social sciences to comprehend their data more effectively, interpret results accurately, and utilize the potent tools of statistics judiciously. My work is characterized by a commitment to enhancing the methodological understanding and application of statistics in educational research and beyond.
+I currently hold the position of Assistant Professor of Educational Statistics and Research Methods (ESRM) at the department of Counseling, Leadership, and Research Methods, University of Arkansas. Previously, I served as a postdoctoral fellow at the Chinese University of Hong Kong for one year. My academic journey in psychometrics starts with a rigorous doctoral training in the Educational Measurement and Statistics (EMS) program at the University of Iowa. Currently, my primary research focuses on psychological network, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric modeling. My expertise lies in the application of sophisticated statistical modeling in the fields of psychology and education, including machine learning and Bayesian networks. My work is characterized by a commitment to enhancing the methodological understanding and application of statistics in educational research and beyond.
 :::
 
 ::: {.panel-tabset align="left"}
