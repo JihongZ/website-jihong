@@ -9,7 +9,7 @@
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.23">
+  <meta name="generator" content="quarto-1.5.32">
 
   <meta name="author" content="Jihong Zhang">
   <meta name="dcterms.date" content="2022-10-24">
@@ -465,41 +465,7 @@ Jihong Zhang
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-  style C fill:#99ff99,stroke:#333,stroke-width:2px
-  style K fill:#99ff99,stroke:#333,stroke-width:2px
-  
-  style H fill:#ff99cc,stroke:#333,stroke-width:2px
-  style M fill:#ff99cc,stroke:#333,stroke-width:2px
-  
-  style E fill:#f9f,stroke:#333,stroke-width:2px
-  style F fill:#f9f,stroke:#333,stroke-width:2px
-  style G fill:#f9f,stroke:#333,stroke-width:2px
-  
-  Z[(Data)] --&gt; A &amp; E &amp; I
 
-  subgraph Model 1
-  A[LCDM 1] --&gt;|Bayesian \n estimate| B(Posterior\n Distribution)
-  B --&gt;|sample| C(Posterior \n Predictive \n M2 fa:fa-star)
-  C --&gt; D{{KS Test}}
-  D --&gt; H[KS-PP-M2 fa:fa-star]
-  end
-
-  subgraph Reference: BayesNet Model
-  E[BayesNet] --&gt; |Bayesian \n estimate| F(Posterior \n Distribution)
-  F --&gt;|sample| G(Posterior \n Predictive \n M2 fa:fa-star)
-  end
-  G --&gt; D &amp; L
-
-  subgraph Model 2
-  I[LCDM 2] --&gt;|Bayesian \n estimate| J(Posterior\n Distribution)
-  J --&gt;|sample| K(Posterior \n Predictive \n M2 fa:fa-star)
-  K --&gt; L{{KS Test}}
-  L --&gt; M[KS-PP-M2 fa:fa-star]
-  end
-
-  H &amp; M --&gt; N{Decision}
-</pre>
 </div>
 <p></p></figure><p></p>
 </div>
@@ -572,6 +538,9 @@ Jihong Zhang
 </ol>
 </div><div class="column">
 <p><strong>Q-matrix</strong></p>
+<div>
+
+</div>
 <div class="cell quarto-layout-panel" data-layout-ncol="5">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 20.0%;justify-content: flex-start;">
@@ -1499,18 +1468,7 @@ Gelman, A., &amp; Hill, J. (2006). <em>Data Analysis Using Regression and Multil
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1542,15 +1500,37 @@ Gelman, A., &amp; Hill, J. (2006). <em>Data Analysis Using Regression and Multil
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
         var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
         var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/jihongzhang\.org");
+          var filterRegex = new RegExp("https:\/\/www\.jihongzhang\.org\/");
         var isInternal = (href) => {
             return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
         // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
         for (var i=0; i<links.length; i++) {
           const link = links[i];
           if (!isInternal(link.href)) {

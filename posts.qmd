@@ -2,14 +2,35 @@
 title: ''
 subtitle: ''
 listing:
-  contents: posts/*/*.[Rq]md
-  sort: "date desc"
-  type: default
-  categories: numbered
-  fields: [date, title, description, categories, author, reading-time]
-  sort-ui: true
-  filter-ui: [title, date]
-  page-size: 10
-page-layout: full
+  - id: lectures
+    contents: posts/Lectures/*/*.[Rq]md
+    sort: "date desc"
+  - id: posts
+    contents: posts/*/*.[Rq]md
+    sort: "date desc"
+    type: default
+    categories: numbered
+    fields: [date, title, description, categories, author, reading-time]
+    sort-ui: true
+    filter-ui: [title, date]
+    page-size: 10
+  - id: presentation
+    contents: posts/Presentation/*/*.[Rq]md
+    sort: "date desc"
 title-block-banner: false
 ---
+
+## Lectures
+
+::: {#lectures}
+:::
+
+## Posts
+
+::: {#posts}
+:::
+
+## Presentations
+
+::: {#presentation}
+:::

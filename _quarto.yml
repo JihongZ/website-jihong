@@ -36,19 +36,19 @@ website:
       - section: ESRM6553 - Advanced Multivariate
         contents: 
           - text: 'Syllabus'
-            file: posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Lecture07.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture09/Lecture09.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture10/Lecture10.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Lecture11.qmd
-          - posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture12/Lecture12.qmd
+            file: posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Lecture07.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture09/Lecture09.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture10/Lecture10.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Lecture11.qmd
+          - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture12/Lecture12.qmd
   navbar:
     collapse-below: lg
     pinned: true

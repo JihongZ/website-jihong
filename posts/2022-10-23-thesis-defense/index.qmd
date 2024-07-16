@@ -5,6 +5,8 @@ date: '2022-10-23'
 title-block-banner: true
 title-block-banner-color: "red"
 csl: apa.csl
+execute: 
+  eval: false
 format: 
   revealjs:
     page-layout: custom
