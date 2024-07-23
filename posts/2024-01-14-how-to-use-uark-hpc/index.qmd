@@ -146,7 +146,7 @@ This command will redirect to cloud72 queue, which includes virtual machines and
 :::
 
 | slurm commands      | compatibility commands   | Meaning                            |
-|---------------------|--------------------------|------------------------------------|
+|-------------------|-----------------------|-------------------------------|
 | sbatch              | qsub                     | submit \<job file\>                |
 | srun                | qsub -I                  | submit interactive job             |
 | squeue              | qstat                    | list all queued jobs               |
@@ -387,11 +387,11 @@ The workflow for this job task is like this:
 
 ### Overall Procedure
 
-First of all, we need a masterJob.R file (could be replaced as bash file if you are more familiar with bash language) for two purposes: (1) creating multiple bash job files with each corresponding to each model or multiple models; (2) submitting the bash job file. The masterJob.R contains a for loop with data index as iterators.
+First of all, we need to create a `masterJob.R` file[^1] with two main aims: (1) to create multiple bash job files with each corresponds to run one or multiple analysis models; (2) to submit the data analysis job to the computing server. In `masterJob.R`, there may exist nested "[*for loop*]{.underline}" with datasets/design factors as iterators.
 
-For example, below is an example masterJob.R file in order to run multiple models. Iterator `i` represents the index of data set. If we want to iterate over all N data sets, we can set `for (i in 1:N)`. The `initial` partical contains the settings of HPC jobs: 1 node, each node run 6 tasks, and each task uses 4 cpus. If we run a Bayesian model with 3 chains, we can set `--cpus-per-task=3` instead. Each modeling file (for example, *Analysis_ModelA_AlignedSV_asym1000.R*) will be subjected to run using `Rscript` with two arguments: (1) data set index (i); (2) root directory containing all codes and data sets (root_path). The first argument make sure each file will be fed to modeling file. The second argument makes the masterJob file more generic to run on varied HPC accounts.
+[^1]: which could be replaced as bash file if you are more familiar with bash language
 
-`write_lines` function saves the text of job file into a local directory in root direcotry – JobFile. `system` is a R function that can run bash code in R. Here we echo `sbatch [OneJobFile].R` to make R automatically submit the JobFile for specific data set.
+For example, below is an example `masterJob.R` file. Iterator `i` represents the index of data set.
 
 ```{r filename="masterjob_All.R"}
 #| eval: false
@@ -428,6 +428,10 @@ cd $SLURM_SUBMIT_DIR
   system(paste0("sbatch ", paste0(root_path, "JobFiles/", jobfile)))
 }
 ```
+
+If we want to iterate over all N data sets, we can set `for (i in 1:N)`. The `initial` partical contains the settings of HPC jobs: 1 node, each node run 6 tasks, and each task uses 4 cpus. If we run a Bayesian model with 3 chains, we can set `--cpus-per-task=3` instead. Each modeling file (for example, *Analysis_ModelA_AlignedSV_asym1000.R*) will be subjected to run using `Rscript` with two arguments: (1) data set index (i); (2) root directory containing all codes and data sets (root_path). The first argument make sure each file will be fed to modeling file. The second argument makes the masterJob file more generic to run on varied HPC accounts.
+
+`write_lines` function saves the text of job file into a local directory in root direcotry – JobFile. `system` is a R function that can run bash code in R. Here we echo `sbatch [OneJobFile].R` to make R automatically submit the JobFile for specific data set.
 
 Alternatively, we can set up the masterJob file to run one model only:
 
@@ -509,6 +513,12 @@ root_path = "~/Library/CloudStorage/OneDrive-Personal/2024 Spring/Ejike Bayesian
 datset_paths <- list.files(paste0(root_path, "dataJZ/"), pattern = '.dat',recursive = TRUE)
 datset_fullpaths <- paste0(paste0(root_path, "dataJZ/"), datset_paths)
 head(datset_fullpaths)
+```
+
+## Another quick example
+
+```{r, echo=FALSE}
+xfun::embed_file("Procedure of Data Analysis on HPC.pdf")
 ```
 
 ## Resources
