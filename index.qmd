@@ -74,7 +74,7 @@ I currently hold the position of Assistant Professor of Educational Statistics a
 
 ## Teaching
 
-::: {#teaching}
+::: {#lectures}
 :::
 
 ## Recent posts
