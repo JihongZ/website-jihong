@@ -19,7 +19,7 @@ citation:
 
 # General Information
 
--   **Course Code:** ESRM 5453
+-   **Course Code:** ESRM 64503
 -   **Course ID:** 10434
 -   **Credits:** 3 CH
 -   **Course time and location:** Mon 17:00-19:45; GRAD 210
@@ -140,7 +140,7 @@ The university does not observe religious holidays; however Campus Council has p
 Weekly breakdown of topics and readings：
 
 | Week | Date  | Topic                                                                         | Reading                                      | Slides / Assigned HW | Code/Data |
-|:-----------|:-----------|:-----------|:-----------|:-----------|------------|
+|:-----|:------|:------------------------------------------------------------------------------|:---------------------------------------------|:---------------------|-----------|
 | 1    | 08/19 | Introduction and Overview; Review of the General Linear Model                 | Maxwell & Delaney (2004) Appendix B          |                      |           |
 | 2    | 08/26 | Introduction to R and Rstudio                                                 | Venables et al. (2013)                       |                      |           |
 | 3    | 09/02 | Labor Day Holiday (no class)                                                  |                                              |                      |           |
