@@ -43,7 +43,7 @@ listing:
 I currently hold the position of Assistant Professor of Educational Statistics and Research Methods (ESRM) at the department of Counseling, Leadership, and Research Methods, University of Arkansas. Previously, I served as a postdoctoral fellow at the Chinese University of Hong Kong for one year. My academic journey in psychometrics starts with a rigorous doctoral training in the Educational Measurement and Statistics (EMS) program at the University of Iowa. Currently, my primary research focuses on psychological network, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric modeling. My expertise lies in the application of sophisticated statistical modeling in the fields of psychology and education, including machine learning and Bayesian networks. My work is characterized by a commitment to enhancing the methodological understanding and application of statistics in educational research and beyond.
 :::
 
-::: {.panel-tabset align="left"}
+::: {.nav-pills .panel-tabset align="left"}
 ## Interests
 
 -   Bayesian Psychometric Modeling
