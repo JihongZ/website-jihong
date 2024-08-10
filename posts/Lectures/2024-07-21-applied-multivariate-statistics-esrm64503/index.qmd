@@ -158,10 +158,10 @@ The university does not observe religious holidays; however Campus Council has p
 +------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+-----------+-----------+
 | 9    | 10/14 | Fall Break (no class)                                                         |                                                                                                                                           |           |           |
 +------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+-----------+-----------+
-| 10   | 10/21 | Introduction to Path Analysis                                                 | Kline (2005):                                                                                                                             | HW2       |           |
+| 10   | 10/21 | Introduction to Path Analysis                                                 | Kline (2010, 3th Ed.):                                                                                                                    | HW2       |           |
 |      |       |                                                                               |                                                                                                                                           |           |           |
-|      |       |                                                                               | 1.  [Ch.5:Specification](Materials/Kline%20(2005)%20Ch.5.pdf)                                                                             |           |           |
-|      |       |                                                                               | 2.  [Ch.6:Identification](Materials/Kline%20(2005)%20Ch.6.pdf)                                                                            |           |           |
+|      |       |                                                                               | 1.  [Ch.5: Specification](Materials/Kline%20(2005)%20Ch.5.pdf)                                                                            |           |           |
+|      |       |                                                                               | 2.  [Ch.6: Identification](Materials/Kline%20(2005)%20Ch.6.pdf)                                                                           |           |           |
 +------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+-----------+-----------+
 | 11   | 10/28 | Residual ML Estimation; Multivariate Models in GLM Sofware                    | [Wright (1998)](https://support.sas.com/resources/papers/proceedings/proceedings/sugi23/Stats/p229.pdf)                                   | HW2 (Due) |           |
 +------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+-----------+-----------+
@@ -201,10 +201,11 @@ Academic calendar for Fall 2024: [Here](https://registrar.uark.edu/academic-date
 1.  Enders, C. K. (2010). Applied missing data analysis. New York, NY: Guilford.
 2.  Hoffman, L. (2014). Longitudinal analysis: Modeling within-person fluctuation and change. New York, NY:Routledge Academic.
 3.  Johnson, R. A. & Wichern, D. W. (2002). Applied multivariate statistical analysis (5th Ed.). Upper Saddle River, N.J.: Prentice-Hall.
-4.  Kline, R. B. (2023). Principles and practice of structural equation modeling (5th Ed.). New York, NY: Guilford.
-5.  Kutner, M. H., Nachtsheim, C. J., Neter, J., & Li, W. (2005). Applied linear statistical models (5th Ed.). New York, NY: McGraw-Hill.
-6.  Maxwell, S. E., & Delaney, H. D. (2004). Designing experiments and analyzing data. Mahwah, NJ: Erlbaum.
-7.  Venables, W. N., Smith, D. M., & the R Core Team (2013). An introduction to R – Notes on R: A programming environment for data analysis and graphics (3.0.2 ed.). R Core Development team. Retrieved from http://cran.r-project.org/doc/manuals/R-intro.pdf.
+4.  Kline, R. B. (2010). Principles and practice of structural equation modeling (3th Ed.). New York, NY: Guilford.
+5.  Kline, R. B. (2023). Principles and practice of structural equation modeling (5th Ed.). New York, NY: Guilford.
+6.  Kutner, M. H., Nachtsheim, C. J., Neter, J., & Li, W. (2005). Applied linear statistical models (5th Ed.). New York, NY: McGraw-Hill.
+7.  Maxwell, S. E., & Delaney, H. D. (2004). Designing experiments and analyzing data. Mahwah, NJ: Erlbaum.
+8.  Venables, W. N., Smith, D. M., & the R Core Team (2013). An introduction to R – Notes on R: A programming environment for data analysis and graphics (3.0.2 ed.). R Core Development team. Retrieved from http://cran.r-project.org/doc/manuals/R-intro.pdf.
 
 ## Articles
 
