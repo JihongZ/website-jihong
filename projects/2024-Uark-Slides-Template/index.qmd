@@ -1,0 +1,43 @@
+---
+title: "Template of revealjs slides for University of Arkansas"
+format: html
+author: Jihong Zhang
+date: "Aug 11 2024" 
+editor: visual
+---
+
+## Preview
+
+![First slide](figures/screenshot1.png)
+
+![Other slides](figures/screenshot2.png)
+
+## How to use
+
+This template is free to download via `quarto` command. Type in following command in your terminal within your target directory aiming to save your slide files.
+
+``` bash
+quarto use template JihongZ/quarto-uark-revealjs-theme
+```
+
+If you see the following message, you should be successful and can use the template.
+
+``` bash
+Quarto templates may execute code when documents are rendered. If you do not
+trust the authors of the template, we recommend that you do not install or 
+use the template.
+? Do you trust the authors of this template (Y/n) › Yes
+? Create a subdirectory for template? (y/N) › No
+[✓] Downloading
+[✓] Unzipping
+
+The template requires the following changes to extensions:
+uark-revealjs   [Install]   0.0.1 (format)
+? Would you like to continue (Y/n) › Yes
+```
+
+Then, you will see the `.qmd` file in your target directory (for example, `Lecture01.qmd`) with the same file name as your directory name. This file contains your slide content. You are free to edit this file.
+
+The `figures` directory contains your images that you will use in your slides. `_extensions` contains the styling files (.css, background image, metadata).
+
+![File structure](figures/screenshot3.png)
