@@ -14,6 +14,8 @@ format:
     code-fold: true
     number-sections: true
     number-depth: 1
+    footer: "ESRM 64503: Lecture01"
+    slide-number: c/t
 #jupyter: python3
 ---
 
@@ -41,233 +43,386 @@ format:
 :::
 :::
 
-## More about me
-
-::: columns
-::: {.column width="33%"}
-![Legend of Galactic Heroes](figures/p1853335261.webp){fig-align="left"}
-:::
-
-::: {.column width="33%"}
-![Trip in Iceland](figures/travel.jpg){fig-align="left"}
-:::
-
-::: {.column width="33%"}
-![Bike riding](figures/bike.jpg){fig-align="left" width="450"}
-:::
-:::
-
 ## It is your turn
 
-Tell me:
+-   Tell me:
 
-1.  Your name
-2.  Department name
-3.  Which year in your program
-4.  Anything else you want to share
+    1.  Your name
+    2.  Department name
+    3.  Which year in your program
+    4.  Anything else you want to share
 
-## This class
+## What To Expect This Semester
 
-## Question 3: How to compare groups in longitudinal network
+-   I believe that everyone **is capable** and can **significantly benefit** from learning varied types of multivariate analysis
 
-In network analysis, groups can be compared from three aspects:
+    -   The hard part is the working memory load, not the math
 
-1.  **Network structure** (e.g., some nodes connected in group A but not in group B)
+-   **Philosophy**: Focus on accessibility + learning-by-doing
 
-2.  **Node-level measures**: node centrality (importance) or node bridging strength (e.g., some nodes can be more central in group A while not in group B)
+    -   The AMS class heavily emphasize on hands-on task-oriented practices
 
-3.  **Network edge weights** (e.g., node 1 and node 2 have strong relationship in group A but weaker relationship in group B)
+    -   **No** anxiety-prone tasks (e.g., hand calculations, memorizing formulas)
 
-## Things to be considered
+    -   **No** anxiety-prone methods of evaluation (e.g., timed tests)
 
-1.  Which variables (nodes) should be included in the network?
+-   **Materials**[^1][^2]**:**
 
-    -   Items?
-    -   Subscale scores?
-    -   Latent factor scores?
-    -   Mixed
+    -   **Lecture** slides present concepts—the **what** and the **why**
 
-There are no clear rules of node types. It depends on theory model.
+    -   **Example** documents: reinforce the concepts and demonstrate the **how** using software—R packages
 
-2.  Are different networks comparable?
+    -   All available at the [course website](https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/) (hosted outside of Blackboard)
 
-The network of sample A differs from the network of sample B in term of network structures or centrality measures. They only have quantative differences in parameter estimates or they are measuring different constructs?
+        -   [Let me can show you how to use the website]{.underline}
 
-## Research Questions:
+[^1]: Prof. Lesa Hoffman's website: <https://www.lesahoffman.com/PSQF6270/index.html>
 
-1.  Are there any gender differences in the **network characteristics** of longitudinal networks
+[^2]: Prof. Jonathan Templin's EPSY905: <https://jonathantemplin.com/fundamentals-multivariate-modeling-spring-2018-epsy-905/>
 
-2.  Are there any gender differences in the **network structures** of eating disorder longitudinal networks
+## Course Requirements
 
-3.  Are there any gender differences in the **node centrality and bridge strength** of longitudinal networks
+-   **8 in-class quiz** (16 points): formative assissments including top-of-head questions and story problems for structured review
 
-## Data
+    -   An opportunity for you to request topics for further clarification and review
 
--   4-wave data collection were conducted over 18 months.
+    -   Typically 2-3 questions that can be finished in 15 minutes
 
--   For each wave, demographic information and self-reported answers of three questionnaires (emotional regulation, interpersonal problems, and eating disorder) from 1652 high school students in China were collected.
+-   **4 homework assignments** (HW1-4, 84 points): Practice doing data analysis
 
--   After data cleaning, N = 1540 cases left including 53.9% girls and 46.1% boys
+    -   Based directly on example given (no googling or ChatGPT needed, ever)
 
--   Age ranges from 11 to 17 years with a mean 15.2 years old
+    -   **Homework 1-3**: unique canned dataset
 
-## Measures
+        -   Answered online homework portal
 
-For network analysis, we used subscales and items as nodes.
+    -   **Homework 4: individual data analysis + written results section**
 
-1.  **Emotion regulation**: Difficulties in Emotion Regulation Scale (DERS-18). 6 subscales measures different aspects of emotion dysregualtion: Awareness, Clarity, Goals, Non-acceptance, Impulse, Strategies
-2.  **Interpersonal problems**: Inventory of Interpersonal Problems—Short Circumplex (IIP-SC). 8 subscales were included measuring varied aspects of interpersonal problems: domineering, cold, avoidant etc.
-3.  **Eating disorder**: 12-item short form of Eating Disorder Examination Questionnaire (EDE-QS). 12 items measured different disordered eating behaviors.
+        -   Get my feedback for using a model of your choice on your data + optional revision
 
-We have **26** nodes in initial networks.
+-   **Extra points** (10 points, **HW0**)
 
-## Data Analysis
+    -   I will show you how to use the system using Homework 0 as the example
 
-### 1. Node (item) selection
+## Our other Responsibility
 
--   For emotion regulation and interpersonal problem questions, 14 subscales were selected because their measured constructs have been well examined and theory-driven.
+-   My job (besides providing materials and assignments):
 
--   For eating disorder, we want to makre sure each item represent one unique eating disorder problem. Thus, we used the *goldbricker* algorithm to drop overalapping (dupplicated) symptoms, which give rise to 8 items included in the analyzed network.
+    -   **Answer questions** via email, in individual meetings, or in group-based zoom office hours—you can each work on homework during office hours and get immediate assistance (and then keep working)
 
-We have **22** nodes in further network analysis.
+        -   Email me first
 
-### 2. Network estimation
+-   Your job (in descending order of timely importance):
 
--   Multi-group GVAR was applied to the data to estimate boys' and girls' temporal/contemporaneous/between-subject network.
+    -   **Ask questions**—preferably in class, but any time is better than none
 
--   Furthermore, we pruned the networks and identify the most important nodes and edges using *prune* function in *psychonetric* package in R.
+    -   **Frequently review** the class material, focusing on mastering the vocabulary, logic, and procedural skills
 
-## Data Analysis (Cont.)
+    -   Don't wait until the last minute to start homework, and don't be afraid to **ask for help if you get stuck** on one thing for more than 15 minutes
 
-### 3. Overall network evaluation
+        -   Please email me (jzhang\@uark.edu) a screenshot of your code+error so I can respond easily
 
--   Network stability measured by correlation stability (CS) coefficients (Epskamp et al., 2018), which estimates the accuracy of centrality measures and node strength using bootstrapping
+    -   **Practice** using the software to implement the techniques you are learning on **data you care about**
 
-### 4. Test group differences
+    -   **Do the readings** for a broader perspective and additional example (best after the lecture)
 
--   Using [likelihood ratio test]{.underline} (LRT) to examine network structure differences by gender
+## More About Your Experience in this Class
 
-    -   Model H0 (the model with all edge weights constrained to be equal)
+-   **Attendance**: Strongly recommended but not required
 
-    -   Model H1 (the model with all edge weights freely estimated)
+    -   **Please do not attend in-person if you might be sick!**
 
-    -   Calculate the likelihood ratio between Model H0 and H1 and perform significance test
+    -   You can also join the class via Zoom
 
--   Examine gender differences in node centrality and bridging strength
+    -   You won't miss out: I will post **YouTube** recordings (audio + screenshare) by requested at the course website.
 
-    -   Compare estimated node centrality and bridge strength by gender
+-   **Changes** will be sent via email by 9 am on class days
 
-    -   Accuracy: test the accuracy of node centrality differences using bootstrapping sampling
+    -   I will update the homework and in-class quiz links on class days. If not uploaded, then there are two situations: (1) I forget to do that. I will re-upload later and notify you by emails. (2) I decide not to upload it or remove it.
 
-# Results
+    -   I may change to zoom-only for dangerous weather or if I am sick.
 
-## Overall Network Stability
+## Statistical Software
 
-1.  The multigroup network stability statistics were all acceptable for contemporaneous/between-subject networks according to the criteria of CS coefficients above 0.7
-2.  The temporal network was less stable with CS coefficients ranging from **.51** to **.56**
+-   I will show examples primarily using **R and R packages**. Some important R packages include:
 
-## Group differences - Temporal Network
+    -   **Tidyverse**: a comprehensive R package including multiple mini packages for multiple data cleaning, data transformation.
+
+    -   **ggplot2**: a popular package for data visualization
+
+-   **Why not SPSS?**
+
+    -   SPSS could only be used for some—but not all–of our content
+
+    -   More importantly, it doesn't have as much room to grow; R has many new packages being developed via CRAN and GitHub
+
+-   **Why not SAS?**
+
+    -   SAS is not **open-sourced**, meaning that we cannot check source code if something goes wrong
+
+    -   SAS is also commercial, but R is free
+
+------------------------------------------------------------------------
+
+-   **Why not Python, Julia, STAT or other software (e.g., matlab)?**
+
+    -   They are not so popular in the relevent fields of educational statistics, which means you cannot get much support from the community.
+
+    -   But I think Python and Julia are worth learning! If you have Python / Julia code or tips that related to our course, [please share them with me! I will give you extra points]{.underline}
+
+-   **My story**: I am a heavy-duty R user:
+
+    -   I use R for almost everything (like course/conference slides, website building, data analysis, paper writing)
+
+    -   I am also learning Julia and Python but not plan to add them to my classes
+
+    -   I know how to use Mplus but do not use it very often
+
+## So Let's use R?
+
+-   **Hold on**. There are something to consider
+
+    -   R packages are only as good as their authors (so little quality control)
+
+    -   Syntax and capabilities are idiosyncratic to the packages
+
+-   **The good things** are:
+
+    -   If you really master R, you can do by yourself (write your own algorithm for complex model)
+
+    -   You can check the source code of R packages and know where issues come from
+
+    -   You can communicate with R package authors and provide some suggestions
+
+    -   You can be R package author yourself and be famous
+
+## Working with Programs Through Syntax
+
+-   If you feel the class is not so challenging for you, you can see materials for my other class, [ESRM 6553: Advanced Multivariate Analysis](https://jihongzhang.org/posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/)
+
+-   I DO NOT need you to memorize syntax
+
+-   Instead, you can do exactly what I (still) do:
+
+    -   **Find the example source file** for what you need to do
+
+    -   Figure out how to **modify it** to work for your homework
+
+    -   Copy (CTRL+C), paste (CTRL+V), and find and replace are your friends
+
+-   Don't hesitate to ask for help (i.e., email me a screenshot)
+
+## What You Are Supposed To Know Already
+
+-   Recommended prerequisite:
+
+    -   ESRM 64103. Experimental Design in Education **or similar classes**
+
+    -   ESRM 64203. Multiple Regression Techniques for Education **or similar classes**
+
+-   **What we will cover this semester:**
+
+    -   Basic usage of R and RStudio (i.e., R download, package installation, package loading)
+
+    -   Descriptive statistics and bivariate associations (e.g., correlation)
+
+    -   **Statistical concepts** (e.g., null hypothesis testing, maximum likelihood estimation)
+
+    -   **Generalized linear models** (i.e., regression, ANOVA, path analysis, factor analysis)
+
+-   This class will focus on **multivariate analysis**... so what is that?
+
+## What are multivariate analysis?
+
+::: columns
+::: {.column .nonincremental width="50%"}
+> -   **Multivariate statistics** is a subdivision of statistics encompassing the simultaneous observation and analysis of **more than one outcome variable**.
+>
+> –Wikepedia
+
+-   Many different multivariate analysis models used multivariate statistics:
+
+    -   Generalized linear regression
+
+    -   Principal components analysis (PCA)
+
+    -   Path analysis
+
+    -   Factor analysis (FA)
+
+    -   Network analysis (NA)
+:::
+
+::: {.column width="50%"}
+![Word Cloud of MVA wiki](figures/wordcloud.png){fig-align="left" width="800"}
+:::
+:::
+
+## What We Will Cover This Semester
 
 ::: columns
 ::: {.column width="50%"}
-![Boys' temporal network](figures/boys_temporal_MG.jpg){width="100%"}
+-   **Part I: General linear models**
+    -   Introduction/Descriptive statistics
+    -   Simple, Marginal, Interaction Effects
+    -   Multivariate Linear Models
+    -   Generalized linear regression predicting non-normal conditional outcomes
+-   **Part II: Statistical techniques**
+    -   Normal Distributions and Multivariate Normal Distribution
+    -   Maximum Likelihood Estimation (MLE)
+    -   Missing Data and Multiple Imputation
 :::
 
 ::: {.column width="50%"}
-![Girls' temporal network](figures/girls_temporal_MG.jpg){width="100%"}
+-   **Part III: Path Analysis**
+    -   Structural models
+-   **Part IV: Latent variable models**
+    -   Principle component analysis (PCA)
+    -   Exploratory factor analysis (EFA)
+    -   Confirmatory factor analysis (CFA)
+    -   Latent class models (LCA) or mixture models
 :::
 :::
 
-## Summary: Group differences - Temporal Network
+## Introduction to R
 
-::: columns
-::: {.column width="50%"}
-### Boys
+-   **R** is an comprehensive statistical and graphical programming language
 
-1.  Sparsity: **8.06%** of non-zero edges (temporal)
-2.  Strength: Mean(SD) of edge weights is **0.127(0.094)**
-3.  Node *weight/shape preoccupation* (EDE-WP) exhibited the highest **InStrength**
-4.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **OutStrength**
-5.  Node *Awareness* (Awr) exhibited the highest **bridge strength**
+-   We can use **R language** via multiple graphical user inferences or IDE, i.e., terminal, VS Code or RStudio.
+
+    -   We will mainly focus on RStudio because of its convenience
+
+    -   Rstudio is a product of posit company and is free to use for personal use
+
+::: panel-tabset
+## Terminal
+
+![](figures/terminal.png){fig-align="left" width="1137"}
+
+## Rstudio
+
+![](figures/Rstudio.png){fig-align="left" width="1282"}
 :::
 
-::: {.column width="50%"}
-### Girls
+## Installation of R and RStudio
 
-1.  Sparsity: **10.60%** of non-zero edges (temporal)
-2.  Strength: Mean(SD) of edge weights is **0.128(0.102)**
-3.  Node *weight/shape preoccupation* (EDE-WP) exhibited the highest **InStrength**
-4.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **OutStrength**
-5.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **bridge strength**
-:::
-:::
+-   You can download and install **R base** via r-project.org (currently R-4.4.1)
 
-## Accuracy test: Node Strength Difference
+    -   for [Linux](https://cloud.r-project.org/bin/linux/)
 
-::: columns
-::: {.column width="60%"}
-![](figures/Node_Strength_Table.png){fig-align="center"}
-:::
+    -   for [Windows](https://cloud.r-project.org/bin/windows/)
 
-::: {.column width="40%"}
-**Are the node differences due to the sampling error? We used bootstrapping method to test that:**
+    -   for [MacOS](https://cloud.r-project.org/bin/macosx/)
 
-1.  *Long periods without eating* (EDE-WE) and *Food preoccupation* (EDE-FP) have significant gender differences in node Outstrength
-2.  *Weight/shape control by vomiting or taking laxatives* (EDE-VT) have significant gender differences in node InStrength
-:::
-:::
+-   Then, after the installation of R, you can download RStudio via posit.co (currently)
 
-## Accuracy test: Bridge Strength Difference
+    -   for [Windows](https://download1.rstudio.org/electron/windows/RStudio-2024.04.2-764.exe)
 
-::: columns
-::: {.column width="60%"}
-![](figures/Bridge_Strength_Table.png){fig-align="center"}
-:::
+    -   for [MacOS](https://download1.rstudio.org/electron/macos/RStudio-2024.04.2-764.dmg)
 
-::: {.column width="40%"}
-**Are the node differences due to the sampling error? We used bootstrapping method to test that:**
+-   After installation of R and RStudio, you can open up the RStudio to start your R programming.
 
-1.  *Awareness* (Awr) and *Goals* (Gls) have higher bridge strength in boys than girls
-2.  *Weight/shape preoccupation* (EDE-WP) and *Binge eating episode* (EDE-BE) have higher bridge strength in boys than girls.
+    -   however, your R only has the **base** package
 
-**Target nodes for intervention on comorbidity.**
-:::
-:::
+    -   To enhance its utility, most users will install **R packages** for certain purposes
 
-## Discussion: Group Commonality
+## R packages
 
-1.  Edge weight strength of temporal network are similar for boys and girls, suggesting symptoms have similars impact on other symptoms.
+-   R packages are uploaded to some platforms (i.e., CRAN or Github) by researchers or companies
 
-2.  Emotion dysregulation have interconnections with eating disorders and interpersonal problems.
+    -   Those R packages typically have their version numbers. Some functions may be available for some version (like Ver. 1.1) but not be available in other versions.
 
-3.  Disordered eating behaviors also closely relate to each others within the eating disorder community. One disorder eating problem is likely to activte other problems.
+    -   Do not upgrate your packages if you code is running well
 
-4.  For both groups, nodes related to **overvaluation of weight/shape** (preoccupation or dissatisifaction) are the most influential factors in ED networks, which implys the symptoms should be main focus for eating disorder interventions.
+-   R users are free to download and use those R packages
 
-## Discussion: Group Differences
+    -   To download certain package, you should know package name
 
-1.  Network structures of boys and girls are significantly different in term of likelihood ratio test (LRT).
-2.  Nodes of girls' network are more densely related than boys', suggesting higher likelihood of **comorbidity** for girls.
-3.  **Lack of emotional awareness** is an potential maintenance factor of boys, which is a novel finding.
+    -   For example, if you want to download the latest version of `tidyverse` package, you can type in following command in **the console panel** of Rstudio
 
-## Further direction
+    ```{r}
+    #| eval: false
+    #| echo: true
+    #| code-fold: false
+    install.packages("tidyverse")
+    ```
 
-There are more things to do to examine group differences in the longitudinal network framework:
+    -   Or if you want to install the older version of package
 
-### Global:
+    ```{r}
+    #| eval: false
+    #| echo: true
+    #| code-fold: false
+    require(devtools)
+    install_version("tidyverse", version = "1.3.0", repos = "http://cran.us.r-project.org")
+    ```
 
-1.  More simulation studys to validate the LRT method in examining group differences of global network structure
+## More about R packages
 
-2.  Groups may differ in network density and average edge weights. What it means in application research need more investigation?
+-   **CRAN** (Comprehensive R Archive Network) is a network of servers around the world that store identical, up-to-date, versions of code and documentation for R.
+    -   It contains most stable version of packages.
+    -   Most of time, we download package from CRAN
+-   **Github** is for the fast development for R packages
+    -   It contains the up-to-date version of R which may potentially be unstable
 
-### Node-level:
+    -   You can download the package from Github using `pak` package
 
-3.  Groups may differ in most important nodes but also differ in less important nodes. What that mean and how we interpret that?
+        ```{r}
+        #| eval: false
+        #| echo: true
+        #| code-fold: false
+        pak::pak("tidyverse/ggplot2")
+        ```
 
-4.  Are group's edge weights comparable? For example, the partial correlation between node A with node B differ by groups but how to interpret that?
+    -   You can update the package and its dependencies
 
-## Thank you.
+        ```{r}
+        #| eval: false
+        #| echo: true
+        #| code-fold: false
+        pak::pkg_install("ggplot2", upgrade = TRUE)
+        ```
 
-Let me know if you have any questions.
+## R functions
 
-You can also contact me via [**jzhang\@uark.edu**]{.underline}
+-   To operate certain tasks, you need to use functions contained in R packages
+
+    -   There are two ways of using R functions
+
+    -   **Direct way**: you don't have to load your package first
+
+    -   ![](figures/function.png){width="1067"}
+
+    -   **Use-after-load way**: Package is loaded in your session before you can call the function name without specifying the package name
+
+        ```{r}
+        #| eval: false
+        #| echo: true
+        #| code-fold: false
+        require(pak)
+        pkg_install("ggplot2", upgrade = TRUE)
+        ```
+
+## R functions (Cont.)
+
+-   How do you know you already load the package or not
+
+-   You can use `sessionInfo` function
+
+    ```{r}
+    #| echo: true
+    #| code-fold: false
+    sessionInfo()
+    ```
+
+-   It outputs multiple info:
+
+    -   R version, Operations System, Matrix operation package, Locale
+
+    -   **Attached packages** (you can call the functions of those package)
+
+    -   **Loaded package via a namespace (and not attached)**, which you cannot call functions and need to `library` or `require` them
+
+## More Usage about R
+
+-   Open up [MakeFriendsWithR.qmd](MakeFriendsWithR.qmd)
