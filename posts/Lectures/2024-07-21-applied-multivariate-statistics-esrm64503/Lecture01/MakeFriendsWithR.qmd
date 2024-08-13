@@ -2,7 +2,6 @@
 title: "Lecture 01: Make Friends with R"
 format: 
   html:
-    highlight: tango
     toc: true
     toc_float: true
     toc_depth: 2
@@ -12,7 +11,10 @@ format:
     code-summary: "Hide the code"
 ---
 
-## R SYNTAX AND NAMING CONVENTIONS
+# R SYNTAX AND NAMING CONVENTIONS
+
+I want to make a note.
+
 ```{r}
 #| eval: FALSE
 # MAKE FRIENDS WITH R
@@ -30,6 +32,7 @@ format:
 ```
 
 # R Functions
+
 ```{r}
 # In R, every statement is a function
 
@@ -47,7 +50,8 @@ print(x = 10)
 class(print(x = 10))
 ```
 
-## R Objects
+# R Objects
+
 ```{r}
 # Each objects can be saved into the R environment (the workspace here)
 #   You can save the results of a function call to a variable of any name
@@ -80,50 +84,58 @@ print(x = 10) -> MyObject3
 identical(MyObject, MyObject2, MyObject3)
 ```
 
-## Importing and Exporting Data into R data frame objects
-```{r}
-#| error: true
-# The data frame is an R object that is a rectangular array of data. The 
-#   variables in the data frame can be any class (e.g., numeric, character)
-#   and go across the columns. The observations are across the rows.
-here::set_here("posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/data")
-# We will start by importing data from a comma-separated values (csv) file.
-#   We will use the read.csv() function. Here, the argument stringsAsFactors
-#   keeps R from creating data strings
-HeightsData = read.csv(file = "data/heights.csv", stringsAsFactors = FALSE)
+# Importing and Exporting Data
 
-# Note: The argument file is the path to the file. If you opened this script
-#   directly in RStudio, then the current directory is the directory that
-#   contains the script. If the data file is in that directory, you can omit
-#   the full path. To find the current directory used in the environment, 
-#   use the getwd() function. 
+-   The data frame is an R object that is a rectangular array of data. The variables in the data frame can be any class (e.g., numeric, character) and go across the columns. The observations are across the rows.
+
+-   We will start by importing data from a comma-separated values (csv) file.
+
+-   We will use the read.csv() function. Here, the argument `stringsAsFactors` keeps R from creating data strings
+
+-   We will use `here::here()` function to quickly point to the target data file.
+
+```{r}
+# Note: The argument file is the path to the file. If you opened this script directly in RStudio, then the current directory is the directory that contains the script. If the data file is in that directory, you can omit the full path. To find the current directory used in the environment, use the getwd() function. 
 getwd()
 
-# To show the files in that directory, use the dir() function. You can see if
-#    the file you are opening is or is not in the current directory.
+# To show the files in that directory, use the dir() function. You can see if the file you are opening is or is not in the current directory.
 dir()
 
+# Method 1: The most convientent way of importing data file is using the here package
+root_path <- getwd()
+
+HeightsData = read.csv(file = here::here(root_path, "data", "heights.csv"), stringsAsFactors = FALSE)
+
+head(HeightsData)
+```
+
+```{r}
+#| error: true
 # You can also set the directory using setwd(). Here, I set my directory to 
 #   my root folder:
 setwd("~")
 
 getwd()
 dir()
-
 # If I tried to re-load the data, I would get an error:
 HeightsData = read.csv(file = "heights.csv", stringsAsFactors = FALSE)
+```
 
-# So, I can use the full path to the file:
+```{r}
+# Method 2: I can use the full path to the file:
 HeightsData = 
   read.csv(
-    file = "/Users/jonathantemplin/Desktop/mv2018epsy905_lecture01/wide.csv", 
+    file = "/Users/jihong/Documents/website-jihong/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/data/heights.csv", 
     stringsAsFactors = FALSE)
 
 # Or, I can reset the current directory and use the previous syntax:
-setwd("/Users/jonathantemplin/Desktop/mv2018epsy905_lecture01")
+setwd("/Users/jihong/Documents/website-jihong/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/data/")
 
 HeightsData = read.csv(file = "heights.csv", stringsAsFactors = FALSE)
+HeightsData
+```
 
+```{r}
 # Note: Windows users will have to either change the direction of the slash
 #   or put two slashes between folder levels.
 
@@ -140,42 +152,46 @@ library(foreign)
 
 # The read.spss() function imports the SPSS file to an R data frame if the 
 #   argument to.data.frame is TRUE
-WideData = read.spss(file = "wide.sav", to.data.frame = TRUE)
+WideData = read.spss(file = here::here(root_path, "data", "wide.sav"), to.data.frame = TRUE)
 WideData
 ```
 
+# Merging R data frame objects
 
 ```{r}
-#| eval: false
-# Merging R data frame objects ================================================
-
-# The WideData and HeightsData have the same set of ID numbers. We can use the
-#   merge() function to merge them into a single data frame. Here, x is the 
-#   name of the left-side data frame and y is the name of the right-side data
-#   frame. The arguments by.x and by.y are the name of the variable(s) by 
-#   which we will merge:
+# The WideData and HeightsData have the same set of ID numbers. We can use the merge() function to merge them into a single data frame. Here, x is the name of the left-side data frame and y is the name of the right-side data frame. The arguments by.x and by.y are the name of the variable(s) by which we will merge:
 AllData = merge(x = WideData, y = HeightsData, by.x = "ID", by.y = "ID")
 AllData
 
-# Transforming Wide to Long ===================================================
+## Method 2: Use dplyr method, |> can be typed using `command + shift + M`
+library(dplyr)
+WideData |> 
+  left_join(HeightsData, by = "ID")
+```
 
+# Transforming Wide to Long
+```{r}
 # Sometimes, certain packages require repeated measures data to be in a long
-#   format. The EPSY905R package has a function that simplifies the process for
-#   us. We first have to create a varlist object that will give directions
-#   for which variables will be long-format. These are the time-invariant ones.
-varlist = list()
-varlist$DV = c("DVTime1", "DVTime2", "DVTime3", "DVTime4")
-varlist$DV = paste0("DVTime", 1:4)
-varlist$Age = paste0("AgeTime", 1:4)
+# format. 
 
-# We then use the MultiWide2Long function:
-AllDataLong = MultiWide2Long(data = AllData, idvars = "ID", varlist = varlist, 
-                             timevals = 1:4, timevar = "time")
+library(dplyr) # contains variable selection 
 
-# Gathering Descriptive Statistics ============================================
+## Wrong Way
+AllData |> 
+  tidyr::pivot_longer(starts_with("DVTime"), names_to = "DV", values_to = "DV_Value") |> 
+  tidyr::pivot_longer(starts_with("AgeTime"), names_to = "Age", values_to = "Age_Value") 
 
+## Correct Way
+AllData |> 
+  tidyr::pivot_longer(c(starts_with("DVTime"), starts_with("AgeTime"))) |> 
+  tidyr::separate(name, into = c("Variable", "Time"), sep = "Time") |> 
+  tidyr::pivot_wider(names_from = "Variable", values_from = "value") -> AllDataLong
+```
+
+# Gathering Descriptive Statistics
+```{r}
 # The psych package makes getting descriptive statistics very easy.
-install.packages("psych")
+## install.packages("psych")
 library(psych)
 
 # We can use describe() to get descriptive statistics across all cases:
@@ -188,21 +204,16 @@ DescriptivesLong
 # We can use describeBy() to get descriptive statistics by groups:
 DescriptivesLongID = describeBy(AllDataLong, group = AllDataLong$ID)
 DescriptivesLongID
+```
 
-# Transforming Data ===========================================================
-
-# Transforming data is accomplished by the creation of new variables. The [4]
-#  indicates the use of the 4th element of the $mean variable (atomic vector)
-AllDataLong$AgeC = AllDataLong$Age - DescriptivesLong$mean[4]
-
-# Here is another way to do the same thing, the term in the [ ] is logical
-AllDataLong$AgeC = AllDataLong$Age - 
-  DescriptivesLong$mean[which(rownames(DescriptivesLong) == "Age")]
+# Transforming Data
+```{r}
+# Transforming data is accomplished by the creation of new variables. 
+AllDataLong$AgeC = AllDataLong$Age - mean(AllDataLong$Age)
 
 # You can also use functions to create new variables. Here we create new terms
 #   using the function for significant digits:
 AllDataLong$AgeYear = signif(x = AllDataLong$Age, digits = 2)
 AllDataLong$AgeDecade = signif(x = AllDataLong$Age, digits = 1)
-
-
+head(AllDataLong)
 ```

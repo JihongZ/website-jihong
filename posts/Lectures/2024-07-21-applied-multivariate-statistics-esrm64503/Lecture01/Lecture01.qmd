@@ -16,6 +16,7 @@ format:
     number-depth: 1
     footer: "ESRM 64503: Lecture01"
     slide-number: c/t
+    tbl-colwidths: auto
 #jupyter: python3
 ---
 
@@ -82,7 +83,7 @@ format:
 
 ## Course Requirements
 
--   **8 in-class quiz** (16 points): formative assissments including top-of-head questions and story problems for structured review
+-   **8 in-class quiz** (16 points): formative assessments aiming for refreshing our memory in last week
 
     -   An opportunity for you to request topics for further clarification and review
 
@@ -423,6 +424,47 @@ format:
 
     -   **Loaded package via a namespace (and not attached)**, which you cannot call functions and need to `library` or `require` them
 
-## More Usage about R
+## Run R code
+
+-   After you finish R script, you have multiple ways of running the code:
+
+    -   **Method 1**: you can click `Run` button in the top right-head of **Rstudio**
+
+    -   **Method 2**: you can select certain code and press `Ctrl + Enter` (Win) or `Command + Return` (Mac)
+
+    -   **Method 3**: you can `Rscript [FILENAME].r` to run the whole script
+
+    -   **Method 4**: you can using R notebook to interactively run R code
+
++----------------------------+-------------------+-----------------------------+
+|                            | Script file is .R | Script file is .rmd or .qmd |
++============================+===================+=============================+
+| **Run the whole script**   | -   Method 1      | -   Method 4                |
+|                            | -   Method 3      |                             |
++----------------------------+-------------------+-----------------------------+
+| **Run the partial script** | -   Method 2      | -   Method 4                |
++----------------------------+-------------------+-----------------------------+
+
+: {.striped}
+
+## Example 1: More Usage about R
 
 -   Open up [MakeFriendsWithR.qmd](MakeFriendsWithR.qmd)
+
+## Example 2: Homework Portal
+
+-   Homework online portal will be delivered on the website
+
+-   The homework system is based on Microsoft Form. You can answer the questions via Laptop, PC or Mobile Phone.
+
+    -   Make sure your device connect to the Internet.
+
+-   Let me use [Homework 0](https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/HW_demo.html) as example.
+
+## Summary
+
+1.  Note that the syllabus, schedule, and all materials are uploaded online the week before class.
+2.  We learn that R, Rstudio, and Quarto (.qmd) can be used to execute R code/syntax.
+3.  In-class quiz will be administered in the begining of class. Should be quick and easy. Don't be stressful ever!
+4.  Office hour will be 2PM - 4PM on Tuesday. Feel free to stop by my office and ask questions.
+5.  Next week, we will start to reiterate general linear regression.

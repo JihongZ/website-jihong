@@ -242,3 +242,17 @@ $code-block-bg:  #F5F5F5 !default;
 strong {
   color: $red;
 }
+
+/*-- stripped table --*/
+.table-striped {
+  > thead > tr > th {
+    background-color: $stone;
+    color: white;
+  }
+  > tbody > tr:nth-of-type(odd) > * {
+    background-color: #f2f2f2;
+  }
+  > tbody > tr:nth-of-type(even) > * {
+    background-color: $sand;
+  }
+}
