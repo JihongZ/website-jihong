@@ -105,7 +105,7 @@ format:
 
     -   I will show you how to use the system using Homework 0 as the example
 
-## Our other Responsibility
+## Our Other Responsibility
 
 -   My job (besides providing materials and assignments):
 
@@ -167,7 +167,7 @@ format:
 
 -   **Why not Python, Julia, STAT or other software (e.g., matlab)?**
 
-    -   They are not so popular in the relevent fields of educational statistics, which means you cannot get much support from the community.
+    -   They are not so popular in the relevant fields of educational statistics, which means you cannot get much support from the community.
 
     -   But I think Python and Julia are worth learning! If you have Python / Julia code or tips that related to our course, [please share them with me! I will give you extra points]{.underline}
 
@@ -179,9 +179,9 @@ format:
 
     -   I know how to use Mplus but do not use it very often
 
-## So Let's use R?
+## Why R?
 
--   **Hold on**. There are something to consider
+-   There are some point to consider
 
     -   R packages are only as good as their authors (so little quality control)
 
@@ -233,13 +233,13 @@ format:
 
 -   This class will focus on **multivariate analysis**... so what is that?
 
-## What are multivariate analysis?
+## What are Multivariate Analysis?
 
 ::: columns
 ::: {.column .nonincremental width="50%"}
 > -   **Multivariate statistics** is a subdivision of statistics encompassing the simultaneous observation and analysis of **more than one outcome variable**.
 >
-> –Wikepedia
+> – Wikipedia
 
 -   Many different multivariate analysis models used multivariate statistics:
 
@@ -267,7 +267,8 @@ format:
     -   Introduction/Descriptive statistics
     -   Simple, Marginal, Interaction Effects
     -   Multivariate Linear Models
-    -   Generalized linear regression predicting non-normal conditional outcomes
+    -   Extension: Generalized linear regression
+        -   Predicting non-normal conditional outcomes
 -   **Part II: Statistical techniques**
     -   Normal Distributions and Multivariate Normal Distribution
     -   Maximum Likelihood Estimation (MLE)
@@ -287,6 +288,8 @@ format:
 
 ## Introduction to R
 
+::: columns
+::: {.column width="50%"}
 -   **R** is an comprehensive statistical and graphical programming language
 
 -   We can use **R language** via multiple graphical user inferences or IDE, i.e., terminal, VS Code or RStudio.
@@ -294,7 +297,9 @@ format:
     -   We will mainly focus on RStudio because of its convenience
 
     -   Rstudio is a product of posit company and is free to use for personal use
+:::
 
+::: {.column width="50%"}
 ::: panel-tabset
 ## Terminal
 
@@ -303,7 +308,17 @@ format:
 ## Rstudio
 
 ![](figures/Rstudio.png){fig-align="left" width="1282"}
+
+## VSCode
+
+![](figures/VsCode.png){fig-align="left" width="1282"}
 :::
+:::
+:::
+
+## More RStudio
+
+![](figures/Rstudio_labelled.png){fig-align="left"}
 
 ## Installation of R and RStudio
 
@@ -333,7 +348,7 @@ format:
 
     -   Those R packages typically have their version numbers. Some functions may be available for some version (like Ver. 1.1) but not be available in other versions.
 
-    -   Do not upgrate your packages if you code is running well
+    -   Do not upgrade your packages if you code is running well
 
 -   R users are free to download and use those R packages
 
@@ -464,7 +479,7 @@ format:
 ## Summary
 
 1.  Note that the syllabus, schedule, and all materials are uploaded online the week before class.
-2.  We learn that R, Rstudio, and Quarto (.qmd) can be used to execute R code/syntax.
+2.  We learn that R, Rstudio, and Quarto (*.qmd*) can be used to execute R code/syntax.
 3.  In-class quiz will be administered in the begining of class. Should be quick and easy. Don't be stressful ever!
 4.  Office hour will be 2PM - 4PM on Tuesday. Feel free to stop by my office and ask questions.
 5.  Next week, we will start to reiterate general linear regression.
