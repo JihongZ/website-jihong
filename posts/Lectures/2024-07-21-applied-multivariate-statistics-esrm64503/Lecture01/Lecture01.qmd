@@ -237,7 +237,7 @@ format:
 
 ::: columns
 ::: {.column .nonincremental width="50%"}
-> -   **Multivariate statistics** is a subdivision of statistics encompassing the simultaneous observation and analysis of **more than one outcome variable**.
+> -   **Multivariate statistics** is a subdivision of statistics encompassing the simultaneous observation and analysis of **more than one outcome variable (Dependent Variables / DVs)**.
 >
 > – Wikipedia
 
@@ -258,6 +258,16 @@ format:
 ![Word Cloud of MVA wiki](figures/wordcloud.png){fig-align="left" width="800"}
 :::
 :::
+
+## Why Use Multivariate Statistics
+
+Compared to univariate analysis, **Multivariate Statistics** provides a more thorough picture of the reality.
+
+Imagine our theory of depression support following two models:
+
+![](figures/Models.png){fig-align="left"}
+
+**Note: Not all theoretical models can be estimated via statistics**
 
 ## What We Will Cover This Semester
 
