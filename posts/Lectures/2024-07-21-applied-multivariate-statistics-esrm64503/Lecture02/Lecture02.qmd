@@ -1,0 +1,209 @@
+---
+title: "Lecture 02: General Linear Model"
+subtitle: "Descriptive Statistics and Basic Statistics"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-08-18"
+sidebar: false
+execute: 
+  echo: true
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    lightbox: true
+    code-fold: true
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: true
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503: Lecture 02 - Descriptive Statistics"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+#jupyter: python3
+---
+
+## Learning Objectives
+
+1.  Univariate Descriptive Statistics
+    -   Central tendency: Mean, Median, Mode
+    -   Variation/Spread: Standard deviation (SD), Variance, Range
+2.  Bivariate descriptive statistics
+    -   Correlation
+    -   Covariance
+3.  Types of variable distributions
+    -   Marginal
+    -   Joint
+    -   Conditional
+4.  Bias in estimators
+
+## Data for Today's Lecture
+
+-   To help demonstrate the concepts of today's lecture, we will be using a toy data set with three variables
+
+    -   **Female (Gender)**: Male (= 0) or Female (= 1)
+
+    -   **Height**: in inches
+
+    -   **Weight**: in pounds
+
+-   The goal of lecture 02 will be to build a general **linear model** that predicts a person's weight
+
+    -   **Linear (regression) model**: a statistical model for an outcome that uses a linear combination (a weighted sum) of one or more predictor variables to produce an estimate of an observation's predicted value
+
+    -   $$
+        \mathbb{y} = \beta_0+\beta_1 \mathbf{X}
+        $$
+
+-   All models we learnt today will follow this framework.
+
+## Visualizing the Data
+
+::: columns
+::: {.column width="40%"}
+```{r}
+library(ESRM64504) # INSTALL: pak::pak("JihongZ/ESRM64504")
+library(kableExtra) # INSTALL: pak::pak("JihongZ/ESRM64504")
+dataSexHeightWeight$female = dataSexHeightWeight$sex == "F"
+kable(dataSexHeightWeight,
+      caption = 'toy data set') |> 
+  kable_styling(font_size = 20)
+```
+:::
+
+::: {.column width="60%"}
+```{r}
+pairs(dataSexHeightWeight[, c('female', 'heightIN', 'weightLB')])
+```
+:::
+:::
+
+## Histograms of Height and Weight
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| fig-cap: "Pairwise Scatter Points"
+hist(dataSexHeightWeight$weightLB, main = 'Weight', xlab = 'Pounds')
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+hist(dataSexHeightWeight$heightIN, main = 'Height', xlab = 'Inches')
+```
+:::
+:::
+
+## Descriptive Statistics
+
+-   First, we can inspect each variable individually (**marginal distribution**) through a set of descriptive statistics
+
+    -   Visual way: histogram plot or density plot
+
+    -   Statistical way: Central tendency and Variability
+
+        -   Mean, Median, Mode
+
+        -   SD, Range
+
+-   Second, we can also summarize the **joint (bivariate) distribution** of two variables through a set of descriptive statistics:
+
+    -   **Joint vs. Marginal**: joint distribution describes more than one variable simultaneously
+
+    -   Common bivariate descriptive statistics:
+
+        -   Correlation and covariance
+
+## Descriptive Statistics for Toy Data: Marginal 
+
+```{r}
+library(dplyr)
+## wide-format marginal description
+wide_marginal_desp <- dataSexHeightWeight |> 
+  summarise(across(c(heightIN, weightLB, female), list(mean = mean, sd = sd, var = var)))
+```
+
+```{r}
+library(tidyr)
+wide_marginal_desp |> 
+  pivot_longer(everything(), names_to = "Variable", values_to = "Value") |> 
+  separate(Variable, sep = "_", into = c("Variable", "Stats")) |> 
+  pivot_wider(names_from = Stats, values_from = Value) |> 
+  kable(digits = 3)
+```
+
+## Descriptive Statistics for Toy Data: Joint
+
+```{r}
+cor_cov_mat <- matrix(nrow = 3, ncol = 3)
+colnames(cor_cov_mat) <- rownames(cor_cov_mat) <- c("heightIN", "weightLB", "female")
+cov_mat <- cov(dataSexHeightWeight[, c("heightIN", "weightLB", "female")])
+cor_mat <- cor(dataSexHeightWeight[, c("heightIN", "weightLB", "female")])
+## Assign values
+cor_cov_mat[lower.tri(cor_cov_mat)] <- cor_mat[lower.tri(cor_mat)]
+cor_cov_mat[upper.tri(cor_cov_mat)] <- cov_mat[upper.tri(cov_mat)]
+diag(cor_cov_mat) <- diag(cov_mat)
+kable(cor_cov_mat, digits = 3)
+```
+
+-   Note:
+
+    -   Diagonal: Variance
+
+    -   Above Diagonal (upper triangle): Covaraince
+
+    -   Below Diagonal (lower triangle): Correlation
+
+-   **Question:** What we can tell regarding the relationships among three variables?
+
+## Re-examining the Concept of Variance
+
+-   Variability is a central concept in advanced statistics
+
+    -   In multivariate statistic, covariance is also central
+
+-   Two formulas for the variance (about the same when $N$ is larget):
+
+    ::: columns
+    ::: {.column width="50%"}
+    $$
+    S^2_Y= \frac{\Sigma_{p=1}^{N}(Y_p-\bar Y)}{N-1}
+    $$ {#eq-unbiased-var}
+    :::
+
+    ::: {.column width="50%"}
+    $$
+    S^2_Y= \frac{\Sigma_{p=1}^{N}(Y_p-\bar Y)}{N}$$ {#eq-biased-var}
+    :::
+    :::
+
+-   @eq-unbiased-var: **Unbiased** or "sample"
+
+-   @eq-biased-var: **Biased/ML** or "population"
+
+Here: $p$ = person;
+
+## Biased vs. Unbiased Variability
+
+```{r}
+set.seed(1234)
+population_points <- rnorm(10000, 0, 1)
+sample_points <- sample(population_points, size = 200, replace = FALSE)
+
+population_mean <- mean(population_points)
+population_sd <- sd(population_points)
+sample_mean <- mean(sample_points)
+sample_sd_biased <- sqrt(var(sample_points) * 9 / 10)
+sample_sd_unbiased <- sd(sample_points)
+
+```
+
+**Take home note**: Unbiased variance estimators can get the estimate of variance closer to the population variance than the biased one.
