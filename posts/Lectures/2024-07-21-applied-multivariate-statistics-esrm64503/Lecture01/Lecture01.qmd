@@ -276,6 +276,15 @@ Imagine our theory of depression support following two models:
 
 **Note: Not all theoretical models can be estimated via statistics**
 
+[Stanford-Washington University Eating Disorder Screen](documents/Standord-Washington University Eating Disorder Screen.pdf): Measurement Model is one special type of multivariate model
+
+## Research Questions in Multivariate Analysis
+
+1.  What are the relationships among those variables?
+2.  What are the effects of one variable on the outcomes controlling for other variables?
+3.  How does the model matches the observed data?
+4.  How do we select the best fitting model?
+
 ## What We Will Cover This Semester
 
 ::: columns
