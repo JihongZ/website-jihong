@@ -11,9 +11,19 @@ format:
     code-summary: "Hide the code"
 ---
 
-# R SYNTAX AND NAMING CONVENTIONS
+# How to use this file
 
-I want to make a note.
+1.  You can review all R code on this webpage.
+
+2.  To test one certain chunk of code, you click the "copy" icon in the upper right hand side of the chunk block (see screenshot below)
+
+    -   ![](figures/R-copy-paste.png)
+
+3.  To review the whole file, click "\</\> Code" next to the title of this paper. Find "View Source" and click the button. Then, you can paste to the newly created Quarto Document.
+
+    ![](figures/code-copy-paste.png)
+
+# R SYNTAX AND NAMING CONVENTIONS
 
 ```{r}
 #| eval: FALSE
@@ -170,6 +180,7 @@ WideData |>
 ```
 
 # Transforming Wide to Long
+
 ```{r}
 # Sometimes, certain packages require repeated measures data to be in a long
 # format. 
@@ -189,6 +200,7 @@ AllData |>
 ```
 
 # Gathering Descriptive Statistics
+
 ```{r}
 # The psych package makes getting descriptive statistics very easy.
 ## install.packages("psych")
@@ -207,6 +219,7 @@ DescriptivesLongID
 ```
 
 # Transforming Data
+
 ```{r}
 # Transforming data is accomplished by the creation of new variables. 
 AllDataLong$AgeC = AllDataLong$Age - mean(AllDataLong$Age)

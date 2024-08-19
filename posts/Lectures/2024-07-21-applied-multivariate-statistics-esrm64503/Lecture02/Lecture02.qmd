@@ -70,7 +70,7 @@ format:
 ::: {.column width="40%"}
 ```{r}
 library(ESRM64504) # INSTALL: pak::pak("JihongZ/ESRM64504")
-library(kableExtra) # INSTALL: pak::pak("JihongZ/ESRM64504")
+library(kableExtra)
 dataSexHeightWeight$female = dataSexHeightWeight$sex == "F"
 kable(dataSexHeightWeight,
       caption = 'toy data set') |> 
@@ -102,7 +102,7 @@ hist(dataSexHeightWeight$heightIN, main = 'Height', xlab = 'Inches')
 :::
 :::
 
-## Descriptive Statistics
+## Descriptive Statistics Overview
 
 -   First, we can inspect each variable individually (**marginal distribution**) through a set of descriptive statistics
 
@@ -122,16 +122,25 @@ hist(dataSexHeightWeight$heightIN, main = 'Height', xlab = 'Inches')
 
         -   Correlation and covariance
 
-## Descriptive Statistics for Toy Data: Marginal 
+## Descriptive Statistics for Toy Data: Marginal
 
 ```{r}
+#| message: false
+#| code-fold: show  
+#| output-location: column
 library(dplyr)
 ## wide-format marginal description
 wide_marginal_desp <- dataSexHeightWeight |> 
-  summarise(across(c(heightIN, weightLB, female), list(mean = mean, sd = sd, var = var)))
+  summarise(across(c(heightIN, weightLB, female), 
+                   list(mean = mean, sd = sd, var = var)))
+kable(wide_marginal_desp)
+
 ```
 
 ```{r}
+#| message: false
+#| code-fold: show  
+#| output-location: column
 library(tidyr)
 wide_marginal_desp |> 
   pivot_longer(everything(), names_to = "Variable", values_to = "Value") |> 
@@ -143,6 +152,8 @@ wide_marginal_desp |>
 ## Descriptive Statistics for Toy Data: Joint
 
 ```{r}
+#| output-location: column
+#| code-fold: show
 cor_cov_mat <- matrix(nrow = 3, ncol = 3)
 colnames(cor_cov_mat) <- rownames(cor_cov_mat) <- c("heightIN", "weightLB", "female")
 cov_mat <- cov(dataSexHeightWeight[, c("heightIN", "weightLB", "female")])
@@ -191,19 +202,76 @@ kable(cor_cov_mat, digits = 3)
 
 Here: $p$ = person;
 
-## Biased vs. Unbiased Variability
+## Biased VS. Unbiased Estimator of Variance
 
 ```{r}
+#| code-summary: 'Variances population/sample estimators'
+#| message: false
+#| code-fold: show
+#| code-block-height: 100px
 set.seed(1234)
-population_points <- rnorm(10000, 0, 1)
-sample_points <- sample(population_points, size = 200, replace = FALSE)
+sample_sizes = seq(10, 300, 10) # set up varied levels of sample sizes
+variance_mat <- matrix(NA, nrow = length(sample_sizes), ncol = 4) # placeholder for variance estimators
+colnames(variance_mat) <- c("sample_size", "population_variance", "sample_biasvariance", "sample_unbiasvariance")
+iterator = 0
 
-population_mean <- mean(population_points)
-population_sd <- sd(population_points)
-sample_mean <- mean(sample_points)
-sample_sd_biased <- sqrt(var(sample_points) * 9 / 10)
-sample_sd_unbiased <- sd(sample_points)
-
+for (sample_size in sample_sizes) {
+  iterator = iterator + 1
+  variance_mat[iterator, 1] <- sample_size
+  sample_points <- rnorm(sample_size, 0, 10)
+  
+  sample_var_biased <- sum((sample_points - mean(sample_points))^2) / sample_size # biased estimation of variance
+  sample_var_unbiased <- sum((sample_points - mean(sample_points))^2) / (sample_size - 1) # unbiased estimation of variance
+  
+  variance_mat[iterator, 2] <- 100
+  variance_mat[iterator, 3] <- sample_var_biased
+  variance_mat[iterator, 4] <- sample_var_unbiased
+}
+kable(variance_mat[1:4, ])
 ```
 
-**Take home note**: Unbiased variance estimators can get the estimate of variance closer to the population variance than the biased one.
+## Biased VS. Unbiased Estimator of Variance (Cont.)
+
+```{r}
+#| message: false
+#| output-location: column
+#| code-fold: show
+library(ggplot2)
+variance_mat |> 
+  as.data.frame() |> 
+  pivot_longer(-sample_size) |> 
+  ggplot() +
+  geom_line(aes(x = sample_size, y = value, color = name), linewidth = 1.1) +
+  labs(x = "Sample Size", y = "Estimates of Variance") +
+  scale_color_manual(values = 1:3, labels = c("Population Variance", "Sample Biased Variance (ML)", "Sample Unbiased Variance"), name = "Estimator") +
+  theme_classic() +
+  theme(text = element_text(size = 25)) 
+```
+
+**Take home note**: When sample size is small, unbiased variance estimators can get the estimate of variance closer to the population variance than the biased one.
+
+## Interpretation of Variance
+
+-   The variance describes the spread of a variable in squared units (which come from $(Y_p - \bar Y)^2$ term in the equation)
+
+-   Variance: **the average squared distance of an observation from the mean**
+
+    -   For the toy sample, the **variance of height** is 55.358 inches squared
+
+    -   For the toy sample, the **variance of weight** is 3179.095 pounds squared
+
+    -   The **variance of female** — not applicable in the sample way!
+
+        -   How is the sample equally distributed across different groups: 50/50 -\> largest variance
+
+-   Because squared units are difficult to work with, we typically use the standard deviation – which is reported in units
+
+-   Standard deviation: the average distance of an observation from the mean
+
+    -   SD of Height: 7.44 inches
+
+    -   SD of Weight: 56.383 pounds
+
+## Variance/SD as a More General Statistical Concept
+
+-   Variance (and the standard deviation) is a concept that is appled across statistics – not just for data
