@@ -60,6 +60,14 @@ format:
     3.  Which year in your program
     4.  Anything else you want to share
 
+## Class Time 
+
+1.  Unit 1: 17:00 - 17:50
+2.  Unit 2: 18:00 - 18:50
+3.  Unit 3: 19:00 - 19:45 (**Practice with R Code on your laptop and Ask Questions**)
+
+The whole schedule for this semester can be found on my website [here](https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/)
+
 ## What To Expect This Semester
 
 -   I believe that everyone **is capable** and can **significantly benefit** from learning varied types of multivariate analysis
