@@ -27,28 +27,73 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
+
 #jupyter: python3
 ---
 
 ## Learning Objectives
 
-1.  Univariate Descriptive Statistics
+1.  Install Class Project **ESRM64503**
+2.  Univariate Descriptive Statistics
     -   Central tendency: Mean, Median, Mode
     -   Variation/Spread: Standard deviation (SD), Variance, Range
-2.  Bivariate descriptive statistics
+3.  Bivariate descriptive statistics
     -   Correlation
     -   Covariance
-3.  Types of variable distributions
+4.  Types of variable distributions
     -   Marginal
     -   Joint
     -   Conditional
-4.  Bias in estimators
+5.  Bias in estimators
+
+## Installation of *ESRM64504* R package
+
+```{r}
+#| code-fold: show
+#| eval: false
+pak::pak("JihongZ/ESRM64503") # Install the Github package
+pak::pak("JihongZ/ESRM64503", upgrade = TRUE) # If you already install the package, try to upgrade
+```
+
+## Test *ESTM64503* Package
+
+```{r}
+#| message: true
+#| output-location: column
+#| code-fold: show
+#| code-summary: 'package version'
+library(ESRM64503)
+devtools::package_info("ESRM64503") # Make sure the version number is 2024.08.20
+```
+
+```{r}
+#| message: true
+#| output-location: column
+#| code-fold: show
+#| code-summary: 'homework information'
+homework() # You can call "homework()" function to access homework info
+```
+
+## Data Files of *ESRM64503*
+
+```{r}
+#| output-location: column
+#| code-fold: show
+#| code-summary: 'Data dataSexHeightWeight automate loaded'
+dataSexHeightWeight # You should find data named "dataSexHeightWeight" already loaded 
+```
+
+```{r}
+#| code-fold: show
+#| code-summary: 'Type ? to check variable information of data'
+?dataSexHeightWeight
+```
 
 ## Data for Today's Lecture
 
 -   To help demonstrate the concepts of today's lecture, we will be using a toy data set with three variables
 
-    -   **Female (Gender)**: Male (= 0) or Female (= 1)
+    -   **Female (Gender)**: Coded as Male (= 0) or Female (= 1)
 
     -   **Height**: in inches
 
@@ -64,26 +109,60 @@ format:
 
 -   All models we learnt today will follow this framework.
 
-## Visualizing the Data
+## Recoding Variables
 
-::: columns
-::: {.column width="40%"}
 ```{r}
+<<<<<<< HEAD
 library(ESRM64504) # INSTALL: pak::pak("JihongZ/ESRM64504")
 library(kableExtra) # INSTALL: pak::pak("JihongZ/ESRM64504")
+=======
+library(ESRM64503) # INSTALL: pak::pak("JihongZ/ESRM64503")
+library(kableExtra)
+>>>>>>> b33a03c (edit name)
 dataSexHeightWeight$female = dataSexHeightWeight$sex == "F"
 kable(dataSexHeightWeight,
       caption = 'toy data set') |> 
-  kable_styling(font_size = 20)
+  kable_styling(font_size = 30)
 ```
-:::
 
-::: {.column width="60%"}
+# Descriptive Statistics
+
+## Quick inspection I
+
+-   Check (1) if any case has **missing** value (2) **distributions** for continuous and categorical variables
+
+```{r}
+#| code-fold: show
+#| output-location: column
+table(complete.cases(dataSexHeightWeight))
+
+```
+
+```{r}
+#| code-fold: show
+#| output-location: column
+dataWithMissing <- dataSexHeightWeight
+dataWithMissing[11, 2] <- NA
+table(complete.cases(dataWithMissing))
+```
+
+```{r}
+#| code-summary: "Distribution of continous variables"
+psych::describe(dataSexHeightWeight[,-1], omit = TRUE, trim = 0) |> kable(digits = 3)
+```
+
+## Quick Inspect II
+
+```{r}
+#| code-summary: "Distribution of categorical variables"
+table(dataSexHeightWeight$female)
+```
+
+## Visualization: Pairwise Scatterplot
+
 ```{r}
 pairs(dataSexHeightWeight[, c('female', 'heightIN', 'weightLB')])
 ```
-:::
-:::
 
 ## Histograms of Height and Weight
 
@@ -164,6 +243,8 @@ kable(cor_cov_mat, digits = 3)
 
 -   **Question:** What we can tell regarding the relationships among three variables?
 
+# Variance
+
 ## Re-examining the Concept of Variance
 
 -   Variability is a central concept in advanced statistics
@@ -206,4 +287,52 @@ sample_sd_unbiased <- sd(sample_points)
 
 ```
 
+<<<<<<< HEAD
 **Take home note**: Unbiased variance estimators can get the estimate of variance closer to the population variance than the biased one.
+=======
+## Biased VS. Unbiased Estimator of Variance (Cont.)
+
+```{r}
+#| message: false
+#| output-location: column
+#| code-fold: show
+library(ggplot2)
+variance_mat |> 
+  as.data.frame() |> 
+  pivot_longer(-sample_size) |> 
+  ggplot() +
+  geom_line(aes(x = sample_size, y = value, color = name), linewidth = 1.1) +
+  labs(x = "Sample Size", y = "Estimates of Variance") +
+  scale_color_manual(values = 1:3, labels = c("Population Variance", "Sample Biased Variance (ML)", "Sample Unbiased Variance"), name = "Estimator") +
+  theme_classic() +
+  theme(text = element_text(size = 25)) 
+```
+
+**Take home note**: When sample size is small, unbiased variance estimators can get the estimate of variance closer to the population variance than the biased one.
+
+## Interpretation of Variance
+
+-   The variance describes the spread of a variable in squared units (which come from $(Y_p - \bar Y)^2$ term in the equation)
+
+-   Variance: **the average squared distance of an observation from the mean**
+
+    -   For the toy sample, the **variance of height** is 55.358 inches squared
+
+    -   For the toy sample, the **variance of weight** is 3179.095 pounds squared
+
+    -   The **variance of female** — not applicable in the sample way!
+
+        -   How is the sample equally distributed across different groups: 50/50 -\> largest variance
+
+-   Because squared units are difficult to work with, we typically use the standard deviation – which is reported in units
+
+-   Standard deviation: the average distance of an observation from the mean
+
+    -   SD of Height: 7.44 inches
+
+    -   SD of Weight: 56.383 pounds
+
+## Variance/SD as a More General Statistical Concept
+
+-   Variance (and the standard deviation) is a concept that is applied across statistics – not just for data
+>>>>>>> b33a03c (edit name)
