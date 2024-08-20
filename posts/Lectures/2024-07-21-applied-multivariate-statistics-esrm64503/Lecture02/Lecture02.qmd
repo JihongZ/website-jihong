@@ -44,7 +44,7 @@ format:
     -   Conditional
 5.  Bias in estimators
 
-## Installation of *ESRM64504* R package
+## Installation of *ESRM64503* R package
 
 ```{r}
 #| code-fold: show
@@ -110,7 +110,7 @@ dataSexHeightWeight # You should find data named "dataSexHeightWeight" already l
 ## Recoding Variables
 
 ```{r}
-library(ESRM64504) # INSTALL: pak::pak("JihongZ/ESRM64504")
+library(ESRM64503) # INSTALL: pak::pak("JihongZ/ESRM64504")
 library(kableExtra) # INSTALL: pak::pak("JihongZ/ESRM64504")
 
 dataSexHeightWeight$female = dataSexHeightWeight$sex == "F"
@@ -266,35 +266,50 @@ kable(cor_cov_mat, digits = 3)
 
 Here: $p$ = person;
 
-## Biased vs. Unbiased Variability
+## Biased VS. Unbiased Variability
 
 ```{r}
+#| message: false
+#| code-fold: show
 set.seed(1234)
-population_points <- rnorm(10000, 0, 1)
-sample_points <- sample(population_points, size = 200, replace = FALSE)
-
-population_mean <- mean(population_points)
-population_sd <- sd(population_points)
-sample_mean <- mean(sample_points)
-sample_sd_biased <- sqrt(var(sample_points) * 9 / 10)
-sample_sd_unbiased <- sd(sample_points)
-
+sample_sizes = seq(10, 200, 10)
+population_var = 100
+variance_mat <- matrix(NA, nrow = length(sample_sizes), ncol = 4)
+iter = 0
+for (sample_size in sample_sizes) {
+  iter = iter + 1
+  sample_points <- rnorm(n = sample_size, mean = 0, sd = sqrt(population_var))
+  sample_var_biased <- var(sample_points) * (sample_size-1) / sample_size
+  sample_var_unbiased <- var(sample_points)
+  variance_mat[iter, 1] <- sample_size
+  variance_mat[iter, 2] <- sample_var_biased
+  variance_mat[iter, 3] <- sample_var_unbiased
+  variance_mat[iter, 4] <- population_var
+}
+colnames(variance_mat) <- c(
+  "sample_size",
+  "sample_var_biased",
+  "sample_var_unbiased",
+  "population_var"
+)
 ```
 
 
-**Take home note**: Unbiased variance estimators can get the estimate of variance closer to the population variance than the biased one.
+**Take home note**: Unbiased variance estimators can get more accurate estimate of variance than the biased one.
 
 ## Biased VS. Unbiased Estimator of Variance (Cont.)
 
 ```{r}
 #| message: false
-#| output-location: column
-#| code-fold: show
+#| code-fold: true
+#| fig-align: center
+#| fig-width: 20
 library(ggplot2)
 variance_mat |> 
   as.data.frame() |> 
   pivot_longer(-sample_size) |> 
   ggplot() +
+  geom_point(aes(x = sample_size, y = value, color = name), linewidth = 1.1) +
   geom_line(aes(x = sample_size, y = value, color = name), linewidth = 1.1) +
   labs(x = "Sample Size", y = "Estimates of Variance") +
   scale_color_manual(values = 1:3, labels = c("Population Variance", "Sample Biased Variance (ML)", "Sample Unbiased Variance"), name = "Estimator") +
