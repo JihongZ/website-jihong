@@ -20,7 +20,7 @@ about:
       href: https://twitter.com/jihongzgamma
     - icon: github
       text: Github
-      href: https://github.com/JihongZ/quarto-academic-jihong
+      href: https://github.com/JihongZ
     - icon: bi-bookmark-heart-fill
       text: ORCID
       href: https://orcid.org/0000-0003-2820-3734
