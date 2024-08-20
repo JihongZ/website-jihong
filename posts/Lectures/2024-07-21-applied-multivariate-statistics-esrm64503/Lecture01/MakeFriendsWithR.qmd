@@ -163,7 +163,7 @@ library(foreign)
 # The read.spss() function imports the SPSS file to an R data frame if the 
 #   argument to.data.frame is TRUE
 WideData = read.spss(file = here::here(root_path, "data", "wide.sav"), to.data.frame = TRUE)
-WideData
+View(WideData) 
 ```
 
 # Merging R data frame objects
@@ -190,11 +190,11 @@ library(dplyr) # contains variable selection
 ## Wrong Way
 AllData |> 
   tidyr::pivot_longer(starts_with("DVTime"), names_to = "DV", values_to = "DV_Value") |> 
-  tidyr::pivot_longer(starts_with("AgeTime"), names_to = "Age", values_to = "Age_Value") 
+  tidyr::pivot_longer(starts_with("AgeTime"), names_to = "Age", values_to = "Age_Value")
 
 ## Correct Way
 AllData |> 
-  tidyr::pivot_longer(c(starts_with("DVTime"), starts_with("AgeTime"))) |> 
+  tidyr::pivot_longer(c(starts_with("DVTime"), starts_with("AgeTime"))) |>
   tidyr::separate(name, into = c("Variable", "Time"), sep = "Time") |> 
   tidyr::pivot_wider(names_from = "Variable", values_from = "value") -> AllDataLong
 ```
@@ -212,10 +212,18 @@ DescriptivesWide
 
 DescriptivesLong = describe(AllDataLong)
 DescriptivesLong
+View(AllDataLong)
 
 # We can use describeBy() to get descriptive statistics by groups:
 DescriptivesLongID = describeBy(AllDataLong, group = AllDataLong$ID)
 DescriptivesLongID
+
+#
+library(dplyr)
+AllDataLong |> 
+  group_by(ID) |> 
+  summarise(meanHeighID = mean(HeightIN),
+            meanAge = mean(Age))
 ```
 
 # Transforming Data
@@ -223,10 +231,22 @@ DescriptivesLongID
 ```{r}
 # Transforming data is accomplished by the creation of new variables. 
 AllDataLong$AgeC = AllDataLong$Age - mean(AllDataLong$Age)
-
+AllDataLong |> 
+  group_by(ID) |> 
+  mutate(StudentAvgAge = mean(Age)) |>
+  mutate(AgeCbyStu = Age - StudentAvgAge) 
 # You can also use functions to create new variables. Here we create new terms
 #   using the function for significant digits:
 AllDataLong$AgeYear = signif(x = AllDataLong$Age, digits = 2)
+AllDataLong$AgeYear = round(x = AllDataLong$AgeC, digits = 2)
+View(AllDataLong)
 AllDataLong$AgeDecade = signif(x = AllDataLong$Age, digits = 1)
 head(AllDataLong)
+
+AllDataLong |> 
+  mutate(AgeGroup = ifelse(Age <= 12, 1, ifelse(Age <= 14, 2, 3))) |> 
+  
+
+AllDataLong |> 
+  mutate(TimeNew = factor(Time, levels = 1:4, labels = c("Pre", "Pre", "Post", "Post"))) 
 ```

@@ -66,8 +66,6 @@ format:
 2.  Unit 2: 18:00 - 18:50
 3.  Unit 3: 19:00 - 19:45 (**Practice with R Code on your laptop and Ask Questions**)
 
-The whole schedule for this semester can be found on my website [here](https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/)
-
 ## What To Expect This Semester
 
 -   I believe that everyone **is capable** and can **significantly benefit** from learning varied types of multivariate analysis
@@ -82,7 +80,7 @@ The whole schedule for this semester can be found on my website [here](https://j
 
     -   **No** anxiety-prone methods of evaluation (e.g., timed tests)
 
--   **Materials**[^1][^2]**:**
+-   **Materials:**
 
     -   **Lecture** slides present concepts—the **what** and the **why**
 
@@ -91,10 +89,6 @@ The whole schedule for this semester can be found on my website [here](https://j
     -   All available at the [course website](https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/) (hosted outside of Blackboard)
 
         -   [Let me can show you how to use the website]{.underline}
-
-[^1]: Prof. Lesa Hoffman's website: <https://www.lesahoffman.com/PSQF6270/index.html>
-
-[^2]: Prof. Jonathan Templin's EPSY905: <https://jonathantemplin.com/fundamentals-multivariate-modeling-spring-2018-epsy-905/>
 
 ## Course Requirements
 
