@@ -10,24 +10,32 @@ date: "2024-08-18"
 sidebar: false
 execute: 
   echo: true
+output-location: column
 format: 
   html: 
     page-layout: full
     toc: true
     toc-depth: 2
     lightbox: true
-    code-fold: true
+    code-fold: false
   uark-revealjs:
     chalkboard: true
     embed-resources: false
-    code-fold: true
+    code-fold: false
     number-sections: true
     number-depth: 1
     footer: "ESRM 64503: Lecture 02 - Descriptive Statistics"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
+    include-in-header:
+      - file: mathjax-color.html
 ---
+
+## Some notes before our class
+
+1.  The R code I'll show in the slides is just for illustration. Don't be worried when you hardly follow. We will practice more in the R practice unit (Unit 3).
+2.  
 
 ## Learning Objectives
 
@@ -119,7 +127,7 @@ kable(dataSexHeightWeight,
   kable_styling(font_size = 30)
 ```
 
-# Descriptive Statistics
+# Unit 1: Descriptive Statistics
 
 ## Quick inspection I
 
@@ -237,7 +245,7 @@ kable(cor_cov_mat, digits = 3)
 
 -   **Question:** What we can tell regarding the relationships among three variables?
 
-# Variance
+# Variance, Correlation, Covariance
 
 ## Re-examining the Concept of Variance
 
@@ -245,7 +253,7 @@ kable(cor_cov_mat, digits = 3)
 
     -   In multivariate statistic, covariance is also central
 
--   Two formulas for the variance (about the same when $N$ is larget):
+-   Two formulas for the variance (about the same when $N$ is larger):
 
     ::: columns
     ::: {.column width="50%"}
@@ -293,7 +301,6 @@ colnames(variance_mat) <- c(
   "population_var"
 )
 ```
-
 
 **Take home note**: Unbiased variance estimators can get more accurate estimate of variance than the biased one.
 
@@ -344,3 +351,259 @@ variance_mat |>
 ## Variance/SD as a More General Statistical Concept
 
 -   Variance (and the standard deviation) is a concept that is applied across statistics – not just for data
+    -   Statistical parameters (slope, intercept) have variance
+        -   e.g., The sample mean $\bar Y$ has a "standard error" (SE) of $S_{\bar Y} = S_Y / \sqrt{N}$
+        -   How accurately we can estimate the sample mean $\neq$ How dispersed the samples are
+-   The standard error is another name for standard deviation
+    -   So "standard error of the mean" is equivalent to "standard deviation of the mean"
+    -   Usually "**error**" refers to **parameters**; "**deviation**" refers to **data**
+    -   Variance of the mean would be $S_{\bar Y}^2  = S^2_Y / N$
+
+## Correlation of Variables
+
+-   Moving from marginal summaries of each variable to joint (bivariate) summaries, we can use the **Pearson Correlation** to describe the association between a pair of **continuous** variables:
+
+$$
+r_{Y_1, Y_2} = \frac{\frac{1}{N-1}\sum_{p=1}^N (Y_{1p}-\bar Y_1) (Y_{2p}-\bar Y_2)}{S_{Y_1}S_{Y_2}} \\
+= \frac{\sum_{p=1}^N (Y_{1p}-\bar Y_1) (Y_{2p}-\bar Y_2)}{\sqrt{\sum_{p=1}^{N} (Y_{1p}-\bar Y)^2}\sqrt{\sum_{p=1}^{N} (Y_{2p}-\bar Y)^2}}
+$$
+
+-   **Human words**: how much Variable 1 vary with Variable 2 relative to their own variability.
+
+-   Note that pearson correlation does not take other variables into account
+
+## R: Pearson Correlation
+
+#### Method 1: cor() function with the argument method = "pearson"
+
+```{r}
+#| results: hold
+#| code-fold: false
+X = 1:10
+Y = 10:1
+Z = 1:10
+cor(X, Y, method = "pearson")
+cor(X, Z, method = "pearson")
+cor(cbind(X, Y, Z), method = "pearson")
+```
+
+#### Method 2: Manual way
+
+```{r}
+#| code-fold: false
+cor_X_Y = sum((X-mean(X))*(Y-mean(Y)))/(length(X)-1)/(sd(X)*sd(Y))
+cor_X_Y
+```
+
+-   *sum*() adds up all numbers of vector within the parenthesis
+
+-   X-mean(X) returns the mean centered values of X
+
+-   Two vectors can be multiplied with each other and return a new vector: X\*Y
+
+-   *length*() return the number of values of X
+
+## More on the Correlation Coefficient
+
+-   The Pearson correlation is a **biased** estimator
+
+    -   **Biased estimator**: the expected value differs from the true value for a statistic
+
+-   The unbiased version of correlation estimation would be:
+
+$$
+r_{Y_1, Y_2}^U= r_{Y_1,Y_2}(1+\frac{1-r^2_{Y_1,Y_2}}{2N})
+$$
+
+-   Properties of biased estimator:
+
+    -   As N gets large bias goes away;
+
+    -   Bias is largest when $r_{Y_1, Y_2} =0$; Pearson Corr. is unbiased when $r_{Y_1, Y_2} =1$
+
+    -   Pearson correlation is an underestimate of true correlation
+
+## Covariance: Association with Units
+
+-   The **numerator** of the Pearson correlation ($r_{Y_1Y_2}$) is the **Covariance**
+
+    -   **Human words**: "Unscaled (Unstandardized)" Correlation
+
+    ::: columns
+    ::: {.column width="50%"}
+    $$
+    S^2_{Y_1}= \frac{\sum_{p=1}^{N}(Y_{1p}-\bar Y_1)(Y_{2p}-\bar Y_2)}{N-1}
+    $$
+    :::
+
+    ::: {.column width="50%"}
+    $$
+    S^2_{Y_2}= \frac{\sum_{p=1}^{N}(Y_{1p}-\bar Y_1)(Y_{2p}-\bar Y_2)}{N}$$
+    :::
+    :::
+
+-   The covariance uses the units of the original variables (but now they are multiples):
+
+    -   Covariance of height and weight: 334.832 *inch-pounds*
+
+-   The covariance of a variable with itself is the variance
+
+-   The covariance if often used in multivariate analyses because it ties directly into multivariate distribution
+
+    -   Covariance and correlation are easy to switch between
+
+## Going from Covariance to Correlation
+
+-   If you have the covariance matrix (variances and covariances):
+
+    $$
+    r_{Y_1,Y_2}=\frac{S_{Y_1,Y_2}}{S_{Y_1}S_{Y_2}}
+    $$
+
+-   If you have the correlation matrix and the standard deviations:
+
+    $$
+    S_{Y_1, Y_2} = r_{Y_1, Y_2} S_{Y_1} S_{Y_2}
+    $$
+
+## Summary of Unit 1
+
+1.  **Descriptive statistics**: describe central tendency and variability of variables in a visual or statistical way.
+    -   Visual way: Histogram, Scatter plot, Density plot
+    -   Statistical way: mean/mode/median; variance/standard deviation
+2.  **Alternatively**, we cab describe the relationships between two or more variables using their joint distributions
+    -   Visual way: Scatter plot, Group-level Histogram
+    -   Statistical way: Covariance, Pearson Correlation, Chi-square
+
+# Unit 2: General Linear Model
+
+## Learning Objectives
+
+-   Types of distributions:
+
+    -   Conditional distribution: a special joint distribution condition on other variable
+
+-   The General Linear Model
+
+    -   Regression
+
+    -   Analysis of Variance (ANOVA)
+
+    -   Analysis of Covariance (ANCOVA)
+
+    -   Beyond – Interactions
+
+## Taxonomy of GLM
+
+-   The general linear model (GLM) incorporates many different labels of analysis under one unifying umbrella:
+
+|                 | Categorical Xs | Continuous Xs           | Both Types of Xs |
+|------------------|------------------|--------------------|------------------|
+| Univariate Y    | ANOVA          | Regression              | ANCOVA           |
+| Multivariate Ys | MANOVA         | Multivariate Regression | MANCOVA          |
+
+-   The typical assumption is that error term (residual or $\epsilon$) is normally distribution – meaning that the data are conditionally normally distributed
+
+-   Models for non-normal outcomes (e.g., dichotomous, categorical, count) fall under the *Generalized Linear Model*, of which general linear model is a special case
+
+## Property of GLM: Conditional Normality of Outcome
+
+The general form of GLM with two predictors:
+
+$$
+Y_p = {\color{blue}\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p} + {\color{red}e_p}
+$$
+
+-   ::: {style="color: blue;"}
+    Model for the Means (Predicted Values):
+    :::
+
+    -   Each person's expected (predicted) outcome is a function of his/her values x and z (and their interaction)
+
+    -   y, x, and z are each measured only once per person (*p* subscript)
+
+-   ::: {style="color: red;"}
+    Model for the Variance:
+    :::
+
+    -   $e_p \sim N(0, \sigma_e^2)$ $\rightarrow$ One residual (unexplained) deviation
+
+    -   $e_p$ has a mean of 0 and variance of $\sigma^2_e$ and is normally distributed, unrelated to x and z, unrelated across observation
+
+    -   Model for the variance is important for **model evaluation**
+
+## Example: Building a GLM for Weight Prediction
+
+-   **Goal**: build a GLM for predicting a person's weight, using height and gender as predictors
+
+-   **Plan**: we proposed several models for didactic reasons — to show how regression and ANOVA work with GLM
+
+    -   In practice, you wouldn't necessarily run these models in this sequence
+
+-   **Beginning model** (Model 1): An **empty model –** no predictors for weight (an **unconditional** model)
+
+-   **Final model** (Model 5): A **full model** – include all predictors and their interaction model
+
+## Example: All models
+
+::: columns
+::: {.column width="50%"}
+-   Model 1
+
+$$
+\hat{ \text{Weight}_p }= \beta_0
+$$
+
+-   Model 2:
+
+$$
+\hat{\text{Weight}_p} =\beta_0 + \beta_1\text{Height}_p
+$$
+
+-   Model 2a:
+
+$$
+\hat{\text{Weight}_p} =\beta_0 + \beta_1\text{HeightC}_p
+$$
+:::
+::: {.column width="50%"}
+-   Model 3:
+
+$$
+\hat{\text{Weight}_p}=\beta_0+\beta_2\text{Female}_p
+$$
+
+-   Model 4:
+
+$$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p$$
+
+-  Model 5:
+
+$$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p \\ + \beta_2\text{HeigthCxFemale}_p$$
+:::
+:::
+
+## Model 1: Empty Model
+
+```{r}
+#| results: hold
+library(ESRM64503)
+library(kableExtra)
+model1 <- lm(weightLB ~ 1, data = dataSexHeightWeight)
+summary(model1)$coefficients |> kable()
+anova(model1) |> kable()
+```
+
+- Interpretation
+
+  - $\beta_0 = 183.4$ is the estimated "grand" mean of weight across all people
+  - SE for $\beta_0$ is standard error of the mean for weight
+  
+- **Error term / Residual**: $\sigma^2_e =  3179.095$ (variance of the residuals) 
+  - Equal to the unbiased variance of weight in empty model
+```{r}
+identical(var(dataSexHeightWeight$weightLB), 
+          var(residuals(model1)))
+```
+  
+  

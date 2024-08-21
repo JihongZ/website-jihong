@@ -33,7 +33,7 @@ website:
             file: posts/2017-11-08-sem-homework/index.Rmd
           - text: "Measurement Invariance"
             file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
-      - section: ESRM6553 - Advanced Multivariate
+      - section: ESRM 6553 - Advanced Multivariate
         contents: 
           - text: 'Syllabus'
             file: posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd
