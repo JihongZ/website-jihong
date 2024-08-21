@@ -359,6 +359,18 @@ variance_mat |>
     -   Usually "**error**" refers to **parameters**; "**deviation**" refers to **data**
     -   Variance of the mean would be $S_{\bar Y}^2  = S^2_Y / N$
 
+## Example: Table of Descriptive Statistics
+
+![Table 1 (Xiong et al., 2023)](figures/Exp_Descrip_Stats_Table.png){fig-align="center"}
+
+-   Key information that be reprted
+
+    -   All variables that you think relevant to the study: (1) demographic (2) context factors (3) outcomes or predictors
+
+    -   Categorical Variables: (1) Percentage of each level (2) Sample size of each level (3) Range
+
+    -   Continuous Variables: Mean + SD + Range
+
 ## Correlation of Variables
 
 -   Moving from marginal summaries of each variable to joint (bivariate) summaries, we can use the **Pearson Correlation** to describe the association between a pair of **continuous** variables:
@@ -498,7 +510,7 @@ $$
 -   The general linear model (GLM) incorporates many different labels of analysis under one unifying umbrella:
 
 |                 | Categorical Xs | Continuous Xs           | Both Types of Xs |
-|------------------|------------------|--------------------|------------------|
+|------------------|------------------|-------------------|------------------|
 | Univariate Y    | ANOVA          | Regression              | ANCOVA           |
 | Multivariate Ys | MANOVA         | Multivariate Regression | MANCOVA          |
 
@@ -566,6 +578,7 @@ $$
 \hat{\text{Weight}_p} =\beta_0 + \beta_1\text{HeightC}_p
 $$
 :::
+
 ::: {.column width="50%"}
 -   Model 3:
 
@@ -577,7 +590,7 @@ $$
 
 $$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p$$
 
--  Model 5:
+-   Model 5:
 
 $$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p \\ + \beta_2\text{HeigthCxFemale}_p$$
 :::
@@ -594,16 +607,16 @@ summary(model1)$coefficients |> kable()
 anova(model1) |> kable()
 ```
 
-- Interpretation
+-   Interpretation
 
-  - $\beta_0 = 183.4$ is the estimated "grand" mean of weight across all people
-  - SE for $\beta_0$ is standard error of the mean for weight
-  
-- **Error term / Residual**: $\sigma^2_e =  3179.095$ (variance of the residuals) 
-  - Equal to the unbiased variance of weight in empty model
-```{r}
-identical(var(dataSexHeightWeight$weightLB), 
-          var(residuals(model1)))
-```
-  
-  
+    -   $\beta_0 = 183.4$ is the estimated "grand" mean of weight across all people
+    -   SE for $\beta_0$ is standard error of the mean for weight
+
+-   **Error term / Residual**: $\sigma^2_e =  3179.095$ (variance of the residuals)
+
+    -   Equal to the unbiased variance of weight in empty model
+
+    ```{r}
+    identical(var(dataSexHeightWeight$weightLB), 
+              var(residuals(model1)))
+    ```
