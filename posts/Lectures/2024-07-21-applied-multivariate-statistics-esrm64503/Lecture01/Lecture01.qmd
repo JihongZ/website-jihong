@@ -60,7 +60,7 @@ format:
     3.  Which year in your program
     4.  Anything else you want to share
 
-## Class Time 
+## Class Time
 
 1.  Unit 1: 17:00 - 17:50
 2.  Unit 2: 18:00 - 18:50
@@ -278,7 +278,7 @@ Imagine our theory of depression support following two models:
 
 **Note: Not all theoretical models can be estimated via statistics**
 
-[Stanford-Washington University Eating Disorder Screen](documents/Standord-Washington University Eating Disorder Screen.pdf): Measurement Model is one special type of multivariate model
+[Stanford-Washington University Eating Disorder Screen](documents/Standord-Washington%20University%20Eating%20Disorder%20Screen.pdf): Measurement Model is one special type of multivariate model
 
 ## Research Questions in Multivariate Analysis
 

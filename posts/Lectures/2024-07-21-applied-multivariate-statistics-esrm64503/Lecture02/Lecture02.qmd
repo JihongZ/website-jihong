@@ -19,6 +19,7 @@ format:
     lightbox: true
     code-fold: false
   uark-revealjs:
+    scrollable: true
     chalkboard: true
     embed-resources: false
     code-fold: false
@@ -386,7 +387,9 @@ $$
 
 ## R: Pearson Correlation
 
-#### Method 1: cor() function with the argument method = "pearson"
+#### Method 1
+
+`cor()` function with the argument method = "pearson"
 
 ```{r}
 #| results: hold
@@ -598,25 +601,262 @@ $$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p \
 
 ## Model 1: Empty Model
 
+$$
+\text{Weight}_p = \beta_0 + e_p
+$$ $$
+e_p \sim N(0, \sigma^2_e)
+$$
+
+-   Estimated parameters:
+
+    -   $\beta_0$: Overall intercept - the "grand" mean of weight across all people
+
+    -   $e_p$: Residual error - how each one's observes deviate from $\beta_0$
+
+    -   $\sigma^2_e$: Residual variance - variability of residual error across all people
+
+------------------------------------------------------------------------
+
+### R Code
+
 ```{r}
-#| results: hold
+#| output-location: default
 library(ESRM64503)
 library(kableExtra)
-model1 <- lm(weightLB ~ 1, data = dataSexHeightWeight)
-summary(model1)$coefficients |> kable()
-anova(model1) |> kable()
+model1 <- lm(weightLB ~ 1, data = dataSexHeightWeight) # model formula
+summary(model1)$coefficients |> kable() # regression cofficients table
+anova(model1) |> kable() # F-statistic table
 ```
 
 -   Interpretation
 
-    -   $\beta_0 = 183.4$ is the estimated "grand" mean of weight across all people
-    -   SE for $\beta_0$ is standard error of the mean for weight
+    -   $\beta_0 = 183.4$ is the predicted value of a Weight for all people is 183.4 pound
+        -   Just the mean of weight
+    -   $SE(\beta_0) = 12.60$ is the standard error of the mean for weight with higher value suggesting more inaccuracy
+    -   $t = 14.55, p < .001$ is t-test of the parameter suggesting the mean of weight significantly deviate from 0
+    -   **Error term / Residual**: $\sigma^2_e =  3179.095$ (variance of the residuals)
+        -   Equal to the unbiased variance of weight in empty model
+        -   Also know as Mean Square Error in F-table
 
--   **Error term / Residual**: $\sigma^2_e =  3179.095$ (variance of the residuals)
+```{r}
+#| output-location: default
+var(dataSexHeightWeight$weightLB)
+var(residuals(model1))
+```
 
-    -   Equal to the unbiased variance of weight in empty model
+## Model 2: Predicting Weight from Height
 
-    ```{r}
-    identical(var(dataSexHeightWeight$weightLB), 
-              var(residuals(model1)))
-    ```
+$$
+\text{Weight}_p = \beta_0 + \beta_1 \text{Height}_p + e_p
+$$ $$
+e_p \sim N(0, \sigma^2_e)
+$$
+
+-   Estimated parameters:
+
+    -   $\beta_0$: Intercept - is the predicted value of a Weight for a people with [Height is 0]{style="color: red;"}
+
+    -   $\beta_1$: [Slope of Height]{style="color: red;"} - the predicted increase of Weight for one-unit increase in Height
+
+    -   $e_p$: Residual error - how each one's observes deviate from $\beta_0$
+
+    -   $\sigma^2_e$: Residual variance - variability of residual error across all people
+
+------------------------------------------------------------------------
+
+### R code
+
+```{r}
+#| output-location: default
+model2 <- lm(weightLB ~ heightIN, data = dataSexHeightWeight) # model formula
+summary(model2)$coefficients |> kable(digit = 3) # regression cofficients table
+anova(model2) |> kable(digit = 3) # F-statistic table
+```
+
+-   Interpretation
+
+    -   $\beta_0 = -227.3$ is the predicted value of a Weight for a people with [Height is 0]{style="color: red;"}
+        -   Nonsensical – but we can fix it by [centering Height]{style="color: #ff0040;"}
+    -   $\beta_1 = 6.048$: Weight goes up 6.048 per inch
+    -   $SE(\beta_1) = 1.076$: the inaccuracy of $\beta_1$; $CI = 6.048 \pm 1.96\times 1.076$
+    -   $t = 5.621, p < .001$ is t-test of the parameter suggesting the slope of height significantly deviate from 0
+    -   $F(1, 18) = 31.593 = \frac{38479.273}{1217.974} = t^2$
+    -   **Error term / Residual**: $\sigma^2_e =  1217.974$ (variance of the residuals)
+        -   Height explains $\frac{3179.095-1217.974}{3179.095}=61.7\%$ of variance of weight
+
+## Model 2a: Predicting Weight from [Centered]{style="color: red;"} Height
+
+$$
+\text{Weight}_p = \beta_0 + \beta_1 (\text{Height}_p - \bar{Height}) + e_p \\
+= \beta_0 + \beta_1 \text{HeightC}_p + e_p
+$$ $$
+e_p \sim N(0, \sigma^2_e)
+$$
+
+-   Estimated parameters:
+
+    -   $\beta_0$: Intercept - is the predicted value of a Weight for a people with [Height is Mean Height ]{style="color: red;"}
+
+    -   $\beta_1$: Slope of Height - the predicted increase of Weight for one-unit increase in Height
+
+    -   $e_p$: Residual error - how each one's observes deviate from $\beta_0$
+
+    -   $\sigma^2_e$: Residual variance - variability of residual error across all people
+
+------------------------------------------------------------------------
+
+### R code
+
+```{r}
+#| output-location: default
+dataSexHeightWeight$heightC = dataSexHeightWeight$heightIN - mean(dataSexHeightWeight$heightIN)
+model2a <- lm(weightLB ~ heightC, data = dataSexHeightWeight) # model formula
+summary(model2a)$coefficients |> kable(digit = 3) # regression cofficients table
+anova(model2a) |> kable(digit = 3) # F-statistic table
+```
+
+-   Interpretation
+
+    -   $\beta_0 = 183.4$ pounds (previously -227.3) is the predicted value of a Weight for a people with [Height is 67.9 ]{style="color: red;"} inches
+    -   Everything except $\beta_0$, $SE(\beta_0)$, and t-value of intercept should be same as the previous model
+
+------------------------------------------------------------------------
+
+### Visualization
+
+```{r}
+#| output-location: default
+#| fig-align: center
+ggplot(dataSexHeightWeight) +
+  geom_point(aes(x = heightC, y = weightLB)) +
+  geom_smooth(aes(x = heightC, y = weightLB), method = "lm") +
+  geom_hline(aes(yintercept = 183.4), color = "red") +
+  labs(title = "Model 2a: Fit Plot for weight")
+```
+
+## Wrap up: Hypothesis Tests for Parameters
+
+-   To determine if the regression slope is significantly different from zero, we must use a hypothesis test:
+
+$$
+H_0: \beta_1 = 0 
+$$
+
+$$
+H_1: \beta_1 \neq 0
+$$
+
+-   We have two options for this test (both are same here)
+
+    -   Use ANOVA table: sums of squares – F-test
+
+    -   Use "Wald" test for parameter: $t = \frac{\beta_1}{SE(\beta_1)}$
+
+    -   Here $t^2 = F$
+
+-   p \< 0.001 $\rightarrow$ reject null ($H_0$) $\rightarrow$ Conclusion: slope is significant
+
+## Model 3: Predicting Weight from Gender
+
+$$
+\text{Weight}_p = \beta_0 + \beta_1 \text{Female}_p + e_p
+$$ $$
+e_p \sim N(0, \sigma^2_e)
+$$
+
+-   Note: because gender is a categorical predictor, we must first code it into a number before entering it into model (typically done automatically in software)
+
+    -   Here we code the variable as [Female = 1 for females; Female = 0 for males]{style="color: blue;"}
+
+```{=html}
+<!-- -->
+```
+-   Estimated parameters:
+
+    -   $\beta_0$: Intercept - predicted value of Weight for a person with [Female = 0 (males)]{style="color: red;"}
+
+    -   $\beta_2$: Slope of Female - Change in predicted value of Weight between Males and Famales
+
+------------------------------------------------------------------------
+
+### R Code
+
+```{r}
+#| output-location: default
+model3 <- lm(weightLB ~ female, data = dataSexHeightWeight) # model formula
+summary(model3)$coefficients |> kable(digit = 3) # regression cofficients table
+anova(model3) |> kable(digit = 3) # F-statistic table
+```
+
+-   Interpretation
+
+    -   $\beta_0 = 235.9$ pounds is the predicted value of a Weight for a male
+    -   $\beta_0 +\beta_1 = 235.9 - 105.0 = 130.9$ pounds is the predicted value of a Weight for a female
+    -   $\beta_1 = 105$ expected difference between gender, which is significant based on t-test and F-test
+
+------------------------------------------------------------------------
+
+### Visualization: 
+
+Line Plot (not frequently used in this case)
+
+```{r}
+#| output-location: default
+#| fig-align: center
+ggplot(dataSexHeightWeight) +
+  geom_point(aes(x = as.numeric(female), y = weightLB)) +
+  geom_abline(intercept = coef(model3)[1], slope = coef(model3)[2]) +
+  scale_x_continuous(breaks = 0:1) +
+  labs(title = "Model 3: Fit Plot for Female",
+       x = "Female")
+```
+
+------------------------------------------------------------------------
+
+### Visualization: **box-and-whisker plot (Basic Way)**
+
+```{r}
+#| output-location: default
+#| fig-align: center
+boxplot(weightLB ~ female, data = dataSexHeightWeight, 
+        names = c("Male", "Female"), ylab = "Weight", xlab = "",boxwex = .3)    # Basic boxplot in R
+```
+
+------------------------------------------------------------------------
+
+### Visualization: **box-and-whisker plot (Fancy Way)**
+
+```{r}
+#| output-location: default
+#| fig-align: center
+#| code-fold: true
+#| code-summary: "ggplot2 package"
+ggplot(dataSexHeightWeight, aes(x = female, y = weightLB)) +
+  geom_dotplot(aes(fill = female, color = female), binaxis='y', stackdir='center') +
+  stat_summary(fun.data= "mean_cl_normal", fun.args = list(conf.int=.75), geom="crossbar", width=0.3, fill = "yellow", alpha = .5) +
+  stat_summary(fun.data= "median_hilow", geom="errorbar", fun.args = list(conf.int=1), width = .1, color="black") + # Mean +- 2SD 
+  stat_summary(fun.data= "mean_sdl",  geom="point", shape = 5, size = 3) +
+  scale_x_discrete(labels = c("Male", "Female")) +
+  labs(x = "", y = "Weight") +
+  theme_bw() +
+  theme(legend.position = "none", text = element_text(size = 20)) 
+```
+
+## Model 4: Predicting Weight from Height and Gender
+
+$$
+\text{Weight}_p = \beta_0 + \beta_1 \text{Height}_p + \beta_2 \text{Female}_p  + e_p
+$$ $$
+e_p \sim N(0, \sigma^2_e)
+$$
+
+```{r}
+#| output-location: default
+model4 <- lm(weightLB ~ heightC + female, data = dataSexHeightWeight) # model formula
+summary(model4)$coefficients |> kable(digit = 3) # regression cofficients table
+anova(model4) |> kable(digit = 3) # F-statistic table
+```
+
+-   Interpretation
+
+    -   
