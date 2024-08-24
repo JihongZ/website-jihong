@@ -6,7 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2024-08-18"
+date: "2024-08-26"
 sidebar: false
 execute: 
   echo: true
@@ -15,7 +15,7 @@ format:
   html: 
     page-layout: full
     toc: true
-    toc-depth: 2
+    toc-depth: 1
     lightbox: true
     code-fold: false
   uark-revealjs:
@@ -35,8 +35,9 @@ format:
 
 ## Some notes before our class
 
-1.  The R code I'll show in the slides is just for illustration. Don't be worried when you hardly follow. We will practice more in the R practice unit (Unit 3).
-2.  
+1.  Vote for late class time (5:15?) for free parking
+2.  The R code I'll show in the slides is just for illustration. Don't be worried when you hardly follow.
+3.  We will practice more in the R practice unit (Unit 3).
 
 ## Learning Objectives
 
@@ -481,6 +482,8 @@ $$
     S_{Y_1, Y_2} = r_{Y_1, Y_2} S_{Y_1} S_{Y_2}
     $$
 
+## Let's Look at R code together
+
 ## Summary of Unit 1
 
 1.  **Descriptive statistics**: describe central tendency and variability of variables in a visual or statistical way.
@@ -695,7 +698,7 @@ $$
 
 -   Estimated parameters:
 
-    -   $\beta_0$: Intercept - is the predicted value of a Weight for a people with [Height is Mean Height ]{style="color: red;"}
+    -   $\beta_0$: Intercept - is the predicted value of a Weight for a people with [Height is Mean Height]{style="color: red;"}
 
     -   $\beta_1$: Slope of Height - the predicted increase of Weight for one-unit increase in Height
 
@@ -717,7 +720,7 @@ anova(model2a) |> kable(digit = 3) # F-statistic table
 
 -   Interpretation
 
-    -   $\beta_0 = 183.4$ pounds (previously -227.3) is the predicted value of a Weight for a people with [Height is 67.9 ]{style="color: red;"} inches
+    -   $\beta_0 = 183.4$ pounds (previously -227.3) is the predicted value of a Weight for a people with [Height is 67.9]{style="color: red;"} inches
     -   Everything except $\beta_0$, $SE(\beta_0)$, and t-value of intercept should be same as the previous model
 
 ------------------------------------------------------------------------
@@ -768,9 +771,8 @@ $$
 
     -   Here we code the variable as [Female = 1 for females; Female = 0 for males]{style="color: blue;"}
 
-```{=html}
 <!-- -->
-```
+
 -   Estimated parameters:
 
     -   $\beta_0$: Intercept - predicted value of Weight for a person with [Female = 0 (males)]{style="color: red;"}
@@ -796,7 +798,7 @@ anova(model3) |> kable(digit = 3) # F-statistic table
 
 ------------------------------------------------------------------------
 
-### Visualization: 
+### Visualization:
 
 Line Plot (not frequently used in this case)
 
@@ -845,7 +847,7 @@ ggplot(dataSexHeightWeight, aes(x = female, y = weightLB)) +
 ## Model 4: Predicting Weight from Height and Gender
 
 $$
-\text{Weight}_p = \beta_0 + \beta_1 \text{Height}_p + \beta_2 \text{Female}_p  + e_p
+\text{Weight}_p = \beta_0 + \beta_1 \text{HeightC}_p + \beta_2 \text{Female}_p  + e_p
 $$ $$
 e_p \sim N(0, \sigma^2_e)
 $$
@@ -859,4 +861,228 @@ anova(model4) |> kable(digit = 3) # F-statistic table
 
 -   Interpretation
 
-    -   
+    -   $\beta_0 = 224.256 (SE = 1.439)$
+
+        -   The predicted weight is 224.256 pounds for a person with Female = 0 (males) and has Height as Mean Height 67.9 inches
+
+    -   $\beta_1 = 2.708 (SE = 0.155)$
+
+        -   $t = \frac{2.708}{0.155}=17.525; p <.001$
+
+        -   The expected change in weights for every one-unit increase in height holding gender constant
+
+    -   $\beta_2=-81.713 (SE = 2.241)$
+
+        -   The expected difference between the mean of weights for males and the mean for females holding height constant
+
+    -   $\sigma_e^2 = 16.283$
+
+        -   The residual variance of weight
+
+## Model 4: By-Gender Regression Lines
+
+Model 4 assumes identical regression slopes for both genders but has different intercepts
+
+-   This assumption of different slopes will be tested statistically by model 5
+
+Predicted Weight for Females with the height as 68.9 inch:
+
+$$
+W_p=224.256+2.708\times\color{blue}{(68.9-67.9)} - 81.713*\color{red}{1} \\
+= 224.256+2.708-81.712 = 145.252
+$$
+
+Predicted Weight for Males with the height as 68.9 inch:
+
+$$
+W_p=224.256+2.708\times\color{blue}{(68.9-67.9)} - 81.713*\color{red}{0} \\
+= 224.256+2.708 = 226.964
+$$
+
+```{r}
+#| results: hold
+predict(model4, data.frame(heightC = 1, female = TRUE))
+predict(model4, data.frame(heightC = 1, female = FALSE))
+```
+
+### Visualization: Different intercept and Same slope across groups
+
+```{r}
+#| output-location: default
+#| fig-align: center
+#| code-fold: true
+#| code-summary: "ggplot2 package"
+
+dataSexHeightWeight |> 
+  mutate(predictedWeight = predict(model4, dataSexHeightWeight)) |> 
+  ggplot(aes(x = heightC, y = predictedWeight, color = female)) +
+  geom_line() +
+  geom_point(aes(y = weightLB, shape = female), size = 2) +
+  theme_classic()
+```
+
+## Model 5: By-Gender Regression Lines
+
+$$\text{Weight}_p = \beta_0 + \beta_1 \text{HeightC}_p + \beta_2 \text{Female}_p +\beta_3 \text{HeightCxFemale}_p+ e_p$$
+
+```{r}
+#| output-location: default
+model5 <- lm(weightLB ~ heightC * female, data = dataSexHeightWeight) # model formula
+summary(model5)$coefficients |> kable(digit = 3) # regression cofficients table
+anova(model5) |> kable(digit = 3) # F-statistic table
+```
+
+-   Interpretation
+
+    -   $\beta_0 = 222.184 (SE = 0.838)$
+
+        -   SE gets smaller compared to Model 4.
+
+        -   The predicted weight is 224.184 pounds for a person with Female = 0 (males) and has Height as Mean Height 67.9 inches
+
+    -   $\beta_1 = 3.189 (SE = 0.111)$
+
+        -   SE gets smaller compared to Model 4.
+
+        -   **Simple main effect of Height:** the expected change in weights for every one-unit increase in height [for males only]{style="color: red"}
+
+    -   $\beta_2=-82.271 (SE = 1.211)$
+
+        -   SE gets smaller compared to Model 4.
+
+        -   **Simple main effect of gender:** The expected difference between the mean of weights for males and the mean for females for people with mean height
+
+    -   $\beta_3 = -1.093 (SE = 1.211)$ , $t = -6.52, p < .001$
+
+        -   **Gender-by-Height Interaction**: Additional change in slope of height for change in gender.
+
+        -   The slope of heights for males is 3.189; the slope of heights decreases 1.093 (2.096) inches/pound for females
+
+    -   $\sigma_e^2 = 5$
+
+        -   Compared to 16.283 in model 4
+
+------------------------------------------------------------------------
+
+### Visualization: Different slopes and different intercepts
+
+Model 5 does not assume identical regression slopes
+
+-   Because $\beta_3$ was significantly different from zero, the data supports different slopes for the gender
+
+```{r}
+#| code-fold: true
+#| output-location: default
+ggplot(dataSexHeightWeight, aes(x = heightC, y = weightLB, color = female)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw()
+```
+
+## Model Comparison
+
+-   In practice, the empty model (Model 0) and the full model (Model 5) would be the only models to run
+
+    -   The aim of model comparison is to decide on whether we want more complex model or the simple one
+
+    -   The **trick** is to describe the impact of all and each of the predictors – typically using variance accounted for
+
+-   Residual Variance and $R^2$
+
+```{r}
+#| code-fold: true
+#| output-location: default
+get_res_var <- function(model) {
+  anova(model)$`Mean Sq` |>  tail(1)
+}
+
+data.frame(
+  Model = paste("Model", c(1, 2, "2a", 3, 4, 5)),
+  ResidualVariance = sapply(list(model1, model2, model2a, model3, model4, model5), get_res_var)
+) |> 
+  ggplot(aes(x = Model, y = ResidualVariance))  +
+  geom_point() +
+  geom_path(group = 1) +
+  geom_text(aes(label = round(ResidualVariance, 2)),nudge_y = 200) +
+  labs(title = "Residual Variance for six models")
+```
+
+## Comparison Across Models
+
+1.  **Are height and gender are good predictors?**
+    -   Total explained variances in weight by **height and gender:** Multiple $R^2$ of Model 5
+        -   $(3179.09-4.73)/3179.09 = 0.9985$ $\rightarrow$ 99.85% variances in weights can be explained by height and gender
+    -   F-test comparing Model 5 to Model 1
+        -   $F_{3, 16} = 4250.1$, p \< .001
+
+            ```{r}
+            #| code-fold: true
+            #| output-location: default
+            summary(model5)
+            ```
+
+------------------------------------------------------------------------
+
+2.  **Are Height alone a good predictor?**
+    -   Explained **remaining variances** in weight by **height:** Multiple $R^2$ of Model 5 to Model 3
+
+        -   $(293.21-4.73)/293.21 = 0.9839$ $\rightarrow$ 98.39% variances in weights [remaining after gender]{style="color: orange"} can be explained by **the main and interaction effects of height**
+
+    -   F-test comparing Model 5 to Model 3
+
+        -   $F_{2, 16} = 548.74$, p \< .001 suggests the effect of hight on weight is significant after controlling the effect of gender
+
+            ```{r}
+            #| code-fold: true
+            #| results: hide
+            #| output-location: default
+            anova(model3, model5)
+            ((5277.8 - 75.7)/ (18-16))/(75.7 / 16)
+            ```
+
+    -   True explained variances out of total variances in weight: **Unique contribution** of adding Height into the model
+
+        -   Check model 3, we can found that gender explained 90.78% variance of weight
+
+        -   $0.9839 * (1 - 0.9078) = 0.0907$ $\rightarrow$ 9.07% more variances of weights can be explained by height after gender is already in the model
+
+        -   90.78% + 9.07% = 99.85% is the total variance explained by height and gender
+
+------------------------------------------------------------------------
+
+3.  **Are gender alone a good predictor?**
+
+-   Explained **remaining variances** in weight by **gender:** Multiple $R^2$ of Model 5 to Model 2a
+
+    -   $(1217.97-4.73)/1217.97 = 0.9961$ $\rightarrow$ 99.61% variances in weights [remaining after height]{style="color: orange"} can be explained by **the main and interaction effects of gender**
+
+-   F-test comparing Model 5 to Model 2a
+
+    -   $F_{2, 16} = 2308.8$, p \< .001 suggests the effect of gender on weight is significant after controlling the effect of height
+
+        ```{r}
+        #| code-fold: true
+        #| results: hide
+        #| output-location: default
+        anova(model2a, model5)
+        ((21923.5 - 75.7)/ (18-16))/(75.7 / 16)
+        ```
+
+-   True explained variances out of total variances in weight: **Unique contribution** of adding Height into the model
+
+    -   Check model 3, we can found that gender explained 90.78% variance of weight
+
+    -   $0.9839 * (1 - 0.9078) = 0.0907$ $\rightarrow$ 9.07% more variances of weights can be explained by height after gender is already in the model
+
+    -   90.78% + 9.07% = 99.85% is the total variance explained by height and gender
+
+## Summary of Unit 2
+
+1.  We learned GLM using the 2-factor model
+2.  For specific effect, we examine the t-test of coefficient
+3.  For the total contribution of a bunch of effects (main + interaction), we look at R-square and F-test
+4.  We sometime need to report predicted regression lines, which can be done in R with ggplot2
+
+# Unit 3: Let's Look at R code together
+
+## 
