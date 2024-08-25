@@ -46,26 +46,43 @@ p { // main font family of post content
 
 /*-- scss:uses --*/
 // colors
-$light-soft-pink:  #E8E6D9;
-$soft-color1: #FFFFF0;
+$body-color: #404041;
+$headings-color: #447099;
+$link-color: #EE6331;
+$blue: #447099;
+$orange: #EE6331;
+$green: #72994E;
+$red: #9A4665;
+$indigo: #9A4665;
+$cyan: #419599;
+$teal: #419599;
+
+$freeze-purple:  #e5eaf5; // code block's bg
+$soft-color1: #FAF9F6;
 $dark-sage-green: #98A08D;
 $darkteal: #008080;
 $lightwhite: #c0c0c0;
 $gray: #64605f;
-$orange: #df5925;
 $menutext-bg: #000000;
 $navbar-bg: $soft-color1; // navigation bar bg
 $body-bg: $soft-color1; // body bg
 $code-bg: $soft-color1; // code's bg
-$code-block-bg: $light-soft-pink; // code block's bg
+$code-block-bg: $freeze-purple; // code block's bg
 $pre-bg: $dark-sage-green; // code's bg
 $input-group-addon-bg: $soft-color1;
 $code-block-bg-alpha: -.3; // Code blocks
 $link-color: $orange;
 
+$warning: #EE6331;
+$info: #419599;
+$success: #72994E;
+$danger: #9A4665;
+$caution: #EE6331;
+
+
 /* output color for R chunck */
 .cell-output {
-  background-color: $light-soft-pink;
+  background-color: $freeze-purple;
   border-radius: 4px;
 }
 

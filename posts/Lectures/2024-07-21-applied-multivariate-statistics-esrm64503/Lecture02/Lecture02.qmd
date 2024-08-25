@@ -10,12 +10,14 @@ date: "2024-08-26"
 sidebar: false
 execute: 
   echo: true
+  warning: false
 output-location: column
 format: 
   html: 
     page-layout: full
     toc: true
-    toc-depth: 1
+    toc-depth: 2
+    toc-expand: true
     lightbox: true
     code-fold: false
   uark-revealjs:
@@ -1087,5 +1089,3 @@ data.frame(
 4.  We sometime need to report predicted regression lines, which can be done in R with ggplot2
 
 # Unit 3: Let's Look at R code together
-
-## 
