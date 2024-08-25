@@ -176,14 +176,14 @@ pairs(dataSexHeightWeight[, c('female', 'heightIN', 'weightLB')])
 ## Histograms of Height and Weight
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="40%"}
 ```{r}
 #| fig-cap: "Pairwise Scatter Points"
 hist(dataSexHeightWeight$weightLB, main = 'Weight', xlab = 'Pounds')
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="40%"}
 ```{r}
 hist(dataSexHeightWeight$heightIN, main = 'Height', xlab = 'Inches')
 ```
