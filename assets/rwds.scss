@@ -56,6 +56,7 @@ $red: #9A4665;
 $indigo: #9A4665;
 $cyan: #419599;
 $teal: #419599;
+$pink:  #e3abdb;
 
 $freeze-purple:  #e5eaf5; // code block's bg
 $soft-color1: #FAF9F6;
@@ -79,18 +80,18 @@ $success: #72994E;
 $danger: #9A4665;
 $caution: #EE6331;
 
-
 /* output color for R chunck */
 .cell-output {
   background-color: $freeze-purple;
   border-radius: 4px;
 }
 
-.cell-output pre { border: black 1px solid;}
+.cell-output pre { border: $blue 1px solid;}
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
-$pink:      #e3abdb;
-$primary:   $darkteal !default;
+$primary:   $teal !default;
+
+
 .icon-line {
   display: block;
   background: $primary;
