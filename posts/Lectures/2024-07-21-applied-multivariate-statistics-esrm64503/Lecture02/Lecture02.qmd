@@ -603,7 +603,7 @@ $$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p$$
 
 -   Model 5:
 
-$$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p \\ + \beta_2\text{HeigthCxFemale}_p$$
+$$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p \\ + \beta_3\text{HeigthCxFemale}_p$$
 :::
 :::
 

@@ -91,14 +91,11 @@ format:
     template-partials:
         - assets/title-block.html
     css: assets/rwds.css
-    #highlight-style:
-    #  light: assets/custom-light.theme
-    #  dark: assets/custom-dark.theme
     comments:
       giscus:
         repo: JihongZ/quarto-academic-jihong
-    include-in-header: 
-      - toggle.js # Maybe change for automate change theme: https://github.com/quarto-dev/quarto-cli/discussions/2588
+    # include-in-header: 
+    #   - toggle.js # Maybe change for automate change theme: https://github.com/quarto-dev/quarto-cli/discussions/2588
     header-includes: |
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
       <script src="https://cdn.jsdelivr.net/npm/@xiee/utils/js/key-buttons.min.js" defer></script>
