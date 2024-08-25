@@ -41,18 +41,21 @@ format:
 
 ## Learning Objectives
 
-1.  Install Class Project **ESRM64503**
-2.  Univariate Descriptive Statistics
-    -   Central tendency: Mean, Median, Mode
-    -   Variation/Spread: Standard deviation (SD), Variance, Range
-3.  Bivariate descriptive statistics
-    -   Correlation
-    -   Covariance
-4.  Types of variable distributions
-    -   Marginal
-    -   Joint
-    -   Conditional
-5.  Bias in estimators
+1.  Review Homework 0
+2.  Unit 1: Descriptive Statistics
+    1.  Introduce R package – **ESRM64503**
+    2.  Univariate Descriptive Statistics
+        -   Central tendency: Mean, Median, Mode
+        -   Variation/Spread: Standard deviation (SD), Variance, Range
+    3.  Bivariate descriptive statistics
+        -   Correlation
+        -   Covariance
+    4.  Types of variable distributions
+        -   Marginal
+        -   Joint
+        -   Conditional
+    5.  Bias in estimators
+3.  Unit 2: General Linear Model
 
 ## Installation of *ESRM64503* R package
 
