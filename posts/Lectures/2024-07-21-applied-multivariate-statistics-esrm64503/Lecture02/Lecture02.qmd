@@ -521,7 +521,7 @@ $$
 -   The general linear model (GLM) incorporates many different labels of analysis under one unifying umbrella:
 
 |                 | Categorical Xs | Continuous Xs           | Both Types of Xs |
-|------------------|------------------|-------------------|------------------|
+|-----------------|----------------|-------------------------|------------------|
 | Univariate Y    | ANOVA          | Regression              | ANCOVA           |
 | Multivariate Ys | MANOVA         | Multivariate Regression | MANCOVA          |
 
