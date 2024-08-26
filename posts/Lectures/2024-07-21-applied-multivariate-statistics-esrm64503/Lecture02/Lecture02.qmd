@@ -517,7 +517,7 @@ $$
     -   Statistical way: mean/mode/median; variance/standard deviation
 2.  **Alternatively**, we cab describe the relationships between two or more variables using their joint distributions
     -   Visual way: Scatter plot, Group-level Histogram
-    -   Statistical way: Covariance, Pearson Correlation, Chi-square ($\chi^2$) test 
+    -   Statistical way: Covariance, Pearson Correlation, Chi-square ($\chi^2$) test
 
 # Unit 2: General Linear Model
 
@@ -542,7 +542,7 @@ $$
 -   The general linear model (GLM) incorporates many different labels of analysis under one unifying umbrella:
 
 |                 | Categorical Xs | Continuous Xs           | Both Types of Xs |
-|-----------------|-----------------|--------------------|-----------------|
+|------------------|------------------|--------------------|------------------|
 | Univariate Y    | ANOVA          | Regression              | ANCOVA           |
 | Multivariate Ys | MANOVA         | Multivariate Regression | MANCOVA          |
 
@@ -1017,6 +1017,11 @@ ggplot(dataSexHeightWeight, aes(x = heightC, y = weightLB, color = female)) +
 
 ------------------------------------------------------------------------
 
+:::{.columns}
+:::{.column width=20%}
+<iframe src="https://giphy.com/embed/b8RfbQFaOs1rO10ren" width="480" height="398" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+:::
+:::{.column width=80%}
 ```{r}
 #| code-fold: true
 #| output-location: default
@@ -1032,10 +1037,17 @@ data.frame(
   geom_point() +
   geom_path(group = 1) +
   geom_label(aes(label = round(ResidualVariance, 2)),nudge_y = 200, nudge_x = 0.2) +
-  labs(title = "Estimated Residual Variances across models")
+  labs(title = "Estimated Residual Variances across models") +
+  theme(text = element_text(size = 20))
 ```
+:::
+:::
 
-------------------
+
+
+
+
+------------------------------------------------------------------------
 
 ```{r}
 #| code-fold: true
@@ -1133,5 +1145,6 @@ data.frame(
 2.  For specific effect, we examine the t-test of coefficient
 3.  For the total contribution of a bunch of effects (main + interaction), we look at R-square and F-test
 4.  We sometime need to report predicted regression lines, which can be done in R with ggplot2
+
 
 # Unit 3: Let's Look at R code together
