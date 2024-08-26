@@ -25,8 +25,7 @@ format:
     chalkboard: true
     embed-resources: false
     code-fold: false
-    number-sections: true
-    number-depth: 1
+    number-sections: false
     footer: "ESRM 64503: Lecture 02 - Descriptive Statistics"
     slide-number: c/t
     tbl-colwidths: auto
@@ -37,14 +36,14 @@ format:
 
 ## Some notes before our class
 
-1.  Vote for late class time (5:15?) for free parking
-2.  The R code I'll show in the slides is just for illustration. Don't be worried when you hardly follow.
-3.  We will practice more in the R practice unit (Unit 3).
+1.  Vote for delaying class time (to 5:15?) for free parking
+2.  The R code I'll show in the slides is just for illustration. Don't be worried about hardly following up. We will practice together at the end of each unit.
 
 ## Learning Objectives
 
 1.  Review Homework 0
-2.  Unit 1: Descriptive Statistics
+2.  Review previous lecture
+3.  Unit 1: Descriptive Statistics
     1.  Introduce R package – **ESRM64503**
     2.  Univariate Descriptive Statistics
         -   Central tendency: Mean, Median, Mode
@@ -57,18 +56,35 @@ format:
         -   Joint
         -   Conditional
     5.  Bias in estimators
-3.  Unit 2: General Linear Model
+4.  Unit 2: General Linear Model
 
-## Installation of *ESRM64503* R package
+# Unit 1: Descriptive Statistics
+
+## Homework 0
+
+![Question 3](figures/homework0.png)
+
+```{r}
+#| eval: false
+#| output-location: default
+library(tidyverse); library(nycflights13) # install.packages(c("nycflights13", "tidyverse"))
+flights
+glimpse(flights)
+View(flights)
+print(flights, width = Inf)
+```
+
+## Installation of ESRM64503 package
 
 ```{r}
 #| code-fold: show
 #| eval: false
+#| output-location: default
 pak::pak("JihongZ/ESRM64503") # Install the Github package
 pak::pak("JihongZ/ESRM64503", upgrade = TRUE) # If you already install the package, try to upgrade
 ```
 
-## Test *ESTM64503* Package
+## Test ESTM64503 Package
 
 ```{r}
 #| message: true
@@ -102,11 +118,13 @@ dataSexHeightWeight # You should find data named "dataSexHeightWeight" already l
 ?dataSexHeightWeight
 ```
 
-## Data for Today's Lecture
+## Simulated Data for Today's Lecture - dataSexHeightWeight
 
 -   To help demonstrate the concepts of today's lecture, we will be using a toy data set with three variables
 
     -   **Female (Gender)**: Coded as Male (= 0) or Female (= 1)
+
+        -   In R, factor variable with two levels: FALSE, TRUE
 
     -   **Height**: in inches
 
@@ -128,15 +146,37 @@ dataSexHeightWeight # You should find data named "dataSexHeightWeight" already l
 library(ESRM64503) # INSTALL: pak::pak("JihongZ/ESRM64504")
 library(kableExtra) # INSTALL: pak::pak("JihongZ/ESRM64504")
 
+## First checking sample size
+## N = 20
+
+## Recode Sex as Female
 dataSexHeightWeight$female = dataSexHeightWeight$sex == "F"
 kable(dataSexHeightWeight,
       caption = 'toy data set') |> 
   kable_styling(font_size = 30)
 ```
 
-# Unit 1: Descriptive Statistics
+## Descriptive Statistics
 
-## Quick inspection I
+-   First, we can inspect each variable individually (**marginal distribution**) through a set of descriptive statistics
+
+    -   Visual way: histogram plot or density plot
+
+    -   Statistical way: Central tendency and Variability
+
+        -   Mean, Median, Mode
+
+        -   SD, Range
+
+-   Second, we can also summarize the **joint (bivariate) distribution** of two variables through a set of descriptive statistics:
+
+    -   **Joint vs. Marginal**: joint distribution describes more than one variable simultaneously
+
+    -   Common bivariate descriptive statistics:
+
+        -   Correlation and covariance
+
+## Quick inspection: Missing data rate
 
 -   Check (1) if any case has **missing** value (2) **distributions** for continuous and categorical variables
 
@@ -160,55 +200,31 @@ table(complete.cases(dataWithMissing))
 psych::describe(dataSexHeightWeight[,-1], omit = TRUE, trim = 0) |> kable(digits = 3)
 ```
 
-## Quick Inspect II
+## Quick Inspect: Distribution of Categorical Variable
 
 ```{r}
 #| code-summary: "Distribution of categorical variables"
+#| output-location: default
 table(dataSexHeightWeight$female)
+hist(as.numeric(dataSexHeightWeight$female), main = "Histogram of Female", xlab = "Female", )
 ```
 
 ## Visualization: Pairwise Scatterplot
 
 ```{r}
+#| output-location: default
 pairs(dataSexHeightWeight[, c('female', 'heightIN', 'weightLB')])
 ```
 
 ## Histograms of Height and Weight
 
-::: columns
-::: {.column width="40%"}
 ```{r}
-#| fig-cap: "Pairwise Scatter Points"
+#| output-location: default
+#| fig-align: center
 hist(dataSexHeightWeight$weightLB, main = 'Weight', xlab = 'Pounds')
-```
-:::
 
-::: {.column width="40%"}
-```{r}
 hist(dataSexHeightWeight$heightIN, main = 'Height', xlab = 'Inches')
 ```
-:::
-:::
-
-## Descriptive Statistics
-
--   First, we can inspect each variable individually (**marginal distribution**) through a set of descriptive statistics
-
-    -   Visual way: histogram plot or density plot
-
-    -   Statistical way: Central tendency and Variability
-
-        -   Mean, Median, Mode
-
-        -   SD, Range
-
--   Second, we can also summarize the **joint (bivariate) distribution** of two variables through a set of descriptive statistics:
-
-    -   **Joint vs. Marginal**: joint distribution describes more than one variable simultaneously
-
-    -   Common bivariate descriptive statistics:
-
-        -   Correlation and covariance
 
 ## Descriptive Statistics for Toy Data: Marginal
 
@@ -230,6 +246,16 @@ wide_marginal_desp |>
 
 ## Descriptive Statistics for Toy Data: Joint
 
+-   **Correlation-Covariance Matrix**:
+
+    -   Diagonal: Variance
+
+    -   Above Diagonal (upper triangle): Covaraince
+
+    -   Below Diagonal (lower triangle): Correlation
+
+-   **Question:** What we can tell regarding the relationships among three variables?
+
 ```{r}
 cor_cov_mat <- matrix(nrow = 3, ncol = 3)
 colnames(cor_cov_mat) <- rownames(cor_cov_mat) <- c("heightIN", "weightLB", "female")
@@ -241,16 +267,6 @@ cor_cov_mat[upper.tri(cor_cov_mat)] <- cov_mat[upper.tri(cov_mat)]
 diag(cor_cov_mat) <- diag(cov_mat)
 kable(cor_cov_mat, digits = 3)
 ```
-
--   Note:
-
-    -   Diagonal: Variance
-
-    -   Above Diagonal (upper triangle): Covaraince
-
-    -   Below Diagonal (lower triangle): Correlation
-
--   **Question:** What we can tell regarding the relationships among three variables?
 
 # Variance, Correlation, Covariance
 
@@ -286,9 +302,10 @@ Here: $p$ = person;
 ```{r}
 #| message: false
 #| code-fold: show
+#| output-location: default
 set.seed(1234)
-sample_sizes = seq(10, 200, 10)
-population_var = 100
+sample_sizes = seq(10, 200, 10) # N = 10, 20, 30, ..., 200
+population_var = 100 # True variance for population
 variance_mat <- matrix(NA, nrow = length(sample_sizes), ncol = 4)
 iter = 0
 for (sample_size in sample_sizes) {
@@ -318,15 +335,17 @@ colnames(variance_mat) <- c(
 #| code-fold: true
 #| fig-align: center
 #| fig-width: 20
+#| output-location: default
 library(ggplot2)
 variance_mat |> 
   as.data.frame() |> 
   pivot_longer(-sample_size) |> 
   ggplot() +
   geom_point(aes(x = sample_size, y = value, color = name), linewidth = 1.1) +
-  geom_line(aes(x = sample_size, y = value, color = name), linewidth = 1.1) +
-  labs(x = "Sample Size", y = "Estimates of Variance") +
+  geom_line(aes(x = sample_size, y = value, color = name), linewidth = 1.5) +
+  labs(x = "Sample Size (N)", y = "Estimates of Variance") +
   scale_color_manual(values = 1:3, labels = c("Population Variance", "Sample Biased Variance (ML)", "Sample Unbiased Variance"), name = "Estimator") +
+  scale_x_continuous(breaks = seq(10, 200, 10)) + 
   theme_classic() +
   theme(text = element_text(size = 25)) 
 ```
@@ -335,7 +354,7 @@ variance_mat |>
 
 ## Interpretation of Variance
 
--   The variance describes the spread of a variable in squared units (which come from $(Y_p - \bar Y)^2$ term in the equation)
+-   The variance ($\sigma^2$ and $S^2$) describes the spread of a variable in **squared units** (which come from $(Y_p - \bar Y)^2$ term in the equation)
 
 -   Variance: **the average squared distance of an observation from the mean**
 
@@ -343,7 +362,7 @@ variance_mat |>
 
     -   For the toy sample, the **variance of weight** is 3179.095 pounds squared
 
-    -   The **variance of female** — not applicable in the sample way!
+    -   The **variance of female** — not applicable in the same way!
 
         -   How is the sample equally distributed across different groups: 50/50 -\> largest variance
 
@@ -370,6 +389,8 @@ variance_mat |>
 
 ![Table 1 (Xiong et al., 2023)](figures/Exp_Descrip_Stats_Table.png){fig-align="center"}
 
+------------------------------------------------------------------------
+
 -   Key information that be reprted
 
     -   All variables that you think relevant to the study: (1) demographic (2) context factors (3) outcomes or predictors
@@ -393,7 +414,7 @@ $$
 
 ## R: Pearson Correlation
 
-#### Method 1
+#### Method 1: Use R function
 
 `cor()` function with the argument method = "pearson"
 
@@ -453,15 +474,17 @@ $$
     ::: columns
     ::: {.column width="50%"}
     $$
-    S^2_{Y_1}= \frac{\sum_{p=1}^{N}(Y_{1p}-\bar Y_1)(Y_{2p}-\bar Y_2)}{N-1}
+    S^2_{Y_1, Y_2}= \frac{\sum_{p=1}^{N}(Y_{1p}-\bar Y_1)(Y_{2p}-\bar Y_2)}{N-1}
     $$
     :::
 
     ::: {.column width="50%"}
     $$
-    S^2_{Y_2}= \frac{\sum_{p=1}^{N}(Y_{1p}-\bar Y_1)(Y_{2p}-\bar Y_2)}{N}$$
+    S^2_{Y_1, Y_2}= \frac{\sum_{p=1}^{N}(Y_{1p}-\bar Y_1)(Y_{2p}-\bar Y_2)}{N}$$
     :::
     :::
+
+-   **Variance is a special Covariance so that the variable covary with itself**
 
 -   The covariance uses the units of the original variables (but now they are multiples):
 
@@ -487,8 +510,6 @@ $$
     S_{Y_1, Y_2} = r_{Y_1, Y_2} S_{Y_1} S_{Y_2}
     $$
 
-## Let's Look at R code together
-
 ## Summary of Unit 1
 
 1.  **Descriptive statistics**: describe central tendency and variability of variables in a visual or statistical way.
@@ -496,7 +517,7 @@ $$
     -   Statistical way: mean/mode/median; variance/standard deviation
 2.  **Alternatively**, we cab describe the relationships between two or more variables using their joint distributions
     -   Visual way: Scatter plot, Group-level Histogram
-    -   Statistical way: Covariance, Pearson Correlation, Chi-square
+    -   Statistical way: Covariance, Pearson Correlation, Chi-square ($\chi^2$) test 
 
 # Unit 2: General Linear Model
 
@@ -521,7 +542,7 @@ $$
 -   The general linear model (GLM) incorporates many different labels of analysis under one unifying umbrella:
 
 |                 | Categorical Xs | Continuous Xs           | Both Types of Xs |
-|-----------------|----------------|-------------------------|------------------|
+|-----------------|-----------------|--------------------|-----------------|
 | Univariate Y    | ANOVA          | Regression              | ANCOVA           |
 | Multivariate Ys | MANOVA         | Multivariate Regression | MANCOVA          |
 
@@ -617,11 +638,11 @@ $$
 
 -   Estimated parameters:
 
-    -   $\beta_0$: Overall intercept - the "grand" mean of weight across all people
+    -   $\beta_0$: **Overall intercept** - the "grand" mean of weight across all people
 
-    -   $e_p$: Residual error - how each one's observes deviate from $\beta_0$
+    -   $e_p$: **Residual error** - how each one's observes deviate from $\beta_0$
 
-    -   $\sigma^2_e$: Residual variance - variability of residual error across all people
+    -   $\sigma^2_e$: **Residual variance** - variability of residual error across all people
 
 ------------------------------------------------------------------------
 
@@ -994,6 +1015,8 @@ ggplot(dataSexHeightWeight, aes(x = heightC, y = weightLB, color = female)) +
 
 -   Residual Variance and $R^2$
 
+------------------------------------------------------------------------
+
 ```{r}
 #| code-fold: true
 #| output-location: default
@@ -1008,8 +1031,31 @@ data.frame(
   ggplot(aes(x = Model, y = ResidualVariance))  +
   geom_point() +
   geom_path(group = 1) +
-  geom_text(aes(label = round(ResidualVariance, 2)),nudge_y = 200) +
-  labs(title = "Residual Variance for six models")
+  geom_label(aes(label = round(ResidualVariance, 2)),nudge_y = 200, nudge_x = 0.2) +
+  labs(title = "Estimated Residual Variances across models")
+```
+
+------------------
+
+```{r}
+#| code-fold: true
+#| output-location: default
+get_explained_var <- function(model) {
+  tot_err_var <- anova(model1)$`Mean Sq` |>  tail(1)
+  current_err_var <- anova(model)$`Mean Sq` |>  tail(1)
+  prop <- (tot_err_var - current_err_var)/ tot_err_var
+  prop
+}
+
+data.frame(
+  Model = paste("Model", c(1, 2, "2a", 3, 4, 5)),
+  ExplainedVariance = sapply(list(model1, model2, model2a, model3, model4, model5), get_explained_var)
+) |> 
+  ggplot(aes(x = Model, y = ExplainedVariance))  +
+  geom_point() +
+  geom_path(group = 1) +
+  geom_label(aes(label = paste0(round(ExplainedVariance*100, 2), "%")),nudge_y = .05) +
+  labs(title = "Proportions of Explained Variance across Models")
 ```
 
 ## Comparison Across Models
