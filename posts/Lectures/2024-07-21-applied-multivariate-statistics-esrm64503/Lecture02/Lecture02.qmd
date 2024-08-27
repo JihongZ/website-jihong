@@ -80,7 +80,9 @@ print(flights, width = Inf)
 #| code-fold: show
 #| eval: false
 #| output-location: default
-pak::pak("JihongZ/ESRM64503") # Install the Github package
+install.packages("devtools")
+devtools::install_github("JihongZ/ESRM64503") # Method 1
+pak::pak("JihongZ/ESRM64503") # Method 2: Install the Github package
 pak::pak("JihongZ/ESRM64503", upgrade = TRUE) # If you already install the package, try to upgrade
 ```
 
