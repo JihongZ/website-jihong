@@ -1,0 +1,38 @@
+---
+title: "Example of litedown"
+author: "Jihong Zhang"
+date: "2024-08-28"
+output:
+  litedown::html_format:
+    options:
+      toc: true
+      number_sections: true
+      embed_resources: false
+    meta:
+      css: ["default", "@heading-anchor"]
+      js: ["@heading-anchor"]
+knit: litedown:::knit
+---
+
+This post shows case one example of new package – `litedown` from Yihui Xie. Please refer to the [documentation](https://yihui.org/litedown) for more details.
+
+## Including Plots Here
+
+You can also embed plots now, for example:
+
+```{r pressure, echo=TRUE}
+plot(pressure)
+library(tidyverse)
+```
+
+```` md
+Below is not a code chunk but verbatim content
+inside a fenced code block (with four backticks).
+
+```{r}
+1 + 1
+```
+
+Inline code expressions like `{r} 1+1` are not
+parsed, either.
+````
