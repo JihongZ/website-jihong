@@ -1,0 +1,132 @@
+---
+title: "Error Handling in R"
+subtitle: "How to handling error of simulation study and functions in R"
+description: "Error handling is important for simulation study"
+author: 'Jihong Zhang'
+date: 'August 31 2024'
+sidebar: false
+categories:
+  - R
+  - Simulation
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  error: true
+format: 
+  html: 
+    code-fold: false
+    code-summary: 'Click to see the code'
+    number-sections: true
+bibliography: references.bib
+---
+
+> This blog is based on @andersonErrorHandlingGeneration2020 and @wickhamConditionsAdvanced2024
+
+## What is Error in R?
+
+In R, errors are signaled, or thrown, by `stop()` or `stopifnot()`:
+
+```{r}
+stop("Something erroneous has occurred!")
+stopifnot(5 < 0)
+```
+
+`stopifnot()` is basically a wrap-up function of `if`-condition and `stop` to detect if any of the expressions are not all TRUE.
+
+Sometimes, error messages are meaningful and deliberately created/controlled by function authors while it is meaningless and subjected to be controlled by R users. Here are some scenairos:
+
+**Example 1** **- Uncontrolled error**: You want to ran a `for` iteration while there is some error message in some iterations. The error message contains nothing but the stopping signals from data analysis for certain iterations. This type of error message make not much sense to understanding why this error occur.
+
+**Example 2 - Controlled error**: You are using a function inappropriately and this function throws you some message. If the function is well coded, the error message does tell you the "**Problem statement**" using `must` or `can't`:
+
+```{r}
+#| error: true
+#| results: hold
+dplyr::nth(1:10, 1:2)
+as_vector(environment())
+```
+
+Some functions also provide hints when error occurs:
+
+```{r}
+#| error: true
+#| results: hold
+dplyr::filter(iris, Species = "setosa")
+```
+
+## Functions for error handling in R
+
+### Use `try` to ignore errors
+
+With the `try` function, you can "hide" or ignore error signals to continue the execution:
+
+```{r}
+## Function without try
+fun0 <- function() {
+  x <- b
+  x <- 3
+  print(x)
+}
+fun0()
+## Function with try
+fun1 <- function() {
+  try(x <- b)
+  x <- 3
+  print(x)
+}
+fun1()
+
+## Multiple errors in one function
+options(error = function() traceback(3))
+fun1 <- function() {
+  try(x <- b1) # This will throw error but will keep the execution
+  try(x <- 3) # This will not throw error and will execute the code normally
+  print(x)
+  x <- b2 # This will also throw error but will stop the execution
+  print(x)
+}
+fun1()
+```
+
+The function with `try` does not stop executing the rest of the syntax after error occurs (`x <- b`). However, there is one issue of `try()`: it only ignores single error message at once and you have to know where the error comes from beforehand.
+
+In practice, you can ignore error when running the simulation:
+
+```{r}
+for (x in list(1, 2, "not a number")) {
+  y <- 3*x
+  print(paste0("3x= ", y))
+}
+
+for (x in list(1, 2, "not a number")) {
+  # when x iterate over thirt element, try() ignore the error
+  # and still keep y = 2
+  try(y  <- 3*x, silent = TRUE) 
+  try(print(paste0("3x= ", y)))
+}
+```
+
+If you want to assign b to x if b is available and assign NA to x if b is unavailable, you can:
+
+1.  Use `if` condition to detect whether b is available or not;
+2.  Use `tryCatch()` to use condition name (error, warning) as parameter
+
+### Use `tryCatch` to handle errors
+
+```{r}
+# when b is unavailable
+tryCatch({
+  x <- b
+}, error = function(e) {x <<- NA})
+x
+
+# when b is available
+b <- 3
+tryCatch({
+  x <- b
+}, error = function(e) {x <<- NA})
+x
+```
+
+The `tryCatch()` will catch the error condition (warning) and execute another function you defined (`error = function(e)` in the example). Note that if you want to change x's value in `error` function when `x<-b` has error, you need to use `<<-` assign symbol to transfer x value into [global environment](https://adv-r.hadley.nz/environments.html).
