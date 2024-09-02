@@ -82,9 +82,9 @@ website:
 format:
   html:
     grid:
-      sidebar-width: 300px
-      body-width: 1000px
-      margin-width: 300px
+      sidebar-width: 200px
+      body-width: 1200px
+      margin-width: 200px
     theme: 
       light: [default, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
       dark: [darkly, assets/rwds-dark.scss]

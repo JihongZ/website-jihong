@@ -21,7 +21,7 @@ format:
 bibliography: references.bib
 ---
 
-> This blog is based on @andersonErrorHandlingGeneration2020 and @wickhamConditionsAdvanced2024
+> This blog is based on @andersonErrorHandlingGeneration2020 and @wickhamConditionsAdvanced2024.
 
 ## What is Error in R?
 
@@ -56,6 +56,8 @@ dplyr::filter(iris, Species = "setosa")
 ```
 
 ## Functions for error handling in R
+
+> Condition handling tools, like `withCallingHandlers()`, `tryCatch()`, and `try()` allow you to take specific actions when a condition occurs. For example, if you’re fitting many models, you might want to continue fitting the others even if one fails to converge.
 
 ### Use `try` to ignore errors
 
@@ -114,6 +116,8 @@ If you want to assign b to x if b is available and assign NA to x if b is unavai
 
 ### Use `tryCatch` to handle errors
 
+`tryCatch()` is a general tool for handling conditions: in addition to errors, you can take different actions for warnings, messages, and interrupts [@wickhamConditionsAdvanced2024].
+
 ```{r}
 # when b is unavailable
 tryCatch({
@@ -130,3 +134,12 @@ x
 ```
 
 The `tryCatch()` will catch the error condition (warning) and execute another function you defined (`error = function(e)` in the example). Note that if you want to change x's value in `error` function when `x<-b` has error, you need to use `<<-` assign symbol to transfer x value into [global environment](https://adv-r.hadley.nz/environments.html).
+
+### Use `withCallingHandlers` to handle errors
+
+```{r}
+withCallingHandlers({
+  x <- b2
+}, error = function(e) {x <<- NA})
+print(x)
+```
