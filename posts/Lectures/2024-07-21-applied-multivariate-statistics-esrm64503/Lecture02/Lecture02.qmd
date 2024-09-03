@@ -544,7 +544,7 @@ $$
 -   The general linear model (GLM) incorporates many different labels of analysis under one unifying umbrella:
 
 |                 | Categorical Xs | Continuous Xs           | Both Types of Xs |
-|------------------|------------------|--------------------|------------------|
+|-----------------|----------------|-------------------------|------------------|
 | Univariate Y    | ANOVA          | Regression              | ANCOVA           |
 | Multivariate Ys | MANOVA         | Multivariate Regression | MANCOVA          |
 
@@ -1019,11 +1019,14 @@ ggplot(dataSexHeightWeight, aes(x = heightC, y = weightLB, color = female)) +
 
 ------------------------------------------------------------------------
 
-:::{.columns}
-:::{.column width=20%}
-<iframe src="https://giphy.com/embed/b8RfbQFaOs1rO10ren" width="480" height="398" style="" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+::: columns
+::: {.column width="20%"}
+<iframe src="https://giphy.com/embed/b8RfbQFaOs1rO10ren" width="480" height="398" style frameBorder="0" class="giphy-embed" allowFullScreen>
+
+</iframe>
 :::
-:::{.column width=80%}
+
+::: {.column width="80%"}
 ```{r}
 #| code-fold: true
 #| output-location: default
@@ -1044,10 +1047,6 @@ data.frame(
 ```
 :::
 :::
-
-
-
-
 
 ------------------------------------------------------------------------
 
@@ -1147,6 +1146,5 @@ data.frame(
 2.  For specific effect, we examine the t-test of coefficient
 3.  For the total contribution of a bunch of effects (main + interaction), we look at R-square and F-test
 4.  We sometime need to report predicted regression lines, which can be done in R with ggplot2
-
 
 # Unit 3: Let's Look at R code together

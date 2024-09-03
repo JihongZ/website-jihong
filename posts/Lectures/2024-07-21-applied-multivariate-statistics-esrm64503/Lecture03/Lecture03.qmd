@@ -1,0 +1,79 @@
+---
+title: "Lecture 03: Simple, Marginal, and Interaction Effects"
+subtitle: "More about general linear model"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-09-03"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: column
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503: Lecture 02 - Descriptive Statistics"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+    include-in-header:
+      - file: mathjax-color.html
+---
+
+## Presentation Outline
+
+1.  Centering and Coding Predictors
+
+2.  Interpreting Parameters in the Model for the Means
+
+3.  Main Effects Within Interactions
+
+4.  GLM Example 1: "Regression" vs. "ANOVA"
+
+## Today's Example:
+
+-   Study examining effect of new instruction method (**New**: 0=Old, 1=New) on test performance (**Test**: % correct) in college freshmen vs. senior (**Senior**: 0=Freshman, 1=Senior), n = 25 per group.
+
+$$
+\text{Test}_p =\beta_0+\beta_1\text{Senior}_p+\beta_2\text{New}_p+ \beta_3 \text{Senior}_p\text{New}_p+ e_p
+$$
+
+```{r}
+#| code-fold: true
+#| output-location: default
+library(ESRM64503)
+library(tidyverse)
+library(kableExtra)
+data("dataTestExperiment")
+dataTestExperiment |> 
+  group_by(Senior, New) |> 
+  summarise(
+    Mean = mean(Test),
+    SD = sd(Test),
+    SE = sd(Test) / 25
+  ) |> 
+  mutate(
+    Statistics = paste0(signif(Mean, 4), "(", round(SD, 2), ")", "[", round(SE, 2), "]")
+  ) |> 
+  select(-c(Mean, SD, SE)) |> 
+  mutate(
+    Senior = factor(Senior, levels = 0:1, labels = c("Freshmen", "Senior")),
+    New = factor(New, levels = 0:1, labels = c("Old", "New")),
+         ) |> 
+  pivot_wider(names_from = Senior, values_from = Statistics) |> 
+  kable()
+```
