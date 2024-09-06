@@ -63,7 +63,7 @@ dataTestExperiment |>
   summarise(
     Mean = mean(Test),
     SD = sd(Test),
-    SE = sd(Test) / 25
+    SE = sd(Test) / sqrt(25)
   ) |> 
   mutate(
     Statistics = paste0(signif(Mean, 4), "(", round(SD, 2), ")", "[", round(SE, 2), "]")
@@ -76,6 +76,10 @@ dataTestExperiment |>
   pivot_wider(names_from = Senior, values_from = Statistics) |> 
   kable()
 ```
+
+::: callout-note
+Test Mean (SD), \[SE = $\frac{SD}{\sqrt{n}}$\]
+:::
 
 ## The Two Sides of a Model
 
@@ -278,7 +282,7 @@ ggplot(dataTestExperiment) +
   theme(text = element_text(size = 33))
 ```
 
-# Main Effects Within Interactions
+# Unit 2: Main Effects Within Interactions
 
 ## Interaction Effects
 
@@ -318,9 +322,13 @@ Main effects of predictors within interactions should remain in the model regard
 
 -   Example:
 
-    -   $\beta_1$ is the "conditional" main effect of X1 when X2 = 0
+    -   $\beta_1$ is the "**simple**" main effect of X1 when X2 = 0
 
-    -   $\beta_2$ is the "conditional" main effect of X2 when X1 = 0
+        -   $\beta_1 + \beta_3 X_2$ is the "**conditional**" main effect of X1 depending on X2 values
+
+    -   $\beta_2$ is the "simple" main effect of X2 when X1 = 0
+
+        -   $\beta_2 + \beta_3 X_1$ is the "**conditional**" main effect of X2 depending on X1 values
 
 ## Model-Implied Simple Main Effects
 
@@ -380,12 +388,12 @@ When we **centered Exam Score** with 3 as centering point, then **intercept and 
 $$
 \begin{align}
 \text{GPA}_p = \color{tomato}{30} + \color{tomato}{1}\times \text{Motiv}_p +2 \times\text{Exam}_p+ 0.5 \times \text{Motiv}\times \text{Exam}_p
-\\= \beta_0 + \beta_1\times \text{Motiv}_p + \beta_2 \times (\text{Exam}_p-3)+ \beta_3 \times \text{Motiv}\times (\text{Exam}_p-3)
+\\= \color{tomato}{\beta_0^\prime} + \color{tomato}{\beta_1\prime} \times \text{Motiv}_p + \beta_2 \times (\text{Exam}_p-3)+ \beta_3 \times \text{Motiv}\times (\text{Exam}_p-3)
 \\= \color{red}{36} + \color{red}{2.5}\times \text{Motiv}_p +2 \times (\text{Exam}_p-3) + 0.5 \times \text{Motiv}\times (\text{Exam}_p-3)
 \end{align}
 $$
 
--   **Trick**: Predicted value stay the same
+-   **Trick of new coefficients**: Predicted value stay the same
 
     -   Expected GPA score is [30 + 1\*0 + 2\*3 + 0.5\*0 = 36]{style="color: red"} when Motiv = 0 and Exam = 3
 
@@ -393,8 +401,201 @@ $$
 
 -   **Reason**: $\beta_0$ and $\beta_1$ are conditional on exam score while $\beta_2$ and $\beta_3$ are unconditional on exam score
 
-## Quiz:
+## Simple and Conditional Main Effect
+
+-   **Conditional** main effect for `Motiv` depending on value of `Exam`:
+
+    -   $(1 + 0.5\times\text{Exam})$ or $[2.5 + 0.5 \times(\text{Exam}-3)]$
+
+    -   **"Simple" main effect** is 1 when Exam = 0; 2.5 when Exam = 3
+
+    -   Assume centering point of Exam is **T**, we can get **the general form** of simple main effect of Motivation as:
+
+    -    $f(\beta_1,\beta_3,\text{Exam})= (\beta_1 + \beta_3*T) + \beta_3*(\text{Exam} - T) = \beta_1^{new}+\beta_3*\text{Exam}_C$
+
+    -   where new **conditional main effect** $\beta_1^{new} = \beta_1+\beta_3*T$
+
+-   Similarly, we can get the general form of conditional main effect of `Exam` as
+
+    -   $f(\beta_2,\beta_3,\text{Motiv})= (\beta_2 + \beta_3*T) + \beta_3*(\text{Motiv} - T)$
+
+    -   where new **conditional main effect** $\beta_2^{new} = \beta_2 + \beta_3 * T$
+
+## Quiz
 
 ```{=html}
-<iframe width="840px" height="800px" src="https://forms.office.com/r/WubsScScRz?embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>
+<iframe width="100%" height="800px" src="https://forms.office.com/r/WubsScScRz?embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>
+```
+## Testing the Significance of Model-Implied Fixed Effects
+
+-   We now know how to calculate any conditional main effect:
+
+    -   Effect of interest ("**conditional" main effect**) = what it is + what modifies it
+
+    -   Outputed Effect (**"simple" main effect**) = what it is + what modifies it is 0
+
+-   But if we want to test whether that new effect is $\neq 0$, we also need its standard error (SE needed to get **Wald test T-value ➡️*p*-value**)
+
+-   Even if the conditional main effect is not *directly* given by the model, its estimate and SE are still *implied* by the model
+
+------------------------------------------------------------------------
+
+-   3 options to get the new conditional main effect estimates and SE
+
+    -   **Method 1: Ask the software to give it to you** using your original model
+
+        -   e.g., `glht` function in R package `multicomp`, `ESTIMATE` in SAS, `TEST` in SPSS, `NEW` in Mplus
+
+    -   **Model 2: Re-center your predictors** to the interacting value of interest (e.g., make Exam = 3 the new 0 for $\text{Exam}_C$) and re-estimate your model; repeat as needed for each value of interest
+
+    -   **Method 3: Hand calculations** (what the program is doing for you in option #1)
+
+------------------------------------------------------------------------
+
+-   Method 3 for example: Effect of Motiv = $\beta_1 + \beta_3 * \text{Exam}$
+
+    -   We have following formula to calculate the **sampling error variance** of "conditional" main effect as
+
+    -   $$
+        \mathbf{SE_{\beta_1^{New}}^2 = Var(\beta_1) + Var(\beta_3) * Exam  + 2Cov(\beta_1, \beta_3)*Exam} 
+        $$
+
+        -   Values come from "asymptotic (sampling) covariance matrix"
+
+        -   Variance of a sum of terms always includes covariance among them
+
+        -   Here, this is because what each main effect estimate could be is related to what the other main effect estimates could be
+
+        -   Note that if a main effect is unconditional, its $SE^2 = Var(\beta)$ only
+
+# Unit 3: GLM Example 1
+
+## GLM via Dummy-Coding in "Regression"
+
+```{r}
+#| output-location: default
+# Model 1: 2 X 2 predictors with 0/1 coding
+model1 <- lm(Test ~ Senior + New + Senior * New, data = dataTestExperiment)
+# Alternative
+formular_mod1 <- as.formula("Test ~ Senior + New + Senior * New")
+model1 <- lm(formular_mod1, data = dataTestExperiment)
+summary(model1)
+```
+
+```{r}
+#| output-location: default
+anova(model1)
+```
+
+::: callout-note
+These ANOVA table is displaying **marginal tests** (F-test) for the main effects. Marginal tests are for the main effect only and are not conditional on any interacting variables.
+:::
+
+## Getting Each of Means as a Contrast
+
+We can get group means of test scores with Senior/Freshman by New/Old combination
+
+`glht()` requests predicted outcomes from model for the means:
+
+$$
+\mathbf{\hat{Test} =\beta_0+\beta_1Senior+\beta_2New+\beta_3SeniorNew}
+$$
+
+-   Freshmen-Old: $\mathbf{\hat{Test_1}=\beta_0*1+\beta_1*0+\beta_2*0 +\beta_3*0}$
+
+-   Freshmen-New: $\mathbf{\hat{Test_2}=\beta_0*1+\beta_1*0+\beta_2*1 +\beta_3*0}$
+
+-   Senior-Old: $\mathbf{\hat{Test_3}=\beta_0*1+\beta_1*1+\beta_2*0 +\beta_3*0}$
+
+-   Senior-New: $\mathbf{\hat{Test_4}=\beta_0*1+\beta_1*1+\beta_2*1 +\beta_3*1}$
+
+```{r}
+#| output-location: default
+contrast_model1_matrix = matrix(c(
+  1, 0, 0, 0,  # Freshman-Old
+  1, 0, 1, 0,  # Freshman-New
+  1, 1, 0, 0,  # Senior-Old
+  1, 1, 1, 1   # Senior-New
+), nrow = 4, byrow = T)
+rownames(contrast_model1_matrix) <- c( "Freshman-Old", "Freshman-New", "Senior-Old", "Senior-New") 
+means_model1 <- glht(model1, linfct = contrast_model1_matrix)
+summary(means_model1)
+```
+
+## Standard Errors of Group Means
+
+-   Freshman-new group mean's standard error:
+
+$$
+\mathbf{SE^2(\hat{Test_1}) = Var(\beta_0)}
+$$
+
+-   Freshman-old group mean's standard error:
+
+$$
+\mathbf{SE^2(\hat{Test_2}) = Var(\beta_0) + Var(\beta_2) + 2Cov(\beta_0,\beta_2)}
+$$
+
+```{r}
+#| output-location: default
+vcov(model1)
+# Standard error of freshman-new group
+Var_Test_1 <- Var_beta_0 <- vcov(model1)[1,1]
+(SE_Test_1 <- sqrt(Var_Test_1))
+# Standard error of freshman-old group
+Var_beta_0 <- vcov(model1)[1,1]
+Var_beta_2 <- vcov(model1)[3,3]
+Cov_beta_0_2 <- vcov(model1)[1,3]
+Var_Test_2 <- Var_beta_0 + Var_beta_2 + 2*Cov_beta_0_2
+(SE_Test_2 <- sqrt(Var_Test_2))
+```
+
+::: callout-caution
+## Your Homework 1
+
+Paste your R syntax that can calculate the other two groups' (Senior-Old, Senior-New) standard errors. . For example for Freshman-New:
+
+> Var_beta_0 \<- vcov(model1)\[1,1\]
+>
+> Var_beta_2 \<- vcov(model1)\[3,3\]
+>
+> Cov_beta_0_2 \<- vcov(model1)\[1,3\]
+>
+> Var_Test_2 \<- Var_beta_0 + Var_beta_2 + 2\*Cov_beta_0_2
+>
+> (SE_Test_2 \<- sqrt(Var_Test_2)) \[1\] 0.5364078
+:::
+
+## Mapping Results to Data
+
+-   Conditional main effect of Senior (Senior vs. Freshmen) when using the new method (New = 0)
+
+```{=html}
+<!-- -->
+```
+-   $$
+    \mathbf{SE_{\beta_1^{New}}^2 = Var(\beta_1) + Var(\beta_3) * New  + 2Cov(\beta_1, \beta_3)*New} 
+    $$
+
+```{r}
+#| output-location: default
+vcov(model1)
+Var_beta_1 = vcov(model1)[2,2]
+Var_beta_3 = vcov(model1)[4,4]
+Cov_beta_1_3 = vcov(model1)[4,2]
+Var_beta_1_new <- Var_beta_1 + Var_beta_3 * 1 + 2 * Cov_beta_1_3 * 1
+(SE_beta_1_new <- sqrt(Var_beta_1_new))
+```
+
+```{r}
+#| output-location: default
+effect_model1_matrix = matrix(c(
+  0, 1, 0, 0,  # Senior vs. Freshmen | Old
+  0, 1, 0, 1,  # Senior vs. Freshmen | New
+  0, 0, 1, 0,  # New vs. Old | Frenshmen
+  0, 0, 1, 1   # New vs. Old | Senior
+), nrow = 4, byrow = T)
+rownames(effect_model1_matrix) <- c( "beta_1_old", "beta_1_new", "beta_2_fresh", "beta_2_senior") 
+effect_model1 <- glht(model1, linfct = effect_model1_matrix)
+summary(effect_model1)
 ```
