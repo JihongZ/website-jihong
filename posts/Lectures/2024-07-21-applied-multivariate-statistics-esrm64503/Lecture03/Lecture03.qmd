@@ -538,7 +538,7 @@ $$
 
 ```{r}
 #| output-location: default
-vcov(model1)
+vcov(model1)# Variance-covariance of betas
 # Standard error of freshman-new group
 Var_Test_1 <- Var_beta_0 <- vcov(model1)[1,1]
 (SE_Test_1 <- sqrt(Var_Test_1))
@@ -553,7 +553,7 @@ Var_Test_2 <- Var_beta_0 + Var_beta_2 + 2*Cov_beta_0_2
 ::: callout-caution
 ## Your Homework 1
 
-Paste your R syntax that can calculate the other two groups' (Senior-Old, Senior-New) standard errors. . For example for Freshman-New:
+Paste your R syntax that can calculate the other two groups' (Senior-Old, Senior-New) standard errors. For example for Freshman-New:
 
 > Var_beta_0 \<- vcov(model1)\[1,1\]
 >
@@ -566,26 +566,7 @@ Paste your R syntax that can calculate the other two groups' (Senior-Old, Senior
 > (SE_Test_2 \<- sqrt(Var_Test_2)) \[1\] 0.5364078
 :::
 
-## Mapping Results to Data
-
--   Conditional main effect of Senior (Senior vs. Freshmen) when using the new method (New = 0)
-
-```{=html}
-<!-- -->
-```
--   $$
-    \mathbf{SE_{\beta_1^{New}}^2 = Var(\beta_1) + Var(\beta_3) * New  + 2Cov(\beta_1, \beta_3)*New} 
-    $$
-
-```{r}
-#| output-location: default
-vcov(model1)
-Var_beta_1 = vcov(model1)[2,2]
-Var_beta_3 = vcov(model1)[4,4]
-Cov_beta_1_3 = vcov(model1)[4,2]
-Var_beta_1_new <- Var_beta_1 + Var_beta_3 * 1 + 2 * Cov_beta_1_3 * 1
-(SE_beta_1_new <- sqrt(Var_beta_1_new))
-```
+## Standard errors of Main Effects
 
 ```{r}
 #| output-location: default
@@ -599,3 +580,48 @@ rownames(effect_model1_matrix) <- c( "beta_1_old", "beta_1_new", "beta_2_fresh",
 effect_model1 <- glht(model1, linfct = effect_model1_matrix)
 summary(effect_model1)
 ```
+
+------------------------------------------------------------------------
+
+**Example: Conditional main effect** of Senior (Senior vs. Freshmen) when using the new method (New = 1)
+
+-   $$
+    \mathbf{\beta_1^{new} = \beta_1+\beta_3}
+    $$
+    $$
+    \mathbf{SE_{\beta_1^{New}}^2 = Var(\beta_1) + Var(\beta_3) * New  + 2Cov(\beta_1, \beta_3)*New} 
+    $$
+
+```{r}
+#| output-location: default
+
+## conditional main effect of senior when new
+fixed_effects <- summary(model1)$coefficients
+fixed_effects
+beta_1 <- fixed_effects[2, 1]
+beta_3 <- fixed_effects[4, 1]
+(beta_1_new <- beta_1+beta_3)
+
+vcov(model1) # Variance-covariance of betas
+Var_beta_1 = vcov(model1)[2,2]
+Var_beta_3 = vcov(model1)[4,4]
+Cov_beta_1_3 = vcov(model1)[4,2]
+Var_beta_1_new <- Var_beta_1 + Var_beta_3 * 1 + 2 * Cov_beta_1_3 * 1
+(SE_beta_1_new <- sqrt(Var_beta_1_new))
+```
+
+::: callout-caution
+## Your Homework 1
+
+Paste your R syntax that can calculate the conditional main effect of New (New vs. Old) when Senior = 1 (Senior-Old, Senior-New) standard errors. For example for conditional main effect of senior when new = 1:
+
+> Var_beta_1 = vcov(model1)\[2,2\]
+>
+> Var_beta_3 = vcov(model1)\[4,4\]
+>
+> Cov_beta_1_3 = vcov(model1)\[4,2\]
+>
+> Var_beta_1_new \<- Var_beta_1 + Var_beta_3 \* 1 + 2 \* Cov_beta_1_3 \* 1
+>
+> (SE_beta_1_new \<- sqrt(Var_beta_1_new)) \[1\] 0.7585952
+:::
