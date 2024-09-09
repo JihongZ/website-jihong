@@ -121,6 +121,34 @@ $$
     -   $e_p$ has a mean of 0 with some estimated constant variance $\sigma^2_e$, is normally distributed, is unrelated across people
     -   Estimated parameter is the residual variance only (in the model above)
 
+## General Form of Two Models
+
+-   [Model for the Means (Predicted Values): The Best Guess of Estimates]{style="color: tomato; font-weight: bold"}
+
+    $$
+    \boldsymbol{\beta} = \begin{bmatrix}{\beta_0,\\ \beta_1,\\ ...,\\\beta_K}\end{bmatrix}
+    $$
+
+-   [Model for the Variance: Stability of Estimates]{style="color: violet; font-weight:bold"}
+
+    Variance-Covariance Matrix of Regression Coefficients (standard error variances and residual covariances)
+
+    1.  $$
+        \mathbf{\Sigma_{\beta}}=\begin{bmatrix}
+        \mathbf{
+        \color{tomato}{Var(\beta_1)}, Cov(\beta_1,\beta_2), Cov(\beta_1,\beta_3), \cdots,Cov(\beta_1, \beta_K) \\
+        Cov(\beta_2, \beta_1), \color{tomato}{Var(\beta_2)}, Cov(\beta_2,\beta_3), \cdots,Cov(\beta_2, \beta_K) \\
+        \dots \\
+        \dots \\
+        Cov(\beta_k, \beta_1), Cov(\beta_k, \beta_2), Cov(\beta_k,\beta_3), \cdots,\color{tomato}{Var(\beta_k)}
+        }
+        \end{bmatrix}
+        $$
+
+    2.  $$
+        \mathbf{\sigma^2_e}
+        $$
+
 ## Representing the Effects of Predictor Variables
 
 -   From now on, we will think carefully about how the predictor variables enter into the [model for the means]{style="color: red;"} rather than the scales of predictors
@@ -438,7 +466,7 @@ $$
 
 -   **Reason**: $\beta_0$ and $\beta_1$ are conditional on exam score while $\beta_2$ and $\beta_3$ are unconditional on exam score
 
-## Simple and Conditional Main Effect
+## Example: Main Effect for continuous centered predictors
 
 -   **Conditional** main effect for `Motiv` depending on value of `Exam`:
 
@@ -528,7 +556,7 @@ anova(model1)
 These ANOVA table is displaying **marginal tests** (F-test) for the main effects. Marginal tests are for the main effect only and are not conditional on any interacting variables.
 :::
 
-## Getting Each of Means as a Contrast
+## Getting Group Means as a Contrast
 
 We can get group means of test scores with Senior/Freshman by New/Old combination
 
@@ -561,13 +589,13 @@ summary(means_model1)
 
 ## Standard Errors of Group Means
 
--   Freshman-new group mean's standard error:
+-   **Freshman-Old group** mean's standard error:
 
 $$
 \mathbf{SE^2(\hat{Test_1}) = Var(\beta_0)}
 $$
 
--   Freshman-old group mean's standard error:
+-   **Freshman-New group** mean's standard error:
 
 $$
 \mathbf{SE^2(\hat{Test_2}) = Var(\beta_0) + Var(\beta_2) + 2Cov(\beta_0,\beta_2)}
