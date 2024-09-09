@@ -34,21 +34,37 @@ format:
 
 ## Presentation Outline
 
-1.  Centering and Coding Predictors
+1.  Homework 1 has been posted online
 
-2.  Interpreting Parameters in the Model for the Means
+2.  Centering and Coding Predictors
 
-3.  Main Effects Within Interactions
+3.  Interpreting Parameters in the Model for the Means
 
-4.  GLM Example 1: "Regression" vs. "ANOVA"
+4.  Main Effects Within Interactions
+
+5.  GLM Example 1: "Regression" vs. "ANOVA"
+
+## Today's Plan
+
+1.  Unit 1: Review dummy coding and centering + A short **In-Class quiz**
+2.  Unit 2: Illustrate the GLM with interaction using on example
+3.  Unit 3: Practice R code + Q&A
+
+# Unit 1: Dummy Coding and Centering
 
 ## Today's Example:
 
--   Study examining effect of new instruction method (**New**: 0=Old, 1=New) on test performance (**Test**: % correct) in college freshmen vs. senior (**Senior**: 0=Freshman, 1=Senior), n = 25 per group.
+-   Study examining effect of [new instruction method]{.underline} (**New**: 0=Old, 1=New) on [test performance]{.underline} (**Test**: % correct) in college [freshmen vs. senior]{.underline} (**Senior**: 0=Freshman, 1=Senior). "New by Senior" leads to 4 groups with n = 25 per group (**Group:** 1= Ctl, 2=T1, 3=T2, 4=T4).
+
+$$
+\text{Test}_p =\beta_0+\beta_1T1_p + \beta_2T2_p + \beta_3T3_p+ e_p
+$$ {#eq-1}
 
 $$
 \text{Test}_p =\beta_0+\beta_1\text{Senior}_p+\beta_2\text{New}_p+ \beta_3 \text{Senior}_p\text{New}_p+ e_p
-$$
+$$ {#eq-2}
+
+Note that @eq-1 and @eq-2 are equivalent models with exactly same sets of parameters.
 
 ```{r}
 #| code-fold: true
@@ -84,18 +100,22 @@ Test Mean (SD), \[SE = $\frac{SD}{\sqrt{n}}$\]
 ## The Two Sides of a Model
 
 $$
-\text{Test}_p =\color{red}{\beta_0+\beta_1\text{Senior}_p+\beta_2\text{New}_p+ \beta_3 \text{Senior}_p\text{New}_p}+ \color{blue}{e_p}
+\mathbf{\text{Test}_p =\color{tomato}{\beta_0+ \beta_1T1_p +\beta_2T2_p + \beta_3T3_p}+ \color{turquoise}{e_p}}
 $$
 
--   [[Model for the Means (Predicted Values)]{.underline}]{style="color: red"}
+$$
+\mathbf{\text{Test}_p =\color{tomato}{\beta_0+\beta_1\text{Senior}_p+\beta_2\text{New}_p+ \beta_3 \text{Senior}_p\text{New}_p}+ \color{turquoise}{e_p}}
+$$
+
+-   [[Model for the Means (Predicted Values)]{.underline}]{style="color: tomato; font-weight: bold;"}
 
     -   Each person's expected (predicted) outcome is a function of his/her values on x and z (and their interaction), each measured once person
 
     -   **Estimated parameters are called fixed effects** (here, $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$); although they have a sampling distribution, they are not random variables
 
-    -   The number of fixed effects will show up in formulas as ***k*** (so ***k = 4***here)
+    -   The number of fixed effects will show up in formulas as ***k*** (so ***k = 4*** here)
 
--   [[Model for the Variance]{.underline}]{style="color: blue"}:
+-   [[Model for the Variance]{.underline}]{style="color: turquoise; font-weight: bold;"}
 
     -   $e_p \sim N(0, \sigma^2_e) \rightarrow$ ONE residual (unexplained) deviation
     -   $e_p$ has a mean of 0 with some estimated constant variance $\sigma^2_e$, is normally distributed, is unrelated across people
@@ -282,7 +302,7 @@ ggplot(dataTestExperiment) +
   theme(text = element_text(size = 33))
 ```
 
-# Unit 2: Main Effects Within Interactions
+# Main Effects Within Interactions
 
 ## Interaction Effects
 
@@ -411,7 +431,7 @@ $$
 
     -   Assume centering point of Exam is **T**, we can get **the general form** of simple main effect of Motivation as:
 
-    -    $f(\beta_1,\beta_3,\text{Exam})= (\beta_1 + \beta_3*T) + \beta_3*(\text{Exam} - T) = \beta_1^{new}+\beta_3*\text{Exam}_C$
+    -   $f(\beta_1,\beta_3,\text{Exam})= (\beta_1 + \beta_3*T) + \beta_3*(\text{Exam} - T) = \beta_1^{new}+\beta_3*\text{Exam}_C$
 
     -   where new **conditional main effect** $\beta_1^{new} = \beta_1+\beta_3*T$
 
@@ -468,7 +488,7 @@ $$
 
         -   Note that if a main effect is unconditional, its $SE^2 = Var(\beta)$ only
 
-# Unit 3: GLM Example 1
+# Unit 2: GLM Example 1
 
 ## GLM via Dummy-Coding in "Regression"
 
@@ -551,19 +571,24 @@ Var_Test_2 <- Var_beta_0 + Var_beta_2 + 2*Cov_beta_0_2
 ```
 
 ::: callout-caution
-## Your Homework 1
+## Your Homework 1 - Question 1
 
-Paste your R syntax that can calculate the other two groups' (Senior-Old, Senior-New) standard errors. For example for Freshman-New:
+Copy and paste your R syntax abd output that calculates the other two groups' (**Senior-Old**, **Senior-New**) standard errors of means (use the data and model we use in class). For example, our class syntax for Freshman-New is like:
 
-> Var_beta_0 \<- vcov(model1)\[1,1\]
+> \# R syntax
 >
-> Var_beta_2 \<- vcov(model1)\[3,3\]
->
-> Cov_beta_0_2 \<- vcov(model1)\[1,3\]
->
-> Var_Test_2 \<- Var_beta_0 + Var_beta_2 + 2\*Cov_beta_0_2
->
-> (SE_Test_2 \<- sqrt(Var_Test_2)) \[1\] 0.5364078
+> library(ESRM64503)\
+> library(tidyverse)\
+> model1 \<- lm(Test \~ Senior + New + Senior \* New, data = dataTestExperiment)\
+> data("dataTestExperiment")\
+> Var_beta_0 \<- vcov(model1)\[1,1\]\
+> Var_beta_2 \<- vcov(model1)\[3,3\]\
+> Cov_beta_0_2 \<- vcov(model1)\[1,3\]\
+> Var_Test_2 \<- Var_beta_0 + Var_beta_2 + 2\*Cov_beta_0_2\
+> (SE_Test_2 \<- sqrt(Var_Test_2)) \
+> \
+> \# R Output\
+> \[1\] 0.5364078
 :::
 
 ## Standard errors of Main Effects
@@ -587,8 +612,7 @@ summary(effect_model1)
 
 -   $$
     \mathbf{\beta_1^{new} = \beta_1+\beta_3}
-    $$
-    $$
+    $$ $$
     \mathbf{SE_{\beta_1^{New}}^2 = Var(\beta_1) + Var(\beta_3) * New  + 2Cov(\beta_1, \beta_3)*New} 
     $$
 
@@ -611,17 +635,22 @@ Var_beta_1_new <- Var_beta_1 + Var_beta_3 * 1 + 2 * Cov_beta_1_3 * 1
 ```
 
 ::: callout-caution
-## Your Homework 1
+## Your Homework 1 - Question 2
 
-Paste your R syntax that can calculate the conditional main effect of New (New vs. Old) when Senior = 1 (Senior-Old, Senior-New) standard errors. For example for conditional main effect of senior when new = 1:
+Copy and paste your R syntax and output that calculates **the standard error of conditional main effect** of *New* (New vs. Old) when *Senior* = 1. For example, standard error of conditional main effect of *Senior* when *New* = 1 is like:
 
-> Var_beta_1 = vcov(model1)\[2,2\]
+> \# R syntax
 >
-> Var_beta_3 = vcov(model1)\[4,4\]
->
-> Cov_beta_1_3 = vcov(model1)\[4,2\]
->
-> Var_beta_1_new \<- Var_beta_1 + Var_beta_3 \* 1 + 2 \* Cov_beta_1_3 \* 1
->
-> (SE_beta_1_new \<- sqrt(Var_beta_1_new)) \[1\] 0.7585952
+> library(ESRM64503)\
+> library(tidyverse)\
+> model1 \<- lm(Test \~ Senior + New + Senior \* New, data = dataTestExperiment)\
+> data("dataTestExperiment")\
+> Var_beta_1 = vcov(model1)\[2,2\]\
+> Var_beta_3 = vcov(model1)\[4,4\]\
+> Cov_beta_1_3 = vcov(model1)\[4,2\]\
+> Var_beta_1_new \<- Var_beta_1 + Var_beta_3 \* 1 + 2 \* Cov_beta_1_3 \* 1\
+> (SE_beta_1_new \<- sqrt(Var_beta_1_new)) \
+> \
+> \# R output\
+> \[1\] 0.7585952
 :::
