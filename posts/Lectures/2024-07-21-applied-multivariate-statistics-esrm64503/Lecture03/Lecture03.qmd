@@ -6,7 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2024-09-03"
+date: "2024-09-09"
 sidebar: false
 execute: 
   echo: true
