@@ -50,6 +50,20 @@ format:
 2.  Unit 2: Illustrate the GLM with interaction using on example
 3.  Unit 3: Practice R code + Q&A
 
+## Why Interaction Effect
+
+::: columns
+::: {.column width="50%"}
+![](figures/paper_sample1.png){fig-align="center"}
+:::
+
+::: {.column width="50%"}
+![](figures/paper_sample2.png){fig-align="center"}
+:::
+:::
+
+**Interaction (Moderation) effect allows researchers to investigating more complex situations - The effect of A on C is adjusted by B.**
+
 # Unit 1: Dummy Coding and Centering
 
 ## Today's Example:
