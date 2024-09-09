@@ -64,7 +64,7 @@ $$
 \text{Test}_p =\beta_0+\beta_1\text{Senior}_p+\beta_2\text{New}_p+ \beta_3 \text{Senior}_p\text{New}_p+ e_p
 $$ {#eq-2}
 
-Note that @eq-1 and @eq-2 are equivalent models with exactly same sets of parameters.
+Note that @eq-1 (single group variable model) and @eq-2 (group interaction model) are equivalent models with exactly same sets of parameters.
 
 ```{r}
 #| code-fold: true
@@ -214,7 +214,9 @@ model.matrix(mod_e0) |> cbind(dataTestExperiment) |> showtable(font_size = 33)
 
         -   Control vs. Any Treatment?
 
-## Categorical Predictors: Manual Coding
+## Categorical Predictors: Main Effects and Group Means
+
+-   **The single group model:**
 
 -   $$
     \hat Y_p = \beta_0+\beta_1\text{GroupT1}_p+\beta_2\text{GroupT2}_p + \beta_3\text{GroupT3}_p
@@ -256,10 +258,9 @@ The total number of group differences is $J * (J-1) / 2 = 4*3/2 = 6$
 ## R Code: Estimating All Group Differences in R
 
 ```{r}
-#| code-fold: true
 #| results: hide
 #| output-location: default
-library(multcomp)
+library(multcomp) # install.packages("multcomp")
 mod_e0 <- lm(Test ~ Group, data = dataTestExperiment)
 summary(mod_e0)
 ```
