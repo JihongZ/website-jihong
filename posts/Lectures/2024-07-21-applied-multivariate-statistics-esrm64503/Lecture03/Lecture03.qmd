@@ -50,20 +50,6 @@ format:
 2.  Unit 2: Illustrate the GLM with interaction using on example
 3.  Unit 3: Practice R code + Q&A
 
-## Why Interaction Effect
-
-::: columns
-::: {.column width="50%"}
-![](figures/paper_sample1.png){fig-align="center"}
-:::
-
-::: {.column width="50%"}
-![](figures/paper_sample2.png){fig-align="center"}
-:::
-:::
-
-**Interaction (Moderation) effect allows researchers to investigating more complex situations - The effect of A on C is adjusted by B.**
-
 # Unit 1: Dummy Coding and Centering
 
 ## Today's Example:
@@ -319,6 +305,20 @@ ggplot(dataTestExperiment) +
 
 # Main Effects Within Interactions
 
+## Why Interaction Effect
+
+::: columns
+::: {.column width="50%"}
+![](figures/paper_sample1.png){fig-align="center"}
+:::
+
+::: {.column width="50%"}
+![](figures/paper_sample2.png){fig-align="center"}
+:::
+:::
+
+**Interaction (Moderation) effect allows researchers to investigating more complex situations - The effect of A on C is adjusted by B.**
+
 ## Interaction Effects
 
 -   **Interaction = Moderation**: the effect of a predictor depends on the value of the interacting predictor
@@ -467,7 +467,7 @@ $$
 
     -   Effect of interest ("**conditional" main effect**) = what it is + what modifies it
 
-    -   Outputed Effect (**"simple" main effect**) = what it is + what modifies it is 0
+    -   Output Effect (**"simple" main effect**) = what it is + what modifies it is 0
 
 -   But if we want to test whether that new effect is $\neq 0$, we also need its standard error (SE needed to get **Wald test T-value ➡️*p*-value**)
 
@@ -588,7 +588,7 @@ Var_Test_2 <- Var_beta_0 + Var_beta_2 + 2*Cov_beta_0_2
 ::: callout-caution
 ## Your Homework 1 - Question 1
 
-Copy and paste your R syntax abd output that calculates the other two groups' (**Senior-Old**, **Senior-New**) standard errors of means (use the data and model we use in class). For example, our class syntax for Freshman-New is like:
+Copy and paste your R syntax abd output that calculates the **Senior-Old**'s standard errors of means (use the data and model we use in class). For example, our class syntax for Freshman-New is like:
 
 > \# R syntax
 >
