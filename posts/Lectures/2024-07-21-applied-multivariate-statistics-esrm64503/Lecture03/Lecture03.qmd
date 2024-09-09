@@ -341,9 +341,9 @@ ggplot(dataTestExperiment) +
 
         -   e.g., XZ_interaction = centered_X \* centered_Z
 
-## Main Effects in GLM with Interactions
+## Simple / Conditional Main Effects in GLM with Interactions
 
-::: callout-note
+::: {.callout-note style="font-size: 1.5em;"}
 Main effects of predictors within interactions should remain in the model regardless of whether or not they are significant
 :::
 
@@ -355,44 +355,46 @@ Main effects of predictors within interactions should remain in the model regard
 
 -   **However**, the original idea of a "main effect" **no longer applied** ... each main effect is **conditional** on the interacting predictor as 0 ($X_1X_2=0$)
 
--   Example:
+-   [Conditional Main Effect = What it is + What modified it]{style="color: tomato; font-weight: bold"}
+
+    [Simple Main Effect = The modified value of main effect]{style="color: violet; font-weight: bold"}
+
+-   **"Conditional" main effect is a general form of "Simple" main effect**:
 
     -   $\beta_1$ is the "**simple**" main effect of X1 when X2 = 0
 
         -   $\beta_1 + \beta_3 X_2$ is the "**conditional**" main effect of X1 depending on X2 values
 
-    -   $\beta_2$ is the "simple" main effect of X2 when X1 = 0
+    -   $\beta_2$ is the "**simple**" main effect of X2 when X1 = 0
 
         -   $\beta_2 + \beta_3 X_1$ is the "**conditional**" main effect of X2 depending on X1 values
 
 ## Model-Implied Simple Main Effects
 
-::: callout-tip
-The trick is keeping track of what 0 means for every interacting predictor, which depends on the way each predictor is being represented, as determined by you, or by the software without you!
-:::
+To quickly compute **simple main effects**:
 
-**Simple Main Effect = What it is + What modified it**
+::: {.callout-tip style="font-size: 1.6em;"}
+The trick is keeping track of [what 0 means]{style="color: tomato"} for every interacting predictor, which depends on the way each predictor is being represented, as determined by you, or by the software without you!
+:::
 
 $\text{GPA}_p = 30 + 1\times \text{Motiv}_p +2 \times\text{Exam}_p+ 0.5 \times \text{Motiv}\times \text{Exam}_p$
 
 -   GPA scores of anyone can be predicted by academic motivation, final exam scores, and their interaction by this model
 
--   Simple Main Effect of *Motiv* : $(1 + 0.5\times \text{Exam})$
+-   Conditional Main Effect of *Motiv* : $(1 + 0.5\times \text{Exam})$
 
-    -   = 1 if Exam is 0; = 2 if Exam is 1; = 3 if Exam is 4
+    -   Simple main effect = 1 if Exam is 0; = 2 if Exam is 1; = 3 if Exam is 4
 
-<!-- -->
+-   Conditional Main Effect of *Exam* : $(2 + 0.5\times \text{Motiv})$
 
--   Simple Main Effect of *Exam* : $(2 + 0.5\times \text{Motiv})$
-
-    -   = 2 if Motiv is 0; = 3 if Motiv is 1; = 4 if Motiv is 4
+    -   Simple main effect = 2 if Motiv is 0; = 3 if Motiv is 1; = 4 if Motiv is 4
 
 ## Interpretation
 
 $$
 \begin{aligned}
-\text{GPA}_p = \beta_0 + \beta_1\times \text{Motiv}_p + \beta_2 \times\text{Exam}_p+ \beta_3 \times \text{Motiv}\times \text{Exam}_p
-\\= 30 + 1\times \text{Motiv}_p +2 \times\text{Exam}_p+ 0.5 \times \text{Motiv}\times \text{Exam}_p
+\text{GPA}_p = \beta_0 + \beta_1\times \text{Motiv}_p + \beta_2 \times\text{Exam}_p+ \beta_3 \times \text{Motiv}_p \times \text{Exam}_p
+\\= 30 + 1\times \text{Motiv}_p +2 \times\text{Exam}_p+ 0.5 \times \text{Motiv}_p \times \text{Exam}_p
 \end{aligned}
 $$
 
@@ -412,7 +414,7 @@ $$
 
         -   One unit of exam score leads to the effect of motivation $1 \rightarrow 1.5$
 
-::: callout-note
+::: {.callout-note style="font-size: 1.6em;"}
 If interaction effect is significant, we typically report that motivation significantly moderates the effect of exam score on GPA
 :::
 
