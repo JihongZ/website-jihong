@@ -125,7 +125,7 @@ $$
 
 -   From now on, we will think carefully about how the predictor variables enter into the [model for the means]{style="color: red;"} rather than the scales of predictors
 
--   Why don't people always care about **the scale of predictors**:
+-   Why don't people always care about **the scale of predictors (centering)**:
 
     1.  Does NOT affect the amount of outcome variance account for ($R^2$)
 
@@ -183,9 +183,9 @@ summary(mod_e0)$coefficients |> kable(digits = 3)
 
 ------------------------------------------------------------------------
 
--   Variable `edu`: \# dummy variables = \# group -1
+-   Variable `Group`: \# dummy variables = \# group -1
 
-    -   Dummy variables with four levels - Control, Treatment1, Treatment2, Treatment3:
+    -   Dummy variables with four levels - {Control, Treatment1, Treatment2, Treatment3}:
 
         -   d1 = *GroupT1* ([0, 1, 0, 0]{style="color: tomato;"}) $\rightarrow$ $\beta_1$ = difference between Treatment1 vs. Control
 
@@ -654,3 +654,5 @@ Copy and paste your R syntax and output that calculates **the standard error of 
 > \# R output\
 > \[1\] 0.7585952
 :::
+
+# Unit 3: R practice and Q&A
