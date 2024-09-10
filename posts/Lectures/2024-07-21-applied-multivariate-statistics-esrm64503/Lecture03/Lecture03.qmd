@@ -26,7 +26,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503: Lecture 02 - Descriptive Statistics"
+    footer: "ESRM 64503: Lecture 03 - Simple, Marginal, and Interaction Effects"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
