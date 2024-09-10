@@ -3,6 +3,10 @@ title: "shinylive-demo"
 sidebar: false
 filters:
   - shinylive
+format:
+  html:
+    resources: 
+      - shinylive-sw.js
 ---
 
 ```{shinylive-r}
