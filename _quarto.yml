@@ -85,17 +85,15 @@ format:
       sidebar-width: 200px
       body-width: 1200px
       margin-width: 200px
+    css: assets/rwds.css
     theme: 
       light: [default, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
       dark: [darkly, assets/rwds-dark.scss]
     template-partials:
         - assets/title-block.html
-    css: assets/rwds.css
     comments:
       giscus:
         repo: JihongZ/quarto-academic-jihong
-    # include-in-header: 
-    #   - toggle.js # Maybe change for automate change theme: https://github.com/quarto-dev/quarto-cli/discussions/2588
     header-includes: |
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
       <script src="https://cdn.jsdelivr.net/npm/@xiee/utils/js/key-buttons.min.js" defer></script>

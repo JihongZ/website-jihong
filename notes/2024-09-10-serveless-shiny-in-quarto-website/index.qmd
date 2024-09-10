@@ -1,0 +1,48 @@
+---
+title: "Serveless Shiny App on Quarto Website"
+subtitle: "Deploying a serverless Shiny application for R within Quarto"
+description: 'Creating a Serverless R Shiny App using Quarto with R Shinylive ("Include" method)'
+author: 'Jihong Zhang'
+date: 'Sep 10 2024'
+sidebar: false
+categories:
+  - R
+  - Shiny
+  - Quarto
+execute: 
+  eval: false
+  echo: true
+  warning: false
+  error: true
+format: 
+  html: 
+    code-fold: false
+    code-summary: 'Click to see the code'
+    number-sections: false
+bibliography: references.bib
+---
+
+## Guide
+
+1.  [Github Repo](https://github.com/coatless-quarto/r-shinylive-demo)
+2.  [Youtube video](https://www.youtube.com/watch?v=6y2FnAugP8E)
+
+Install `shinylive` package:
+
+```{r}
+install.packages("shinylive")
+```
+
+Within the target directory, add the shinylive extension.
+
+```{bash}
+#| eval: false
+quarto create project default
+quarto add quarto-ext/shinylive
+```
+
+## R-shiny-demo
+
+[R-shiny-demo](r-shinylive-demo/r-shinylive-demo.qmd)
+
+{{< embed r-shinylive-demo/r-shinylive-demo.qmd >}}
