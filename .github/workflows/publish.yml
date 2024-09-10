@@ -40,8 +40,6 @@ jobs:
       - name: "Install R dependences"
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache: true
-          cache-version: 2
           packages:
             cran::shinylive@0.2.0 ## Pin version to ensure consistency
             any::knitr
