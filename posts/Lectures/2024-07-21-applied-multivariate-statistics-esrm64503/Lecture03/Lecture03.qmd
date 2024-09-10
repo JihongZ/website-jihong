@@ -647,20 +647,28 @@ Copy and paste your R syntax abd output that calculates the **Senior-Old**'s sta
 
 ## Standard errors of Main Effects
 
+We can use `glht()` to automatically calculate conditional main effects and their standard errors. Or, we can manually calculate them using `vcov(model)` function, which represents the variance-covariance matrix of main effects.
+
+### Method 1: glht method
 ```{r}
 #| output-location: default
 effect_model1_matrix = matrix(c(
   0, 1, 0, 0,  # Senior vs. Freshmen | Old
   0, 1, 0, 1,  # Senior vs. Freshmen | New
-  0, 0, 1, 0,  # New vs. Old | Frenshmen
+  0, 0, 1, 0,  # New vs. Old | Freshmen
   0, 0, 1, 1   # New vs. Old | Senior
 ), nrow = 4, byrow = T)
-rownames(effect_model1_matrix) <- c( "beta_1_old", "beta_1_new", "beta_2_fresh", "beta_2_senior") 
+rownames(effect_model1_matrix) <- c( "beta_Senior_New0", # Conditional Main Effect of Senior given New = 0
+                                     "beta_Senior_New1", # Conditional Main Effect of Senior given New = 1
+                                     "beta_New_Senior0", # Conditional Main Effect of New given Senior = 0
+                                     "beta_New_Senior1") # Conditional Main Effect of New given Senior = 1
 effect_model1 <- glht(model1, linfct = effect_model1_matrix)
 summary(effect_model1)
 ```
 
 ------------------------------------------------------------------------
+
+### Method 2: vcov method
 
 **Example: Conditional main effect** **of Senior** $\mathbf{\beta_1^{Senior}}$ (Senior vs. Freshmen) when using the new method (**New = 1**)
 
