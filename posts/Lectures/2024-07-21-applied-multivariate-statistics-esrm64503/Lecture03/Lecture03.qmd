@@ -653,12 +653,12 @@ summary(effect_model1)
 
 ------------------------------------------------------------------------
 
-**Example: Conditional main effect** of Senior (Senior vs. Freshmen) when using the new method (New = 1)
+**Example: Conditional main effect** **of Senior** (Senior vs. Freshmen) when using the new method (New = 1)
 
 -   $$
-    \mathbf{\beta_1^{new} = \beta_1+\beta_3}
+    \mathbf{\beta_1^{Senior} = \beta_1+\beta_3}
     $$ $$
-    \mathbf{SE_{\beta_1^{New}}^2 = Var(\beta_1) + Var(\beta_3) * New  + 2Cov(\beta_1, \beta_3)*New} 
+    \mathbf{SE_{\beta_1^{Senior}}^2 = Var(\beta_1) + Var(\beta_3) * New  + 2Cov(\beta_1, \beta_3)*New} 
     $$
 
 ```{r}
