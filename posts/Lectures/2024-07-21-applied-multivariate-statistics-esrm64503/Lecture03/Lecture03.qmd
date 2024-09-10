@@ -589,14 +589,26 @@ summary(means_model1)
 -   **Freshman-Old group** mean's standard error:
 
 $$
-\mathbf{SE^2(\hat{Test_1}) = Var(\beta_0)}
+\mathbf{SE^2(\hat{Test_1}) = \mathbf{SE^2(\beta_0)} = Var(\beta_0)}
 $$
 
 -   **Freshman-New group** mean's standard error:
 
 $$
-\mathbf{SE^2(\hat{Test_2}) = Var(\beta_0) + Var(\beta_2) + 2Cov(\beta_0,\beta_2)}
+\mathbf{SE^2(\hat{Test_2}) = \mathbf{SE^2(\beta_0+\beta_2)} = Var(\beta_0) + Var(\beta_2) + 2Cov(\beta_0,\beta_2)}
 $$
+
+-   **Senior-Old group** mean's standard error:
+
+    $$
+    \mathbf{SE^2(\hat{Test}_3)} = \mathbf{SE^2(\beta_0+\beta_1)} = ??? 
+    $$
+
+-   **Senior-New group** mean's standard error:
+
+    $$
+    \mathbf{SE^2(\hat{Test}_4)} = \mathbf{SE^2(\beta_0+\beta_1+\beta_2+\beta_3)} = ??? = \sum(\Sigma_\beta) 
+    $$
 
 ```{r}
 #| output-location: default
@@ -650,13 +662,17 @@ summary(effect_model1)
 
 ------------------------------------------------------------------------
 
-**Example: Conditional main effect** **of Senior** (Senior vs. Freshmen) when using the new method (New = 1)
+**Example: Conditional main effect** **of Senior** $\mathbf{\beta_1^{Senior}}$ (Senior vs. Freshmen) when using the new method (**New = 1**)
 
 -   $$
-    \mathbf{\beta_1^{Senior} = \beta_1+\beta_3}
-    $$ $$
-    \mathbf{SE_{\beta_1^{Senior}}^2 = Var(\beta_1) + Var(\beta_3) * New  + 2Cov(\beta_1, \beta_3)*New} 
-    $$
+    \mathbf{\beta_1^{Senior} = \beta_1+\beta_3*New}
+    $$ 
+
+\begin{align}
+\mathbf{SE^2(\beta_1^{Senior})} &= \mathbf{SE^2(\beta_1+\beta_3*New)} \\
+&= \mathbf{Var(\beta_1) + Var(\beta_3) * New^2  + 2Cov(\beta_1, \beta_3)*New} \\
+&= \mathbf{Var(\beta_1) + Var(\beta_3)  + 2Cov(\beta_1, \beta_3)} 
+\end{align}
 
 ```{r}
 #| output-location: default
@@ -666,12 +682,12 @@ fixed_effects <- summary(model1)$coefficients
 fixed_effects
 beta_1 <- fixed_effects[2, 1]
 beta_3 <- fixed_effects[4, 1]
-(beta_1_new <- beta_1+beta_3)
+(beta_1_new <- beta_1+beta_3) # conditional main effect of Senior when New = 1
 
 vcov(model1) # Variance-covariance of betas
-Var_beta_1 = vcov(model1)[2,2]
-Var_beta_3 = vcov(model1)[4,4]
-Cov_beta_1_3 = vcov(model1)[4,2]
+Var_beta_1 = vcov(model1)[2,2] # squared SE of beta1
+Var_beta_3 = vcov(model1)[4,4] # squared SE of beta3
+Cov_beta_1_3 = vcov(model1)[4,2] # residual covariance of beta1 and beta3
 Var_beta_1_new <- Var_beta_1 + Var_beta_3 * 1 + 2 * Cov_beta_1_3 * 1
 (SE_beta_1_new <- sqrt(Var_beta_1_new))
 ```
