@@ -1,0 +1,55 @@
+---
+title: "Lecture 04: Distribution and Estimation"
+subtitle: "Modern Method Modeling 2024"
+author: "Jihong Zhang*, Ph.D; Jinbo He, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-09-16"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: column
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503: Lecture 04: Distribution and Estimation"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+## Presentation Outline
+
+1.  General Questions
+
+    -   Can eating disorders be considered as a network?
+
+    -   Why the longitudinal network is a suitable tool for examining this topic?
+
+    -   How to compare groups whithin the framework of longitudinal network?
+
+2.  Measures
+
+3.  Method
+
+4.  Results
+
+5.  Discussion
+
+6.  Future direction
+
+# 

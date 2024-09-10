@@ -6,6 +6,7 @@ date: "Jul 21 2024"
 date-modified: ""
 categories:
   - Lecture
+sidebar: false
 format: 
   html:
     code-tools: true
@@ -220,7 +221,7 @@ Academic calendar for Fall 2024: [Here](https://registrar.uark.edu/academic-date
 
 # Course Materials
 
-::: {.nav-pills .panel-tabset}
+::: {.panel-tabset align="left"}
 ## Books
 
 1.  Enders, C. K. (2010). *Applied missing data analysis* (1st Ed.). New York, NY: Guilford.

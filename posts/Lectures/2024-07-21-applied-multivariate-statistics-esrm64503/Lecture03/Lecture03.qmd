@@ -131,23 +131,20 @@ $$
 
 -   [Model for the Variance: Stability of Estimates]{style="color: violet; font-weight:bold"}
 
-    Variance-Covariance Matrix of Regression Coefficients (standard error variances and residual covariances)
+    1.  **Variance-Covariance Matrix of Regression Coefficients** (Diagnoal: variances of betas (squared standard errors of betas); Nondiagnoal: residual covariances between betas)
 
-    1.  $$
-        \mathbf{\Sigma_{\beta}}=\begin{bmatrix}
-        \mathbf{
-        \color{tomato}{Var(\beta_1)}, Cov(\beta_1,\beta_2), Cov(\beta_1,\beta_3), \cdots,Cov(\beta_1, \beta_K) \\
-        Cov(\beta_2, \beta_1), \color{tomato}{Var(\beta_2)}, Cov(\beta_2,\beta_3), \cdots,Cov(\beta_2, \beta_K) \\
-        \dots \\
-        \dots \\
-        Cov(\beta_k, \beta_1), Cov(\beta_k, \beta_2), Cov(\beta_k,\beta_3), \cdots,\color{tomato}{Var(\beta_k)}
-        }
-        \end{bmatrix}
-        $$
+$\mathbf{\Sigma_{\boldsymbol{\beta}}}$ =
+\begin{bmatrix}
 
-    2.  $$
-        \mathbf{\sigma^2_e}
-        $$
+\color{tomato}{Var(\beta_1)} & Cov(\beta_1,\beta_2) & Cov(\beta_1,\beta_3), \cdots & \cdots & Cov(\beta_1, \beta_K) \\
+Cov(\beta_2, \beta_1)& \color{tomato}{Var(\beta_2)}&  Cov(\beta_2,\beta_3), \cdots & \cdots & Cov(\beta_2, \beta_K) \\
+\dots & \dots & \dots & \dots & \dots \\
+\dots & \dots & \dots & \dots & \dots \\
+Cov(\beta_K, \beta_1) &  Cov(\beta_K, \beta_2)&  Cov(\beta_K,\beta_3)& \cdots & \color{tomato}{Var(\beta_K)}
+
+\end{bmatrix}
+
+2.  Residual variances $\mathbf{\sigma^2_e}$
 
 ## Representing the Effects of Predictor Variables
 
@@ -275,7 +272,7 @@ The total number of group differences is $J * (J-1) / 2 = 4*3/2 = 6$
 -   All group differences
 
 |                |           Alt Group | Ref Group             | Difference            |
-|------------------|-----------------:|:-----------------|:-----------------|
+|-----------------|----------------:|:------------------|:------------------|
 | Control vs. T1 | $(\beta_0+\beta_1)$ | \- $\beta_0$          | = $\beta_1$           |
 | Control vs. T2 | $(\beta_0+\beta_2)$ | \- $\beta_0$          | = $\beta_2$           |
 | Control vs. T3 | $(\beta_0+\beta_3)$ | \- $\beta_0$          | = $\beta_3$           |
