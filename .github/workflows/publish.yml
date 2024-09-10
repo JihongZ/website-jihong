@@ -11,7 +11,10 @@ jobs:
     steps:
       - name: "Check out repository"
         uses: actions/checkout@v4 
-    
+      - name: "Set up Quarto"
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true 
       - name: "Setup Python"
         uses: actions/setup-python@v5
         with:
@@ -41,11 +44,6 @@ jobs:
             any::rmarkdown
             any::downlit
             any::xml2
-      - name: "Set up Quarto"
-        uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          # To install LaTeX to build PDF book 
-          tinytex: true 
       # Render the Quarto file
       - name: "Render working directory"
         uses: quarto-dev/quarto-actions/render@v2
