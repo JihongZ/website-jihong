@@ -411,11 +411,11 @@ $\text{GPA}_p = 30 + 1\times \text{Motiv}_p +2 \times\text{Exam}_p+ 0.5 \times \
 
 -   Conditional Main Effect of *Motiv* : $(1 + 0.5\times \text{Exam})$
 
-    -   Simple main effect = 1 if Exam is 0; = 2 if Exam is 1; = 3 if Exam is 4
+    -   Simple main effect = 1 if *Exam* = 0; = 1.5 if *Exam* = 1; = 3 if *Exam* = 4
 
 -   Conditional Main Effect of *Exam* : $(2 + 0.5\times \text{Motiv})$
 
-    -   Simple main effect = 2 if Motiv is 0; = 3 if Motiv is 1; = 4 if Motiv is 4
+    -   Simple main effect = 2 if *Motiv* = 0; = 3 if *Motiv* = 2; = 4 if *Motiv* = 4
 
 ## Interpretation
 
