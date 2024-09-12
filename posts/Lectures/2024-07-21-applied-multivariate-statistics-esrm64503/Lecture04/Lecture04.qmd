@@ -1,6 +1,5 @@
 ---
 title: "Lecture 04: Distribution and Estimation"
-subtitle: "Modern Method Modeling 2024"
 author: "Jihong Zhang*, Ph.D; Jinbo He, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -83,12 +82,250 @@ Today, we will denote a random variable with a lower-cased: ***x***
     -   Example of discrete random variables:
         -   ***x*** represents the gender of a person, drawn at random
         -   *Y* (outcomes like yes/no; pass/not pass; master / not master a skill; survive / die)
-3.  Mixture of Continuous and Discrete:
-    -   Example of mixture:
-\begin{equation}
-  x =
-    \begin{cases}
-      RT & \text{between 0 and 45 seconds} \\
-      0 & \text{otherwise}
-    \end{cases}       
-\end{equation}
+3.  **Mixture of Continuous and Discrete**:
+    -   Example of mixture: \begin{equation}
+          x =
+        \begin{cases}
+          RT & \text{between 0 and 45 seconds} \\
+          0 & \text{otherwise}
+        \end{cases}       
+        \end{equation}
+
+## Key Features of Random Variable
+
+1.  Random variables each are described by a **probability density / mass function (PDF) –** $f(x)$
+
+    -   PDF indicates relative frequency of occurrence
+
+    -   A PDF is a math function that gives rough picture of the distribution from which a random variable is draw
+
+2.  The type of random variable dictates the name and nature of these functions:
+
+    -   [Continuous random variables]{style="color: tomato"}:
+
+        -   $f(x)$ is called a probability density function
+
+        -   Area under curve must equal to 1 (found by calculus integration)
+
+        -   Height of curve (the function value $f(x)$):
+
+            -   Can be any positive number
+
+            -   Reflects relative likelihood of an observation occurring
+
+    -   Discrete random variables:
+
+        -   $f(x)$ is called a probability mass function
+
+        -   Sum across all values must equal 1
+
+------------------------------------------------------------------------
+
+::: {.callout-note style="font-size: 1.4em;"}
+Both max and min values of temperature look like continuous random variables.
+:::
+
+```{r}
+#| code-fold: true
+#| output-location: default
+#| column: screen
+#| out-width: 100%
+#| fig-align: center
+#| fig-asp: .5
+library(tidyverse)
+temp <- read.csv("data/temp_fayetteville.csv")
+temp$value_F <- (temp$value / 10 * 1.8) + 32
+temp |> 
+  ggplot() +
+  geom_density(aes(x = value_F, fill = datatype), col = "white", alpha = .8) +
+  labs(x = "Max/Min Temperature (F) at Fayetteville, AR (Sep-2023)", 
+       caption = "Source: National Oceanic and Atmospheric Administration (https://www.noaa.gov/)") +
+  scale_x_continuous(breaks = seq(min(temp$value_F), max(temp$value_F), by = 2)) +
+  scale_fill_manual(values = c("tomato", "turquoise")) +
+  theme_classic(base_size = 15) 
+```
+
+## Other key Terms
+
+-   The sample space is the set of all values that a random variable x can take:
+    -   **Example 1:** The sample space for a random variable x from a normal distribution $x \sim N(\mu_x, \sigma^2_x)$ is $(-\infty, +\infty)$.
+    -   **Example 2:** The sample space for a random variable x representing the outcome of a coin flip is {H, T}
+    -   **Example 3:** The sample space for a random variable x representing the outcome of a roll of a die is {1, 2, 3, 4, 5, 6}
+-   When using generalized models, the trick is to pick a distribution with a sample space that matches the range of values obtainable by data
+
+## Uses of Distributions in Data Analysis
+
+-   Statistical models make distributional assumptions on various parameters and / or parts of data
+
+-   These assumptions govern:
+
+    -   How models are estimated
+
+    -   How inferences are made
+
+    -   How missing data may be imputed
+
+-   If data do not follow an assumed distribution, inferences may be inaccurate
+
+    -   Sometimes a very big problem, other times not so much
+
+-   Therefore, it can be helpful to check distributional assumptions prior to running statistical analysis
+
+## Continuous Univariate distributions
+
+-   To demonstrate how continuous distributions work and look, we will discuss three:
+
+    -   Uniform distribution
+
+    -   Normal distribution
+
+    -   Chi-square distribution
+
+-   Each are described a set of parameters, which we will later see are what give us our inferences when we analysis data
+
+-   What we then do is put constraints on those parameters based on hypothesized effects in data
+
+## Uniform distribution
+
+-   The uniform distribution is how to help set up how continuous distributions work
+
+-   For a continuous random variable x that ranges from (a, b), the uniform probability density function is:
+
+    $f(x) = \frac{1}{b-a}$
+
+-   The uniform distribution has two parameters
+
+    ```{r}
+    x = seq(0, 3, .1)
+    y = dunif(x, min = 0, max = 3)
+    ggplot() +
+      geom_point(aes(x = x, y = y)) +
+      geom_path(aes(x = x, y = y)) +
+      theme_bw()
+    ```
+
+## More on the Uniform Distribution
+
+-   To demonstrate how PDFs work, we will try a few values:
+
+```{r}
+conditions <- tribble(
+   ~x, ~a, ~b,
+   .5,  0,  1,
+  .75,  0,  1,
+   15,  0, 20,
+   15, 10, 20
+) |> 
+  mutate(y = dunif(x, min = a, max = b))
+conditions
+```
+
+-   The uniform PDF has the feature that all values of ***x*** are equally likely across the sample space of the distribution
+    -   Therefore, you do not see ***x*** in the PDF $f(x)$
+-   The mean of the uniform distribution is $\frac{1}{2}(a+b)$
+-   The variance of the uniform distribution is $\frac{1}{12}(b-a)^2$
+
+## Univariate Normal Distribution
+
+-   For a continuous random variable ***x*** (ranging from $-\infty$ to $\infty$), the univariate normal distribution function is:
+
+$$
+f(x) = \frac1{\sqrt{2\pi\sigma^2_x}}\exp(-\frac{(x-\mu_x)^2}{2\sigma^2_x})
+$$
+
+-   The shape of the distribution is governed by two parameters:
+
+    -   The mean $\mu_x$
+
+    -   The variance $\sigma^2_x$
+
+    -   These parameters are called **sufficient statistics** (they contain all the information about the distribution)
+
+-   The skewness (lean) and kurtosis (peakedness) are fixed
+
+-   Standard notation for normal distributions is $x\sim N(\mu_x, \sigma^2_x)$
+
+    -   Read as: "*x* follows a normal distribution with a mean $\mu_x$ and a variance $\sigma^2_x$"
+
+-   Linear combinations of random variables following normal distributions result in a random variable that is normally distributed
+
+## Univariate Normal Distribution in R: pnorm
+
+Density (`dnorm`), distribution function (`pnorm`), quantile function (`qnorm`) and random generation (`rnorm`) for the normal distribution with mean equal to `mean` and standard deviation equal to `sd`.
+
+```{r}
+Z = seq(-5, 5, .1) # Z-score
+ggplot() +
+  aes(x = Z, y = pnorm(q = Z, lower.tail = TRUE)) +
+  geom_point() +
+  geom_path() +
+  labs(x = "Z-score", y = "Cumulative probability",
+       title = "`pnorm()` gives the cumulative probability function P(X < T)")
+```
+
+## Univariate Normal Distribution in R: dnorm
+
+```{r}
+x <- seq(-5, 5, .1)
+
+params <- list(
+  y_set1 = c(mu =  0, sigma2 = 0.2),
+  y_set2 = c(mu =  0, sigma2 = 1.0),
+  y_set3 = c(mu =  0, sigma2 = 5.0),
+  y_set4 = c(mu = -2, sigma2 = 0.5)
+)
+
+y <- sapply(params, function(param) dnorm(x, mean = param['mu'], sd = param['sigma2']))
+
+dt <- cbind(x, y) |> 
+  as.data.frame() |> 
+  pivot_longer(starts_with("y_"))
+
+ggplot(dt) +
+  geom_path(aes(x = x, y = value, color = name, group = name), linewidth = 1.3) +
+  scale_color_manual(values = 1:4,
+                     name = "",
+                     labels = c('y_set1' = expression(mu*"=0, "*sigma^2*"=.02"),
+                                'y_set2' = expression(mu*"=0, "*sigma^2*"=1.0"),
+                                'y_set3' = expression(mu*"=0, "*sigma^2*"=5.0"),
+                                'y_set4' = expression(mu*"=-2, "*sigma^2*"=0.5"))
+                     ) +
+  theme_bw() +
+  theme(legend.position = "top", text = element_text(size = 13))
+```
+
+## Chi-Square Distribution
+
+-   Another frequently used univariate distribution is the Chi-square distribution
+
+    -   Sampling distribution of the variance follows a chi-square distribution
+
+    -   Likelihood ratios follow a chi-square distribution
+
+-   For a continuous random variable *x* (ranging from 0 to $\infty$), the chi-square distribution is given by:
+
+    $$
+    f(x) =\frac1{2^{\frac{\upsilon}{2}} \Gamma(\frac{\upsilon}{2})} x^{\frac{\upsilon}{2}-1} \exp(-\frac{x}2)
+    $$
+
+-   $\Gamma(\cdot)$ is called the gamma function
+
+-   The chi-square distribution is govern by one parameter: $\upsilon$ (the degrees of freedom)
+
+    -   The mean is equal to $\upsilon$; the variance is equal to 2$\upsilon$
+
+```{r}
+x <- seq(0.01, 15, .01)
+df <- c(1, 2, 3, 5, 10)
+dt2 <- as.data.frame(sapply(df, \(df) dchisq(x, df = df)))
+dt2_with_x <- cbind(x = x, dt2)
+dt2_with_x |> 
+  pivot_longer(starts_with("V")) |> 
+  ggplot() +
+  geom_path(aes(x = x, y = value, color = name), linewidth = 1.2) +
+  scale_y_continuous(limits = c(0, 1)) +
+  scale_color_discrete(name = "", labels = paste("df =", df)) +
+  labs(y = "f(x)") +
+  theme_bw() +
+  theme(legend.position = "top", text = element_text(size = 13))
+```

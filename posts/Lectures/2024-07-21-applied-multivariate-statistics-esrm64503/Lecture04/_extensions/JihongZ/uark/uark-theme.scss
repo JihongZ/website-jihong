@@ -120,8 +120,6 @@ $code-block-bg:  #F5F5F5 !default;
   text-transform: uppercase;
 }
 
-
-
 .center{
   background-color: $sand !important;
 }
@@ -132,9 +130,9 @@ $code-block-bg:  #F5F5F5 !default;
 
 .reveal .slides h2{
   text-transform: capitalize !important;
-  font-size: 4rem;
+  font-size: 3.5rem;
   margin-bottom: 1em;
-  margin-top: 1em;
+  margin-top: 0.3em;
 }
 
 .reveal .slides h3 {
@@ -147,18 +145,16 @@ $code-block-bg:  #F5F5F5 !default;
 .reveal .slides h2::before {
   content:"";
   position: absolute;
-  border-bottom: 0.05em solid $charcoal; /*use this to adjust underlin color and size*/
+  border-bottom: 0.08em solid $charcoal; /*use this to adjust underlin color and size*/
   width:100%;  /*use this to adjust underline width*/
   height:1.5em; /*use this to adjust underline position*/
 }
-
 
 .reveal .slides h3{
   text-transform: uppercase;
   color: $red;
   font-size: 120%;
 }
-
 
 .v-center-container {
   display: flex !important;
@@ -171,7 +167,6 @@ $code-block-bg:  #F5F5F5 !default;
 }
 
 // Colours
-
 .red{
   color: $red !important;
 }
@@ -209,7 +204,6 @@ $code-block-bg:  #F5F5F5 !default;
 }
 
 // Hover Text
-
 .hovertext {
   position: relative;
   border-bottom: 1px dotted $charcoal;

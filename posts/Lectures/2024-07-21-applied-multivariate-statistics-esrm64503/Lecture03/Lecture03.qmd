@@ -134,6 +134,8 @@ $$
     1.  **Variance-Covariance Matrix of Regression Coefficients** (Diagnoal: variances of betas (squared standard errors of betas); Nondiagnoal: residual covariances between betas)
 
 $\mathbf{\Sigma_{\boldsymbol{\beta}}}$ =
+
+```{=tex}
 \begin{bmatrix}
 
 \color{tomato}{Var(\beta_1)} & Cov(\beta_1,\beta_2) & Cov(\beta_1,\beta_3), \cdots & \cdots & Cov(\beta_1, \beta_K) \\
@@ -143,7 +145,7 @@ Cov(\beta_2, \beta_1)& \color{tomato}{Var(\beta_2)}&  Cov(\beta_2,\beta_3), \cdo
 Cov(\beta_K, \beta_1) &  Cov(\beta_K, \beta_2)&  Cov(\beta_K,\beta_3)& \cdots & \color{tomato}{Var(\beta_K)}
 
 \end{bmatrix}
-
+```
 2.  Residual variances $\mathbf{\sigma^2_e}$
 
 ## Representing the Effects of Predictor Variables
@@ -272,7 +274,7 @@ The total number of group differences is $J * (J-1) / 2 = 4*3/2 = 6$
 -   All group differences
 
 |                |           Alt Group | Ref Group             | Difference            |
-|-----------------|----------------:|:------------------|:------------------|
+|----------------|--------------------:|:----------------------|:----------------------|
 | Control vs. T1 | $(\beta_0+\beta_1)$ | \- $\beta_0$          | = $\beta_1$           |
 | Control vs. T2 | $(\beta_0+\beta_2)$ | \- $\beta_0$          | = $\beta_2$           |
 | Control vs. T3 | $(\beta_0+\beta_3)$ | \- $\beta_0$          | = $\beta_3$           |
@@ -650,6 +652,7 @@ Copy and paste your R syntax abd output that calculates the **Senior-Old**'s sta
 We can use `glht()` to automatically calculate conditional main effects and their standard errors. Or, we can manually calculate them using `vcov(model)` function, which represents the variance-covariance matrix of main effects.
 
 ### Method 1: glht method
+
 ```{r}
 #| output-location: default
 effect_model1_matrix = matrix(c(
@@ -674,14 +677,15 @@ summary(effect_model1)
 
 -   $$
     \mathbf{\beta_1^{Senior} = \beta_1+\beta_3*New}
-    $$ 
+    $$
 
+```{=tex}
 \begin{align}
 \mathbf{SE^2(\beta_1^{Senior})} &= \mathbf{SE^2(\beta_1+\beta_3*New)} \\
 &= \mathbf{Var(\beta_1) + Var(\beta_3) * New^2  + 2Cov(\beta_1, \beta_3)*New} \\
 &= \mathbf{Var(\beta_1) + Var(\beta_3)  + 2Cov(\beta_1, \beta_3)} 
 \end{align}
-
+```
 ```{r}
 #| output-location: default
 
