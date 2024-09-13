@@ -329,3 +329,307 @@ dt2_with_x |>
   theme_bw() +
   theme(legend.position = "top", text = element_text(size = 13))
 ```
+
+# Marginal, Joint, And Conditional Distribution
+
+## Moving from One to Multiple Random Variables
+
+-   When more than one random variable is present, there are several different types of statistical distributions:
+
+-   We will first consider two discrete random variables：
+
+    -   *x* is the outcome of the flip of a penny {$H_p$, $T_p$}
+
+        -   $f(x=H_p) = .5$; $f(x =T_p) = .5$
+
+    -   *z* is the outcome of the flip of a dime {$H_d$, $T_d$}
+
+        -   $f(z=H_p) = .5$; $f(z =T_p) = .5$
+
+-   We will consider the following distributions:
+
+    -   Marginal distribution
+
+        -   The distribution of one variable only (either $f(x)$ or $f(z)$)
+
+    -   Joint distribution
+
+        -   $f(x, z)$: the distribution of both variables (both *x* and *z*)
+
+    -   **Conditional distribution**
+
+        -   The distribution of one variable, conditional on values of the other:
+
+            -   $f(x|z)$: the distribution of *x* given *z*
+
+            -   $f(z|x)$: the distribution of *z* given x
+
+## Marginal Distribution
+
+-   Marginal distributions are what we have worked with exclusively up to this point: they represent the distribution by itself
+
+    -   Continuous univariate distributions
+
+    -   Categorical distributions
+
+        -   The flip of a penny
+
+        -   The flip of a dime
+
+## Joint Distribution
+
+-   Joint distributions describe the distribution of more than one variable, simultaneously
+
+    -   Representations of multiple variables collected
+
+-   Commonly, the joint distribution function is denoted with all random variables separated by commas
+
+    -   In our example, $f(x,z)$ is the joint distribution of the outcome of flipping both a penny and a dime
+
+        -   As both are discrete, the joint distribution has four possible values:
+
+            \(1\) $f(x = H_p,z=H_d)$ (2) $f(x = H_p,z=T_d)$ (3) $f(x = T_p,z=H_d)$ (4) $f(x = T_p,z=T_d)$
+
+-   Joint distributions are **multivariate distributions**
+
+-   We will use joint distributions to introduce two topics
+
+    -   Joint distributions of independent variables
+
+    -   Joint distributions – used in maximum likelihood estimation
+
+## Joint Distributions of Independent Random Variables
+
+-   Random variables are said to be independent if the occurrence of one event makes it neither more nor less probable of another event
+
+    -   For joint distributions, this means: $f(x,z)=f(x)f(z)$
+
+-   In our example, flipping a penny and flipping a dime are independent – so we can complete the following table of their joint distribution:
+
+    |                 | z = $H_d$                          | z = $T_d$                         | Marginal (Penny)              |
+    |----------------|--------------------|-------------------|-----------------|
+    | $x = H_p$       | $\color{tomato}{f(x=H_p, z=H_d)}$  | $\color{tomato}{f(x=H_p, z=T_d)}$ | $\color{turquoise}{f(z=H_p)}$ |
+    | $x = T_p$       | $\color{tomato}{f(x= T_p, z=H_d)}$ | $\color{tomato}{f(x=T_p, z=T_d)}$ | $\color{turquoise}{f(z=T_d)}$ |
+    | Marginal (Dime) | $\color{turquoise}{f(z=H_d)}$      | $\color{turquoise}{f(z=T_d)}$     |                               |
+
+## Joint Distributions of Independent Random Variables
+
+-   Because the coin flips are independent, this because:
+
+|                 | z = $H_d$                            | z = $T_d$                           | Marginal (Penny)              |
+|----------------|--------------------|--------------------|----------------|
+| $x = H_p$       | $\color{tomato}{f(x=H_p)f( z=H_d)}$  | $\color{tomato}{f(x=H_p)f( z=T_d)}$ | $\color{turquoise}{f(z=H_p)}$ |
+| $x = T_p$       | $\color{tomato}{f(x= T_p)f( z=H_d)}$ | $\color{tomato}{f(x=T_p)f( z=T_d)}$ | $\color{turquoise}{f(z=T_d)}$ |
+| Marginal (Dime) | $\color{turquoise}{f(z=H_d)}$        | $\color{turquoise}{f(z=T_d)}$       |                               |
+
+-   Then, with numbers:
+
+|                 | z = $H_d$               | z = $T_d$               | Marginal (Penny)        |
+|-----------------|-------------------|-------------------|-------------------|
+| $x = H_p$       | $\color{tomato}{.25}$   | $\color{tomato}{.25}$   | $\color{turquoise}{.5}$ |
+| $x = T_p$       | $\color{tomato}{.25}$   | $\color{tomato}{.25}$   | $\color{turquoise}{.5}$ |
+| Marginal (Dime) | $\color{turquoise}{.5}$ | $\color{turquoise}{.5}$ |                         |
+
+## Marginalizing Across a Joint Distribution
+
+-   If you had a joint distribution, $\color{orchid}{f(x, z)}$, but wanted the marginal distribution of either variable ($f(x)$ or $f(z)$) you would have to **marginalize** across one dimension of the joint distribution.
+
+-   For [**categorical random variables**]{.underline}, marginalize = sum across every value of z
+
+$$
+f(x) = \sum_zf(x, z)
+$$
+
+-   For example, $f(x = H_p) = f(x = H_p, z=H_d) +f(x = H_p, z=T_d)=.5$
+
+-   For [continuous random variables,]{.underline} marginalize = integrate across z
+
+    -   The integral:
+
+        $$
+        f(x) = \int_zf(x,z)dz
+        $$
+
+## Conditional Distributions
+
+-   For two random variables x and z, a conditional distribution is written as: $f(z|x)$
+
+    -   The distribution of z given x
+
+-   The conditional distribution is equal to the joint distribution divided by the marginal distribution of the conditioning random variable
+
+    $$
+    f(z|x) = \frac{f(z,x)}{f(x)}
+    $$
+
+-   Conditional distributions are found everywhere in statistics
+
+    -   The general linear model uses the conditional distribution variable
+
+        $$
+        Y \sim N(\beta_0+\beta_1X, \sigma^2_e)
+        $$
+
+## Example: Conditional Distribution
+
+-   For two discrete random variables with {0, 1} values, the conditional distribution can be shown in a contingency table:
+
+|                 | z = $H_d$               | z = $T_d$               | Marginal (Penny)        |
+|-----------------|-------------------|-------------------|-------------------|
+| $x = H_p$       | $\color{tomato}{.25}$   | $\color{tomato}{.25}$   | $\color{turquoise}{.5}$ |
+| $x = T_p$       | $\color{tomato}{.25}$   | $\color{tomato}{.25}$   | $\color{turquoise}{.5}$ |
+| Marginal (Dime) | $\color{turquoise}{.5}$ | $\color{turquoise}{.5}$ |                         |
+
+Conditional: $f(z | x= H_p)$:
+
+$f(z=H_d|x =H_p) = \frac{f(z=H_d, x=H_p}{f(x = H_p)} = \frac{.25}{.5}=.5$
+
+$f(z = T_d | x = H_p)= \frac{f(z=T_d, x=H_p}{f(x=H_p)} = \frac{.25}{.5} = .5$
+
+# Expected Values and The Algebra of Expectation
+
+## Expected Values
+
+-   Expected values are statistics taken the sample space of a random variable: they are essentially weighted averages
+
+    ```{r}
+    #| output-location: default
+    set.seed(1234)
+    x = rnorm(100, mean = 0, sd = 1)
+    weights = dnorm(x, mean = 0, sd = 1)
+    mean(weights * x)
+    ```
+
+-   The weights used in computing this average correspond to the probabilities (for a discrete random variable) or to the densities (for a continuous random variable)
+
+::: {.callout-note font-size="1.2em"}
+The expected value is represented by $E(x)$
+
+The actual statistic that is being weighted by the PDF is put into the parenthesis where x is now
+:::
+
+-   Expected values allow us to understand what a statistical model implies about data, for instance:
+
+    -   How a GLM specifies the (conditional) mean and variance of a DV
+
+## Expected Value Calculation
+
+-   For discrete random variables, the expected value is found by:
+
+    $$
+    E(x) = \sum_x xP(X=x)
+    $$
+
+-   For example, the expected value of a roll of a die is:
+
+    $$
+    E(x) = (1)\frac16+ (2)\frac16+(3)\frac16+(4)\frac16+(5)\frac16+6\frac16
+    $$
+
+-   For continuous random variables, the expected value is found by
+
+    $$
+    E(x) = \int_x xf(x)dx
+    $$
+
+-   We won't be calculating theoretical expected values with calculus... we use them only to see how models imply things about out data
+
+## Variance and Covariance... As Expected Values
+
+-   A distribution's theoretical variance can also be written as an expected value:
+
+    $$
+    V(x) = E(x-E(x))^2 = E(x -\mu_x)^2
+    $$
+
+    -   This formula helps us understand predictions made by GLMs and how that corresponds to statistical parameters we interpret
+
+-   For a roll of a die, the theoretical variance is:
+
+    $$
+    V(x) = E(x - 3.5)^2 = \frac16(1-3.5)^2 + \frac16(2-3.5)^2 + \frac16(3-3.5)^2 + \frac16(4-3.5)^2 + \frac16(5-3.5)^2 + \frac16(6-3.5)^2 = 2.92
+    $$
+
+-   Likewise, for a pair of random variable *x* and *z*, the covariance can be found from their joint distributions:
+
+    $$
+    \text{Cov}(x,z)=E(xz)-E(x)E(z) = E(xz)-\mu_x\mu_z
+    $$
+
+    ```{r}
+    #| results: hold
+    set.seed(1234)
+    N = 100
+    x = rnorm(N, 2, 1)
+    z = rnorm(N, 3, 1)
+    xz = x*z
+    (Cov_xz = mean(xz)-mean(x)*mean(z)) / ((N-1)/N) # unbiased covariance
+    cov(x, z)
+    ```
+
+# Linear Combination of Random Variables
+
+## Linear Combinations of Random Variables
+
+-   A linear combination is an expression constructed from a set of terms by multiplying each term by a constant and then adding the results $$
+    x = c + a_1z_1+a_2z_2+a_3z_3 +\cdots+a_nz_n
+    $$
+
+-   More generally, linear combinations of random variables have specific implications for the mean, variance, and possibly covariance of the new random variable
+
+-   As such, there are predicable ways in which the means, variances, and covariances change
+
+## Algebra of Expectations
+
+-   Sums of Constants 
+
+$$
+E(x+c) = E(x)+c \\
+\text{Var}(x+c) = \text{Var}(x) \\
+\text{Cov}(x+c, z) = \text{Cov}(x, z)
+$$
+
+```{r}
+#| output-location: default
+set.seed(1234)
+N = 100
+x = rnorm(N, 2, 1)
+z = rnorm(N, 3, 1)
+c_ = 3
+identical(mean(x + c_), mean(x)+c_)
+identical(var(x + c_), var(x))
+near(cov(x, z), cov(x+c_, z)) # decimal place issue, near() accepts two values' diff less than .00001
+```
+
+------------------------------------------------------------------------
+
+-    Products of Constants:
+
+$$
+E(cx) = cE(x) \\
+\text{Var}(cx) = c^2\text{Var}(x) \\
+\text{Cov}(cx, dz) = c*d*\text{Cov}(x, z)
+$$
+
+```{r}
+#| output-location: default
+identical(mean(x*c_), mean(x)*c_)
+near(var(x*c_), var(x)*c_^2)
+d_ = 4
+near(cov(c_*x, d_*z), c_*d_*cov(x, z))
+```
+------------------------------------------------------------------------
+
+- Sums of Multiple Random Variables:
+
+$$
+E(cx+dz) = cE(x) + dE(z)\\
+\text{Var}(cx+dz) = c^2\text{Var}(x) + d^2\text{Var}(z) + 2cd\text{Cov}(x,z)\\
+$$
+
+
+```{r}
+#| output-location: default
+identical(mean(x*c_+z*d_), mean(x)*c_+mean(z)*d_)
+near(var(x*c_+z*d_), c_^2*var(x) + d_^2*var(z) + 2*c_*d_*cov(x, z))
+```
