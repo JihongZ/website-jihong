@@ -52,7 +52,7 @@ website:
   navbar:
     collapse-below: lg
     pinned: true
-    title: "<span class='icon-line'></span>JZ<span class='icon-line'></span>"
+    title: "<span class='icon-line'></span><b>Jihong</b><span class='icon-line'></span>"
     left:
       - text: "<span class='menutext-home'>Home</span><span class='text-line'></span>"
         icon: 'bi bi-house' # https://icons.getbootstrap.com
