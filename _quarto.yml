@@ -111,13 +111,13 @@ format:
                 backgroundColor: "#3B81F6",
                 right: 20,
                 bottom: 20,
-                size: 48, // small | medium | large | number
+                size: small, // small | medium | large | number
                 dragAndDrop: true,
                 iconColor: "black",
                 customIconSrc: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
             },
             tooltip: {
-                showTooltip: true,
+                showTooltip: false,
                 tooltipMessage: 'Hi👋! I am the AI teaching assistant of Dr. Zhang.',
                 tooltipBackgroundColor: 'black',
                 tooltipTextColor: 'white',
