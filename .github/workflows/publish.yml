@@ -43,6 +43,7 @@ jobs:
             any::shinylive@0.2.0
             any::knitr
             any::rmarkdown
+            any::tidyverse
             any::downlit
             any::xml2
       # Render the Quarto file
