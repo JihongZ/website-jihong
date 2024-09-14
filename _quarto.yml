@@ -4,19 +4,20 @@ project:
     
 website:
   search: false
+  bread-crumbs: true
+  page-navigation: true
+  back-to-top-navigation: true
   title: "Jihong Z. - Play Harder and Learn Harder"
   site-url: "https://www.jihongzhang.org/"
   favicon: "images/icon.png"
   description: ""
   google-analytics:
     tracking-id: "UA-149871707-1"
-  page-navigation: true
-  back-to-top-navigation: true
   reader-mode: true
   twitter-card: 
     creator: "@jihongzgamma"
   open-graph: true
-  page-footer: "Copyright 2015-2024, JihongZhang" 
+  #page-footer: "Copyright 2015-2024, JihongZhang" 
   
   # starting sidebar
   sidebar:
@@ -33,7 +34,18 @@ website:
             file: posts/2017-11-08-sem-homework/index.Rmd
           - text: "Measurement Invariance"
             file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
-      - section: ESRM 6553 - Advanced Multivariate
+      - text: "---"      
+      - section: ESRM 64503 Applied Multivariate Analysis
+        text: 'ESRM 64503'        
+        contents: 
+          - text: 'Syllabus'
+            file: posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/index.qmd
+          - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/Lecture01.qmd
+          - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture02/Lecture02.qmd
+          - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture03/Lecture03.qmd
+          - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture04/Lecture04.qmd
+      - text: "---"    
+      - section: ESRM 6553 Advanced Multivariate Analysis
         contents: 
           - text: 'Syllabus'
             file: posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd
@@ -81,10 +93,11 @@ website:
     
 format:
   html:
+    ## Page layout (see https://quarto.org/docs/output-formats/page-layout.html#html-page-layout)
     grid:
       sidebar-width: 200px
-      body-width: 1200px
-      margin-width: 200px
+      body-width: 1100px
+      margin-width: 400px # page navigation
     css: assets/rwds.css
     theme: 
       light: [default, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss

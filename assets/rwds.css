@@ -10,7 +10,7 @@ body {
 a:link {
   cursor: url("https://img.icons8.com/?size=20&id=42917&format=png&color=000000"), auto;    
 }
-button:hover.code-copy-button {
+.code-copy-button {
   cursor: url("https://img.icons8.com/?size=20&id=42917&format=png&color=000000"), auto;
 }
 /*end Cursor Styling*/

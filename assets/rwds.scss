@@ -43,7 +43,6 @@ p { // main font family of post content
 // colors
 $body-color: #404041;
 $headings-color: #447099;
-$link-color: #EE6331;
 $blue: #447099;
 $orange: #EE6331;
 $green: #72994E;
@@ -62,12 +61,14 @@ $gray: #64605f;
 $menutext-bg: #000000;
 $navbar-bg: $soft-color1; // navigation bar bg
 $body-bg: $soft-color1; // body bg
-$code-bg: $soft-color1; // code's bg
 $code-block-bg: $freeze-purple; // code block's bg
-$pre-bg: $dark-sage-green; // code's bg
+$pre-bg: $blue; // pre code's bg
+$code-block-bg-alpha: .8; // Code blocks
 $input-group-addon-bg: $soft-color1;
-$code-block-bg-alpha: -.3; // Code blocks
 $link-color: $orange;
+$breadcrumb-bg: $freeze-purple ;
+$breadcrumb-divider-color: $orange;
+$breadcrumb-border-radius:  0.30em;
 
 $warning: #EE6331;
 $info: #419599;
