@@ -100,7 +100,7 @@ format:
       margin-width: 400px # page navigation
     css: assets/rwds.css
     theme: 
-      light: [default, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
+      light: [Flatly, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
       dark: [darkly, assets/rwds-dark.scss]
     template-partials:
         - assets/title-block.html

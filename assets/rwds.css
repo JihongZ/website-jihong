@@ -202,7 +202,3 @@ body.quarto-dark .menu-text:hover > .menutext-cn {
   animation-name: line-expand;
   animation-fill-mode: forwards;
 }
-
-
-/* Vertical tabset see https://github.com/quarto-dev/quarto-cli/issues/419#issuecomment-2138458893*/
-/* .nav-pills .panel-tabset {} */

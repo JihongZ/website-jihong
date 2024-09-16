@@ -35,6 +35,8 @@ filters:
 
 ## Today's Class
 
+-   Review Homework 1
+
 -   [The building blocks]{style="color: tomato"}: **The basics of mathematical statistics:**
 
     -   Random variables: Definition & Types
@@ -60,6 +62,78 @@ filters:
     -   The statistical assumptions of the GLM
 
     -   How to assess these assumptions
+    
+# ESRM 64503: Homework 1
+
+## Question 2:
+
+<details>
+
+- Copy and paste your R syntax and R output that calculates the group **Senior-Old's standard error of group mean** (use the data and model we've used in class). 
+
+  - **Aim**: Test whether the group mean of senior-old significantly higher than the baseline (here, 0 score)
+
+$$
+\mathbf{Test = \beta_0 +\beta_1Senior + \beta_2New +\beta_3Senior*New}
+$$
+
+- The group mean of Senior-Old is $\beta_0 + \beta_1$.
+
+- Based on algebra for variance, we know hat
+
+$$
+Var(\beta_0 + \beta_1) = Var(\beta_0)+Var(\beta_1) +2*Cov(\beta_0, \beta_1)
+$$
+
+- `vcor` function provides the variances and covaraicnes for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
+
+```{r}
+#| output-location: default
+# R syntax
+library(ESRM64503)
+library(tidyverse)
+model1 <- lm(Test ~ Senior + New + Senior * New, data = dataTestExperiment)
+data("dataTestExperiment")
+Var_beta_0 <- vcov(model1)[1,1]
+Var_beta_1 <- vcov(model1)[2,2]
+Cov_beta_0_1 <- vcov(model1)[1,2]
+Var_Test_SeniorOld <- Var_beta_0 + Var_beta_1 + 2*Cov_beta_0_1
+(SE_Test_SeniorOld <- sqrt(Var_Test_SeniorOld)) 
+```
+
+</details>
+
+## Question 3:
+
+<details>
+
+- Copy and paste your R syntax and R output that calculates the standard error of conditional main effect of New (New vs. Old) when Senior = 1.
+
+  - **Aim**: Test whether the conditional main effect of New when Senior significantly different from 0
+     - In other words, when individuals are senior, whether new or old instruction method has significantly differences in their test scores
+
+$$
+\beta_{1|New =1} = \beta_1 + \beta_3 * 1
+$$
+
+- Based on algebra for variance, we know hat
+
+$$
+Var(\beta_1 + \beta_3) = Var(\beta_1)+Var(\beta_3) +2*Cov(\beta_1, \beta_3)
+$$
+
+`vcor` function provides the variances and covaraicnes for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
+
+```{r}
+#| output-location: default
+# R syntax
+Var_beta_1 <- vcov(model1)[2,2]
+Var_beta_3 <- vcov(model1)[4,4]
+Cov_beta_1_3 <- vcov(model1)[2,4]
+Var_betaofSenior_New1 <- Var_beta_1 + Var_beta_3 + 2*Cov_beta_1_3
+(SE_betaofSenior_New1 <- sqrt(Var_betaofSenior_New1)) 
+```
+</details>
 
 # Unit 1: Random Variables & Statistical Distribution
 
