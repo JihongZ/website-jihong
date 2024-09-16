@@ -214,8 +214,6 @@ Both max and min values of temperature can be considered as continuous random va
 ```{r}
 #| code-fold: true
 #| output-location: default
-#| column: screen
-#| out-width: 80%
 #| fig-align: center
 #| fig-asp: .5
 library(tidyverse)
@@ -226,9 +224,9 @@ temp |>
   geom_density(aes(x = value_F, fill = datatype), col = "white", alpha = .8) +
   labs(x = "Max/Min Temperature (F) at Fayetteville, AR (Sep-2023)", 
        caption = "Source: National Oceanic and Atmospheric Administration (https://www.noaa.gov/)") +
-  scale_x_continuous(breaks = seq(min(temp$value_F), max(temp$value_F), by = 2)) +
+  scale_x_continuous(breaks = seq(min(temp$value_F), max(temp$value_F), by = 5)) +
   scale_fill_manual(values = c("tomato", "turquoise")) +
-  theme_classic(base_size = 15) 
+  theme_classic(base_size = 13) 
 ```
 
 ## Other key Terms
