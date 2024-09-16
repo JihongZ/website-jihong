@@ -461,7 +461,7 @@ $$
 
     -   Expected GPA score is [30 + 1\*0 + 2\*3 + 0.5\*0 = 36]{style="color: red"} when Motiv = 0 and Exam = 3
 
-    -   Expected effect of Motiv is [1 + 0.5\*3 = 2.5]{style="color: red"} when Exam = 3
+    -   Expected conditional main effect of Motiv is [1 + 0.5\*3 = 2.5]{style="color: red"} when Exam = 3
 
 -   **Reason**: $\beta_0$ and $\beta_1$ are conditional on exam score while $\beta_2$ and $\beta_3$ are unconditional on exam score
 
