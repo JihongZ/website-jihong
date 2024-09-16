@@ -144,13 +144,24 @@ Var_betaofSenior_New1 <- Var_beta_1 + Var_beta_3 + 2*Cov_beta_1_3
 
 ## Definition of Random Variables
 
-- [**Random:**]{.underline} situations in which the certainty of the outcome is unkown and is at least in part due to chance
+- [**Random:**]{.underline} situations in which the certainty of the outcome is unknown and is at least in part due to chance
 
 - [**Variable:**]{.underline} a value that may change give the scope of a given problem or set of operations
 
 - [**Random Variable**]{.underline}: a variable whose outcome depends on chance (possible values might represent the possible outcomes of a yet-to-be performed experiment)
 
 Today, we will denote a random variable with a lower-cased: ***x***
+
+**Question**: which one in the following options is random variable:
+
+a. any company's revenue in 2024
+
+b. one specific company's monthly revenue in 2024
+
+c. companies whose revenue over than $30 billions
+
+**My answer**: <span class="heimu">only (a)</span>
+
 
 ## Types of Random Variables
 
