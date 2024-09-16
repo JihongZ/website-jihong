@@ -219,7 +219,7 @@ Both max and min values of temperature can be considered as continuous random va
 
 - Question 1: what are the probabilities of integrating all values of max and min temperatures ({1, 1} or {0.5, 0.5})
 
-- **Answer**: <span class="mohu"> it is {1, 1} for max and min temperatures. Because they are two seperated random variables.</span>
+- **Answer**: <span class="mohu"> it is {1, 1} for max and min temperatures. Because they are two separated random variables.</span>
 
 
 ```{r}

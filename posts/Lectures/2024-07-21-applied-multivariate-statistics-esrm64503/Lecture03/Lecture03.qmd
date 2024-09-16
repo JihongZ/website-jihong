@@ -274,7 +274,7 @@ The total number of group differences is $J * (J-1) / 2 = 4*3/2 = 6$
 -   All group differences
 
 |                |           Alt Group | Ref Group             | Difference            |
-|----------------|--------------------:|:----------------------|:----------------------|
+|-----------------|----------------:|:------------------|:------------------|
 | Control vs. T1 | $(\beta_0+\beta_1)$ | \- $\beta_0$          | = $\beta_1$           |
 | Control vs. T2 | $(\beta_0+\beta_2)$ | \- $\beta_0$          | = $\beta_2$           |
 | Control vs. T3 | $(\beta_0+\beta_3)$ | \- $\beta_0$          | = $\beta_3$           |
@@ -615,10 +615,10 @@ $$
 ```{r}
 #| output-location: default
 vcov(model1)# Variance-covariance of betas
-# Standard error of freshman-new group
+# Standard error of freshman-old group: SE(beta_0)
 Var_Test_1 <- Var_beta_0 <- vcov(model1)[1,1]
 (SE_Test_1 <- sqrt(Var_Test_1))
-# Standard error of freshman-old group
+# Standard error of freshman-new group: SE(beta_0+beta_1)
 Var_beta_0 <- vcov(model1)[1,1]
 Var_beta_2 <- vcov(model1)[3,3]
 Cov_beta_0_2 <- vcov(model1)[1,3]
