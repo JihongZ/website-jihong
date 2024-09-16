@@ -65,11 +65,11 @@ filters:
 
 ## Definition of Random Variables
 
-[**Random:**]{.underline} situations in which the certainty of the outcome is unkown and is at least in part due to chanvce
+- [**Random:**]{.underline} situations in which the certainty of the outcome is unkown and is at least in part due to chance
 
-[**Variable:**]{.underline} a value that may change give the scope of a given problem or set of operations
+- [**Variable:**]{.underline} a value that may change give the scope of a given problem or set of operations
 
-[**Random Variable**]{.underline}: a variable whose outcome depends on chance (possible values might represent the possible outcomes of a yet-to-be performed experiment)
+- [**Random Variable**]{.underline}: a variable whose outcome depends on chance (possible values might represent the possible outcomes of a yet-to-be performed experiment)
 
 Today, we will denote a random variable with a lower-cased: ***x***
 
@@ -78,7 +78,7 @@ Today, we will denote a random variable with a lower-cased: ***x***
 1.  **Continuous**
     -   Examples of continuous random variables:
         -   ***x*** represent the height of a person, draw at random
-        -   *Y* (the outcome/DV in a GLM*)*
+        -   *Y* (the outcome/DV in a GLM)
         -   Some variables like **exam score or motivation scores** are not "true" continuous variables, but it is convenient to consider them as "continuous"
 2.  **Discrete** (also called categorical, generally)
     -   Example of discrete random variables:
@@ -657,16 +657,20 @@ E(x+c) = E(x)+c \\
 \text{Cov}(x+c, z) = \text{Cov}(x, z)
 $$
 
+### Example
+
+Imagine for weight variable, each individual increases 3 lbs:
+
 ```{r}
 #| output-location: default
 set.seed(1234)
-N = 100
-x = rnorm(N, 2, 1)
-z = rnorm(N, 3, 1)
+library(ESRM64503)
+x = dataSexHeightWeight$weightLB
 c_ = 3
-identical(mean(x + c_), mean(x)+c_)
-identical(var(x + c_), var(x))
-near(cov(x, z), cov(x+c_, z)) # decimal place issue, near() accepts two values' diff less than .00001
+z = dataSexHeightWeight$heightIN
+mean(x + c_); mean(x)+c_
+var(x + c_); var(x)
+cov(x, z); cov(x+c_, z) # decimal place issue, near() accepts two values' diff less than .00001
 ```
 
 ------------------------------------------------------------------------
@@ -678,13 +682,18 @@ E(cx) = cE(x) \\
 \text{Var}(cx) = c^2\text{Var}(x) \\
 \text{Cov}(cx, dz) = c*d*\text{Cov}(x, z)
 $$
+Imagine you wanted to convert weight from pounds to kilograms (where 1 pound = .453 kg) and convert height from inches to cm (where 1 inch = 2.54 cm)
+
 
 ```{r}
 #| output-location: default
-identical(mean(x*c_), mean(x)*c_)
-near(var(x*c_), var(x)*c_^2)
-d_ = 4
-near(cov(c_*x, d_*z), c_*d_*cov(x, z))
+
+c_ = .453
+mean(x*c_); mean(x)*c_
+var(x*c_); var(x)*c_^2
+
+d_ = 2.54
+cov(c_*x, d_*z);c_*d_*cov(x, z)
 ```
 
 ------------------------------------------------------------------------
@@ -692,12 +701,143 @@ near(cov(c_*x, d_*z), c_*d_*cov(x, z))
 -   Sums of Multiple Random Variables:
 
 $$
-E(cx+dz) = cE(x) + dE(z)\\
-\text{Var}(cx+dz) = c^2\text{Var}(x) + d^2\text{Var}(z) + 2cd\text{Cov}(x,z)\\
+E(cx+dz) = cE(x) + dE(z) \\
+\text{Var}(cx+dz) = c^2\text{Var}(x) + d^2\text{Var}(z) + 2c*d*\text{Cov}(x,z)\\
 $$
 
 ```{r}
 #| output-location: default
-identical(mean(x*c_+z*d_), mean(x)*c_+mean(z)*d_)
-near(var(x*c_+z*d_), c_^2*var(x) + d_^2*var(z) + 2*c_*d_*cov(x, z))
+mean(x*c_+z*d_); mean(x)*c_+mean(z)*d_
+var(x*c_+z*d_); c_^2*var(x) + d_^2*var(z) + 2*c_*d_*cov(x, z)
 ```
+
+## Where We Use This Algebra
+
+- Remember how we calculated the standard error of conditional main effect from simple main effect and interaction effect
+
+$$
+\mathbf{Test = 82.20 + 2.16*Senior + 7.76*New - 3.04*Senior*New}
+$$
+
+- Conditional Main Effects of Senior When New is 1 is (2.16 - 3.04) = -0.88
+
+    - We know that $Var(\beta_{Senior})$ is 0.575,  $Var(\beta_{Senior*New})$ is 1.151, and $Cov(\beta_{Senior}, \beta_{Senior*New})$ is -0.575.
+
+```{r}
+#| output-location: default
+model1 <- lm(Test ~ Senior + New + Senior * New, data = dataTestExperiment)
+vcov(model1)
+```
+
+Then, 
+
+$$
+\mathbf{Var(\beta_{Senior}+\beta_{Senior*New}) = Var(\beta_{Senior}) + Var(\beta_{Senior*New}) + 2Cov(\beta_{Senior},\beta_{Senior*New})
+\\ = 0.575 + 1.151 - 2* 0.575 = 0.576} 
+$$
+Thus, $SE(\beta_{Senior}+\beta_{Senior*New})=0.759$
+
+## Combining the GLM with Expections
+
+- Using the algebra of expectations predicting Y from X and Z:
+
+$$
+\hat{Y}_p=E(Y_p)=E(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+e_p) \\
+= \beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+E(e_p) \\
+= \beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p
+$$
+
+- The variance of $f(Y_p|X_p, Z_p)$:
+
+$$
+V(Y_P)=V(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+e_p)\\ = V(e_p)=\sigma_e^2
+$$
+
+## Examining What This Means in the Context of Data
+
+- If you recall from the regression analysis of the height/weight data, the final model we decided to interpret: Model 5
+
+$$
+W_p = \beta_0+\beta_1 (H_p-\bar{H}) +\beta_2F_p+\beta_3 (H_p-\bar{H}) F_p + e_p
+$$
+
+where $e_p \sim N(0, \sigma_e^2)$
+
+```{r}
+#| output-location: default
+dat <- dataSexHeightWeight
+dat$heightIN_MC <- dat$heightIN - mean(dat$heightIN)
+dat$female <- dat$sex == 'F'
+mod5 <- lm(weightLB ~ heightIN_MC + female + female*heightIN_MC, data = dat)
+summary(mod5)
+```
+
+## Picturing the GLM with Distributions
+
+- The distributional assumptions of the GLM are the reason why we do not need to worry if our dependent variable is normally distributed
+
+- Our dependent variable should be conditionally normal
+
+- We can check this assumption by checking our assumption about the residuals,
+$e_p \sim N(0, \sigma^2_e)$ 
+
+```{r}
+#| echo: false
+#| output-location: default
+library(ggridges)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+set.seed(1234)
+pred_y <- predict(mod5, newdata = dat)
+pred_y_dat <- data.frame(Point = names(pred_y), weightLB = pred_y, 
+                         heightIN_MC = dat$heightIN_MC)
+sigma <- sd(residuals(mod5))
+
+residual_dat <- as.data.frame(sapply(pred_y, \(x) rnorm(100, mean = x, sd = sigma)))
+
+residual_dat_long <- residual_dat |> 
+  pivot_longer(everything())
+
+colnames(residual_dat_long) <- c("Point", "weightLBVaribant")
+
+residual_dat_long <- residual_dat_long |> 
+  left_join(pred_y_dat) |> 
+  arrange(Point) 
+
+ggplot() +
+  geom_density_ridges(aes(x = weightLBVaribant, y = as.factor(round(heightIN_MC, 3))), 
+                      data = residual_dat_long, rel_min_height = 0.005, alpha = .5,
+                      scale = .7) + 
+  geom_point(aes(col = female, x = weightLB, y = as.factor(round(heightIN_MC, 3))), data= dat) +
+  geom_smooth(aes(col = female, group = female, 
+                  x = weightLB, y = as.factor(round(heightIN_MC, 3))), 
+              method = 'lm', se = FALSE, data= dat) +
+  labs(y = "HeightLB", x = "WeightLB") +
+  theme_classic() +
+  coord_flip()
+```
+
+
+## Assessing Distributional Assumptions Graphically
+
+```{r}
+plot(mod5)
+```
+
+## Hypothesis Tests for Normality
+
+If a given test is **significant**, then it is saying that your data do not come from a normal distribution
+
+In practice, test will give diverging information quite frequently:
+the best way to evaluate normality is to consider both plots and tests (approximate = good)
+
+```{r}
+shapiro.test(mod5$residuals)
+```
+
+## Wrapping Up
+
+- Today was an introduction to mathematical statistics as a way to understand the implications statistical models make about data
+
+- Although many of these topics do not seem directly relevant, they help provide insights that untrained analysts may not easily attain
