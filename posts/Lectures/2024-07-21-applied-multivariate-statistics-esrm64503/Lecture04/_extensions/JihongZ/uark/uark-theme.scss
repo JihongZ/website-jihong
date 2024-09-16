@@ -286,3 +286,15 @@ details[open] > summary {
 .heimu:active .new, .heimu .new:active, .new:active .heimu {
     color: #BA0000 !important;
 }
+
+/* 萌娘百科上的文字模糊效果 */
+.mohu, .mohu a, a .mohu, .mohu a.new {
+    background-color: #FAF9F6;
+    color: #252525;
+    text-shadow: none;
+    filter: blur(8px);
+}
+.mohu:hover, .mohu:active,
+.mohu:hover .mohu, .mohu:active .mohu {
+    filter: none !important;
+}

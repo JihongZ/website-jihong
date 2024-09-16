@@ -160,7 +160,7 @@ b. one specific company's monthly revenue in 2024
 
 c. companies whose revenue over than $30 billions
 
-**My answer**: <span class="heimu">only (a)</span>
+**My answer**: <span class="mohu">only (a)</span>
 
 
 ## Types of Random Variables
@@ -219,7 +219,7 @@ Both max and min values of temperature can be considered as continuous random va
 
 - Question 1: what are the probabilities of integrating all values of max and min temperatures ({1, 1} or {0.5, 0.5})
 
-- **Answer**: <span class="heimu"> it is {1, 1} for max and min temperatures. Because they are two seperated random variables.</span>
+- **Answer**: <span class="mohu"> it is {1, 1} for max and min temperatures. Because they are two seperated random variables.</span>
 
 
 ```{r}
@@ -247,8 +247,8 @@ temp |>
     -   **Example 2:** The sample space for a random variable x representing the outcome of a coin flip is {H, T}
     -   **Example 3:** The sample space for a random variable x representing the outcome of a roll of a die is {1, 2, 3, 4, 5, 6}
 -   When using generalized models, the trick is to pick a distribution with a sample space that matches the range of values obtainable by data
-    - Logistic regression - Match Bernoulli distribution <span class="heimu">(Example 2)</span>
-    - Poisson regression - Match Poisson distribution <span class="heimu">(Example 3)</span>
+    - Logistic regression - Match Bernoulli distribution <span class="mohu">(Example 2)</span>
+    - Poisson regression - Match Poisson distribution <span class="mohu">(Example 3)</span>
 
 ## Uses of Distributions in Data Analysis
 
