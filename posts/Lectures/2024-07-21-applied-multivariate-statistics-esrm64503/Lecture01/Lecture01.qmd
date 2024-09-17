@@ -24,6 +24,7 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
+    scrollable: true
 #jupyter: python3
 ---
 
@@ -162,7 +163,7 @@ format:
 
 -   **Why not SPSS?**
 
-    -   SPSS could only be used for some—but not all–of our content
+    -   <span class="mohu">SPSS could only be used for some—but not all–of our content</span>
 
     -   More importantly, it doesn't have as much room to grow; R has many new packages being developed via CRAN and GitHub
 

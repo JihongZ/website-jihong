@@ -114,7 +114,7 @@ Var_Test_SeniorOld <- Var_beta_0 + Var_beta_1 + 2*Cov_beta_0_1
 
 
 $$
-\beta_{1|Senior =1} = \beta_2 + \beta_3 * 1
+\beta_{2|Senior =1} = \beta_2 + \beta_3 * 1
 $$
 
 
@@ -125,7 +125,7 @@ Var(\beta_2 + \beta_3) = Var(\beta_2)+Var(\beta_3) +2*Cov(\beta_2, \beta_3)
 $$
 
 
--   `vcor` function provides the variances and covaraicnes for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$ 
+-   `vcor` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$ 
 
 ```{r}
 #| output-location: default
