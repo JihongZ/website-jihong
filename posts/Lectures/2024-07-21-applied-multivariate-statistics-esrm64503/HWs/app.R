@@ -17,13 +17,13 @@ ui <-  dashboardPage(
         textInput(inputId = "code", label = "Your Unique Code"), 
         actionButton(inputId = "confirm", label = "Confirm"),
         selectInput("hw_index", "Which Homework", choices = c("All", "Homework0", "Homework1")), 
-        conditionalPanel(
+        conditionalPanel( # information box
           condition = "!!input.name",
           checkboxGroupInput(
             inputId = "columns_selected",
-            label = "Information:",
-            choices = setdiff(colnames(dat), "Code"),
-            selected =  colnames(dat)[1:6]
+            label = "Extra Information:",
+            choices = setdiff(colnames(dat), c("Name", "HW", "Starting_Time", "Code")),
+            selected =  setdiff(colnames(dat), c("Name", "HW", "Starting_Time", "Code"))[1:3]
           )
         )
       )
@@ -63,15 +63,15 @@ server <- function(input, output) {
       observeEvent(event_trigger(), {
         if (input$hw_index == "All") {
           dat_final <- dat_cleaned |> 
-            select(input$columns_selected, -Name) 
+            select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) 
         }else if(input$hw_index == "Homework0"){
           dat_final <- dat_cleaned |> 
-            select(input$columns_selected, -Name) |> 
+            select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) |> 
             filter(HW == 0) |> 
             t()
         }else if(input$hw_index == "Homework1"){
           dat_final <- dat_cleaned |> 
-            select(input$columns_selected, -Name) |> 
+            select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) |> 
             filter(HW == 1) |> 
             t()
         }else{
