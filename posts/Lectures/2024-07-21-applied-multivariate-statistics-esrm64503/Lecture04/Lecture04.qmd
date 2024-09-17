@@ -132,7 +132,7 @@ $$
 # R syntax
 Var_beta_2 <- vcov(model1)[3,3]
 Var_beta_3 <- vcov(model1)[4,4]
-Cov_beta_2_3 <- vcov(model1)[3,3]
+Cov_beta_2_3 <- vcov(model1)[3,4]
 Var_betaofNew_Senior1 <- Var_beta_2 + Var_beta_3 + 2*Cov_beta_2_3
 (SE_betaofNew_Senior1 <- sqrt(Var_betaofNew_Senior1)) 
 ```
