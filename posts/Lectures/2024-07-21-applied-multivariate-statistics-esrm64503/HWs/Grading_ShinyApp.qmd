@@ -14,6 +14,8 @@ format:
     code-line-numbers: false
 ---
 
+![Tutorial](tutorial_grade_system.png)
+
 ```{=html}
 <iframe width="100%" height="900px" src="https://jihongz.shinyapps.io/ESRM64503-Grading/" frameborder="0" marginwidth="0" marginheight="0" style="border: 1px solid black; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
 ```
