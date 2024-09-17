@@ -5,6 +5,7 @@ library(readxl)
 library(dplyr)
 library(DT)
 
+# Publish to https://jihongz.shinyapps.io/ESRM64503-Grading/ 
 # hw_root_path <- "posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/" 
 dat <- readRDS("ESRM64503_Homework_Combined.rds")
 dat$Name[3]
