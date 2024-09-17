@@ -84,11 +84,12 @@ To make the most of my office hours, please come prepared.
 
 ## Online Homework Portal
 
-1.  [Homework 0](./HWs/HW_demo.qmd) (HW0)
-2.  [Homework 1](HWs/HW_1.qmd) (HW1)
-3.  Homework 2 (HW2)
-4.  Homework 3 (HW3)
-5.  Homework 4 (HW4)
+1.  Grading Online Checking
+2.  [Homework 0](./HWs/HW_demo.qmd) (HW0)
+3.  [Homework 1](HWs/HW_1.qmd) (HW1)
+4.  Homework 2 (HW2)
+5.  Homework 3 (HW3)
+6.  Homework 4 (HW4)
 
 ## Grading
 

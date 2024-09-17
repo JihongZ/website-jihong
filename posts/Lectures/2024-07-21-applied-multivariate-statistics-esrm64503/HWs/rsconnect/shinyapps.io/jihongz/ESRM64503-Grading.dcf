@@ -1,0 +1,13 @@
+name: ESRM64503-Grading
+title: ESRM64503-Grading
+username: jihongz
+account: jihongz
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12738849
+bundleId: 9113467
+url: https://jihongz.shinyapps.io/ESRM64503-Grading/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: HW_1.qmd|HW_demo.qmd|Response_Precompile.R|Responses/ESRM 64503_Homework 0.xlsx|Responses/ESRM 64503_Homework 1.xlsx|Responses/ESRM 64503_In-class Quiz 1.xlsx

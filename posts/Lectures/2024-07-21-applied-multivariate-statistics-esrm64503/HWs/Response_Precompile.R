@@ -40,6 +40,7 @@ hw1_assignment_tbl_clean <- hw1_assignment_tbl_clean |>
   mutate(Test_Times_HW1 = n()) |> 
   filter(Starting_Time == max(Starting_Time))
 
+## Combine Homeworks
 hw_all_tbl <- hw0_assignment_tbl_clean |> 
   left_join(hw1_assignment_tbl_clean, by = "Name", suffix = c("_HW0", "_HW1")) |> 
   mutate(across(everything(), \(x) as.character(x))) |> 
@@ -49,6 +50,16 @@ hw_all_tbl <- hw0_assignment_tbl_clean |>
   mutate(
     across(starts_with("Question"),\(x) gsub(pattern = "\r\n", replacement = "<br/>", x = x))
   )
+
+set.seed(1234)
+
+passwords <- data.frame(
+  Name = unique(hw_all_tbl$Name),
+  Code = sample(x = 1000:9999, size = 12)
+)
+
+hw_all_tbl <- hw_all_tbl |> 
+  left_join(passwords, by = "Name")
 
 saveRDS(hw_all_tbl, file = paste0(hw_root_path, "ESRM64503_Homework_Combined.rds"))
 
