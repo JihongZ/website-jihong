@@ -56,10 +56,24 @@ set.seed(1234)
 passwords <- data.frame(
   Name = unique(hw_all_tbl$Name),
   Code = sample(x = 1000:9999, size = 12)
-)
+) |> arrange(Name)
 
 hw_all_tbl <- hw_all_tbl |> 
   left_join(passwords, by = "Name")
 
 saveRDS(hw_all_tbl, file = paste0(hw_root_path, "ESRM64503_Homework_Combined.rds"))
 
+library(glue)
+name = passwords$Name
+code = passwords$Code
+message_text <- glue("
+Hi {name},
+
+Now you can check your grade, feedback and original responses of homeworks here (https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/Grading_ShinyApp.html).
+
+To have access to your grade, please use your 4-digit unique code -- {code}. Note that this homework system is still under developing. Thus, if you notice some bugs or have any comments/suggestions, feel free to let me know.
+
+Best,
+
+")
+message_text
