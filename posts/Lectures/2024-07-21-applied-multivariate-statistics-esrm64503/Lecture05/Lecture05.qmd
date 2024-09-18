@@ -1,0 +1,129 @@
+---
+title: "Lecture 05: Maximum Lilkelihood Estimation and Generalized Univariate Models"
+subtitle: "Models for Binary Outcomes"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-09-16"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: column
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503: Lecture 05: Models for Binary Outcomes"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+filters:
+  - shinylive
+---
+
+## Today's Class
+
+-   Review Homework System
+-   [Maximum Likelihood Estimation]{style="color: tomato"}
+    -   The basics
+    -   ML-based Test (Likelihood ratio test, Wald test, Information criteria)
+    -   MLEs for GLMs
+
+## Today's Example Data #1
+
+-   Please use `pak::pak("JihongZ/ESRM64503", upgrade = TRUE)` to upgrade `ESRM64503` package
+
+-   Imagine an employer is looking to hire employees for a job where IQ is important
+
+    -   We will use 5 observations so as to show the math behind the estimation calculations
+
+-   The employer collects two variables:
+
+    -   IQ scores (`perf`)
+    -   Job performance (`iq`)
+
+```{r}
+# pak::pak("JihongZ/ESRM64503", upgrade = TRUE)
+library(ESRM64503)
+library(kableExtra)
+library(tidyverse)
+
+#data for class example
+dat <- dataIQ |> 
+  mutate(ID = 1:5) |> 
+  rename(IQ = iq, Performance = perf) |> 
+  relocate(ID)
+
+show_table(dat)
+```
+
+```{r}
+dat |> 
+  summarise(
+    across(c(Performance, IQ), list(Mean = mean, SD = sd))
+  ) |> 
+  t() |> 
+  as.data.frame() |> 
+  rownames_to_column(var = "Variable") |> 
+  separate(Variable, into = c("Variable", "Stat"), sep = "_") |> 
+  pivot_wider(names_from = "Stat", values_from = "V1") |> 
+  show_table()
+```
+
+```{r}
+dat |> 
+  select(IQ, Performance) |> 
+  cov() |> 
+  as.data.frame() |> 
+  rownames_to_column("Covariance Matrix") |> 
+  show_table()
+```
+
+## How Estimation Works (More or Less)
+
+Most estimation routines do one of **three things**:
+
+1.  **Minimize Something**: Typically found with names that have “least” in the title. Forms of least squares include “Generalized”, “Ordinary”, “Weighted”, “Diagonally Weighted”, “WLSMV”, and “Iteratively Reweighted.” Typically the estimator of last resort...
+
+<!-- -->
+
+2.  **Maximize Something**: Typically found with names that have “maximum” in the title. Forms include “Maximum likelihood”, “ML”, “Residual Maximum Likelihood” (REML), “Robust ML”. Typically the gold standard of estimators
+
+3.  **Use Simulation to Sample from Something**: more recent advances in simulation use resampling techniques. Names include “Bayesian Markov Chain Monte Carlo”, “Gibbs Sampling”, “Metropolis Hastings”, “Metropolis Algorithm”, and “Monte Carlo”. Used for complex models where ML is not available or for methods where prior values are needed.
+
+::: {.callout-note style="font-size: 1.4em;"}
+-   Loss function in Machine Learning belongs to type I
+
+-   **Question**: Maximum Likelihood Estimation belongs to type [II]{.mohu}
+:::
+
+## An Brief Introduction to Maximum
+
+-   MLE has several good statistical properties that make it the mostly commonly used in statistical estimation:
+
+    1.  **Asymptotic Consistency**: as the sample size increases, the estimator converges in probability to parameters' true values
+
+    2.  **Asymptotic Normality**: as the sample size increases, the distribution of the estimator is normal (note: variance is given by "information" matrix)
+
+    3.  **Efficiency**: No other estimator will have a smaller standard error
+
+::: callout-note
+**Estimator**: the algorithm that can get the estimates of parameters
+
+**Asymptotic:** the properties that will occur when the sample size is sufficiently large
+
+**ML-based estimatiors**: other variants of maximum likelihood like robust maximum likelihood, full information maximum likelihood
+:::
