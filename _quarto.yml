@@ -29,7 +29,7 @@ website:
       - section: 'Research Plan'
         contents: 
           - text: '2024 Fall'
-            file: projects/Research Plan/Timeline-Visualization.qmd
+            file: projects/Research_Plan/Timeline-Visualization.qmd
       - text: "---"      
       - section: Latent Variable Model
         contents: 

@@ -127,7 +127,11 @@ colors = domainByGroup.map(d => colorMap.get(d))
 
 
 
+
+
 ## 2024-2025 Projects List
+
+
 
 
 
@@ -189,7 +193,11 @@ colors = domainByGroup.map(d => colorMap.get(d))
 
 
 
+
+
 ## Gantt Plot for Research Plan
+
+
 
 
 
