@@ -1,0 +1,132 @@
+---
+title: "2024 Fall Timeline"
+author: Jihong Zhang
+date: "Sep 18 2024" 
+sidebar: false
+keep-md: true
+execute:
+  eval: true
+  echo: false
+  message: false
+  warning: false
+  output: true
+  include: true
+format: 
+  html:
+    code-fold: false
+    grid:
+      sidebar-width: 0px
+      body-width: 1600px
+      margin-width: 0px
+---
+
+
+
+```{r}
+#| warning: false
+#| message: false
+library(readxl)
+library(tidyverse)
+# root_path <- "~/Documents/Projects/website-jihong/projects/Research Plan/"
+dat_timeline <- read_xlsx("2024 Fall Timeline.xlsx", sheet = "Timeline")
+dat_project_desp <- read_xlsx("2024 Fall Timeline.xlsx", sheet = "Project_Dictionary")
+dat_clean <- dat_timeline |> 
+  left_join(dat_project_desp, by = join_by(`Research Project` == Label)) |> 
+  group_by(Task, `Research Project`, FullName, `First Author`) |> 
+  mutate(Index = 1:n()) |> 
+  summarise(startDate = Date[Index == 1],
+            endDate = Date[Index == max(Index)]) |> 
+  rename(task = Task, group = `Research Project`)
+## Convert R object into OJS
+ojs_define(ojsd = dat_clean)
+```
+
+```{ojs}
+Plot = import("https://cdn.jsdelivr.net/npm/@observablehq/plot/+esm")
+import {controlPanel, Ctrls} from "@analyzer2004/control-panel"
+tasks = transpose(ojsd)
+myColors = [{group: "MS-NNS", color: "gold"},
+            {group: "MS-RFS-P", color: "tomato"}];
+domainByDate = tasks.sort((a, b) => d3.ascending(a.startDate, b.startDate)).map(d => d.task)
+domainByGroup = d3.groups(tasks, d => d.group).sort((a, b) => d3.ascending(a.startDate, b.startDate)).map(d => d[0])
+parser = d3.utcParse("%Y-%m-%d")
+colorMap = new Map(myColors.map((obj) => [obj.group, obj.color]))
+colors = domainByGroup.map(d => colorMap.get(d))
+```
+
+## 2024-2025 Projects List
+
+```{r}
+library(kableExtra)
+kable(dat_project_desp) |> 
+  kable_classic_2()
+```
+
+## Gantt Plot for Research Plan
+
+```{ojs}
+Plot.plot({
+    marks: [
+      Plot.frame({ stroke: settings.panelBorder == "show" ? "#ccc" : null }),
+      Plot.barX(tasks, {
+        y: "task",
+        x1: (d) => parser(d.startDate),
+        x2: (d) => parser(d.endDate),
+        fill: "group",
+        rx: settings.barRoundness,
+        insetTop: settings.barHeight,
+        insetBottom: settings.barHeight
+      }),
+      Plot.text(tasks, {
+        y: "task",
+        x: (d) => parser(d.startDate),
+        text: (d) => d.task,
+        textAnchor: "start",
+        dy: settings.textPosition,
+        fontSize: settings.fontSize,
+        stroke: "white",
+        fill: "dimgray",
+        fontWeight: 500
+      }),
+      Plot.tip(tasks, Plot.pointerY({
+        y: "task",
+        x1: (d) => parser(d.startDate),
+        x2: (d) => parser(d.endDate),
+        title: (d) =>
+          `FullName: ${d.FullName}\nStart: ${d.startDate}\nEnd: ${d.endDate}`
+      }))
+    ],
+    height: settings.plotHeight,
+    width: settings.plotWidth,
+    x: { 
+      grid: (settings.gridlines == "x") | (settings.gridlines == "both") ? true : null 
+    },
+    y: {
+      domain: domainByDate,
+      label: null,
+      tickFormat: null,
+      tickSize: null,
+      grid: (settings.gridlines == "y") | (settings.gridlines == "both") ? true : null
+    },
+    color: { domain: domainByGroup, range: colors, legend: true }
+})
+
+viewof settings = controlPanel([
+  [
+    Ctrls.slider("plotHeight", {label: "Plot height: ", min:500, max:1000, value:600}),
+    Ctrls.slider("plotWidth", {label: "Plot width: ", min:900, max:1600, value:1365})
+  ],
+  [
+    Ctrls.slider("barHeight", {label: "Adjusted bar height: ", min:0, max:20, value:10}),
+    Ctrls.slider("textPosition", {label: "Label dodge: ", min:-50, max:50, value:0}),
+    Ctrls.slider("fontSize", {label: "Font size: ", min:8, max:24, value:17})
+  ],
+  [    
+    Ctrls.radioGroup("panelBorder", ["show", "hide"], {label: "Panel border:", value: "show"}),    
+    Ctrls.radioGroup("gridlines", ["x", "y", "both", "none"], {label: "Gridlines:", value: "x"})
+  ],
+  [Ctrls.rule()]
+], {style: "font-family:sans-serif;font-size:10pt;pointer:default"});
+```
+
+

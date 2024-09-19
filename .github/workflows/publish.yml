@@ -40,13 +40,10 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages:
-            any::shinylive@0.2.0
+            any::downlit
             any::knitr
             any::rmarkdown
-            any::dplyr
-            any::ggplot2
-            any::tidyr
-            any::downlit
+            any::shinylive@0.2.0
             any::xml2
       # Render the Quarto file
       - name: "Render working directory"

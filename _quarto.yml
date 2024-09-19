@@ -26,6 +26,10 @@ website:
     search: true
     collapse-level: 1
     contents:
+      - section: 'Research Plan'
+        contents: 
+          - text: '2024 Fall'
+            file: projects/Research Plan/Timeline-Visualization.qmd
       - section: Latent Variable Model
         contents: 
           - text: 'Power Analysis'

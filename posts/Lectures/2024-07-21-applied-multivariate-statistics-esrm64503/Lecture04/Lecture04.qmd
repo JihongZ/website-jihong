@@ -29,8 +29,8 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
-filters:
-  - shinylive
+#filters:
+#  - shinylive
 ---
 
 ## Today's Class
@@ -306,6 +306,7 @@ temp |>
 ```{shinylive-r}
 #| standalone: true
 #| viewerHeight: 800
+#| eval: false
 library(shiny)
 library(bslib)
 library(ggplot2)
@@ -503,6 +504,7 @@ dt2_with_x |>
 ```{shinylive-r}
 #| standalone: true
 #| viewerHeight: 800
+#| eval: false
 library(shiny)
 library(bslib)
 library(ggplot2)
