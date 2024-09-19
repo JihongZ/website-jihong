@@ -27,14 +27,97 @@ format:
 
 
 
+
+
+## 2024-2025 Projects List
+
+
+
+
+::: {.cell}
+::: {.cell-output-display}
+
+`````{=html}
+<table class=" lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'>
+ <thead>
+  <tr>
+   <th style="text-align:right;"> ID </th>
+   <th style="text-align:left;"> First Author </th>
+   <th style="text-align:left;"> Label </th>
+   <th style="text-align:left;"> FullName </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> AQ </td>
+   <td style="text-align:left;"> MS-MNA </td>
+   <td style="text-align:left;"> Methodological Study of Missingness of Network Analysis </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> AQ </td>
+   <td style="text-align:left;"> ES-MAD </td>
+   <td style="text-align:left;"> Empirical Study of Missingness method in Acceralation Data </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> JZ </td>
+   <td style="text-align:left;"> MS-NNS </td>
+   <td style="text-align:left;"> Methodological Study of Novel Network Score </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> JZ </td>
+   <td style="text-align:left;"> MS-RFS-P </td>
+   <td style="text-align:left;"> Methodological Study of Rating Factor Score (Paper) </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> JZ </td>
+   <td style="text-align:left;"> MS-NAR </td>
+   <td style="text-align:left;"> Methodological Study of Network Analysis Reliability (Spencer) </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> LJ </td>
+   <td style="text-align:left;"> MS-RFS-C </td>
+   <td style="text-align:left;"> Methodological Study of Rating Factor Score (Conference) </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:left;"> ZJ </td>
+   <td style="text-align:left;"> PD-SGD </td>
+   <td style="text-align:left;"> Program Development of ShinyApp of SEM of Gene Data </td>
+  </tr>
+</tbody>
+</table>
+
+`````
+
+:::
+:::
+
+
+
+
+## Gantt Plot for Research Plan
+
+
+
+
+
+
 ::::::{.cell}
 
-```{.js .cell-code .hidden startFrom="45" source-offset="-0"}
+```{.js .cell-code .hidden startFrom="61" source-offset="-0"}
 Plot = import("https://cdn.jsdelivr.net/npm/@observablehq/plot/+esm")
 import {controlPanel, Ctrls} from "@analyzer2004/control-panel"
 tasks = transpose(ojsd)
-myColors = [{group: "MS-NNS", color: "gold"},
-            {group: "MS-RFS-P", color: "tomato"}];
+myColors = [{group: "MS-NNS", color: "tan"},
+            {group: "MS-RFS-P", color: "tomato"},
+            {group: "TBD", color: "grey"}
+            ];
 domainByDate = tasks.sort((a, b) => d3.ascending(a.startDate, b.startDate)).map(d => d.task)
 domainByGroup = d3.groups(tasks, d => d.group).sort((a, b) => d3.ascending(a.startDate, b.startDate)).map(d => d[0])
 parser = d3.utcParse("%Y-%m-%d")
@@ -124,91 +207,35 @@ colors = domainByGroup.map(d => colorMap.get(d))
 :::::
 ::::::
 
-
-
-
-
-
-## 2024-2025 Projects List
-
-
-
-
-
-::: {.cell}
-::: {.cell-output-display}
-
-`````{=html}
-<table class=" lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Label </th>
-   <th style="text-align:left;"> FullName </th>
-   <th style="text-align:left;"> First Author </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> MS-MNA </td>
-   <td style="text-align:left;"> Methodological Study of Missingness of Network Analysis </td>
-   <td style="text-align:left;"> AQ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> ES-MAD </td>
-   <td style="text-align:left;"> Empirical Study of Missingness method in Acceralation Data </td>
-   <td style="text-align:left;"> AQ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> MS-NNS </td>
-   <td style="text-align:left;"> Methodological Study of Novel Network Score </td>
-   <td style="text-align:left;"> JZ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> MS-RFS-P </td>
-   <td style="text-align:left;"> Methodological Study of Rating Factor Score (Paper) </td>
-   <td style="text-align:left;"> JZ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> MS-NAR </td>
-   <td style="text-align:left;"> Methodological Study of Network Analysis Reliability (Spencer) </td>
-   <td style="text-align:left;"> JZ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> MS-RFS-C </td>
-   <td style="text-align:left;"> Methodological Study of Rating Factor Score (Conference) </td>
-   <td style="text-align:left;"> LJ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> PD-SGD </td>
-   <td style="text-align:left;"> Program Development of ShinyApp of SEM of Gene Data </td>
-   <td style="text-align:left;"> ZJ </td>
-  </tr>
-</tbody>
-</table>
-
-`````
-
-:::
-:::
-
-
-
-
-
-## Gantt Plot for Research Plan
-
-
-
-
-
-
-
 ::::::{.cell}
 
-```{.js .cell-code .hidden startFrom="68" source-offset="-0"}
+```{.js .cell-code .hidden startFrom="76" source-offset="-0"}
 Plot.plot({
+    height: settings.plotHeight,
+    width: settings.plotWidth,
+    x: { 
+      grid: (settings.gridlines == "x") | (settings.gridlines == "both") ? true : null,
+      padding: 0.4
+    },
+    y: {
+      domain: domainByDate,
+      label: null,
+      tickFormat: null,
+      tickSize: null,
+      grid: (settings.gridlines == "y") | (settings.gridlines == "both") ? true : null
+    },
+    color: { domain: domainByGroup, range: colors, legend: true },
     marks: [
       Plot.frame({ stroke: settings.panelBorder == "show" ? "#ccc" : null }),
+      Plot.barX(tasks, { // shallow
+        y: "task",
+        x1: (d) => parser(d.startDate),
+        x2: (d) => parser(d.endDate),
+        rx: settings.barRoundness,
+        insetTop: settings.barHeight,
+        insetBottom: settings.barHeight,
+        dx: 5, dy: 5
+      }),
       Plot.barX(tasks, {
         y: "task",
         x1: (d) => parser(d.startDate),
@@ -233,23 +260,11 @@ Plot.plot({
         y: "task",
         x1: (d) => parser(d.startDate),
         x2: (d) => parser(d.endDate),
+        fontSize: settings.fontSize,
         title: (d) =>
           `FullName: ${d.FullName}\nStart: ${d.startDate}\nEnd: ${d.endDate}`
       }))
-    ],
-    height: settings.plotHeight,
-    width: settings.plotWidth,
-    x: { 
-      grid: (settings.gridlines == "x") | (settings.gridlines == "both") ? true : null 
-    },
-    y: {
-      domain: domainByDate,
-      label: null,
-      tickFormat: null,
-      tickSize: null,
-      grid: (settings.gridlines == "y") | (settings.gridlines == "both") ? true : null
-    },
-    color: { domain: domainByGroup, range: colors, legend: true }
+    ]
 })
 ```
 
@@ -262,7 +277,7 @@ Plot.plot({
 ::::
 :::::
 
-```{.js .cell-code .hidden startFrom="114" source-offset="-1355"}
+```{.js .cell-code .hidden startFrom="133" source-offset="-1689"}
 viewof settings = controlPanel([
   [
     Ctrls.slider("plotHeight", {label: "Plot height: ", min:500, max:1000, value:600}),
@@ -278,7 +293,7 @@ viewof settings = controlPanel([
     Ctrls.radioGroup("gridlines", ["x", "y", "both", "none"], {label: "Gridlines:", value: "x"})
   ],
   [Ctrls.rule()]
-], {style: "font-family:sans-serif;font-size:10pt;pointer:default"});
+], {style: "font-family:sans-serif;font-size:12pt;pointer:default"});
 ```
 
 :::::{.cell-output .cell-output-display}

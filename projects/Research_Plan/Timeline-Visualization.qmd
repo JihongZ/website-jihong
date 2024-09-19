@@ -20,8 +20,6 @@ format:
       margin-width: 0px
 ---
 
-
-
 ```{r}
 #| warning: false
 #| message: false
@@ -31,6 +29,10 @@ library(tidyverse)
 dat_timeline <- read_xlsx("2024 Fall Timeline.xlsx", sheet = "Timeline")
 dat_project_desp <- read_xlsx("2024 Fall Timeline.xlsx", sheet = "Project_Dictionary")
 dat_clean <- dat_timeline |> 
+  mutate(
+    Task = ifelse(is.na(Task), "TBD", Task),
+    `Research Project` = ifelse(is.na(`Research Project`), "TBD", `Research Project`),
+    ) |> # Convert NA to To-be-determined
   left_join(dat_project_desp, by = join_by(`Research Project` == Label)) |> 
   group_by(Task, `Research Project`, FullName, `First Author`) |> 
   mutate(Index = 1:n()) |> 
@@ -41,12 +43,28 @@ dat_clean <- dat_timeline |>
 ojs_define(ojsd = dat_clean)
 ```
 
+
+## 2024-2025 Projects List
+
+```{r}
+library(kableExtra)
+dat_project_desp |> 
+  mutate(ID = 1:n()) |> 
+  relocate(ID, `First Author`) |> 
+  kable() |> 
+  kable_classic_2()
+```
+
+## Gantt Plot for Research Plan
+
 ```{ojs}
 Plot = import("https://cdn.jsdelivr.net/npm/@observablehq/plot/+esm")
 import {controlPanel, Ctrls} from "@analyzer2004/control-panel"
 tasks = transpose(ojsd)
-myColors = [{group: "MS-NNS", color: "gold"},
-            {group: "MS-RFS-P", color: "tomato"}];
+myColors = [{group: "MS-NNS", color: "tan"},
+            {group: "MS-RFS-P", color: "tomato"},
+            {group: "TBD", color: "grey"}
+            ];
 domainByDate = tasks.sort((a, b) => d3.ascending(a.startDate, b.startDate)).map(d => d.task)
 domainByGroup = d3.groups(tasks, d => d.group).sort((a, b) => d3.ascending(a.startDate, b.startDate)).map(d => d[0])
 parser = d3.utcParse("%Y-%m-%d")
@@ -54,20 +72,33 @@ colorMap = new Map(myColors.map((obj) => [obj.group, obj.color]))
 colors = domainByGroup.map(d => colorMap.get(d))
 ```
 
-## 2024-2025 Projects List
-
-```{r}
-library(kableExtra)
-kable(dat_project_desp) |> 
-  kable_classic_2()
-```
-
-## Gantt Plot for Research Plan
-
 ```{ojs}
 Plot.plot({
+    height: settings.plotHeight,
+    width: settings.plotWidth,
+    x: { 
+      grid: (settings.gridlines == "x") | (settings.gridlines == "both") ? true : null,
+      padding: 0.4
+    },
+    y: {
+      domain: domainByDate,
+      label: null,
+      tickFormat: null,
+      tickSize: null,
+      grid: (settings.gridlines == "y") | (settings.gridlines == "both") ? true : null
+    },
+    color: { domain: domainByGroup, range: colors, legend: true },
     marks: [
       Plot.frame({ stroke: settings.panelBorder == "show" ? "#ccc" : null }),
+      Plot.barX(tasks, { // shallow
+        y: "task",
+        x1: (d) => parser(d.startDate),
+        x2: (d) => parser(d.endDate),
+        rx: settings.barRoundness,
+        insetTop: settings.barHeight,
+        insetBottom: settings.barHeight,
+        dx: 5, dy: 5
+      }),
       Plot.barX(tasks, {
         y: "task",
         x1: (d) => parser(d.startDate),
@@ -92,23 +123,11 @@ Plot.plot({
         y: "task",
         x1: (d) => parser(d.startDate),
         x2: (d) => parser(d.endDate),
+        fontSize: settings.fontSize,
         title: (d) =>
           `FullName: ${d.FullName}\nStart: ${d.startDate}\nEnd: ${d.endDate}`
       }))
-    ],
-    height: settings.plotHeight,
-    width: settings.plotWidth,
-    x: { 
-      grid: (settings.gridlines == "x") | (settings.gridlines == "both") ? true : null 
-    },
-    y: {
-      domain: domainByDate,
-      label: null,
-      tickFormat: null,
-      tickSize: null,
-      grid: (settings.gridlines == "y") | (settings.gridlines == "both") ? true : null
-    },
-    color: { domain: domainByGroup, range: colors, legend: true }
+    ]
 })
 
 viewof settings = controlPanel([
@@ -126,7 +145,5 @@ viewof settings = controlPanel([
     Ctrls.radioGroup("gridlines", ["x", "y", "both", "none"], {label: "Gridlines:", value: "x"})
   ],
   [Ctrls.rule()]
-], {style: "font-family:sans-serif;font-size:10pt;pointer:default"});
+], {style: "font-family:sans-serif;font-size:12pt;pointer:default"});
 ```
-
-
