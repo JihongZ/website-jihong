@@ -116,6 +116,8 @@ import {controlPanel, Ctrls} from "@analyzer2004/control-panel"
 tasks = transpose(ojsd)
 myColors = [{group: "MS-NNS", color: "tan"},
             {group: "MS-RFS-P", color: "tomato"},
+            {group: "Academic Calendar", color: "turquoise"},
+            {group: "Holiday", color: "rosybrown"},
             {group: "TBD", color: "grey"}
             ];
 domainByDate = tasks.sort((a, b) => d3.ascending(a.startDate, b.startDate)).map(d => d.task)
@@ -209,13 +211,14 @@ colors = domainByGroup.map(d => colorMap.get(d))
 
 ::::::{.cell}
 
-```{.js .cell-code .hidden startFrom="76" source-offset="-0"}
+```{.js .cell-code .hidden startFrom="78" source-offset="-0"}
 Plot.plot({
     height: settings.plotHeight,
     width: settings.plotWidth,
     x: { 
       grid: (settings.gridlines == "x") | (settings.gridlines == "both") ? true : null,
-      padding: 0.4
+      padding: 0.4,
+      domain: [parser('2024-09-19'), parser('2025-01-31')]
     },
     y: {
       domain: domainByDate,
@@ -277,7 +280,7 @@ Plot.plot({
 ::::
 :::::
 
-```{.js .cell-code .hidden startFrom="133" source-offset="-1689"}
+```{.js .cell-code .hidden startFrom="136" source-offset="-1749"}
 viewof settings = controlPanel([
   [
     Ctrls.slider("plotHeight", {label: "Plot height: ", min:500, max:1000, value:600}),
