@@ -43,8 +43,8 @@ jobs:
             any::downlit
             any::knitr
             any::rmarkdown
-            any::shinylive@0.2.0
             any::xml2
+            # any::shinylive@0.2.0
       # Render the Quarto file
       - name: "Render working directory"
         uses: quarto-dev/quarto-actions/render@v2

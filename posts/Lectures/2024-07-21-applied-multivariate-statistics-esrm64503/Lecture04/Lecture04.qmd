@@ -29,8 +29,8 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
-filters:
-  - shinylive
+# filters:
+#   - shinylive
 ---
 
 ## Today's Class

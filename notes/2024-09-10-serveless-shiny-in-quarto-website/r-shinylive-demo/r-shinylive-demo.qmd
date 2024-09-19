@@ -3,15 +3,13 @@ title: "shinylive-demo"
 sidebar: false
 filters:
   - shinylive
-format:
-  html:
-    resources: 
-      - shinylive-sw.js
+format: html
 ---
 
-```{shinylive-r}
+```{r}
 #| standalone: true
 #| viewerHeight: 600
+#| eval: false
 library(shiny)
 library(bslib)
 
