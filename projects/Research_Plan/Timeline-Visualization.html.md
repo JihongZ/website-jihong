@@ -110,7 +110,7 @@ format:
 
 ::::::{.cell}
 
-```{.js .cell-code .hidden startFrom="61" source-offset="-0"}
+```{.js .cell-code .hidden startFrom="63" source-offset="-0"}
 Plot = import("https://cdn.jsdelivr.net/npm/@observablehq/plot/+esm")
 import {controlPanel, Ctrls} from "@analyzer2004/control-panel"
 tasks = transpose(ojsd)
@@ -211,7 +211,7 @@ colors = domainByGroup.map(d => colorMap.get(d))
 
 ::::::{.cell}
 
-```{.js .cell-code .hidden startFrom="78" source-offset="-0"}
+```{.js .cell-code .hidden startFrom="80" source-offset="-0"}
 Plot.plot({
     height: settings.plotHeight,
     width: settings.plotWidth,
@@ -265,7 +265,7 @@ Plot.plot({
         x2: (d) => parser(d.endDate),
         fontSize: settings.fontSize,
         title: (d) =>
-          `FullName: ${d.FullName}\nStart: ${d.startDate}\nEnd: ${d.endDate}`
+          `FullName: ${d.FullName}\nStart: ${d.startDate}\nEnd: ${d.endDate}\nDateRange: ${d.DateRange}`
       }))
     ]
 })
@@ -280,7 +280,7 @@ Plot.plot({
 ::::
 :::::
 
-```{.js .cell-code .hidden startFrom="136" source-offset="-1749"}
+```{.js .cell-code .hidden startFrom="138" source-offset="-1776"}
 viewof settings = controlPanel([
   [
     Ctrls.slider("plotHeight", {label: "Plot height: ", min:500, max:1000, value:600}),

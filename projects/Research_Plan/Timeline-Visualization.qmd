@@ -37,7 +37,9 @@ dat_clean <- dat_timeline |>
   group_by(Task, `Research Project`, FullName, `First Author`) |> 
   mutate(Index = 1:n()) |> 
   summarise(startDate = Date[Index == 1],
-            endDate = Date[Index == max(Index)]) |> 
+            endDate = Date[Index == max(Index)]
+            ) |> 
+  mutate(DateRange= paste0(as.numeric(endDate - startDate)+1, " days")) |> 
   rename(task = Task, group = `Research Project`)
 ## Convert R object into OJS
 ojs_define(ojsd = dat_clean)
@@ -128,7 +130,7 @@ Plot.plot({
         x2: (d) => parser(d.endDate),
         fontSize: settings.fontSize,
         title: (d) =>
-          `FullName: ${d.FullName}\nStart: ${d.startDate}\nEnd: ${d.endDate}`
+          `FullName: ${d.FullName}\nStart: ${d.startDate}\nEnd: ${d.endDate}\nDateRange: ${d.DateRange}`
       }))
     ]
 })
