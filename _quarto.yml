@@ -30,6 +30,7 @@ website:
         contents: 
           - text: '2024 Fall'
             file: projects/Research Plan/Timeline-Visualization.qmd
+      - text: "---"      
       - section: Latent Variable Model
         contents: 
           - text: 'Power Analysis'
@@ -100,7 +101,7 @@ format:
     ## Page layout (see https://quarto.org/docs/output-formats/page-layout.html#html-page-layout)
     grid:
       sidebar-width: 200px
-      body-width: 1100px
+      body-width: 1000px
       margin-width: 400px # page navigation
     css: assets/rwds.css
     theme: 
