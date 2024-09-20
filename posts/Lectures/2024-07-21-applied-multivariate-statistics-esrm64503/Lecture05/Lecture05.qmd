@@ -37,10 +37,18 @@ filters:
 ## Today's Class
 
 -   Review Homework System
--   [Maximum Likelihood Estimation]{style="color: tomato"}
+-   [**Maximum Likelihood Estimation**]{style="color: tomato"}
     -   The basics
     -   ML-based Test (Likelihood ratio test, Wald test, Information criteria)
     -   MLEs for GLMs
+
+## Homework Grade
+
+1.  You should be able to check your current grade for homework [here](https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/Grading_ShinyApp.html).
+2.  Homework 0: 20 points; Homework 1: 21 points
+3.  I adjusted everyone's scores based on how many errors in "key parts"
+    -   If the position within `vcov()` is incorrect (i.e., answer is `vcov(model)[1, 1]`, while the response is `vcov(model)[1, 2]`), you will lose 3 points
+4.  If you found your scores, feel free to talk to me and I am willing to help at any time.
 
 ## Today's Example Data #1
 
@@ -97,11 +105,7 @@ dat |>
 Most estimation routines do one of **three things**:
 
 1.  **Minimize Something**: Typically found with names that have “least” in the title. Forms of least squares include “Generalized”, “Ordinary”, “Weighted”, “Diagonally Weighted”, “WLSMV”, and “Iteratively Reweighted.” Typically the estimator of last resort...
-
-<!-- -->
-
 2.  **Maximize Something**: Typically found with names that have “maximum” in the title. Forms include “Maximum likelihood”, “ML”, “Residual Maximum Likelihood” (REML), “Robust ML”. Typically the gold standard of estimators
-
 3.  **Use Simulation to Sample from Something**: more recent advances in simulation use resampling techniques. Names include “Bayesian Markov Chain Monte Carlo”, “Gibbs Sampling”, “Metropolis Hastings”, “Metropolis Algorithm”, and “Monte Carlo”. Used for complex models where ML is not available or for methods where prior values are needed.
 
 ::: {.callout-note style="font-size: 1.4em;"}
@@ -114,16 +118,128 @@ Most estimation routines do one of **three things**:
 
 -   MLE has several good statistical properties that make it the mostly commonly used in statistical estimation:
 
-    1.  **Asymptotic Consistency**: as the sample size increases, the estimator converges in probability to parameters' true values
+    1.  [**Asymptotic Consistency**]{.underline}: as the sample size increases, the estimator converges in probability to parameters' true values
 
-    2.  **Asymptotic Normality**: as the sample size increases, the distribution of the estimator is normal (note: variance is given by "information" matrix)
+    2.  [**Asymptotic Normality**]{.underline}: as the sample size increases, the distribution of the estimator is normal (note: variance is given by "information" matrix)
 
-    3.  **Efficiency**: No other estimator will have a smaller standard error
+    3.  [**Efficiency**]{.underline}: No other estimator will have a smaller standard error
 
 ::: callout-note
 **Estimator**: the algorithm that can get the estimates of parameters
 
 **Asymptotic:** the properties that will occur when the sample size is sufficiently large
 
-**ML-based estimatiors**: other variants of maximum likelihood like robust maximum likelihood, full information maximum likelihood
+**ML-based estimators**: other variants of maximum likelihood like robust maximum likelihood, full information maximum likelihood
 :::
+
+## Maximum Likelihood: Estimates Based on Statistical Distributions
+
+-   Maximum likelihood estimates come from statistical distributions - assumed distributions of data
+
+    -   We will begin today with the univariate normal distribution but quickly move to other distributions
+
+-   For a single random variable *x*, the univariate normal distribution is:
+
+    $$
+    f(x) = \frac{1}{\sqrt{2\pi\color{tomato}{\sigma^2_x}}}\exp(-\frac{(x-\color{royalblue}{\mu_x^2})}{2\color{tomato}{\sigma^2_x}})
+    $$
+
+    -   Provides the height of the curve for a value of $x$, $\mu_x$, and $\sigma^2$
+
+-   Last week we pretended we knew $\mu_x$ and $\sigma_x^2$
+
+    -   Today we will only know values of $x$ and "**guess**" the parameters $\mu_x$ and $\sigma^2_x$
+
+## Key Idea: Constructing a Likelihood Function
+
+-   A likelihood function provides a value of a likelihood for a set of statistical parameters given observed data (here $L(\mu_x, \sigma^2_x|x)$)
+
+-   Likelihood functions start with probability density functions (PDFs)
+
+    -   Density functions are provided for each observation individually
+
+-   The likelihood function for the entire sample is the function that gets used in the estimation process
+
+    -   The sample likelihood can be thought of as **a joint distribution of all the observations**, simultaneously
+    -   In univariate statistics, **observations are considered independent**, so the joint likelihood for the sample is constructed through a product
+
+-   To demonstrate, let's consider the likelihood function for one observation
+
+## A One-Observation Likelihood function
+
+-   Let's assume:
+
+    -   We just observed the first value of IQ (*x* = 112)
+
+    -   Our initial **guess** is "the IQ comes from a normal distribution $x \sim N(100, 5)$ "
+
+    -   Our **goal** is to test whether this guess needed to be adjusted
+
+-   **Step 1:** For this one observation, the likelihood function takes its assumed distribution and uses its PDF:
+
+    $$
+    L(x_1=112|\mu_x = 100, \sigma^2_x = 5) = f(x_1, \mu_x, \sigma^2_x)= \frac{1}{\sqrt{2\pi*\color{tomato}{5}}}\exp(-\frac{(112-\color{royalblue}{100})}{2*\color{tomato}{5}})
+    $$
+
+-   If you want to know the value of $L(x_1)$, you can easily use R function [`dnorm(112, 100, sqrt(5))`]{.mohu} , which gives your $9.94\times 10^{-8}$.
+
+-   Because it is too small, typical we use `log` transformation of likelihood, which is called log likelihood. The value is **-16.12**
+
+## More observations: Multiplication of Likelihood
+
+-   $L(x_1 = 112|\mu_x = 100, \sigma^2_x = 5)$ can be interpreted as the [**Likelihood of first observation value being 112 given the underlying distribution is a normal distribution with mean as 100 and variance as 5**.]{.underline}
+
+-   **Step 2:** Then, for following observations, we can calculate their likelihood just similar to the first observation
+
+    -   Now, we have $L(x_2)$, $L(x_3)$, ..., $L(x_N)$
+
+-   **Step 3:** Now, we multiple them together $L(data|\mu_x=100, \sigma^2_x=5) =L(x_1)L(x_2)L(x_3)\cdots L(x_N)$, which represents the [**Likelihood of observed data existing given the underlying distribution is a normal distribution with mean as 100 and variance as 5**]{.underline}.
+
+-   **Step 4:** Again, we log transformed the likelihood to make the scale more easy to read: $LL(data|\mu_x=100, \sigma^2_x=5)$
+
+-   Step 5: Finally, we change the value of parameters $\mu_x$ and $\sigma^2_x$ and calculate their LL (i.e., $LL(data|\mu_x=101, \sigma^2_x=6)$)
+
+    -   Eventually, we can get a 3-D density plot with x-axis and y-axis are varied values of $\mu_x$ and $\sigma^2_x$; z-axis is their corresponding log-likelihood
+
+    -   The set of $\mu_x$ and $\sigma^2_x$ which has the highest log-likelihood are the estimates of MLE
+
+## Visualization of MLE
+
+The values of $\mu_x$ and $\sigma_x^2$ that maximize $L(\mu_x, \sigma^2_x|x)$ is $\hat\mu_x = 114.4$ and $\hat{\sigma^2_x} = 4.2$. We also know the mean of IQ is 114.2 and the variance of IQ is 5.3. Why the mean is same to estimate mu but variance is different? Answer: [MLE is a biased estimator]{.mohu}
+
+```{r}
+#| output-location: default
+#| code-fold: true
+library(plotly)
+ cal_LL <- function(x, mu, variance) {
+      sum(log(sapply(x, \(x) dnorm(x, mean = mu, sd = sqrt(variance)))))
+    }
+    
+x <- seq(80, 150, .1)
+y <- seq(3, 8, .1)
+x_y <- expand.grid(x, y)
+colnames(x_y) = c("mean", "variance")
+dat2 <- x_y
+dat2 <- dat2 |> 
+    rowwise() |> 
+    mutate(LL = cal_LL(x = dat$IQ, mu = mean, variance = variance)) |> 
+    ungroup() |> 
+    mutate(highlight = ifelse(LL == max(LL), TRUE, FALSE))
+plot_ly(data = dat2, x =~mean, y = ~variance, z = ~LL, 
+        colors = c("royalblue", "tomato"), 
+        color = ~highlight, stroke = "white", alpha_stroke = .5,
+        alpha = .9, type = "scatter3d",
+        width = 1600, height = 800) 
+```
+
+## Maximizing the Log Likelihood Function
+
+-   The process of finding the optimal estimates (i.e., $\mu_x$ and $\sigma_x^2$) may be complicated for some models
+
+    -   What we shown here was a grid search: trial-and-error process
+
+-   For relatively simple functions, we can use calculus to find the maximum of a function mathematically
+
+    -   Problem: not all functions can give closed-form solutions (i.e., one solvable equation) for location of the maximum
+
+    -   Solution: use **optimization algorithms** of searching for parameter (i.e., Expectation-Maximum algorithm, Newton-Raphson algorithm, Coordinate Descent algorithm)

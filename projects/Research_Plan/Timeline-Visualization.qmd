@@ -45,7 +45,6 @@ dat_clean <- dat_timeline |>
 ojs_define(ojsd = dat_clean)
 ```
 
-
 ## 2024-2025 Projects List
 
 ```{r}

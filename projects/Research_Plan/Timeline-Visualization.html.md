@@ -28,7 +28,6 @@ format:
 
 
 
-
 ## 2024-2025 Projects List
 
 
@@ -110,7 +109,7 @@ format:
 
 ::::::{.cell}
 
-```{.js .cell-code .hidden startFrom="63" source-offset="-0"}
+```{.js .cell-code .hidden startFrom="62" source-offset="-0"}
 Plot = import("https://cdn.jsdelivr.net/npm/@observablehq/plot/+esm")
 import {controlPanel, Ctrls} from "@analyzer2004/control-panel"
 tasks = transpose(ojsd)
@@ -211,7 +210,7 @@ colors = domainByGroup.map(d => colorMap.get(d))
 
 ::::::{.cell}
 
-```{.js .cell-code .hidden startFrom="80" source-offset="-0"}
+```{.js .cell-code .hidden startFrom="79" source-offset="-0"}
 Plot.plot({
     height: settings.plotHeight,
     width: settings.plotWidth,
@@ -280,7 +279,7 @@ Plot.plot({
 ::::
 :::::
 
-```{.js .cell-code .hidden startFrom="138" source-offset="-1776"}
+```{.js .cell-code .hidden startFrom="137" source-offset="-1776"}
 viewof settings = controlPanel([
   [
     Ctrls.slider("plotHeight", {label: "Plot height: ", min:500, max:1000, value:600}),
