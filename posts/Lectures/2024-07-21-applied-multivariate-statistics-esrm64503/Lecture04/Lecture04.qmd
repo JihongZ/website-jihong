@@ -85,7 +85,7 @@ $$
 Var(\beta_0 + \beta_1) = Var(\beta_0)+Var(\beta_1) +2*Cov(\beta_0, \beta_1)
 $$
 
-- `vcor` function provides the variances and covaraicnes for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
+- `vcor` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
 
 ```{r}
 #| output-location: default
@@ -789,16 +789,16 @@ The actual statistic that is being weighted by the PDF is put into the parenthes
     \text{Cov}(x,z)=E(xz)-E(x)E(z) = E(xz)-\mu_x\mu_z
     $$
 
-    ```{r}
-    #| results: hold
-    set.seed(1234)
-    N = 100
-    x = rnorm(N, 2, 1)
-    z = rnorm(N, 3, 1)
-    xz = x*z
-    (Cov_xz = mean(xz)-mean(x)*mean(z)) / ((N-1)/N) # unbiased covariance
-    cov(x, z)
-    ```
+```{r}
+#| results: hold
+set.seed(1234)
+N = 100
+x = rnorm(N, 2, 1)
+z = rnorm(N, 3, 1)
+xz = x*z
+(Cov_xz = mean(xz)-mean(x)*mean(z)) / ((N-1)/N) # unbiased covariance
+cov(x, z)
+```
 
 # Linear Combination of Random Variables
 

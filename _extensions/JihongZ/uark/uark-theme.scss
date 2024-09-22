@@ -25,6 +25,8 @@ $colors: (
 
 $tabset-border-color: $sand;
 
+
+
 /*Resources
 1. https://brand.uark.edu/social-media/downloads.php
 2. Logo: https://brand.uark.edu/graphic-identity/logos-and-wordmarks/index.php
@@ -162,8 +164,22 @@ $code-block-bg:  #F5F5F5 !default;
   align-items: center;
 }
 
+/* Code styling */
+.reveal div.sourceCode pre code {
+  border: 0.3rem solid $purple;
+}
+
+.reveal div.cell-output-stdout{
+  background-color: #FAF9F6;
+  border-radius: 8px;
+  border: none;
+}
+
 .reveal .slides code{
-  color: $bright-red !important;
+  background-color: #FAF9F6;
+  border-radius: 8px;
+  border: none;
+  color: $stone !important;
 }
 
 // Colours

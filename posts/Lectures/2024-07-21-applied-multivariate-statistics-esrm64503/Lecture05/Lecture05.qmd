@@ -11,7 +11,8 @@ sidebar: false
 execute: 
   echo: true
   warning: false
-output-location: column
+output-location: default
+code-annotations: hover
 format: 
   uark-revealjs:
     scrollable: true
@@ -46,8 +47,8 @@ filters:
 
 1.  You should be able to check your current grade for homework [here](https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/Grading_ShinyApp.html).
 2.  Homework 0: 20 points; Homework 1: 21 points
-3.  I adjusted everyone's scores based on how many errors in "key parts"
-    -   If the position within `vcov()` is incorrect (i.e., answer is `vcov(model)[1, 1]`, while the response is `vcov(model)[1, 2]`), you will lose 3 points
+3.  I adjusted everyone's scores based on how many errors you have in your homework that are "**key parts**"
+    -   If the position within `vcov()` is incorrect (i.e., answer is `vcov(model)[1, 1]`, while the response is `vcov(model)[1, 2]`), you will **lose** 3 points
 4.  If you found your scores, feel free to talk to me and I am willing to help at any time.
 
 ## Today's Example Data #1
@@ -210,6 +211,7 @@ The values of $\mu_x$ and $\sigma_x^2$ that maximize $L(\mu_x, \sigma^2_x|x)$ is
 ```{r}
 #| output-location: default
 #| code-fold: true
+#| fig-height: 1200
 library(plotly)
  cal_LL <- function(x, mu, variance) {
       sum(log(sapply(x, \(x) dnorm(x, mean = mu, sd = sqrt(variance)))))
@@ -238,8 +240,416 @@ plot_ly(data = dat2, x =~mean, y = ~variance, z = ~LL,
 
     -   What we shown here was a grid search: trial-and-error process
 
--   For relatively simple functions, we can use calculus to find the maximum of a function mathematically
+-   For relatively simple functions, we can use **calculus to find the maximum of a function mathematically**
 
     -   Problem: not all functions can give closed-form solutions (i.e., one solvable equation) for location of the maximum
 
     -   Solution: use **optimization algorithms** of searching for parameter (i.e., Expectation-Maximum algorithm, Newton-Raphson algorithm, Coordinate Descent algorithm)
+
+## Useful Properties of MLEs
+
+-   Next, we demonstrate three useful properties of MLEs (not just for GLMs)
+
+    -   Likelihood ratio (aka Deviance) tests
+
+    -   Wald tests
+
+    -   Information criteria
+
+-   To do so, we will consider our example where we wish to predict job performance from IQ (but will now center IQ at is mean of 11.4)
+
+-   We will estimate two models, both used to demonstrate how ML estimation differs slightly from LS estimation for GLMs
+
+    -   Empty model predicting just performance: $Y_p = \beta_0 + e_p$
+
+    -   Model where mean centered IQ predicts performance:
+
+        $$
+        Y_p =\beta_0+\beta_1(IQ - 114.4) + e_p
+        $$
+
+## `nlme` package: Maximum Likelihood
+
+-   `lm()` function in previous lectures uses ordinary least square (OLS) for estimation; To use ML, we can use `nlme` pakage
+
+-   `nlme` is a R package for **n**on**l**inear **m**ixed-**e**ffects model
+
+-   `gls()` for the empty model predicting performance:
+
+    ```{r}
+    #| output-location: default
+    library(nlme)
+    # empty model predicting performance
+    model01 <- gls(iq~1, data = dataIQ, method = "ML") # <1>
+    summary(model01)
+    ```
+
+    1.  make sure `method` argument is set to "`ML`"
+
+## Continue on `gls` function: Residuals, Information Criteria
+
+-   `gls` function will return an object of class "gls" representing the linear model fit
+
+    -   Generic functions like `print`, `plot`, and `summary` can be used to show the results of the model fitting
+
+    -   The functions `resid`, `coef`, `fitted` can be used to extract **residuals**, **coefficients**, and **predicted values**
+
+```{r}
+as.numeric(resid(model01)) # <1>
+attr(resid(model01), "std") # <2>
+```
+
+1.  Residuals: Deviation of observed value (IQ) from predicted value (IQ)
+2.  Residual standard deviation (standard error)
+
+-   Same results can be found in `summary` function's output as well
+
+`{r}} Residual standard error: 2.059126  Degrees of freedom: 5 total; 4 residual`
+
+-   Note that R found the same estimate of $\sigma^2_e$ (residual variance) as `2.059126^2 = 4.24`
+
+-   The Information Criteria section of `summary` shows statistics that can be used for **model comparisons**
+
+```{r}
+#| results: hold
+AIC(model01)
+BIC(model01)
+logLik(model01)
+```
+
+## Continue on `gls` function: Fixed Effects
+
+-   The coefficients (also referred to as **fixed effects**) are where the estimated regression slopes are listed
+
+```{r}
+summary(model01)$tTable # <1>
+```
+
+1.  You can use `str(summary(model01))` to check how many components the output contains
+
+-   Here, $\beta_0^{IQ}=\mu_x= 114.4$, which is exactly same as the results of our manually coded ML algorithm
+
+-   Difference from OLS we learnt last week:
+
+    -   Traditional ANOVA table with Sums of Squares (SS), Mean Squares (MS) are no longer listed
+
+    -   The Mean Square Error is no longer the estimate of $\sigma^2_e$: this comes directly from the model estimation algorithm itself.
+
+    -   The tradition $R^2$ change test (F test) also changes under ML estimation
+
+```{r}
+anova(model01)
+anova(lm(iq~1, data = dataIQ))
+```
+
+## Useful Properties of MLEs
+
+-   Next, we demonstrate three useful properties of MLEs (not just for GLMs)
+
+    -   Likelihood ratio (aka Deviance) tests
+    -   Wald tests
+    -   Information criteria
+
+-   To do so, we will consider our example where we wish to predict job performance from IQ (but will now center IQ at its mean of 114.4)
+
+-   We will estimate two models, both used to demonstrate how ML estimation differs slightly from LS estimation for GLMs
+
+    -   Empty model predicting just performance: $Y_p = \beta_0 + e_p$
+    -   Model where mean centered IQ predicts performance: $$
+          Y_p = \beta_0 + \beta_1 (IQ - 114.4) + e_p
+          $$
+
+## Model Estimations
+
+1.  **Model 02**: The empty model predicting performance
+
+```{r}
+# empty model predicting performance
+model02 = gls(perf ~ 1, data = dataIQ, method = "ML")
+summary(model02)$tTable |> show_table()
+```
+
+2.  **Model 03**: The conditional model where mean centered IQ predicts performance
+
+```{r}
+# centering IQ at mean of 114.4
+dataIQ$iq_114 <- dataIQ$iq - mean(dataIQ$iq)
+
+# conditional model with cented IQ as predictor
+model03a = gls(perf ~ iq_114, data = dataIQ, method = "ML")
+summary(model03a)$tTable |> show_table()
+```
+
+## Research Questions
+
+-   **Research Questions** in comparing between the two models that can be answered using ML:
+    -   Q1: How do we test the hypothesis that IQ predicts performance?
+        -   Likelihood ratio tests (LRT; can be multiple parameters)
+        -   Wald tests (usually for one parameters)
+    -   Q2: If IQ does significantly predict performance, what percentage of variance in performance does it account for?
+        -   Relative change in $\sigma^2_e$ from empty model to conditional model
+
+## Likelihood Ratio (Deviance) Tests
+
+-   The likelihood value from MLEs can help to statistically test competing models assuming the models are nested
+
+-   Likelihood ratio tests take the ratio of the likelihood for two models and use it as a test statistic
+
+-   Using log-likelihoods, the ratio becomes a difference
+
+    -   The test is sometimes called a deviance test $$
+          \log{\frac{A}{B}} = \log{A} - \log{B}
+          $$
+
+    $$
+      D = - 2\Delta  = -2 \times (\log{L_{H0}}-\log{L_{H1}})
+      $$
+
+    -   LRT is tested against a Chi-square distribution with degrees of freedom equal to the difference in number of parameters
+
+## Apply LRT to answer research question 1
+
+-   Q1: How do we test the hypothesis that IQ predicts performance?
+
+    -   **Step 1**: This can be translated to statistical language as: "test the null hypothesis that $\beta_1$ is squal to zero":
+
+    $$
+      H_0: \beta_1 = 0
+      $$
+
+    $$
+      H_1: \beta_1 \neq 0
+      $$
+
+    -   **Step 2**: The degree of freedom (df) of LRT is one parameter: the difference in number of parameters between the empty model and the conditional model
+
+    $$
+     K_{M3a} - K_{M2} = 3 - 2 = 1
+     $$
+
+    Note that the empty model (Model 2) has two parameters: $\beta_0$ and $\sigma^2_e$ and the conditional model (Model 3a) has three parameters: $\beta_0$, $\beta_1$ and $\sigma^2_e$
+
+    -   **Step 3**: estimate the -2\*log-likelihood for both models and compute Deviance (**D**)
+
+    ```{r}
+    (neg2LL_model02 <-  logLik(model02))
+    (neg2LL_model03a <- logLik(model03a))
+    (D = as.numeric(-2 *(neg2LL_model02 - neg2LL_model03a)))
+    ```
+
+    -   **Step 4**: calculate p-value from Chi-square distribution with 1 DF
+
+    ```{r}
+    pchisq(q = D, df = 1, lower.tail = FALSE)
+    ```
+
+    Alternatively, we can use `anova` to get the results of LRT more easily.
+
+    ```{r}
+    anova(model02, model03a) # <1>
+    ```
+
+    1.  Using `anova` with two models in the parenthesis to autimatically calculate Likelihood ratio test (LRT) for you
+
+    -   **Inference**: the regression slope for IQ was significantly different from zero - we prefer our alternative model to the null model
+
+    -   **Interpretation**: IQ significantly predicts performance
+
+## Apply Wald Tests to Answer Question 1 (Usually 1 DF tests in Software)
+
+-   For each parameter $\theta$, we can form the Wald statistic:
+
+$$
+\omega = \frac{\theta_{MLE} - \theta_0}{SE(\theta_{MLE})}
+$$
+
+-   Typically $\theta_0 = 0$
+
+-   As N gets large (goes to infinity), the Wald statistic converges to a standard normal distribution
+
+-   If we divide each parameter by its standard error, we can compute the two-tailed p-value from the standard normal distribution
+
+    -   Exception: bounded parameters can have issues (variances)
+
+-   We can further add that variances are estimated, switching this standard normal distribution to a **t distribution** (R does this for us for some packages)
+
+## Student t's distribution
+
+Recall that (in your introduction to statistics class) the degree of freedom of t-distribution follows:
+
+$$
+df = N - p - 1 = 5-1-1 = 3
+$$
+where N is the sample size (N = 5), p is the number of predictor (p = 1). For lower value of df, t value should be higher to have p-value smaller than alpha level as .05.
+
+```{r}
+#| code-fold: true
+#| fig-align: center
+set.seed(1234)
+x <- seq(-5, 5, .1)
+dat <- data.frame(
+  x = x,
+  `t_dist_1` = dt(x, df = 1),
+  `t_dist_2` = dt(x, df = 2),
+  `t_dist_3` = dt(x, df = 3),
+  `t_dist_4` = dt(x, df = 4),
+  normality = dnorm(x)
+) |> 
+  pivot_longer(-x)
+ggplot(dat) +
+  geom_path(aes(x = x, y = value, color = name), linewidth = 1.2, alpha = .8) +
+  geom_hline(yintercept = .05, linetype = "dashed", linewidth = 1.2) +
+  labs(y = "Density", x = "t value", title = "Probability Density Function for Normal and T-statistics with varied DFs") +
+  theme_classic() +
+  scale_color_brewer(palette = "Set1",
+                     labels = c("Normal Dist.", 
+                                "Student's t Dist with df = 1",
+                                "Student's t Dist with df = 2",
+                                "Student's t Dist with df = 3",
+                                "Student's t Dist with df = 4"),
+                     name = "") 
+```
+
+## F Distribution
+
+The degree of freedom of F distribution are $df_1 = 1$ and $df_2 = N - p = 5 - 2 = 3$. The probability distribution of F statistics can be achieved using `pf` in R. **When we have larger sample size or less parameters to be estimated, same F-statistic will be more likely to be significant. (We have more statistical power!)** Power analysis will tell us what is the minimum sample sample required to make one reasonable statistic significant.
+
+```{r}
+#| code-fold: true
+#| fig-align: center
+set.seed(1234)
+x <- seq(0, 10, .1)
+dat <- data.frame(
+  x = x,
+  `F_dist_1` = pf(x, df1 = 1, df2 = 3, lower.tail = FALSE),
+  `F_dist_2` = pf(x, df1 = 1, df2 = 10, lower.tail = FALSE),
+  `F_dist_3` = pf(x, df1 = 1, df2 = 100, lower.tail = FALSE),
+  `F_dist_4` = pf(x, df1 = 1, df2 = 1000, lower.tail = FALSE)
+) |> 
+  pivot_longer(-x)
+ggplot(dat) +
+  geom_path(aes(x = x, y = value, color = name), linewidth = 1.2, alpha = .8) +
+  geom_hline(yintercept = .05, linetype = "dashed", linewidth = 1.2) +
+  labs(y = "Probability", x = "F value", title = "Probability Function for F-statistics with varied DFs") +
+  theme_classic() +
+  scale_color_brewer(palette = "Set1",
+                     labels = c(
+                                "F Dist with df1 = 1, df2 = 3",
+                                "F Dist with df1 = 1, df2 = 10",
+                                "F Dist with df1 = 1, df2 = 100",
+                                "F Dist with df1 = 1, df2 = 1000"),
+                     name = "") 
+```
+
+
+## Wald test example
+
+-   R provides the Wald test statistic for us from the `summary()`or `anova()` function:
+  - One provides t-value, and the other provide F-value, but they have same p-values
+
+```{r}
+summary(model03a)$tTable |> show_table()
+anova(model03a) |> show_table()
+```
+
+### Manual Calculation
+
+$$
+\hat{t} = \frac{\hat{\beta}-0}{\text{SE}(\hat{\beta})}
+$$
+
+$$
+\hat{F} = \hat{t}^2
+$$
+
+```{r}
+coef_table <- summary(model03a)$tTable
+(t_value_beta1 <- ((coef_table[2, 1] - 0) / coef_table[2, 2]))
+(F_value_beta1 <- t_value_beta1^2)
+pt(t_value_beta1, 3, lower.tail = FALSE)*2 # p-value for two-tail t-test with df = 3
+pf(F_value_beta1, 1, 3, lower.tail = FALSE) # p-value for f-statistic with df1=1 and df2=3
+```
+
+-   Here, the slope estimate has a t-test statistic value of 7.095 (p = 0.0057592), meaning we would reject our null hypothesis, indicating that the IQ can predict performance significant
+
+-   Typically, Wald tests are used for one additional parameter
+
+    -   Here, one parameter -- slope of IQ
+
+## Model Comparison with $R^2$
+
+-   To compute an $R^2$, we use the ML estimates of $\sigma^2_e$:
+    -   Empty model: $\sigma^2_e = 4.160 (2.631)$
+    -   Conditional model: $\sigma^2_e = 0.234 (0.145)$
+
+```{r}
+#  Residual variance for model02
+(model02$sigma^2 -> resid_var_model02) # <1>
+# Residual variance for model03a
+(model03a$sigma^2 -> resid_var_model03a)
+```
+
+1.  use `$sigma` to extract standard errors
+
+-   The $R^2$ for variance in performance accounted for by IQ is:
+
+$$
+R^2 = \frac{4.160 - 0.234}{4.160} = .944
+$$ The model3a (IQ) can explain **94.4%** unexplained variance by empty model.
+
+## Information Criteria
+
+-   Information criteria are statistics that help determine the relative fit of a model for **non-nested models**
+    -   Comparison is fit-versus-parsimony
+-   R reports a set of criteria (from conditional model)
+
+```{r}
+anova(model02, model03a)
+```
+
+-   Each uses -2\*log-likelihood as a base
+
+-   Choice of IC is very arbitrary and depends on field
+
+-   Best model is one with **smallest** value
+
+-   [Note: don’t use information criteria for nested models]{style="color: tomato; font-weight:bold;"}
+
+    -   LRT/Deviance tests are more powerful
+
+## When and Which We should use
+
+1.  We introduce LRT, Wald test, $R^2$, and information criteria
+
+2.  We typically always report $R^2$ (for explained variances) and Wald test (for single parameters).
+
+3.  Then, when we have multiple model to comparison, we need to decide on whether these models are nested:
+
+-   If they are nested, we reported LRT statistics
+-   If they are not nested, we choose one IC to report (AIC, BIC either one is good, reporting both is best)
+
+## How ML and Least square Estimation of GLMs differ
+
+-   You may have recognized that the ML and the LS estimates of the fixed effects were identical
+  - And for these models, they will be
+
+- Where they differ is in their estimate of the residual variance $\sigma^2_e$:
+  - From least squares (MSE): $\sigma^2_e = 0.390$ (no SE)
+  - From ML (model parameter): $\sigma^2_e = 0.234$ (no SE in R)
+  
+- The ML version uses a bias estimate of $\sigma^2_e$ (it is too small)
+
+- Because $\sigma^2_e$ plays a role in all SEs, the Wald tests differed from LS and ML
+
+- Don't be troubled by this. A fix will come in a few weeks ...
+  - Hint: use method = "REML" rather than method = "ML" in gls()
+  
+## Wrapping Up
+- This lecture was our firs pass at maximum likelihood estimation
+
+- The topics discussed today apply to all statistical models, not just GLMs
+
+- Maximum likelihood estimation of GLMs helps when the basic assumptions are obviously violated
+  - Independence of observations
+  - Homogeneous $\sigma^2_e$
+  - Conditional normality of Y (normality of error terms)
