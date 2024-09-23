@@ -57,11 +57,12 @@ ui <-  dashboardPage(
       plotOutput(outputId = "score_pie"), # Output piechart of score proportion for each person
       collapsible = TRUE, collapsed = FALSE
     ),
-    # Show a plot of the generated distribution
+    # Show the table
     box(
       title = "Detailed information",
       width = 12,
       DTOutput(outputId = "data1"),
+      downloadButton("downloadData", "Download"), # Download Button
       collapsible = TRUE, collapsed = FALSE
     )
   )
@@ -147,6 +148,16 @@ server <- function(input, output) {
         output$data1 <- DT::renderDT({
           dat_final
         }, escape = FALSE)
+        
+        # Downloadable csv of selected dataset ----
+        output$downloadData <- downloadHandler(
+          filename = function() {
+            paste(input$name, "_report.csv", sep = "")
+          },
+          content = function(file) {
+            write.csv(dat_final, file, row.names = FALSE)
+          }
+        )
       })
     }
   })

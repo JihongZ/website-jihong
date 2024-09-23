@@ -42,9 +42,15 @@ hw1_assignment_tbl_clean <- hw1_assignment_tbl_clean |>
   filter(Starting_Time == max(Starting_Time))
 
 ## Combine Homeworks
-hw_all_tbl <- hw0_assignment_tbl_clean |> 
+hw_all_wide <- hw0_assignment_tbl_clean |> 
   left_join(hw1_assignment_tbl_clean, by = "Name", suffix = c("_HW0", "_HW1")) |> 
-  mutate(across(everything(), \(x) as.character(x))) |> 
+  mutate(across(everything(), \(x) as.character(x))) 
+## Add jihong zhang for showcase
+JihongZhang_case <- hw_all_wide[2, ]
+JihongZhang_case$Name = "JIHONG ZHANG"
+hw_all_wide <- rbind(hw_all_wide, JihongZhang_case)
+
+hw_all_tbl <- hw_all_wide |> 
   pivot_longer(c(ends_with("_HW0"), ends_with("_HW1"))) |> 
   separate(name, into = c("Variable", "HW"), sep = "_HW") |> 
   pivot_wider(names_from = "Variable", values_from = "value") |> 
@@ -56,8 +62,9 @@ set.seed(1234)
 
 passwords <- data.frame(
   Name = unique(hw_all_tbl$Name),
-  Code = sample(x = 1000:9999, size = 12)
+  Code = sample(x = 1000:9999, size = 13)
 ) |> arrange(Name)
+passwords[passwords$Name == "JIHONG ZHANG", "Code"]= "0000"
 
 hw_all_tbl <- hw_all_tbl |> 
   left_join(passwords, by = "Name")

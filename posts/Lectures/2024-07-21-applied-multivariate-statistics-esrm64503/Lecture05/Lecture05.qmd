@@ -38,18 +38,19 @@ filters:
 ## Today's Class
 
 -   Review Homework System
--   [**Maximum Likelihood Estimation**]{style="color: tomato"}
+-   [**Maximum Likelihood Estimation**]{style="color: tomato; font-weight:bold;"}
     -   The basics
     -   ML-based Test (Likelihood ratio test, Wald test, Information criteria)
     -   MLEs for GLMs
 
-## Homework Grade
+## More Details about Homework Grade
 
 1.  You should be able to check your current grade for homework [here](https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/Grading_ShinyApp.html).
-2.  Homework 0: 20 points; Homework 1: 21 points
+    -   You need your 4-digit unique code to check your homework.
+2.  Homework 0: [20]{style="color: tomato; font-weight:bold;"} points; Homework 1: [21]{style="color: tomato; font-weight:bold;"} points
 3.  I adjusted everyone's scores based on how many errors you have in your homework that are "**key parts**"
     -   If the position within `vcov()` is incorrect (i.e., answer is `vcov(model)[1, 1]`, while the response is `vcov(model)[1, 2]`), you will **lose** 3 points
-4.  If you found your scores, feel free to talk to me and I am willing to help at any time.
+4.  If you found your scores incorrect or have any suggestions, feel free to talk to me and I am willing to help at any time.
 
 ## Today's Example Data #1
 
@@ -109,15 +110,21 @@ Most estimation routines do one of **three things**:
 2.  **Maximize Something**: Typically found with names that have “maximum” in the title. Forms include “Maximum likelihood”, “ML”, “Residual Maximum Likelihood” (REML), “Robust ML”. Typically the gold standard of estimators
 3.  **Use Simulation to Sample from Something**: more recent advances in simulation use resampling techniques. Names include “Bayesian Markov Chain Monte Carlo”, “Gibbs Sampling”, “Metropolis Hastings”, “Metropolis Algorithm”, and “Monte Carlo”. Used for complex models where ML is not available or for methods where prior values are needed.
 
-::: {.callout-note style="font-size: 1.4em;"}
--   Loss function in Machine Learning belongs to type I
+::: callout-note
+-   Loss function in Machine Learning belong to 1st type
 
--   **Question**: Maximum Likelihood Estimation belongs to type [II]{.mohu}
+-   `lm` use QR algorithm, which is one of methods for Ordinary Least Square (OLS) Estimation
+
+-   **Question**: Maximum Likelihood Estimation belongs to [2ed type]{.mohu}
 :::
 
-## An Brief Introduction to Maximum
+```{r}
+summary(lm(perf ~ iq, data = dataIQ))
+```
 
--   MLE has several good statistical properties that make it the mostly commonly used in statistical estimation:
+## An Brief Introduction to Maximum Likelihood Estimation (MLE)
+
+-   MLE has several good statistical properties that make it the mostly commonly used in multivariate statistics:
 
     1.  [**Asymptotic Consistency**]{.underline}: as the sample size increases, the estimator converges in probability to parameters' true values
 
@@ -142,7 +149,7 @@ Most estimation routines do one of **three things**:
 -   For a single random variable *x*, the univariate normal distribution is:
 
     $$
-    f(x) = \frac{1}{\sqrt{2\pi\color{tomato}{\sigma^2_x}}}\exp(-\frac{(x-\color{royalblue}{\mu_x^2})}{2\color{tomato}{\sigma^2_x}})
+    f(x) = \frac{1}{\sqrt{2\pi\color{tomato}{\sigma^2_x}}}\exp(-\frac{(x-\color{royalblue}{\mu_x})^2}{2\color{tomato}{\sigma^2_x}})
     $$
 
     -   Provides the height of the curve for a value of $x$, $\mu_x$, and $\sigma^2$
@@ -179,7 +186,7 @@ Most estimation routines do one of **three things**:
 -   **Step 1:** For this one observation, the likelihood function takes its assumed distribution and uses its PDF:
 
     $$
-    L(x_1=112|\mu_x = 100, \sigma^2_x = 5) = f(x_1, \mu_x, \sigma^2_x)= \frac{1}{\sqrt{2\pi*\color{tomato}{5}}}\exp(-\frac{(112-\color{royalblue}{100})}{2*\color{tomato}{5}})
+    L(x_1=112|\mu_x = 100, \sigma^2_x = 5) = f(x_1, \mu_x, \sigma^2_x)= \frac{1}{\sqrt{2\pi*\color{tomato}{5}}}\exp(-\frac{(112-\color{royalblue}{100})^2}{2*\color{tomato}{5}})
     $$
 
 -   If you want to know the value of $L(x_1)$, you can easily use R function [`dnorm(112, 100, sqrt(5))`]{.mohu} , which gives your $9.94\times 10^{-8}$.
@@ -245,6 +252,30 @@ plot_ly(data = dat2, x =~mean, y = ~variance, z = ~LL,
     -   Problem: not all functions can give closed-form solutions (i.e., one solvable equation) for location of the maximum
 
     -   Solution: use **optimization algorithms** of searching for parameter (i.e., Expectation-Maximum algorithm, Newton-Raphson algorithm, Coordinate Descent algorithm)
+
+## Estimate Regression Coefficients
+
+$$
+Y \sim N(\beta_0+\beta_1X, \sigma_e)
+$$
+
+$$
+f(y) = \frac{1}{\sqrt{2\pi\color{tomato}{\sigma^2_e}}}\exp(-\frac{(y-\color{royalblue}{(\beta_0+\beta_1x)})^2}{2\color{tomato}{\sigma^2_e}})
+$$
+
+-   Both y and x are included in data, so we can create the likelihood function for $\beta_0$, $\beta_1$, and $\sigma^2_e$, just similar to what we did to $\mu_x$ and $\sigma^2_x$.
+
+For one data point with iq = 112 and perf = 10, we first assume $\sigma^2_e = 1$ and $\beta_0 = 0$
+
+$$
+L(\beta_1=1 | \beta_0 = 0, \sigma^2_e = 1) = \frac{1}{\sqrt{2\pi*\color{tomato}{1}}}\exp(-\frac{(112-\color{royalblue}{(0+1*112)})^2}{2*\color{tomato}{5}})
+$$
+
+-   We can iterate over different value of $\beta_1$ to see which value has highest likelihood. The move on to $\beta_0$ given fixed value of $\beta_1$ and $\sigma^2_e$
+
+::: callout-note
+Note that in modern software, the number of parameters is large. The iteration process over $\beta_1$ and other parameters is speeded up via optimization method (i.e., first derivation).
+:::
 
 ## Useful Properties of MLEs
 
@@ -479,8 +510,7 @@ Recall that (in your introduction to statistics class) the degree of freedom of 
 
 $$
 df = N - p - 1 = 5-1-1 = 3
-$$
-where N is the sample size (N = 5), p is the number of predictor (p = 1). For lower value of df, t value should be higher to have p-value smaller than alpha level as .05.
+$$ where N is the sample size (N = 5), p is the number of predictor (p = 1). For lower value of df, t value should be higher to have p-value smaller than alpha level as .05.
 
 ```{r}
 #| code-fold: true
@@ -541,11 +571,10 @@ ggplot(dat) +
                      name = "") 
 ```
 
-
 ## Wald test example
 
 -   R provides the Wald test statistic for us from the `summary()`or `anova()` function:
-  - One provides t-value, and the other provide F-value, but they have same p-values
+-   One provides t-value, and the other provide F-value, but they have same p-values
 
 ```{r}
 summary(model03a)$tTable |> show_table()
@@ -631,25 +660,30 @@ anova(model02, model03a)
 ## How ML and Least square Estimation of GLMs differ
 
 -   You may have recognized that the ML and the LS estimates of the fixed effects were identical
-  - And for these models, they will be
 
-- Where they differ is in their estimate of the residual variance $\sigma^2_e$:
-  - From least squares (MSE): $\sigma^2_e = 0.390$ (no SE)
-  - From ML (model parameter): $\sigma^2_e = 0.234$ (no SE in R)
-  
-- The ML version uses a bias estimate of $\sigma^2_e$ (it is too small)
+-   And for these models, they will be
 
-- Because $\sigma^2_e$ plays a role in all SEs, the Wald tests differed from LS and ML
+-   Where they differ is in their estimate of the residual variance $\sigma^2_e$:
 
-- Don't be troubled by this. A fix will come in a few weeks ...
-  - Hint: use method = "REML" rather than method = "ML" in gls()
-  
+    -   From least squares (MSE): $\sigma^2_e = 0.390$ (no SE)
+    -   From ML (model parameter): $\sigma^2_e = 0.234$ (no SE in R)
+
+-   The ML version uses a bias estimate of $\sigma^2_e$ (it is too small)
+
+-   Because $\sigma^2_e$ plays a role in all SEs, the Wald tests differed from LS and ML
+
+-   Don't be troubled by this. A fix will come in a few weeks ...
+
+    -   Hint: use method = "REML" rather than method = "ML" in gls()
+
 ## Wrapping Up
-- This lecture was our firs pass at maximum likelihood estimation
 
-- The topics discussed today apply to all statistical models, not just GLMs
+-   This lecture was our firs pass at maximum likelihood estimation
 
-- Maximum likelihood estimation of GLMs helps when the basic assumptions are obviously violated
-  - Independence of observations
-  - Homogeneous $\sigma^2_e$
-  - Conditional normality of Y (normality of error terms)
+-   The topics discussed today apply to all statistical models, not just GLMs
+
+-   Maximum likelihood estimation of GLMs helps when the basic assumptions are obviously violated
+
+    -   Independence of observations
+    -   Homogeneous $\sigma^2_e$
+    -   Conditional normality of Y (normality of error terms)
