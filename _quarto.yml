@@ -49,6 +49,7 @@ website:
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture02/Lecture02.qmd
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture03/Lecture03.qmd
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture04/Lecture04.qmd
+          - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture05/Lecture05.qmd
       - text: "---"    
       - section: ESRM 6553 Advanced Multivariate Analysis
         contents: 
