@@ -1,5 +1,6 @@
 //@import 'https://fonts.googleapis.com/css2?family=Maven+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Nunito:wght@300;400;500&family=JetBrains+Mono';
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
 /*-- scss:rules --*/
 @font-face {
@@ -21,21 +22,26 @@
   }
 
 .menu-text {
-  font-family: "Jost", sans-serif;
+  font-family: "Titillium Web", sans-serif;
   letter-spacing: 1px;
   font-weight: normal;
   color: $menutext-bg;
 }
+
+body {
+  font-family: "Titillium Web", sans-serif;
+}
 h1, h2, h3 {
   //color: #333333; 
   //font-family: "Ysabeau Office", sans-serif;
-  font-family: "Jost", sans-serif;
+  font-family: "Titillium Web", sans-serif;
   letter-spacing: 1.6px;
   letter-spacing: 0.8px;
   font-weight: normal;
 }
 p { // main font family of post content
-  font-family: 'Jost', sans-serif;
+  font-family: "Titillium Web", sans-serif;
+  font-weight: 400;
   font-weight: normal;
 }
 
