@@ -1,6 +1,6 @@
 ---
 title: "Lecture 05: Maximum Lilkelihood Estimation and Generalized Univariate Models"
-subtitle: "Models for Binary Outcomes"
+subtitle: "Lecture 05: Maximum Lilkelihood Estimation"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -12,7 +12,7 @@ execute:
   echo: true
   warning: false
 output-location: default
-code-annotations: hover
+code-annotations: below
 format: 
   uark-revealjs:
     scrollable: true
@@ -20,7 +20,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503: Lecture 05: Models for Binary Outcomes"
+    footer: "ESRM 64503 - Lecture 05: Maximum Lilkelihood Estimation"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
@@ -38,6 +38,7 @@ filters:
 
 ## Today's Class
 
+-   Review last class - Random variables and their distribution
 -   Review Homework System
 -   [**Maximum Likelihood Estimation**]{style="color: tomato; font-weight:bold;"}
     -   The basics
@@ -173,20 +174,33 @@ summary(lm(perf ~ iq, data = dataIQ))
 
 ## Key Idea: Constructing a Likelihood Function
 
--   A likelihood function provides a value of a likelihood for a set of statistical parameters given observed data (here $L(\mu_x, \sigma^2_x|x)$)
+1.  **A likelihood function** provides a value of a likelihood for a set of statistical parameters given observed data (denoted as $L(\mu_x, \sigma^2_x|x)$)
 
--   Likelihood functions start with probability density functions (PDFs)
+2.  If we observe the data (**known**) but do not know the mean and/or variance (**unkown**), then we call this the **sample likelihood function**
+
+    -   The process of finding the values that maximizing the sample likelihood function is named Maximum Likelihood function
+
+3.  Likelihood functions is a **probability density function** (PDFs) of random variables that input observed data values
 
     -   Density functions are provided for each observation individually
+    -   Each observation has its likelihood function.
+    -   [**Mark this:** We can get the "whole" likelihood of observed data by multiple all case-level likelihood.]{.underline}
 
--   The likelihood function for the entire sample is the function that gets used in the estimation process
+------------------------------------------------------------------------
 
+4.  Rather than providing the height of the curve of any value of x, it provides the **likelihood** for any possible values of parameters (i.e., $\mu_x$ and/or $\sigma^2_x$)
+
+    -   Goal of maximizing the sample likelihood function is to find optimal values of parameters
+
+5.  **Assumption**:
+
+    -   All observed random variables follow certain probability density functions (i.e., x follows normal dis. and y follows Bernoulli dist.).
     -   The sample likelihood can be thought of as **a joint distribution of all the observations**, simultaneously
     -   In univariate statistics, **observations are considered independent**, so the joint likelihood for the sample is constructed through a product
 
--   To demonstrate, let's consider the likelihood function for one observation
+6.  To demonstrate, let's consider the likelihood function for one observation that is used to estimate the mean and the variance of *x*
 
-## A One-Observation Likelihood function
+## Example: One-Observation Likelihood function
 
 -   Let's assume:
 
@@ -202,9 +216,9 @@ summary(lm(perf ~ iq, data = dataIQ))
     L(x_1=112|\mu_x = 100, \sigma^2_x = 5) = f(x_1, \mu_x, \sigma^2_x)= \frac{1}{\sqrt{2\pi*\color{tomato}{5}}}\exp(-\frac{(112-\color{royalblue}{100})^2}{2*\color{tomato}{5}})
     $$
 
--   If you want to know the value of $L(x_1)$, you can easily use R function [`dnorm(112, 100, sqrt(5))`]{.mohu} , which gives your $9.94\times 10^{-8}$.
+    -   If you want to know the value of $L(x_1)$, you can easily use R function [`dnorm(112, 100, sqrt(5))`]{.mohu} , which gives your $9.94\times 10^{-8}$.
 
--   Because it is too small, typical we use `log` transformation of likelihood, which is called log likelihood. The value is **-16.12**
+    -   Because it is too small, typical we use `log` transformation of likelihood, which is called log likelihood. The value is **-16.12**
 
 ## More observations: Multiplication of Likelihood
 
@@ -214,11 +228,11 @@ summary(lm(perf ~ iq, data = dataIQ))
 
     -   Now, we have $L(x_2)$, $L(x_3)$, ..., $L(x_N)$
 
--   **Step 3:** Now, we multiple them together $L(data|\mu_x=100, \sigma^2_x=5) =L(x_1)L(x_2)L(x_3)\cdots L(x_N)$, which represents the [**Likelihood of observed data existing given the underlying distribution is a normal distribution with mean as 100 and variance as 5**]{.underline}.
+-   **Step 3:** Now, we multiple them together $L(X|\mu_x=100, \sigma^2_x=5) =L(x_1)L(x_2)L(x_3)\cdots L(x_N)$, which represents the [**Likelihood of observed data existing given the underlying distribution is a normal distribution with mean as 100 and variance as 5**]{.underline}.
 
--   **Step 4:** Again, we log transformed the likelihood to make the scale more easy to read: $LL(data|\mu_x=100, \sigma^2_x=5)$
+-   **Step 4:** Again, we log transformed the likelihood to make the scale more easy to read: $LL(X|\mu_x=100, \sigma^2_x=5)$
 
--   Step 5: Finally, we change the value of parameters $\mu_x$ and $\sigma^2_x$ and calculate their LL (i.e., $LL(data|\mu_x=101, \sigma^2_x=6)$)
+-   **Step 5**: Finally, we change the value of parameters $\mu_x$ and $\sigma^2_x$ and calculate their LL (i.e., $LL(X|\mu_x=101, \sigma^2_x=6)$)
 
     -   Eventually, we can get a 3-D density plot with x-axis and y-axis are varied values of $\mu_x$ and $\sigma^2_x$; z-axis is their corresponding log-likelihood
 
