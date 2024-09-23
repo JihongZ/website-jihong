@@ -65,6 +65,7 @@ passwords <- data.frame(
   Code = sample(x = 1000:9999, size = 13)
 ) |> arrange(Name)
 passwords[passwords$Name == "JIHONG ZHANG", "Code"]= "0000"
+write.csv(passwords, file = paste0(hw_root_path, "ESRM64503_Homework_PW.csv"))
 
 hw_all_tbl <- hw_all_tbl |> 
   left_join(passwords, by = "Name")

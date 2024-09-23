@@ -123,7 +123,7 @@ Most estimation routines do one of **three things**:
 
 -   `lm` use QR algorithm, which is one of methods for Ordinary Least Square (OLS) Estimation
 
--   **Question**: Maximum Likelihood Estimation belongs to [2ed type]{.mohu}
+-   **Question**: Maximum Likelihood Estimation belongs to [2nd type]{.mohu}
 :::
 
 Note: the estimates of regression coefficients provided by `lm` are using the OLS estimation method.
