@@ -32,7 +32,8 @@ format:
     lightbox: true
     code-fold: false
 filters:
-  - shinylive
+  - quarto
+  - line-highlight
 ---
 
 ## Today's Class
@@ -54,16 +55,20 @@ filters:
 
 ## Today's Example Data #1
 
--   Please use `pak::pak("JihongZ/ESRM64503", upgrade = TRUE)` to upgrade `ESRM64503` package
+-   To use the class example data, type in following R code: `pak::pak("JihongZ/ESRM64503", upgrade = TRUE)` or `devtools::install_github("JihongZ/ESRM64503", upgrade = "always")` to upgrade `ESRM64503` package
 
--   Imagine an employer is looking to hire employees for a job where IQ is important
+### Data Information
 
-    -   We will use 5 observations so as to show the math behind the estimation calculations
+-   Purpose: imagine an employer is looking to hire employees for a job where IQ is important
+
+    -   We will use **5 observations** so as to show the math behind the estimation calculations
 
 -   The employer collects two variables:
 
-    -   IQ scores (`perf`)
-    -   Job performance (`iq`)
+    -   **Predictor**: IQ scores (labelled as `iq`)
+    -   **Outcome**: Job performance (labelled as `perf`)
+
+### Descriptive Statistics
 
 ```{r}
 # pak::pak("JihongZ/ESRM64503", upgrade = TRUE)
@@ -104,6 +109,8 @@ dat |>
 
 ## How Estimation Works (More or Less)
 
+We need models to test the hypothesis, while models need estimation method to provide estimates of effect size.
+
 Most estimation routines do one of **three things**:
 
 1.  **Minimize Something**: Typically found with names that have “least” in the title. Forms of least squares include “Generalized”, “Ordinary”, “Weighted”, “Diagonally Weighted”, “WLSMV”, and “Iteratively Reweighted.” Typically the estimator of last resort...
@@ -118,7 +125,11 @@ Most estimation routines do one of **three things**:
 -   **Question**: Maximum Likelihood Estimation belongs to [2ed type]{.mohu}
 :::
 
+Note: the estimates of regression coefficients provided by `lm` are using the OLS estimation method.
+
 ```{r}
+#| class-output: "highlight numberLines"
+#| output-line-numbers: "10-12"
 summary(lm(perf ~ iq, data = dataIQ))
 ```
 
@@ -133,6 +144,8 @@ summary(lm(perf ~ iq, data = dataIQ))
     3.  [**Efficiency**]{.underline}: No other estimator will have a smaller standard error
 
 ::: callout-note
+## Terminology
+
 **Estimator**: the algorithm that can get the estimates of parameters
 
 **Asymptotic:** the properties that will occur when the sample size is sufficiently large
@@ -146,7 +159,7 @@ summary(lm(perf ~ iq, data = dataIQ))
 
     -   We will begin today with the univariate normal distribution but quickly move to other distributions
 
--   For a single random variable *x*, the univariate normal distribution is:
+-   For a single random variable *x*, the **univariate normal distribution** is:
 
     $$
     f(x) = \frac{1}{\sqrt{2\pi\color{tomato}{\sigma^2_x}}}\exp(-\frac{(x-\color{royalblue}{\mu_x})^2}{2\color{tomato}{\sigma^2_x}})
@@ -309,6 +322,8 @@ Note that in modern software, the number of parameters is large. The iteration p
 
     ```{r}
     #| output-location: default
+    #| class-output: "highlight numberLines"
+    #| output-line-numbers: "4-19"
     library(nlme)
     # empty model predicting performance
     model01 <- gls(iq~1, data = dataIQ, method = "ML") # <1>
@@ -335,7 +350,7 @@ attr(resid(model01), "std") # <2>
 
 -   Same results can be found in `summary` function's output as well
 
-`{r}} Residual standard error: 2.059126  Degrees of freedom: 5 total; 4 residual`
+`Residual standard error: 2.059126  Degrees of freedom: 5 total; 4 residual`
 
 -   Note that R found the same estimate of $\sigma^2_e$ (residual variance) as `2.059126^2 = 4.24`
 
