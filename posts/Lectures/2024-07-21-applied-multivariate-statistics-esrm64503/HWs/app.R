@@ -126,17 +126,17 @@ server <- function(input, output) {
           
           ## remove name to save room
           dat_final <- dat_cleaned |> 
-            select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) 
+            dplyr::select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) 
         }else if(input$hw_index == "Homework0"){
           dat_final <- dat_cleaned |> 
-            select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) |> 
+            dplyr::select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) |> 
             filter(HW == 0) |> 
             t() |> 
             as.data.frame()
           colnames(dat_final) <- "Report"  
         }else if(input$hw_index == "Homework1"){
           dat_final <- dat_cleaned |> 
-            select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) |> 
+            dplyr::select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) |> 
             filter(HW == 1) |> 
             t() |> 
             as.data.frame()

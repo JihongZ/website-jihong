@@ -2,6 +2,7 @@ library(haven)
 library(ggplot2)
 library(tidyr)
 library(dplyr)
+library(glue)
 
 hw_resp_path <- "posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/Responses/" 
 hw_root_path <- "posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/" 
