@@ -1,5 +1,5 @@
 ---
-title: "Lecture 05: Maximum Lilkelihood Estimation and Generalized Univariate Models"
+title: "Lecture 05: Maximum Likelihood Estimation and Generalized Univariate Models"
 subtitle: "Lecture 05: Maximum Lilkelihood Estimation"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -295,7 +295,7 @@ $$
 For one data point with iq = 112 and perf = 10, we first assume $\sigma^2_e = 1$ and $\beta_0 = 0$
 
 $$
-L(\beta_1=1 | \beta_0 = 0, \sigma^2_e = 1) = \frac{1}{\sqrt{2\pi*\color{tomato}{1}}}\exp(-\frac{(112-\color{royalblue}{(0+1*112)})^2}{2*\color{tomato}{5}})
+L(\beta_1=1 | \beta_0 = 0, \sigma^2_e = 1) = \frac{1}{\sqrt{2\pi*\color{tomato}{1}}}\exp(-\frac{(112-\color{royalblue}{(0+1*112)})^2}{2*\color{tomato}{1}})
 $$
 
 -   We can iterate over different value of $\beta_1$ to see which value has highest likelihood. The move on to $\beta_0$ given fixed value of $\beta_1$ and $\sigma^2_e$
