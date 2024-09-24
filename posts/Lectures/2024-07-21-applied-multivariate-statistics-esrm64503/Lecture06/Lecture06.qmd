@@ -44,9 +44,11 @@ filters:
     -   An example of generalized models for binary data using logistic regression
 -   Matrix Algebra
 
-## An Introduction to Generalized Models
+# An Introduction to Generalized Linear Models
 
--   Statistical models can be broadly organized as:
+## Categories of Multivariate Models
+
+-   **Statistical models** can be broadly organized as:
 
     -   [General]{style="color: tomato;"} (normal outcome) vs. [Generalized]{style="color: royalblue"} (not normal outcome)
     -   [One dimension of sampling]{style="color: turquoise"} (one variance term per outcome) vs. [multiple dimensions of sampling]{style="color: yellowgreen"} (multiple variance terms)
@@ -709,7 +711,6 @@ flowchart RL
 <td>count of occurrences of different types (1, ..., <i>K</i>) out of <i>N</i> total <i>K</i>-way occurrences
 </td></tr></tbody></table>
 ```
-
 ## Three Parts of a Generalized Linear Model
 
 -   Link Function (main difference from GLM):
@@ -731,16 +732,16 @@ flowchart RL
 
 ## Link Functions: How Generalized Models Work
 
-1. Generalized models work by providing a mapping of the theoretical portion of the model (the right hand side of the equation) to the sample space of the outcome (the left hand side of the equation)
+1.  Generalized models work by providing a mapping of the theoretical portion of the model (the right hand side of the equation) to the sample space of the outcome (the left hand side of the equation)
 
-    - The mapping is done by a feature called a link function
-    
-2. The link function is a non-linear function that takes the linear model predictors, random/latent terms, and constants and puts them onto the space of the outcome observed variables
+    -   The mapping is done by a feature called a link function
 
-3. Link functions are typically expressed for the mean of the outcome variable (we will only focus on that)
+2.  The link function is a non-linear function that takes the linear model predictors, random/latent terms, and constants and puts them onto the space of the outcome observed variables
+
+3.  Link functions are typically expressed for the mean of the outcome variable (we will only focus on that)
 
     -   In generalized models, the variance is often a function of the mean
-    
+
 ## Link Functions in Practice
 
 -   The link function expresses the conditional value of the mean of the outcome
@@ -748,3 +749,143 @@ flowchart RL
 $$
 E(Y_p) = \hat{Y}_p = \mu_y
 $$
+
+where $E(\cdot)$ stands for expectation.
+
+-   ... through a non-linear **link function** $g(\hat Y_p)$ [when used on conditional mean of outcome]{style="color: royalblue; font-weight: bold"}
+
+    or its [inverse]{style="color: red; font-weight: bold"} **link function** $g^{-1}(\mathbf{\beta X})$ [when used on linear combination of predictors]{style="color: tomato; font-weight: bold"}
+
+-   The general form is:
+
+    $$
+    E(Y_p) =\hat{Y}_p = \mu_y =\color{royalblue}{g^{-1}}(\color{tomato}{\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p})
+    $$
+
+-   The [**red**]{style="color: tomato; font-weight: bold"} part is the linear combination of predictors and their effects.
+
+## Why normal GLM is one type of Generalized Linear Model
+
+-   Our familiar general linear model is actually a member of the generalized model family (it is subsumed)
+    -   The link function is called the identity, the linear predictor is unchanged
+-   The normal distribution has two parameters, a mean $\mu$ and a variance $\sigma^2$
+    -   Unlike most distributions, the normal distribution parameters are directly modeled by the GLM
+-   In conditionally normal GLMs, the inverse link function is called the identity function:
+
+$$
+g^{-1}(\cdot) = \boldsymbol{I}(\cdot) = 1 * (\text{linear combination of predictors})
+$$ - The identity function does not alter the predicted values -- they can be any real number - This matches the sample space of the normal distribution – the mean can be any real number
+
+-   The expected value of an outcome from the GLM is:
+
+$$
+E(Y_p) =\hat{Y}_p = \mu_y =\color{royalblue}{g^{-1}}(\color{tomato}{\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p}) \\
+= \beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p
+$$
+
+## About the Variance of GLM
+
+-   The other parameter of the normal distribution described the variance of an outcome – called the error (residual) variance
+
+-   We found that the model for the variance for the GLM was:
+
+$$
+Var(Y_p)=Var(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p + \color{tomato}{e_p}) = Var(e_p) = \sigma^2_e
+$$
+
+-   Similarly, this term directly relates to the variance of the outcome in the normal distribution
+    -   We will quickly see distributions from other families (i.e., logistic ) where this doesn’t happen
+
+# Generalized Linear Models For Binary Data
+
+## Today's Data Example
+
+1.  To help demonstrate generalized models for binary data, we borrow from an example listed on the [UCLA ATS website](https://stats.idre.ucla.edu/stata/dae/ordered-logistic-regression/).
+2.  Data come from a survey of 400 college juniors looking at factors that influence the decision to apply to graduate school:
+    -   **Y (outcome)**: student rating of likelihood he/she will apply to grad school ([0 = unlikely]{style="color: tomato"}; [1 = somewhat likely]{style="color: yellowgreen"}; [2 = very likely]{style="color: royalblue"})
+        -   We will first look at Y for two categories ([0 = unlikely]{style="color: tomato; font-weight: bold"}; [**1 = somewhat or very likely**]{style="color: royalblue; font-weight: bold"}) – we merged Cat1 and Cat2 into one category for illustration
+        -   You wouldn't do this in practice (use a different distribution for 3 categories)
+    -   **ParentEd**: indicator (0/1) if one or more parent has graduate degree
+    -   **Public**: indicator (0/1) if student attends a public university
+    -   **GPA**: grade point average on 4 point scale (4.0 = perfect)
+
+## Descriptive Statistics for Data
+
+```{r}
+#| code-fold: true
+library(ESRM64503)
+library(tidyverse)
+library(kableExtra)
+Desp_GPA <- dataLogit |> 
+  summarise(
+    Variable = "GPA",
+    N = n(),
+    Mean = mean(GPA),
+    `Std Dev` = sd(GPA),
+    Minimum = min(GPA),
+    Maximum = max(GPA)
+  ) 
+
+Desp_Apply <- dataLogit |> 
+  group_by(APPLY) |> 
+  summarise(
+    Frequency = n(),
+    Percent = n() / nrow(dataLogit) * 100
+  ) |> 
+  ungroup() |> 
+  mutate(
+    `Cumulative Frequency` = cumsum(Frequency),
+    `Cumulative Percent` = cumsum(Percent)
+  )
+
+Desp_LLApply <- dataLogit |> 
+  group_by(LLAPPLY) |> 
+  summarise(
+    Frequency = n(),
+    Percent = n() / nrow(dataLogit) * 100
+  ) |> 
+  ungroup() |> 
+  mutate(
+    `Cumulative Frequency` = cumsum(Frequency),
+    `Cumulative Percent` = cumsum(Percent)
+  )
+  
+
+Desp_PARED <- dataLogit |> 
+  group_by(PARED) |> 
+  summarise(
+    Frequency = n(),
+    Percent = n() / nrow(dataLogit) * 100
+  ) |> 
+  ungroup() |> 
+  mutate(
+    `Cumulative Frequency` = cumsum(Frequency),
+    `Cumulative Percent` = cumsum(Percent)
+  )
+
+Desp_PUBLIC <- dataLogit |> 
+  group_by(PUBLIC) |> 
+  summarise(
+    Frequency = n(),
+    Percent = n() / nrow(dataLogit) * 100
+  ) |> 
+  ungroup() |> 
+  mutate(
+    `Cumulative Frequency` = cumsum(Frequency),
+    `Cumulative Percent` = cumsum(Percent)
+  )
+
+
+```
+
+```{r}
+show_table(Desp_Apply) # Likelihood of Applying (1 = somewhat likely; 2 = very likely)
+show_table(Desp_LLApply) # Likelihood of Applying (1 = likely)
+show_table(Desp_GPA) # Analysis Variable : GPA
+show_table(Desp_PARED) # Parent Has Graduate Degree
+show_table(Desp_PUBLIC) # Student Attends Public University
+```
+
+## What If We Used a Normal GLM for Binary Outcomes?
+
+-   If $Y_p$ is a binary (0 or 1) outcome
