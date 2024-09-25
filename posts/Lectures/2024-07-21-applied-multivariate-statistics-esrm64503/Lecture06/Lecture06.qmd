@@ -773,14 +773,16 @@ where $E(\cdot)$ stands for expectation.
 -   In conditionally normal GLMs, the inverse link function is called the identity function:
 
 $$
-g^{-1}(\cdot) = \boldsymbol{I}(\cdot) = 1 * (\text{linear combination of predictors})
+g^{-1}(\cdot) = \boldsymbol{I}(\cdot) = 1 * (\color{yellowgreen}{\text{linear combination of predictors}})
 $$ - The identity function does not alter the predicted values -- they can be any real number - This matches the sample space of the normal distribution – the mean can be any real number
 
 -   The expected value of an outcome from the GLM is:
 
 $$
-E(Y_p) =\hat{Y}_p = \mu_y =\color{royalblue}{g^{-1}}(\color{tomato}{\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p}) \\
-= \beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p
+\begin{align}
+\mathbb{E}(Y_p) =\hat{Y}_p = \mu_y &=\color{royalblue}{\boldsymbol{I}}(\color{yellowgreen}{\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p}) \\
+&= \beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p
+\end{align}
 $$
 
 ## About the Variance of GLM
@@ -790,7 +792,11 @@ $$
 -   We found that the model for the variance for the GLM was:
 
 $$
-Var(Y_p)=Var(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p + \color{tomato}{e_p}) = Var(e_p) = \sigma^2_e
+\begin{align}
+Var(Y_p) &= Var(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p + \color{tomato}{e}_p ) \\
+&= Var(e_p) \\
+&= \sigma^2_e
+\end{align}
 $$
 
 -   Similarly, this term directly relates to the variance of the outcome in the normal distribution
@@ -893,11 +899,11 @@ show_table(Desp_PUBLIC) # Student Attends Public University
         -   $\color{tomato}{\beta}_0$ = expected probability when all predictors are 0
         -   $\color{tomato}{\beta}_s$ = expected change in probability for a one-unit change in the predictor
         -   $\color{royalblue}{e}_p$ = difference between observed and predicted values
-    -   Model becomes $Y_p = \color{tomato}{(\text{predicted probability of 1})} + e_p$
+    -   Generalized Linear Model becomes $Y_p = \color{tomato}{(\text{predicted probability of outcome equal to 1})} + e_p$
 
 ## A General Linear Model of Predicting Binary Outcomes?
 
--   But if $Y_p$ is binary, then $e_p$ can only be 2 things:
+-   But if $Y_p$ is binary and link function is identity link, then $e_p$ can only be 2 things:
 
     -   $e_p$ = $Y_p - \hat{Y}_p$
 

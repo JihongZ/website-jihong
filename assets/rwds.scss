@@ -42,7 +42,10 @@ h1, h2, h3 {
 p { // main font family of post content
   font-family: "Titillium Web", sans-serif;
   font-weight: 400;
-  font-weight: normal;
+}
+
+strong {
+  font-weight: 700;
 }
 
 /*-- scss:uses --*/
