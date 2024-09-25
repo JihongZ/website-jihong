@@ -874,8 +874,6 @@ Desp_PUBLIC <- dataLogit |>
     `Cumulative Frequency` = cumsum(Frequency),
     `Cumulative Percent` = cumsum(Percent)
   )
-
-
 ```
 
 ```{r}
@@ -889,3 +887,130 @@ show_table(Desp_PUBLIC) # Student Attends Public University
 ## What If We Used a Normal GLM for Binary Outcomes?
 
 -   If $Y_p$ is a binary (0 or 1) outcome
+    -   Expected mean is proportion of people who have a 1 (or "p", the probability of Y_p = 1 in the sample)
+    -   The probability of having a 1 is what we're trying to predict for each person, given the values of his/her predictors
+    -   General linear model: $Y_p = \beta_0 + \beta_1x_p + \beta_2z_p + e_p$
+        -   $\color{tomato}{\beta}_0$ = expected probability when all predictors are 0
+        -   $\color{tomato}{\beta}_s$ = expected change in probability for a one-unit change in the predictor
+        -   $\color{royalblue}{e}_p$ = difference between observed and predicted values
+    -   Model becomes $Y_p = \color{tomato}{(\text{predicted probability of 1})} + e_p$
+
+## A General Linear Model of Predicting Binary Outcomes?
+
+-   But if $Y_p$ is binary, then $e_p$ can only be 2 things:
+
+    -   $e_p$ = $Y_p - \hat{Y}_p$
+
+        -   If $Y_p = 0$ then $e_p$ = (0 - predicted probability)
+
+        -   If $Y_p = 1$ then $e_p$ = (1 - predicted probability)
+
+    -   The mean of errors would still be 0 ... by definition
+
+    -   But variance of errors can't possibly be constant over levels of X like we assume in general linear models
+
+        -   The mean and variance of a binary outcome are **dependent!**
+
+        -   As shown shortly, mean = *p* and variance = *p* \* (1 - *p*), so they are tied together
+
+        -   This means that because the conditional mean of Y (*p*, the predicted probability Y = 1) is dependent on X, then so is the error variance
+
+## A General Linear Model With Binary Outcomes?
+
+-   How can we have a linear relationship between X & Y?
+
+-   Probability of a 1 is bounded between 0 and 1, but predicted probabilities from a linear model aren't bounded
+
+    -   Impossible values
+
+-   Linear relationship needs to 'shut off' somehow $\rightarrow$ made nonlinear
+
+```{r}
+library(ggplot2)
+ggplot(dataLogit) +
+  aes(x = GPA, y = LLAPPLY) +
+  geom_hline(aes( yintercept = 1)) +
+  geom_hline(aes( yintercept = 0)) +
+  geom_point(color = "tomato", alpha = .8) +
+  geom_smooth(method = "lm", se = FALSE, fullrange = TRUE) +
+  scale_x_continuous(limits = c(0, 8), breaks = 0:8) +
+  scale_y_continuous(limits = c(-0.4, 1.4), breaks = seq(-0.4, 1.4, .1)) +
+  theme_classic()
+```
+
+```{r}
+ggplot(dataLogit) +
+  aes(x = GPA, y = LLAPPLY) +
+  geom_hline(aes( yintercept = 1)) +
+  geom_hline(aes( yintercept = 0)) +
+  geom_point(color = "tomato", alpha = .8) +
+  geom_smooth(method = "glm", se = FALSE, fullrange = TRUE,
+              method.args = list(family = binomial(link = "logit")), color = "yellowgreen") +
+  scale_x_continuous(limits = c(0, 8), breaks = 0:8) +
+  scale_y_continuous(limits = c(-0.4, 1.4), breaks = seq(-0.4, 1.4, .1)) +
+  theme_classic()
+```
+
+## 3 Problems with GLM predicting binary outcomes
+
+-   Assumption Violation problem: GLM for continuous, conditionally normal outcome = residuals can't be normally distributed
+
+-   Restricted Range problem (e.g., 0 to 1 for outcomes)
+
+    -   Predictors should not be linearly related to observed outcome
+
+        -   Effects of predictors need to be 'shut off' at some point to keep predicted values of binary outcome within range
+
+-   Decision Making Problem: for GLM, the predicted value will a continuous predicted value with same scale of outcome (Y), how do we answer the question such as whether or not students will apply given certain value of GPA
+
+    -   But for Generalized Linear model, we can say students will have 50% probability of applying
+
+## The Binary Outcome: Bernoulli Distribution
+
+-   Bernoulli distribution has following properties
+
+    -   Notation: $Y_p \sim B(\boldsymbol{p}_p)$ (where ***p*** is the conditional probability of a 1 for person p)
+
+    -   Sample Space: $Y_p \in \{0, 1\}$ ($Y_p$ can either be a 0 or a 1)
+
+    -   Probability Density Function (PDF):
+
+    ```         
+    $$
+    f(Y_p) = (p_p)^{Y_p}(1-p_p)^{1-Y_p}
+    $$
+    ```
+
+    -   Expected value (mean) of Y: $E(y_p) = \mu_{Y_p}=\boldsymbol{p}_p$
+
+    -   Variance of Y: $Var(Y_p) = \sigma^2_{Y_p} = \boldsymbol{p}_p ( 1- \boldsymbol{p}_p )$
+
+::: callout-note
+$\boldsymbol{p}_p$ is the only parameter – so we only need to provide a link function for it ...
+:::
+
+## Generalized Models for Binary Outcomes
+
+-   Rather than modeling the probability of a 1 directly, we need to transform it into a more continuous variable with a **link function**, for example:
+
+    -   We could transform **probability** into an **odds ratio**
+
+        -   Odds ratio (OR): $\frac{p}{1-p} = \frac{Pr(Y = 1)}{Pr(Y = 0)}$
+
+        -   For example, if $p = .7$, then OR(1) = 2.33; OR(0) = .429
+
+        -   Odds scale is [way skewed, asymmetric, and ranges from 0 to $+\infty$]{style="color: tomato"}
+
+            -   This is not a helpful property
+
+    -   **Take natural log of odds ratio** $\rightarrow$ called "logit" link
+
+        -   $\text{logit}(p) = \log(\frac{p}{1-p})$
+
+        -   For example, $\text{logit}(.7) = .846$ and $\text{logit}(.3) = -.846$
+
+        -   Logit scale is now symmetric at $p = .5$
+
+    -   The logit link is one of many used for the Bernoulli distribution
+
+        -   Names of others: Probit, Log-Log, Complementary Log-Log
