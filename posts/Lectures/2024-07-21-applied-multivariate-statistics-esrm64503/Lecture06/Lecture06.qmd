@@ -975,11 +975,11 @@ ggplot(dataLogit) +
 
     -   Probability Density Function (PDF):
 
-    ```         
-    $$
-    f(Y_p) = (p_p)^{Y_p}(1-p_p)^{1-Y_p}
-    $$
-    ```
+        -   $$
+            f(Y_p) = (\mathbf{p}_p)^{Y_p}(1-\mathbf{p}_p)^{1-Y_p}
+            $$
+
+    <!-- -->
 
     -   Expected value (mean) of Y: $E(y_p) = \mu_{Y_p}=\boldsymbol{p}_p$
 
@@ -1013,4 +1013,276 @@ $\boldsymbol{p}_p$ is the only parameter – so we only need to provide a link f
 
     -   The logit link is one of many used for the Bernoulli distribution
 
-        -   Names of others: Probit, Log-Log, Complementary Log-Log
+        -   Names of others: [Probit, Log-Log, Complementary Log-Log]{style="color: tomato"}
+
+## More Details about Logit Transformation
+
+-   The link function for a logit is defined by:
+
+    $$
+    g(\mathbb{E}(Y)) = \log(\frac{P(Y=1)}{1-P(Y=1)}) = \beta X^T
+    $$ {#eq-logit-e}
+
+    where $g$ called **link function**, $\mathbb{E}(Y)$ is the expectation of Y, $\beta X^T$ is the linear predictor
+
+A logit can be translate back to a probability with some algebra:
+
+$$
+P(Y=1) = \frac{\exp(\beta X^T)}{1+\exp(\beta X^T)} = \frac{\exp(\beta_0 + \beta_1 X + \beta_2Z + \beta_3XZ)}{1+\exp(\beta_0 + \beta_1 X + \beta_2Z + \beta_3XZ)} \\
+= (1+\exp(-1*(\beta_0 + \beta_1 X + \beta_2Z + \beta_3XZ)))^{-1}
+$$ {#eq-logit-p}
+
+From @eq-logit-e and @eq-logit-p, we can know that $g(\mathbb{E}(Y))$ has a range of \[-$\infty$, +$\infty$\], P(Y = 1) has a range of \[0, 1\].
+
+## Interpretation of Coefficients
+
+-   Intercept $\beta_0$:
+
+    **Logit**: We can say the predicted logit value of Y = 1 for an individual when all predictors are zero; i.e., *the average logit is -2.007*
+
+    **Probability**: Alternatively, we can say the expected value of probability of Y = 1 is $\frac{\exp(\beta_0)}{1+\exp(\beta_0)}$ when all predictors are zero; i.e., *the average probability of applying to grad score is .550*
+
+    **Odds Ratio**: Alternatively, we can say the expected odds ratio (OR) of probability of Y = 1 is $\exp(\beta_0)$ when all predictors are zero; the average odds (ratio) of the probability of applying to grad school is exp(-.2007) = .819
+
+-   Slope $\beta_1$:
+
+    **Logit**: We can say the predicted [**increase**]{style="color: tomato; font-weight: bold"} of logit value of Y = 1 with one-unit increase of X;
+
+    **Probability**: We can say the expected [**increase**]{style="color: tomato; font-weight: bold"} of probability of Y = 1 is $\frac{\exp(\beta_0+\beta_1)}{1+\exp(\beta_0+\beta_1)}-\frac{\exp(\beta_0)}{1+\exp(\beta_0)}$ with one-unit increase of X; Note that the increase ($\Delta(\beta_0, \beta_1)$) is non-linear and dynamic given varied value of X.
+
+    **Odds Ratio**: We can say the expected odds ratio (OR) of probability of Y = 1 is $\exp(\beta_1)$ times larger with one-unit increase of X. ([hint: the new odds ratio is $\exp(\beta_0+\beta_1) = \exp(\beta_0)\exp(\beta_1)$ when X = 1 and the old odds ratio is $\exp(\beta_0)$ when X = 0]{.mohu})
+
+## Example: Fitting The Models
+
+-   Model 0: The empty model for logistic regression with binary variable (applying for grad school) as the outcome
+
+-   Model 1: The logistic regression model including centered GPA and binary predictors (Parent has granduate degree, Student Attend Public University)
+
+## Model 0: The empty model
+
+-   The statistical form of empty model:
+
+    $$
+    P(Y_p =1) = \frac{\exp(\beta_0)}{1+\exp(\beta_0)}
+    $$
+
+    or
+
+    $$
+    \text{logit}(P(Y_p = 1)) = \beta_0
+    $$
+
+::: callout-note
+## Takehome Note
+
+Many generalized linear models don't list an error term in the statistical form. This is because the error has fixed mean and fixed variances.
+
+For the logit function, $e_p$ has a logistic distribution with a zero mean and a variance as $\pi^2$/3 = 3.29.
+:::
+
+-   Use `ordinal` package and `clm()` function, we can model categorical dependent variables
+
+```{r}
+library(ordinal)
+# response variable must be a factor
+dataLogit$LLAPPLY = factor(dataLogit$LLAPPLY, levels = 0:1) # <1>
+# Empty model: likely to apply
+model0 = clm(LLAPPLY ~ 1, data = dataLogit, control = clm.control(trace = 1)) # <2>
+```
+
+1.  The dependent variable must be stored as a `factor`
+2.  the `formula` and `data` arguments are identical to `lm`; The `control =` argument is only used here to show iteration history of the ML algorithm
+
+## Model 0: Result
+
+```{r}
+summary(model0)
+```
+
+-   The `clm` function output **Threshold** parameter (labelled as $\tau_0$) rather than intercept ($\beta_0$).
+
+-   The relationship between $\beta_0$ and $\tau_0$ is $\beta_0 = - \tau_0$
+
+    -   Thus, the estimated $\beta_0$ is -0.2007 with SE = 0.1005 for model 0
+
+    -   The predicted logit is -0.2007; the predicted probability is .55
+
+    -   The log-likelihood is -275.26; AIC is 552.51
+
+## Model 1: The conditional model
+
+$$
+P(Y_p = 1) = \frac{\exp(\beta_0 + \beta_1PARED_p + \beta_2 (GPA_p-3) +\beta_3 PUBLIC_p)}{1 + \exp(\beta_0 + \beta_1PARED_p + \beta_2 (GPA_p-3) +\beta_3 PUBLIC_p)}
+$$
+
+or
+
+$$
+\text{logit}(P(Y_p =1)) = \beta_0 + \beta_1PARED_p + \beta_2 (GPA_p-3) +\beta_3 PUBLIC_p
+$$
+
+```{r}
+dataLogit$GPA3 <- dataLogit$GPA - 3
+model1 = clm(LLAPPLY ~ PARED + GPA3 + PUBLIC, data = dataLogit)
+summary(model1)
+```
+
+## Model 1: Results
+
+-   LL(Model 1) = -264.96 (LL(Model 0) = -275.26)
+
+-   $\beta_0 = -\tau_0 = 0.3382 (0.1187)$
+
+-   $\beta_1 (SE) = 1.0596 (0.2974)$ with $p < .05$
+
+-   $\beta_2 (SE) = 0.5482 (0.2724)$ with $p < .05$
+
+-   $\beta_3 (SE) = -0.2006 (0.3053)$ with $p = .511$
+
+### Understand the results
+
+1.  **Question #1**: does Model 1 fit better than the empty model (Model 2)?
+
+    This question is equivalent to test the following hypothesis:
+
+    $$
+    H_0: \beta_0=\beta_1=\beta_2=0\\
+    H_1: \text{At least one not equal to 0}
+    $$
+
+    We can use [Likelihood Ratio Test]{.mohu}:
+
+    $$
+    -2\Delta = (-275.26 - (-264.96)) = 20.586
+    $$
+
+    -   DF = 4 (# of params of Model 0) - 1 (# of params of Model 1) = 3
+
+    -   p-value: p = .0001283
+
+        ```{r}
+        # anova can compare two models
+        anova(model0, model1)
+        # Or we can use chi-square distribution to calculate p-value
+        as.numeric(pchisq(-2 * (logLik(model0)-logLik(model1)), 3, lower.tail = FALSE))
+        ```
+
+    -   Conclusion: reject $H_0$ and we preferred to [the empty model]{.mohu}
+
+------------------------------------------------------------------------
+
+2.  **Question #2**: Whether the effects of GPA, PARED, PUBLIC are significant or not?
+    -   **Intercept** $\beta_0 = -0.3382 (0.1187)$:
+
+        **Logit**: the predicted logit of probability of applying for the grad school is [-0.3382]{style="color: tomato"} for a person with 3.0 GPA, parents without a graduate degree, and at a private university
+
+        **Odds Ratio:** the predicted OR of applying for the grad school is $0.7130$ for a person with 3.0 GPA, parents without a graduate degree, and at a private university (OR \< 1: the probability of applying is less than the probability of not applying)
+
+        **Probability**: the predicted probability of applying for the grad school is [41.7%]{style="color: tomato"} for a person with 3.0 GPA, parents without a graduate degree, and at a private university
+
+    -   **Slope of parents having a graduate degree**: $\beta_1 (SE) = 1.0596 (0.2974)$ with $p < .05$
+
+        **Logit**: the predicted logit of applying for the grad school will increase [1.0596]{style="color: tomato"} for whose parents having a graduate degree controlling other predictors.
+
+        **Odds Ratio**: the predicted OR will increase [from 0.7139 to 2.05]{style="color: tomato"} for whose parents having a graduate degree controlling other predictors – students who have parents with a graduate degree has 3x the odds of rating the item with a "likely to apply"
+
+        **Probability**: Compared to those without parental graduate degree, the predicted probability of "likely to apply" for students with parental graduate degree increases [from 0.416 to .673]{style="color: tomato"}
+
+        $$
+        \frac{\exp(\beta_0+\beta_1)}{1+ \exp(\beta_0+\beta_1)}= .673
+        $$
+
+        $$
+        \frac{\exp(\beta_0)}{1+ \exp(\beta_0)}= .416
+        $$
+
+    -   **Slope of students in public vs. private universities:** $\beta_3 (SE) = -0.2006 (0.3053)$ with $p = .511$
+
+```{r}
+## Interpret output
+OR_p <- function(logit_old, logit_new){
+  data.frame(
+    OR_old = exp(logit_old),
+    OR_new = exp(logit_new),
+    p_old = exp(logit_old) / (1 + exp(logit_old)),
+    p_new = exp(logit_new) / (1 + exp(logit_new))
+  )
+}
+beta_0 <- -0.3382
+beta_3 <- -0.2006
+Result <- OR_p(logit_old = beta_0, logit_new = (beta_0 + beta_3)) 
+Result |> show_table()
+Result[1, 2] / Result[1, 1]
+Result[1, 4] - Result[1, 3]
+```
+
+::: callout-note
+## Interpretation
+
+-   Students has [0.81 times odds ratio of applying for grad.]{.mohu}school when they are in public universities
+
+-   The probability [of applying for grad. school increases 4.78%]{.mohu}.
+
+-   This change in odds ratio and probability of applying for grad. school is not significant.
+:::
+
+------------------------------------------------------------------------
+
+-   **Slope of GPA3:** $\beta_2(SE) = 0.5482 (0.2724)$ with $p < .05$
+
+    ```{r}
+    beta_2 <- 0.5482
+    Result2 <- OR_p(logit_old = beta_0, logit_new = (beta_0 + beta_2)) 
+    Result2 |> show_table()
+    Result2[1, 2]/Result2[1, 1]
+    ```
+
+::: callout-note
+## Interpretation
+
+-   For every one-unit increase in GPA, the logit of applying for grad. school will increase 0.548, the odds ratio will be 1.73 times, the probabilities will be 19.2%, 29.2%, 41.6% to 55.2% for GPA = 1 , 2, 3 and 4
+:::
+
+```{r}
+new_data <- data.frame(
+  GPA3 = seq(-3, 1, .1),
+  PARED = 0,
+  PUBLIC = 0
+)
+
+Pred_prob <- predict(model1, newdata=new_data)$fit
+
+as.data.frame(cbind(GPA = new_data$GPA3+3, P_Y_0 = Pred_prob[,1], P_Y_1 = Pred_prob[,2])) |> 
+  pivot_longer(starts_with("P_Y")) |> 
+  ggplot() +
+  aes(x = GPA, y = value) +
+  geom_path(aes(group = name, color = name), linewidth = 1.3) +
+  labs(y = "Predicted Probability") +
+  scale_x_continuous(breaks = seq(0, 4, .2)) +
+  scale_color_discrete(labels = c("P(Y = 0)", "P(Y = 1)"), name = "") +
+  theme_classic()
+```
+
+::: callout-important
+## Takehome Note
+
+-   For logistic models with two responses:
+    -   Regression weights are now for LOGITS
+    -   The direction of what is being modeled has to be understood (Y = 0 or = 1)
+    -   The change in odds and probability is not linear per unit change in the IV, but instead is linear with respect to the logit
+    -   Interactions will still
+        -   Will still modify the conditional main effects
+        -   Simple main effects are effects when interacting variables = 0
+:::
+
+## Wrap up
+
+-   Generalized linear models are models for outcomes with distributions that are not necessarily normal
+
+-   The estimation process is largely the same: maximum likelihood is still the gold standard as it provides estimates with understandable properties
+
+-   Learning about each type of distribution and link takes time:
+
+    -   They all are unique and all have slightly different ways of mapping outcome data onto your model
+
+-   Logistic regression is one of the more frequently used generalized models – binary outcomes are common

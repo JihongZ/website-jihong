@@ -26,10 +26,14 @@ website:
     search: true
     collapse-level: 1
     contents:
-      - section: 'Research Plan'
+      - section: 'Useful Materials'
         contents: 
-          - text: '2024 Fall'
+          - text: '2024 Fall Research Plan'
             file: projects/Research_Plan/Timeline-Visualization.qmd
+          - text: 'Curriculum Vitae'
+            file: uploads/Curriculum_Vitae.pdf
+          - text: 'Latex Symbols'
+            file: uploads/latex_symbols.pdf
       - text: "---"      
       - section: Latent Variable Model
         contents: 
@@ -50,6 +54,7 @@ website:
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture03/Lecture03.qmd
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture04/Lecture04.qmd
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture05/Lecture05.qmd
+          - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture06/Lecture06.qmd
       - text: "---"    
       - section: ESRM 6553 Advanced Multivariate Analysis
         contents: 
