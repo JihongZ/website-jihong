@@ -1,15 +1,13 @@
 ---
-title: "ESRM 64503: Applied Multivariate Analysis"
-subtitle: "Online Grading"
-author: "Jihong Zhang"
-date: "Jul 21 2024" 
+title: ""
+subtitle: ""
+author: ""
+date: "" 
 date-modified: ""
-categories:
-  - Lecture
 sidebar: false
 format: 
   html:
-    page-layout: full
+    page-layout: custom
     code-tools: true
     code-line-numbers: false
     grid:
@@ -18,8 +16,7 @@ format:
       margin-width: 0px
 ---
 
-![Tutorial](tutorial_grade_system.png)
-
 ```{=html}
-<iframe width="100%" height="900px" src="https://jihongz.shinyapps.io/ESRM64503-Grading/" frameborder="0" marginwidth="0" marginheight="0" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+<iframe width="100%" height="900px" src="https://jihongz.shinyapps.io/ESRM64503-Grading/" frameborder="1" marginwidth="0" marginheight="0" style="border:none;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
 ```
+![Tutorial](tutorial_grade_system.png){alt="Tutorial"}

@@ -14,7 +14,14 @@ dat <- readRDS("ESRM64503_Homework_Combined.rds")
 ## Alphabatical order
 dat <- dat |> 
   arrange(Name)
-  
+
+score_summary <- dat |> 
+  filter(Name != "JIHONG ZHANG") |> 
+  group_by(Name) |> 
+  summarise(
+    total_score = sum(as.numeric(Score_PerHW))
+  )
+
 # Define UI for application that draws a histogram
 ui <-  dashboardPage(
   skin = "purple",
@@ -50,21 +57,51 @@ ui <-  dashboardPage(
   ),
   dashboardBody(
     width = "82%",
-    # Show a pieplot
-    box(
-      title = "Summary",
-      width = 12,
-      plotOutput(outputId = "score_pie"), # Output piechart of score proportion for each person
-      collapsible = TRUE, collapsed = FALSE
+    fluidRow(
+      column(
+        width = 6, 
+        valueBox(
+          subtitle = "Average Score",
+          width = 12,
+          value = round(mean(score_summary$total_score), 2),
+          color = "yellow",
+          icon = icon("face-smile-wink", class="fa-solid fa-face-smile-wink")
+        ),
+        valueBox(
+          subtitle = "Standard Deviation", 
+          width = 12,
+          value = round(sd(score_summary$total_score), 2),
+          color = "fuchsia",
+          icon = icon("face-grin-tears", class="fa-solid fa-face-grin-tears")
+        ),
+        valueBoxOutput(width = 12, outputId = "personal_total_score")
+      ),
+      # Show a pieplot
+      box(
+        title = "Summary",
+        width = 6,
+        plotOutput(outputId = "score_pie"), # Output piechart of score proportion for each person
+        collapsible = TRUE, collapsed = FALSE
+      )
     ),
-    # Show the table
-    box(
-      title = "Detailed information",
-      width = 12,
-      DTOutput(outputId = "data1"),
-      downloadButton("downloadData", "Download"), # Download Button
-      collapsible = TRUE, collapsed = FALSE
+    fluidRow(
+      # Show the table
+      box(
+        title = "Detailed information",
+        width = 12,
+        DTOutput(outputId = "data1"),
+        downloadButton("downloadData", "Download"), # Download Button
+        collapsible = TRUE, collapsed = FALSE
+      )
     )
+  ),
+  tags$head(
+    # Note the wrapping of the string in HTML()
+    tags$style(HTML("
+      @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+      * {
+        font-family: 'Titillium Web', sans-serif;
+      }"))
   )
 )
 
@@ -85,19 +122,28 @@ server <- function(input, output) {
   observeEvent(input$confirm, {
     stored_code <- unique(unlist(dat[dat$Name == input$name, "Code"])) 
     
-    ## Check wether user input code match stored code
-    if (stored_code != input$code) {
+    ## Check whether user input code match stored code
+    if (stored_code != input$code) { # if not match
       updateActionButton(inputId = "confirm", icon = icon("circle-check", class="fa-solid fa-circle-check", style="color: #f82a22;"))
       output$code_check_msg <- renderText({
         "Your code is incorrect!"
       })
-    }else{
+    }else{ # if match
       updateActionButton(inputId = "confirm", icon = icon("circle-check", class="fa-solid fa-circle-check", style="color: #63E6BE;"))
       output$code_check_msg <- renderText({""})
       
+      ## filter the personal total score
       dat_cleaned <- dat |> 
         ungroup() |> 
         filter(Name == input$name) 
+      
+      output$personal_total_score <- renderValueBox({
+        valueBox(
+          subtitle = "Your current total score",
+          value = sum(as.numeric(dat_cleaned$Score_PerHW)),
+          color = "teal"
+        )
+      })
       
       observeEvent(event_trigger(), {
         if (input$hw_index == "All") {
