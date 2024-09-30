@@ -1,6 +1,6 @@
 ---
-title: "Lecture 06: Matrix Algebra and Generalized Linear Models"
-subtitle: "Lecture 06: Matrix Algebra"
+title: "Lecture 06: Generalized Linear Models (Binary Outcome) and Matrix Algebra"
+subtitle: "Generalized Linear Models"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -39,7 +39,7 @@ filters:
 
 ## Today's Class
 
--   Introduction to Generalized Linear Models
+-   Introduction to [Generalized Linear Models]{style="color: tomato; font-weight: bold"}
     -   Expanding your linear models knowledge to models for outcomes that are not conditionally normally distributed
     -   An example of generalized models for binary data using logistic regression
 -   Matrix Algebra
@@ -56,7 +56,7 @@ filters:
 
 -   All models have **fixed effects**, and then:
 
-    -   **General Linear Models (GLM)**: conditionally normal distribution of data, fixed effects, no random effects
+    -   **General Linear Models (GLM)**: conditionally normal distribution of data, fixed effects and [no]{style="color: tomato; font-weight: bold"} random effects
     -   **General Linear** [Mixed]{style="color: yellowgreen; font-weight: bold"} **Models (GLMM)**: conditionally normal distribution for data, fixed and **random** effects
     -   **General[ized]{style="color: royalblue; font-weight: bold"}** L**inear Models**: any conditional distribution for data, fixed effects through [link functions]{style="color: royalblue; font-weight: bold"}, no random effects
     -   **General[ized]{style="color: royalblue; font-weight: bold"}** **Linear [Mixed]{style="color: yellowgreen; font-weight: bold"} Models**: any conditional distribution for data, fixed effects through [link functions]{style="color: royalblue; font-weight: bold"}, fixed and **random** effects
@@ -64,7 +64,7 @@ filters:
 -   "Linear" means the fixed effects predict the link-transformed DV in a linear combination of
 
     $$
-    \beta_0 +\beta_1X_1+ \beta_2X_2 + \cdots
+    g(\beta_0 +\beta_1X_1+ \beta_2X_2 + \cdots)
     $$
 
 ## Unpacking the Big Picture
@@ -77,40 +77,40 @@ flowchart RL
                                                                  (any format)")
 ```
 
--   Substantive theory: what guides your study
+-   **Substantive theory**: what guides your study
 
--   Hypothetical causal process: what the statistical model is testing (attempting to falsify) when estimated
+-   **Hypothetical causal process**: what the statistical model is testing (attempting to falsify) when estimated
 
--   Observed outcomes: what you collect and evaluate based on your theory
+-   **Observed outcomes**: what you collect and evaluate based on your theory
 
     -   Outcomes can take many forms:
 
         -   Continuous variables (e.g., time, blood pressure, height)
 
-        -   Categorical variables (e.g., likert-type response, ordered categories, nominal categories)
+        -   Categorical variables (e.g., Likert-type response, ordered categories, nominal categories)
 
         -   Combinations of continuous and categorical (e.g., either 0 or some other continuous number)
 
 ## The Goal of Generalized Models
 
--   Generalized models map the substantive theory onto the **sample space** of the observed outcomes
+-   Generalized models map [[the substantive theory]{.underline}]{style="color: royalblue; font-weight: bold"} [onto the **sample space** of the observed outcomes]{.underline}
 
     -   **Sample space** = type/range/outcomes that are possible
 
 -   The general idea is that the statistical model will not approximate the outcome well if the assumed distribution is not a good fit to the sample space of the outcome
 
-    -   If model does not fit the outcome, the findings cannot be believed
+    -   If model does not fit the outcome, the findings cannot be trusted
 
 -   The key to making all of this work is the use of differing statistical distributions for the outcome
 
 -   Generalized models allow for different distributions for outcomes
 
-    -   The mean of the distribution is still modeled by the model for the means (the fixed effects)
+    -   The mean of the distribution is still modeled by the model for the means (the [fixed]{style="color: tomato; font-weight: bold"} effects)
     -   The variance of the distribution may or may not be modeled (some distributions don’t have variance terms)
 
 ## What kind of outcome? Generalized vs. General
 
--   Generalized Linear Models $\rightarrow$ General Linear Models whose residuals follow some **not-normal distribution** and in which a link transformed Y is predicted instead of Y
+-   Generalized Linear Models $\rightarrow$ General Linear Models whose residuals follow some **not-normal distributions** and in which a link [transformed Y]{style="color: yellowgreen; font-weight: bold"} is predicted instead of [the original scale of Y]{style="color: royalblue; font-weight: bold"}
 
 -   Many kinds of non-normally distributed outcomes have some kind of generalized linear model to go with them:
 
@@ -122,18 +122,16 @@ flowchart RL
     6.  Zero-inflated (pile of 0's, then some distribution after)
     7.  Continuous but skewed data (pile on one end, long tail)
 
-## Some Link Functions / Outcome Distribution (from [Wikipedia](https://en.wikipedia.org/wiki/Generalized_linear_model))
+## Common distributions and canonical link functions (from [Wikipedia](https://en.wikipedia.org/wiki/Generalized_linear_model))
 
 ```{=html}
 <table class="wikitable" style="background:white;">
-<caption>Common distributions with typical uses and canonical link functions
-</caption>
 <tbody><tr>
 <th>Distribution</th>
 <th>Support of distribution</th>
 <th>Typical uses</th>
 <th>Link name</th>
-<th>Link function, <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle \mathbf {X} {\boldsymbol {\beta }}=g(\mu )\,\!}">
+<th>Link function <span class="mwe-math-element"><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML" alttext="{\displaystyle \mathbf {X} {\boldsymbol {\beta }}=g(\mu )\,\!}">
   <semantics>
     <mrow class="MJX-TeXAtom-ORD">
       <mstyle displaystyle="true" scriptlevel="0">
@@ -713,26 +711,29 @@ flowchart RL
 ```
 ## Three Parts of a Generalized Linear Model
 
--   Link Function (main difference from GLM):
+1.  Link Function $g(\cdot)$ (main difference from GLM):
 
     -   How a **non-normal outcome** gets transformed into something we can predict that is more continuous (unbounded)
 
     -   For outcomes that are already normal, general linear models are just a special case with an "identity" link function (Y \* 1)
 
--   Model for the Means ("Structural Model"):
+2.  Model for the Means ("Structural Model"):
 
     -   How predictors linearly related to the link-transformed outcome
 
+        -   Or predictor non-linearly related to the original scale of outcome
+
     -   New link-transformed $Y_p = \color{royalblue}{g^{-1}} (\color{tomato}{\mathbf{\beta_0}} + \color{tomato}{\mathbf{\beta_1}}X_p + \color{tomato}{\mathbf{\beta_2}} Z_p + \color{tomato}{\mathbf{\beta_3}} X_pZ_p)$
 
--   Model for the Variance ("Sampling/Stochastic Model"):
+3.  Model for the Variance ("Sampling/Stochastic Model"):
 
     -   If the errors aren’t normally distributed, then what are they?
     -   Family of alternative distributions at our disposal that map onto what the distribution of errors could possibly look like
+    -   In logistic regression, you often hear sayings like "[no error term exists]{style="color: tomato"}" or "[the error term has a binomial distribution]{style="color: royalblue"}"
 
 ## Link Functions: How Generalized Models Work
 
-1.  Generalized models work by providing a mapping of the theoretical portion of the model (the right hand side of the equation) to the sample space of the outcome (the left hand side of the equation)
+1.  Generalized models work by providing [a mapping of the theoretical portion of the model]{.underline} (the right hand side of the equation) to the sample space of the outcome (the left hand side of the equation)
 
     -   The mapping is done by a feature called a link function
 
@@ -740,7 +741,7 @@ flowchart RL
 
 3.  Link functions are typically expressed for the mean of the outcome variable (we will only focus on that)
 
-    -   In generalized models, the variance is often a function of the mean
+    -   In generalized models, **the error variance is often a function of the mean, so no additive information exists if estimating the error term**
 
 ## Link Functions in Practice
 
@@ -774,8 +775,15 @@ where $E(\cdot)$ stands for expectation.
 
 $$
 g^{-1}(\cdot) = \boldsymbol{I}(\cdot) = 1 * (\color{yellowgreen}{\text{linear combination of predictors}})
-$$ - The identity function does not alter the predicted values -- they can be any real number - This matches the sample space of the normal distribution – the mean can be any real number
+$$
 
+-   The identity function does not alter the predicted values -- they can be any real number
+
+-   This matches the sample space of the normal distribution – the mean can be any real number
+
+```{=html}
+<!-- -->
+```
 -   The expected value of an outcome from the GLM is:
 
 $$
@@ -801,13 +809,15 @@ $$
 
 -   Similarly, this term directly relates to the variance of the outcome in the normal distribution
     -   We will quickly see distributions from other families (i.e., logistic ) where this doesn’t happen
+-   **Error terms are independent of predictors**
 
 # Generalized Linear Models For Binary Data
 
 ## Today's Data Example
 
 1.  To help demonstrate generalized models for binary data, we borrow from an example listed on the [UCLA ATS website](https://stats.idre.ucla.edu/stata/dae/ordered-logistic-regression/).
-2.  Data come from a survey of 400 college juniors looking at factors that influence the decision to apply to graduate school:
+2.  The data can be used when you upgraded the `ESRM64503` package
+3.  Data come from a survey of 400 college juniors looking at factors that influence the decision to apply to graduate school:
     -   **Y (outcome)**: student rating of likelihood he/she will apply to grad school ([0 = unlikely]{style="color: tomato"}; [1 = somewhat likely]{style="color: yellowgreen"}; [2 = very likely]{style="color: royalblue"})
         -   We will first look at Y for two categories ([0 = unlikely]{style="color: tomato; font-weight: bold"}; [**1 = somewhat or very likely**]{style="color: royalblue; font-weight: bold"}) – we merged Cat1 and Cat2 into one category for illustration
         -   You wouldn't do this in practice (use a different distribution for 3 categories)
@@ -895,10 +905,10 @@ show_table(Desp_PUBLIC) # Student Attends Public University
 -   If $Y_p$ is a binary (0 or 1) outcome
     -   Expected mean is proportion of people who have a 1 (or "p", the probability of Y_p = 1 in the sample)
     -   The probability of having a 1 is what we're trying to predict for each person, given the values of his/her predictors
-    -   General linear model: $Y_p = \beta_0 + \beta_1x_p + \beta_2z_p + e_p$
-        -   $\color{tomato}{\beta}_0$ = expected probability when all predictors are 0
-        -   $\color{tomato}{\beta}_s$ = expected change in probability for a one-unit change in the predictor
-        -   $\color{royalblue}{e}_p$ = difference between observed and predicted values
+-   **General linear model**: $Y_p = I(\beta_0 + \beta_1x_p + \beta_2z_p + e_p)$
+    -   $\color{tomato}{\beta}_0$ = expected probability when all predictors are 0
+    -   $\color{tomato}{\beta}_s$ = expected change in [probability for a one-unit change in the predictor]{.underline}
+    -   $\color{royalblue}{e}_p$ = difference between observed and predicted values
     -   Generalized Linear Model becomes $Y_p = \color{tomato}{(\text{predicted probability of outcome equal to 1})} + e_p$
 
 ## A General Linear Model of Predicting Binary Outcomes?
@@ -931,30 +941,42 @@ show_table(Desp_PUBLIC) # Student Attends Public University
 
 -   Linear relationship needs to 'shut off' somehow $\rightarrow$ made nonlinear
 
+### Predicted Regression Line of GLM
+
 ```{r}
+#| fig-align: center
+#| code-fold: true
 library(ggplot2)
 ggplot(dataLogit) +
   aes(x = GPA, y = LLAPPLY) +
   geom_hline(aes( yintercept = 1)) +
   geom_hline(aes( yintercept = 0)) +
   geom_point(color = "tomato", alpha = .8) +
-  geom_smooth(method = "lm", se = FALSE, fullrange = TRUE) +
+  geom_smooth(method = "lm", se = FALSE, fullrange = TRUE, linewidth = 1.3) +
   scale_x_continuous(limits = c(0, 8), breaks = 0:8) +
   scale_y_continuous(limits = c(-0.4, 1.4), breaks = seq(-0.4, 1.4, .1)) +
-  theme_classic()
+  labs(y = "Predicted Probability of Y") +
+  theme_classic() +
+  theme(text = element_text(size = 20))
 ```
 
+### Predicted Regression Line of Logistic Regression
+
 ```{r}
+#| fig-align: center
+#| code-fold: true
 ggplot(dataLogit) +
   aes(x = GPA, y = LLAPPLY) +
   geom_hline(aes( yintercept = 1)) +
   geom_hline(aes( yintercept = 0)) +
   geom_point(color = "tomato", alpha = .8) +
   geom_smooth(method = "glm", se = FALSE, fullrange = TRUE,
-              method.args = list(family = binomial(link = "logit")), color = "yellowgreen") +
+              method.args = list(family = binomial(link = "logit")), color = "yellowgreen", linewidth = 1.5) +
   scale_x_continuous(limits = c(0, 8), breaks = 0:8) +
   scale_y_continuous(limits = c(-0.4, 1.4), breaks = seq(-0.4, 1.4, .1)) +
-  theme_classic()
+  labs(y = "Predicted Probability of Y") +
+  theme_classic() +
+  theme(text = element_text(size = 20))
 ```
 
 ## 3 Problems with GLM predicting binary outcomes
