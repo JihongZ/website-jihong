@@ -1,6 +1,6 @@
 ---
-title: "Lecture 06: Generalized Linear Models (Binary Outcome) and Matrix Algebra"
-subtitle: "Generalized Linear Models"
+title: "Lecture 07: Generalized Linear Models (Binary Outcome) and Matrix Algebra"
+subtitle: "Matrix Algebra in R"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -20,7 +20,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 06: Matrix Algebra"
+    footer: "ESRM 64503 - Lecture 07: Matrix Algebra"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
@@ -64,7 +64,7 @@ filters:
 -   "Linear" means the fixed effects predict the link-transformed DV in a linear combination of
 
     $$
-    g^{-1}(\beta_0 +\beta_1X_1+ \beta_2X_2 + \cdots)
+    g(\beta_0 +\beta_1X_1+ \beta_2X_2 + \cdots)
     $$
 
 ## Unpacking the Big Picture
@@ -781,9 +781,8 @@ $$
 
 -   This matches the sample space of the normal distribution – the mean can be any real number
 
-```{=html}
 <!-- -->
-```
+
 -   The expected value of an outcome from the GLM is:
 
 $$
@@ -1064,29 +1063,13 @@ From @eq-logit-e and @eq-logit-p, we can know that $g(\mathbb{E}(Y))$ has a rang
 
 ## Interpretation of Coefficients
 
-```{r}
-# function to translate OR to Probability
-OR_to_Prob <- function(OR){
-  p = OR / (1+OR)
-  return(p)
-}
-# function to translate Logit to Probability
-Logit_to_Prob <- function(Logit){
-  OR <- exp(Logit)
-  p = OR_to_Prob(OR)
-  return(p)
-}
-Logit_to_Prob(Logit = -2.007) # p = .118
-exp(-2.007)
-```
-
 -   Intercept $\beta_0$:
 
     **Logit**: We can say the predicted logit value of Y = 1 for an individual when all predictors are zero; i.e., *the average logit is -2.007*
 
-    **Probability**: Alternatively, we can say the expected value of probability of Y = 1 is $\frac{\exp(\beta_0)}{1+\exp(\beta_0)}$ when all predictors are zero; i.e., *the average probability of applying to grad score is* [0.1184699]{style="color: tomato; font-weight: bold"}
+    **Probability**: Alternatively, we can say the expected value of probability of Y = 1 is $\frac{\exp(\beta_0)}{1+\exp(\beta_0)}$ when all predictors are zero; i.e., *the average probability of applying to grad score is .550*
 
-    **Odds Ratio**: Alternatively, we can say the expected odds ratio (OR) of probability of Y = 1 is $\exp(\text{Logit})$ when all predictors are zero; the average odds (ratio) of the probability of applying to grad school is exp(-2.007) = 0.13439
+    **Odds Ratio**: Alternatively, we can say the expected odds ratio (OR) of probability of Y = 1 is $\exp(\beta_0)$ when all predictors are zero; the average odds (ratio) of the probability of applying to grad school is exp(-.2007) = .819
 
 -   Slope $\beta_1$:
 
