@@ -1,0 +1,24 @@
+---
+title: "新的Positron初体验"
+subtitle: ""
+author: 旅客
+date: "Jul 23 2024" 
+date-modified: "Jul 23 2024"
+categories:
+  - 日常
+format: 
+  html:
+    code-tools: true
+    number-sections: true
+citation:
+  type: webpage
+  issued: 2024-03-3
+---
+
+## 背景提要
+
+Posit公司最近开发了新的IDE，专为数据科学设计。这篇博客记录一下我的开箱体验。
+
+## 安装和下载
+
+安装和下载没什么可说的，在Posit的github[主页](https://github.com/posit-dev/positron)点击[release](https://github.com/posit-dev/positron/releases)下载对应操作系统的文件。我用的是Mac，所以下载[2024.09.0-103](https://github.com/posit-dev/positron/releases/tag/2024.09.0-103) 版本的.dmg文件 。

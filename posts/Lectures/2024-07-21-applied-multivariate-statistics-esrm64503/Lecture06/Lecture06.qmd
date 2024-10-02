@@ -781,9 +781,8 @@ $$
 
 -   This matches the sample space of the normal distribution – the mean can be any real number
 
-```{=html}
 <!-- -->
-```
+
 -   The expected value of an outcome from the GLM is:
 
 $$

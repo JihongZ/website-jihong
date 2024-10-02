@@ -15,7 +15,7 @@ format:
     code-line-numbers: true
 ---
 
-#### Scenario: My local changes are ahead of the remote but I want to discard those changes.
+## Changes are ahead of the remote but I want to discard those changes locally.
 
 This happens when I want to pull the remote repo to local but I have some random changes at local. Those random changes should be discarded but using `git pull` makes those changes ahead. Thus, I have to restore to previous commit to align with previous commit.
 
@@ -25,7 +25,7 @@ In following code, I type `git reset` and `tab` key which will list all recent c
 
 -   To discard unstaged changes, use `git restore .`
 
-```{.bash}
+``` bash
 ➜  website-jihong git:(main) git reset            
 FETCH_HEAD     HEAD           ORIG_HEAD      main           office         origin/main    origin/office
 d636b58  -- [HEAD]    add lecture08 (7 minutes ago)
@@ -61,7 +61,7 @@ For the future pull while ignore local changes, see this stackoverflow [post](ht
 
     -   This even works when local changes have already been staged and comitted.
 
-```{.bash}
+``` bash
 ## (1) First fetch all changes:
 $ git fetch --all
 ## (2) Then reset the main:
@@ -74,17 +74,17 @@ $ git pull
 
     -   Use this when you feel like your local changes still useful and **DO NOT** want to throw them away. This keeps the local changes hidden, but after pulling the remote to local, you pop local changes up afterwards.
 
-```{.bash}
+``` bash
 $ git stash
 $ git pull
 $ git stash pop
 ```
 
-#### Scenario: I change the local files after I've already git commit
+## Local files changed again after I've already git commit
 
 I committed the changes but I change my mind and revise more files. In this case, I do not want to duplicate the commit then complicates my commit history. In this case, I can use `--amend` to append the new changes to the local changes committed without changing the message.
 
-```{.bash}
+``` bash
 $ git add the_left_out_file
 # The --no-edit flag allows to make an amendment to the commit without changing the commit message.
 $ git commit --amend --no-edit
@@ -98,7 +98,7 @@ You should never amend public commits that you already pushed to a public reposi
 
 Previous code works only when I did not push changes yet, if I already pushed, I can do reset.
 
-```{.bash}
+``` bash
 ➜  website-jihong git:(main) git reset f17c6d9
 FETCH_HEAD     HEAD           ORIG_HEAD      main           office         origin/main    origin/office
 3605a71  -- [HEAD]    add tips about git note (7 minutes ago)
@@ -115,7 +115,7 @@ D       notes/2024-03-11-Git-How-To-Use/index.quarto_ipynb
 
 Because your local commits are different from the remote, note that you should add `-f` argument to force the remote discards the conflicts.
 
-```{.bash}
+``` bash
 ➜  website-jihong git:(main) git push                                          
 To github.com:JihongZ/website-jihong.git
  ! [rejected]        main -> main (non-fast-forward)
@@ -135,3 +135,33 @@ remote: Resolving deltas: 100% (4/4), completed with 4 local objects.
 To github.com:JihongZ/website-jihong.git
  + 3605a71...07ff463 main -> main (forced update)
 ```
+
+## Remove Large file From Commit History
+
+When I mistakenly push the commits with large files in history, I may have trouble push normal size files in the future. The solution is to delete those files in history.
+
+``` bash
+➜  04_Diagnostic_Classification_Network git:(main) git push --force
+Enumerating objects: 83, done.
+Counting objects: 100% (83/83), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (43/43), done.
+Writing objects: 100% (58/58), 35.25 MiB | 5.74 MiB/s, done.
+Total 58 (delta 29), reused 42 (delta 13), pack-reused 0
+remote: Resolving deltas: 100% (29/29), completed with 15 local objects.
+remote: error: Trace: 979757256e42be3adf07c546870c55ff7e5e6c7e99b12768f6bfdd169b9319dd
+remote: error: See https://gh.io/lfs for more information.
+remote: error: File Results_3D.rds is 148.09 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+To github.com:JihongZ/04_Diagnostic_Classification_Network.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'github.com:JihongZ/04_Diagnostic_Classification_Network.git'
+```
+
+``` bash
+git filter-branch --index-filter 'git rm -r --cached --ignore-unmatch Results_3D.rds' HEAD
+```
+
+This will delete everything in the history of that file. The problem is that the file is present in the history.
+
+This command changes the hashes of your commits which can be a real problem, especially on shared repositories. It should not be performed without understanding the consequences.
