@@ -44,6 +44,8 @@ filters:
     -   An example of generalized models for binary data using logistic regression
 -   Matrix Algebra
 
+## Graduate Certificate
+
 # An Introduction to Generalized Linear Models
 
 ## Categories of Multivariate Models
