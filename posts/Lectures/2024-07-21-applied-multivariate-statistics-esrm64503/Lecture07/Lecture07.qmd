@@ -45,17 +45,23 @@ filters:
 
 ## Graduate Certificate
 
-# An Introduction to Matrix Algebra
+1. See link [here](https://esrm.uark.edu/certificates/index.php)
+
+# An Brief Introduction to Matrix
 
 ## Today's Example Data
 
+-   Imagine that I collected data SAT test scores for both the Math (SATM) and Verbal (SATV) sections of 1,000 students
+
 ```{r}
+#| output-location: default
 library(ESRM64503)
 library(kableExtra)
-show_table(dataSAT)
+show_table(head(dataSAT))
+show_table(tail(dataSAT))
 ```
 
-## Big Picture
+## Background
 
 -   Matrix operations are fundamental to all modern statistical software.
 
@@ -63,26 +69,13 @@ show_table(dataSAT)
 
     -   Other optimized libraries include OpenBLAS, AtlasBLAS, GotoBLAS, Intel MKL
 
-        ```{bash}}
-        Matrix products: default
-        LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
-        ```
+        `{bash}} Matrix products: default LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib`
 
 -   From the LAPACK [website](https://www.netlib.org/lapack/),
 
     > **LAPACK** is written in Fortran 90 and provides routines for solving systems of simultaneous linear equations, least-squares solutions of linear systems of equations, eigenvalue problems, and singular value problems.
     >
     > LAPACK routines are written so that as much as possible of the computation is performed by calls to the Basic Linear Algebra Subprograms (**BLAS**).
-
-### Install openblas for faster matrix operation on MacOS
-
-```{bash}}
-brew install openblas
-cd /usr/local/opt/openblas/lib # <1>
-sudo ln -sf /usr/local/opt/openblas/lib/libopenblas.dylib /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib
-```
-
-1.  if there is a `libopenblas.dylib` in this dir
 
 ## Matrix Elements
 
@@ -423,6 +416,7 @@ round(solve(A) %*% A, 3)
 ```{r}
 #| error: true
 A <- matrix(2:10, nrow = 3, ncol = 3, byrow = T)
+A
 solve(A)%*%A
 ```
 
@@ -464,9 +458,263 @@ solve(A)%*%A
 -   $\mathbf{(A+B)^T=A^T+B^T}$
 
 -   $(cd)\mathbf{A}=c(d\mathbf{A})$
+
+-   $(c\mathbf{A})^{T}=c\mathbf{A}^T$
+
+-   $c\mathbf{(AB)} = (c\mathbf{A})\mathbf{B}$
+
+-   $\mathbf{A(BC) = (AB)C}$
 :::
 
 ::: column
 -   $\mathbf{A(B+C)=AB+AC}$
+-   $\mathbf{(AB)}^T=\mathbf{B}^T\mathbf{A}^T$
 :::
 :::
+
+## Advanced Matrix Functions/Operations
+
+-   We end our matrix discussion with some advanced topics
+
+-   To help us throughout, let's consider the correlation matrix of our SAT data:
+
+```{r}
+R <- cor(dataSAT[, c("SATV", "SATM")])
+R
+```
+
+$$
+R = \begin{bmatrix}1.00 & 0.78 \\ 0.78 & 1.00\end{bmatrix}
+$$
+
+## Matrix Trace
+
+-   For a square matrix $\mathbf{A}$ with *p* rows/columns, the matrix trace is the sum of the diagonal elements:
+
+    $$
+    tr\mathbf{A} = \sum_{i=1}^{p} a_{ii}
+    $$
+
+-   In R, we can use `tr()` in `psych` package to calculate matrix trace
+
+-   For our data, the trace of the correlation matrix is 2
+
+    -   For all correlation matrices, **the trace is equal to the number of variables**
+
+        ```{r}
+        psych::tr(R)
+        ```
+
+-   The trace is considered as the total variance in multivariate statistics
+
+    -   Used as a target to recover when applying statistical models
+
+## Model Determinants
+
+-   A square matrix can be characterized by a scalar value called a determinant:
+
+    $$
+    \text{det}\mathbf{A} =|\mathbf{A}|
+    $$
+
+-   Manual calculation of the determinant is tedious. In R, we use `det()` to calculate matrix determinant
+
+    ```{r}
+    det(R)
+    ```
+
+-   The determinant is useful in statistics:
+
+    -   Shows up in multivariate statistical distributions
+
+    -   Is a measure of "generalized" variance of multiple variables
+
+-   If the determinant is positive, the matrix is called **positive definite** $\rightarrow$ the matrix has an inverse
+
+-   If the determinant is not positive, the matrix is called **non-positive definite** $\rightarrow$ the matrix does not have an inverse
+
+## Wrap Up
+
+1.  Matrices show up nearly anytime multivariate statistics are used, often in the help/manual pages of the package you intend to use for analysis
+
+2.  You don't have to do matrix algebra, but please do try to understand the concepts underlying matrices
+
+3.  Your working with multivariate statistics will be better off because of even a small amount of understanding
+
+# Multivariate Normal Distribution
+
+## Covariance and Correlation in Matrices
+
+-   The covariance matrix $\mathbf{S}$ is found by:
+
+    $$
+    \mathbf{S}=\frac{1}{N-1} \mathbf{(X-1\cdot\bar x^T)^T(X-1\cdot\bar x^T)}
+    $$
+
+    ```{r}
+    X = as.matrix(dataSAT[,c("SATV", "SATM")])
+    N = nrow(X)
+    XBAR = matrix(colMeans(X), ncol = 1)
+    ONES = matrix(1, nrow = nrow(X))
+    S = 1/(N-1) * t(X - ONES%*% t(XBAR)) %*% (X - ONES%*% t(XBAR))
+    S
+    cov(X)
+    ```
+
+## From Covariance to Correlation
+
+-   If we take the SDs (the square root of the diagonal of the covariance matrix) and put them into diagonal matrix $\mathbf{D}$, the correlation matrix is found by:
+
+$$
+\mathbf{R = D^{-1}SD^{-1}}
+$$ $$
+\mathbf{S = DRD}
+$$
+
+```{r}
+#| output-location: default
+S
+D = sqrt(diag(diag(S)))
+D
+R = solve(D) %*% S %*% solve(D)
+R
+cor(X)
+```
+
+## Generalized Variance
+
+-   The determinant of the covariance matrix is called **generalized variance**
+
+$$
+\text{Generalized Sample Variance} = |\mathbf{S}|
+$$
+
+-   It is a measure of spread across all variables
+
+    -   Reflecting how much overlap (covariance) in variables raltive to total variances occurs in the sample
+
+    -   Amount of overlap reduces the generalized sample variance
+
+```{r}
+#| output-location: default
+gsv = det(S)
+gsv
+
+# If no correlation
+S_noCorr = S
+S_noCorr[upper.tri(S_noCorr)] = S_noCorr[lower.tri(S_noCorr)] = 0
+S_noCorr
+gsv_noCorr <- det(S_noCorr)
+gsv_noCorr
+gsv / gsv_noCorr
+
+# If correlation = 1
+S_PerfCorr = S
+S_PerfCorr[upper.tri(S_PerfCorr)] = S_PerfCorr[lower.tri(S_PerfCorr)] = prod(diag(S))
+S_PerfCorr
+gsv_PefCorr <- det(S_PerfCorr)
+gsv_PefCorr
+```
+
+-   The generalized sample variance is:
+
+    -   Largest when variables are uncorrelated
+    -   Zero when variables from a linear dependency
+
+## Total Sample Variance
+
+-   The total sample variance is the sum of the variances of each variable in the sample
+
+    -   The sum of the diagonal elements of the sample covariance matrix
+    -   The trace of the sample covariance matrix
+
+$$
+\text{Total Sample Variance} = \sum_{v=1}^{V} s^2_{x_i} = \text{tr}\mathbf{S}
+$$
+
+Total sample variance for our SAT example:
+
+```{r}
+sum(diag(S))
+```
+
+-   The total sample variance does not take into consideration the covariances among the variables
+
+    -   Will not equal zero if linearly dependency exists
+
+## Mutlivariate Normal Distribution and Mahalanobis Distance
+
+-   The PDF of Multivariate Normal Distribution is very similar to univariate normal distribution
+
+$$
+f(\mathbf{x}_p) = \frac{1}{(2\pi)^{\frac{V}2}|\mathbf{\Sigma}|^{\frac12}}\exp[-\frac{\color{tomato}{(x_p^T - \mu)^T \mathbf{\Sigma}^{-1}(x_p^T-\mu)}}{2}]
+$$
+
+Where $V$ represents number of variables and the highlighed is Mahalanobis Distance.
+
+-   We use $MVN(\mathbf{\mu, \Sigma})$ to represent a multivariate normal distribution with mean vector as $\mathbf{\mu}$ and covariance matrix as $\mathbf{\Sigma}$
+
+-   Similar to squared mean error in univariate distribution, we can calculate squared Mahalanobis Distance for each observable individual in the context of Multivariate Distribution
+
+$$
+d^2(x_p) = (x_p^T - \mu)^T \Sigma^{-1}(x_p^T-\mu)
+$$
+
+-   In R, we can use `mahalanobis` followed by data vector (`x`), mean vector (`center`), and covariance matrix (`cov`) to calculate the **squared Mahalanobis Distance** for one individual
+
+```{r}
+#| output-location: default
+x_p <- X[1, ]
+x_p
+mahalanobis(x = x_p, center = XBAR, cov = S)
+# Alternatively,
+t(x_p - XBAR) %*% solve(S) %*% (x_p - XBAR)
+```
+
+## Multivariate Normal Properties
+
+-   The multivariate normal distribution has some useful properties that show up in statistical methods
+
+-   If $\mathbf{X}$ is distributed multivariate normally:
+
+    1.    Linear combinations of $\mathbf{X}$ are normally distributed
+    2.    All subsets of $\mathbf{X}$ are multivariate normally distributed
+    3.    A zero covariance between a pair of variables of $\mathbf{X}$ implies that the variables are independent
+    4.    Conditional distributions of $\mathbf{X}$ are multivariate normal
+    
+    
+## How to use Multivariate Normal Distribution in R
+
+Similar to other distribution functions, we use `dmvnorm` to get the density given the observations and the parameters (mean vector and covariance matrix). `rmvnorm` can generate multiple samples given the distribution
+
+```{r}
+#| output-location: default
+library(mvtnorm)
+(mu <- colMeans(dataSAT[, 2:3]))
+S 
+dmvnorm(X[1, ], mean = mu, sigma = S)
+dmvnorm(X[2, ], mean = mu, sigma = S)
+
+## Total Log Likelihood 
+LL <- sum(log(apply(X, 1, \(x) dmvnorm(x, mean = mu, sigma = S))))
+LL
+
+## Generate samples from MVN
+rmvnorm(20, mean = mu, sigma = S) |> show_table()
+```
+
+## Wrapping Up
+
+1. We are now ready to discuss multivariate models and the art/science of multivariate modeling
+
+2. Many of the concepts of univariate models carry over
+
+    -   Maximum likelihood
+    -   Model building via nested models
+    -   All of the concepts involve multivariate distributions
+    
+3. Matrix algebra was necessary so as to concisely talk about our distributions (which will soon be models)
+
+4. The multivariate normal distribution will be necessary to understand as it is the most commonly used distribution for estimation of multivariate models
+
+5. Next class we will get back into data analysis – but for multivariate observations…using R’s lavaan package for path analysis
