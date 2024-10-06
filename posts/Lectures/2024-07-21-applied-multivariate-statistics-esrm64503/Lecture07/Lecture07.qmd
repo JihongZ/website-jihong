@@ -47,6 +47,43 @@ filters:
 
 # An Introduction to Matrix Algebra
 
+## Today's Example Data
+
+```{r}
+library(ESRM64503)
+library(kableExtra)
+show_table(dataSAT)
+```
+
+## Big Picture
+
+-   Matrix operations are fundamental to all modern statistical software.
+
+-   When you installed R, R also comes with required matrix algorithm **library** for you. Two popular are **BLAS** and **LAPACK**
+
+    -   Other optimized libraries include OpenBLAS, AtlasBLAS, GotoBLAS, Intel MKL
+
+        ```{bash}}
+        Matrix products: default
+        LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
+        ```
+
+-   From the LAPACK [website](https://www.netlib.org/lapack/),
+
+    > **LAPACK** is written in Fortran 90 and provides routines for solving systems of simultaneous linear equations, least-squares solutions of linear systems of equations, eigenvalue problems, and singular value problems.
+    >
+    > LAPACK routines are written so that as much as possible of the computation is performed by calls to the Basic Linear Algebra Subprograms (**BLAS**).
+
+### Install openblas for faster matrix operation on MacOS
+
+```{bash}}
+brew install openblas
+cd /usr/local/opt/openblas/lib # <1>
+sudo ln -sf /usr/local/opt/openblas/lib/libopenblas.dylib /Library/Frameworks/R.framework/Resources/lib/libRblas.dylib
+```
+
+1.  if there is a `libopenblas.dylib` in this dir
+
 ## Matrix Elements
 
 -   A matrix (denote as capitalized **X**) is composed of a set of elements
@@ -152,3 +189,284 @@ $$
     $$
 
     -   We will use diagonal matrices to form correlation matrices
+
+    ```{r}
+    vars = c(2.758, 1.643, 0.879)
+    diag(vars)
+    ```
+
+-   **Symmetric Matrix**: A symmetric matrix is a square matrix where all elements are reflected across the diagonal ($x_{ij} = x_{ji}$)
+
+    -   Correlation and covariance matrices are symmetric matrices
+
+## Linear Combinations
+
+-   Addition of a set of vectors (all multiplied by scalars) is called a linear combination:
+
+    $$
+    \mathbb{y} = a_1x_1 + a_2x_2 + \cdots + a_kx_k
+    $$
+
+-   Here, $\mathbb{y}$ is the linear combination
+
+    -   For all *k* vectors, the set of all possible linear combinations is called their span
+
+    -   Typically not thought of in most analyses – but when working with things that don't exist (latent variables) becomes somewhat importnat
+
+-   **In Data**, linear combinations happen frequently:
+
+    -   Linear models (i.e., Regression and ANOVA)
+
+    -   Principal components analysis
+
+## Inner (Dot) Product of Vectors
+
+-   An important concept in vector geometry is that of the inner product of two vectors
+
+    -   The inner product is also called the dot product
+
+    $$
+    \mathbf{a} \cdot \mathbf{b} = a_{11}b_{11}+a_{21}b_{21}+\cdots+ a_{N1}b_{N1} = \sum_{i=1}^N{a_{i1}b_{i1}}
+    $$
+
+```{r}
+#| results: hold
+x = matrix(c(1, 2), ncol = 1)
+y = matrix(c(2, 3), ncol = 1)
+crossprod(x, y) # R function for dot product of x and y
+t(x) %*% y
+```
+
+Using our **example data `dataSAT`**,
+
+```{r}
+crossprod(dataSAT$SATV, dataSAT$SATM) # x and y could be variables in our data
+```
+
+-   **In Data**: the angle between vectors is related to the correlation between variables and the projection is related to regression/ANOVA/linear models
+
+# Matrix Algebra
+
+## Moving from Vectors to Matrices
+
+-   A matrix can be thought of as a collection of vectors
+
+-   Matrix algebra defines a set of operations and entities on matrices
+
+    -   I will present a version meant to mirror your previous algebra experiences
+
+-   Definitions:
+
+    -   Identity matrix
+
+    -   Zero vector
+
+    -   Ones vector
+
+-   Basic Operations:
+
+    -   Addition
+
+    -   Subtraction
+
+    -   Multiplication
+
+    -   "Division"
+
+## Matrix Addition and Subtraction
+
+-   Matrix addition and subtraction are much like vector addition / subtraction
+
+-   **Rules**: Matrices must be the same size (rows and columns)
+
+-   **Method**: the new matrix is constructed of element-by-element addition/subtraction of the previous matrices
+
+-   **Order**: the order of the matrices (pre- and post-) does not matter
+
+```{r}
+#| output-location: default
+A = matrix(c(1, 2, 3, 4), nrow = 2, byrow = T)
+B = matrix(c(5, 6, 7, 8), nrow = 2, byrow = T)
+A
+B
+A + B
+A - B
+```
+
+## Matrix Multiplication
+
+-   **The new matrix** has the size of same [number of rows of pre-multiplying]{style="color: tomato; font-weight: bold"} matrix and [same number of columns of post-multiplying]{style="color: royalblue; font-weight: bold"} matrix
+
+$$
+\mathbf{A}_{(r \times c)} \mathbf{B}_{(c\times k)} = \mathbf{C}_{(r\times k)}
+$$
+
+-   **Rules**: Pre-multiplying matrix must have number of columns equaling to the number of rows of the post-multiplying matrix
+
+-   **Method**: the elements of the new matrix consist of the inner (dot) product of [the row vectors of the pre-multiplying matrix]{style="color: tomato; font-weight: bold"} and [the column vectors of the post-multiplying matrix]{style="color: royalblue; font-weight: bold"}
+
+-   **Order**: The order of the matrices matters
+
+-   **R**: use `%*%` operator or `crossprod` to perform matrix multiplication
+
+```{r}
+#| output-location: default
+A = matrix(c(1, 2, 3, 4, 5, 6), nrow = 2, byrow = T)
+B = matrix(c(5, 6, 7, 8, 9, 10), nrow = 3, byrow = T)
+A
+B
+A %*% B
+B %*% A
+```
+
+-   **Example**: The inner product of A's 1st row vector and B's 1st column vector equal to AB's first element
+
+```{r}
+#| output-location: default
+crossprod(A[1, ], B[, 1])
+(A%*%B)[1, 1]
+```
+
+## Identity Matrix
+
+-   The identity matrix (denoted as $\mathbf{I}$) is a matrix that pre- and post- multiplied by another matrix results in the original matrix:
+
+    $$
+    \mathbf{A}\mathbf{I} = \mathbf{A}
+    $$
+
+    $$
+    \mathbf{I}\mathbf{A}=\mathbf{A}
+    $$
+
+-   The identity matrix is a square matrix that has:
+
+    -   Diagonal elements = 1
+
+    -   Off-diagonal elements = 0
+
+    $$
+    \mathbf{I}_{(3 \times 3)} = \begin{bmatrix}
+    1&0&0\\
+    0&1&0\\
+    0&0&1\\
+    \end{bmatrix}
+    $$
+
+-   **R**: we can create a identity matrix using `diag`
+
+    ```{r}
+    diag(nrow = 3)
+    ```
+
+## Zero and One Vector
+
+-   The zero and one vector is a column vector of zeros and ones:
+
+    $$
+    \mathbf{0}_{(3\times 1)} = \begin{bmatrix}0\\0\\0\end{bmatrix}
+    $$
+
+    $$
+    \mathbf{1}_{(3\times 1)} = \begin{bmatrix}1\\1\\1\end{bmatrix}
+    $$
+
+-   When pre- or post- multiplied the matrix ($\mathbf{A}$) is the zero vector:
+
+    $$
+    \mathbf{A0=0}
+    $$
+
+    $$
+    \mathbf{0^TA=0}
+    $$
+
+-   **R:**
+
+```{r}
+#| output-location: default
+zero_vec <- matrix(0, nrow = 3, ncol = 1)
+crossprod(B, zero_vec)
+one_vec <- matrix(1, nrow = 3, ncol = 1)
+crossprod(B, one_vec) # column-wise sums
+```
+
+## Matrix "Division": The Inverse Matrix
+
+-   Division from algebra:
+
+    -   First: $\frac{a}{b} = b^{-1}a$
+
+    -   Second: $\frac{a}{b}=1$
+
+-   "Division" in matrices serves a similar role
+
+    -   For [**square symmetric**]{style="color: tomato; font-weight: bold"} matrices, an inverse matrix is a matrix that when pre- or post- multiplied with another matrix produces the identity matrix:
+
+        $$
+        \mathbf{A^{-1}A=I}
+        $$
+
+        $$
+        \mathbf{AA^{-1}=I}
+        $$
+
+-   **R:** use `solve()` to calculate the matrix inverse
+
+```{r}
+A <- matrix(rlnorm(9), 3, 3, byrow = T)
+round(solve(A) %*% A, 3)
+```
+
+-   **Caution**: Calculation is complicated, even computers have a tough time. Not all matrix can be inverted:
+
+```{r}
+#| error: true
+A <- matrix(2:10, nrow = 3, ncol = 3, byrow = T)
+solve(A)%*%A
+```
+
+## Example: the inverse of variance-covaraince matrix
+
+-   In data: the inverse shows up constantly in statistics
+
+    -   Models which assume some types of (multivariate) normality need an inverse convariance matrix
+
+-   Using our SAT example
+
+    -   Our data matrix was size ($1000\times 2$), which is not invertible
+
+    -   However, $\mathbf{X^TX}$ was size ($2\times 2$) – square and symmetric
+
+    ```{r}
+    X = as.matrix(dataSAT[, c("SATV", "SATM")])
+    crossprod(X, X)
+    ```
+
+    -   The inverse $\mathbf{(X^TX)^{-1}}$ is
+
+    ```{r}
+    solve(crossprod(X, X))
+    ```
+
+## Matrix Algebra Operations
+
+::: columns
+::: column
+-   $\mathbf{(A+B)+C=A+(B+C)}$
+
+-   $\mathbf{A+B=B+A}$
+
+-   $c(\mathbf{A+B})=c\mathbf{A}+c\mathbf{B}$
+
+-   $(c+d)\mathbf{A} = c\mathbf{A} + d\mathbf{A}$
+
+-   $\mathbf{(A+B)^T=A^T+B^T}$
+
+-   $(cd)\mathbf{A}=c(d\mathbf{A})$
+:::
+
+::: column
+-   $\mathbf{A(B+C)=AB+AC}$
+:::
+:::
