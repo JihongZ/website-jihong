@@ -5,9 +5,11 @@ author: Jihong Zhang
 date: 2024-01-14
 categories: 
   - Tutorial
+  - AHPCC
   - HPC
 format: 
   html: 
+    code-annotations: hover
     code-line-numbers: false
     toc: true
     toc-depth: 3
@@ -26,7 +28,7 @@ To use the HPC, an AHPCC account must be requested through [Internal Account Req
 
 -   You can use online [dashboard](https://hpc-portal2.hpc.uark.edu/pun/sys/dashboard) or terminal to have access to AHPCC nodes.
 
-### For terminal 
+### For terminal
 
 As long as you have an AHPCC account, you can connect to HPC through SSH. For Windows users, you can use [PuTTY](http://www.putty.org/) or Powershell to connect to HPC. For Mac and Linux users, you can use the terminal to connect to HPC. The command is:
 
@@ -107,9 +109,11 @@ scp -r [username]@hpc-portal2.hpc.uark.edu:/home/username/src ./
 
 ## Jobs submission
 
+### Workflow
+
 There are multiple steps to submit the R file to cluster to run.
 
-**First**, we need to determine the computing nodes we want to use. Please refer to this [link](https://hpcwiki.uark.edu/doku.php?id=equipment) for detailed information about HPC equipment. A general 'submitting' command is like this:
+1.  We need to determine the computing nodes we want to use. Please refer to this [link](#0) for detailed information about HPC equipment. A general '*job submit*' command is like this:
 
 ``` bash
 sbatch -q q06h32c -l walltime=1:00 -l nodes=1:ppn=32 example.sh
@@ -121,7 +125,7 @@ sbatch -q q06h32c -l walltime=1:00 -l nodes=1:ppn=32 example.sh
 The `sbatch` command (a slurm command) aims to submit a job that is saved to the job file `example.sh` or `example.slurm`. The command above submitted the job to the q06h32c queue with a wall-time of 1 minute requesting all 32 cores on 1 node.
 :::
 
-**Second**, create a job file with `.sh` or `.slurm` extension. Here's a simple example of a job file `example.sh` that can tell HPC **how** to run your R code:
+2.  We want to create a job file with `.sh` or `.slurm` extension to automatically run the job submission commands aforementioned. Here's a simple example of a job file `example.sh` that can tell HPC **how** to run your R code (`#SBATCH` represents all parameters we feed to job submission):
 
 ``` bash
 #!/bin/bash
@@ -153,9 +157,9 @@ Where <mark>Line 8</mark> loaded all required modules:
 xfun::embed_file("summary.pdf")
 ```
 
-**Third**, you may want to use R interactively to test your R code is running well. Use the following bash command to start a brand new R in terminal:
+3.  We may want to use R interactively to test your R code is running well. Use the following bash command to start a brand new R in terminal:
 
-``` bash
+``` {.bash filename =" \"terminal"}
 srun -N1 -n1 -c1 -p cloud72 -q cloud -t 2:00:00 --pty /bin/bash
 ```
 
@@ -165,14 +169,14 @@ srun -N1 -n1 -c1 -p cloud72 -q cloud -t 2:00:00 --pty /bin/bash
 This command will redirect to cloud72 queue, which includes virtual machines and containers, usually single processor, 72 hour limit, 3 nodes.
 :::
 
-| slurm commands      | compatibility commands   | Meaning                            |
+| slurm commands         | compatibility commands     | Meaning                            |
 |-------------------|-----------------------|------------------------------|
-| sbatch              | qsub                     | submit \<job file\>                |
-| srun                | qsub -I                  | submit interactive job             |
-| squeue              | qstat                    | list all queued jobs               |
-| squeue -u -rfeynman | qstat -u rfeynman        | list queued jobs for user rfeynman |
-| scancel             | qdel                     | cancel \<job#\>                    |
-| sinfo               | shownodes -l -n;qstat -q | node status;list of queues         |
+| `sbatch`               | `qsub`                     | submit \<job file\>                |
+| `srun`                 | `qsub -I`                  | submit interactive job             |
+| `squeue`               | `qstat`                    | list all queued jobs               |
+| `squeue -u [username]` | `qstat -u [username]`      | list queued jobs for user rfeynman |
+| `scancel`              | `qdel`                     | cancel \<job#\>                    |
+| `sinfo`                | `shownodes -l -n;qstat -q` | node status;list of queues         |
 
 ::: callout-note
 ## Note
@@ -180,7 +184,7 @@ This command will redirect to cloud72 queue, which includes virtual machines and
 For slurm, please use the commands in the 1st column. Then you should be able to start R in an interactive job and install required packages. If you load `R/4.2.2` module, those packages installed via an interactive job will be stored at `$HOME$/R/x86_64-pc-linux-gnu/4.2/`. See [here](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) for more details about interactive job.
 :::
 
-**Finally,** the whole workflow of job submission is as follows:
+4.  **T**he whole workflow of job submission is as follows:
 
 ``` bash
 $ cat exampleJob.sh
@@ -199,21 +203,23 @@ $ ls
 exampleJob.sh  example.R  gene_up.txt  MS_entrez_id_alldata.txt  slurm-334002.out
 ```
 
-### Multiple Job Submission
+### Multiple Job Submission for R
 
-Sometimes, we want to submit multiple jobs iterating over data files, conditions, or repetitions. Then, one easiest way is to create a `masterJob` R file that can (1) create multiple bash job submission file (`.sh`) and (2) submit those bash files using `sbatch`.
+-   For R programming, if we want to submit multiple jobs iterating over data files (**each job runs a data analysis using one data file**). Then, one easiest way is to create a `masterJob.R` file that can
 
-Following is one example of how to submit and run multiple data analysis jobs on HPC using 162th to 240th data files.
+    -   create multiple bash job submission file with filenames containing their job ID (`.sh` or `.slurm`)
 
-Note that `#SBATCH --output=/home/jzhang/BSEM/OutputFiles/himem72-%j.out` redirect output files (`.out`) to the user-specified directory (which is BSEM/OutputFiles in this case).
+    -   submit those job files iteratively using `for` loop and `sbatch`.
 
-```{r}
+-   Following is one example of how to submit and run multiple data analysis jobs on HPC using `162`th to `240`th data files. Note that `#SBATCH --output=/home/jzhang/BSEM/OutputFiles/himem72-%j.out` redirect output files (`.out`) to the user-specified directory (which is BSEM/OutputFiles in this case). `%j` will append Job ID to the filenames of output files.
+
+```{r filename="masterjob.R"}
 #| eval: false
 #| echo: true
 #| code-fold: false
 library(tidyverse)
 root_path = "/home/jzhang/"
-for (i in 162:240) { #80
+for (i in 162:240) { # <1>
   jobfile <- paste0("Analysis_ModelA_DivergentSV", i, ".sh") # change file for specific model
   ## --ntasks-per-node=6 : there are 6 R files to be running parallels.
   ## --cpus-per-task=3: for each R files, there are 3 chains
@@ -241,7 +247,6 @@ cd $SLURM_SUBMIT_DIR
   write_lines(jobfile_content, file = paste0(root_path, "BSEM/JobFiles/", jobfile))
   # message(commd)
   system(paste0("sbatch ", paste0(root_path, "BSEM/JobFiles/", jobfile)))
-
 }
 ```
 
@@ -415,7 +420,7 @@ squeue -u jzhang -t R -p himem72 | wc
 
     You potential can try `ctrl+c` to avoid the ssh to execute bashrc. Try multiple time if not succeed. See [here](https://serverfault.com/questions/206544/i-screwed-up-exit-in-bashrc) for reference.
 
-## One example for parallelization of Stan
+## Example 1: parallelization of Stan
 
 Let's assume we have a job task to run multiple Bayesian models with ***K*** Markov Chains. For each Bayesian model, we have an independent R file. In total, we have ***J*** .R modeling files. For each independent R file, we input one data set. There are ***N*** data sets in total with multiple simulation conditions.
 
@@ -553,11 +558,9 @@ datset_fullpaths <- paste0(paste0(root_path, "dataJZ/"), datset_paths)
 head(datset_fullpaths)
 ```
 
-## Another quick example
+### Brief Workflow
 
-```{r, echo=FALSE}
-xfun::embed_file("Procedure of Data Analysis on HPC.pdf")
-```
+[Procedure of Data Analysis on HPC.pdf](Procedure of Data Analysis on HPC.pdf)
 
 ## Resources
 
