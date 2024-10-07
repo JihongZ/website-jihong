@@ -45,7 +45,7 @@ filters:
 
 ## Graduate Certificate
 
-1. See link [here](https://esrm.uark.edu/certificates/index.php)
+1.  See link [here](https://esrm.uark.edu/certificates/index.php)
 
 # An Brief Introduction to Matrix
 
@@ -677,12 +677,11 @@ t(x_p - XBAR) %*% solve(S) %*% (x_p - XBAR)
 
 -   If $\mathbf{X}$ is distributed multivariate normally:
 
-    1.    Linear combinations of $\mathbf{X}$ are normally distributed
-    2.    All subsets of $\mathbf{X}$ are multivariate normally distributed
-    3.    A zero covariance between a pair of variables of $\mathbf{X}$ implies that the variables are independent
-    4.    Conditional distributions of $\mathbf{X}$ are multivariate normal
-    
-    
+    1.  Linear combinations of $\mathbf{X}$ are normally distributed
+    2.  All subsets of $\mathbf{X}$ are multivariate normally distributed
+    3.  A zero covariance between a pair of variables of $\mathbf{X}$ implies that the variables are independent
+    4.  Conditional distributions of $\mathbf{X}$ are multivariate normal
+
 ## How to use Multivariate Normal Distribution in R
 
 Similar to other distribution functions, we use `dmvnorm` to get the density given the observations and the parameters (mean vector and covariance matrix). `rmvnorm` can generate multiple samples given the distribution
@@ -705,16 +704,16 @@ rmvnorm(20, mean = mu, sigma = S) |> show_table()
 
 ## Wrapping Up
 
-1. We are now ready to discuss multivariate models and the art/science of multivariate modeling
+1.  We are now ready to discuss multivariate models and the art/science of multivariate modeling
 
-2. Many of the concepts of univariate models carry over
+2.  Many of the concepts of univariate models carry over
 
     -   Maximum likelihood
     -   Model building via nested models
     -   All of the concepts involve multivariate distributions
-    
-3. Matrix algebra was necessary so as to concisely talk about our distributions (which will soon be models)
 
-4. The multivariate normal distribution will be necessary to understand as it is the most commonly used distribution for estimation of multivariate models
+3.  Matrix algebra was necessary so as to concisely talk about our distributions (which will soon be models)
 
-5. Next class we will get back into data analysis – but for multivariate observations…using R’s lavaan package for path analysis
+4.  The multivariate normal distribution will be necessary to understand as it is the most commonly used distribution for estimation of multivariate models
+
+5.  Next class we will get back into data analysis – but for multivariate observations…using R’s lavaan package for path analysis

@@ -1,5 +1,6 @@
 ---
-title: "How to set up High Performance Computing of University of Arkansas"
+title: "How to set up High Performance Computing"
+subtitle: "AHPCC from University of Arkansas"
 author: Jihong Zhang
 date: 2024-01-14
 categories: 
@@ -17,19 +18,23 @@ citation:
 
 ## General Information
 
-Arkansas High Performance Computing Center (AHPCC) is available for research and instructional use to faculty and students of any Arkansas university and their research collaborators. There is no charge for use of our computing resources.
+Arkansas High Performance Computing Center (AHPCC, [official website](https://hpc.uark.edu/)) is available for research and instructional use to faculty and students of any Arkansas university and their research collaborators. There is no charge for use of our computing resources.
 
-To use the HPC, an AHPCC account must be requested through [Internal Account Request Form](http://hpc.uark.edu/hpc-support/user-account-requests/internal.php). Please see [here](https://dartproject.org/hpc/) for more information about AHPPC inventory.
+To use the HPC, an AHPCC account must be requested through [Internal Account Request Form](http://hpc.uark.edu/hpc-support/user-account-requests/internal.php). Please see [here](https://dartproject.org/hpc/) for more information about AHPPC inventory. \]
 
 ## Connect to HPC
 
-As long as you have an AHPCC account, you can connect to HPC through SSH. For Windows users, you can use [PuTTY](http://www.putty.org/) to connect to HPC. For Mac and Linux users, you can use the terminal to connect to HPC. The command is:
+-   You can use online [dashboard](https://hpc-portal2.hpc.uark.edu/pun/sys/dashboard) or terminal to have access to AHPCC nodes.
+
+### For terminal 
+
+As long as you have an AHPCC account, you can connect to HPC through SSH. For Windows users, you can use [PuTTY](http://www.putty.org/) or Powershell to connect to HPC. For Mac and Linux users, you can use the terminal to connect to HPC. The command is:
 
 ``` bash
-ssh [loginname]@hpc-portal2.hpc.uark.edu
+ssh [username]@hpc-portal2.hpc.uark.edu
 ```
 
-If your account was successfully settled up, passwords will be required. After you enter your password, you will be connected to HPC.
+Replace \[username\] with your username of AHPCC account. Passwords will be required. After you enter your password, you will be connected to HPC and your terminal/Powershell will look like this.
 
 ![Login Screenshot](login.png)
 
@@ -66,24 +71,38 @@ scp ~/.ssh/id_rsa.pub [loginname]@hpc-portal2.hpc.uark.edu:/home/[loginname]/.ss
 ssh [loginname]@hpc-portal2.hpc.uark.edu
 ```
 
-## Moving data
+## Upload or Download Data
 
-For moving data files from local machine to HPC, type in following codes on your local machine:
+There are two ways to download data: (1) dashboard (2) terminal
+
+### Dashboard
+
+One the dashboard page, find `Files` tag on the navigation bar:
+
+**Files \> /karpinski/\[username\]**
+
+You then should be able to upload or download your files from local to server or form server to local.
+
+### Terminal
+
+-   To **upload** data files from local machine to HPC, type in following codes on your local machine:
 
 ``` bash
-scp program.c loginname@hpc-portal2.hpc.uark.edu:/home/loginname/
+scp program.c [username]@hpc-portal2.hpc.uark.edu:/home/username/
 ```
 
-To copy an entire directory tree `src` using SCP, use `-r` for recursive:
+where `program.c` is one example file you want to upload. If you target file is located in **Downloads** folder, use `~/Downloads/program.c` instead.
+
+To copy an entire **folder and its subfolds** using SCP, add parameter `-r` following `scp` for recursive operations (`src` is a folder for example):
 
 ``` bash
-scp -r src loginname@hpc-portal2.hpc.uark.edu:/home/loginname/
+scp -r src [username]@hpc-portal2.hpc.uark.edu:/home/username/
 ```
 
-Similarly, for moving data files from HPC to local machine, type in following codes on your local machine:
+-   To **download** data files from HPC to local machine, type in following codes on your local machine:
 
 ``` bash
-scp -r loginname@hpc-portal2.hpc.uark.edu:/home/loginname/src ./
+scp -r [username]@hpc-portal2.hpc.uark.edu:/home/username/src ./
 ```
 
 ## Jobs submission
@@ -99,10 +118,10 @@ sbatch -q q06h32c -l walltime=1:00 -l nodes=1:ppn=32 example.sh
 ::: {.callout-note appearance="simple"}
 ## Note
 
-`sbatch` command aims to submit a job with the job file `example.sh`. The command above submitted the job to the q06h32c queue with a wall-time of 1 minute requesting all 32 cores on 1 node.
+The `sbatch` command (a slurm command) aims to submit a job that is saved to the job file `example.sh` or `example.slurm`. The command above submitted the job to the q06h32c queue with a wall-time of 1 minute requesting all 32 cores on 1 node.
 :::
 
-**Second**, create a job file with `.sh` extension. Here's a simple example of a job file `example.sh` that can tell HPC **how** to run your R code:
+**Second**, create a job file with `.sh` or `.slurm` extension. Here's a simple example of a job file `example.sh` that can tell HPC **how** to run your R code:
 
 ``` bash
 #!/bin/bash
@@ -113,12 +132,13 @@ sbatch -q q06h32c -l walltime=1:00 -l nodes=1:ppn=32 example.sh
 #SBATCH --tasks-per-node=32
 #SBATCH --time=6:00:00
 module load gcc/11.2.1 mkl/19.0.5 R/4.2.2
+# module load gcc/11.2.1 intel/21.2.0 mkl/21.3.0 R/4.3.0
 
 Rscript HelloWorld/example.R
 ```
 
 ::: {.callout-note appearance="simple"}
-**Note**
+**R relevant modules**
 
 Where <mark>Line 8</mark> loaded all required modules:
 
@@ -146,7 +166,7 @@ This command will redirect to cloud72 queue, which includes virtual machines and
 :::
 
 | slurm commands      | compatibility commands   | Meaning                            |
-|-------------------|-----------------------|-------------------------------|
+|-------------------|-----------------------|------------------------------|
 | sbatch              | qsub                     | submit \<job file\>                |
 | srun                | qsub -I                  | submit interactive job             |
 | squeue              | qstat                    | list all queued jobs               |
@@ -247,9 +267,21 @@ Job arrays will have additional environment variables set.
 -   **SLURM_ARRAY_TASK_MAX** will be set to the highest job array index value.
 -   **SLURM_ARRAY_TASK_MIN** will be set to the lowest job array index value.
 
+## Cancel job
+
+Use `scancle [jobID]` to cancel one running job or `scancle jobID1,jobID2` to cancel multiple running jobs.
+
 ## Checking job
 
-### `squeue` command
+### `sinfo` command: Look up available resources
+
+-   When logged in the **computing node** or **login node**, type in `hostname` will output your computational node's name.
+
+-   One node has 32 cores, use `sinfo` to check:
+
+    -   `alloc` means it has been occupied; `idle` means it is available.
+
+### `squeue` command: Check running jobs
 
 `squeue` can check jobs that are running or pending. Below shows the information of all running/down task for the queue `comp06` (there are 9 Jobs but only 7 are running). Note that comp06 and comp72 queues share the same nodes, both belonging to pinnacle cluster. There are 49 public standard compute nodes. Thus, if there are 49 running jobs in both queues, then your job has to be waitting until some jobs finished.
 
@@ -312,7 +344,13 @@ When you want to get the worst case scenario estimate of when your waiting jobs 
 squeue -u [loginname] --start
 ```
 
-### `sacct` command
+::: callout-note
+## More advanced filtering
+
+Use `squeue -u [username] | awk '{print $1}' | grep -v JOBID` to list all jobs Then, use `scancel 'squeue -u [username] | awk '{print $1}' | grep -v JOBID'` to cancel multiple running jobs with given JobIDs
+:::
+
+### `sacct` command: Check job history
 
 `sacct` can check your job history
 
@@ -523,7 +561,8 @@ xfun::embed_file("Procedure of Data Analysis on HPC.pdf")
 
 ## Resources
 
-1.  [New Mexico State University HPC Wiki](https://hpc.nmsu.edu/discovery/slurm/)
-2.  [Slurm Official Documentation](https://slurm.schedmd.com/documentation.html)
-3.  [University of Arkansas HPC Center Wiki](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) (not very useful and outdated)
-4.  [Slides fo Jobs Submission in Slurms by Damien Francios](https://indico.cism.ucl.ac.be/event/121/contributions/60/attachments/130/287/slurm2022.pdf)
+1.  Linux 101: <https://github.com/erolrecep/GettingStartedwithAHPCC>
+2.  [New Mexico State University HPC Wiki](https://hpc.nmsu.edu/discovery/slurm/)
+3.  [Slurm Official Documentation](https://slurm.schedmd.com/documentation.html)
+4.  [University of Arkansas HPC Center Wiki](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) (not very useful and outdated)
+5.  [Slides fo Jobs Submission in Slurms by Damien Francios](https://indico.cism.ucl.ac.be/event/121/contributions/60/attachments/130/287/slurm2022.pdf)

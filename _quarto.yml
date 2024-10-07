@@ -3,7 +3,9 @@ project:
   output-dir: "_site"
     
 website:
-  search: false
+  search: 
+    location: navbar
+    type: overlay
   bread-crumbs: true
   page-navigation: true
   back-to-top-navigation: true
