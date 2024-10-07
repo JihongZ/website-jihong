@@ -1,0 +1,32 @@
+---
+title: "Lighting Presentation: Introduce Psychological Network Models"
+subtitle: "COEHP Luncheon Academic Seminar Series (CLASS) sessions, College Council"
+author: "Jihong Zhang*, Ph.D"
+categories:
+  - Presentation
+  - Network Analysis
+  - Eating Disorders
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-23"
+format: 
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: true
+    number-sections: true
+    number-depth: 1
+---
+
+## What is Psychological Network Models
+
+-   It is a popular data analysis model used to describe a system via a network-like structure
+
+## Why USE Psychological Network Models
+
+1.  New perspective of visualizing the "ecosystem" your are interested in
+2.  Highlight most important nodes based on the link strength or the number of links
+3.  Highlight the bridge nodes that connect multiple sub-ecosystems that may be target for intervention
+4.  Group differences in network way
