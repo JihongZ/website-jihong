@@ -61,6 +61,11 @@ show_table(head(dataSAT))
 show_table(tail(dataSAT))
 ```
 
+```{r}
+plot(dataSAT$SATV, dataSAT$SATM)
+```
+
+
 ## Background
 
 -   Matrix operations are fundamental to all modern statistical software.
@@ -99,7 +104,12 @@ dim(X) # Number of rows and columns
 -   In R, we use `matrix[rowIndex, columnIndex]` to extract the element with the position of rowIndex and columnIndex
 
 ```{r}
+#| results: hold
+#| output-location: column
 X[2, 1]
+X[3] # No comma in the bracket will output the element in column-wise order
+X[2, ] # 2nd row vector
+X[, 1] # 1st column vector
 ```
 
 -   In statistics, we use $x_{ij}$ to represent one element with the position of *i*th row and *j*th column. For a example matrix $\mathbf{X}$ with the size of 1000 rows and 2 columns.
@@ -181,7 +191,7 @@ $$
     \end{bmatrix}
     $$
 
-    -   We will use diagonal matrices to form correlation matrices
+    -   We will use diagonal matrices to transform correlation matrices to covariance matrices
 
     ```{r}
     vars = c(2.758, 1.643, 0.879)
@@ -191,6 +201,7 @@ $$
 -   **Symmetric Matrix**: A symmetric matrix is a square matrix where all elements are reflected across the diagonal ($x_{ij} = x_{ji}$)
 
     -   Correlation and covariance matrices are symmetric matrices
+    -   [**Question**: A diagonal matrix is always a symmetric matrix?]{.underline} [True]{.mohu}
 
 ## Linear Combinations
 
@@ -202,7 +213,7 @@ $$
 
 -   Here, $\mathbb{y}$ is the linear combination
 
-    -   For all *k* vectors, the set of all possible linear combinations is called their span
+    -   For all *k* vectors, the set of all possible linear combinations is called their **span**
 
     -   Typically not thought of in most analyses – but when working with things that don't exist (latent variables) becomes somewhat importnat
 
@@ -212,7 +223,9 @@ $$
 
     -   Principal components analysis
 
-## Inner (Dot) Product of Vectors
+    -   **Question**: Does generalized linear model contains linear combinations? [True, link function + a linear combination]{.mohu}.
+
+## Inner (Dot/Cross-) Product of Vectors
 
 -   An important concept in vector geometry is that of the inner product of two vectors
 
@@ -230,6 +243,8 @@ crossprod(x, y) # R function for dot product of x and y
 t(x) %*% y
 ```
 
+> This is formally equivalent to (but usually slightly faster than) the call `t(x) %*% y` (`crossprod`) or `x %*% t(y)` (`tcrossprod`).
+
 Using our **example data `dataSAT`**,
 
 ```{r}
@@ -243,6 +258,8 @@ crossprod(dataSAT$SATV, dataSAT$SATM) # x and y could be variables in our data
 ## Moving from Vectors to Matrices
 
 -   A matrix can be thought of as a collection of vectors
+
+    -   In R, we use `df$[name]` or `matrix[, index]` to extract single vector
 
 -   Matrix algebra defines a set of operations and entities on matrices
 
@@ -272,11 +289,24 @@ crossprod(dataSAT$SATV, dataSAT$SATM) # x and y could be variables in our data
 
 -   **Rules**: Matrices must be the same size (rows and columns)
 
+    -   [Be careful!! R may not pop up error message when matrice + vector!]{style="color: red"}
+
+        ```{r}
+        #| output-location: column
+        #| results: hold
+        A = matrix(c(1, 2, 3, 4), nrow = 2, byrow = T)
+        B = c(1, 2)
+        A
+        B
+        A+B
+        ```
+
 -   **Method**: the new matrix is constructed of element-by-element addition/subtraction of the previous matrices
 
 -   **Order**: the order of the matrices (pre- and post-) does not matter
 
 ```{r}
+#| error: true
 #| output-location: default
 A = matrix(c(1, 2, 3, 4), nrow = 2, byrow = T)
 B = matrix(c(5, 6, 7, 8), nrow = 2, byrow = T)
@@ -415,6 +445,7 @@ round(solve(A) %*% A, 3)
 
 ```{r}
 #| error: true
+#| results: hold
 A <- matrix(2:10, nrow = 3, ncol = 3, byrow = T)
 A
 solve(A)%*%A
@@ -650,7 +681,7 @@ $$
 f(\mathbf{x}_p) = \frac{1}{(2\pi)^{\frac{V}2}|\mathbf{\Sigma}|^{\frac12}}\exp[-\frac{\color{tomato}{(x_p^T - \mu)^T \mathbf{\Sigma}^{-1}(x_p^T-\mu)}}{2}]
 $$
 
-Where $V$ represents number of variables and the highlighed is Mahalanobis Distance.
+Where $V$ represents number of variables and the highlighed is [Mahalanobis Distance]{style="color: tomato"}.
 
 -   We use $MVN(\mathbf{\mu, \Sigma})$ to represent a multivariate normal distribution with mean vector as $\mathbf{\mu}$ and covariance matrix as $\mathbf{\Sigma}$
 
@@ -667,8 +698,15 @@ $$
 x_p <- X[1, ]
 x_p
 mahalanobis(x = x_p, center = XBAR, cov = S)
+mahalanobis(x = X[2, ], center = XBAR, cov = S)
+mahalanobis(x = X[3, ], center = XBAR, cov = S)
 # Alternatively,
 t(x_p - XBAR) %*% solve(S) %*% (x_p - XBAR)
+```
+
+```{r}
+mh_dist_all <- apply(X, 1, \(x) mahalanobis(x, center = XBAR, cov = S))
+plot(density(mh_dist_all))
 ```
 
 ## Multivariate Normal Properties
