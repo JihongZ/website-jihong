@@ -1,5 +1,5 @@
 ---
-title: "Lecture 07: Generalized Linear Models (Binary Outcome) and Matrix Algebra"
+title: "Lecture 07: Matrix Algebra"
 subtitle: "Matrix Algebra in R"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -43,7 +43,7 @@ filters:
 -   Multivariate Normal Distribution
 -   Multivariate Linear Analysis
 
-## Graduate Certificate
+## Graduate Certificate in ESRM Program
 
 1.  See link [here](https://esrm.uark.edu/certificates/index.php)
 

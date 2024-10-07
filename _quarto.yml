@@ -114,6 +114,7 @@ format:
       sidebar-width: 200px
       body-width: 1000px
       margin-width: 400px # page navigation
+      gutter-width: 1.5em
     css: assets/rwds.css
     theme: 
       light: [Flatly, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
