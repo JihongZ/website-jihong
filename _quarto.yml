@@ -82,21 +82,27 @@ website:
     pinned: true
     title: "<span class='icon-line'></span><b><span style='color:#447099'>Jihong</span></b><span class='icon-line'></span>"
     left:
-      - text: "<span class='menutext-home' style='color:#c0c0c0; font-weight:bold'>Home</span><span class='text-line'></span>"
+      - text: "|"
+      - text: "<span class='menutext-home' style='color:#404041; font-weight:bold; font-family: Jost;'>Home</span><span class='text-line'></span>"
         #icon: 'bi bi-house' # https://icons.getbootstrap.com
         file: index.qmd
-      - text: "<span class='menutext-blog' style='color:#c0c0c0; font-weight:bold'>Blog</span><span class='text-line-blog'></span>"     
+      - text: "|"
+      - text: "<span class='menutext-blog' style='color:#404041; font-weight:bold; font-family: Jost;'>Blog</span><span class='text-line-blog'></span>"     
         #icon: 'bi bi-pencil-square'
         file: posts.qmd 
-      - text: "<span class='menutext-note' style='color:#c0c0c0; font-weight:bold'>Note</span><span class='text-line-note'></span>"
+      - text: "|"
+      - text: "<span class='menutext-note' style='color:#404041; font-weight:bold; font-family: Jost;'>Note</span><span class='text-line-note'></span>"
         #icon: 'bi bi-journal-bookmark-fill'
         file: notes.qmd
-      - text: "<span class='menutext-pj' style='color:#c0c0c0; font-weight:bold'>Project</span><span class='text-line-pj'></span>"
+      - text: "|"
+      - text: "<span class='menutext-pj' style='color:#404041; font-weight:bold; font-family: Jost;'>Project</span><span class='text-line-pj'></span>"
         #icon: 'bi bi-clipboard-data'
         file: projects.qmd
-      - text: "<span class='menutext-db' style='color:#c0c0c0; font-weight:bold'>Dashboard</span><span class='text-line-db'></span>"
+      - text: "|"
+      - text: "<span class='menutext-db' style='color:#404041; font-weight:bold; font-family: Jost;'>Dashboard</span><span class='text-line-db'></span>"
         #icon: "bi bi-speedometer2"
         file: dashboards/template.qmd  
+      - text: "|"
     tools:
       - icon: "bi bi-person-square" # somehow the file path only works in nav. bar, not link in index
         file: uploads/Curriculum_Vitae.pdf

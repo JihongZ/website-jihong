@@ -621,7 +621,7 @@ $$
 
 -   It is a measure of spread across all variables
 
-    -   Reflecting how much overlap (covariance) in variables raltive to total variances occurs in the sample
+    -   Reflecting how much overlapping area (covariance) across variables relative to the total variances occurs in the sample
 
     -   Amount of overlap reduces the generalized sample variance
 
