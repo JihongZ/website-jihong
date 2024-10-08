@@ -6,7 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2024-09-24"
+date: "2024-10-07"
 sidebar: false
 execute: 
   echo: true
@@ -64,7 +64,6 @@ show_table(tail(dataSAT))
 ```{r}
 plot(dataSAT$SATV, dataSAT$SATM)
 ```
-
 
 ## Background
 
