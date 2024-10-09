@@ -1,0 +1,248 @@
+---
+title: "Lecture 08: Multivariate Analysis"
+subtitle: "Model Setup and Assumptions"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-09"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: column
+code-annotations: below
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 08: Multivariate Analysis"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+---
+
+## Today's Class
+
+-   Multivariate linear models: an introduction
+-   How to form multivariate models in `lavaan`
+-   What parameters mean
+-   How they relate to the multivariate normal distribution
+
+# Multivariate Models: An Introduction
+
+## Multivariate Linear Models
+
+-   The next set of lectures are provided to give an overview of multivariate linear models
+    -   Models for **more than one** dependent/outcome variables
+-   Our focus will be on models where the DV is plausibly continuous
+    -   so we’ll use error terms that are multivariate normally distributed
+    -   Not a necessity – **generalized multivariate models** are possible
+
+## Classical vs. Contemporary Methods
+
+-   In "classical" multivariate textbooks and classes multivariate linear models fall under the names of Multivariate ANOVA (MANOVA) and Multivariate Regression
+
+-   These methods rely upon least squares estimation which:
+
+    1.  Inadequate with missing data
+    2.  Offers very limited methods of setting covariance matrix structures
+    3.  Does not allow for different sets predictor variables for each outcome
+    4.  Does not give much information about model fit
+    5.  Does not provide adequate model comparison procedures
+
+-   The classical methods have been subsumed into the modern (likelihood or Bayes-based) multivariate methods
+
+    -   Subsume: include or absorb (something) in something else
+    -   Meaning: modern methods do what classical methods do (and more)
+
+## Contemporary Methods for Estimating Multivariate Linear Models
+
+-   We will discuss three large classes of multivariate linear modeling methods:
+
+    -   Path analysis models (typically through structural equation modeling and path analysis software)
+    -   Linear mixed models (typically through linear models software)
+    -   Psychological network models (typically through psychological network software)
+    -   Bayesian networks (frequently not mentioned in social sciences but subsume all we are doing)
+
+-   The theory behind each is identical – the main difference is in software
+
+    -   Some software does a lot (`Mplus` software is likely the most complete), but none (as of 2024) do it all
+
+-   We will start with path analysis (via the `lavaan` package) as the modeling method is more direct but then move to linear mixed models software (via the `nlme` and `lme4` packages)
+
+-   Bayesian networks will be discussed in the Bayes section of the course and will use entirely different software
+
+## The "Curse" of Dimensionality: Shared Across Models
+
+-   Having lots of parameters creates a number of problems
+
+    -   Estimation issues for small sample sizes
+    -   Power to detect effects
+    -   Model fit issues for large numbers of outcomes
+
+-   **Curse of dimensionality**: for multivariate normal data, there's a quadratic increase in the number of parameters as the number of outcomes increases linearly
+
+-   To be used as an analysis model, however, a covariance structure must “fit” as well as the saturated/unstructured covariance matrix
+
+## Biggest Difference From Univariate Models: Model Fit
+
+1.  In univariate linear models the "model for the variance" wasn’t much of a model - There was one variance term possible and one term estimated
+    -   A saturated model - all variances/covariances are freely estimated without any constrains - Model fit was always perfect
+2.  In multivariate linear models, because of the number of variances/covariances, oftentimes models are not saturated for the variances
+    -   Therefore, model fit becomes an issue
+3.  Any non-saturated model for the variances must be shown to fit the data before being used for interpretation
+    -   "fit the data" has differing standards depending on software type used
+
+## Today's Example Data
+
+-   Data are simulated based on the results reported in:
+
+-   Sample of 350 undergraduates (229 women, 121 men)
+
+    -   In simulation, 10% of variables were missing (using missing completely at random mechanism)
+
+-   Dictionary:
+
+    1.  Prior Experience at High School Level (HSL)
+    2.  Prior Experience at College Level (CC)
+    3.  Perceived Usefulness of Mathematics (USE)
+    4.  Math Self-Concept (MSC)
+    5.  Math Anxiety (MAS)
+    6.  Math Self-Efficacy (MSE)
+    7.  Math Performance (PERF)
+    8.  Female (sex variable: 0 = male; 1 = female)
+
+```{r}
+#| results: hold
+library(ESRM64503)
+library(tidyverse)
+library(DescTools)
+head(dataMath)
+dim(dataMath)
+```
+
+```{r}
+Desc(dataMath[,2:8], plotit = FALSE, conf.level = FALSE)
+```
+
+## Using MVN Likelihoods in `lavaan`
+
+> [The lavaan package](https://www.lavaan.ugent.be/) is developed by Dr. [Yves Rosseel](https://research.ugent.be/web/person/yves-rosseel-0/en) to provide useRs, researchers and teachers a free open-source, but commercial-quality package for latent variable modeling. You can use lavaan to estimate a large variety of multivariate statistical models, including **path analysis**, **confirmatory factor analysis**, **structural equation modeling** and **growth curve models**.
+
+-   `lavaan`’s default model is a linear (mixed) model that uses ML with the multivariate normal distribution
+
+-   ML is sometimes called a full information method (FIML)
+
+    -   Full information is the term used when each observation gets used in a likelihood function
+    -   The contrast is limited information (not all observations used; typically summary statistics are used)
+
+```{r}
+library(lavaan)
+```
+
+## Revisiting Univariate Linear Regression
+
+-   We will begin our discussion by starting with perhaps the simplest model we will see: a univariate empty model
+    -   We will use the PERF variable from our example data: Performance on a mathematics assessment
+-   The empty model for PERF is:
+    -   $e_{i, PERF} \sim N(0, \sigma^2_{e,PERF})$
+    -   Two parameters are estimated: [$\beta_{0,PERF}$ and $\sigma^2_{e,PERF}$]{.mohu}
+
+$$
+\text{PERF}_i = \beta_{0,\color{tomato}{PERF}} + e_{i, \color{tomato}{PERF}}
+$$
+
+-   Here, the additional subscript is added to denote these terms are part of the model for the PERF variable
+    -   We will need these when we get to multivariate models and path analysis
+
+## `lavaan` Syntax
+
+-   The `lavaan` package works by taking the typical R model syntax (as from `lm()`) and putting it into a quoted character variable
+    -   `lavaan` model syntax also includes other commands used to access other parts of the model (really, parts of the MVN distribution)
+-   Here:
+    -   `~~` indicate variance or covariance between variables on either side (`perf ~~ perf`) estimates variance\
+    -   `~1` indicate intercept for one variable (`perf~1`)
+
+```{r}
+#| results: hold
+#| output-location: default
+## Syntax for model01
+model01.syntax <- " #<1>
+## Variances:
+perf ~~ perf
+
+## Means:
+perf ~ 1
+"
+## Estimation for model01
+model01.fit <- cfa(model01.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") #<2>
+
+## Print output
+summary(model01.fit)
+```
+
+1.  model syntax is a string object containing our model specification
+2.  We use the `cfa()` function to run the model based on the syntax
+
+## Model Parameter Estimates and Assumptions
+
+```{r filename = "Summary of lavaan's cfa()"}
+#| eval: false
+Intercepts:
+                   Estimate  Std.Err  z-value  P(>|z|)
+    perf             13.966    0.174   80.397    0.000
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+    perf              8.751    0.756   11.581    0.000
+```
+
+```{r filename = "Summary of lm()"}
+summary(lm(perf ~ 1, data = dataMath))
+```
+
+-   Parameter Estimates:
+    -   $\beta_{0,PERF} = 13.966$
+    -   $\sigma^2_{e,PERF} = 8.751$
+-   Using the model estimates, we known that:
+
+$$
+\text{PERF}_i \sim N(13.966, 8.751)
+$$
+
+# Multivariate Empty Models
+
+## Adding One More Variable: Multivariate Regression
+
+-   We already know how to use `lavaan` to estimate univariate model, let's move on to model two variables as outcomes
+
+    -   **Mathematics performance (perf)**
+    -   **Perceived Usefulness of Mathematics (use)**
+
+-   Assumption: We will assume these to be continuous variables (conditionally MVN)
+
+-   Initially, we will only look at an empty model with these two variables:
+
+    -   Empty models are baseline models
+    -   We will use these to show how such models look based on the characteristics of the multivariate normal distribution
+    -   We will also show the bigger picture when modeling multivariate data: how we must be sure to model the covariance matrix correctly
+
+## Multivariate Empty Model: The Notation
+
+-   The multivariate model for `perf` and `use` is given by two regression models, which are estimated **simultaneously**:
