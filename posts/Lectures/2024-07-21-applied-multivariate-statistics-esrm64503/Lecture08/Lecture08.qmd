@@ -132,6 +132,7 @@ filters:
 ```{r}
 #| results: hold
 library(ESRM64503)
+library(kableExtra)
 library(tidyverse)
 library(DescTools)
 head(dataMath)
@@ -246,3 +247,160 @@ $$
 ## Multivariate Empty Model: The Notation
 
 -   The multivariate model for `perf` and `use` is given by two regression models, which are estimated **simultaneously**:
+
+$$
+\text{PERF}_i = \beta_{0,\text{PERF}}+e_{i,\text{PERF}}
+$$
+
+$$
+\text{USE}_i = \beta_{0,\text{USE}}+e_{i,\text{USE}}
+$$
+
+-   As there are two variables, the error terms have a joint distribution that will be multivariate normal
+
+$$
+\begin{bmatrix}e_{i,\text{PERF}}\\e_{i,\text{USE}}\end{bmatrix} \sim \mathbf{N}_2 (\mathbf{0}=\begin{bmatrix}0\\0\end{bmatrix}, \mathbf{R}=\begin{bmatrix}\sigma^2_{e,\text{PERF}} & \sigma_{e,\text{PERF},\text{USE}}\\ \sigma_{e,\text{PERF},\text{USE}}&\sigma^2_{e,\text{USE}}\end{bmatrix})
+$$
+
+-   Each error term (diagonal elements in $\mathbf{R}$) has its own variance but now there is a covariance between error terms
+    -   We will soon that the overall $\mathbf{R}$ matrix structure can be modified
+
+## Data Model
+
+-   Before showing the syntax and the results, we must first describe how the multivariate empty model implies how our data should look
+
+-   Multivariate model with matrices: $$
+    \begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} =\begin{bmatrix}1&0\\0&1\end{bmatrix}\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix} + \begin{bmatrix}e_{i,\text{PERF}}\\e_{i,\text{USE}}\end{bmatrix}
+    $$
+
+$$
+\mathbf{Y_i = X_iB + e_i}
+$$
+
+-   Using expected values and linear combination rules, we can show that:
+
+$$
+\begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} \sim \mathbf{N}_2 (\boldsymbol{\mu}_i=\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix}, \mathbf{V}_i =\mathbf{R}=\begin{bmatrix}\sigma^2_{e,\text{PERF}} & \sigma_{e,\text{PERF},\text{USE}}\\ \sigma_{e,\text{PERF},\text{USE}}&\sigma^2_{e,\text{USE}}\end{bmatrix})
+$$
+
+$$
+\mathbf{Y}_i \sim N_2(\mathbf{X}_i\mathbf{B},\mathbf{V}_i)
+$$
+
+## `lavaan` Syntax: Multivariate Regression Model
+
+Number of parameters is 5, including two means and three variance and covaraince components.
+
+```{r}
+model02.syntax = "
+# Variances:
+perf ~~ perf #<1>
+use ~~ use   #<2>
+
+# Covariance:
+perf ~~ use   #<3>
+
+# Means:
+perf ~ 1    #<4>
+use ~ 1     #<5>
+"
+```
+
+1.  $\sigma^2_{e, \text{PERF}}$
+2.  $\sigma^2_{e,\text{USE}}$
+3.  $\sigma^2_{e, \text{PERF}, \text{USE}}$
+4.  $\beta_{0, \text{PERF}}$
+5.  $\beta_{0, \text{USE}}$
+
+-   This covariance matrix is said to be **saturated**: All parameters are estimated
+        -   It is also called an unstructured covariance matrix
+        
+-   No other structure for the covariance matrix can fit better (only as well as)
+
+## Multivariate Regression Model Results
+
+### Output of `lavaan`
+```{r}
+#| output-location: default
+## Estimation for model01
+model02.fit <- cfa(model02.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
+
+## Print output
+summary(model02.fit)
+```
+-   Question: why is the sample size different from Model 1?
+
+```{r}
+table(is.na(dataMath$perf) & is.na(dataMath$use))
+```
+
+
+### Correlation Between PERF and USE
+
+```{r}
+# Standardized Parameters
+standardizedsolution(model02.fit) |> show_table()
+```
+
+```{r}
+D = matrix(c(sqrt(8.742), 0, 0,  sqrt(249.245)), nrow = 2)
+S = matrix(c(8.742, 6.847, 6.847,  249.245), nrow = 2)
+solve(D) %*% S %*% solve(D)
+```
+
+## Comparing Model with Data
+```{r}
+library(mvtnorm)
+x = expand.grid(
+  perf = seq(0, 25, .1),
+  use = seq(0, 120, .1)
+)
+sim_dat <- cbind(
+  x,
+  density = dmvnorm(x, mean = c(13.959, 52.440), sigma = S)
+)
+
+  
+ggplot() +
+  geom_contour_filled(aes(x = perf, y = use, z = density), data = sim_dat) +
+  geom_point(aes(x = perf, y = use), data = dataMath, colour = "white", alpha = .5) +
+  labs( x= "PERF", y="USE") +
+  theme_classic() +
+  theme(text = element_text(size = 20))
+```
+
+-   We can use our estimated parameters to simulation the **model-implied density plot** for `perf` and `use`, which can be compared to the observed data of `perf` and `use`
+
+## A Different Model for the data
+
+-   To demonstrate how models may vary in terms of model fit (and to set up a discussion of model fit and model comparisons) we will estimate a model where we set the covariance between PERF and USE to zero
+    -   Zero covariance implies zero correlation – which is unlikely to be true given our previous analysis
+
+-   You likely would not use this model in a real data analysis
+    -   If anything, you may start with a zero covariance and then estimate one
+    
+-   But, this will help to introduce come concepts needed to assess the quality of the multivariate model    
+
+## `lavaan` Syntax: Zero Covariance
+
+```{r}
+model03.syntax = "
+# Variances:
+perf ~~ perf 
+use ~~ use   
+
+# Covariance:
+perf ~~ 0*use   #<1>
+
+# Means:
+perf ~ 1  
+use ~ 1   
+"
+```
+1. We constrain $\sigma^2_{e, \text{PERF}, \text{USE}} = 0$ 
+
+### Model Assumption
+
+-   The zero covariance now leads to the following assumptions about the data:
+
+-   Because these are MVN, we are assuming PERF is independent from USE (has zero correlation/covariance)
