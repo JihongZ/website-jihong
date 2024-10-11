@@ -15,7 +15,6 @@ website:
   description: ""
   google-analytics:
     tracking-id: "UA-149871707-1"
-  reader-mode: true
   twitter-card: 
     creator: "@jihongzgamma"
   open-graph: true
@@ -83,23 +82,23 @@ website:
     title: "<span class='icon-line'></span><b><span style='color:#447099'>Jihong</span></b><span class='icon-line'></span>"
     left:
       - text: "|"
-      - text: "<span class='menutext-home' style='color:#404041; font-weight:bold; font-family: Jost;'>Home</span><span class='text-line'></span>"
+      - text: "<span class='menutext-home' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Home</span><span class='text-line'></span>"
         #icon: 'bi bi-house' # https://icons.getbootstrap.com
         file: index.qmd
       - text: "|"
-      - text: "<span class='menutext-blog' style='color:#404041; font-weight:bold; font-family: Jost;'>Blog</span><span class='text-line-blog'></span>"     
+      - text: "<span class='menutext-blog' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Blog</span><span class='text-line-blog'></span>"     
         #icon: 'bi bi-pencil-square'
         file: posts.qmd 
       - text: "|"
-      - text: "<span class='menutext-note' style='color:#404041; font-weight:bold; font-family: Jost;'>Note</span><span class='text-line-note'></span>"
+      - text: "<span class='menutext-note' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Note</span><span class='text-line-note'></span>"
         #icon: 'bi bi-journal-bookmark-fill'
         file: notes.qmd
       - text: "|"
-      - text: "<span class='menutext-pj' style='color:#404041; font-weight:bold; font-family: Jost;'>Project</span><span class='text-line-pj'></span>"
+      - text: "<span class='menutext-pj' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Project</span><span class='text-line-pj'></span>"
         #icon: 'bi bi-clipboard-data'
         file: projects.qmd
       - text: "|"
-      - text: "<span class='menutext-db' style='color:#404041; font-weight:bold; font-family: Jost;'>Dashboard</span><span class='text-line-db'></span>"
+      - text: "<span class='menutext-db' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Dashboard</span><span class='text-line-db'></span>"
         #icon: "bi bi-speedometer2"
         file: dashboards/template.qmd  
       - text: "|"
@@ -121,12 +120,10 @@ format:
       body-width: 1000px
       margin-width: 400px # page navigation
       gutter-width: 1.5em
-    css: assets/rwds.css
     theme: 
       light: [Flatly, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
       dark: [darkly, assets/rwds-dark.scss]
-    template-partials:
-        - assets/title-block.html
+    css: assets/rwds.css
     comments:
       giscus:
         repo: JihongZ/quarto-academic-jihong
@@ -212,7 +209,6 @@ format:
     lightbox: true # Lightbox Figure
     # code settings
     fontsize: 1.1em
-    #mainfont: 'Jost'
     monofont: 'JetBrains Mono'
     code-link: false
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/

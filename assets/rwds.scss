@@ -20,7 +20,10 @@
     font-weight: normal;
     font-style: normal;
   }
+  
 
+
+// navbar
 .navbar {
   background-color: transparent;
   backdrop-filter: blur(5px);
@@ -28,13 +31,15 @@
   padding-bottom: 5px;
 }
 
+.navbar .bi, .navbar .quarto-reader-toggle-btn {
+  color: #bfa5d0;
+}
+.navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {
+  color: #bfa5d0;
+}
 .navbar > .container, .navbar > .container-fluid, .navbar > .container-sm, .navbar > .container-md, .navbar > .container-lg, .navbar > .container-xl, .navbar > .container-xxl {
   padding-left: 10vw;  
   padding-right: 10vw;  
-}
-
-.nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus, .nav-tabs .nav-link.active:hover, .nav-tabs .nav-item.open .nav-link, .nav-tabs .nav-item.open .nav-link:focus, .nav-tabs .nav-item.open .nav-link:hover {
-  color: #e3abdb;
 }
 
 .menu-text {
@@ -47,14 +52,14 @@
 body {
   font-family: "Titillium Web", sans-serif;
 }
+
 h1, h2, h3 {
-  //color: #333333; 
-  //font-family: "Ysabeau Office", sans-serif;
   font-family: "Titillium Web", sans-serif;
   letter-spacing: 1.6px;
   letter-spacing: 0.8px;
   font-weight: normal;
 }
+
 p { // main font family of post content
   font-family: "Titillium Web", sans-serif;
   font-weight: 400;
@@ -84,22 +89,23 @@ $darkteal: #008080;
 $lightwhite: #c0c0c0;
 $gray: #64605f;
 $menutext-bg: #000000;
-// $navbar-bg: $soft-color1; // navigation bar bg
-$body-bg: $soft-color1; // body bg
-$code-block-bg: $freeze-purple; // code block's bg
-$pre-bg: $blue; // pre code's bg
-$code-block-bg-alpha: .8; // Code blocks
-$input-group-addon-bg: $soft-color1;
-$link-color: $orange;
-$breadcrumb-bg: $freeze-purple ;
-$breadcrumb-divider-color: $orange;
-$breadcrumb-border-radius:  0.30em;
 
+$primary: $blue !default;
 $warning: #EE6331;
 $info: #419599;
 $success: #72994E;
 $danger: #9A4665;
 $caution: #EE6331;
+
+$body-bg: $soft-color1; // body bg
+$code-block-bg: $freeze-purple; // code block's bg
+$pre-bg: $blue; // pre code's bg
+$code-block-bg-alpha: .8; // Code blocks
+$input-group-addon-bg: $soft-color1;
+$link-color: $danger;
+$breadcrumb-bg: $freeze-purple ;
+$breadcrumb-divider-color: $orange;
+$breadcrumb-border-radius:  0.30em;
 
 /* output color for R chunck */
 .cell-output {
@@ -110,19 +116,18 @@ $caution: #EE6331;
 .cell-output pre { border: $blue 1px solid;}
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
-$primary:   $freeze-purple !default;
-
 
 .icon-line {
   display: block;
-  background: #D4006A;
+  background: $caution;
   width: 100%;
-  height: 12px;
+  height: 7px;
   margin: auto;
   display: table;
   margin-top: -6px;
   margin-bottom: -6px;
 }
+
 .text-line {
   display: block;
   background: $primary;
@@ -133,6 +138,7 @@ $primary:   $freeze-purple !default;
   margin-top: -1px;
   margin-bottom: -6px;
 }
+
 .text-line-blog {
   display: block;
   background: #6636a9;
