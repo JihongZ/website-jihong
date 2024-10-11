@@ -92,7 +92,7 @@ library(tidyverse)
 library(here)
 library(kableExtra)
 library(psych)
-dat_path <- 'posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code'
+dat_path <- 'posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code'
 conspiracy <- read.csv(here(dat_path, 'conspiracies.csv'))
 itemResp <- conspiracy |> select(starts_with('PolConsp'))
 conspiracy |> 
@@ -312,7 +312,7 @@ With continuous variable, Mplus estimates factor scores as the maximum of poster
 The official paper will show both factor score and network score of unidimensional factor analysis is a special case of general scoring form when weight matrix is factor loadings or centrality measures.
 :::
 
-![Correlation between factor scores and network scores](Sim_FactorScore_NetworkScore_Correlation.png){fig-align="center"}
+![Correlation between factor scores and network scores](Sim_FactorScore_NetworkScore_Correlation.png){.preview-image fig-align="center"}
 
 For network model,
 

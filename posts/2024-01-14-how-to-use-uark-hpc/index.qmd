@@ -159,9 +159,7 @@ xfun::embed_file("summary.pdf")
 
 3.  We may want to use R interactively to test your R code is running well. Use the following bash command to start a brand new R in terminal:
 
-``` {.bash filename =" \"terminal"}
-srun -N1 -n1 -c1 -p cloud72 -q cloud -t 2:00:00 --pty /bin/bash
-```
+`{.bash filename =" \"terminal"} srun -N1 -n1 -c1 -p cloud72 -q cloud -t 2:00:00 --pty /bin/bash`
 
 ::: {.callout-note appearance="simple"}
 ## Note
@@ -426,7 +424,7 @@ Let's assume we have a job task to run multiple Bayesian models with ***K*** Mar
 
 The workflow for this job task is like this:
 
-![Workflow for HPC Job](Workflow.png){fig-align="center"}
+![Workflow for HPC Job](Workflow.png){.preview-image fig-align="center"}
 
 ### Overall Procedure
 
@@ -560,7 +558,7 @@ head(datset_fullpaths)
 
 ### Brief Workflow
 
-[Procedure of Data Analysis on HPC.pdf](Procedure of Data Analysis on HPC.pdf)
+[Procedure of Data Analysis on HPC.pdf](Procedure%20of%20Data%20Analysis%20on%20HPC.pdf)
 
 ## Resources
 
