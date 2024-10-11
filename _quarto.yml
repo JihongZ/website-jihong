@@ -80,25 +80,26 @@ website:
     tools-collapse: true
     pinned: true
     title: "<span class='icon-line'></span><b><span style='color:#447099'>Jihong</span></b><span class='icon-line'></span>"
+    foreground: '#bfa5d0'
     left:
       - text: "|"
-      - text: "<span class='menutext-home' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Home</span><span class='text-line'></span>"
+      - text: "<span class='menutext-home' style='font-weight:bold; font-family: Taub Sans;'>Home</span><span class='text-line'></span>"
         #icon: 'bi bi-house' # https://icons.getbootstrap.com
         file: index.qmd
       - text: "|"
-      - text: "<span class='menutext-blog' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Blog</span><span class='text-line-blog'></span>"     
+      - text: "<span class='menutext-blog' style='font-weight:bold; font-family: Taub Sans;'>Blog</span><span class='text-line-blog'></span>"     
         #icon: 'bi bi-pencil-square'
         file: posts.qmd 
       - text: "|"
-      - text: "<span class='menutext-note' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Note</span><span class='text-line-note'></span>"
+      - text: "<span class='menutext-note' style='font-weight:bold; font-family: Taub Sans;'>Note</span><span class='text-line-note'></span>"
         #icon: 'bi bi-journal-bookmark-fill'
         file: notes.qmd
       - text: "|"
-      - text: "<span class='menutext-pj' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Project</span><span class='text-line-pj'></span>"
+      - text: "<span class='menutext-pj' style='font-weight:bold; font-family: Taub Sans;'>Project</span><span class='text-line-pj'></span>"
         #icon: 'bi bi-clipboard-data'
         file: projects.qmd
       - text: "|"
-      - text: "<span class='menutext-db' style='color:#404041; font-weight:bold; font-family: Taub Sans;'>Dashboard</span><span class='text-line-db'></span>"
+      - text: "<span class='menutext-db' style='font-weight:bold; font-family: Taub Sans;'>Dashboard</span><span class='text-line-db'></span>"
         #icon: "bi bi-speedometer2"
         file: dashboards/template.qmd  
       - text: "|"
