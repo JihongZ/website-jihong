@@ -212,9 +212,9 @@ format:
     lightbox: true # Lightbox Figure
     # code settings
     fontsize: 1.1em
-    mainfont: 'Jost'
+    #mainfont: 'Jost'
     monofont: 'JetBrains Mono'
-    code-link: true
+    code-link: false
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
     code-block-border-left: '#df5925'
     code-line-numbers: true

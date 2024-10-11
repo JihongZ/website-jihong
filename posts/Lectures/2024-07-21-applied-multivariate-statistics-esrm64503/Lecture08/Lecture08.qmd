@@ -173,12 +173,16 @@ $$
 -   Here, the additional subscript is added to denote these terms are part of the model for the PERF variable
     -   We will need these when we get to multivariate models and path analysis
 
-## `lavaan` Syntax
+## `lavaan` Syntax: General
 
+-   Estimating a multivariate model using `lavaan` contains three steps"
+    1.  Build a string object including syntax for models (e.g., `model01.syntax`)
+    2.  Estimate the model with observed data and save it to a *fit* object(e.g., `model01.fit <- cfa(mode01.syntax, data)`)
+    3.  Extract the results from the *fit* object
 -   The `lavaan` package works by taking the typical R model syntax (as from `lm()`) and putting it into a quoted character variable
     -   `lavaan` model syntax also includes other commands used to access other parts of the model (really, parts of the MVN distribution)
 -   Here:
-    -   `~~` indicate variance or covariance between variables on either side (`perf ~~ perf`) estimates variance\
+    -   `~~` indicate variance or covariance between variables on either side (`perf ~~ perf`) estimates variance
     -   `~1` indicate intercept for one variable (`perf~1`)
 
 ```{r}
@@ -312,14 +316,14 @@ use ~ 1     #<5>
 4.  $\beta_{0, \text{PERF}}$
 5.  $\beta_{0, \text{USE}}$
 
--   This covariance matrix is said to be **saturated**: All parameters are estimated
-        -   It is also called an unstructured covariance matrix
-        
+-   This covariance matrix is said to be **saturated**: All parameters are estimated - It is also called an unstructured covariance matrix
+
 -   No other structure for the covariance matrix can fit better (only as well as)
 
 ## Multivariate Regression Model Results
 
 ### Output of `lavaan`
+
 ```{r}
 #| output-location: default
 ## Estimation for model01
@@ -328,18 +332,22 @@ model02.fit <- cfa(model02.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE,
 ## Print output
 summary(model02.fit)
 ```
+
 -   Question: why is the sample size different from Model 1?
 
 ```{r}
 table(is.na(dataMath$perf) & is.na(dataMath$use))
 ```
 
-
 ### Correlation Between PERF and USE
 
 ```{r}
+#| output-location: default
+# Covaraince Estimates
+parameterestimates(model02.fit)[1:3,] |> show_table()
+
 # Standardized Parameters
-standardizedsolution(model02.fit) |> show_table()
+standardizedsolution(model02.fit)[1:3,] |> show_table()
 ```
 
 ```{r}
@@ -349,6 +357,7 @@ solve(D) %*% S %*% solve(D)
 ```
 
 ## Comparing Model with Data
+
 ```{r}
 library(mvtnorm)
 x = expand.grid(
@@ -361,25 +370,43 @@ sim_dat <- cbind(
 )
 
   
-ggplot() +
+mod2_density <- ggplot() +
   geom_contour_filled(aes(x = perf, y = use, z = density), data = sim_dat) +
   geom_point(aes(x = perf, y = use), data = dataMath, colour = "white", alpha = .5) +
   labs( x= "PERF", y="USE") +
   theme_classic() +
-  theme(text = element_text(size = 20))
+  theme(text = element_text(size = 20)) 
+mod2_density
 ```
 
 -   We can use our estimated parameters to simulation the **model-implied density plot** for `perf` and `use`, which can be compared to the observed data of `perf` and `use`
+
+## Interactive 3D Plot for Estimated MVN
+
+$$
+\begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} \sim \mathbf{N}_2 (\boldsymbol{\mu}_i=\begin{bmatrix}13.959\\52.440\end{bmatrix}, \mathbf{V}_i =\mathbf{R}=\begin{bmatrix}8.742 & 6.847\\ 6.847 & 249.245 \end{bmatrix})
+$$
+
+```{r}
+#| fig-cap: "Multivariate Regression Model Estimated Density"
+#| code-fold: true
+#| output-location: default
+library(plotly)
+density_surface <- sim_dat |> 
+  pivot_wider(names_from = use, values_from = density) |> 
+  select(-perf) |> 
+  as.matrix()
+plot_ly(z = density_surface, x = seq(0, 120, .1), y = seq(0, 25, .1), colors = "PuRd", color = "green",
+        width = 1600, height = 800) |> add_surface() 
+```
 
 ## A Different Model for the data
 
 -   To demonstrate how models may vary in terms of model fit (and to set up a discussion of model fit and model comparisons) we will estimate a model where we set the covariance between PERF and USE to zero
     -   Zero covariance implies zero correlation – which is unlikely to be true given our previous analysis
-
 -   You likely would not use this model in a real data analysis
     -   If anything, you may start with a zero covariance and then estimate one
-    
--   But, this will help to introduce come concepts needed to assess the quality of the multivariate model    
+-   But, this will help to introduce come concepts needed to assess the quality of the multivariate model
 
 ## `lavaan` Syntax: Zero Covariance
 
@@ -397,10 +424,74 @@ perf ~ 1
 use ~ 1   
 "
 ```
-1. We constrain $\sigma^2_{e, \text{PERF}, \text{USE}} = 0$ 
 
-### Model Assumption
+1.  We constrain the residual covaraince between `perf` and `use` $\sigma_{e, \text{PERF}, \text{USE}} = 0$ using `0*`
+
+```{r}
+#| output-location: default
+## Estimation for model01
+model03.fit <- cfa(model03.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
+
+## Print output
+parameterestimates(model03.fit) |> show_table()
+```
+
+## Model Assumption
 
 -   The zero covariance now leads to the following assumptions about the data:
 
--   Because these are MVN, we are assuming PERF is independent from USE (has zero correlation/covariance)
+    $$
+    \begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} \sim \mathbf{N}_2 (\boldsymbol{\mu}_i=\begin{bmatrix}13.959\\52.440\end{bmatrix}, \mathbf{V}_i =\mathbf{R}=\begin{bmatrix} 8.750 & \color{tomato}{0} \\ \color{tomato}{0} & 249.200 \end{bmatrix})
+    $$
+
+-   Because these are MVN, we are assuming PERF is independent from USE (they have zero correlation/covariance)
+
+-   **Question**: Our new model (zero covariance) is better or worse fitting to data compared to our previous model (freely estimated covariance)?
+
+    -   Answer: [I think our new model is worse (we don't know this "worse" is significant or not) because of fewer parameters and stronger assumptions.]{.mohu}
+
+## Model Results
+
+```{r}
+#| output-location: default
+parameterestimates(model02.fit) |> show_table()
+parameterestimates(model03.fit) |> show_table()
+```
+
+## Examining Model/Data Fit
+
+```{r}
+#| code-fold: true
+#| results: hold
+#| output-location: default
+sim_dat_2 <- cbind(
+  x,
+  density = dmvnorm(x, mean = c(13.959, 52.440), 
+                    sigma = matrix(c(8.750535, 0, 0, 249.200921), nrow = 2))
+)
+
+  
+mod3_density <- ggplot() +
+  geom_contour_filled(aes(x = perf, y = use, z = density), data = sim_dat_2) +
+  geom_point(aes(x = perf, y = use), data = dataMath, colour = "white", alpha = .5) +
+  labs( x= "PERF", y="USE", title = "Model 3's Density") +
+  theme_classic() +
+  theme(text = element_text(size = 20)) 
+
+mod2_density
+mod3_density
+```
+
+
+## Wrapping Up
+
+1. This lecture was an introduction to the estimation of multivariate linear models for multivariate outcomes the using path analysis/SEM package `lavaan`
+
+2. We saw that the model for continuous data uses the multivariate normal distribution in its likelihood function
+
+### Next Class
+
+1. Does each model fit the data well (absolute model fit)?
+2. If not, how can we improve model fit?
+3. Which model fits better (relative model fit)?
+4. Answers are given in the following lectures...
