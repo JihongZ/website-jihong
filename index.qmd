@@ -27,7 +27,7 @@ listing:
   - id: posts
     contents: posts/*/*.[Rq]md
     type: grid
-    fields: [image, date, title]
+    fields: [image, date, reading-time, title]
     sort: "date desc"
     sort-ui: false
     filter-ui: false

@@ -18,7 +18,9 @@ website:
   twitter-card: 
     creator: "@jihongzgamma"
   open-graph: true
-  #page-footer: "Copyright 2015-2024, JihongZhang" 
+  page-footer: 
+    left:
+      © {{< now year >}} Jihong Zhang
   
   # starting sidebar
   sidebar:
@@ -211,6 +213,7 @@ format:
     # code settings
     fontsize: 1.1em
     monofont: 'JetBrains Mono'
+    reading-time: true
     code-link: false
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
     code-block-border-left: '#df5925'

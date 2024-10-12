@@ -7,7 +7,7 @@ institute: |
   
   University of Arkansas
 date: "2024-10-09"
-date-modified: "2024-10-09"
+date-modified: "2024-10-11"
 sidebar: false
 execute: 
   echo: true
@@ -155,6 +155,14 @@ Desc(dataMath[,2:8], plotit = FALSE, conf.level = FALSE)
     -   The contrast is limited information (not all observations used; typically summary statistics are used)
 
 ```{r}
+#| eval: false
+#| echo: true
+install.packages('lavaan')
+library(lavaan)
+```
+
+```{r}
+#| echo: false
 library(lavaan)
 ```
 
@@ -482,16 +490,15 @@ mod2_density
 mod3_density
 ```
 
-
 ## Wrapping Up
 
-1. This lecture was an introduction to the estimation of multivariate linear models for multivariate outcomes the using path analysis/SEM package `lavaan`
+1.  This lecture was an introduction to the estimation of multivariate linear models for multivariate outcomes the using path analysis/SEM package `lavaan`
 
-2. We saw that the model for continuous data uses the multivariate normal distribution in its likelihood function
+2.  We saw that the model for continuous data uses the multivariate normal distribution in its likelihood function
 
 ### Next Class
 
-1. Does each model fit the data well (absolute model fit)?
-2. If not, how can we improve model fit?
-3. Which model fits better (relative model fit)?
-4. Answers are given in the following lectures...
+1.  Does each model fit the data well (absolute model fit)?
+2.  If not, how can we improve model fit?
+3.  Which model fits better (relative model fit)?
+4.  Answers are given in the following lectures...
