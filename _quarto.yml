@@ -221,7 +221,7 @@ format:
     linestretch: 1.5
     # links
     link-external-newwindow: true
-    link-external-icon: true
+    link-external-icon: false # icon next to href link
     # toc
     toc: true
     table-of-contents: true
