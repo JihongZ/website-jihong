@@ -1,12 +1,14 @@
 ---
-title: "ESRM 6990V: SEMINAR - Intro to R"
-subtitle: "Spring 2025, Thursday, 5:00-7:45PM, Classroom GRAD 229, 2024/8/19 - 2024/12/5"
+title: "ESRM 6990V: Advanced Seminar - Intro to R"
+subtitle: "Spring 2025, Thursday, 5:00-7:45PM, Classroom GRAD 229, 2025/01/13 - 2025/05/01"
 author: "Jihong Zhang"
-date: "Jan 21 2024" 
-date-modified: ""
+date: "Jan 13 2025" 
+date-modified: "Oct 12 2024"
 categories:
   - Lecture
-sidebar: true
+draft: true
+draft-mode: unlinked
+sidebar: false
 format: 
   html:
     code-tools: true
@@ -37,3 +39,15 @@ citation:
 ## Why ITDS?
 
 This book is free and comprehensive for a broad tasks of data analysis. For example, the book covers R programming (**basics of R**), data wrangling with **dplyr**, data visualization with **ggplot2**, file organization with **Unix/Linux shell**, version control with **Git/Github**, and reproducible document preparation with **Quarto** and **knitr**.
+
+# Schedule
+
+Following materials are only allowed for previewing for students registered in ESRM 64503. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
+
++--------+--------+-------------+------------------------------------------------------------------------------------+----------------------------+------------------------------------------------------------+
+| Week   | Date   | Topic       | Reading                                                                            | HW                         | Code/Data                                                  |
++:=======+:=======+:============+:===================================================================================+:===========================+============================================================+
+| 1      | 01/13  | Basics of R | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) | -   [HW0](HWs/HW_demo.qmd) | 1.  [MakeFriendsWithR.qmd](Lecture01/MakeFriendsWithR.qmd) |
+|        |        |             |                                                                                    |                            | 2.  [heights.csv](Lecture01/data/heights.csv)              |
+|        |        |             |                                                                                    |                            | 3.  [wide.sav](Lecture01/data/wide.sav)                    |
++--------+--------+-------------+------------------------------------------------------------------------------------+----------------------------+------------------------------------------------------------+
