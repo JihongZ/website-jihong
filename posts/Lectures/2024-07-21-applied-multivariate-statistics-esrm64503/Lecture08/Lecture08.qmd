@@ -183,7 +183,7 @@ $$
 
 ## `lavaan` Syntax: General
 
--   Estimating a multivariate model using `lavaan` contains three steps"
+-   Estimating a multivariate model using `lavaan` contains three steps:
     1.  Build a string object including syntax for models (e.g., `model01.syntax`)
     2.  Estimate the model with observed data and save it to a *fit* object(e.g., `model01.fit <- cfa(mode01.syntax, data)`)
     3.  Extract the results from the *fit* object
@@ -281,22 +281,23 @@ $$
 
 -   Before showing the syntax and the results, we must first describe how the multivariate empty model implies how our data should look
 
--   Multivariate model with matrices: $$
-    \begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} =\begin{bmatrix}1&0\\0&1\end{bmatrix}\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix} + \begin{bmatrix}e_{i,\text{PERF}}\\e_{i,\text{USE}}\end{bmatrix}
+-   Multivariate model with matrices: 
+$$
+    \boxed{\begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} =\begin{bmatrix}1&0\\0&1\end{bmatrix}\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix} + \begin{bmatrix}e_{i,\text{PERF}}\\e_{i,\text{USE}}\end{bmatrix}}
     $$
 
 $$
-\mathbf{Y_i = X_iB + e_i}
+\boxed{\mathbf{Y_i = X_iB + e_i}}
 $$
 
 -   Using expected values and linear combination rules, we can show that:
 
 $$
-\begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} \sim \mathbf{N}_2 (\boldsymbol{\mu}_i=\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix}, \mathbf{V}_i =\mathbf{R}=\begin{bmatrix}\sigma^2_{e,\text{PERF}} & \sigma_{e,\text{PERF},\text{USE}}\\ \sigma_{e,\text{PERF},\text{USE}}&\sigma^2_{e,\text{USE}}\end{bmatrix})
+\boxed{\begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} \sim \mathbf{N}_2 (\boldsymbol{\mu}_i=\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix}, \mathbf{V}_i =\mathbf{R}=\begin{bmatrix}\sigma^2_{e,\text{PERF}} & \sigma_{e,\text{PERF},\text{USE}}\\ \sigma_{e,\text{PERF},\text{USE}}&\sigma^2_{e,\text{USE}}\end{bmatrix})}
 $$
 
 $$
-\mathbf{Y}_i \sim N_2(\mathbf{X}_i\mathbf{B},\mathbf{V}_i)
+\boxed{\mathbf{Y}_i \sim N_2(\mathbf{X}_i\mathbf{B},\mathbf{V}_i)}
 $$
 
 ## `lavaan` Syntax: Multivariate Regression Model
