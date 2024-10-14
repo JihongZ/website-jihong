@@ -1,5 +1,5 @@
 ---
-title: "Template of revealjs slides for University of Arkansas"
+title: "Revealjs Template:  Slides for University of Arkansas"
 format: html
 author: Jihong Zhang
 date: "Aug 11 2024" 

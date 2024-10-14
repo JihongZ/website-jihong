@@ -1,17 +1,18 @@
 ---
-title: " "
+title: "Projects"
 subtitle: ''
 resources:  
   - "*.qmd"
   - "*.csv"
   - "*.jpg"
   - "uploads/*"
+sidebar: false  
 listing: 
   contents: projects
   sort: "date desc"
   type: table
   categories: numbered
-  fields: [date, title, description, categories, reading-time]
+  fields: [date, title, description, reading-time]
   filter-ui: [title, date]
   sort-ui: true
 ---

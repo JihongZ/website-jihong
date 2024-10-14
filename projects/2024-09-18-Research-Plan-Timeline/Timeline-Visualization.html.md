@@ -28,7 +28,9 @@ format:
 
 
 
+
 ## 2024-2025 Projects List
+
 
 
 
@@ -100,7 +102,9 @@ format:
 
 
 
+
 ## Gantt Plot for Research Plan
+
 
 
 

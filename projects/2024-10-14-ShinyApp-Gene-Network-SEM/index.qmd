@@ -1,0 +1,24 @@
+---
+title: "ShinyApp shinyDegSEM: Identifying perturbed biological pathways via Network and SEM"
+author: Jihong Zhang
+date: 2024-10-14
+execute:
+  eval: true
+categories: 
+  - shiny
+  - 'text analysis'
+format:
+  html:
+    code-line-numbers: true
+    fig-cap-location: margin # put captions of figure in the margin
+---
+
+![Screenshot: ShinyDegSEM](ScreenShot_ShinyDegSEM.png)
+
+## Introduction
+
+Researchers in the field of biology and bioinformatics are increasingly interested in unraveling the complex mechanisms underlying phenotypic variations. A key challenge lies in identifying perturbed biological pathways and understanding how these perturbations propagate through intricate gene regulatory networks. To address this challenge, we have developed *ShinyDegSEM*, an interactive R Shiny application that leverages structural equation modeling (SEM) to facilitate pathway perturbation analyses in gene expression studies. *ShinyDegSEM* streamlines the process of identifying differentially expressed genes (DEGs), generating pathway models based on biological knowledge, and evaluating these models to uncover perturbed pathway modules. The application integrates multiple steps, including DEG detection using significance analysis of microarray, pathway impact analysis with signaling pathway impact analysis, and SEM-based model refinement and comparison across experimental groups. The interactive interface of *ShinyDegSEM* allows researchers to easily upload their gene expression data, select appropriate parameters for DEG detection and pathway analysis, and visualize the results in intuitive graphs and tables. The application provides insights into not only the deregulated genes but also the modified gene-gene relationships within perturbed pathways. This article serves as a tutorial to navigate users through the entire analysis workflow with detailed explanations and examples. This feature ensures that even novice researchers can quickly grasp the concepts and apply the tool to their datasets.
+
+## Installation
+
+Download the ShinyApp from my Github [Repo](https://github.com/JihongZ/shinyDegSEM).

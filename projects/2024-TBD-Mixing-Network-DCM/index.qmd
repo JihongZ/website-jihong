@@ -1,6 +1,7 @@
 ---
-title: "Shinyapp: Scoring and Reliability Analysis of Psychometric Network"
+title: "Scoring and Reliability Analysis of Psychometric Network"
 format: html
+draft: true
 date: "Mar 1 2024" 
 editor: visual
 ---

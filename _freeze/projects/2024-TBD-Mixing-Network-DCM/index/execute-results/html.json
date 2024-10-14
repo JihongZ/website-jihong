@@ -1,0 +1,17 @@
+{
+  "hash": "a2164b6ca168da12c992fbec46111919",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Scoring and Reliability Analysis of Psychometric Network\"\nformat: html\ndraft: true\ndate: \"Mar 1 2024\" \neditor: visual\n---\n\n\n\n## Minimal Example\n\n\n\n::: {.cell}\n::: {.cell-output .cell-output-stderr}\n\n```\nLoading required package: pacman\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nexp1 <- matrix(c(\n  0, .8, .5,\n  .8, 0, 0.1,\n  .5, .1, 0\n), nrow = 3, ncol = 3, byrow = T)\nrownames(exp1) = colnames(exp1) = c(\"A\", \"B\", \"C\")\nqgraph::qgraph(input = exp1, edge.labels=T, edge.label.cex = 1.7, edge.label.color = \"black\")\n```\n\n::: {.cell-output-display}\n![](index_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\n\nThe centrality measures for three nodes:\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmykbl(centrality(exp1))\n```\n\n::: {.cell-output-display}\n\n\n|node | Betweenness| Closeness| Strength| ExpectedInfluence|\n|:----|-----------:|---------:|--------:|-----------------:|\n|A    |       1.155|     1.114|    1.044|             1.044|\n|B    |      -0.577|    -0.295|   -0.095|            -0.095|\n|C    |      -0.577|    -0.819|   -0.949|            -0.949|\n\n\n:::\n:::\n\n\n\nAssume that there are two individuals with different scores on three items:\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nresponse <- data.frame(\n  A = c(1, 5),\n  B = c(1, 1),\n  C = c(5, 1)\n)\nrownames(response) <- c(\"Person1\", \"Person2\")\nmykbl(response)\n```\n\n::: {.cell-output-display}\n\n\n|        |  A|  B|  C|\n|:-------|--:|--:|--:|\n|Person1 |  1|  1|  5|\n|Person2 |  5|  1|  1|\n\n\n:::\n:::\n\n\n\nWe can calculate the weighted network scores for them based on Strength centrality measures and their item scores\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nas.matrix(response) %*% centrality(exp1)[['Strength']] |> mykbl()\n```\n\n::: {.cell-output-display}\n\n\n|        |       |\n|:-------|------:|\n|Person1 | -3.797|\n|Person2 |  4.176|\n\n\n:::\n:::\n\n\n\nThe strength-based network score reflect one's **overall level of clusters of nodes in a network**.\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
