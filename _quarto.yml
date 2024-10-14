@@ -18,7 +18,9 @@ website:
   twitter-card: 
     creator: "@jihongzgamma"
   open-graph: true
-  #page-footer: "Copyright 2015-2024, JihongZhang" 
+  page-footer: 
+    left:
+      © {{< now year >}} Jihong Zhang
   
   # starting sidebar
   sidebar:
@@ -57,6 +59,7 @@ website:
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture05/Lecture05.qmd
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture06/Lecture06.qmd
           - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture07/Lecture07.qmd
+          - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture08/Lecture08.qmd
       - text: "---"    
       - section: ESRM 6553 Advanced Multivariate Analysis
         contents: 
@@ -211,6 +214,7 @@ format:
     # code settings
     fontsize: 1.1em
     monofont: 'JetBrains Mono'
+    reading-time: true
     code-link: false
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
     code-block-border-left: '#df5925'
@@ -221,7 +225,7 @@ format:
     linestretch: 1.5
     # links
     link-external-newwindow: true
-    link-external-icon: true
+    link-external-icon: false # icon next to href link
     # toc
     toc: true
     table-of-contents: true

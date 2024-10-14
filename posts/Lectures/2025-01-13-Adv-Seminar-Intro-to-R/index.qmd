@@ -1,0 +1,60 @@
+---
+title: "ESRM 6990V: Advanced Seminar - Intro to R"
+subtitle: "Spring 2025, Thursday, 5:00-7:45PM, Classroom GRAD 229, 2025/01/13 - 2025/05/01"
+author: "Jihong Zhang"
+date: "Jan 13 2025" 
+date-modified: "Oct 12 2024"
+categories:
+  - Lecture
+draft: true
+draft-mode: unlinked
+sidebar: false
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+  typst: 
+    df-print: tibble
+citation:
+  type: webpage
+  issued: 2025-01-13
+---
+
+::: panel-tabset
+## Web Books
+
+1.  [Introduction to Data Science Part I - Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/) by *Rafael A. Irizarry*
+2.  [Introduction to Data Science Part II - Statistics and Prediction Algorithms Through Case Studies](http://rafalab.dfci.harvard.edu/dsbook-part-2/) by *Rafael A. Irizarry*
+3.  [R for Data Science](https://r4ds.had.co.nz/) - Visualize, Model, Transform, Tidy and Import Data by *Hadley Wickham* & *Garret Grolemund*
+4.  [Yet Again: R + Data Science](https://yards.albert-rapp.de/)by *Albert Rapp*
+5.  [Happy Git and GitHub for the useR](https://happygitwithr.com/) by [*Jennifer Bryan*](https://github.com/jennybc/happy-git-with-r)
+
+## R Community
+
+1.  [RWeekly.org](https://rweekly.org/)
+
+## Publications
+:::
+
+## Outline
+
+1.  R Basics
+2.  Data Visualization
+3.  Data Wrangling
+4.  Productive Tools
+
+## Why ITDS?
+
+This book is free and comprehensive for a broad tasks of data analysis. For example, the book covers R programming (**basics of R**), data wrangling with **dplyr**, data visualization with **ggplot2**, file organization with **Unix/Linux shell**, version control with **Git/Github**, and reproducible document preparation with **Quarto** and **knitr**.
+
+# Schedule
+
+Following materials are only allowed for previewing for students registered in ESRM 64503. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
+
++--------+--------+-------------+------------------------------------------------------------------------------------+----------------------------+------------------------------------------------------------+
+| Week   | Date   | Topic       | Reading                                                                            | HW                         | Code/Data                                                  |
++:=======+:=======+:============+:===================================================================================+:===========================+============================================================+
+| 1      | 01/13  | Basics of R | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) | -   [HW0](HWs/HW_demo.qmd) | 1.  [MakeFriendsWithR.qmd](Lecture01/MakeFriendsWithR.qmd) |
+|        |        |             |                                                                                    |                            | 2.  [heights.csv](Lecture01/data/heights.csv)              |
+|        |        |             |                                                                                    |                            | 3.  [wide.sav](Lecture01/data/wide.sav)                    |
++--------+--------+-------------+------------------------------------------------------------------------------------+----------------------------+------------------------------------------------------------+

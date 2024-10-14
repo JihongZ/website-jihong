@@ -27,7 +27,7 @@ listing:
   - id: posts
     contents: posts/*/*.[Rq]md
     type: grid
-    fields: [image, date, title]
+    fields: [image, date, reading-time, title]
     sort: "date desc"
     sort-ui: false
     filter-ui: false
@@ -58,10 +58,18 @@ format:
 </svg>
 ```
 ::: {#hero-heading}
-I currently hold the position of Assistant Professor of Educational Statistics and Research Methods (ESRM) at the department of Counseling, Leadership, and Research Methods, University of Arkansas. Previously, I served as a postdoctoral fellow at the Chinese University of Hong Kong for one year. My academic journey in psychometrics starts with a rigorous doctoral training in the Educational Measurement and Statistics (EMS) program at the University of Iowa. Currently, my primary research focuses on psychological network, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric modeling. My expertise lies in the application of sophisticated statistical modeling in the fields of psychology and education, including machine learning and Bayesian networks. My work is characterized by a commitment to enhancing the methodological understanding and application of statistics in educational research and beyond.
+I currently hold the position of [Assistant Professor of Educational Statistics and Research Methods](https://esrm.uark.edu/directory/uid/jzhang/name/Jihong+Zhang/) (ESRM) at the department of Counseling, Leadership, and Research Methods (CLRM), University of Arkansas. Previously, I served as a postdoctoral fellow at the Chinese University of Hong Kong in the department of Social Work. My academic journey in psychometrics starts with a doctoral training with [Dr. Jonathan Templin](https://jonathantemplin.com/) in the Educational Measurement and Statistics (EMS) program at the University of Iowa. My primary research recently focuses on reliability and validation of psychological/psychometric network, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric modeling. My expertise lies in the application of advanced statistical modeling in the fields of psychology and education, including multilevel modeling and structural equation modeling. My work is characterized by a commitment to enhancing the methodological understanding and application of statistics in educational research and beyond.
 :::
 
 ::: {.panel-tabset align="left"}
+## Experience
+
+-   University of Arkansas \| **Assistant Professor** \| [Dec 2022 - Current]{style="color:darkgrey;"}
+
+-   The Chinese University of Hong Kong \| **Postdoctoral Fellow** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
+
+-   Stanford Research Institute (SRI) \| **Associate Researcher (Intern)** \| [June 2021 - Jan 2022]{style="color:darkgrey;"}
+
 ## Interests
 
 -   Bayesian Psychometric Modeling
@@ -81,14 +89,6 @@ I currently hold the position of Assistant Professor of Educational Statistics a
 -   **B.S.** \| Applied Psychology \| Soochow University \| [2009 - 2013]{#date style="color:darkgrey;"}
 
 -   **B.S.** \| Law \| Soochow University \| [2011 - 2013]{style="color:darkgrey;"}
-
-## Experience
-
--   University of Arkansas \| **Assistant Professor** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
-
--   The Chinese University of Hong Kong \| **Postdoctoral Fellow** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
-
--   Stanford Research Institute (SRI) \| **Associate Researcher** \| [June 2021 - Jan 2022]{style="color:darkgrey;"}
 :::
 
 ## Teaching
