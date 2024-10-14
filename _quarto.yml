@@ -90,6 +90,10 @@ website:
         #icon: 'bi bi-house' # https://icons.getbootstrap.com
         file: index.qmd
       - text: "|"
+      - text: "<span class='menutext-home' style='font-weight:bold; font-family: Taub Sans;'>Teaching</span><span class='text-line'></span>"
+        #icon: 'bi bi-house' # https://icons.getbootstrap.com
+        file: teaching.qmd
+      - text: "|"
       - text: "<span class='menutext-blog' style='font-weight:bold; font-family: Taub Sans;'>Blog</span><span class='text-line-blog'></span>"     
         #icon: 'bi bi-pencil-square'
         file: posts.qmd 

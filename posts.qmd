@@ -2,9 +2,6 @@
 title: ''
 subtitle: ''
 listing:
-  - id: lectures
-    contents: posts/Lectures/*/*.[Rq]md
-    sort: "date desc"
   - id: posts
     contents: posts/*/*.[Rq]md
     sort: "date desc"
@@ -19,11 +16,6 @@ listing:
     sort: "date desc"
 title-block-banner: false
 ---
-
-## Lectures
-
-::: {#lectures}
-:::
 
 ## Posts
 
