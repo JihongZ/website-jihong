@@ -14,6 +14,7 @@ execute:
   warning: false
 output-location: column
 code-annotations: below
+highlight-style: "nord"
 format: 
   uark-revealjs:
     scrollable: true
@@ -133,28 +134,33 @@ filters:
 
     -   In simulation, 10% of variables were missing (using missing completely at random mechanism)
 
--   Dictionary:
+::: {.callout-tip}
+## Dictionary
 
-    1.  Prior Experience at High School Level (HSL)
-    2.  Prior Experience at College Level (CC)
-    3.  Perceived Usefulness of Mathematics (USE)
-    4.  Math Self-Concept (MSC)
-    5.  Math Anxiety (MAS)
-    6.  Math Self-Efficacy (MSE)
-    7.  Math Performance (PERF)
-    8.  Female (sex variable: 0 = male; 1 = female)
+1.  Prior Experience at High School Level (HSL)
+2.  Prior Experience at College Level (CC)
+3.  Perceived Usefulness of Mathematics (USE)
+4.  Math Self-Concept (MSC)
+5.  Math Anxiety (MAS)
+6.  Math Self-Efficacy (MSE)
+7.  Math Performance (PERF)
+8.  Female (sex variable: 0 = male; 1 = female)
+:::
+
+    
 
 ```{r}
-#| results: hold
+#| output-location: default
 library(ESRM64503)
 library(kableExtra)
 library(tidyverse)
-library(DescTools)
+library(DescTools) # Desc() allows you to quick screen data
 head(dataMath)
 dim(dataMath)
 ```
 
 ```{r}
+#| output-location: default
 Desc(dataMath[,2:8], plotit = FALSE, conf.level = FALSE)
 ```
 
@@ -204,6 +210,10 @@ $$
     3.  Extract the results from the *fit* object
 -   The `lavaan` package works by taking the typical R model syntax (as from `lm()`) and putting it into a quoted character variable
     -   `lavaan` model syntax also includes other commands used to access other parts of the model (really, parts of the MVN distribution)
+    
+    
+-------------------------------------
+
 -   Here:
     -   `~~` indicate variance or covariance between variables on either side (`perf ~~ perf`) estimates variance
     -   `~1` indicate intercept for one variable (`perf~1`)
@@ -256,14 +266,16 @@ $$
 
 # Multivariate Empty Models
 
-## Adding One More Variable: Multivariate Regression
+## Model 2: Adding One More Variable: Multivariate Regression
 
--   We already know how to use `lavaan` to estimate univariate model, let's move on to model two variables as outcomes
+-   **Variables**: We already know how to use `lavaan` to estimate univariate model, let's move on to model two variables as outcomes
 
-    -   **Mathematics performance (perf)**
-    -   **Perceived Usefulness of Mathematics (use)**
+    -   [Mathematics performance (perf)]{style="color:tomato;font-weight:bold;"}
+    -   [Perceived Usefulness of Mathematics (use)]{style="color:tomato;font-weight:bold;"}
 
--   Assumption: We will assume these to be continuous variables (conditionally MVN)
+-   **Assumption**: We will assume these to be continuous variables (conditionally MVN)
+
+-   **Research Question**: Whether or not students' performance are related to their perceived usefulness of mathematics?
 
 -   Initially, we will only look at an empty model with these two variables:
 
@@ -529,6 +541,16 @@ mod3_density <- ggplot() +
 mod2_density
 mod3_density
 ```
+
+## Homework 2
+
+1. **Question**: Use `lavaan` to test the correlations among Math Performance, Math Anxiety, and Perceived Usefulness of Mathematics (USE).
+
+    -   Model 1: All correlations are freely estimated.
+    -   Model 2: Fix the correlation between math anxiety and perceived usefulness of mathematics to 0; Leave the other correlations to be freely estimated.
+    
+
+
 
 ## Wrapping Up
 

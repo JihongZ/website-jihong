@@ -143,6 +143,7 @@ format:
     html-math-method: katex
     lightbox: true # Lightbox Figure
     # code settings
+    highlight-style: "nord"
     fontsize: 1.1em
     monofont: 'JetBrains Mono'
     reading-time: true

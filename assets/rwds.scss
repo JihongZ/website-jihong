@@ -92,7 +92,7 @@ $danger: #9A4665;
 $caution: #EE6331;
 
 $body-bg: $soft-color1; // body bg
-$code-block-bg: #F5F5F5; // code block's bg
+//$code-block-bg: #F5F5F5; // code block's bg
 $pre-bg: $blue; // pre code's bg
 $code-block-bg-alpha: .8; // Code blocks
 $input-group-addon-bg: $soft-color1;
@@ -108,7 +108,7 @@ div.cell-output {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.cell-output pre { border: $blue 1px solid;}
+//.cell-output pre { border: $blue 1px solid;}
 
 div.sourceCode {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

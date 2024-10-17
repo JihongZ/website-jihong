@@ -53,7 +53,7 @@ $presentation-title-slide-text-align: left;
 
 // Code Blocks
 $code-block-font-size: 70% !default;
-$code-block-bg:  #F5F5F5 !default;
+//$code-block-bg:  #F5F5F5 !default;
 
 /* -- scss:mixins --*/
 
@@ -166,17 +166,33 @@ $code-block-bg:  #F5F5F5 !default;
 }
 
 /* Code styling */
+code span.er {
+  color: #ebcb8b;
+  text-decoration: none;
+}
+
+.reveal div.sourceCode {
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px !important;
+  box-shadow: 0 20px 47px rgb(0 0 0 / 55%);
+  margin: auto !important;
+}
+
 .reveal div.sourceCode pre code {
-  border: 0.3rem solid $purple;
+  padding: 25px;
+  //border: 0.3rem solid $purple;
 }
 
 .reveal div.cell-output-stdout{
   background-color: #FAF9F6;
   border-radius: 8px;
   border: none;
+  box-shadow: 0 10px 17px rgb(0 0 0 / 55%);
+  //width: fit-content;
 }
 
-.reveal .slides code{
+.reveal .slides code{ // for in-line code
   background-color: #e5eaf5;
   border-radius: 8px;
   border: none;
