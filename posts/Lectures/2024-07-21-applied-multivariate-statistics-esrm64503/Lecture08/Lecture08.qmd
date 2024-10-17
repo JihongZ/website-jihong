@@ -1,6 +1,6 @@
 ---
 title: "Lecture 08: Multivariate Analysis"
-subtitle: "Model Setup and Assumptions"
+subtitle: "Multivariate Correlation Model"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -134,7 +134,7 @@ filters:
 
     -   In simulation, 10% of variables were missing (using missing completely at random mechanism)
 
-::: {.callout-tip}
+::: callout-tip
 ## Dictionary
 
 1.  Prior Experience at High School Level (HSL)
@@ -146,8 +146,6 @@ filters:
 7.  Math Performance (PERF)
 8.  Female (sex variable: 0 = male; 1 = female)
 :::
-
-    
 
 ```{r}
 #| output-location: default
@@ -210,9 +208,8 @@ $$
     3.  Extract the results from the *fit* object
 -   The `lavaan` package works by taking the typical R model syntax (as from `lm()`) and putting it into a quoted character variable
     -   `lavaan` model syntax also includes other commands used to access other parts of the model (really, parts of the MVN distribution)
-    
-    
--------------------------------------
+
+------------------------------------------------------------------------
 
 -   Here:
     -   `~~` indicate variance or covariance between variables on either side (`perf ~~ perf`) estimates variance
@@ -371,7 +368,6 @@ summary(model02.fit)
 ### Question: why is the sample size different from Model 1?
 
 ::: answer
-
 ::: {.callout-tip appearance="minimal"}
 By default, `lavaan::cfa()` use the listwise deletion. In Model 1, cases with non-NA values of `perf` are left. In Model 2, cases with both non-NA in perf and non-NA in `use` are left.
 :::
@@ -495,18 +491,18 @@ parameterestimates(model03.fit) |> show_table()
 
 Our new model (zero covariance) is better or worse fitting to data compared to our previous model (freely estimated covariance)?
 
-::: {.answer}
+::: answer
 ::: {.callout-tip appearance="minimal"}
 ## Answer
+
 I think Model 3 is worse because of fewer parameters and stronger assumptions. We don't know yet the degree of "worse" is significant or not.
 
-::: {.mohu}
+::: mohu
 ```{r}
 #| output-location: default
 anova(model02.fit, model03.fit)
 ```
 :::
-
 :::
 :::
 
@@ -544,13 +540,26 @@ mod3_density
 
 ## Homework 2
 
-1. **Question**: Use `lavaan` to test the correlations among Math Performance, Math Anxiety, and Perceived Usefulness of Mathematics (USE).
+1.  Use `lavaan` and `dataMath` to test the correlations among Math Performance, Math Anxiety, and Perceived Usefulness of Mathematics (USE).
 
     -   Model 1: All correlations are freely estimated.
-    -   Model 2: Fix the correlation between math anxiety and perceived usefulness of mathematics to 0; Leave the other correlations to be freely estimated.
-    
+        -   **Q1/Q2/Q3**: What are the estimated correlations/SD/p.values for Performance - Anxiety, Performance - Usefulness, and Anxiety - Usefulness, respectively (the results should have two-digit precision).
+        -   **Q4:** What are AIC and BIC for Model 1 (one-digit precision)
+    -   Model 2: Fix the correlation between math anxiety (`mas`) and perceived usefulness of mathematics (`use`) to 0; Leave the other correlations to be freely estimated.
+        -   **Q5/Q6/Q7**: What are the estimated correlations/SD/p.values for Performance - Anxiety, Performance - Usefulness, and Anxiety - Usefulness, respectively (the results should have two-digit precision)..
+        -   **Q8**: What are AIC and BIC for Mode 2 (one-digit precision)
+    -   **Q9:** Provide evidence of significance testing for the model comparison between Model 1 and Model 2. Write down your conclusion about which model is better and whether the difference is significant.
+    -   **Q10**: Copy and paste your R syntax (make sure you use `lavaan` syntax)
 
+    ::: callout-note
+    ## Scoring Details (Total Points: 21)
 
+    -   Two points: Q1, Q2, Q3, Q5, Q6, Q7; (12 points total)
+
+    -   Three points: Q4, Q5, Q9; (9 points total)
+
+    -   Q10 (bonus: extra 3 points)
+    :::
 
 ## Wrapping Up
 

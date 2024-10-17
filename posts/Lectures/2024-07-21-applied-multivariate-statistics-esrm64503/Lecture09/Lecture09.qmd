@@ -1,0 +1,145 @@
+---
+title: "Lecture 08: Multivariate Analysis"
+subtitle: "Model Setup and Assumptions"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: column
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 08: Multivariate Analysis"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+---
+
+```{=html}
+<div class="card shadow">
+    <div class="ml-3 mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
+            <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+                <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
+                <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
+            </g>
+        </svg>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Today's Class</h5>
+        <ul>
+          <li>Multivariate linear models: an introduction</li>
+          <li>How to form multivariate models in lavaan</li>
+          <li>What parameters mean</li>
+          <li>How they relate to the multivariate normal distribution</li>
+        </ul>
+    </div>
+</div>
+```
+```{r}
+#| output-location: default
+library(ESRM64503)
+library(kableExtra)
+library(tidyverse)
+library(DescTools) # Desc() allows you to quick screen data
+library(lavaan) # Desc() allows you to quick screen data
+head(dataMath)
+dim(dataMath)
+```
+
+## Homework 2
+
+```{r}
+model04.syntax = "
+# Variances:
+perf ~~ perf 
+use ~~ use   
+mas ~~ mas
+
+# Covariance:
+perf ~~ use
+perf ~~ mas
+use ~~ mas
+
+# Means:
+perf ~ 1  
+use ~ 1   
+mas ~ 1   
+"
+```
+
+```{r}
+#| output-location: default
+## Estimation for model01
+model04.fit <- cfa(model04.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
+
+## Print output
+parameterestimates(model04.fit)
+standardizedsolution(model04.fit)
+```
+
+```{r}
+model04b.syntax = "
+# Variances:
+perf ~~ perf 
+use ~~ use   
+mas ~~ mas
+
+# Covariance:
+perf ~~ use
+perf ~~ mas
+use ~~ 0*mas
+
+# Means:
+perf ~ 1  
+use ~ 1   
+mas ~ 1   
+"
+model04b.fit <- cfa(model04b.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
+
+## Print output
+parameterestimates(model04b.fit)
+standardizedsolution(model04b.fit)
+```
+
+```{r}
+anova(model04.fit, model04b.fit)
+```
+
+## Wrapping Up
+
+1.  This lecture was an introduction to the estimation of multivariate linear models for multivariate outcomes the using path analysis/SEM package `lavaan`
+
+2.  We saw that the model for continuous data uses the multivariate normal distribution in its likelihood function
+
+### Next Class
+
+1.  Does each model fit the data well (absolute model fit)?
+2.  If not, how can we improve model fit?
+3.  Which model fits better (relative model fit)?
+4.  Answers are given in the following lectures...
