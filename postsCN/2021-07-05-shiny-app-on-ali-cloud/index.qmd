@@ -133,3 +133,19 @@ cat /var/log/shiny-server.log
 ```
 
 好啦，希望你能成功部署你的shiny app。国内的云服务发展很快，但是相关的易上手教程却很少，希望有越来越多的先行者将自己的经验记录下来并传播出去。如果接下来要替换域名和申请HTTPS证书，请参考这篇[博客](https://taoyan.netlify.app/post/2020-08-05.shinyapp域名端口安全设置及代理/)。
+
+## 9. 其他资源
+
+::: panel-tabset
+## 在线文档
+
+1.  [posit Shiny Server 文档](https://posit.co/products/open-source/shiny-server/)
+2.  [官方文档: Shinyapp Deployment](https://shiny.posit.co/r/articles/share/deployment-web/)
+
+## 个人博客
+
+1.  [\[Tao Yao\] 阿里云服务器部署Shiny App](https://taoyan.netlify.app/post/2020-06-10.%E9%98%BF%E9%87%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2shiny-app/)
+2.  [\[Professor Wu\] 如何在腾讯云服务器上部署shiny应用](https://wujun.site/post/%E5%A6%82%E4%BD%95%E5%9C%A8%E8%85%BE%E8%AE%AF%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%83%A8%E7%BD%B2shiny%E5%BA%94%E7%94%A8/)
+3.  [\[CSDN\] 服务器上搭shinyApp：shiny-server配置及报错解决](https://blog.csdn.net/Candle_light/article/details/90057212)
+4.  [\[腾讯云\] 如何使用Shiny Server部署R应用程序原创](https://cloud.tencent.com/developer/article/1190086)
+:::
