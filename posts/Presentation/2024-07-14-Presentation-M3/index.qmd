@@ -47,7 +47,7 @@ format:
 
 ::: columns
 ::: {.column width="40%"}
-![](figures/structure.jpg){width="100%"}
+![](figures/structure.jpg){.preview-image width="100%"}
 :::
 
 ::: {.column width="60%"}

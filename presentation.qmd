@@ -1,0 +1,21 @@
+---
+title: ''
+subtitle: ''
+sidebar: false
+listing:
+  categories: true
+  field-display-names:
+    author: "Presenter"
+  contents: posts/Presentation/*/*.[Rq]md
+  sort: "date desc"
+  type: table
+  table-striped: true
+  table-hover: true
+  date-format: "iso"
+title-block-banner: false
+---
+
+## Presentation
+
+::: {#lectures}
+:::

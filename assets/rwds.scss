@@ -102,12 +102,19 @@ $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
 /* output color for R chunck */
-.cell-output {
+div.cell-output {
   background-color: $freeze-purple;
   border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .cell-output pre { border: $blue 1px solid;}
+
+div.sourceCode {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
 
@@ -194,5 +201,21 @@ $breadcrumb-border-radius:  0.30em;
   margin-bottom: -6px;
 }
 
+button.show-answer {
+  background-color: #04AA6D;
+  color: white;
+  border: none;
+  font-size: 1em;
+  font-family:  'Titillium Web';
+  text-align: center;
+  padding: 10px;
+  transition-duration: 0.4s;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 8px;
+}
 
-
+button.show-answer:hover {
+  background-color: white;
+  color: #04AA6D;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}

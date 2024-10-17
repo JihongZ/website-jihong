@@ -51,10 +51,10 @@ This book is free and comprehensive for a broad tasks of data analysis. For exam
 
 Following materials are only allowed for previewing for students registered in ESRM 64503. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
 
-+--------+--------+-------------+------------------------------------------------------------------------------------+----------------------------+------------------------------------------------------------+
-| Week   | Date   | Topic       | Reading                                                                            | HW                         | Code/Data                                                  |
-+:=======+:=======+:============+:===================================================================================+:===========================+============================================================+
-| 1      | 01/13  | Basics of R | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) | -   [HW0](HWs/HW_demo.qmd) | 1.  [MakeFriendsWithR.qmd](Lecture01/MakeFriendsWithR.qmd) |
-|        |        |             |                                                                                    |                            | 2.  [heights.csv](Lecture01/data/heights.csv)              |
-|        |        |             |                                                                                    |                            | 3.  [wide.sav](Lecture01/data/wide.sav)                    |
-+--------+--------+-------------+------------------------------------------------------------------------------------+----------------------------+------------------------------------------------------------+
++------+-------+-------------+------------------------------------------------------------------------------------+----------------------------+------------------------------------------------------------+
+| Week | Date  | Topic       | Reading                                                                            | HW                         | Code/Data                                                  |
++:=====+:======+:============+:===================================================================================+:===========================+============================================================+
+| 1    | 01/13 | Basics of R | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) | -   [HW0](HWs/HW_demo.qmd) | 1.  [MakeFriendsWithR.qmd](Lecture01/MakeFriendsWithR.qmd) |
+|      |       |             |                                                                                    |                            | 2.  [heights.csv](Lecture01/data/heights.csv)              |
+|      |       |             |                                                                                    |                            | 3.  [wide.sav](Lecture01/data/wide.sav)                    |
++------+-------+-------------+------------------------------------------------------------------------------------+----------------------------+------------------------------------------------------------+

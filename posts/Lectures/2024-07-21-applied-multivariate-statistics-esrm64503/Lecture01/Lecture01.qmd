@@ -163,7 +163,7 @@ format:
 
 -   **Why not SPSS?**
 
-    -   <span class="mohu">SPSS could only be used for some—but not all–of our content</span>
+    -   [SPSS could only be used for some—but not all–of our content]{.mohu}
 
     -   More importantly, it doesn't have as much room to grow; R has many new packages being developed via CRAN and GitHub
 

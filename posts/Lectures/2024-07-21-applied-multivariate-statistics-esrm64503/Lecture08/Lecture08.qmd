@@ -38,13 +38,28 @@ filters:
   - line-highlight
 ---
 
-## Today's Class
-
--   Multivariate linear models: an introduction
--   How to form multivariate models in `lavaan`
--   What parameters mean
--   How they relate to the multivariate normal distribution
-
+```{=html}
+<div class="card shadow">
+    <div class="ml-3 mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
+            <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+                <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
+                <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
+            </g>
+        </svg>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Today's Class</h5>
+        <ul>
+          <li>Multivariate linear models: an introduction</li>
+          <li>How to form multivariate models in lavaan</li>
+          <li>What parameters mean</li>
+          <li>How they relate to the multivariate normal distribution</li>
+        </ul>
+    </div>
+</div>
+```
 # Multivariate Models: An Introduction
 
 ## Multivariate Linear Models
@@ -281,8 +296,7 @@ $$
 
 -   Before showing the syntax and the results, we must first describe how the multivariate empty model implies how our data should look
 
--   Multivariate model with matrices: 
-$$
+-   Multivariate model with matrices: $$
     \boxed{\begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} =\begin{bmatrix}1&0\\0&1\end{bmatrix}\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix} + \begin{bmatrix}e_{i,\text{PERF}}\\e_{i,\text{USE}}\end{bmatrix}}
     $$
 
@@ -342,13 +356,23 @@ model02.fit <- cfa(model02.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE,
 summary(model02.fit)
 ```
 
--   Question: why is the sample size different from Model 1?
+### Question: why is the sample size different from Model 1?
+
+::: answer
+
+::: {.callout-tip appearance="minimal"}
+By default, `lavaan::cfa()` use the listwise deletion. In Model 1, cases with non-NA values of `perf` are left. In Model 2, cases with both non-NA in perf and non-NA in `use` are left.
+:::
 
 ```{r}
+table(is.na(dataMath$perf))
 table(is.na(dataMath$perf) & is.na(dataMath$use))
 ```
+:::
 
-### Correlation Between PERF and USE
+------------------------------------------------------------------------
+
+### Correlation Between `PERF` and `USE`
 
 ```{r}
 #| output-location: default
@@ -455,9 +479,24 @@ parameterestimates(model03.fit) |> show_table()
 
 -   Because these are MVN, we are assuming PERF is independent from USE (they have zero correlation/covariance)
 
--   **Question**: Our new model (zero covariance) is better or worse fitting to data compared to our previous model (freely estimated covariance)?
+### Question
 
-    -   Answer: [I think our new model is worse (we don't know this "worse" is significant or not) because of fewer parameters and stronger assumptions.]{.mohu}
+Our new model (zero covariance) is better or worse fitting to data compared to our previous model (freely estimated covariance)?
+
+::: {.answer}
+::: {.callout-tip appearance="minimal"}
+## Answer
+I think Model 3 is worse because of fewer parameters and stronger assumptions. We don't know yet the degree of "worse" is significant or not.
+
+::: {.mohu}
+```{r}
+#| output-location: default
+anova(model02.fit, model03.fit)
+```
+:::
+
+:::
+:::
 
 ## Model Results
 

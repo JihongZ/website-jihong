@@ -1,13 +1,19 @@
 ---
 title: ''
 subtitle: ''
+sidebar: false
 listing:
+  field-display-names:
+    title: "Notes"
   contents: notes/*/*.[Rq]md
   sort: "date desc"
   type: table
+  table-striped: true
+  table-hover: true
   categories: numbered
   fields: [date, title, description, categories, reading-time]
   filter-ui: [title, date]
   sort-ui: true
+  date-format: "iso"
 format: html
 ---

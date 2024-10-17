@@ -5,7 +5,6 @@ author: "Jihong Zhang*, Ph.D"
 categories:
   - Presentation
   - Network Analysis
-  - Eating Disorders
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
   
@@ -13,16 +12,70 @@ institute: |
 date: "2024-10-23"
 format: 
   uark-revealjs:
-    chalkboard: true
+    transition: slide
+    background-transition: fade
+    auto-animate-easing: ease-in-out
+    auto-animate-unmatched: false
+    auto-animate-duration: 0.8
     embed-resources: false
     code-fold: true
     number-sections: true
     number-depth: 1
 ---
 
-## What is Psychological Network Models
+## Research Topic Overview {auto-animate="true" auto-animate-easing="ease-in-out"}
 
--   It is a popular data analysis model used to describe a system via a network-like structure
+::: r-hstack
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; width: 400px; height: 200px; margin: 10px; justify-content: center; display: flex;"}
+[I. Psychometric Modeling]{style="color: white;"}
+:::
+
+::: {data-id="box2" auto-animate-delay="0.1" style="background: #3fb618; width: 400px; height: 200px; margin: 10px;"}
+[II. Multilevel Modeling]{style="color: white;"}
+:::
+
+::: {data-id="box3" auto-animate-delay="0.2" style="background: #e83e8c; width: 400px; height: 200px; margin: 10px;"}
+[III. Bayesian Statistics]{style="color: white;"}
+:::
+:::
+
+## Research Topic Overview {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+::: r-stack
+::: {data-id="box1" style="background: #2780e3; width: 1000px; height: 550px;"}
+[I. Psychometric Modeling:]{style="color: white; font-weight: bold"}
+
+[To describe relationships among psychological constructs or examine the qualities of measurement indicators]{style="color: lightgrey"} 
+
+::::{style="color: white;"}
+1. Structural Equation Modeling
+2. Psychological Network Modeling
+3. Diagnostic Classification Modeling
+4. Latent Class Modeling
+::::
+:::
+
+::: {data-id="box2" auto-animate-delay="0.1" style="background: #3fb618; width: 400px; height: 300px; margin: 10px;"}
+[Multilevel Modeling]{style="color: white;"}
+:::
+
+::: {data-id="box3" auto-animate-delay="0.2" style="background: #e83e8c; width: 400px; height: 300px; margin: 10px;"}
+[Bayesian Statistics]{style="color: white;"}
+:::
+:::
+
+## Research Topic Overview {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+::: r-stack
+::: {data-id="box2" style="background: #3fb618; width: 550px; height: 550px;"}
+:::
+
+::: {data-id="box1" auto-animate-delay="0.1" style="background: #2780e3; width: 400px; height: 300px; margin: 10px;"}
+:::
+
+::: {data-id="box3" auto-animate-delay="0.2" style="background: #e83e8c; width: 400px; height: 300px; margin: 10px;"}
+:::
+:::
 
 ## Why USE Psychological Network Models
 

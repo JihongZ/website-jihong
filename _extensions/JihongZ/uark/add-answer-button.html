@@ -1,0 +1,46 @@
+<script>
+  
+  function addAnswerWithButton(answerClass, buttonText, answerText) {
+    
+    const divElement = document.querySelector(`.${answerClass}`);
+    const randomId = "answer-" + Math.floor(Math.random() * 1000000);
+  
+    // Create the new button element
+    const buttonElement = document.createElement("button");
+    buttonElement.className = "show-answer";
+    buttonElement.textContent = buttonText;
+    buttonElement.onclick = function() {
+      showAnswer(randomId);
+    };
+  
+    // Create the new answer element
+    const answerElement = document.createElement("p");
+    answerElement.id = randomId;
+    answerElement.style.display = "none";
+    answerElement.innerHTML = answerText;
+  
+    // Replace the div element with the new button and answer elements
+    divElement.parentNode.replaceChild(buttonElement, divElement);
+    buttonElement.insertAdjacentElement("afterend", answerElement);
+  }
+  
+  function showAnswer(answerId) {
+    var answer = document.getElementById(answerId);
+    if (answer.style.display === "none") {
+      answer.style.display = "block";
+    } else {
+      answer.style.display = "none";
+    }
+  }
+
+  function addAnswerButton() {
+    var answers = document.querySelectorAll(".answer")
+    answers.forEach(e => {
+      addAnswerWithButton("answer", " Show Answer", e.innerHTML);
+    });
+  }
+  
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    addAnswerButton();
+  });
+</script>
