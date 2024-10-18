@@ -21,21 +21,20 @@ format:
     code-fold: true
     number-sections: true
     number-depth: 1
+    bibliography: research.bib
+editor:
+  render-on-save: true
 ---
 
 ## Research Topic Overview {auto-animate="true" auto-animate-easing="ease-in-out"}
 
 ::: r-hstack
-::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; width: 400px; height: 200px; margin: 10px; justify-content: center; display: flex;"}
-[I. Psychometric Modeling]{style="color: white;"}
+::: {data-id="box1" auto-animate-delay="0" style="background: #2780e3; width: 600px; height: 200px; margin: auto; justify-content: center; display: flex; text-align: center;"}
+[I. Psychometric Modeling]{style="color: white; "}
 :::
 
-::: {data-id="box2" auto-animate-delay="0.1" style="background: #3fb618; width: 400px; height: 200px; margin: 10px;"}
-[II. Multilevel Modeling]{style="color: white;"}
-:::
-
-::: {data-id="box3" auto-animate-delay="0.2" style="background: #e83e8c; width: 400px; height: 200px; margin: 10px;"}
-[III. Bayesian Statistics]{style="color: white;"}
+::: {data-id="box3" auto-animate-delay="0.2" style="background: #e83e8c; width: 600px; height: 200px; margin: auto; text-align: center;"}
+[II. Bayesian Statistics]{style="color: white;"}
 :::
 :::
 
@@ -48,38 +47,66 @@ format:
 [To describe relationships among psychological constructs or examine the qualities of measurement indicators]{style="color: lightgrey"} 
 
 ::::{style="color: white;"}
-1. Structural Equation Modeling
-2. Psychological Network Modeling
-3. Diagnostic Classification Modeling
-4. Latent Class Modeling
+-  Structural Equation Modeling
+-  Psychological Network Modeling
+-  Diagnostic Classification Modeling
+-  Latent Class Modeling
 ::::
 :::
 
-::: {data-id="box2" auto-animate-delay="0.1" style="background: #3fb618; width: 400px; height: 300px; margin: 10px;"}
-[Multilevel Modeling]{style="color: white;"}
-:::
-
 ::: {data-id="box3" auto-animate-delay="0.2" style="background: #e83e8c; width: 400px; height: 300px; margin: 10px;"}
-[Bayesian Statistics]{style="color: white;"}
+[II. Bayesian Statistics]{style="color: white;"}
 :::
 :::
 
 ## Research Topic Overview {auto-animate="true" auto-animate-easing="ease-in-out"}
 
 ::: r-stack
-::: {data-id="box2" style="background: #3fb618; width: 550px; height: 550px;"}
+::: {data-id="box3" style="background: #e83e8c; width: 1000px; height: 550px;"}
+
+[II. Bayesian Statistics:]{style="color: white; font-weight: bold"}
+
+[To understand the model from the Bayesian persepectives]{style="color: lightgrey"} 
+
+::::{style="color: white;"}
+-  Model Checking
+-  Bayesian Prior Setting
+-  Bayesian Psychometric Modeling
+::::
 :::
 
-::: {data-id="box1" auto-animate-delay="0.1" style="background: #2780e3; width: 400px; height: 300px; margin: 10px;"}
+::: {data-id="box1" auto-animate-delay="0.2" style="background: #2780e3; width: 400px; height: 300px; margin: 10px;"}
+[I. Psychometric Modeling:]{style="color: white; font-weight: bold"}
 :::
 
-::: {data-id="box3" auto-animate-delay="0.2" style="background: #e83e8c; width: 400px; height: 300px; margin: 10px;"}
-:::
 :::
 
-## Why USE Psychological Network Models
+## Research Project: Psychological Network Models 
 
-1.  New perspective of visualizing the "ecosystem" your are interested in
-2.  Highlight most important nodes based on the link strength or the number of links
-3.  Highlight the bridge nodes that connect multiple sub-ecosystems that may be target for intervention
-4.  Group differences in network way
+::: {.columns}
+
+:::: {.column style="width: 40%"}
+
+::: {data-id="box1" auto-animate-delay="0.2" style="background: #2780e3; width: full; height: 150px; margin: 10px; color: white;"}
+Objective: The study [@zhangLongitudinalNetworkAnalysis] examined sex-specific, symptom-level relationships among emotion regulation (ER), interpersonal problems (IP), and eating disorder (ED) psychopathology in a large sample of Chinese adolescents.
+:::
+
+::: {data-id="box1" auto-animate-delay="0.2" style="background: #e83e8c; width: full; height: 500px; margin: 10px; color: white;"}
+Summary:
+
+- The results revealed several significant nodes in the network structures for boys and girls.
+    - Emotional awareness plays a bridging role for boys in the connection between ED and IP
+    - weight/shape dissatisfaction plays the central rols for girls in eating disorder ecosystem
+
+- Findings indicate potential intervention targets (e.g. impulse-driven eating disorder psychopathology, supporting executive functioning in emotionally charged situations) of ED symptoms in adolescents.
+:::
+
+::::
+
+:::: {.column style="width: 60%"}
+![](network.png)
+::::
+:::
+
+
+
