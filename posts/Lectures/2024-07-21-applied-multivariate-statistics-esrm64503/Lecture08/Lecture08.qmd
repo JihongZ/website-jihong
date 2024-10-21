@@ -212,12 +212,13 @@ $$
 ------------------------------------------------------------------------
 
 -   Here:
-    -   `~~` indicate variance or covariance between variables on either side (`perf ~~ perf`) estimates variance
-    -   `~1` indicate intercept for one variable (`perf~1`)
+    -   `~~` indicates variance or covariance between variables on either side (`perf ~~ perf`) estimates variance
+    -   `~1` indicates intercept for one variable (`perf~1`)
+    -   `~`  indicates LHS regresses on RHS (`perf~use`)
 
 ```{r}
 #| results: hold
-#| output-location: default
+#| output-location: fragment
 ## Syntax for model01
 model01.syntax <- " #<1>
 ## Variances:
@@ -248,10 +249,6 @@ Variances:
     perf              8.751    0.756   11.581    0.000
 ```
 
-```{r filename = "Summary of lm()"}
-summary(lm(perf ~ 1, data = dataMath))
-```
-
 -   Parameter Estimates:
     -   $\beta_{0,PERF} = 13.966$
     -   $\sigma^2_{e,PERF} = 8.751$
@@ -261,7 +258,7 @@ $$
 \text{PERF}_i \sim N(13.966, 8.751)
 $$
 
-# Multivariate Empty Models
+# Multivariate Correlation Models
 
 ## Model 2: Adding One More Variable: Multivariate Regression
 
