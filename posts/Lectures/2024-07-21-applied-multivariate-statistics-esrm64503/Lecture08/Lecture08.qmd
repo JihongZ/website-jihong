@@ -61,6 +61,7 @@ filters:
     </div>
 </div>
 ```
+
 # Multivariate Models: An Introduction
 
 ## Multivariate Linear Models
@@ -211,10 +212,10 @@ $$
 
 ------------------------------------------------------------------------
 
--   Here:
+-   Here are rules of `lavaan` model syntax:
     -   `~~` indicates variance or covariance between variables on either side (`perf ~~ perf`) estimates variance
     -   `~1` indicates intercept for one variable (`perf~1`)
-    -   `~`  indicates LHS regresses on RHS (`perf~use`)
+    -   `~` indicates LHS regresses on RHS (`perf~use`)
 
 ```{r}
 #| results: hold
@@ -320,9 +321,11 @@ $$
 \boxed{\mathbf{Y}_i \sim N_2(\mathbf{X}_i\mathbf{B},\mathbf{V}_i)}
 $$
 
-## `lavaan` Syntax: Multivariate Regression Model
+## Model 2: Simplest Multivariate Model
 
-Number of parameters is 5, including two means and three variance and covaraince components.
+**Aim**: To untangle the simple correlation between `perf` and `use`
+
+Number of parameters is 5, including two variables' means and three variance-and-covaraince components.
 
 ```{r}
 model02.syntax = "
@@ -345,11 +348,15 @@ use ~ 1     #<5>
 4.  $\beta_{0, \text{PERF}}$
 5.  $\beta_{0, \text{USE}}$
 
--   This covariance matrix is said to be **saturated**: All parameters are estimated - It is also called an unstructured covariance matrix
+### Properties of this model:
+
+-   This model is said to be **saturated**: All parameters are estimated - It is also called an unstructured covariance matrix
 
 -   No other structure for the covariance matrix can fit better (only as well as)
 
-## Multivariate Regression Model Results
+-   The model for the means are two simple regression models without any predictors
+
+## Multivariate Correlation Model Results
 
 ### Output of `lavaan`
 
@@ -360,11 +367,14 @@ model02.fit <- cfa(model02.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE,
 
 ## Print output
 summary(model02.fit)
+lavaan::standardizedsolution(model02.fit)
 ```
+
+-   **Result**: The students' math performance are significantly correlated with their perceived usefulness of math (r = .147, p = .016), but the correlation coefficient is weak.
 
 ### Question: why is the sample size different from Model 1?
 
-::: answer
+:::: answer
 ::: {.callout-tip appearance="minimal"}
 By default, `lavaan::cfa()` use the listwise deletion. In Model 1, cases with non-NA values of `perf` are left. In Model 2, cases with both non-NA in perf and non-NA in `use` are left.
 :::
@@ -373,7 +383,7 @@ By default, `lavaan::cfa()` use the listwise deletion. In Model 1, cases with no
 table(is.na(dataMath$perf))
 table(is.na(dataMath$perf) & is.na(dataMath$use))
 ```
-:::
+::::
 
 ------------------------------------------------------------------------
 
@@ -488,8 +498,8 @@ parameterestimates(model03.fit) |> show_table()
 
 Our new model (zero covariance) is better or worse fitting to data compared to our previous model (freely estimated covariance)?
 
-::: answer
-::: {.callout-tip appearance="minimal"}
+::::: answer
+:::: {.callout-tip appearance="minimal"}
 ## Answer
 
 I think Model 3 is worse because of fewer parameters and stronger assumptions. We don't know yet the degree of "worse" is significant or not.
@@ -500,8 +510,8 @@ I think Model 3 is worse because of fewer parameters and stronger assumptions. W
 anova(model02.fit, model03.fit)
 ```
 :::
-:::
-:::
+::::
+:::::
 
 ## Model Results
 
