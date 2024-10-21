@@ -45,7 +45,7 @@ citation:
 
 ## Why ITDS?
 
-This book is free and comprehensive for a broad tasks of data analysis. For example, the book covers R programming (**basics of R**), data wrangling with **dplyr**, data visualization with **ggplot2**, file organization with **Unix/Linux shell**, version control with **Git/Github**, and reproducible document preparation with ***Quarto*** and ***knitr***.
+This book is free and comprehensive for a broad R tasks of data analysis. For example, the book covers R programming (**basics of R**), data wrangling with **dplyr**, data visualization with **ggplot2**, file organization with **Unix/Linux shell**, version control with **Git/Github**, and reproducible document preparation with ***Quarto*** and ***knitr***.
 
 # Schedule
 
