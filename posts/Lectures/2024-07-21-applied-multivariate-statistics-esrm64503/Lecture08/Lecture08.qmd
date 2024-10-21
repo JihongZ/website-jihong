@@ -34,10 +34,9 @@ format:
     lightbox: true
     code-fold: false
     fig-align: center
-filters:
-  - quarto
-  - line-highlight
 ---
+
+## Outline
 
 ```{=html}
 <div class="card shadow">
@@ -53,7 +52,7 @@ filters:
     <div class="card-body">
         <h5 class="card-title">Today's Class</h5>
         <ul>
-          <li>Multivariate linear models: an introduction</li>
+          <li>Multivariate linear models: An introduction</li>
           <li>How to form multivariate models in lavaan</li>
           <li>What parameters mean</li>
           <li>How they relate to the multivariate normal distribution</li>
@@ -61,20 +60,19 @@ filters:
     </div>
 </div>
 ```
-
 # Multivariate Models: An Introduction
 
 ## Multivariate Linear Models
 
 -   The next set of lectures are provided to give an overview of multivariate linear models
     -   Models for **more than one** dependent/outcome variables
--   Our focus will be on models where the DV is plausibly continuous
+-   Our focus today will be on models where the DV is plausibly continuous
     -   so we’ll use error terms that are multivariate normally distributed
     -   Not a necessity – **generalized multivariate models** are possible
 
 ## Classical vs. Contemporary Methods
 
--   In "classical" multivariate textbooks and classes multivariate linear models fall under the names of Multivariate ANOVA (MANOVA) and Multivariate Regression
+-   In "classical" multivariate textbooks and classes multivariate linear models fall under the names of **Multivariate ANOVA (MANOVA)** and Multivariate Regression
 
 -   These methods rely upon least squares estimation which:
 
@@ -93,10 +91,10 @@ filters:
 
 -   We will discuss three large classes of multivariate linear modeling methods:
 
-    -   Path analysis models (typically through structural equation modeling and path analysis software)
-    -   Linear mixed models (typically through linear models software)
-    -   Psychological network models (typically through psychological network software)
-    -   Bayesian networks (frequently not mentioned in social sciences but subsume all we are doing)
+    -   **Path analysis** models (typically through structural equation modeling and path analysis software)
+    -   **Linear mixed** models (typically through linear models software)
+    -   **Psychological network** models (typically through psychological network software)
+    -   **Bayesian networks** (frequently not mentioned in social sciences but subsume all we are doing)
 
 -   The theory behind each is identical – the main difference is in software
 
@@ -116,16 +114,20 @@ filters:
 
 -   **Curse of dimensionality**: for multivariate normal data, there's a quadratic increase in the number of parameters as the number of outcomes increases linearly
 
--   To be used as an analysis model, however, a covariance structure must “fit” as well as the saturated/unstructured covariance matrix
+-   To be used as an analysis model, however, a model-implied covariance structure must “fit” as well as the saturated/unstructured covariance matrix
+
+    $$
+    S \rightarrow \Sigma
+    $$
 
 ## Biggest Difference From Univariate Models: Model Fit
 
-1.  In univariate linear models the "model for the variance" wasn’t much of a model - There was one variance term possible and one term estimated
+1.  In univariate linear models, the "*model for the variance*" wasn’t much of a model - There was one variance term possible ($\sigma^2_e$) and one term estimated
     -   A saturated model - all variances/covariances are freely estimated without any constrains - Model fit was always perfect
 2.  In multivariate linear models, because of the number of variances/covariances, oftentimes models are not saturated for the variances
     -   Therefore, model fit becomes an issue
 3.  Any non-saturated model for the variances must be shown to fit the data before being used for interpretation
-    -   "fit the data" has differing standards depending on software type used
+    -   "fit the data" has differing standards depending on software type used.
 
 ## Today's Example Data
 
@@ -133,7 +135,7 @@ filters:
 
 -   Sample of 350 undergraduates (229 women, 121 men)
 
-    -   In simulation, 10% of variables were missing (using missing completely at random mechanism)
+    -   In simulation, 10% of variables were missing (using missing completely at random mechanism).
 
 ::: callout-tip
 ## Dictionary
@@ -154,6 +156,7 @@ library(ESRM64503)
 library(kableExtra)
 library(tidyverse)
 library(DescTools) # Desc() allows you to quick screen data
+options(digits=3)
 head(dataMath)
 dim(dataMath)
 ```
@@ -261,16 +264,16 @@ $$
 
 # Multivariate Correlation Models
 
-## Model 2: Adding One More Variable: Multivariate Regression
+## Model 2: Adding One More Variable to the Model
 
 -   **Variables**: We already know how to use `lavaan` to estimate univariate model, let's move on to model two variables as outcomes
 
     -   [Mathematics performance (perf)]{style="color:tomato;font-weight:bold;"}
     -   [Perceived Usefulness of Mathematics (use)]{style="color:tomato;font-weight:bold;"}
 
--   **Assumption**: We will assume these to be continuous variables (conditionally MVN)
+-   **Assumption**: We will assume both to be continuous variables (conditionally MVN)
 
--   **Research Question**: Whether or not students' performance are related to their perceived usefulness of mathematics?
+-   **Research Question**: Whether or not students' performance are significantly related to their perceived usefulness of mathematics?
 
 -   Initially, we will only look at an empty model with these two variables:
 
@@ -321,11 +324,11 @@ $$
 \boxed{\mathbf{Y}_i \sim N_2(\mathbf{X}_i\mathbf{B},\mathbf{V}_i)}
 $$
 
-## Model 2: Simplest Multivariate Model
+## Model 2: Multivariate Empty Model
 
-**Aim**: To untangle the simple correlation between `perf` and `use`
+**Aim**: To untangle the simple correlation between `perf` and `use` . We call it "empty", because no predictor is used to explain the variances of the two variables.
 
-Number of parameters is 5, including two variables' means and three variance-and-covaraince components.
+**Parameters**: Number of parameters is 5, including two variables' means and three variance-and-covaraince components.
 
 ```{r}
 model02.syntax = "
@@ -367,14 +370,11 @@ model02.fit <- cfa(model02.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE,
 
 ## Print output
 summary(model02.fit)
-lavaan::standardizedsolution(model02.fit)
 ```
-
--   **Result**: The students' math performance are significantly correlated with their perceived usefulness of math (r = .147, p = .016), but the correlation coefficient is weak.
 
 ### Question: why is the sample size different from Model 1?
 
-:::: answer
+::: answer
 ::: {.callout-tip appearance="minimal"}
 By default, `lavaan::cfa()` use the listwise deletion. In Model 1, cases with non-NA values of `perf` are left. In Model 2, cases with both non-NA in perf and non-NA in `use` are left.
 :::
@@ -383,7 +383,7 @@ By default, `lavaan::cfa()` use the listwise deletion. In Model 1, cases with no
 table(is.na(dataMath$perf))
 table(is.na(dataMath$perf) & is.na(dataMath$use))
 ```
-::::
+:::
 
 ------------------------------------------------------------------------
 
@@ -403,6 +403,8 @@ D = matrix(c(sqrt(8.742), 0, 0,  sqrt(249.245)), nrow = 2)
 S = matrix(c(8.742, 6.847, 6.847,  249.245), nrow = 2)
 solve(D) %*% S %*% solve(D)
 ```
+
+-   **Result**: The students' math performance are significantly correlated with their perceived usefulness of math (r = .147, p = .016), but the correlation coefficient is weak.
 
 ## Comparing Model with Data
 
@@ -450,13 +452,15 @@ plot_ly(z = density_surface, x = seq(0, 120, .1), y = seq(0, 25, .1), colors = "
 
 ## A Different Model for the data
 
--   To demonstrate how models may vary in terms of model fit (and to set up a discussion of model fit and model comparisons) we will estimate a model where we set the covariance between PERF and USE to zero
+-   To demonstrate how models may vary in terms of model fit (and to set up a discussion of model fit and model comparisons) we will estimate a model where we set the covariance between PERF and USE to zero.
     -   Zero covariance implies zero correlation – which is unlikely to be true given our previous analysis
 -   You likely would not use this model in a real data analysis
     -   If anything, you may start with a zero covariance and then estimate one
 -   But, this will help to introduce come concepts needed to assess the quality of the multivariate model
 
-## `lavaan` Syntax: Zero Covariance
+## Model 3: Multivariate Empty Model with Zero Covariance
+
+One way to double check whether the "correlation" is important is to deliberately fix the "correlation" to be 0 and then compare this model to the previous model to see if it get much worse.
 
 ```{r}
 model03.syntax = "
@@ -498,8 +502,8 @@ parameterestimates(model03.fit) |> show_table()
 
 Our new model (zero covariance) is better or worse fitting to data compared to our previous model (freely estimated covariance)?
 
-::::: answer
-:::: {.callout-tip appearance="minimal"}
+::: answer
+::: {.callout-tip appearance="minimal"}
 ## Answer
 
 I think Model 3 is worse because of fewer parameters and stronger assumptions. We don't know yet the degree of "worse" is significant or not.
@@ -510,8 +514,8 @@ I think Model 3 is worse because of fewer parameters and stronger assumptions. W
 anova(model02.fit, model03.fit)
 ```
 :::
-::::
-:::::
+:::
+:::
 
 ## Model Results
 
@@ -547,7 +551,7 @@ mod3_density
 
 ## Homework 2
 
-1.  Use `lavaan` and `dataMath` to test the correlations among Math Performance, Math Anxiety, and Perceived Usefulness of Mathematics (USE).
+1.  Use `lavaan` and `dataMath` to test the correlations among Math Performance (`perf`), Math Anxiety (`mas`), and Perceived Usefulness of Mathematics (`use`).
 
     -   Model 1: All correlations are freely estimated.
         -   **Q1/Q2/Q3**: What are the estimated correlations/SD/p.values for Performance - Anxiety, Performance - Usefulness, and Anxiety - Usefulness, respectively (the results should have two-digit precision).
@@ -555,7 +559,7 @@ mod3_density
     -   Model 2: Fix the correlation between math anxiety (`mas`) and perceived usefulness of mathematics (`use`) to 0; Leave the other correlations to be freely estimated.
         -   **Q5/Q6/Q7**: What are the estimated correlations/SD/p.values for Performance - Anxiety, Performance - Usefulness, and Anxiety - Usefulness, respectively (the results should have two-digit precision)..
         -   **Q8**: What are AIC and BIC for Mode 2 (one-digit precision)
-    -   **Q9:** Provide evidence of significance testing for the model comparison between Model 1 and Model 2. Write down your conclusion about which model is better and whether the difference is significant.
+    -   **Q9:** Provide the evidence of significance testing for the model comparison between Model 1 and Model 2. Write down your conclusion about which model is better and whether the difference is significant.
     -   **Q10**: Copy and paste your R syntax (make sure you use `lavaan` syntax)
 
     ::: callout-note
