@@ -1,0 +1,63 @@
+---
+title: "Lecture 01: Basics of R"
+subtitle: "Getting Started"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 08: Multivariate Analysis"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+---
+
+# Why R?
+
+## Brief History
+
+-   **1975-1976**: S (Book: [*A Brief History of S*](https://sas.uwaterloo.ca/~rwoldfor/software/R-code/historyOfS.pdf)) grew up in the statistics research departments at Bell Laboratories
+
+    -   To bring interactive computing to bear on statistics and data analysis problem
+
+## Example of S Language: the Subscripting Operator
+
+```{r}
+#| error: true
+#| output-location: column
+X = 1:5 # A vector of numbers from 1 to 5
+X[c(TRUE, TRUE, TRUE, FALSE, FALSE)]
+X[1:3]
+X[-1:3]
+X[-(1:3)]
+X[NULL]
+X[NA]
+X[]
+```

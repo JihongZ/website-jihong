@@ -1,0 +1,15 @@
+{
+  "hash": "56c7dbc6ba1f57cd4651060f47d6ec9b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Lecture 01: Basics of R\"\nsubtitle: \"Getting Started\"\nauthor: \"Jihong Zhang*, Ph.D\"\ninstitute: | \n  Educational Statistics and Research Methods (ESRM) Program*\n  \n  University of Arkansas\ndate: \"2024-10-09\"\ndate-modified: \"2024-10-11\"\nsidebar: false\nexecute: \n  echo: true\n  warning: false\noutput-location: default\ncode-annotations: below\nhighlight-style: \"nord\"\nformat: \n  uark-revealjs:\n    scrollable: true\n    chalkboard: true\n    embed-resources: false\n    code-fold: false\n    number-sections: false\n    footer: \"ESRM 64503 - Lecture 08: Multivariate Analysis\"\n    slide-number: c/t\n    tbl-colwidths: auto\n    output-file: slides-index.html\n  html: \n    page-layout: full\n    toc: true\n    toc-depth: 2\n    toc-expand: true\n    lightbox: true\n    code-fold: false\n    fig-align: center\nfilters:\n  - quarto\n  - line-highlight\n---\n\n\n\n\n# Why R?\n\n## Brief History\n\n-   **1975-1976**: S (Book: [*A Brief History of S*](https://sas.uwaterloo.ca/~rwoldfor/software/R-code/historyOfS.pdf)) grew up in the statistics research departments at Bell Laboratories\n\n    -   To bring interactive computing to bear on statistics and data analysis problem\n\n## Example of S Language: the Subscripting Operator\n\n\n\n\n::: {.cell output-location='column'}\n\n```{.r .cell-code}\nX = 1:5 # A vector of numbers from 1 to 5\nX[c(TRUE, TRUE, TRUE, FALSE, FALSE)]\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1 2 3\n```\n\n\n:::\n\n```{.r .cell-code}\nX[1:3]\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1 2 3\n```\n\n\n:::\n\n```{.r .cell-code}\nX[-1:3]\n```\n\n::: {.cell-output .cell-output-error}\n\n```\nError in X[-1:3]: only 0's may be mixed with negative subscripts\n```\n\n\n:::\n\n```{.r .cell-code}\nX[-(1:3)]\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 4 5\n```\n\n\n:::\n\n```{.r .cell-code}\nX[NULL]\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\ninteger(0)\n```\n\n\n:::\n\n```{.r .cell-code}\nX[NA]\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] NA NA NA NA NA\n```\n\n\n:::\n\n```{.r .cell-code}\nX[]\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1 2 3 4 5\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
