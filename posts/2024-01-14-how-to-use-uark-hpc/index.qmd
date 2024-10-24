@@ -562,8 +562,10 @@ head(datset_fullpaths)
 
 ## Resources
 
-1.  Linux 101: <https://github.com/erolrecep/GettingStartedwithAHPCC>
-2.  [New Mexico State University HPC Wiki](https://hpc.nmsu.edu/discovery/slurm/)
-3.  [Slurm Official Documentation](https://slurm.schedmd.com/documentation.html)
-4.  [University of Arkansas HPC Center Wiki](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) (not very useful and outdated)
-5.  [Slides fo Jobs Submission in Slurms by Damien Francios](https://indico.cism.ucl.ac.be/event/121/contributions/60/attachments/130/287/slurm2022.pdf)
+1.  `rslurm` package: [Parallelize R code on a Slurm cluster](https://cran.r-project.org/web/packages/rslurm/vignettes/rslurm.html#how-it-works-advanced-customization)
+2.  [CRAN Task View: High-Performance and Parallel Computing with R](https://cran.r-project.org/web/views/HighPerformanceComputing.html)
+3.  Linux 101: <https://github.com/erolrecep/GettingStartedwithAHPCC>
+4.  [New Mexico State University HPC Wiki](https://hpc.nmsu.edu/discovery/slurm/)
+5.  [Slurm Official Documentation](https://slurm.schedmd.com/documentation.html)
+6.  [University of Arkansas HPC Center Wiki](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) (not very useful and outdated)
+7.  [Slides fo Jobs Submission in Slurms by Damien Francios](https://indico.cism.ucl.ac.be/event/121/contributions/60/attachments/130/287/slurm2022.pdf)

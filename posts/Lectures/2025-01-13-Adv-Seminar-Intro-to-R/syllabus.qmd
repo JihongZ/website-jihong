@@ -28,6 +28,7 @@ citation:
 3.  [R for Data Science](https://r4ds.had.co.nz/) - Visualize, Model, Transform, Tidy and Import Data by *Hadley Wickham* & *Garret Grolemund*
 4.  [Yet Again: R + Data Science](https://yards.albert-rapp.de/)by *Albert Rapp*
 5.  [Happy Git and GitHub for the useR](https://happygitwithr.com/) by [*Jennifer Bryan*](https://github.com/jennybc/happy-git-with-r)
+6.  [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/) by *Roger D. Peng*
 
 ## R Community
 

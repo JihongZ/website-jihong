@@ -43,11 +43,19 @@ filters:
 
 ## Brief History
 
--   **1975-1976**: S (Book: [*A Brief History of S*](https://sas.uwaterloo.ca/~rwoldfor/software/R-code/historyOfS.pdf)) grew up in the statistics research departments at Bell Laboratories
+-   **1975-1976**: S (Book: [*A Brief History of S*](https://sas.uwaterloo.ca/~rwoldfor/software/R-code/historyOfS.pdf)) grew up in the statistics research departments (John Chambers and others) at Bell Laboratories
 
     -   To bring interactive computing to bear on statistics and data analysis problem
 
-## Example of S Language: the Subscripting Operator
+-   **1993**: Prof. [Ross Ihaka](https://en.wikipedia.org/wiki/Ross_Ihaka "Ross Ihaka") and [Robert Gentleman](https://en.wikipedia.org/wiki/Robert_Gentleman_(statistician)) from University of Auckland posted first binary file of R to teach introductory statistics
+
+-   **1995**: Martin Mächler made an important contribution by convincing Ross and Robert to use the [GNU General Public License](http://www.gnu.org/licenses/gpl-2.0.html) to make R free software
+
+-   **1997**: The [Comprehensive R Archive Network](https://en.wikipedia.org/wiki/R_package#Comprehensive_R_Archive_Network_(CRAN) "R package") (**CRAN**) was founded by Kurt Hornik and [Friedrich Leisch](https://en.wikipedia.org/wiki/Friedrich_Leisch "Friedrich Leisch") to host R's [source code](https://en.wikipedia.org/wiki/Source_code "Source code"), executable files, documentation, and user-created packages
+
+-   **2000**: the first official 1.0 version of R was released
+
+## Example of S Language: the Subscripting Operator / Indexing
 
 ```{r}
 #| error: true
