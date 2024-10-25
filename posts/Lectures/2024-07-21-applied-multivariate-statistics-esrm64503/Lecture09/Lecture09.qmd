@@ -1,6 +1,6 @@
 ---
-title: "Lecture 09: Absolute Model fit and Path Analysis"
-subtitle: ""
+title: "Lecture 09: Path Analysis"
+subtitle: "Absolute Model fit and Model Interpretation"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -37,6 +37,7 @@ format:
 filters:
   - quarto
   - line-highlight
+bibliography: references.bib
 ---
 
 ```{=html}
@@ -105,11 +106,14 @@ model04.fit <- cfa(model04.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE,
 standardizedsolution(model04.fit)
 ```
 
--   For Performance and Usefulness, there is a weak but significantly positive correlation with **r = .158 (.059), p = .007**
+-   For Performance and Usefulness, there is a weak but significantly
+    positive correlation with **r = .158 (.059), p = .007**
 
--   For Performance and Anxiety, there is a strong and significantly positive correlation with **r = .526 (.043), p \< .001**
+-   For Performance and Anxiety, there is a strong and significantly
+    positive correlation with **r = .526 (.043), p \< .001**
 
--   For Usefulness and Anxiety, there is a moderate and significantly positive correlation with **r = .299 (.049), p \< .001**
+-   For Usefulness and Anxiety, there is a moderate and significantly
+    positive correlation with **r = .299 (.049), p \< .001**
 
 ## Homework 2: Model 2
 
@@ -136,11 +140,15 @@ model04b.fit <- cfa(model04b.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRU
 standardizedsolution(model04b.fit) |> show_table()
 ```
 
--   For Performance and Usefulness, there is a weak and non-significantly positive correlation with **r = .017 (.056), p = .765**
+-   For Performance and Usefulness, there is a weak and
+    non-significantly positive correlation with **r = .017 (.056), p =
+    .765**
 
--   For Performance and Anxiety, there is a strong and significantly positive correlation with **r = .523 (.044), p \< .001**
+-   For Performance and Anxiety, there is a strong and significantly
+    positive correlation with **r = .523 (.044), p \< .001**
 
--   For Usefulness and Anxiety, there is a zero correlation with **r = 0 (0), p = NA**
+-   For Usefulness and Anxiety, there is a zero correlation with **r = 0
+    (0), p = NA**
 
 ## Homework 2: AIC and BIC
 
@@ -152,13 +160,19 @@ anova(model04.fit, model04b.fit)
 
 -   For Model 2, AIC = 6446.5 and BIC = 6477.4
 
--   According to the criteria of lower AIC/BIC values indicating better model fit and the result of Likelihood ratio test ($\chi^2(0, 1)=29.031, p < .001$), we prefer model 1 as it has significantly better model fit than model 2.
+-   According to the criteria of lower AIC/BIC values indicating better
+    model fit and the result of Likelihood ratio test
+    ($\chi^2(0, 1)=29.031, p < .001$), we prefer model 1 as it has
+    significantly better model fit than model 2.
 
 # Path Analysis
 
--   Previous models considered correlations among observed variables (`perf` and `use`). These models may be limited in answering more complex research questions: whether A is a mediator between B and C
+-   Previous models considered correlations among observed variables
+    (`perf` and `use`). These models may be limited in answering more
+    complex research questions: whether A is a mediator between B and C
 
--   Path analysis: Multivariate Linear Models where Outcomes can be also Predictors
+-   Path analysis: Multivariate Linear Models where Outcomes can be also
+    Predictors
 
 -   Path analysis details:
 
@@ -168,15 +182,821 @@ anova(model04.fit, model04b.fit)
 
 -   Example Analyses
 
+## Today's Example Data
+
+-   Data are simulated based on the results reported in:
+
+-   Sample of 350 undergraduates (229 women, 121 men)
+
+    -   In simulation, 10% of variables were missing (using missing
+        completely at random mechanism).
+
+::: callout-tip
+## Dictionary
+
+1.  Prior Experience at High School Level (HSL)
+2.  Prior Experience at College Level (CC)
+3.  Perceived Usefulness of Mathematics (USE)
+4.  Math Self-Concept (MSC)
+5.  Math Anxiety (MAS)
+6.  Math Self-Efficacy (MSE)
+7.  Math Performance (PERF)
+8.  Female (sex variable: 0 = male; 1 = female)
+:::
+
+## Our Destination: Overall Path Model
+
+![](path_diagram.png){fig-align="center"}
+
+## The Big Picture
+
+1.  **Path analysis** is a multivariate statistical method that, when
+    using an identity link, assumes the variables in an analysis are
+    multivariate normally distributed
+
+    -   Mean vectors
+    -   Covariance matrices
+
+2.  By specifying simultaneous regression equations (the core of path
+    models), a very specific covariance matrix is implied
+
+    -   This is where things deviate from our familiar R matrix
+
+3.  Like multivariate models, the key to path analysis is finding an
+    approximation to the unstructured (saturated) covariance matrix
+
+    -   With fewer parameters, if possible
+
+<!-- -->
+
+4.  The art to path analysis is in specifying models that blend theory
+    and statistical evidence to produce valid, generalizable results
+
+## A Path Model of Path Analysis Steps
+
+![](path_model.png){fig-align="center"}
+
+## Identification of Path Models
+
+-   Model identification is necessary for statistical models to have
+    meaningful results
+
+-   For path models, identification can be very difficult
+
+-   Because of their unique structure, path models must have
+    identification in two ways:
+
+    -   "Globally" – so that the total number of parameters does not
+        exceed the total number of means, variances, and covariances of
+        the endogenous and exogenous variables
+
+    -   "Locally" – so that each individual equation is identified
+
+-   Model identification is guaranteed if a model is both "globally" and
+    "locally" identified
+
+## Global Identification: "T-rule"
+
+-   A necessary but not sufficient condition for a path models is that
+    of having equal to or fewer model parameters than there are
+    "[distributional parameters]{.underline}"
+
+-   Distributional parameters: As the path models we discuss assume the
+    multivariate normal distribution, we have two matrices of parameters
+
+    -   The mean vector
+    -   The covariance matrix
+
+-   For the MVN, the so-called **T-rule** states that a model must have
+    equal to or fewer parameters than the unique elements of the
+    covariance matrix of all endogenous and exogenous variables (the sum
+    of all variables in the analysis)
+
+    -   Let $s = p+q$, the total of all endogenous (p) and exogenous (q)
+        variables
+    -   Then the total unique elements are \$\frac{s(s+1)}{2}
+
+## More on the "T-rule"
+
+-   The classical definition of the "T-rule" counts the following
+    entities as model parameters:
+    1.  Direct effects (regression slopes)
+    2.  Residual variances
+    3.  Residual covariances
+    4.  Exogenous variances
+    5.  Exogenous covariances
+-   Missing from this list are:
+    1.  The set of exogenous variable means
+    2.  The set of intercepts for endogenous variables
+-   Each of the missing entities are part of the likelihood function,
+    but are considered “saturated” so no additional parameters can be
+    added (all parameters are estimated)
+    -   These do not enter into the equation for the covariance matrix
+        of the endogenous and exogenous variables
+
+## T-rule Identification Status
+
+-   Just-identified: number of observed covariances = number of model
+    parameters
+    -   Necessary for identification, but no model fit indices available
+-   Over-identified: number of observed covariances \> number of model
+    parameters
+    -   Necessary for identification; model fit indices available
+-   Under-identified: number of observed covariances \< number of model
+    parameters
+    -   Model is [NOT IDENTIFIED]{.underline}: No results available
+
+## Our Destination: Overall Path Model
+
+-   Based on the theory described in the introduction to
+    @pajaresRoleSelfefficacySelfconcept1994, the following model was
+    hypothesized – use this diagram to build your knowledge of path
+    models
+
+![](path_diagram_labelled.png){fig-align="center"}
+
+## Path Model Setup - Questions for the Analysis
+
+-   How many variables are in our model? $s = 7$
+
+    -   Gender, HSL, CC, MSC, MSE, PERF, and USE
+
+-   How many variables are endogenous? $p = 6$
+
+    -   HSL, CC, MSC, MSE, PERF and USE
+
+-   How many variables are exogenous? $q = 1$
+
+    -   Gender
+
+-   Is the model recursive or non-recursive?
+
+    -   Recursive – no feedback loops present
+
+## Path Model Setup – Questions for the Analysis
+
+-   Is the model identified?
+
+    -   Check the t-rule first
+
+    -   How many covariance terms are there in the all-variable matrix?
+
+        -   $\frac{7*(7+1)}{2} = 28$
+
+    -   How many model parameters are to be estimated?
+
+        -   12 direct paths
+
+        -   6 residual variances (only endogenous variables have resid.
+            var.)
+
+        -   1 variance of the exogenous variable
+
+        -   6 endogenous variance intercepts
+
+            -   Not relevant for T-rule identification, but counted in R
+                matrix
+
+-   28 (total variances/covariances) \> (12 + 6 + 1) parameters, thus
+    this model is over-identified
+
+    -   We can use R to run analysis
+
+## Overall Hypothesized Path Model: Equation Form
+
+![](path_diagram_indexed.png){fig-align="center" width="1000"}
+
+-   The path model from can be re-expressed in the following 6
+    endogenous variable regression equations:
+
+$$
+HSL_i = \beta_{0, HSL} + \beta_{F, HSL}F_i + e_{i, HSL}
+$$ {#eq-reg1}
+
+$$
+CC_i = \beta_{0,CC}+\beta_{HSL,CC}HSL_i + e_{i,CC}
+$$ {#eq-reg2}
+
+$$
+MSE_i = \beta_{0,MSE} + \beta_{F,MSE}F_i +\beta_{HSL,MSE}HSL_i + \beta_{CC,MSE}CC_i +e_{i,MSE}
+$$ {#eq-reg3}
+
+$$
+MSC_i = \beta_{0, MSE} + \beta_{HSL,MSC}HSL_i + \beta_{CC,MSC} CC_i +  \beta_{MSE,MSC} MSE_i + e_{i,MSC}
+$$ {#eq-reg4}
+
+$$
+USE_i = \beta_{0,USE} + \beta_{MSE,USE}MSE_{i} + e_{i, USE}
+$$ {#eq-reg5}
+
+$$
+PERF_i = \beta_{0,PERF} + \beta_{HSL,PERF}HSL_{i} +\beta_{MSE,PERF}MSE_i + \beta_{MSC, PERF}MSC_{i} + e_{i,PERF}
+$$ {#eq-reg6}
+
+## Data Analytic Plan
+
+1.  Constructed our model
+
+2.  Verified it was identified using the t-rule and that it is a
+    recursive model
+
+3.  Estimate the model with R
+
+4.  Check model fit
+
+## Path Model: `lavaan` syntax
+
+```{r}
+#model 01-----------------------------------------------------------------------
+model01.syntax = 
+" 
+#endogenous variable equations
+perf ~ hsl + msc + mse
+use  ~ mse
+mse  ~ hsl + cc + female 
+msc  ~ mse + cc + hsl
+cc   ~ hsl
+hsl  ~ female
+
+#endogenous variable intercepts
+perf ~ 1
+use  ~ 1
+mse  ~ 1
+msc  ~ 1
+cc   ~ 1
+hsl  ~ 1
+
+#endogenous variable residual variances
+perf ~~ perf
+use  ~~ use
+mse  ~~ mse
+msc  ~~ msc
+cc   ~~ cc  
+hsl  ~~ hsl
+
+#endogenous variable residual covariances
+#none specfied in the original model so these have zeros:
+perf ~~ 0*use + 0*mse + 0*msc + 0*cc + 0*hsl
+use  ~~ 0*mse + 0*msc + 0*cc + 0*hsl
+mse  ~~ 0*msc + 0*cc + 0*hsl
+msc  ~~ 0*cc + 0*hsl
+cc   ~~ 0*hsl
+"
+```
+
+## Model Fit Evaluation
+
+-   First, we check convergence:
+    -   `lavaan`'s ML algorithm converged!
+
+```{r}
+#estimate model
+model01.fit = sem(model01.syntax, data=dataMath, mimic = "MPLUS", estimator = "MLR")
+
+#see if model converged
+inspect(model01.fit, what="converged")
+```
+
+-   Second, we check for abnormally large standard errors:
+
+    -   None too big, relative to the size of the parameter
+
+    -   Indicates identified mdoel
+
+        ```{r}
+        parameterestimates(model01.fit) |> filter(op != "~~")
+        ```
+
+-   Third, we look at the model fit statistics.
+
+## Model Fit Statistics
+
+-   Before we interpret the estimation result, we need to assess the fit
+    of a multivariate linear model to the data, in an absolute sense
+
+-   If a model does not fit the data:
+
+    -   Parameter estimates may be biased
+    -   Standard errors of estimates may be biased
+    -   Inferences made from the model may be wrong
+    -   If the saturated model fit is wrong, then the LRTs will be
+        inaccurate
+
+-   Not all “good-fitting” models are useful…
+
+    -   …model fit just allows you to talk about your model…there may be
+        nothing of significance (statistically or practically) in your
+        results, though
+
+## Global measures of Model fit
+
+1.  Root Mean Square Error of Approximation (RMSEA)
+2.  Likelihood ratio test
+    -   User model versus the saturated model: Testing if your model
+        fits as well as the saturated model
+    -   The saturated model versue the baseline model: Testing whether
+        any variables have non-zero covariances (significant
+        correlations)
+3.  User model versus baseline model
+    -   CFI (the comparative fit index)
+    -   TLI (the Tucker–Lewis index)
+4.  Loglikelihood and Information Criteria
+5.  Standardized Root Mean Square Residual (SRMR)
+    -   How far off a model’s correlations are from the saturated model
+        correlations
+
+## Model Fit Statistics: Example
+
+```{r}
+#| eval: false
+#| echo: true
+summary(model01.fit, fit.measures = TRUE)
+```
+
+```{r}
+#| eval: false
+#| echo: true
+Model Test User Model: # <1>
+                                              Standard      Scaled
+  Test Statistic                                58.896      58.913
+  Degrees of freedom                                 9           9
+  P-value (Chi-square)                           0.000       0.000
+  Scaling correction factor                                  1.000
+    Yuan-Bentler correction (Mplus variant)                       
+
+Model Test Baseline Model: # <2>
+
+  Test statistic                               619.926     629.882
+  Degrees of freedom                                21          21
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  0.984
+
+Root Mean Square Error of Approximation: # <3>
+
+  RMSEA                                          0.126       0.126
+  90 Percent confidence interval - lower         0.096       0.096
+  90 Percent confidence interval - upper         0.157       0.157
+  P-value H_0: RMSEA <= 0.050                    0.000       0.000
+  P-value H_0: RMSEA >= 0.080                    0.994       0.994  
+  
+User Model versus Baseline Model: #<4>
+
+  Comparative Fit Index (CFI)                    0.917       0.918
+  Tucker-Lewis Index (TLI)                       0.806       0.809
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.918
+  Robust Tucker-Lewis Index (TLI)                            0.809
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)              -5889.496   -5889.496
+  Scaling correction factor                                  0.965
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)      -5860.048   -5860.048
+  Scaling correction factor                                  0.975
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               11826.992   11826.992
+  Bayesian (BIC)                             11919.583   11919.583
+  Sample-size adjusted Bayesian (SABIC)      11843.446   11843.446
+```
+
+1.  This is a likelihood ratio (deviance) test comparing our model
+    ($H_0$) with the saturated model – the saturated model fits much
+    better ($\chi^2(\Delta df = 9) = 58.896$, p \< .001)
+2.  This is a likelihood ratio (deviance) test comparing the baseline
+    model with the saturated model
+3.  The RMSEA estimate is 0.126. Good fit is considered 0.05 or less.
+4.  The CFI estimate is .917 and the TLI is .806. Good fit is considered
+    0.95 or higher.
+
+-   Based on the model fit statistics, we can conclude that our model
+    does not do a good job of approximating the covariance matrix – so
+    we cannot make inferences with these results (biased standard errors
+    and effects may occur)
+
+## Model Modification Method 1: Check Residual Covariance
+
+-   Now that we have concluded that our model fit is poor we must modify
+    the model to make the fit better
+
+    -   Our modifications are purely statistical – which draws into
+        question their generalizability beyond this sample
+
+-   Generally, model modification should be guided by theory
+
+    -   However, we can inspect the normalized residual covariance
+        matrix (like z- scores) to see where our biggest misfit occurs
+    -   One normalized residual covariance is bigger than +/-1.96: MSC
+        with USE and CC with Female
+
+    ```{r}
+    residuals(model01.fit, type = "normalized")
+    ```
+
+## Our Destination: Overall Path Model
+
+![](path_diagram_corrected.png){fig-align="center"}
+
+-   The largest normalized covariances suggest relationships that may be
+    present that are not being modeled:
+
+    -   Add a direct effect between F and CC
+    -   Add a direct effect between MSC and USE OR Add a residual
+        covariance between MSC and USE
+
+## Model Midification Method 2: More Help for Fit
+
+-   As we used Maximum Likelihood to estimate our model, another useful
+    feature is that of the modification indices
+
+    -   Modification indices (also called Score or LaGrangian Multiplier
+        tests) that attempt to suggest the change in the log-likelihood
+        for adding a given model parameter (larger values indicate a
+        better fit for adding the parameter)
+
+```{r}
+#calculate modification indices
+model01.mi = modificationindices(model01.fit, sort. = T)
+
+#display values of indices
+head(model01.mi, 10)
+```
+
+-   The modification indices have three large values:
+    -   A direct effect predicting MSC from USE
+    -   A direct effect predicting USE from MSC
+    -   A residual covariance between USE and MSC
+-   Note: the MI value is -2 times the change in the log-likelihood and
+    the EPC is the expected parameter value
+    -   The MI is like a 1 DF Chi-Square Deviance test
+        -   Values greater than 3.84 are likely to be significant
+            changes in the log-likelihood
+-   All three are for the same variable: so we can only choose one
+    -   This is where theory would help us decide
+-   As we do not know theory, we will choose to add a residual
+    covariance between USE and MSC ( the “\~\~” symbol)
+    -   Their covariance is unexplained by the model – not a great
+        theoretical statement (but will allow us to make inferences if
+        the model fits)
+    -   MI = 41.517
+    -   EPC = 70.912
+
+# Model 2: New Model by adding MSE with USE
+
+## Model 2: `lavaan` syntax
+
+```{r}
+#model 02: Add residual covariance between USE and MSC-------------------------------------
+model02.syntax = 
+" 
+#endogenous variable equations
+perf ~ hsl + msc + mse
+use  ~ mse
+mse  ~ hsl + cc + female 
+msc  ~ mse + cc + hsl
+cc   ~ hsl
+hsl  ~ female
+
+#endogenous variable intercepts
+perf ~ 1
+use  ~ 1
+mse  ~ 1
+msc  ~ 1
+cc   ~ 1
+hsl  ~ 1
+
+#endogenous variable residual variances
+perf ~~ perf
+use  ~~ use
+mse  ~~ mse
+msc  ~~ msc
+cc   ~~ cc  
+hsl  ~~ hsl
+
+#endogenous variable residual covariances
+#none specfied in the original model so these have zeros:
+perf ~~ 0*use + 0*mse + 0*msc + 0*cc + 0*hsl
+use  ~~ 0*mse + msc + 0*cc + 0*hsl      #<- the changed part of syntax here (no 0* in front of msc)
+mse  ~~ 0*msc + 0*cc + 0*hsl
+msc  ~~ 0*cc + 0*hsl
+cc   ~~ 0*hsl
+"
+```
+
+## Assessing Model fit of the Modified Model
+
+```{r}
+#estimate model
+model02.fit = sem(model02.syntax, data=dataMath, mimic = "MPLUS", estimator = "MLR")
+
+#see if model converged
+inspect(model02.fit, what="converged")
+```
+
+```{r}
+#| echo: true
+#| eval: false
+#show summary of model fit statistics and parameters
+summary(model02.fit, standardized=TRUE, fit.measures=TRUE)
+```
+
+```{r}
+fitmeasures(model02.fit)[c("rmsea", "srmr","cfi", "tli", "chisq", "df", "pvalue")]
+```
+
+-   Now we must start over with our path model decision tree
+    -   The model is identified (now 20 parameters \< 28 covariances)
+    -   Estimation converged; Standard errors look acceptable
+-   Model fit indices:
+    -   The comparison with the saturated model suggests our model fits
+        statistically
+    -   The RMSEA is 0.049, which indicates good fit
+    -   The CFI and TLI both indicate good fit (CFI/TLI \> .90)
+    -   The SRMR also indicates good fit
+-   Therefore, we can conclude the model adequately approximates the
+    covariance matrix – meaning we can now inspect our model
+    parameters…but first, let’s check our residual covariances and
+    modification indices
+    
+## Normalized Residual Covariances    
+
+```{r}
+residuals(model02.fit, type = "normalized")
+```
+
+-   Only one normalized residual covariance is bigger than +/- 1.96: CC with Female
+    - Given the number of covariances we have, this is likely okay
+
+## Modeification Indices for Model 2
+
+```{r}
+model02.mi = modificationindices(model02.fit, sort. = T)
+head(model02.mi, 10)
+```
+
+-   Now, no modification indices are glaringly large, although
+some are bigger than 3.84
+    - We discard these as our model now fits (and adding them may not be meaningful)
+    
+## More on Modification Indices
+
+- Recall from our original model that we received the following modification index values for the residual covariance between MSC and USE:
+    - MI = 41.529
+    - EPC = 70.912
+    
+```{r}
+model01.mi[2, ]
+```
+    
+    
+-   The estimated residual covariance between MSC and USE in the modified model is: 70.249    
+    
+```{r}
+parameterestimates(model02.fit) |> filter(lhs == "use"& op == "~~"& rhs == "msc")
+```
+    
+- The difference in log-likelihoods is:
+    - -2*(change) = 58.279
+    
+```{r}
+anova(model01.fit, model02.fit)
+```
+    
+-   The values given by the MI and EPC are approximations
+
+
+## Model Parameter Investigation
+
+```{r}
+#| eval: false
+Regressions:
+                   Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+  perf ~                                                                
+    hsl               0.153    0.107    1.432    0.152    0.153    0.068
+    msc               0.037    0.009    4.147    0.000    0.037    0.215
+    mse               0.139    0.013   10.700    0.000    0.139    0.557
+  use ~                                                                 
+    mse               0.277    0.073    3.803    0.000    0.277    0.209
+  mse ~                                                                 
+    hsl               4.138    0.406   10.203    0.000    4.138    0.459
+    cc                0.393    0.105    3.723    0.000    0.393    0.194
+    female            4.168    1.160    3.593    0.000    4.168    0.166
+  msc ~                                                                 
+    mse               0.736    0.066   11.119    0.000    0.736    0.512
+    cc                0.519    0.117    4.434    0.000    0.519    0.179
+    hsl               2.824    0.593    4.764    0.000    2.824    0.218
+  cc ~                                                                  
+    hsl               0.662    0.247    2.686    0.007    0.662    0.149
+  hsl ~                                                                 
+    female            0.208    0.154    1.348    0.178    0.208    0.075
+```
+
+- There are two direct effects that are non-significant:
+
+    -   $\beta_{F, HSL} = .208$, p = .178
+    -   $\beta_{HSL, PERF} = .153$, p = .152
+
+-   We leave these in the model 2, but the overall path model seems to suggest they are not needed
+
+    -   So, I will remove them and re-estimate the model
+
+
+# Model 3: Remove non-significant effects
+
+## Model 3: `lavaan` syntax
+```{r}
+#| results: hide
+#model 03: removing HSL predicting PERF and Gender predicting HSL  ----------------
+model03.syntax = 
+" 
+#endogenous variable equations
+perf ~ msc + mse
+use  ~ mse
+mse  ~ hsl + cc + female 
+msc  ~ mse + cc + hsl
+cc   ~ hsl
+
+#endogenous variable intercepts
+perf ~ 1
+use  ~ 1
+mse  ~ 1
+msc  ~ 1
+cc   ~ 1
+
+#endogenous variable residual variances
+perf ~~ perf
+use  ~~ use
+mse  ~~ mse
+msc  ~~ msc
+cc   ~~ cc  
+
+#endogenous variable residual covariances
+#none specfied in the original model so these have zeros:
+perf ~~ 0*use + 0*mse + 0*msc + 0*cc 
+use  ~~ 0*mse + msc + 0*cc  
+mse  ~~ 0*msc + 0*cc 
+msc  ~~ 0*cc 
+"
+
+#estimate model
+model03.fit = sem(model03.syntax, data=dataMath, mimic = "MPLUS", estimator = "MLR")
+summary(model03.fit, fit.measures = TRUE)
+```
+
+## Model 3: Model fit results
+
+-   We have: an identified model, a converged algorithm, and
+stable standard errors, so model fit should be inspected
+    - Next – inspect model fit
+    - Model fit seems to not be as good as we would think
+    
+```{r}
+#see if model converged
+inspect(model03.fit, what="converged")
+fitmeasures(model03.fit)[c("rmsea", "srmr","cfi", "tli", "chisq", "df", "pvalue")]
+```
+
+-   Again, the largest normalized residual covariance is that of Female and CC
+
+```{r}
+residuals(model03.fit, type = "normalized")
+```
+
+-    MI for direct effect of Female on CC is 5.090, indicating that adding this parameter
+may improve model fit
+
+```{r}
+modificationindices(model03.fit, sort. = T)[1:3,]
+```
+- So, we will now add a direct effect of Female on CC
+
+# Model 4: Adding Female on CC
+
+## Model 4: `lavaan` syntax
+
+```{r}
+#model 04: Add gender predicting cc -------------------------------------------------------------
+model04.syntax = " 
+#endogenous variable equations
+perf ~ msc + mse
+use  ~ mse
+mse  ~ (b_hsl_mse)*hsl + (b_cc_mse)*cc + female 
+msc  ~ mse + cc + hsl
+cc   ~ (b_hsl_cc)*hsl + female
+
+#endogenous variable intercepts
+perf ~ 1
+use  ~ 1
+mse  ~ 1
+msc  ~ 1
+cc   ~ 1
+
+#endogenous variable residual variances
+perf ~~ perf
+use  ~~ use
+mse  ~~ mse
+msc  ~~ msc
+cc   ~~ cc  
+
+#endogenous variable residual covariances
+#none specfied in the original model so these have zeros:
+perf ~~ 0*use + 0*mse + 0*msc + 0*cc 
+use  ~~ 0*mse + msc + 0*cc  
+mse  ~~ 0*msc + 0*cc 
+msc  ~~ 0*cc 
+
+#indirect effect of interest:
+ind_hsl_mse := b_hsl_cc*b_cc_mse
+
+#total effect of interest:
+tot_hsl_mse := b_hsl_mse + (b_hsl_cc*b_cc_mse)
+"
+model04.fit = sem(model04.syntax, data=dataMath, mimic = "MPLUS", estimator = "MLR")
+
+```
+
+## Model 4: Model Fit Index
+```{r}
+inspect(model04.fit, what="converged")
+fitmeasures(model04.fit)[c("rmsea", "srmr","cfi", "tli", "chisq", "df", "pvalue")]
+residuals(model04.fit, type = "normalized")
+model04.mi <- modificationindices(model04.fit, sort. = T)
+head(model04.mi, 5)
+```
+
+-   We have: an identified model, a converged algorithm, and stable standard errors, so model fit should be inspected
+
+-   No normalized residual covariances are larger than +/- 1.96 – so we appear to have good fit
+
+-   We will leave this model as-is and interpret the results
+
+## Model 4: Parameter Interpretation
+
+- Interpret each of these parameters as you would in regression:
+    - A one-unit increase in HSL brings about a .695 unit increase in CC, holding Female constant
+    
+    - We can interpret the standardized parameter estimates for all variables except gender
+    
+    - A 1-SD increase in HSL means CC increases by 0.153 SD
+    
+```{r}
+parameterestimates(model04.fit, standardized = T, ci = F) |> filter(op == "~")
+```
+
+## Model Interpretation: Explained Variability
+
+```{r}
+sort(inspect(model04.fit, what = 'r2'))
+```
+-   The R2 for each endogenous variable:
+    - CC – 0.039
+    - USE – 0.041
+    - MSE – 0.298
+    - MSC – 0.485
+    - PERF – 0.576
+    
+-   Note how college experience and perceived usefulness both have low percentages of variance accounted for by the model
+    -   We could have increased the R2 for USE by adding the direct path between MSC and USE instead of the residual covariance
+    
+
+## Overall Model Interpretation
+
+- High School Experience and Female are significant predictors of College Experience ($\beta_{HSL, CC} = .695, p = .006$ and $\beta_{F, CC} = -1.662, p = .021$)
+
+    -  Females lower than males in College Experience
+    -  More High School Experience means more College Experience
+
+- High School Experience, College Experience, and Gender are significant predictors of Math Self-Efficacy ($\beta_{HSL, MSE}= 4.05, p < .001$; $\beta_{CC, MSE}= .383, p < .001$; $\beta_{F, MSE}= 3.819, p = .001$)
+    -  More High School and College Experience means higher Math Self-Efficacy
+    -  Females have higher Math Self-Efficacy than Men
+
+-   High School Experience, College Experience, and Math Self-Efficacy are significant predictors of Math Self-Concept ($\beta_{HSL, MSC}= 2.894, p < .001$; $\beta_{CC, MSC}= .545, p < .001$; $\beta_{MSE, MSC}= .692, p < .001$)
+    -  More High School and College Experience and higher Math Self-Efficacy mean higher Math Self-Concept
+
+- Higher Math Self-Efficacy means significantly higher Perceived Usefulness
+
+- Higher Math Self-Efficacy and Math Self-Concept result in
+higher Math Performance scores
+
+- Math Self-Concept and Perceived Usefulness have a
+significant residual covariance
+
 ## Wrapping Up
 
-1.  This lecture was an introduction to the estimation of multivariate linear models for multivariate outcomes the using path analysis/SEM package `lavaan`
-
-2.  We saw that the model for continuous data uses the multivariate normal distribution in its likelihood function
+-   In this lecture we discussed the basics of path analysis
+    - Model specification/identification
+    - Model estimation
+    - Model fit (necessary, but not sufficient)
+    - Model modification and re-estimation
+    - Final model parameter interpretation
+- There is a lot to the analysis – but what is important to remember is the over-arching principal of multivariate analyses: covariance between variables is important
+    - Path models imply very specific covariance structures
+    - The validity of the results hinge upon accurately finding an approximation to
+the covariance matrix
 
 ### Next Class
 
-1.  Does each model fit the data well (absolute model fit)?
-2.  If not, how can we improve model fit?
-3.  Which model fits better (relative model fit)?
-4.  Answers are given in the following lectures...
+1.  Indirect effect
+2.  Causality
+3.  Hypothesis tests
