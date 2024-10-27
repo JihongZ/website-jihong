@@ -69,3 +69,90 @@ X[NULL]
 X[NA]
 X[]
 ```
+
+## Main Feature of R
+
+1.  it was developed by statisticians as an interactive environment for data analysis rather than C or Java that created by software development.
+2.  The interactivity of R is an indispensable feature in data science
+3.  However, like in other programming languages, you can save your work in R as scripts that can be easily executed at any moment.
+4.  If you are an expert programmer, you should not expect R to follow the conventions you are used to since you will be disappointed.
+
+## Attractive Features of R
+
+-   R is free and open source.
+-   It runs on all major platforms: Windows, MacOS, UNIX/Linux.
+-   Scripts and data objects can be shared seamlessly across platforms.
+-   There is a large, growing, and active community of R users and, as a result, there are numerous resources for learning and asking questions.
+    -   [stackoverflow](https://stats.stackexchange.com/questions/138/free-resources-for-learning-r)
+    -   [r-project.com](https://www.r-project.org/help.html)
+-   It is easy for others to contribute add-ons which enables developers to share software implementations of new data science methodologies. This gives R users early access to the latest methods and to tools which are developed for a wide variety of disciplines, including ecology, molecular biology, social sciences, and geography, just to name a few example
+
+# Get started
+
+## R console
+
+-   One way of using R is to simply start R console on your computer (PC).
+
+    -   In Mac, after installing R, simply type in "R" in terminal to get started
+
+::: panel-tabset
+## Windows
+
+![](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/img/R_console.png){fig-align="center"}
+
+## Mac/Linux
+
+![](terminal_R.png){fig-align="center"}
+:::
+
+As a quick example, try using the console to calculate a 15% tip on a meal that cost \$19.71:
+
+```{r}
+0.15 * 19.71
+```
+
+## Rstudio
+
+-   RStudio will be our launching pad for data science projects. It not only provides an editor for us to create and edit our scripts but also provides many other useful tools.
+
+-   When you start RStudio for the first time, you will see three panes:
+
+    -   The left pane shows the Code editor (will show when you create a new file) and R console.
+
+    -   On the right, the top pane includes tabs such as *Environment* and *History*, while the bottom pane shows five tabs: *File*, *Plots*, *Packages*, *Help*, and *Viewer* .
+
+-   To start a new script in Code editor, you can click on `File` \> `New File` \> `R Script`.
+
+::: panel-tabset
+## Screenshot of Rstudio
+
+![Screenshot of Rstudio](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/img/rstudio.png){alt="Screenshot of Rstudio" fig-align="center"}
+
+## Start a new script
+
+![](https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/img/windows-screenshots/VirtualBox_Windows-7-Enterprise_22_03_2018_16_21_42.png){fig-align="center"}
+
+## Start writing your script
+
+![New panel](https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/img/windows-screenshots/VirtualBox_Windows-7-Enterprise_22_03_2018_16_21_49.png){fig-align="center"}
+:::
+
+## Key Binding
+
+-   For the efficient coding, **we highly recommend that you memorize key bindings for the operations you use most**.
+
+-   RStudio provides a useful cheat sheet with the most widely used commands
+
+-   To open the cheat sheet, `Help` \> `Cheat Sheets` \> `Rstudio IDE Cheat Sheets`
+
+![](https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/img/windows-screenshots/VirtualBox_Windows-7-Enterprise_22_03_2018_16_22_20.png){fig-align="center"}
+
+## Edit R Scripts
+
+Let's try the following steps:
+
+1.  Opening a new script as we did before
+2.  Give the script a name by saving the current new unnamed script (`ctrl + S` for Win and `Cmd + S` for Mac)
+3.  A good convention is to use a descriptive name, with lower case letters, no spaces, only hyphens to separate words, and then followed by the suffix `.R`. We will call this script `my-first-script.R`.
+4.  Now we are ready to start editing our first script.
+5.  We type [`library(ti)`](https://rdrr.io/r/base/library.html) in Code editor
