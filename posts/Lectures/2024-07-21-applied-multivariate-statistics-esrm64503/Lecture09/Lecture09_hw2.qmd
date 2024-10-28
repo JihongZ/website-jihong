@@ -1,0 +1,142 @@
+---
+---
+title: "Lecture 09: Path Analysis"
+subtitle: "Homework 2"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 09: Absolute Model fit and Path Analysis"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+bibliography: references.bib
+---
+
+# Homework 2
+
+## Homework 2: Setup
+
+![Model 1: Diagram of correlation model with perf, use, and mas](hw2_diagram01.png){alt="Model 1: Diagram of correlation model with perf, use, and mas" fig-align="center"}
+
+You can check the detailed rules of path analysis diagram [here](https://websem.psychstat.org/wiki/_media/manual/websem-draw-pathdiagrams.pdf). Some basic rules:
+
+1.  Observed variables: rectangle/square
+2.  Latent variables: ellipse/circle
+3.  Intercept: triangle shape
+4.  Regression relation: single-headed arrow
+5.  Correlation/Covariance: double-headed arrow
+    1.  Point to itself: residual variance
+    2.  Point to others: covariances
+
+## Homework 2: Model 1 - Correlation Model with perf, use, and mas
+
+```{r}
+#| output-location: column
+model04.syntax = "
+# Variances:
+perf ~~ perf 
+use ~~ use   
+mas ~~ mas
+
+# Covariance:
+perf ~~ use
+perf ~~ mas
+use ~~ mas
+
+# Means:
+perf ~ 1  
+use ~ 1   
+mas ~ 1   
+"
+
+## Estimation for model01
+model04.fit <- cfa(model04.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
+
+## Print output
+standardizedsolution(model04.fit)
+
+## filter correlations among varaibles
+standardizedsolution(model04.fit) |> filter(op == "~~", lhs != rhs)
+```
+
+-   For Performance and Usefulness, there is a weak but significantly positive correlation with **r = .158 (.059), p = .007**
+
+-   For Performance and Anxiety, there is a strong and significantly positive correlation with **r = .526 (.043), p \< .001**
+
+-   For Usefulness and Anxiety, there is a moderate and significantly positive correlation with **r = .299 (.049), p \< .001**
+
+## Homework 2: Model 2 - constraining the correlation of use and mas to 0
+
+![Model 2: Constrained model](hw2_diagram02.png){alt="Model 2: Constrained model" fig-align="center"}
+
+```{r}
+model04b.syntax = "
+# Variances:
+perf ~~ perf 
+use ~~ use   
+mas ~~ mas
+
+# Covariance:
+perf ~~ use
+perf ~~ mas
+use ~~ 0*mas
+
+# Means:
+perf ~ 1  
+use ~ 1   
+mas ~ 1   
+"
+model04b.fit <- cfa(model04b.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
+
+## Print output
+standardizedsolution(model04b.fit)
+
+standardizedsolution(model04b.fit) |> filter(op == "~~", lhs != rhs)
+```
+
+-   For Performance and Usefulness, there is a weak and non-significantly positive correlation with **r = .017 (.056), p = .765**
+
+-   For Performance and Anxiety, there is a strong and significantly positive correlation with **r = .523 (.044), p \< .001**
+
+-   For Usefulness and Anxiety, there is a zero correlation with **r = 0 (0), p = NA**
+
+## Homework 2: AIC and BIC
+
+```{r}
+anova(model04.fit, model04b.fit)
+```
+
+-   For Model 1, AIC = 6421.3 and BIC = 6456.0
+
+-   For Model 2, AIC = 6446.5 and BIC = 6477.4
+
+-   According to the criteria of lower AIC/BIC values indicating better model fit and the result of Likelihood ratio test ($\chi^2(0, 1)=29.031, p < .001$), we prefer model 1 as it has significantly better model fit than model 2.
