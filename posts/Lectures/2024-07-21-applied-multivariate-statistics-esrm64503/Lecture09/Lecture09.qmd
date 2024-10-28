@@ -64,6 +64,8 @@ bibliography: references.bib
     </div>
 </div>
 ```
+# Homework 2
+
 ## Homework 2: Setup
 
 ```{r}
@@ -78,7 +80,7 @@ head(dataMath)
 dim(dataMath)
 ```
 
-## Homework 2: Model 1
+## Homework 2: Model 1 - Correlation Model with perf, use, and mas
 
 ```{r}
 #| output-location: column
@@ -104,6 +106,9 @@ model04.fit <- cfa(model04.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE,
 
 ## Print output
 standardizedsolution(model04.fit)
+
+## filter correlations among varaibles
+standardizedsolution(model04.fit) |> filter(op == "~~", lhs != rhs)
 ```
 
 -   For Performance and Usefulness, there is a weak but significantly positive correlation with **r = .158 (.059), p = .007**
@@ -112,7 +117,7 @@ standardizedsolution(model04.fit)
 
 -   For Usefulness and Anxiety, there is a moderate and significantly positive correlation with **r = .299 (.049), p \< .001**
 
-## Homework 2: Model 2
+## Homework 2: Model 2 - constraining the correlation of use and mas to 0
 
 ```{r}
 model04b.syntax = "
@@ -134,7 +139,9 @@ mas ~ 1
 model04b.fit <- cfa(model04b.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
 
 ## Print output
-standardizedsolution(model04b.fit) |> show_table()
+standardizedsolution(model04b.fit)
+
+standardizedsolution(model04b.fit) |> filter(op == "~~", lhs != rhs)
 ```
 
 -   For Performance and Usefulness, there is a weak and non-significantly positive correlation with **r = .017 (.056), p = .765**
@@ -273,6 +280,11 @@ anova(model04.fit, model04b.fit)
 -   Based on the theory described in the introduction to @pajaresRoleSelfefficacySelfconcept1994, the following model was hypothesized – use this diagram to build your knowledge of path models
 
 ![](path_diagram_labelled.png){fig-align="center"}
+
+## Overall Path Model: How to Inspect
+
+![](path_diagram_indexed.png){fig-align="center"}
+
 
 ## Path Model Setup - Questions for the Analysis
 
@@ -447,7 +459,7 @@ inspect(model01.fit, what="converged")
 3.  User model versus baseline model
     -   CFI (the comparative fit index)
     -   TLI (the Tucker–Lewis index)
-4.  Loglikelihood and Information Criteria
+4.  Log-likelihood and Information Criteria
 5.  Standardized Root Mean Square Residual (SRMR)
     -   How far off a model’s correlations are from the saturated model correlations
 
@@ -626,7 +638,8 @@ summary(model02.fit, standardized=TRUE, fit.measures=TRUE)
 ```
 
 ```{r}
-fitmeasures(model02.fit)[c("rmsea", "srmr","cfi", "tli", "chisq", "df", "pvalue")]
+needed_fitIndex <- c("rmsea", "srmr","cfi", "tli", "chisq", "df", "pvalue") 
+fitmeasures(model02.fit)[needed_fitIndex]
 ```
 
 -   Now we must start over with our path model decision tree
@@ -770,7 +783,8 @@ summary(model03.fit, fit.measures = TRUE)
 ```{r}
 #see if model converged
 inspect(model03.fit, what="converged")
-fitmeasures(model03.fit)[c("rmsea", "srmr","cfi", "tli", "chisq", "df", "pvalue")]
+
+fitmeasures(model03.fit)[needed_fitIndex]
 ```
 
 -   Again, the largest normalized residual covariance is that of Female and CC
@@ -836,7 +850,7 @@ model04.fit = sem(model04.syntax, data=dataMath, mimic = "MPLUS", estimator = "M
 
 ```{r}
 inspect(model04.fit, what="converged")
-fitmeasures(model04.fit)[c("rmsea", "srmr","cfi", "tli", "chisq", "df", "pvalue")]
+fitmeasures(model04.fit)[needed_fitIndex]
 residuals(model04.fit, type = "normalized")
 model04.mi <- modificationindices(model04.fit, sort. = T)
 head(model04.mi, 5)
@@ -898,6 +912,8 @@ sort(inspect(model04.fit, what = 'r2'))
 
 -   Math Self-Concept and Perceived Usefulness have a significant residual covariance
 
+
+
 ## Wrapping Up
 
 -   In this lecture we discussed the basics of path analysis
@@ -915,3 +931,4 @@ sort(inspect(model04.fit, what = 'r2'))
 1.  Indirect effect
 2.  Causality
 3.  Hypothesis tests
+4.  Robust ML
