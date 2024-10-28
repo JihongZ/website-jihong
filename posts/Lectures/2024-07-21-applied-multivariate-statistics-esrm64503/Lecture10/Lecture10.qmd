@@ -1,0 +1,139 @@
+---
+title: "Lecture 10: Mixed Models for Multivariate Regression"
+subtitle: ""
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 09: Absolute Model fit and Path Analysis"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+---
+
+## 
+
+```{=html}
+<div class="card shadow">
+    <div class="ml-3 mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
+            <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+                <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
+                <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
+            </g>
+        </svg>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title"><b>Today's Class</b></h4>
+        <ul>
+          <li>Multivaraite regression via mixed models</li>
+          <li>Comparing and contrasting path analysis with mixed models</li>
+          <ul>
+            <li>Differences in model fit measures </li>
+            <li>Differences in software estimation methods </li>
+            <li>Model comparisons via multivariate Wald tests (instead of LRTs) </li>
+            <li>How to compute R-square </li>
+          </ul>
+        </ul>
+    </div>
+</div>
+```
+## R Setup
+
+```{r}
+#| output-location: default
+library(ESRM64503)
+library(kableExtra)
+library(tidyverse)
+library(DescTools) # Desc() allows you to quick screen data
+library(lavaan) # Desc() allows you to quick screen data
+# options(digits = 3)
+head(dataMath)
+dim(dataMath)
+```
+
+## Big Picture
+
+1.  Mixed models are used for many types of analyses:
+    -   Analogous to MANOVA and M-Regression (so repeated measures analyses)
+    -   Multilevel models for clustered, longitudinal, and crossed-effects data
+2.  The biggest difference between mixed models and path analysis software is in the assumed distribution of the exogenous variables：
+    -   Mixed models: no distribution assumed
+    -   Path analysis: most software assumes multivariate normal
+    -   This affects how missing data are managed – mixed models cannot have any missing IVs
+3.  Mixed models also do not allow endogenous variables to predict other endogenous variables
+    -   No indirect effects are possible from a single analysis (multiple analyses needed)
+4.  Mixed models software also often needs variables to be stored in so-called “stacked” or long-format data (one row per DV)
+    -   We used wide-format data for `lavaan` (one row per person)
+
+## Wide to Long Data Transformation
+
+-   Original wide-format data (all DVs for a person on one row)
+
+```{r}
+dat <- dataMath
+dat$cc10 <- dat$cc - 10
+(dat_wide <- dat |> select(id, perf, use, female, cc10))
+```
+- Reshape with `pivot_longer()` function and Resulting data:
+```{r}
+dat_long <- dat_wide |> 
+  pivot_longer(cols = c(perf, use), 
+               names_to = "DV", 
+               values_to = "score") |> 
+  mutate(dperf = ifelse(DV == 'perf', 0, 1)) # convert DVs into indicator variable - dperf
+dat_long
+```
+
+## Path Model VS. Mixed Model
+
+-   Before we dive into mixed models, we will begin with a multivariate regression model:
+    -   Predicting mathematics performance (PERF) with female (F), college math experience (CC), and the interaction between female and college math experience (FxCC)
+    -   Predicting perceived usefulness (USE) with female (F), college math experience (CC), and the interaction between female and college math experience (FxCC)
+
+$$
+PERF_i = \beta_{0,PERF} + \beta_{F,PERF} F_i + \beta_{CC,PERF}CC_i + \beta_{F*CC,PERF}F_i*CC_i + e_{i,PERF}
+$$ {#eq-pathmodel1} $$
+USE_i = \beta_{0,USE} + \beta_{F,USE} F_i + \beta_{CC,USE}CC_i + \beta_{F*CC,USE}F_i*CC_i + e_{i,USE}
+$$ {#eq-pathmodel2}
+
+$$
+Score_i = (\beta_{0,PERF} + \beta_{0, dPERF}) + (\beta_{F,PERF} + \beta_{F, dPERF}) F_i + (\beta_{CC,PERF} \\ + \beta_{CC, dPERF}) CC_i + (\beta_{F*CC,PERF} + \beta_{F*CC,dPERF}) F_i*CC_i + e_{i,PERF} + e_{i,dPERF}
+$$ {#eq-mixedmodel1}
+
+$$
+Score_i = \beta_{0,PERF} + \beta_{0, dPERF}dPERF_i + \beta_{F,PERF} F_i + \beta_{F, dPERF}dPERF_i * F_i \\ 
++ \beta_{CC,PERF} CC_i + \beta_{CC, dPERF} dPERF_i * CC_i \\ 
++ \beta_{F*CC,PERF} F_i*CC_i + \beta_{F*CC,dPERF} dPERF_i * F_i*CC_i + e_{i,PERF} + e_{i,dPERF}
+$$ {#eq-mixedmodel2}
+
+## Build the Empty Model: Not So Empty

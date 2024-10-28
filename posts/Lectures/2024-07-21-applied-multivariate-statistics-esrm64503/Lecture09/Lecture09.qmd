@@ -54,12 +54,15 @@ bibliography: references.bib
         </svg>
     </div>
     <div class="card-body">
-        <h5 class="card-title">Today's Class</h5>
+        <h4 class="card-title"><b>Today's Class</b></h4>
         <ul>
-          <li>Multivariate linear models: an introduction</li>
-          <li>How to form multivariate models in lavaan</li>
-          <li>What parameters mean</li>
-          <li>How they relate to the multivariate normal distribution</li>
+          <li>Multivaraite regression via path model</li>
+          <li>Model modification</li>
+          <li>Comparing and contrasting path analysis</li>
+          <ul>
+            <li>Differences in model fit measures </li>
+          </ul>
+          <li>How to interpret the results of path model</li>
         </ul>
     </div>
 </div>
@@ -111,7 +114,7 @@ dim(dataMath)
 8.  Female (sex variable: 0 = male; 1 = female)
 :::
 
-## Our Destination: Overall Path Model
+## Multivariate Linear Regression Path Diagram
 
 ![](path_diagram.png){fig-align="center"}
 
@@ -130,17 +133,24 @@ dim(dataMath)
 
     -   With fewer parameters, if possible
 
-<!-- -->
-
 4.  The art to path analysis is in specifying models that blend theory and statistical evidence to produce valid, generalizable results
 
-## A Path Model of Path Analysis Steps
+## Types of Variables in Path Model
+
+- **Endogenous variable(s)**: variables whose variability is explained by one or more variables in a model
+  - In linear regression, the dependent variable is the only endogenous variable in an analysis
+      - Mathematics Performance (PERF) and Mathematics Usefulness (USE)
+- **Exogenous variable(s)**: variables whose variability is not explained by any variables in a model
+  - In linear regression, the independent variable(s) are the exogenous variables in the analysis
+      - Female (F)
+
+## Procedure of Path Analysis Steps
 
 ![](path_model.png){fig-align="center"}
 
 ## Identification of Path Models
 
--   Model identification is necessary for statistical models to have meaningful results
+-   Model identification is necessary for statistical models to have "meaningful" results
 
 -   For path models, identification can be very difficult
 

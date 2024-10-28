@@ -1,0 +1,146 @@
+---
+title: "Lecture 09: Path Analysis"
+subtitle: "Homework 2"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+bibliography: references.bib
+---
+
+# Homework 2B
+
+```{r}
+#| output-location: default
+library(ESRM64503)
+library(kableExtra)
+library(tidyverse)
+library(DescTools) # Desc() allows you to quick screen data
+library(lavaan) # Desc() allows you to quick screen data
+# options(digits = 3)
+head(dataMath)
+dim(dataMath)
+```
+
+## Homework 2B: Setup
+
+![Model 1: Diagram of correlation model with perf, use, and mas](hw2_diagram01.png){fig-align="center"}
+
+You can check the detailed rules of path analysis diagram [here](https://websem.psychstat.org/wiki/_media/manual/websem-draw-pathdiagrams.pdf). Some basic rules:
+
+1.  Observed variables: rectangle/square
+2.  Latent variables: ellipse/circle
+3.  Intercept: triangle shape
+4.  Regression relation: single-headed arrow
+5.  Correlation/Covariance: double-headed arrow
+    1.  Point to itself: residual variance
+    2.  Point to others: covariances
+
+## Homework 2B: Model 1 - Correlation Model with MSE, HSL, and CC
+
+```{r}
+#| output-location: column
+model01.syntax = "
+# Variances:
+mse ~~ mse 
+hsl ~~ hsl   
+cc ~~ cc
+
+# Covariance:
+mse ~~ hsl
+mse ~~ cc
+hsl ~~ cc
+
+# Means:
+mse ~ 1  
+hsl ~ 1   
+cc ~ 1   
+"
+
+## Estimation for model01
+model01.fit <- cfa(model01.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
+
+## Print output
+standardizedsolution(model01.fit)
+
+## filter correlations among varaibles
+output_mod1 <- standardizedsolution(model01.fit) |> filter(op == "~~", lhs != rhs)
+output_mod1
+```
+
+-   For Mathematics Self-Efficacy (MSE) and High School Math Experience (HSL), there is a moderate but significantly positive correlation with r = `r round(output_mod1[1,4],3)` (SE = `r round(output_mod1[1,5],3)`), p < .001
+
+-   For Mathematics Self-Efficacy (MSE) and College Math Experience (CC), there is a strong and significantly positive correlation with r = `r round(output_mod1[2,4],3)` (SE = `r round(output_mod1[2,5],3)`), p < .001
+
+-   For High School Math Experience (HSL) and College Math Experience (CC), there is a weak and significantly positive correlation with r = `r round(output_mod1[3,4],3)` (SE = `r round(output_mod1[3,5],3)`), p = .004
+
+## Homework 2B: Model 2 - constraining the correlation of HSL and CC to 0
+
+
+```{r}
+model02.syntax = "
+# Variances:
+mse ~~ mse 
+hsl ~~ hsl   
+cc ~~ cc
+
+# Covariance:
+mse ~~ hsl
+mse ~~ cc
+hsl ~~ 0*cc
+
+# Means:
+mse ~ 1  
+hsl ~ 1   
+cc ~ 1   
+"
+model02.fit <- cfa(model02.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE, estimator = "MLR") 
+
+## Print output
+standardizedsolution(model02.fit)
+
+output_mod2 <- standardizedsolution(model02.fit) |> filter(op == "~~", lhs != rhs)
+output_mod2
+```
+
+-   For Mathematics Self-Efficacy (MSE) and High School Math Experience (HSL), there is a moderate but significantly positive correlation with r = `r round(output_mod2[1,4],3)` (SE = `r round(output_mod2[1,5],3)`), p < .001
+
+-   For Mathematics Self-Efficacy (MSE) and College Math Experience (CC), there is a strong and significantly positive correlation with r = `r round(output_mod2[2,4],3)` (SE = `r round(output_mod2[2,5],3)`), p < .001
+
+-   For High School Math Experience (HSL) and College Math Experience (CC), there is a weak and significantly positive correlation with r = `r round(output_mod2[3,4],3)` (SE = `r round(output_mod2[3,5],3)`), p = NA
+
+## Homework 2B: AIC and BIC
+
+```{r}
+#| eval: true
+anova_output <- anova(model01.fit, model02.fit)
+anova_output
+```
+
+-   For Model 1, AIC = `r round(anova_output$AIC[1],1)` and BIC = `r round(anova_output$BIC[1], 1)`
+
+-   For Model 2, AIC = `r round(anova_output$AIC[2], 1)` and BIC = `r round(anova_output$BIC[2], 1)`
+
+-   According to the criteria of lower AIC/BIC values indicating better model fit and the result of Likelihood ratio test ($\chi^2(0, 1)= 7.8104$, $p < .001$), we prefer model 1 as it has significantly better model fit than model 2.
