@@ -68,6 +68,18 @@ bibliography: references.bib
 
 ## Homework 2: Setup
 
+![Model 1: Diagram of correlation model with perf, use, and mas](hw2_diagram01.png){fig-align="center"}
+
+You can check the detailed rules of path analysis diagram [here](https://websem.psychstat.org/wiki/_media/manual/websem-draw-pathdiagrams.pdf). Some basic rules:
+
+1.  Observed variables: rectangle/square
+2.  Latent variables: ellipse/circle
+3.  Intercept: triangle shape
+4.  Regression relation: single-headed arrow
+5.  Correlation/Covariance: double-headed arrow
+    1.  Point to itself: residual variance
+    2.  Point to others: covariances
+
 ```{r}
 #| output-location: default
 library(ESRM64503)
@@ -118,6 +130,8 @@ standardizedsolution(model04.fit) |> filter(op == "~~", lhs != rhs)
 -   For Usefulness and Anxiety, there is a moderate and significantly positive correlation with **r = .299 (.049), p \< .001**
 
 ## Homework 2: Model 2 - constraining the correlation of use and mas to 0
+
+![Model 2: Constrained model](hw2_diagram02.png){fig-align="center"}
 
 ```{r}
 model04b.syntax = "
@@ -284,7 +298,6 @@ anova(model04.fit, model04b.fit)
 ## Overall Path Model: How to Inspect
 
 ![](path_diagram_indexed.png){fig-align="center"}
-
 
 ## Path Model Setup - Questions for the Analysis
 
@@ -911,8 +924,6 @@ sort(inspect(model04.fit, what = 'r2'))
 -   Higher Math Self-Efficacy and Math Self-Concept result in higher Math Performance scores
 
 -   Math Self-Concept and Perceived Usefulness have a significant residual covariance
-
-
 
 ## Wrapping Up
 
