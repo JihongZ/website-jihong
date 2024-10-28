@@ -1,5 +1,4 @@
 ---
----
 title: "Lecture 09: Path Analysis"
 subtitle: "Homework 2"
 author: "Jihong Zhang*, Ph.D"
@@ -17,16 +16,6 @@ output-location: default
 code-annotations: below
 highlight-style: "nord"
 format: 
-  uark-revealjs:
-    scrollable: true
-    chalkboard: true
-    embed-resources: false
-    code-fold: false
-    number-sections: false
-    footer: "ESRM 64503 - Lecture 09: Absolute Model fit and Path Analysis"
-    slide-number: c/t
-    tbl-colwidths: auto
-    output-file: slides-index.html
   html: 
     page-layout: full
     toc: true
@@ -42,6 +31,18 @@ bibliography: references.bib
 ---
 
 # Homework 2
+
+```{r}
+#| output-location: default
+library(ESRM64503)
+library(kableExtra)
+library(tidyverse)
+library(DescTools) # Desc() allows you to quick screen data
+library(lavaan) # Desc() allows you to quick screen data
+# options(digits = 3)
+head(dataMath)
+dim(dataMath)
+```
 
 ## Homework 2: Setup
 
