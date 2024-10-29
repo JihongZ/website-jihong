@@ -46,17 +46,7 @@ dim(dataMath)
 
 ## Homework 2B: Setup
 
-![Model 1: Diagram of correlation model with perf, use, and mas](hw2_diagram01.png){fig-align="center"}
 
-You can check the detailed rules of path analysis diagram [here](https://websem.psychstat.org/wiki/_media/manual/websem-draw-pathdiagrams.pdf). Some basic rules:
-
-1.  Observed variables: rectangle/square
-2.  Latent variables: ellipse/circle
-3.  Intercept: triangle shape
-4.  Regression relation: single-headed arrow
-5.  Correlation/Covariance: double-headed arrow
-    1.  Point to itself: residual variance
-    2.  Point to others: covariances
 
 ## Homework 2B: Model 1 - Correlation Model with MSE, HSL, and CC
 

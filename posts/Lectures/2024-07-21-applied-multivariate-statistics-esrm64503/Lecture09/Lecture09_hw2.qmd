@@ -46,7 +46,7 @@ dim(dataMath)
 
 ## Homework 2: Setup
 
-![Model 1: Diagram of correlation model with perf, use, and mas](hw2_diagram01.png){alt="Model 1: Diagram of correlation model with perf, use, and mas" fig-align="center"}
+![Model 1: Diagram of correlation model with perf, use, and mas](hw2_diagram01.png){fig-align="center"}
 
 You can check the detailed rules of path analysis diagram [here](https://websem.psychstat.org/wiki/_media/manual/websem-draw-pathdiagrams.pdf). Some basic rules:
 
@@ -97,7 +97,7 @@ standardizedsolution(model04.fit) |> filter(op == "~~", lhs != rhs)
 
 ## Homework 2: Model 2 - constraining the correlation of use and mas to 0
 
-![Model 2: Constrained model](hw2_diagram02.png){alt="Model 2: Constrained model" fig-align="center"}
+![Model 2: Constrained model](hw2_diagram02.png){fig-align="center"}
 
 ```{r}
 model04b.syntax = "
