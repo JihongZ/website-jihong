@@ -8,11 +8,12 @@ hw_resp_path <- "posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm6
 hw_root_path <- "posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/" 
 assignment_filenames <- list.files(hw_resp_path)
 
-## Homework 0
+
+# Homework 0 --------------------------------------------------------------
 assignment_tbl <- readxl::read_xlsx(paste0(hw_resp_path, "ESRM 64503_Homework 0.xlsx"))
 colnames(assignment_tbl)
 hw0_assignment_tbl_clean <- assignment_tbl[, c(2, 10, 13, 16, 6, 19:21)]
-colnames(hw0_assignment_tbl_clean) <- c("Starting_Time", "Name", "Question1_Response", "Question2_Response", "Score_PerHW" , "Question1_Answer", "Question2_Answer", "Comment")
+colnames(hw0_assignment_tbl_clean) <- c("Starting_Time", "Name", "Question1_Response", "Question2_Response", "TotalScore" , "Question1_Answer", "Question2_Answer", "Comment")
 hw0_assignment_tbl_clean$Name <- toupper(hw0_assignment_tbl_clean$Name)
 hw0_assignment_tbl_clean <- hw0_assignment_tbl_clean |> 
   mutate(Name = case_when(
@@ -21,16 +22,20 @@ hw0_assignment_tbl_clean <- hw0_assignment_tbl_clean |>
     TRUE ~ Name
   )) |> 
   group_by(Name) |> 
-  mutate(Test_Times_HW0 = n()) |> 
-  filter(Starting_Time == max(Starting_Time))
+  filter(Starting_Time == max(Starting_Time)) |> 
+  select(-Comment) |> 
+  pivot_longer(-c(Starting_Time, Name, TotalScore), names_to = "Questions", values_to = "Responses") |> 
+  separate(Questions, into = c("Questions", "Type")) |> 
+  pivot_wider(names_from = "Type", values_from = "Responses") |> 
+  mutate(HW = 0)
 
-## Homework 1
+
+# Homework 1 --------------------------------------------------------------
 assignment_tbl <- readxl::read_xlsx(paste0(hw_resp_path, "ESRM 64503_Homework 1.xlsx"))
 colnames(assignment_tbl)
 hw1_assignment_tbl_clean <- assignment_tbl[, c(2, 7, 8:13)]
-colnames(hw1_assignment_tbl_clean) <- c("Starting_Time", "Name", "Question1_Response", "Question2_Response", "Score_PerHW", "Question1_Answer", "Question2_Answer", "Comment")
+colnames(hw1_assignment_tbl_clean) <- c("Starting_Time", "Name", "Question1_Response", "Question2_Response", "TotalScore", "Question1_Answer", "Question2_Answer", "Comment")
 hw1_assignment_tbl_clean$Name <- toupper(hw1_assignment_tbl_clean$Name)
-### Only keep the lastest record
 hw1_assignment_tbl_clean <- hw1_assignment_tbl_clean |> 
   mutate(Name = case_when(
     Name == "SUMAIYA FARZANA" ~ "SUMAIYA FARZANA MISHU",
@@ -38,25 +43,47 @@ hw1_assignment_tbl_clean <- hw1_assignment_tbl_clean |>
     TRUE ~ Name
   )) |> 
   group_by(Name) |> 
-  mutate(Test_Times_HW1 = n()) |> 
-  filter(Starting_Time == max(Starting_Time))
+  filter(Starting_Time == max(Starting_Time)) |> 
+  select(-Comment) |> 
+  pivot_longer(-c(Starting_Time, Name, TotalScore), names_to = "Questions", values_to = "Responses") |> 
+  separate(Questions, into = c("Questions", "Type")) |> 
+  pivot_wider(names_from = "Type", values_from = "Responses") |> 
+  mutate(HW = 1)
 
-## Combine Homeworks
-hw_all_wide <- hw0_assignment_tbl_clean |> 
-  left_join(hw1_assignment_tbl_clean, by = "Name", suffix = c("_HW0", "_HW1")) |> 
-  mutate(across(everything(), \(x) as.character(x))) 
-## Add jihong zhang for showcase
-JihongZhang_case <- hw_all_wide[2, ]
-JihongZhang_case$Name = "JIHONG ZHANG"
-hw_all_wide <- rbind(hw_all_wide, JihongZhang_case)
 
-hw_all_tbl <- hw_all_wide |> 
-  pivot_longer(c(ends_with("_HW0"), ends_with("_HW1"))) |> 
-  separate(name, into = c("Variable", "HW"), sep = "_HW") |> 
-  pivot_wider(names_from = "Variable", values_from = "value") |> 
+# Homework 2 --------------------------------------------------------------
+if (0) { # pre-clean
+  assignment_tbl <- readxl::read_xlsx(paste0(hw_resp_path, "ESRM 64503_Homework 2.xlsx"))
+  colnames(assignment_tbl)
+  hw2_assignment_tbl_clean <- assignment_tbl[, c(2, 7:17)]
+  hw2_assignment_tbl_clean <- hw2_assignment_tbl_clean |> 
+    rename("Name" = "Your Name is\r\n",
+           "Starting_Time" = "开始时间") |> 
+    mutate(Name = toupper(Name)) |> 
+    group_by(Name) |> # Only keep the lastest record
+    filter(Starting_Time == max(Starting_Time)) |> 
+    pivot_longer(-c(Starting_Time, Name), names_to = "Questions", values_to = "Response")
+  writexl::write_xlsx(hw2_assignment_tbl_clean, path = paste0(hw_resp_path, "ESRM 64503_Homework 2_long.xlsx"))
+}
+
+hw2_assignment_tbl_clean <- readxl::read_xlsx(path = paste0(hw_resp_path, "ESRM 64503_Homework 2_long.xlsx"), sheet = 1)
+hw2_assignment_tbl_clean <- hw2_assignment_tbl_clean |> 
+  group_by(Name) |> 
   mutate(
-    across(starts_with("Question"),\(x) gsub(pattern = "\r\n", replacement = "<br/>", x = x))
+    TotalScore = ifelse(sum(Score) > 21, 21, sum(Score)),
+    Answer = "See Website",
+    HW = 3)
+
+
+# Combine Homeworks -------------------------------------------------------
+hw_all_tbl <- 
+  rbind(
+    hw0_assignment_tbl_clean,
+    hw1_assignment_tbl_clean,
+    hw2_assignment_tbl_clean
   )
+  
+
 
 set.seed(1234)
 
@@ -71,18 +98,3 @@ hw_all_tbl <- hw_all_tbl |>
   left_join(passwords, by = "Name")
 
 saveRDS(hw_all_tbl, file = paste0(hw_root_path, "ESRM64503_Homework_Combined.rds"))
-
-library(glue)
-name = passwords$Name
-code = passwords$Code
-message_text <- glue("
-Hi {name},
-
-Now you can check your grade, feedback and original responses of homeworks here (https://jihongzhang.org/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/Grading_ShinyApp.html).
-
-To have access to your grade, please use your 4-digit unique code -- {code}. Note that this homework system is still under developing. Thus, if you notice some bugs or have any comments/suggestions, feel free to let me know.
-
-Best,
-
-")
-message_text

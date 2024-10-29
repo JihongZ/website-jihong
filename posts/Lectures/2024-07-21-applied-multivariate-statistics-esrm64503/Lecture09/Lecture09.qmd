@@ -549,6 +549,8 @@ cc   ~~ 0*hsl
 #estimate model
 model02.fit = sem(model02.syntax, data=dataMath, mimic = "MPLUS", estimator = "MLR")
 
+summary(model02.fit, standardized = TRUE)
+
 #see if model converged
 inspect(model02.fit, what="converged")
 ```

@@ -24,10 +24,6 @@ format:
     lightbox: true
     code-fold: false
     fig-align: center
-filters:
-  - quarto
-  - line-highlight
-bibliography: references.bib
 ---
 
 # Homework 2
