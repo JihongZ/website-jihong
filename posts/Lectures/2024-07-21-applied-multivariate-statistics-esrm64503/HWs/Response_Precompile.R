@@ -72,7 +72,7 @@ hw2_assignment_tbl_clean <- hw2_assignment_tbl_clean |>
   mutate(
     TotalScore = ifelse(sum(Score) > 21, 21, sum(Score)),
     Answer = "See Website",
-    HW = 3)
+    HW = 2)
 
 
 # Combine Homeworks -------------------------------------------------------
@@ -89,9 +89,8 @@ set.seed(1234)
 
 passwords <- data.frame(
   Name = unique(hw_all_tbl$Name),
-  Code = sample(x = 1000:9999, size = 13)
+  Code = sample(x = 1000:9999, size = 12)
 ) |> arrange(Name)
-passwords[passwords$Name == "JIHONG ZHANG", "Code"]= "0000"
 write.csv(passwords, file = paste0(hw_root_path, "ESRM64503_Homework_PW.csv"))
 
 hw_all_tbl <- hw_all_tbl |> 

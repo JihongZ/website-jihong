@@ -126,7 +126,7 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 ::: panel-tabset
 ## Screenshot of Rstudio
 
-![Screenshot of Rstudio](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/img/rstudio.png){alt="Screenshot of Rstudio" fig-align="center"}
+![Screenshot of Rstudio](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/img/rstudio.png){fig-align="center"}
 
 ## Start a new script
 

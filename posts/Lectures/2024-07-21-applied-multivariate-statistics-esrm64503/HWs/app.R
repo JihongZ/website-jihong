@@ -1,5 +1,6 @@
 library(shiny)
 library(shinydashboard)
+library(stringr)
 library(shinyjs)
 library(readxl)
 library(dplyr)
@@ -16,11 +17,12 @@ dat <- dat |>
   arrange(Name)
 
 score_summary <- dat |> 
-  filter(Name != "JIHONG ZHANG") |> 
-  group_by(Name) |> 
+  group_by(Name, HW) |> 
   summarise(
-    total_score = sum(as.numeric(Score_PerHW))
-  )
+    total_score = unique(TotalScore)
+  ) |> 
+  group_by(Name) |> 
+  summarise(total_total_score = sum(total_score))
 
 # Define UI for application that draws a histogram
 ui <-  dashboardPage(
@@ -35,25 +37,12 @@ ui <-  dashboardPage(
           condition = "input.confirm >= 1",
           verbatimTextOutput(outputId = "code_check_msg")
         ),
-        actionButton(inputId = "confirm", label = "Confirm", icon = icon("circle-check", class="fa-solid fa-circle-check", style="color: #FFD43B;")),
-        selectInput("hw_index", list(icon("scroll"), "Choose the homework"), choices = c("All", "Homework0", "Homework1")), 
-        conditionalPanel( # information box
-          condition = "!!input.name",
-          checkboxGroupInput(
-            inputId = "columns_selected",
-            label = "Extra Information:",
-            choiceNames = c("Question 1 - Reponse",
-                            "Question 2 - Reponse",
-                            "Homework's Score",
-                            "Question 1 - Answer",
-                            "Question 2 - Answer",
-                            "Comment/Feedback",
-                            "Your test times"),
-            choiceValues = setdiff(colnames(dat), c("Name", "HW", "Starting_Time", "Code")),
-            selected =  setdiff(colnames(dat), c("Name", "HW", "Starting_Time", "Code"))[1:3]
-          )
+        actionButton(inputId = "confirm", label = "Confirm", 
+                     icon = icon("circle-check", class="fa-solid fa-circle-check", 
+                                 style="color: #FFD43B;")),
+        selectInput("hw_index", list(icon("scroll"), "Choose the homework"), 
+                    choices = paste0("Homework ", unique(dat$HW)))
         )
-      )
   ),
   dashboardBody(
     width = "82%",
@@ -63,25 +52,18 @@ ui <-  dashboardPage(
         valueBox(
           subtitle = "Average Score",
           width = 12,
-          value = round(mean(score_summary$total_score), 2),
+          value = round(mean(score_summary$total_total_score), 2),
           color = "yellow",
           icon = icon("face-smile-wink", class="fa-solid fa-face-smile-wink")
         ),
         valueBox(
           subtitle = "Standard Deviation", 
           width = 12,
-          value = round(sd(score_summary$total_score), 2),
+          value = round(sd(score_summary$total_total_score), 2),
           color = "fuchsia",
           icon = icon("face-grin-tears", class="fa-solid fa-face-grin-tears")
         ),
         valueBoxOutput(width = 12, outputId = "personal_total_score")
-      ),
-      # Show a pieplot
-      box(
-        title = "Summary",
-        width = 6,
-        plotOutput(outputId = "score_pie"), # Output piechart of score proportion for each person
-        collapsible = TRUE, collapsed = FALSE
       )
     ),
     fluidRow(
@@ -117,6 +99,13 @@ server <- function(input, output) {
     output$data1 <- DT::renderDT({
       NULL
     })
+    output$personal_total_score <- renderValueBox({
+      valueBox(
+        subtitle = "Your current total score",
+        value = NULL,
+        color = "teal"
+      )
+    })
   })
   
   observeEvent(input$confirm, {
@@ -133,6 +122,7 @@ server <- function(input, output) {
       output$code_check_msg <- renderText({""})
       
       ## filter the personal total score
+      
       dat_cleaned <- dat |> 
         ungroup() |> 
         filter(Name == input$name) 
@@ -140,57 +130,17 @@ server <- function(input, output) {
       output$personal_total_score <- renderValueBox({
         valueBox(
           subtitle = "Your current total score",
-          value = sum(as.numeric(dat_cleaned$Score_PerHW)),
+          value = score_summary |> filter(Name == input$name) |> pull(total_total_score),
           color = "teal"
         )
       })
       
       observeEvent(event_trigger(), {
-        if (input$hw_index == "All") {
-          ## Display Summary UI
-          # Create Score Data
-          Score_task <- as.numeric(dat_cleaned$Score_PerHW)
-          Total_Score = 41
-          Score_person <- data.frame(
-            assignment= c("Deducted", "Homework 0", "Homework 1"),
-            score= c(Total_Score - sum(Score_task), Score_task)
-          ) 
-          # Compute the position of labels
+        dat_final <- dat_cleaned |> 
+          relocate(HW) |> 
+          filter(HW == stringr::str_replace(input$hw_index, "Homework ", "")) |> 
+          as.data.frame()
           
-          Score_person_withpos <- Score_person |> 
-            mutate(assignment = factor(assignment, levels = Score_person$assignment)) |> 
-            arrange(desc(assignment)) |> 
-            mutate(ypos = cumsum(score) - 0.5*score)
-          
-          # Basic piechart
-          output$score_pie <- renderPlot({
-            ggplot(Score_person_withpos, aes(x="", y=score, fill=assignment)) +
-              geom_bar(stat="identity", width=1) +
-              geom_text(aes(y = ypos, label = score), color = "white", size=6) +
-              coord_polar("y", start=0)  +
-              theme_void()  # remove background, grid, numeric labels
-          })
-          
-          ## remove name to save room
-          dat_final <- dat_cleaned |> 
-            dplyr::select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) 
-        }else if(input$hw_index == "Homework0"){
-          dat_final <- dat_cleaned |> 
-            dplyr::select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) |> 
-            filter(HW == 0) |> 
-            t() |> 
-            as.data.frame()
-          colnames(dat_final) <- "Report"  
-        }else if(input$hw_index == "Homework1"){
-          dat_final <- dat_cleaned |> 
-            dplyr::select(c("Name", "HW", "Starting_Time"), input$columns_selected, -Name) |> 
-            filter(HW == 1) |> 
-            t() |> 
-            as.data.frame()
-          colnames(dat_final) <- "Report"  
-        }else{
-          dat_final <- dat_cleaned
-        }
         output$data1 <- DT::renderDT({
           dat_final
         }, escape = FALSE)
@@ -204,6 +154,7 @@ server <- function(input, output) {
             write.csv(dat_final, file, row.names = FALSE)
           }
         )
+        
       })
     }
   })
