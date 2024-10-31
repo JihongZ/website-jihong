@@ -76,24 +76,41 @@ library(kableExtra)
 library(tidyverse)
 library(DescTools) # Desc() allows you to quick screen data
 library(lavaan) # Desc() allows you to quick screen data
-# options(digits = 3)
 head(dataMath)
 dim(dataMath)
 ```
 
+## Correction about `fixed.x` argument in previous lecture
+
+-   If TRUE, the exogenous ‘x’ covariates are considered fixed variables and the means, variances and covariances of these variables are fixed to their sample values.
+
+-   If FALSE, they are considered random, and the means, variances and covariances are free parameters.
+
+-   If "default", the value is set depending on the mimic option.
+
+[Thus, we considered the distributions of exogenous variables as known parameters.]{.underline}
+
 ## Big Picture
 
+> A **mixed model**, **mixed-effects model** or **Linear mixed models** (LMMs) is a [statistical model](https://en.wikipedia.org/wiki/Statistical_model "Statistical model") containing both [fixed effects](https://en.wikipedia.org/wiki/Fixed_effect "Fixed effect") and [random effects](https://en.wikipedia.org/wiki/Random_effect "Random effect"). These models are useful in a wide variety of disciplines in the physical, biological and social sciences.
+
+-   Mixed model can answer similar research questions as Path Analysis (or structural equation model):
+
+    -   Relationships among multiple endogenous variables
+
+## Properties of Mixed Models
+
 1.  Mixed models are used for many types of analyses:
-    -   Analogous to MANOVA and M-Regression (so repeated measures analyses)
-    -   Multilevel models for clustered, longitudinal, and crossed-effects data
-2.  The biggest difference between mixed models and path analysis software is in the assumed distribution of the exogenous variables：
+    -   Analogous to **MANOVA** and M-Regression (so repeated measures analyses)
+    -   Multilevel models for *clustered*, *longitudinal*, and *crossed-effects* data
+2.  The biggest difference between mixed models and path analysis software is the [assumed distribution of the exogenous variables]{.underline}：
     -   Mixed models: no distribution assumed
-    -   Path analysis: most software assumes multivariate normal
+    -   Path analysis: most software assumes multivariate normal distribution
     -   This affects how missing data are managed – mixed models cannot have any missing IVs
 3.  Mixed models also do not allow endogenous variables to predict other endogenous variables
     -   No indirect effects are possible from a single analysis (multiple analyses needed)
 4.  Mixed models software also often needs variables to be stored in so-called “stacked” or long-format data (one row per DV)
-    -   We used wide-format data for `lavaan` (one row per person)
+    -   We used **wide-format** data for `lavaan` (one row per person)
 
 ## Wide to Long Data Transformation
 
@@ -104,13 +121,15 @@ dat <- dataMath
 dat$cc10 <- dat$cc - 10
 (dat_wide <- dat |> select(id, perf, use, female, cc10))
 ```
-- Reshape with `pivot_longer()` function and Resulting data:
+
+-   Reshape with `pivot_longer()` function and Resulting data:
+
 ```{r}
 dat_long <- dat_wide |> 
   pivot_longer(cols = c(perf, use), 
                names_to = "DV", 
                values_to = "score") |> 
-  mutate(dperf = ifelse(DV == 'perf', 0, 1)) # convert DVs into indicator variable - dperf
+  mutate(dPerf = ifelse(DV == 'perf', 0, 1)) # convert DVs into indicator variable - dperf
 dat_long
 ```
 
@@ -126,14 +145,275 @@ $$ {#eq-pathmodel1} $$
 USE_i = \beta_{0,USE} + \beta_{F,USE} F_i + \beta_{CC,USE}CC_i + \beta_{F*CC,USE}F_i*CC_i + e_{i,USE}
 $$ {#eq-pathmodel2}
 
+-   Mixed Model: Here I use the symbol $\delta$ to represent each fixed effect in the multivariate model from the mixed model perspective
+
 $$
-Score_i = (\beta_{0,PERF} + \beta_{0, dPERF}) + (\beta_{F,PERF} + \beta_{F, dPERF}) F_i + (\beta_{CC,PERF} \\ + \beta_{CC, dPERF}) CC_i + (\beta_{F*CC,PERF} + \beta_{F*CC,dPERF}) F_i*CC_i + e_{i,PERF} + e_{i,dPERF}
+Score_i = (\delta_{0,PERF} + \delta_{0, dPERF}) + (\delta_{F,PERF} + \delta_{F, dPERF}) F_i + (\delta_{CC,PERF} \\ + \delta_{CC, dPERF}) CC_i + (\delta_{F*CC,PERF} + \delta_{F*CC,dPERF}) F_i*CC_i + e_{i,PERF} + e_{i,dPERF}
 $$ {#eq-mixedmodel1}
 
 $$
-Score_i = \beta_{0,PERF} + \beta_{0, dPERF}dPERF_i + \beta_{F,PERF} F_i + \beta_{F, dPERF}dPERF_i * F_i \\ 
-+ \beta_{CC,PERF} CC_i + \beta_{CC, dPERF} dPERF_i * CC_i \\ 
-+ \beta_{F*CC,PERF} F_i*CC_i + \beta_{F*CC,dPERF} dPERF_i * F_i*CC_i + e_{i,PERF} + e_{i,dPERF}
+Score_i = \delta_{0,PERF} + \delta_{0, dPERF}dPERF_i + \delta_{F,PERF} F_i + \delta_{F, dPERF}dPERF_i * F_i \\ 
++ \delta_{CC,PERF} CC_i + \delta_{CC, dPERF} dPERF_i * CC_i \\ 
++ \delta_{F*CC,PERF} F_i*CC_i + \delta_{F*CC,dPERF} dPERF_i * F_i*CC_i + e_{i,PERF} + e_{i,dPERF}
 $$ {#eq-mixedmodel2}
 
-## Build the Empty Model: Not So Empty
+# Build the Empty Model: Not So Empty
+
+## Statistical Form
+
+-   For illustration, let's start from the empty model
+
+-   A multivariate model using mixed model software uses the dummy code for DV to make all effects conditional on the specific DV in the model
+
+    -   I will compare/contrast these with the symbols $\beta$ from the fixed effects in path analysis
+
+-   For instance, our empty model is thus:
+
+    -   Where *Score* is condition on the value of *dPerf*:
+        -   When $dPerf = 0$ $\rightarrow$ DV = "Use" $\rightarrow$ $Score_i = Use_i = \delta_0 + e_{i, Use}$
+        -   When $dPerf = 1$ $\rightarrow$ DV = "Perf" $\rightarrow$ $Score_i = Perf_i = \delta_0 + \delta_1 + e_{i, perf}$
+
+$$
+Score_{i, DV} = \delta_0 + \delta_1 dPerf_i + e_{i, DV}
+$$
+
+## Estimating the Empty Model
+
+-   From the `nlme` library, we will use the `gls()` function
+
+    -   Be sure the library is installed and loaded before trying this!
+
+```{r}
+library(nlme)
+
+dat_long <- dat_long[complete.cases(dat_long), ]
+# create empty model using REML estimation to attempt to mirror initial analysis:
+model01_mixed = gls(model = score ~ 1 + dPerf, #<1>
+                    data = dat_long,
+                    method = "REML", #<2>
+                    correlation = corSymm(form = ~1|id), #<3>
+                    weights = varIdent(form = ~1|DV)) #<4>
+summary(model01_mixed)
+```
+
+1.  `score ~ 1 + dPerf`: $Score_{i, DV} = \delta_0 + \delta_1 dPerf_i + e_{i, DV}$
+2.  "REML": Residual Maximum Likelihood Estimation
+3.  Provides estimates of all unique correlations; Needs `id` variable name after | for program to know which data comes from which person
+4.  Estimates a different (residual) variance for each DV; With correlation line ensures an unstructured model is estimated
+  
+## Empty Model Results I: Covariance Matrix of DVs
+
+-   The covariance matrix of DVs comes from the `getVarCov()` function
+
+```{r}
+getVarCov(model01_mixed)
+```
+-   Estimated variance-covariance matrix of PERF and USE scores.
+
+## Mapping Multivariate Mixed Models onto Path Models
+
+-   To compare this result with the path analyses we conducted previously, we’ll have to use this data set
+    -   Omit the same observations
+    
+-   So, we’ll need to take our long-format data and reshape it into wide-format:
+
+```{r}
+head(dat_wide)
+```
+
+```{r}
+#| output-location: slide
+library(lavaan)
+model01_mirror.syntax = "
+# Means:
+perf ~ 1
+use ~ 1
+
+# Variances:
+perf ~~ perf
+use ~~ use
+
+# Covariance:
+perf ~~ use
+"
+
+model01_path_noNA.fit = sem(model01_mirror.syntax, data = dat_wide,
+                            fixed.x = TRUE, 
+                            mimic = "MPLUS", 
+                            estimator = "MLR")
+summary(model01_path_noNA.fit, 
+        fit.measures = TRUE,
+        standardized = TRUE)
+```
+
+## Comparing and Contrasting Results: Intercept (fixed effect)
+
+-   $\beta_{0,Perf}$ and $\beta_{0,Use}$:
+
+```{r}
+parameterestimates(model01_path_noNA.fit) |> filter(op == "~1")
+```
+
+-   $\delta_{0,DV}$ and $\delta_{1,DV}$:
+```{r}
+summary(model01_mixed)$tTable
+```
+
+$\delta_{0,DV} + \delta_{1,DV}$: `r (13.94085+38.46901)` is close to $\beta_{0,Use}$
+
+## Comparing and Contrasting Results: Residual variance coviarance
+
+```{r}
+parameterestimates(model01_path_noNA.fit) |> filter(op == "~~")
+```
+In mixed model, we cannot get the z-value (significance testing)
+
+```{r}
+getVarCov(model01_mixed)
+```
+
+## Residual Maximum Likelihood Estimation
+
+-   The ML estimator is nice, but the variance estimate is downward biased (too small)
+    -   Remember – it divides by N for the residual covariance matrix
+    
+-   In small samples, this is likely to lead to biased estimates and incorrect p-values    
+    -   The variance goes into the SE, which goes into the Wald test, which dictates the p-value for the beta
+    
+-   Instead, another maximum likelihood technique has been developed: Residual Maximum Likelihood (REML) 
+    -   Maximizes the likelihood of the residuals rather than the data
+    -   Has unbiased estimates of the residual covariance matrix
+    -   Is the default method of estimation for most mixed model estimation packages
+    
+-   There is one catch to REML: you cannot use a LRT to compare nested models with differing fixed effects
+    -   Because the algorithm uses residuals not data likelihood, if the residuals change, the likelihood changes
+    -   Residuals come from the fixed effects $\rightarrow$ if fixed effects are different, then residuals change, causing the likelihood to change
+    -   Can use multivariate Wald test for fixed effects
+    
+-   Don't mix ML and REML for the same analysis    
+
+# ADDING PREDICTORS TO THE MODEL
+
+## Adding more predictors
+
+-   Adding predictors to the model is similar to adding predictors in regular regression models
+
+-   By using REML we cannot compare models using likelihood ratio tests
+    -   REML LRTs must have same fixed effects
+    -   Adding predictors adds new fixed effects to the empty model
+    
+-   We are predicting each DV with `female`, `cc10`, and `female*cc10`
+
+## Model with Predictors: Syntax
+
+```{r}
+#| output-location: slide
+#| results: hide
+# Model 02: all predictors included
+model02_formula = as.formula("score ~ 1 + dPerf + female + dPerf*female + cc10 + dPerf*cc10 + female*cc10 + dPerf*female*cc10")
+model02_mixed <- gls(model = model02_formula, method = "REML",
+                     data = dat_long, 
+                     correlation = corSymm(form = ~1|id),
+                     weights = varIdent(form = ~1|DV))
+summary(model02_mixed)
+```
+
+```{r}
+getVarCov(model02_mixed)
+```
+
+```{r}
+summary(model02_mixed)$tTable |> round(3)
+```
+
+       
+             
+             
+               
+       
+         
+        
+  
+
+1. $\beta_0 = 13.689, p < .001$
+2. $\beta_{dPerf} = 38.110, p < .001$
+3. $\beta_{female} = 0.658, p = 0.087$
+4. $\beta_{cc10} = 0.099, p = 0.006$
+5. $\beta_{dPerf*female} = 1.177, p = 0.558$
+6. $\beta_{dPerf*cc10} = 0.097, p = 0.626$
+7. $\beta_{female*cc10} = 0.094, p = 0.163$
+8. $\beta_{dPerf*female*cc10} = 0.166, p = 0.637$
+
+## First Question: Which Model “Fits” Better?
+
+-   After adding the predictors (estimating their betas) to the model, we must first ask which model fits better
+
+-   A likelihood ratio test (LRT) cannot be performed as we are using REML
+
+-   Use multivariate wald test
+```{r}
+library(multcomp)
+model2_model_matrix <- diag(rep(1, 8))
+rownames(model2_model_matrix) <- c(
+  "Intercept",
+  "dPerf",
+  "female",
+  "cc10",
+  "dPerf:female",
+  "dPerf:cc10",
+  "female:cc10",
+  "dPerf:female:cc10"
+)
+effects <- glht(model = model02_mixed, linfct = model2_model_matrix)
+summary(effects)
+summary(effects, test = Ftest())
+```
+
+- Note: R’s `nlme` function doesn’t do a good job with df.residual and provides a Chi-square test
+
+- Also note there are 6 degrees of freedom (one for each additional beta weight in the model)
+
+## Questions that can be answered 
+
+- What is the effect of college experience on usefulness for males?
+- What is the effect of college experience on usefulness for females?
+- What is the difference between males and females ratings of usefulness when college experience = 10?
+- How did the difference between males and females ratings change for each additional hour of college experience?
+- What is the effect of college experience on performance for males?
+- What is the effect of college experience on performance for females?
+- What is the difference between males and females performance when college experience = 10?
+- How did the difference between males and females performance change for each additional hour of college experience?
+
+## Model R-squared
+
+To determine the model R-squared, we have to compare the variance/covariance matrix from model01 and model02 and make the statistics ourselves:
+
+```{r}
+Vmodel01 = getVarCov(model01_mixed)
+Vmodel02 = getVarCov(model02_mixed)
+
+## Rsquare for Performance and Usefulness
+(diag(Vmodel01) - diag(Vmodel02)) / diag(Vmodel01)
+```
+- 6.47% variance of performance was explained by added predictors.
+- 0.33% variance of usefulness was explained by added predictors.
+
+## Wrapping up
+
+- Things we get directly from path models that we do not get directly in mixed models:
+      - Tests for approximate model fit
+      - Scaled Chi-square for some types of non-normal data
+      - Standardized parameter coefficients
+      - Tests for indirect effects
+      - R-squared statistics
+- Things we get directly in mixed models that we do not get in path models:
+      - REML (unbiased estimates of variances/covariances)
+      
+- In this lecture we discussed the basics of mixed model analyses for multivariate models
+      - Model specification/identification
+      - Model estimation
+      - Model modification and re-estimation
+      - Final model parameter interpretation
+- There is a lot to the analysis – but what is important to remember is the over-arching principal of multivariate analyses: covariance between variables is important
+      - Mixed models imply very specific covariance structures
+      - The validity of the results still hinge upon accurately finding an approximation to the covariance matrix      

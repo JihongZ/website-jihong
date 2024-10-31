@@ -146,8 +146,12 @@
 
     
 <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<link href="../../../images/icon.png" rel="icon" type="image/png">
 <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/icon.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -160,6 +164,17 @@
 <link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
      <script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -186,83 +201,57 @@ ga('send', {
   hitType: 'pageview',
   'anonymizeIp': true,
 });
+</script>  <script>
+  
+  function addAnswerWithButton(answerClass, buttonText, answerText) {
+    
+    const divElement = document.querySelector(`.${answerClass}`);
+    const randomId = "answer-" + Math.floor(Math.random() * 1000000);
+  
+    // Create the new button element
+    const buttonElement = document.createElement("button");
+    buttonElement.className = "show-answer";
+    buttonElement.textContent = buttonText;
+    buttonElement.onclick = function() {
+      showAnswer(randomId);
+    };
+  
+    // Create the new answer element
+    const answerElement = document.createElement("p");
+    answerElement.id = randomId;
+    answerElement.style.display = "none";
+    answerElement.innerHTML = answerText;
+  
+    // Replace the div element with the new button and answer elements
+    divElement.parentNode.replaceChild(buttonElement, divElement);
+    buttonElement.insertAdjacentElement("afterend", answerElement);
+  }
+  
+  function showAnswer(answerId) {
+    var answer = document.getElementById(answerId);
+    if (answer.style.display === "none") {
+      answer.style.display = "block";
+    } else {
+      answer.style.display = "none";
+    }
+  }
+
+  function addAnswerButton() {
+    var answers = document.querySelectorAll(".answer")
+    answers.forEach(e => {
+      addAnswerWithButton("answer", " Show Answer", e.innerHTML);
+    });
+  }
+  
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    addAnswerButton();
+  });
 </script>  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <script src="https://cdn.jsdelivr.net/npm/@xiee/utils/js/key-buttons.min.js" defer=""></script>
 <link href="https://cdn.jsdelivr.net/npm/@xiee/utils/css/key-buttons.min.css" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">
-<script type="module">
-import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
-Chatbot.init({
-    chatflowid: "6da950ca-3a69-48d2-ae37-148747b5ab72",
-    apiHost: "https://jh-website-ai.onrender.com",
-    theme: {
-      button: {
-          backgroundColor: "#3B81F6",
-          right: 20,
-          bottom: 20,
-          size: small, // small | medium | large | number
-          dragAndDrop: true,
-          iconColor: "black",
-          customIconSrc: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
-      },
-      tooltip: {
-          showTooltip: false,
-          tooltipMessage: 'Hi👋! I am the AI teaching assistant of Dr. Zhang.',
-          tooltipBackgroundColor: 'black',
-          tooltipTextColor: 'white',
-          tooltipFontSize: 16,
-      },
-      chatWindow: {
-          showTitle: true,
-          title: 'AI Teaching Assistant',
-          titleAvatarSrc: 'https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg',
-          showAgentMessages: false,
-          welcomeMessage: "Hello! You can ask me questions about Dr. Zhang's previous lectures. For example, <a>What is multivariate statistics</a>. or <a>What ESRM 6553 teaches?</a>",
-          errorMessage: 'This is a custom error message',
-          backgroundColor: "#ffffff",
-          height: 700,
-          width: 400,
-          fontSize: 16,
-          poweredByTextColor: "#303235",
-          botMessage: {
-              backgroundColor: "#f7f8ff",
-              textColor: "#303235",
-              showAvatar: true,
-              avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
-          },
-          userMessage: {
-              backgroundColor: "#3B81F6",
-              textColor: "#ffffff",
-              showAvatar: true,
-              avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
-          },
-          textInput: {
-              placeholder: 'Type your question',
-              backgroundColor: '#ffffff',
-              textColor: '#303235',
-              sendButtonColor: '#3B81F6',
-              maxChars: 50,
-              maxCharsWarningMessage: 'You exceeded the characters limit. Please input less than 50 characters.',
-              autoFocus: true, // If not used, autofocus is disabled on mobile and enabled on desktop. true enables it on both, false disables it on both.
-              sendMessageSound: false,
-              // sendSoundLocation: "send_message.mp3", // If this is not used, the default sound effect will be played if sendSoundMessage is true.
-              receiveMessageSound: false,
-              // receiveSoundLocation: "receive_message.mp3", // If this is not used, the default sound effect will be played if receiveSoundMessage is true. 
-          },
-          feedback: {
-              color: '#303235',
-          },
-          footer: {
-              textColor: '#303235',
-              text: '',
-              company: '',
-              companyLink: '',
-          }
-      }
-  }
-})</script>  
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet">  
         <link rel="stylesheet" href="../../../assets/rwds.css">
       <meta property="og:title" content="shinylive-demo – Jihong Z. - Play Harder and Learn Harder">
 <meta property="og:site_name" content="Jihong Z. - Play Harder and Learn Harder">
@@ -282,57 +271,96 @@ Chatbot.init({
 
      <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title"><span class="icon-line"></span><b>Jihong</b><span class="icon-line"></span></span>
+    <span class="navbar-title"><span class="icon-line"></span><b><span style="color:#447099">Jihong</span></b><span class="icon-line"></span></span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../../index.html" aria-current="page"> <i class="bi bi-bi bi-house" role="img">
-</i> 
-<span class="menu-text"><span class="menutext-home">Home</span><span class="text-line"></span></span></a>
+    <span class="nav-link">
+<span class="menu-text">|</span>
+    </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../posts.html"> <i class="bi bi-bi bi-pencil-square" role="img">
-</i> 
-<span class="menu-text"><span class="menutext-blog">Blog</span><span class="text-line-blog"></span></span></a>
+    <a class="nav-link active" href="../../../index.html" aria-current="page"> 
+<span class="menu-text"><span class="menutext-home" style="font-weight:bold; font-family: Taub Sans;">Home</span><span class="text-line"></span></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../notes.html"> <i class="bi bi-bi bi-journal-bookmark-fill" role="img">
-</i> 
-<span class="menu-text"><span class="menutext-note">Note</span><span class="text-line-note"></span></span></a>
+    <span class="nav-link">
+<span class="menu-text">|</span>
+    </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../projects.html"> <i class="bi bi-bi bi-clipboard-data" role="img">
-</i> 
-<span class="menu-text"><span class="menutext-pj">Project</span><span class="text-line-pj"></span></span></a>
+    <a class="nav-link" href="../../../teaching.html"> 
+<span class="menu-text"><span class="menutext-home" style="font-weight:bold; font-family: Taub Sans;">Teaching</span><span class="text-line"></span></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../dashboards/template.html"> <i class="bi bi-bi bi-speedometer2" role="img">
-</i> 
-<span class="menu-text"><span class="menutext-db">Dashboard</span><span class="text-line-db"></span></span></a>
+    <span class="nav-link">
+<span class="menu-text">|</span>
+    </span>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../presentation.html"> 
+<span class="menu-text"><span class="menutext-blog" style="font-weight:bold; font-family: Taub Sans;">Presentation</span><span class="text-line"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">|</span>
+    </span>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../posts.html"> 
+<span class="menu-text"><span class="menutext-blog" style="font-weight:bold; font-family: Taub Sans;">Blog</span><span class="text-line-blog"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">|</span>
+    </span>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../notes.html"> 
+<span class="menu-text"><span class="menutext-note" style="font-weight:bold; font-family: Taub Sans;">Note</span><span class="text-line-note"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">|</span>
+    </span>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../projects.html"> 
+<span class="menu-text"><span class="menutext-pj" style="font-weight:bold; font-family: Taub Sans;">Project</span><span class="text-line-pj"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">|</span>
+    </span>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../dashboards/template.html"> 
+<span class="menu-text"><span class="menutext-db" style="font-weight:bold; font-family: Taub Sans;">Dashboard</span><span class="text-line-db"></span></span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">|</span>
+    </span>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools tools-wide">
+              <div class="quarto-navbar-tools tools-wide">
     <a href="../../../uploads/Curriculum_Vitae.pdf" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-bi bi-person-square"></i></a>
     <a href="https://x.com/jihongzgamma" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
     <a href="https://github.com/JihongZ" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
     <a href="../../../postsCN.html" title="博客" class="quarto-navigation-tool px-1" aria-label="博客"><i class="bi bi-bi bi-globe-asia-australia"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
 </div>
+          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
@@ -368,7 +396,7 @@ Chatbot.init({
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Research Plan</span></a>
+ <span class="menu-text">Useful Materials</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -376,8 +404,20 @@ Chatbot.init({
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../projects/Research_Plan/Timeline-Visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2024 Fall</span></a>
+  <a href="../../../projects/Research_Plan/Timeline-Visualization.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2024 Fall Research Plan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../uploads/Curriculum_Vitae.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Curriculum Vitae</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../uploads/latex_symbols.pdf" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latex Symbols</span></a>
   </div>
 </li>
       </ul>
@@ -450,6 +490,30 @@ Chatbot.init({
   <div class="sidebar-item-container"> 
   <a href="../../../posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture04/Lecture04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture 04: Distribution and Estimation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture05/Lecture05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 05: Maximum Likelihood Estimation and Generalized Univariate Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture06/Lecture06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 06: Generalized Linear Models (Binary Outcome) and Matrix Algebra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture07/Lecture07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 07: Matrix Algebra</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture08/Lecture08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lecture 08: Multivariate Analysis</span></a>
   </div>
 </li>
       </ul>
@@ -554,7 +618,6 @@ Chatbot.init({
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">      <header id="title-block-header" class="quarto-title-block default">
-<div style="padding-top: 10px; padding-bottom: 10px;" <="" div="">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">shinylive-demo</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li></ul></div></div>
 </div>
@@ -570,64 +633,64 @@ Chatbot.init({
   
 
 
-</div></header>   <div id="be856042-1e43-451e-a61a-07d0715a409b" class="cell markdown">
+</header>   <div id="c10c6808-6b17-4c4a-9244-23c1f8e5a681" class="cell markdown">
 
 </div>
-<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="54430592-2994-4ea9-b8f7-369e3d58cc25" class="cell" data-standalone="true" data-viewerheight="600">
+<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="f43cf185-116f-4d89-91e7-b9f36b9ed60e" class="cell" data-standalone="true" data-viewerheight="600">
 <details class="code-fold">
 <summary>⌘+C</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>library(shiny)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>library(bslib)</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Define UI for app that draws a histogram ----</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>ui <span class="op">&lt;-</span> page_sidebar(</span>
-<span id="cb1-6"><a href="#cb1-6"></a>  sidebar <span class="op">=</span> sidebar(<span class="bu">open</span> <span class="op">=</span> <span class="st">"open"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    numericInput(<span class="st">"n"</span>, <span class="st">"Sample count"</span>, <span class="dv">100</span>),</span>
-<span id="cb1-8"><a href="#cb1-8"></a>    checkboxInput(<span class="st">"pause"</span>, <span class="st">"Pause"</span>, FALSE),</span>
-<span id="cb1-9"><a href="#cb1-9"></a>  ),</span>
-<span id="cb1-10"><a href="#cb1-10"></a>  plotOutput(<span class="st">"plot"</span>, width<span class="op">=</span><span class="dv">1100</span>)</span>
-<span id="cb1-11"><a href="#cb1-11"></a>)</span>
-<span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a>server <span class="op">&lt;-</span> function(<span class="bu">input</span>, output, session) {</span>
-<span id="cb1-14"><a href="#cb1-14"></a>  data <span class="op">&lt;-</span> reactive({</span>
-<span id="cb1-15"><a href="#cb1-15"></a>    input$resample</span>
-<span id="cb1-16"><a href="#cb1-16"></a>    <span class="cf">if</span> (<span class="op">!</span>isTRUE(input$pause)) {</span>
-<span id="cb1-17"><a href="#cb1-17"></a>      invalidateLater(<span class="dv">1000</span>)</span>
-<span id="cb1-18"><a href="#cb1-18"></a>    }</span>
-<span id="cb1-19"><a href="#cb1-19"></a>    rnorm(input$n)</span>
-<span id="cb1-20"><a href="#cb1-20"></a>  })</span>
-<span id="cb1-21"><a href="#cb1-21"></a>  </span>
-<span id="cb1-22"><a href="#cb1-22"></a>  output$plot <span class="op">&lt;-</span> renderPlot({</span>
-<span id="cb1-23"><a href="#cb1-23"></a>    hist(data(),</span>
-<span id="cb1-24"><a href="#cb1-24"></a>      breaks <span class="op">=</span> <span class="dv">40</span>,</span>
-<span id="cb1-25"><a href="#cb1-25"></a>      xlim <span class="op">=</span> c(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>),</span>
-<span id="cb1-26"><a href="#cb1-26"></a>      ylim <span class="op">=</span> c(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb1-27"><a href="#cb1-27"></a>      lty <span class="op">=</span> <span class="st">"blank"</span>,</span>
-<span id="cb1-28"><a href="#cb1-28"></a>      xlab <span class="op">=</span> <span class="st">"value"</span>,</span>
-<span id="cb1-29"><a href="#cb1-29"></a>      freq <span class="op">=</span> FALSE,</span>
-<span id="cb1-30"><a href="#cb1-30"></a>      main <span class="op">=</span> <span class="st">""</span></span>
-<span id="cb1-31"><a href="#cb1-31"></a>    )</span>
-<span id="cb1-32"><a href="#cb1-32"></a>    </span>
-<span id="cb1-33"><a href="#cb1-33"></a>    x <span class="op">&lt;-</span> seq(<span class="im">from</span> <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>, to <span class="op">=</span> <span class="dv">2</span>, length.out <span class="op">=</span> <span class="dv">500</span>)</span>
-<span id="cb1-34"><a href="#cb1-34"></a>    y <span class="op">&lt;-</span> dnorm(x)</span>
-<span id="cb1-35"><a href="#cb1-35"></a>    lines(x, y, lwd<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb1-36"><a href="#cb1-36"></a>    </span>
-<span id="cb1-37"><a href="#cb1-37"></a>    lwd <span class="op">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a>    abline(v<span class="op">=</span><span class="dv">0</span>, col<span class="op">=</span><span class="st">"red"</span>, lwd<span class="op">=</span>lwd, lty<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb1-39"><a href="#cb1-39"></a>    abline(v<span class="op">=</span>mean(data()), col<span class="op">=</span><span class="st">"blue"</span>, lwd<span class="op">=</span>lwd, lty<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb1-40"><a href="#cb1-40"></a></span>
-<span id="cb1-41"><a href="#cb1-41"></a>    legend(legend <span class="op">=</span> c(<span class="st">"Normal"</span>, <span class="st">"Mean"</span>, <span class="st">"Sample mean"</span>),</span>
-<span id="cb1-42"><a href="#cb1-42"></a>      col <span class="op">=</span> c(<span class="st">"black"</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>),</span>
-<span id="cb1-43"><a href="#cb1-43"></a>      lty <span class="op">=</span> c(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
-<span id="cb1-44"><a href="#cb1-44"></a>      lwd <span class="op">=</span> c(<span class="dv">1</span>, lwd, lwd),</span>
-<span id="cb1-45"><a href="#cb1-45"></a>      x <span class="op">=</span> <span class="dv">1</span>,</span>
-<span id="cb1-46"><a href="#cb1-46"></a>      y <span class="op">=</span> <span class="fl">0.9</span></span>
-<span id="cb1-47"><a href="#cb1-47"></a>    )</span>
-<span id="cb1-48"><a href="#cb1-48"></a>  }, res<span class="op">=</span><span class="dv">140</span>)</span>
-<span id="cb1-49"><a href="#cb1-49"></a>}</span>
-<span id="cb1-50"><a href="#cb1-50"></a></span>
-<span id="cb1-51"><a href="#cb1-51"></a><span class="co"># Create Shiny app ----</span></span>
-<span id="cb1-52"><a href="#cb1-52"></a>shinyApp(ui <span class="op">=</span> ui, server <span class="op">=</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>library(shiny)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>library(bslib)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define UI for app that draws a histogram ----</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ui <span class="op">&lt;-</span> page_sidebar(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  sidebar <span class="op">=</span> sidebar(<span class="bu">open</span> <span class="op">=</span> <span class="st">"open"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    numericInput(<span class="st">"n"</span>, <span class="st">"Sample count"</span>, <span class="dv">100</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    checkboxInput(<span class="st">"pause"</span>, <span class="st">"Pause"</span>, FALSE),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  plotOutput(<span class="st">"plot"</span>, width<span class="op">=</span><span class="dv">1100</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>server <span class="op">&lt;-</span> function(<span class="bu">input</span>, output, session) {</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  data <span class="op">&lt;-</span> reactive({</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    input$resample</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>isTRUE(input$pause)) {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      invalidateLater(<span class="dv">1000</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    rnorm(input$n)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  output$plot <span class="op">&lt;-</span> renderPlot({</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    hist(data(),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      breaks <span class="op">=</span> <span class="dv">40</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      xlim <span class="op">=</span> c(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      ylim <span class="op">=</span> c(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      lty <span class="op">=</span> <span class="st">"blank"</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      xlab <span class="op">=</span> <span class="st">"value"</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      freq <span class="op">=</span> FALSE,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      main <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    x <span class="op">&lt;-</span> seq(<span class="im">from</span> <span class="op">=</span> <span class="op">-</span><span class="dv">2</span>, to <span class="op">=</span> <span class="dv">2</span>, length.out <span class="op">=</span> <span class="dv">500</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    y <span class="op">&lt;-</span> dnorm(x)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    lines(x, y, lwd<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    lwd <span class="op">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    abline(v<span class="op">=</span><span class="dv">0</span>, col<span class="op">=</span><span class="st">"red"</span>, lwd<span class="op">=</span>lwd, lty<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    abline(v<span class="op">=</span>mean(data()), col<span class="op">=</span><span class="st">"blue"</span>, lwd<span class="op">=</span>lwd, lty<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    legend(legend <span class="op">=</span> c(<span class="st">"Normal"</span>, <span class="st">"Mean"</span>, <span class="st">"Sample mean"</span>),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>      col <span class="op">=</span> c(<span class="st">"black"</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>      lty <span class="op">=</span> c(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>      lwd <span class="op">=</span> c(<span class="dv">1</span>, lwd, lwd),</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>      x <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>      y <span class="op">=</span> <span class="fl">0.9</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  }, res<span class="op">=</span><span class="dv">140</span>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Shiny app ----</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>shinyApp(ui <span class="op">=</span> ui, server <span class="op">=</span> server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div></div>
 
@@ -938,8 +1001,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           if (link.getAttribute("rel") === null) {
             link.setAttribute("rel", "noopener");
           }
-          // default icon
-          link.classList.add("external");
       }
     }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1256,6 +1317,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>  <script src="https://giscus.app/client.js" data-repo="JihongZ/quarto-academic-jihong" data-repo-id="R_kgDOJz3gyg" data-category="General" data-category-id="DIC_kwDOJz3gys4CXdYE" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script>
 <input type="hidden" id="giscus-base-theme" value="light">
-<input type="hidden" id="giscus-alt-theme" value="dark">  </div> <!-- /content --> 
+<input type="hidden" id="giscus-alt-theme" value="dark">  </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2024 Jihong Zhang</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer> 
   
 </body></html>
