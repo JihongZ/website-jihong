@@ -74,15 +74,55 @@ hw2_assignment_tbl_clean <- hw2_assignment_tbl_clean |>
     Answer = "See Website",
     HW = 2)
 
+## Homework 2B -------------------------------------------------------------
+assignment_tbl2B <- readxl::read_xlsx(paste0(hw_resp_path, "ESRM 64503_Homework 2B.xlsx"))
+hw2b_assignment_tbl_clean <- assignment_tbl2B[, c(2, 7:17)]
+hw2b_assignment_tbl_clean <- hw2b_assignment_tbl_clean |> 
+  rename("Name" = "Your Name is\r\n",
+         "Starting_Time" = "开始时间") |> 
+  mutate(Name = "SUMAIYA FARZANA MISHU") |> 
+  group_by(Name) |> # Only keep the lastest record
+  filter(Starting_Time == max(Starting_Time)) |> 
+  pivot_longer(-c(Starting_Time, Name), names_to = "Questions", values_to = "Response")
+## Scoring
+Score_2b <- rep(NA, 10)
+hw2b_assignment_tbl_clean$Response[1]
+Score_2b[1] = 2
+hw2b_assignment_tbl_clean$Response[2]
+Score_2b[2] = 2
+hw2b_assignment_tbl_clean$Response[3]
+Score_2b[3] = 2
+hw2b_assignment_tbl_clean$Response[4]
+Score_2b[4] = 3
+hw2b_assignment_tbl_clean$Response[5]
+Score_2b[5] = 2
+hw2b_assignment_tbl_clean$Response[6]
+Score_2b[6] = 2
+hw2b_assignment_tbl_clean$Response[7]
+Score_2b[7] = 2
+hw2b_assignment_tbl_clean$Response[8]
+Score_2b[8] = 3
+hw2b_assignment_tbl_clean$Response[9]
+Score_2b[9] = 3
+hw2b_assignment_tbl_clean$Response[10]
+Score_2b[10] = 3
+
+hw2b_assignment_tbl_clean <- hw2b_assignment_tbl_clean |> 
+  mutate(
+    Score = Score_2b,
+    TotalScore = ifelse(sum(Score_2b) > 21, 21, sum(Score_2b)),
+    Answer = "See Website",
+    HW = 2
+  )
 
 # Combine Homeworks -------------------------------------------------------
 hw_all_tbl <- 
   rbind(
     hw0_assignment_tbl_clean,
     hw1_assignment_tbl_clean,
-    hw2_assignment_tbl_clean
+    hw2_assignment_tbl_clean,
+    hw2b_assignment_tbl_clean
   )
-  
 
 
 set.seed(1234)
