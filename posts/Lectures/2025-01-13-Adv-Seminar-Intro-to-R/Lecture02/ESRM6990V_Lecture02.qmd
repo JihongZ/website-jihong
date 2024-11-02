@@ -12,7 +12,7 @@ sidebar: false
 execute: 
   echo: true
   warning: false
-  eval: false
+  eval: true
 output-location: default
 code-annotations: below
 highlight-style: "nord"
@@ -78,14 +78,12 @@ filters:
 
     ```{r}
     coef_a
-    #> [1] 1
     ```
 
     -   A more explicit way to ask R to show us the value stored in `coef_a` is using `print` function like this (`print` is a prebuilt function in R, we will explain later):
 
     ```{r}
     print(coef_a)
-    #> [1] 1
     ```
 
 ## Workspace
@@ -102,20 +100,41 @@ filters:
 
     ![](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/img/rstudio-environment.png)
 
--   We should see `coef_a`, `coef_b`, and `coef_c`. If you try to recover the value of a variable that is not in your workspace, you receive an error. For example, if you type `x` you will receive the following message: `Error: object 'x' not found`.
+------------------------------------------------------------------------
+
+-   We should see `coef_a`, `coef_b`, and `coef_c`.
+
+-   **Missing R object in workspace**: If you try to recover the value of a variable that is not in your workspace, you receive an error. For example, if you type `some_random_object` you will receive the following message: `Error: object 'some_random_object' not found`.
+
+    ```{r}
+    #| error: true
+    print(some_random_object)
+    ```
 
 -   Now since these values are saved in variables, to obtain a solution to our equation, we use the quadratic formula:
 
     ```{r}
     (-coef_b + sqrt(coef_b^2 - 4*coef_a*coef_c))/(2*coef_a)
-    #> [1] 0.618
     (-coef_b - sqrt(coef_b^2 - 4*coef_a*coef_c))/(2*coef_a)
-    #> [1] -1.62
     ```
+
+::: callout-note
+## Operators
+
+-   `-`: is a negative operator which switches the sign of object
+
+-   `+` and `*` and `/` : addition, multiplication, and division
+
+-   `sqrt`: a prebuilt R function of calculating the squared root of the object
+
+-   `^`: exponent operator to calculate the "power" of the "base"; `a^3` : a to the 3rd power
+:::
 
 ## Prebuilt functions
 
--   **Function**: Once we defined the objects, the data analysis process can usually be described as a series of *functions* applied to the data.
+-   **Functions**: Once we defined the objects, the data analysis process can usually be described as [a series of *functions*]{.underline} applied to the data.
+
+    -   In other words, we considered "function" as a set of pre-specified operations (e.g., macro in SAS)
 
     -   R includes several **predefined functions** and most of the analysis pipelines we construct make extensive use of these.
 
@@ -130,10 +149,9 @@ filters:
     -   For example, we assign different object to the argument of the function `log`. Remember that we earlier defined `coef_a` to be 1:
 
         ```{r}
+        #| eval: true
         log(8)
-        #> [1] 2.08
         log(coef_a) 
-        #> [1] 0
         ```
 
 ------------------------------------------------------------------------
@@ -150,3 +168,282 @@ filters:
     -   The base of the function `log` defaults to `base = exp(1)` making `log` the natural log by default.
 
         ![](images/clipboard-1863636552.png)
+
+    -   You can also use `args` to look at the arguments
+
+        ```{r}
+        args(log)
+        log(x = 8, base = 2)
+        ```
+
+    -   If specifying [the arguments’ names]{.underline}, then we can include them in whatever order we want:
+
+        ```{r}
+        log(base = 2, x = 8)
+        ```
+
+## Prebuilt objects
+
+-   There are several datasets or values that are included for users to practice and test out functions. For example, you can use $\pi$ in your calculation directly:
+
+    ```{r}
+    pi
+    ```
+
+-   Or infinity value $\infty$:
+
+    ```{r}
+    Inf + 1
+    ```
+
+-   You can see all the available datasets by typing:
+
+```{r}
+data()
+```
+
+-   For example, if you type `iris`, it will output the famous (Fisher's or Anderson's) iris data set gives the measurements in centimeters of the variables sepal length and width and petal length and width:
+
+    ```{r}
+    #| eval: false
+    iris
+    ?iris
+    ```
+
+    You can check the detailed help page of `iris` using `?` as we did for functions.
+
+## Variable Names
+
+-   When writing code in R, it’s important to choose variable names that are both **meaningful** and **avoid conflicts with existing functions** or reserved words in the language.
+
+    -   For example, avoid using `c` as variable name because R has a existing prebuilt function `c()`:
+
+        ```{r}
+        c(1, 2)
+        ```
+
+-   Some basic rules in R are that variable names have to **start with a letter**, **can’t contain spaces**, and **should not be variables that are predefined** in R, such as `c`.
+
+-   A nice convention to follow is to use meaningful words that describe what is stored, use only lower case, and use underscores as a substitute for spaces.
+
+    ```{r}
+    r_1 <- (-coef_b + sqrt(coef_b^2 - 4*coef_a*coef_c))/(2*coef_a)
+    r_2 <- (-coef_b - sqrt(coef_b^2 - 4*coef_a*coef_c))/(2*coef_a)
+    r_1
+    r_2
+    ```
+
+## Saving workspace
+
+-   Objects and functions remain in the workspace until you end your session or erase them with the function `rm`.
+
+-   **Autosave**: Your current workspaces also can be saved for later use.
+
+    -   In fact, when you quit R, Rstudio asks you if you want to save your workspace as `.RData`. If you do save it, the next time you start R, the program will restore the workspace.
+
+-   **ManualSave**: We actually recommend against saving the workspace this way because, as you start working on different projects, it will become harder to keep track of what is saved.
+
+    ```{r}
+    #| eval: false
+    save(file = "project_lecture_2.RData") # Save Workspace as project_lecture_2.RData
+    load("project_lecture_2.RData") # Load Workspace
+    ```
+
+## Commenting your code
+
+-   If a line of R code starts with the symbol `#`, it is a comment and is not evaluated.
+
+    -   We can use this to write reminders of why we wrote particular code:
+
+        ```{r}
+        ## Code to compute solution to quadratic equation
+
+        ## Define the variables
+        coef_a <- 3 
+        coef_b <- 2
+        coef_c <- -1
+
+        ## Now compute the solution
+        (-coef_b + sqrt(coef_b^2 - 4*coef_a*coef_c))/(2*coef_a)
+        (-coef_b - sqrt(coef_b^2 - 4*coef_a*coef_c))/(2*coef_a)
+        ```
+
+# Exercises (30 minutes)
+
+1.  What is the sum of the first 100 positive integers? The formula for the sum of integers 1 through n is $n(n+1)/2$. Define
+
+    $n=100$ and then use R to compute the sum of 1 through 100 using the formula. What is the sum?
+
+2.  Now use the same formula to compute the sum of the integers from 1 through 1000.
+
+3.  Look at the result of typing the following code into R:
+
+    -   Based on the result, what do you think the functions `seq` and `sum` do? You can use help.
+
+```{r}
+n <- 1000 
+x <- seq(1, n) 
+sum(x)
+```
+
+4.  In math and programming, we say that we evaluate a function when we replace the argument with a given value. So if we type `sqrt(4)`, we evaluate the `sqrt` function. In R, you can evaluate a function inside another function. The evaluations happen from the inside out. Use one line of code to compute the log, in base 10, of the square root of 100.
+
+5.  Which of the following will always return the numeric value stored in x? You can try out examples and use the help system if you want.
+
+# Data types
+
+## Check types of object
+
+-   Variables in R can be of different types.
+
+    -   For example, we need to distinguish numbers from character strings and tables from simple lists of numbers.
+
+-   The function `class` helps us determine what type of object we have:
+
+    ```{r}
+    a <- 2
+    class(a)
+    b <- "Jihong"
+    class(b)
+    c <- TRUE
+    class(c)
+    class(iris)
+    ```
+
+<!-- -->
+
+-   To work efficiently in R, it is important to learn the different types of variables and what we can do with these.
+
+## Data frames
+
+-   The most common way of storing a dataset in R is in a ***data frame***.
+
+-   A **data frame** is a table with rows representing observations and the different variables reported for each observation defining the columns.
+
+-   Data frames has multiple informatiom:
+
+    -   We can check the number of rows and number of columns:
+
+        ```{r}
+        nrow(iris)
+        ncol(iris)
+        ```
+
+    -   We can check the columns names
+
+        ```{r}
+        colnames(iris)
+        ```
+
+------------------------------------------------------------------------
+
+-   The function `str` is useful for finding out more about the structure of an data.frame
+
+    ```{r}
+    str(iris)
+    ```
+
+-   We can show the first 3 or last 3 lines using the function `head` and `tail`
+
+    ```{r}
+    head(iris, n = 3)
+    tail(iris, n = 3)
+    ```
+
+------------------------------------------------------------------------
+
+### Have access to certain column
+
+-   we can access the different variables represented by columns included in this data frame using `$` or `[["column_name"]]`.
+
+    ```{r}
+    head(iris$Sepal.Width)
+    head(iris[["Sepal.Length"]])
+    ```
+
+<!-- -->
+
+-   Note that if we use `["column_name"]`, it will extract single-column data frame
+
+    ```{r}
+    class(iris["Sepal.Length"])
+    ncol(iris["Sepal.Length"])
+    ```
+
+## Vectors
+
+-   The object `iris$Sepal.Width` is not one number but several. We call these types of objects ***vectors***.
+
+-   We use the term **vectors** to refer to objects with several entries. The function `length` tells you how many entries are in the vector:
+
+    ```{r}
+    Sepal.Width_values <- iris$Sepal.Width
+    class(Sepal.Width_values)
+    length(Sepal.Width_values)
+    ```
+
+-   We can also calculate some descriptive statistics using `max`, `min`, `sd` if the vector contains numeric values only
+
+    ```{r}
+    max(Sepal.Width_values)
+    min(Sepal.Width_values)
+    mean(Sepal.Width_values)
+    sd(Sepal.Width_values)
+    ```
+
+------------------------------------------------------------------------
+
+-   Vector also can have multiple types: ***numeric***, ***character (string)***, ***logistic***, ***factor***
+
+-   You cannot calculate `min`/`max`/`mean` for the factor vector containing string values. It will return not applied (`NA`)
+
+    ```{r}
+    #| error: true
+    Species_names <- iris$Species
+    head(Species_names)
+    class(Species_names)
+    mean(Species_names)
+    ```
+
+    -   or the character vector
+
+    ```{r}
+    #| error: true
+    student_names <- c("Tom", "Jimmy", "Emily")
+    class(student_names)
+    mean(student_names)
+    ```
+
+------------------------------------------------------------------------
+
+-   You can calculate the mean of the logical vector, which is the proportion of `TRUE` values in the vector:
+
+    ```{r}
+    is_student_male <- c(TRUE, TRUE, FALSE)
+    class(is_student_male)
+    mean(is_student_male)
+    ```
+
+-   You can also calculate the distribution of the **factor vector** using `table` function:
+
+    ```{r}
+    table(Species_names)
+    ```
+
+## Factor
+
+-   **Factors** are useful for storing categorical data
+
+    ```{r}
+    class(iris$Species)
+    ```
+
+-   We can see that there are only 3 types of iris by using the `levels` function:
+
+    ```{r}
+    levels(iris$Species)
+    ```
+
+-   In the background, R stores these *levels* as integers and keeps a map to keep track of the labels. This is more memory efficient than storing all the characters.
+
+Stop at <https://rafalab.dfci.harvard.edu/dsbook-part-1/R/R-basics.html#sec-factors>
