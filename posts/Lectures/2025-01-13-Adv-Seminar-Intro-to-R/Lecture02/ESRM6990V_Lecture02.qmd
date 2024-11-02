@@ -1,0 +1,152 @@
+---
+title: "Lecture 01: Basics of R"
+subtitle: "Getting Started"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+  eval: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 08: Multivariate Analysis"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+---
+
+## Today's Class
+
+1.  R objects and prebuilt function
+2.  Data types
+3.  Vectors
+4.  Coercion
+5.  Not available (NA)
+6.  Sorting
+7.  Vector arithmetics
+8.  Indexing
+9.  Basic Plot
+
+# R Object and Pre-built function
+
+## Objects
+
+-   To do data clean, data analysis, or statistics, we need to store some information and manipulate it in R. The information that we can create/change/remove is called R **object**.
+
+-   Suppose we want to solve several quadratic equations of the form $x^2 + x - 1 = 0$. We know that the quadratic formula gives us the solutions:
+
+    $$
+    \frac{-b\pm\sqrt{b^2 -4ac}}{2a}
+    $$
+
+-   The solution depend on the values of a, b, and c. One advantage of programming languages is that we can **define** variables and **write** expressions with these variables
+
+    ```{r}
+    coef_a <- 1
+    coef_b <- 1
+    coef_c <- -1
+    ```
+
+-   We use `<-` to **assign** values to the variables. We can also assign values using `=` instead of `<-`, but we recommend against using `=` to avoid confusion.
+
+-   To **see** the value stored in a variable, we simply ask R to evaluate `coef_a` and it shows the stored value:
+
+    ```{r}
+    coef_a
+    #> [1] 1
+    ```
+
+    -   A more explicit way to ask R to show us the value stored in `coef_a` is using `print` function like this (`print` is a prebuilt function in R, we will explain later):
+
+    ```{r}
+    print(coef_a)
+    #> [1] 1
+    ```
+
+## Workspace
+
+-   So we have object, then where they are stored in R. The workspace is the place storing the objects we can use:
+
+-   You can see all the variables saved in your workspace by typing:
+
+    ```{r}
+    ls()
+    ```
+
+-   In RStudio, the *Environment* tab shows the values:
+
+    ![](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/img/rstudio-environment.png)
+
+-   We should see `coef_a`, `coef_b`, and `coef_c`. If you try to recover the value of a variable that is not in your workspace, you receive an error. For example, if you type `x` you will receive the following message: `Error: object 'x' not found`.
+
+-   Now since these values are saved in variables, to obtain a solution to our equation, we use the quadratic formula:
+
+    ```{r}
+    (-coef_b + sqrt(coef_b^2 - 4*coef_a*coef_c))/(2*coef_a)
+    #> [1] 0.618
+    (-coef_b - sqrt(coef_b^2 - 4*coef_a*coef_c))/(2*coef_a)
+    #> [1] -1.62
+    ```
+
+## Prebuilt functions
+
+-   **Function**: Once we defined the objects, the data analysis process can usually be described as a series of *functions* applied to the data.
+
+    -   R includes several **predefined functions** and most of the analysis pipelines we construct make extensive use of these.
+
+    -   We already used or discussed the `install.packages`, `library`, and `ls` functions. We also used the function `sqrt` to solve the quadratic equation above.
+
+-   **Evaluation**: In general, we need to use parentheses followed by a function name to evaluate a function.
+
+    -   If you type `ls`, the function is not evaluated and instead R shows you the code that defines the function. If you type [`ls()`](https://rdrr.io/r/base/ls.html) the function is evaluated and, as seen above, we see objects in the workspace.
+
+-   **Function Arguments:** Unlike `ls`, most functions require one or more *arguments* to specify the settings of the function.
+
+    -   For example, we assign different object to the argument of the function `log`. Remember that we earlier defined `coef_a` to be 1:
+
+        ```{r}
+        log(8)
+        #> [1] 2.08
+        log(coef_a) 
+        #> [1] 0
+        ```
+
+------------------------------------------------------------------------
+
+-   **Help**: You can find out what the function expects and what it does by reviewing the very useful manuals included in R. You can get help by using the `help` function like this:
+
+    ```{r}
+    help("log")
+    ?log
+    ```
+
+    -   The help page will show you what arguments the function is expecting. For example, `log` needs `x` and `base` to run.
+
+    -   The base of the function `log` defaults to `base = exp(1)` making `log` the natural log by default.
+
+        ![](images/clipboard-1863636552.png)

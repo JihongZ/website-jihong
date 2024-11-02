@@ -12,6 +12,7 @@ sidebar: false
 execute: 
   echo: true
   warning: false
+  eval: false
 output-location: default
 code-annotations: below
 highlight-style: "nord"
@@ -111,7 +112,9 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 0.15 * 19.71
 ```
 
-## Rstudio
+# Rstudio (now called Posit)
+
+## Introduce Rstudio 
 
 -   RStudio will be our launching pad for data science projects. It not only provides an editor for us to create and edit our scripts but also provides many other useful tools.
 
@@ -147,7 +150,71 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 
 ![](https://rafalab.dfci.harvard.edu/dsbook-part-1/productivity/img/windows-screenshots/VirtualBox_Windows-7-Enterprise_22_03_2018_16_22_20.png){fig-align="center"}
 
-## Edit R Scripts
+## Global Option
+
+-   You can change the look and functionality of RStudio quite a bit.
+
+-   To change the global options you click on *`Tools`* then *`Global Options`…*.
+
+-   As an example we show how to make a change that we **highly recommend**:
+
+    -   `General` \> `Basic` \> `Workspace`: Change the [*Save workspace to .RData*]{.underline} *on exit* to [*Never*]{.underline} .
+
+    -   `General` \> `Basic` \> `Workspace`: Uncheck the [*Restore .RData into workspace at startup*]{.underline}to *[Never]{.underline}*
+
+    -   `Code` \> `Editing`: check [*use the native piper operator, \|\>*]{.underline}
+
+::: callout-note
+## .RData file
+
+-   By default, when you exit R saves all the objects you have created into a file called .RData.
+
+-   This is done so that when you restart the session in the same folder, it will load these objects.
+
+-   We find that this causes confusion especially when we share code with colleagues and assume they have this .RData file.
+:::
+
+## Installing R Packages
+
+-   The functionality provided by a fresh install of R is only **a small fraction** of what is possible.
+
+-   We refer to what you get after your first install as *base R*.
+
+    -   You can check base R packages when you type `loadedNamespaces()`
+
+-   The extra functionality comes from add-ons available from developers. We called those add-on functionality as `packages` (similar to python modules)
+
+    -   Currently hundreds of these packages available from CRAN and many others shared via other repositories such as GitHub
+
+## Installing R Packages: Code
+
+-   For example, to install the **dslabs** package, you would type the following in your console:
+
+    ```{r}
+    install.packages("dslabs") # DON'T FORGET DOUBLE QUOTE
+    ```
+
+-   We can then load the package into our R sessions using the `library` function in your Rscript:
+
+    ```{r}
+    library(dslabs) # DOUBLE QUOTE IS NOT NEEDED HERE
+    ```
+
+-   As you go through this class, you will see that we load packages without installing them. This is because once you install a package, it remains installed and only needs to be loaded with `library`.
+
+-   We can install more than one package at once by feeding a character vector to this function:
+
+    ```{r}
+    install.packages(c("dplyr", "dslabs"))
+    ```
+
+-   You can see all the packages you have installed using the following function:
+
+    ```{r}
+    installed.packages()
+    ```
+
+## Ex01: Edit R script
 
 Let's try the following steps:
 
@@ -155,4 +222,6 @@ Let's try the following steps:
 2.  Give the script a name by saving the current new unnamed script (`ctrl + S` for Win and `Cmd + S` for Mac)
 3.  A good convention is to use a descriptive name, with lower case letters, no spaces, only hyphens to separate words, and then followed by the suffix `.R`. We will call this script `my-first-script.R`.
 4.  Now we are ready to start editing our first script.
-5.  We type [`library(ti)`](https://rdrr.io/r/base/library.html) in Code editor
+5.  We install a R package called `tidyverse` in **Console**.
+6.  We add the code to load the tidyverse package in the script
+7.  Finally, we save the script.
