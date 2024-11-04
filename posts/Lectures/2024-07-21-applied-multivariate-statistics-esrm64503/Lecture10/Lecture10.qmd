@@ -22,7 +22,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 09: Absolute Model fit and Path Analysis"
+    footer: "ESRM 64503 - Lecture 10: Introduction to mixed model"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
