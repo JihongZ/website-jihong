@@ -1,0 +1,900 @@
+---
+title: "Lecture 11: Introduction to Bayesian Statistics and Markov Chain Monte Carlo Estimation"
+subtitle: ""
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 11: Absolute Model fit and Path Analysis"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+---
+
+## 
+
+```{=html}
+<div class="card shadow">
+    <div class="ml-3 mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
+            <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+                <circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle>
+                <circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle>
+                <circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle>
+            </g>
+        </svg>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title"><b>Today's Class</b></h4>
+        <ul>
+          <li>Multivaraite regression via <b>mixed models</b></li>
+          <li>Comparing and contrasting path analysis with mixed models</li>
+          <ul>
+            <li>Differences in model fit measures </li>
+            <li>Differences in software estimation methods </li>
+            <li>Model comparisons via multivariate Wald tests (instead of LRTs) </li>
+            <li>How to compute R-square </li>
+          </ul>
+        </ul>
+    </div>
+</div>
+```
+
+
+**Today’s Class**
+
+- An introduction to Bayesian statistics:
+    - What it is
+    - What it does
+    - Why people use it
+- An introduction to Markov Chain Monte Carlo
+
+```
+(MCMC estimation)
+- How it works
+- Features to look for when using MCMC
+- Why people use it
+```
+
+**AN INTRODUCTION TO**
+
+**BAYESIAN STATISTICS**
+
+
+**Bayesian Statistics: The Basics**
+
+- Bayesian statistical analysis refers to the use of models where
+    some or all of the parameters are treated as
+    **random components**
+       - Each parameter comes from some type of distribution
+- The likelihood function of the data is then augmented with an
+    additional term that represents the likelihood of the **prior**
+    **distribution** for each parameter
+       - Think of this as saying each parameter has a certain likelihood –the height of the
+          prior distribution
+- The final estimates are then considered summaries of the
+    **posterior distribution** of the parameter, conditional
+    on the data
+       - In practice, we use these estimates to make inferences, just as we have when
+          using the non-Bayesian approaches we have used throughout this class (e.g.,
+          maximum likelihood/least squares)
+
+
+**Bayesian Statistics: Why It Is Used**
+
+- Bayesian methods get used because the **_relative_** accessibility of one
+    method of estimation (MCMC –to be discussed shortly)
+- There are four main reasons why people use MCMC:
+1. Missing data
+    - Multiple imputation: MCMC is used to estimate model parameters then “impute” data
+    - More complicated models for certain types of missing data
+2. Lack of software capable of handling large sized analyses
+    - Have a zero-inflated negative binomial with 21 multivariate outcomes per 18 time
+       points?
+3. New models/generalizations of models not available
+    in software
+       - Have a new model?
+       - Need a certain link function not in software?
+4. Membershipin the cult of Bayesians
+    - They believe philosophical differences exist between numbers from Bayesian analysis
+       and other types of estimators
+
+
+**Bayesian Statistics: Perceptions and Issues**
+
+- The use of Bayesian statistics has been controversial
+    - The use of certain prior distributions can produce results that are biased or reflect
+       subjective judgment rather than objective science
+- Most MCMC estimation methods are
+    **computationally intensive**
+       - Until recently, very few methods available for those who aren’t into programming
+          in Fortran, C, or C++
+- Understanding of what Bayesian methods are and how they
+    work is limited outside the field of mathematical statistics
+       - Especially the case in the educational and social sciences
+- Over the past 20 years, Bayesian methods have become
+    widespread – making new models estimable and becoming
+    standard in some social science fields (quantitative psychology
+    and educational measurement)
+
+
+**HOW BAYESIAN METHODS WORK**
+
+
+**How Bayesian Statistics Work**
+
+- The term Bayesian refers to Thomas Bayes (1701-1761)
+    - Formulated Bayes’ Theorem
+- Bayesian methods rely on Bayes’ Theorem:
+
+```
+! " # =
+```
+### ! # "! "
+
+### ! #
+
+```
+- !(")is the prior distribution (pdf) of A à WHY THINGS ARE BAYESIAN
+- !(#)is the marginal distribution (pdf) of B
+- !(#|")is the conditional distribution (pdf) of B, given A
+- !("|#)is the posterior distribution (pdf) of A, given B
+```
+- Bayes’ Theorem Example...
+
+Imagine a patient takes a test for a rare disease (present 1% of
+the population) that has a 95% accuracy rate...what is the
+probability the patient actually has the disease?
+
+
+**Bayes’ Theorem Example**
+
+Imagine a patient takes a test for a rare disease (present 1% of
+the population) that has a 95% accuracy rate...what is the
+probability the patient actually has the disease?
+
+- D = the case where the person actually has the disease
+- ND = the case where the person does not have the disease
+- + = the test for the disease is positive
+
+**The question is asking for: P(D|+)**
+
+**From Bayes’ Theorem:**
+
+```
+! " + =
+```
+### ! + "! "
+
+### !(+)
+
+What we know:
+
+```
+! " =. 01
+! + " =. 95
+```
+
+**Back to Distributions**
+
+- We don’t know! + directly from the problem, but we can
+    figure it out if we recall how distributions work:
+-! + is a marginal distribution
+-! + # is a conditional distribution
+- We can get to the marginal by summing across the conditional:
+
+```
+! + =! + #! # +! + %#! %#
+=. 95 ∗. 01 +. 05 ∗. 99 =. 059
+```
+- So, to figure out the answer, if a person tests positive for the
+    disease, the **posterior probability** they actually have the
+    disease is:
+
+```
+! # + =
+```
+### ! + #! #
+
+### !(+)
+
+### =
+
+### . 01 ∗. 99
+
+### . 059
+
+### =. 17
+
+
+**A (Perhaps) More Relevant Example**
+
+- The old-fashioned Bayes’ Theorem example I’ve found to be
+
+```
+difficult to generalize to your actual data, so...
+```
+- Imagine you administer an IQ test to a sample of 50 people
+    - !"= person p’s IQ test score
+- To put this into a linear-models context, the empty model for Y:
+
+```
+!" = $% + '"
+```
+Where '" ∼ ) 0 ,,-.
+
+- From this empty model, we know that:
+    - $%is the mean of the Y (the mean IQ)
+    - ,-.is the sample variance of Y
+    - The conditional distribution of Y is then: / !" $%,,-. ∼ ) $%,,-.
+
+
+**Non-Bayesian Analysis**
+
+- Up to this point in the class, we have analyzed these data
+    using ML and REML
+- For ML, we maximized the joint likelihood of the sample with
+    respect to the two unknown parameters !" and #$%
+
+### & !",#$% = )
+
+```
+*+,
+```
+-
+   . /* !",#$% = )
+       *+,
+          -
+             1
+
+```
+22 #$%
+```
+```
+exp −
+```
+### /* − !"
+
+```
+%
+```
+```
+2 #$%
+```
+- Here, using gls(), I found:
+
+```
+!" = 102. 769
+#$% = 239. 490
+```
+- Also, I found:
+
+```
+&>?& = − 207. 91
+```
+
+**Setting up a Bayesian Approach**
+
+- The (fully) Bayesian approach would treat each parameter as a random
+    instance from some **prior distribution**
+- Let’s say you know that this version of the IQ test is supposed to have a
+    mean of 100 and a standard deviation of 15
+       - So !"should be 100 and #$%should be 225
+- Going a step further, let’s say you have seen results for administrations of
+    this test that led you to believe that the mean came from a normal
+    distribution with a SD of 2.
+       - This indicates the prior distribution for the **mean** ...or
+          & !" ∼(( 100 , 2. 13 %)
+- Let’s also say that you don’t really have an idea as for the distribution of
+    the variance, but you have seen it range from 200 to 400, so we can come
+    up with a prior distribution for the **variance** of:
+       & #$% ∼ 1 200 , 400
+- Here the prior is a uniform distribution meaning all values from 200 to 400
+    are equally likely
+
+
+**More on the Bayesian Approach**
+
+- The Bayesian approach is now to seek to find the **posterior**
+    **distribution** of the parameters given the data:
+      ! "#,%&' ()
+- We can again use Bayes’ Theorem (but for continuous parameters):
+
+```
+! "#,%&' () =
+```
+```
+! () "#,%&'! "#,%&'
+! ()
+```
+```
+=
+```
+```
+! () "#,%&'! "#)!(%&'
+! ()
+```
+- Because! () essentially is a constant (which involves integrating
+    across "# and %&' to find its value), this term is often referred to as:
+      ! "#,%&' () ∝! () "#,%&'! "#)!(%&'
+- The symbol ∝ is read as “is proportional to” –meaning it is the same
+    as when multiplied by a constant
+       - So it is the same for all values of "#and %&'
+         . / 0 =.^0 ./ 0. /
+
+
+**Unpacking the Posterior Distribution**
+
+-! "# $%,'() is the **conditional distribution** of the data given the
+    parameters – we know this already from our linear model (slide 12)
+
+```
+! "# $%,'() = +
+#,-
+```
+```
+.
+! /# $%,'() = +
+#,-
+```
+```
+.
+1
+22 '()
+```
+```
+exp −
+```
+```
+/# −$%
+```
+```
+)
+```
+```
+2 '()
+```
+-! $% is the **prior distribution** of $%, which we decided would be
+    7 100 , 2. 13 ) , giving the height of any $%:
+
+```
+! $% =
+```
+```
+1
+```
+```
+22 ';)<
+```
+```
+exp −
+```
+```
+$% −=;<
+```
+```
+)
+```
+```
+2 ';)<
+```
+```
+=
+```
+```
+1
+22 ∗ 2. 13 )
+```
+```
+exp −
+```
+```
+$% − 100 )
+2 ∗ 2. 13 )
+```
+
+**Unpacking the Posterior Distribution**
+
+-! "#$ is the **prior distribution** of "#$, which we decided
+
+```
+would be U 200 , 400 , giving the height of any value of "#$
+as:
+```
+! "#$ =
+
+1
+
+,-./ − (^1) - ./
+=
+1
+400 − 200
+=
+1
+200
+=. 005
+
+- Some useful terminology:
+    - The parameters of the model (for the data) get prior distributions
+    - The prior distributions each have parameters –these parameters are called
+       **hyper-parameters**
+    - The hyper-parameters are not estimated in our example, but could be –giving
+       us a case where we would call our priors **empirical priors**
+          w **AKA random intercept variance**
+
+
+**Up Next: Estimation (first using non-MCMC)**
+
+- Although MCMC is commonly thought of as the only method for
+    Bayesian estimation, there are several other forms
+- The form analogous to ML (where the value of the parameters that
+    maximize the likelihood or log-likelihood) is called **Maximum (or**
+    **Modal) a Posteriori estimation(MAP)**
+       - The term modal comes from the maximum point coming at the peak (the mode) of the
+          posterior distribution
+- In practice, this functions similar to ML, only instead of maximizing
+    the joint likelihood of the data, we now have to worry about the
+    prior:
+
+```
+! "#,%&' () =
+```
+```
+! () "#,%&'! "#)!(%&'
+! ()
+```
+```
+∝! () "#,%&'! "#)!(%&'
+```
+- Because it is often more easy to work with, the log of this is often
+    used:
+       log! "#,%&' () ∝ log! () "#,%&' +log! "# +log! %&'
+
+
+**Grid Searching for the MAP Estimate of** !"
+
+- To demonstrate, let’s imagine we know #$% = 239. 490
+    - Later we won’t know this...when we use MCMC
+- We will use Excel to search over a grid of possible values
+
+for -.
+
+- In each, we will use log 2 34 -. + log 2 -.
+- As a comparison, we will also search over the ML log
+
+likelihood function log 2 34 -.
+
+
+**ML v. Prior for** !" **of N(100, 2.13**^2 **)**
+
+- Maximum for ML: 102.
+- Maximum for Bayes: 101.
+    (estimate is closer to mean of prior)
+
+-213EPSY 905: Intro to Bayesian and MCMC 19
+
+-
+-
+-
+-
+-
+-
+-
+-
+
+```
+99.8100.1100.4100.7^101 101.3101.6101.9102.2102.5102.8103.1103.4103.7^104 104.
+```
+```
+ML Version (no prior)
+N(100,2.13) Prior
+```
+
+## ML vs. Prior for !" of N(100, 10002 )
+
+ML Version (no prior)
+
+- • Maximum for ML: 102.
+- • Maximum for Bayes: 102.
+   - -
+   - -
+   - -
+   - -
+   - -
+   - -
+   - -
+   - -
+   - -
+      - 99.8100.1100.4100.7^101 101.3101.6101.9102.2102.5102.8103.1103.4103.7^104 104.
+
+
+**ML vs. Prior for** !" **of N(100, 0.15**^2 **)**
+
+- Maximum for ML: 102.8
+- Maximum for Bayes: 100
+
+```
+-300
+```
+```
+-290
+```
+```
+-280
+```
+```
+-270
+```
+```
+-260
+```
+```
+-250
+```
+```
+-240
+```
+```
+-230
+```
+```
+-220
+```
+```
+-210
+```
+```
+-200
+99.8100.1100.4100.7^101 101.3101.6101.9102.2102.5102.8103.1103.4103.7^104 104.3
+```
+```
+ML Version (no prior)
+N(100,.15) Prior
+```
+
+**ML vs. Prior for** !" **of U(-1000,1000)**
+
+- Maximum for ML: 102.8
+- Maximum for Bayes: 102.8
+
+```
+-218
+```
+```
+-216
+```
+```
+-214
+```
+```
+-212
+```
+```
+-210
+```
+```
+-208
+```
+```
+-206
+```
+```
+-204
+```
+```
+-202
+99.8100.1100.4100.7^101 101.3101.6101.9102.2102.5102.8103.1103.4103.7^104 104.3
+```
+```
+ML Version (no prior)
+U(-1000,1000) Prior
+```
+
+**Summarizing Bayesian So Far**
+
+- Bayesian à parameters have prior distributions
+- Estimation in Bayesian à MAP estimation is much like
+
+```
+estimation in ML, only instead of likelihood of data, now have
+to add in likelihood for prior of all parameters
+- But...MAP estimation may be difficult as figuring out derivatives for gradient
+function (for Newton-Raphson) are not always easy
+- Where they are easy: Conjugate priors àprior distributions that are the same as
+the posterior distribution (think multilevel with normal outcomes)
+```
+- Priors can be **informative** (highly peaked) or **uninformative**
+
+```
+(not peaked)
+- Some uninformative priors will give MAP estimates that are equal to ML
+```
+- Up next: estimation by brute force: Markov Chain Monte Carlo
+
+
+**MARKOV CHAIN MONTE CARLO ESTIMATION:**
+
+**THE BASICS**
+
+
+**How Estimation Works (More or Less)**
+
+- Most estimation routines do one of three things:
+**1. Minimize Something:** Typically found with names that have “least”
+    in the title. Forms of least squares include “Generalized”,
+    “Ordinary”, “Weighted”, “Diagonally Weighted”, “WLSMV”, and
+    “Iteratively Reweighted.” Typically the estimator of last resort...
+**2. Maximize Something:** Typically found with names that have
+    “maximum” in the title. Forms include “Maximum likelihood”,
+    “ML”, “Residual Maximum Likelihood” (REML), “Robust ML”.
+    Typically the gold standard of estimators (and we now know why).
+**3. Use Simulation to Sample from Something:** more recent advances
+    in simulation use resampling techniques. Names include “Bayesian
+    Markov Chain Monte Carlo”, “Gibbs Sampling”, “Metropolis
+    Hastings”, “Metropolis Algorithm”, and “Monte Carlo”. Used for
+    complex models where ML is not available or for methods where
+    prior values are needed.
+
+
+**How MCMC Estimation Works**
+
+- MCMC estimation works by taking samples from the posterior distribution of the
+    data given the parameters:
+      ! "#,%&' () =
+
+```
+! () "#,%&'! "#! %&'
+! ()
+- How is that possible? We don’t know !(())...but...we’ll see...
+```
+- After enough values are drawn, a rough shape of the distribution
+    can be formed
+       - From that shape we can take summaries and make them our parameters (i.e., mean)
+- How the sampling mechanism happens comes from several different algorithms
+    that you will hear about, the most popular being:
+       - **Gibbs Sampling** : used when! "#,%&'() is known
+          w Parameter values are drawn and kept throughout the chain
+       - **Metropolis-Hastings (within Gibbs):** used when! "#,%&'() is unknown
+          w Parameter values are proposed, then either kept or rejected
+          w SAS PROC MCMC uses the latter
+          w TRIVIA NOTE: The Metropolis algorithm comes from Chemistry (in 1950)
+       - **Hybrid MC:** Newer versions (1980s; implemented in Stan)
+- In some fields (Physics in particular), MCMC estimation is referred to as
+    Monte Carlo estimation
+
+
+**MCMC Estimation with MHG**
+
+- The Metropolis-Hastings algorithm works a bit differently than
+
+```
+Gibbs sampling:
+```
+1. Each parameter (here !" and #$%) is given an initial value
+2. In order, a new value is proposed for each model parameter
+
+```
+from some distribution:
+!"∗ ∼ ( !"∗ !" ;#$%
+```
+```
+∗
+∼ ( #$%
+```
+```
+∗
+#$%
+```
+3. The proposed value is then accepted as the current value with
+
+```
+probability max(./01, 1 ):
+```
+### ./01 =
+
+### 6 78 !"∗,#$%
+
+```
+∗
+6 !"∗ 6 #$%
+```
+```
+∗
+( !" !"∗ ( #$% #$%
+```
+```
+∗
+```
+### 6 78 !",#$% 6 !") 6 (#$% ( !"∗ !" ( #$%
+
+```
+∗
+#$%
+```
+4. The process continues for a pre-specified number of iterations
+
+EPSY 905: Intro to Bayesian and MCMC(more is better) 27
+
+
+**Notes About MHG**
+
+- The constant in the denominator of the posterior distribution:
+
+```
+! "#,%&' () =
+```
+### ! () "#,%&'! "#)!(%&'
+
+### ! ()
+
+_...cancels when the ratio is formed_
+
+- The proposal distributions - "#∗ "# and - %&'
+
+```
+∗
+%&' can
+literally be any statistical distribution
+- The trick is picking ones that make the chain “converge” quickly
+- Want to find values that lead to moderate number of accepted parameters
+- SAS PROC MCMC/WINBUGS don’t make you pick these
+```
+- Given a long enough chain, the final values of the chain will
+
+```
+come from the posterior distribution
+- From that you can get your parameter estimates
+```
+
+# Introducing Jags...
+
+
+**Iteration History from JAGS**
+
+
+**Examining the Chain and Posteriors**
+
+
+**Practical Specifics in MCMC Estimation**
+
+- A **burn-in** period is used where a chain is run for a set number
+    of iterations before the sampled parameter values are used in
+    the posterior distribution
+- Because of the rejection/acceptance process, any two
+    iterations are likely to have a high correlation (called
+    **autocorrelation** ) à posterior chains use a **thinning interval** to
+    take every Xth sample to reduce the autocorrelation
+       - A high autocorrelation may indicate the standard error of the posterior
+          distribution will be smaller than it should be
+- The **chain length** (and sometimes number of chains) must also
+    be long enough so the rejection/acceptance process can
+    reasonably approximate the posterior distribution
+- How does one what values to pick for these? Output
+    diagnostics
+
+EPSY 905: Intro to Bayesian and MCMC- Trial. And. Error. 32
+
+
+**Best Output Diagnostics: the Eye Ball Test**
+
+```
+Perfect:
+```
+```
+Not
+Perfect:
+```
+```
+Not
+Perfect:
+```
+```
+Not
+Perfect:
+```
+
+**Output Statistics and Diagnostics**
+
+
+**Changing Up the Prior**
+
+- To demonstrate how changing the prior affects the
+
+```
+analysis, we will now try a few prior distributions for our
+parameters
+```
+- Prior: !" ∼ $ − 10000 , 10000 ;*+, ∼ $( 0 , 5000 )
+
+
+**Chain Plots**
+
+
+**Changing Up the Prior**
+
+- Prior: !" ∼ $ 0 , 100 , 000 ;
+- )*+, ∼ -.//.( 1 =. 01 , 4 =. 01 )
+
+
+**Chain Plots**
+
+
+**What About an Informative Prior?**
+
+- Prior: !" ∼ $ 102 , 103 ;+,- ∼ $ 238 , 242
+
+
+**Chain Plots**
+
+
+# MCMC in R
+
+## • R itself does not have an MCMC engine native to the
+
+## language – but there are many free versions available
+
+## outside of R
+
+## • For instance, if you wanted to estimate a path model with
+
+## MCMC you can:
+
+```
+- Install the blavaanpackage (Bayesian lavaan)
+- Run the path analysis with MCMC
+```
+## • I am not showing you these because I they all end up being
+
+## really frustrating
+
+```
+- Very buggy
+- Took me about an hour to just install all code
+```
+
+**WRAPPING UP**
+
+
+**Wrapping Up**
+
+- Today was an introduction to Bayesian statistics
+    - Bayes = use of prior distributions on parameters
+- We used two methods for estimation:
+    - MAP estimation –far less common
+    - MCMC estimation
+       w Commonly, people will say Bayesian and mean MCMC –but Bayesian is just the
+          addition of priors. MCMC is one way of estimating Bayesian models!
+- MCMC is effective for most Bayesian models:
+    - Model likelihood and prior likelihood are all that are needed
+- MCMC is estimation by brute force:
+    - Can be very slow, computationally intensive, and disk-space intensive
+
+
