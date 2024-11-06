@@ -363,29 +363,17 @@ $$
 - As a comparison, we will also search over the ML log likelihood function $\log (\mathbf{y}_p|\beta_0)$
 
 
-## ML v. Prior for** !" **of N(100, 2.13**^2 **)
+## ML v. Prior for $\beta_0$ of N(100, 2.13^2)
 
 - Maximum for ML: 102.
 - Maximum for Bayes: 101.
     (estimate is closer to mean of prior)
-
--213EPSY 905: Intro to Bayesian and MCMC 19
-
--
--
--
--
--
--
--
--
-
-
-99.8100.1100.4100.7^101 101.3101.6101.9102.2102.5102.8103.1103.4103.7^104 104.
-
-
-ML Version (no prior)
-N(100,2.13) Prior
+    
+```{r}
+beta_0 <- seq(99.7, 104.4, .1)
+LogLik <- dnorm()
+```
+    
 
 
 ## ML vs. Prior for !" of N(100, 10002 )
