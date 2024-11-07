@@ -19,11 +19,11 @@ format:
     background-transition: fade
     slide-number: true
     chalkboard: true
-    multiplex: true
     number-sections: false
     code-block-bg: true
     code-block-border-left: "#31BAE9"
     code-line-numbers: true
+    code-annotations: hover
 ---
 
 ## Today's Lecture Objectives

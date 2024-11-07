@@ -40,719 +40,753 @@ filters:
   - line-highlight
 ---
 
-## 
+## Today's Lecture Objectives
 
-{=html}
-<div class="card shadow">
-    <div class="ml-3 mt-2">
-        <svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14">
-            <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
-                <circle cx="6" cy="6" r="6" fill=$\beta_0$FF5F56" stroke=$\beta_0$E0443E" stroke-width=".5"></circle>
-                <circle cx="26" cy="6" r="6" fill=$\beta_0$FFBD2E" stroke=$\beta_0$DEA123" stroke-width=".5"></circle>
-                <circle cx="46" cy="6" r="6" fill=$\beta_0$27C93F" stroke=$\beta_0$1AAB29" stroke-width=".5"></circle>
-            </g>
-        </svg>
-    </div>
-    <div class="card-body">
-        <h4 class="card-title"><b>Today's Class</b></h4>
-        <ul>
-          <li>An introduction to Bayesian statistics:</li>
-          <ul>
-            <li>What it is</li>
-            <li>What it does</li>
-            <li>Why people use it</li>
-          </ul>
-          <li>An introduction to Markov Chain Monte Carlo:</li>
-          <ul>
-            <li>How it works</li>
-            <li>Features to look for when using MCMC</li>
-            <li>Why people use it</li>
-          </ul>
-        </ul>
-    </div>
-</div>
+1.  Bayes' Theorem
 
+2.  Likelihood function, Posterior distribution
 
+3.  How to report posterior distribution of parameters
 
+4.  Bayesian update
 
-# AN INTRODUCTION TO BAYESIAN STATISTICS
+## What is Bayesian?
 
+1.  What are key components of Bayesian models?
 
-## Bayesian Statistics: The Basics
+    1.  Likelihood function - **data**
+    2.  Prior distribution - belief / previous evidences of **parameters**
+    3.  Posterior distribution - updated information of parameters given our data and model
+    4.  Posterior predictive distribution - future / predicted data
 
-- Bayesian statistical analysis refers to the use of models where some or all of the parameters are treated as **random components**
-      - Each parameter comes from some type of distribution
-       
-- The likelihood function of the data is then augmented with an additional term that represents the likelihood of the **prior** **distribution** for each parameter 
-      - Think of this as saying each parameter has a certain likelihood - the height of the prior distribution
-       
-- The final estimates are then considered summaries of the **posterior distribution** of the parameter, conditional on the data 
-      - In practice, we use these estimates to make inferences, just as we have when using the non-Bayesian approaches we have used throughout this class (e.g., maximum likelihood/least squares)
+2.  What are the differences between Bayesian with Frequentist analysis?
 
+    1.  prior distribution: Bayesian
+    2.  hypothesis of fixed parameters: frequentist
+    3.  estimation process: MCMC vs. MLE
+    4.  posterior distribution vs. point estimates of parameters
+    5.  credible interval (plausibility of the parameters having those values) vs. confidence interval (the proportion of infinite samples having the fixed parameters)
 
-## Bayesian Statistics: Why It Is Used
+## Bayes' Theorem: How Bayesian Statistics Work
 
-- Bayesian methods get used because the **_relative_** accessibility of one method of estimation (MCMC – to be discussed shortly)
-
-- There are four main reasons why people use MCMC:
-1. Missing data
-    - Multiple imputation: MCMC is used to estimate model parameters then “impute” data
-    - More complicated models for certain types of missing data
-    
-2. Lack of software capable of handling large sized analyses
-    - Have a zero-inflated negative binomial with 21 multivariate outcomes per 18 time points?
-
-3. New models/generalizations of models not available in software
-       - Have a new model?
-       - Need a certain link function not in software?
-       
-4. Membership in the cult of Bayesians
-    - They believe philosophical differences exist between numbers from Bayesian analysis and other types of estimators
-
-
-## Bayesian Statistics: Perceptions and Issues
-
-- The use of Bayesian statistics has been controversial
-    - The use of certain prior distributions can produce results that are biased or reflect
-       subjective judgment rather than objective science
-       
-- Most MCMC estimation methods are **computationally intensive**
-    - Until recently, very few methods available for those who aren’t into programming in Fortran, C, or C++
-       
-- Understanding of what Bayesian methods are and how they work is limited outside the field of mathematical statistics
-    - Especially the case in the educational and social sciences
-    
-- Over the past 20 years, Bayesian methods have become
-    widespread – making new models estimable and becoming
-    standard in some social science fields (quantitative psychology
-    and educational measurement)
-
-
-# HOW BAYESIAN METHODS WORK
-
-
-## How Bayesian Statistics Work
-
-- The term Bayesian refers to Thomas Bayes (1701-1761)
-    - Formulated Bayes’ Theorem
-
-- Bayesian methods rely on Bayes’ Theorem:
+Bayesian methods rely on Bayes' Theorem
 
 $$
-P(A|B) = \frac{P(B|A)P(A)}{P(B)}
+P(\theta | Data) = \frac{P(Data|\theta)P(\theta)}{P(Data)} \propto P(Data|\theta) P(\theta)
 $$
 
-- $P(A)$ is the prior distribution (pdf) of A $\rightarrow$ WHY THINGS ARE BAYESIAN
-- $P(B)$ is the marginal distribution (pdf) of B
-- $P(B|A)$ is the conditional distribution (pdf) of B, given A
-- $P(A|B)$ is the posterior distribution (pdf) of A, given B
+Where:
 
+1.  P: probability distribution function (PDF)
+2.  $P(\theta|Data)$ : the [posterior distribution]{.underline} of parameter $\theta$, given the observed data
+3.  $P(Data|\theta)$: the likelihood function (conditional distributin) of the observed data, given the parameters
+4.  $P(\theta)$: the [prior distribution]{.underline} of parameter $\theta$
+5.  $P(Data)$: the marginal distribution of the observed data
 
-- Bayes’ Theorem Example...
+------------------------------------------------------------------------
 
-Imagine a patient takes a test for a rare disease (present 1% of the population) that has a 95% accuracy rate...what is the
-probability the patient actually has the disease?
+**A Live Bayesian Example**
 
+-   Suppose we want to assess the probability of rolling a "1" on a six-sided die:
 
+    $$
+    \theta \equiv p_{1} = P(D = 1)
+    $$
 
+-   Suppose we collect a sample of data (N = 5):\
+    $$Data \equiv X = \{0, 1, 0, 1, 1\}$$
 
-## Bayes’ Theorem Example
+-   The [prior distribution]{.underline} of parameters is denoted as $P(p_1)$ ;
 
-Imagine a patient takes a test for a rare disease (present 1% of the population) that has a 95% accuracy rate...what is the probability the patient actually has the disease?
+-   The [likelihood function]{.underline}is denoted as $P(X | p_1)$;
 
-- D = the case where the person actually has the disease
-- ND = the case where the person does not have the disease
-- + = the test for the disease is positive
+-   The [posterior distribution]{.underline} is denoted as $P(p_1|X)$
 
-Thus,
-$$
-P(D) = .01
-$$
-$$
-P(+|D) = .95
-$$
+-   Then we have:
 
-- The question is asking for: P(D|+)
+    $$
+    P(p_1|X) = \frac{P(X|p_1)P(p_1)}{P(X)} \propto P(X|p_1) P(p_1)
+    $$
 
-- From Bayes’ Theorem, the probability of the person actually having the disease given the test is positive:
+------------------------------------------------------------------------
 
-$$
-P(D|+)=\frac{P(+|D)P(D)}{P(+)}
-$$
+## Step 1: Choose the Likelihood function (Model)
 
-## Back to Distributions
+-   The Likelihood function $P(X|p_1)$ follows Binomial distribution of 3 succuess out of 5 samples:\
+    $$P(X|p_1) = \prod_{i =1}^{N=5} p_1^{X_i}(1-p_1)^{X_i} 
+    \\= (1-p_i) \cdot p_i \cdot (1-p_i) \cdot p_i \cdot p_i$$
 
-- We don’t know $P(+)$ directly from the problem, but we can figure it out if we recall how distributions work:
-    - $P(+)$ is a marginal distribution
-    - $P(+|D)$ is a conditional distribution
+-   Question here: WHY use Bernoulli (Binomial) Distribution (feat. *Jacob Bernoulli, 1654-1705*)?
 
-- We can get to the marginal by summing across the conditional:
+-   My answer: Bernoulli dist. has nice statistical probability. "Nice" means making totally sense in normal life-- a common belief. For example, the $p_1$ value that maximizes the Bernoulli-based likelihood function is $Mean(X)$, and the $p_1$ values that minimizes the Bernoulli-based likelihood function is 0 or 1
 
-$$
-\begin{align}
-P(+) &= P(+|D)P(D) + P(+|ND)P(ND) \\
-     &= .95 \times .01 + .05 \times .99 \\
-     &= .059
-\end{align}
-$$
+------------------------------------------------------------------------
 
-- So, to figure out the answer, if a person tests positive for the disease, the **posterior probability** they actually have the disease is:
+### Log-likelihood Function along "Parameter"
 
 $$
-P(D|+)=\frac{P(+|D)P(D)}{P(+)} =  \frac{.95\times.01}{.059} = 0.161
-$$
-which is very surprising, if the test is positive, there is less than 20% probability of actually having the disease
-
-## A (Perhaps) More Relevant Example
-
-- The old-fashioned Bayes’ Theorem example I’ve found to be difficult to generalize to your actual data, so...
-
-- Imagine you administer an IQ test to a sample of 50 people
-    - $y_p$: person p’s IQ test score
-
-- To put this into a linear-models context, the empty model for Y:
-
-$$
-y_p = \beta_0 + e_p
+LL(p_1|\{0, 1, 0, 1, 1\})
 $$
 
-Where $e_p \sim N(0, \sigma^2_e)$
-
-- From this empty model, we know that:
-    - $\beta_0$ is the mean of the Y (the mean IQ)
-    - $\sigma^2_e$ is the sample variance of Y
-    - The conditional distribution of Y is then: $f(y_p|\beta_0, \sigma^2_e)\sim N(\beta_0, \sigma^2_e)$
-
-
-## Non-Bayesian Analysis
-
-- Up to this point in the class, we have analyzed these data using ML and REML
-
-- For ML, we maximized the joint likelihood of the sample with respect to the two unknown parameters $\beta_0$ and $\sigma^2_e$:
-
-$$
-\begin{align}
-L(\beta_0, \sigma^2_e) &=\prod_{p=1}^{N} f(y_p|\beta_0, \sigma^2_e) \\
-&= \prod_{p=1}^{N}\frac{1}{\sqrt{2\pi\sigma^2_e}}\exp(-\frac{(y_p-\beta_0)^2}{2\sigma^2_e})
-\end{align}
-$$
--   Here, using `gls()`, we found:
-
-
-$$
-\beta_0 = 102.769 \\
-\sigma^2_e = 239.490 \\
-\text{LogL} = −207.91
-$$
-
-## Setting up a Bayesian Approach
-
-- The (fully) Bayesian approach would treat each parameter as a random instance from some **prior distribution**
-- Let’s say you know that this version of the IQ test is supposed to have a mean of 100 and a standard deviation of 15
-       - So $\beta_0$ should be 100 and $\sigma^2_e$ should be 225
-       
-- Going a step further, let’s say you have seen results for administrations of this test that led you to believe that the mean came from a normal distribution with a SD of 2. 
-      - This indicates the prior distribution for the **mean** ...or
-          $f(\beta_0) ∼ (100 , 2.13^2)$
-          
-- Let’s also say that you don’t really have an idea as for the distribution of
-    the variance, but you have seen it range from 200 to 400, so we can come
-    up with a prior distribution for the **variance** of:
-       $\sigma^2_e \sim U(200, 400)$
-       
-- Here the prior is a uniform distribution meaning all values from 200 to 400 are equally likely
-
-
-## More on the Bayesian Approach
-
-- The Bayesian approach is now to seek to find the **posterior** **distribution** of the parameters given the data: 
-
-$$
-f(\beta_0,\sigma^2_e|\mathbf{y}_p)
-$$
-
-- We can again use Bayes’ Theorem (but for continuous parameters):
-
-$$
-\begin{align}
-f(\beta_0,\sigma^2_e|\mathbf{y}_p) &= \frac{f(\mathbf{y}_p|\beta_0, \sigma^2_e)f(\beta_0, \sigma^2_e)}{f(\mathbf{y}_p)} \\
-&= \frac{f(\mathbf{y}_p|\beta_0, \sigma^2_e)f(\beta_0)f(\sigma^2_e)}{f(\mathbf{y}_p)}
-\end{align}
-$$
-
-
-- Because $f(\mathbf{y}_p)$ essentially is a constant (which involves integrating across $\beta_0$ and $\sigma^2_e$ to find its value), this term is often referred to as:
-
-$$
-f(\beta_0,\sigma^2_e|\mathbf{y}_p) \propto f(\mathbf{y}_p|\beta_0, \sigma^2_e)f(\beta_0, \sigma^2_e)
-$$
-
-- The symbol $\propto$ is read as “is proportional to” 
-    - meaning it is the same as when multiplied by a constant
-    - So it is the same for all values of $\beta_0$ and $\sigma^2_e$
-
-
-## Unpacking the Posterior Distribution I
-
--$f(\mathbf{y}_p|\beta_0, \sigma^2_e)$ is the **conditional distribution** of the data given the parameters 
-    
-    – we know this already from our linear model (slide 12)
-
-$$
-f\left(\boldsymbol{y}_{p} \mid \beta_{0}, \sigma_{e}^{2}\right)=\prod_{p=1}^{N} f\left(y_{p} \mid \beta_{0}, \sigma_{e}^{2}\right)=\prod_{p=1}^{N} \frac{1}{\sqrt{2 \pi \sigma_{e}^{2}}} \exp \left(-\frac{\left(y_{p}-\beta_{0}\right)^{2}}{2 \sigma_{e}^{2}}\right)
-$$
-
-- $f(\beta_0)$ is the **prior distribution** of $\beta_0$, which we decided would be
-    $N(100, 2.13^2)$ , giving the height of any $\beta_0$:
-
-$$
-\begin{array}{l}
-f\left(\beta_{0}\right)=\frac{1}{\sqrt{2 \pi \sigma_{\beta_{0}}^{2}}} \exp \left(-\frac{\left(\beta_{0}-\mu_{\beta_{0}}\right)^{2}}{2 \sigma_{\beta_{0}}^{2}}\right) \\
-=\frac{1}{\sqrt{2 \pi * 2.13^{2}}} \exp \left(-\frac{\left(\beta_{0}-100\right)^{2}}{2 * 2.13^{2}}\right)
-\end{array}
-$$
-
-## Unpacking the Posterior Distribution II
-
--$f(\sigma^2_e)$ is the **prior distribution** of $\sigma^2_e$, which we decided would be $U(200, 400)$, giving the height of any value of $\sigma^2_e$
-as:
-
-$$
-f\left(\sigma_{e}^{2}\right)=\frac{1}{b_{\sigma_{e}^{2}}-a_{\sigma_{e}^{2}}}=\frac{1}{400-200}=\frac{1}{200}=.005
-$$
-
-- Some useful terminology:
-    - The parameters of the model (for the data) get prior distributions
-    - The prior distributions each have parameters –these parameters are called
-       **hyper-parameters**
-    - The hyper-parameters are not estimated in our example, but could be –giving us a case where we would call our priors **empirical priors**
-          - **AKA random intercept variance**
-
-
-## Up Next: Estimation (first using non-MCMC)
-
-- Although MCMC is commonly thought of as the only method for
-    Bayesian estimation, there are several other forms
-- The form analogous to ML (where the value of the parameters that
-    maximize the likelihood or log-likelihood) is called **Maximum (or Modal) a Posteriori estimation(MAP)**
-       - The term modal comes from the maximum point coming at the peak (the mode) of the
-          posterior distribution
-- In practice, this functions similar to ML, only instead of maximizing
-    the joint likelihood of the data, we now have to worry about the
-    prior:
-
-$$
-f\left(\beta_{0}, \sigma_{e}^{2} \mid \boldsymbol{y}_{p}\right)=\frac{f\left(\boldsymbol{y}_{p} \mid \beta_{0}, \sigma_{e}^{2}\right) f\left(\beta_{0}\right) f\left(\sigma_{e}^{2}\right)}{f\left(\boldsymbol{y}_{p}\right)} \propto f\left(\boldsymbol{y}_{p} \mid \beta_{0}, \sigma_{e}^{2}\right) f\left(\beta_{0}\right) f\left(\sigma_{e}^{2}\right)
-$$
-
-- Because it is often more easy to work with, the log of this is often used:
-    
-$$
-\log \left(f\left(\beta_{0}, \sigma_{e}^{2} \mid \boldsymbol{y}_{p}\right)\right) \propto \log f\left(\boldsymbol{y}_{p} \mid \beta_{0}, \sigma_{e}^{2}\right)+\log f\left(\beta_{0}\right)+\log f\left(\sigma_{e}^{2}\right)
-$$
-
-## Grid Searching for the MAP Estimate of $\beta_0$
-
-- To demonstrate, let’s imagine we know $\sigma^2_e$ = 239. 490
-    - Later we won’t know this...when we use MCMC
-    
-- We can use Excel or R to search over a grid of possible values for $\beta_0$
-
-- In each, we will use $\log f\left(\boldsymbol{y}_{p} \mid \beta_{0}\right)+\log f\left(\beta_{0}\right)$
-
-- As a comparison, we will also search over the ML log likelihood function $\log (\mathbf{y}_p|\beta_0)$
-
-
-## ML v. Prior for $\beta_0$ of N(100, 2.13^2)
-
-- Maximum for ML: 102.
-- Maximum for Bayes: 101.
-    (estimate is closer to mean of prior)
-    
 ```{r}
-beta_0 <- seq(99.7, 104.4, .1)
-LogLik <- dnorm()
+#| echo: true
+#| code-line-numbers: "2"
+p1 = seq(0, 1, length.out = 21)
+Likelihood = (p1)^3 * (1-p1)^2
+plot(x = p1, y = log(Likelihood))
+p1[which.max(Likelihood)] # p1 = 0.6 = 3 / 5
 ```
-    
 
+------------------------------------------------------------------------
 
-## ML vs. Prior for !" of N(100, 10002 )
+### Log-likelihood Function along "Data"
 
-ML Version (no prior)
+$$
+LL(Data|p_1 \in \{0, 0.2,0.4, 0.6, 0.8,1\})
+$$
 
-- • Maximum for ML: 102.
-- • Maximum for Bayes: 102.
-   - -
-   - -
-   - -
-   - -
-   - -
-   - -
-   - -
-   - -
-   - -
-      - 99.8100.1100.4100.7^101 101.3101.6101.9102.2102.5102.8103.1103.4103.7^104 104.
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-line-numbers: "5"
+library(tidyverse)
+p1 = c(0, 2, 4, 6, 8, 10) / 10
+nTrails = 5
+nSuccess = 0:nTrails
+Likelihood = sapply(p1, \(x) choose(nTrails,nSuccess)*(x)^nSuccess*(1-x)^(nTrails - nSuccess))
+Likelihood_forPlot <- as.data.frame(Likelihood)
+colnames(Likelihood_forPlot) <- p1
+Likelihood_forPlot$Sample = factor(paste0(nSuccess, " out of ", nTrails), levels = paste0(nSuccess, " out of ", nTrails))
+# plot
+Likelihood_forPlot %>% 
+  pivot_longer(-Sample, names_to = "p1") %>% 
+  mutate(`log(Likelihood)` = log(value)) %>% 
+  ggplot(aes(x = Sample, y = `log(Likelihood)`, color = p1)) +
+  geom_point(size = 2) +
+  geom_path(aes(group=p1), size = 1.3)
+```
 
+------------------------------------------------------------------------
 
-## ML vs. Prior for** !" **of N(100, 0.15**^2 **)
+## Step 2: Choose the Prior Distribution for $p_1$
 
-- Maximum for ML: 102.8
-- Maximum for Bayes: 100
+We must now pick the prior distribution of $p_1$:
 
+$$
+P(p_1)
+$$
 
--300
+-   Compared to likelihood function, we have much more choices. Many distributions to choose from
 
+-   To choose [prior distribution]{.underline}, think about what we know about a "fair" die.
 
--290
+    -   the probability of rolling a "1" is about $\frac{1}{6}$
 
+    -   the probabilities much higher/lower than $\frac{1}{6}$ are very unlikely
 
--280
+-   Let's consider a Beta distribution:
 
+    $$
+    p_1 \sim Beta(\alpha, \beta)
+    $$
 
--270
+------------------------------------------------------------------------
 
+### The Beta Distribution
 
--260
+For parameters that range between 0 and 1, the beta distribution makes a good choice for prior distribution:
 
+$$
+P(p_1) = \frac{(p_1)^{a-1} (1-p_1)^{\beta-1}}{B(\alpha,\beta)}
+$$
 
--250
+Where denominator $B$ is:
 
+$$
+B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}
+$$
 
--240
+and (fun fact: derived by *Daniel Bernoulli (1700-1782)*),
 
+$$
+\Gamma(\alpha) = \int_0^{\infty}t^{\alpha-1}e^{-t}dt
+$$
 
--230
+------------------------------------------------------------------------
 
+### More Beta Distribution
 
--220
+-   The Beta distribution has a mean of $\frac{\alpha}{\alpha+\beta}$ and a mode of $\frac{\alpha -1}{\alpha + \beta -2}$ for $\alpha > 1$ & $\beta > 1$; (fun fact: when $\alpha\ \&\ \beta< 1$, pdf is U-shape, what that mean?)
 
+-   $\alpha$ and $\beta$ are called [hyperparameters]{.underline} of the parameter $p_1$;
 
--210
+-   [Hyperparameters]{.underline} are parameters of prior parameters ;
 
+-   When $\alpha = \beta = 1$, the distribution is uniform distribution;
 
--200
-99.8100.1100.4100.7^101 101.3101.6101.9102.2102.5102.8103.1103.4103.7^104 104.3
+-   To make sure $P(p_1 = \frac{1}{6})$ is the largest, we can:
 
+    -   Many choices: $\alpha =2$ and $\beta = 6$ has the same mode as $\alpha = 100$ and $\beta = 496$; (hint: $\beta = 5\alpha - 4$)
 
-ML Version (no prior)
-N(100,.15) Prior
+    -   The differences between choices is how strongly we feel in our beliefs
 
+------------------------------------------------------------------------
 
-## ML vs. Prior for** !" **of U(-1000,1000)
+### Conjugacy of Beta Distribution
 
-- Maximum for ML: 102.8
-- Maximum for Bayes: 102.8
+When the binomial likelihood is multiplied by the beta prior, the result is proportional to another beta distribution:
 
+-   $\text{Posterior} \propto \theta^x (1 - \theta)^{n-x} \times \theta^{\alpha - 1} (1 - \theta)^{\beta - 1}$
+-   Simplifies to: $\theta^{x + \alpha - 1} (1 - \theta)^{n - x + \beta - 1}$
+
+This is the kernel of a beta distribution with updated parameters $\alpha' = x + \alpha$ and $\beta' = n - x + \beta$. The fact that the posterior is still a beta distribution is what makes the beta distribution a conjugate prior for the binomial likelihood.
+
+> Human langauge: Both beta (prior) and binomial (likelihood) are so-called "exponetial family". The muliplication of them is still a "exponential family" distribution.
+
+------------------------------------------------------------------------
+
+### How strongly we believe in the prior
+
+::: columns
+::: {.column width="40%"}
+-   The Beta distribution has a variance of $\frac{\alpha\beta}{(\alpha+\beta)^2 (\alpha + \beta + 1)}$
+-   The smaller prior variance means the prior is more [informative]{.underline}
+    -   [Informative]{.underline} priors are those that have relatively small variances
+    -   [Uninformative]{.underline} priors are those that have relatively large variances
+-   Suppose we have four sets of hyperparameters choices: (2,6);(20,96);(100,496);(200,996)
+:::
+
+::: {.column width="50%"}
+```{r, fig.width=10,fig.height=11}
+#| code-fold: true
+# Function for variance of Beta distribution
+varianceFun = function(alpha_beta){
+  alpha = alpha_beta[1]
+  beta = alpha_beta[2]
+  return((alpha * beta)/((alpha + beta)^2*(alpha + beta + 1)))
+}
+
+# Multiple prior choices from uninformative to informative
+alpha_beta_choices = list(
+  I_dont_trust = c(2, 6), 
+  not_strong =   c(20, 96), 
+  litte_strong = c(100, 496), 
+  very_strong =  c(200, 996))
+
+## Transform to data.frame for plot
+alpha_beta_variance_plot <- t(sapply(alpha_beta_choices, varianceFun)) %>% 
+  as.data.frame() %>% 
+  pivot_longer(everything(), names_to = "Degree", values_to = "Variance") %>% 
+  mutate(Degree = factor(Degree, levels = unique(Degree))) %>% 
+  mutate(Alpha_Beta = c(
+    "(2, 6)",
+    "(20, 96)",
+    "(100, 496)",
+    "(200, 996)"
+  ))
+
+alpha_beta_variance_plot %>% 
+  ggplot(aes(x = Degree, y = Variance)) +
+  geom_col(aes(fill = Degree)) +
+  geom_text(aes(label = Alpha_Beta), size = 6) +
+  labs(title = "Variances along difference choices of alpha and beta") +
+  theme(text = element_text(size = 21)) 
+```
+:::
+:::
+
+------------------------------------------------------------------------
+
+### Visualize prior distribution $P(p_1)$
+
+```{r}
+#| code-fold: true
+dbeta <- function(p1, alpha, beta) {
+  # probability density function
+  PDF = ((p1)^(alpha-1)*(1-p1)^(beta-1)) / beta(alpha, beta)
+  return(PDF)
+}
+
+condition <- data.frame(
+  alpha = c(2, 20, 100, 200),
+  beta = c(6, 96, 496, 996)
+)
+pdf_bycond <- condition %>% 
+  nest_by(alpha, beta) %>% 
+  mutate(data = list(
+    dbeta(p1 = (1:99)/100, alpha = alpha, beta = beta)
+  ))
+
+## prepare data for plotting pdf by conditions
+pdf_forplot <- Reduce(cbind, pdf_bycond$data) %>% 
+  t() %>% 
+  as.data.frame() ## merge conditions together
+colnames(pdf_forplot) <- (1:99)/100 # add p1 values as x-axis
+pdf_forplot <- pdf_forplot %>% 
+  mutate(Alpha_Beta = c( # add alpha_beta conditions as colors
+    "(2, 6)",
+    "(20, 96)",
+    "(100, 496)",
+    "(200, 996)"
+  )) %>% 
+  pivot_longer(-Alpha_Beta, names_to = 'p1', values_to = 'pdf') %>% 
+  mutate(p1 = as.numeric(p1),
+         Alpha_Beta = factor(Alpha_Beta,levels = unique(Alpha_Beta)))
+
+pdf_forplot %>% 
+  ggplot() +
+  geom_vline(xintercept = 0.17, col = "black") +
+  geom_point(aes(x = p1, y = pdf, col = Alpha_Beta)) +
+  geom_path(aes(x = p1, y = pdf, col = Alpha_Beta, group = Alpha_Beta)) + 
+  scale_color_discrete(name = "Prior choices")
+
+```
+
+**Question: WHY NOT USE NORMAL DISTRIBUTION?**
+
+------------------------------------------------------------------------
+
+## Step 3: The Posterior Distribution
+
+Choose a Beta distribution as the prior distribution of $p_1$ is very convenient:
+
+-   When combined with Bernoulli (Binomial) data likelihood, the [posterior distribution]{.underline} ($P(p_1|Data)$) can be derived analytically
+
+-   The posterior distribution is also a Beta distribution
+
+    -   $\alpha' = \alpha + \sum_{i=1}^{N}X_i$ ($\alpha'$ is parameter of the posterior distribution)
+
+    -   $\beta' = \beta + (N - \sum_{i=1}^{N}X_i)$ ($\beta'$ is parameter of the posterior distribution)
+
+-   The Beta distribution is said to be a [conjugate prior]{.underline} in Bayesian analysis: A prior distribution that leads to posterior distribution of the same family
+
+    -   Prior and Posterior distribution are all Beta distribution
+
+------------------------------------------------------------------------
+
+### Visualize the posterior distribution $P(p_1|Data)$
+
+```{r}
+#| code-fold: true
+dbeta_posterior <- function(p1, alpha, beta, data) {
+  alpha_new = alpha + sum(data) 
+  beta_new = beta + (length(data) - sum(data) )
+  # probability density function
+  PDF = ((p1)^(alpha_new-1)*(1-p1)^(beta_new-1)) / beta(alpha_new, beta_new)
+  return(PDF)
+}
+# Observed data
+dat = c(0, 1, 0, 1, 1)
 
--218
+condition <- data.frame(
+  alpha = c(2, 20, 100, 200),
+  beta = c(6, 96, 496, 996)
+)
 
+pdf_posterior_bycond <- condition %>% 
+  nest_by(alpha, beta) %>% 
+  mutate(data = list(
+    dbeta_posterior(p1 = (1:99)/100, alpha = alpha, beta = beta,
+                    data = dat)
+  ))
 
--216
+## prepare data for plotting pdf by conditions
+pdf_posterior_forplot <- Reduce(cbind, pdf_posterior_bycond$data) %>% 
+  t() %>% 
+  as.data.frame() ## merge conditions together
+colnames(pdf_posterior_forplot) <- (1:99)/100 # add p1 values as x-axis
+pdf_posterior_forplot <- pdf_posterior_forplot %>% 
+  mutate(Alpha_Beta = c( # add alpha_beta conditions as colors
+    "(2, 6)",
+    "(20, 96)",
+    "(100, 496)",
+    "(200, 996)"
+  )) %>% 
+  pivot_longer(-Alpha_Beta, names_to = 'p1', values_to = 'pdf') %>% 
+  mutate(p1 = as.numeric(p1),
+         Alpha_Beta = factor(Alpha_Beta,levels = unique(Alpha_Beta)))
 
+pdf_posterior_forplot %>% 
+  ggplot() +
+  geom_vline(xintercept = 0.17, col = "black") +
+  geom_point(aes(x = p1, y = pdf, col = Alpha_Beta)) +
+  geom_path(aes(x = p1, y = pdf, col = Alpha_Beta, group = Alpha_Beta)) + 
+  scale_color_discrete(name = "Prior choices") +
+  labs( y = '')
+```
 
--214
+------------------------------------------------------------------------
 
+### Manually calculate summaries of the posterior distribution
 
--212
+To determine the estimate of $p_1$, we need to summarize the posterior distribution:
 
+-   With prior hyperparameters $\alpha = 2$ and $\beta = 6$:
 
--210
+    -   $\hat p_1 = \frac{2+3}{2+3+6+2}=\frac{5}{13} = .3846$
 
+    -   SD = `r sqrt(varianceFun(c(2+3, 6+2)))`
 
--208
+-   With prior hyperparameters $\alpha = 100$ and $\beta = 496$:
 
+    -   $\hat p_1 = \frac{100+3}{100+3+496+2}=\frac{103}{601} = .1714$
 
--206
+    -   SD = `r sqrt(varianceFun(c(100+3, 496+2)))`
 
-
--204
-
-
--202
-99.8100.1100.4100.7^101 101.3101.6101.9102.2102.5102.8103.1103.4103.7^104 104.3
-
-
-ML Version (no prior)
-U(-1000,1000) Prior
-
-
-## Summarizing Bayesian So Far
-
-- Bayesian à parameters have prior distributions
-- Estimation in Bayesian à MAP estimation is much like
-
-
-estimation in ML, only instead of likelihood of data, now have
-to add in likelihood for prior of all parameters
-- But...MAP estimation may be difficult as figuring out derivatives for gradient
-function (for Newton-Raphson) are not always easy
-- Where they are easy: Conjugate priors àprior distributions that are the same as
-the posterior distribution (think multilevel with normal outcomes)
-
-- Priors can be **informative** (highly peaked) or **uninformative**
-
-
-(not peaked)
-- Some uninformative priors will give MAP estimates that are equal to ML
-
-- Up next: estimation by brute force: Markov Chain Monte Carlo
-
-
-## MARKOV CHAIN MONTE CARLO ESTIMATION:
-
-## THE BASICS
-
-
-## How Estimation Works (More or Less)
-
-- Most estimation routines do one of three things:
-**1. Minimize Something:** Typically found with names that have “least”
-    in the title. Forms of least squares include “Generalized”,
-    “Ordinary”, “Weighted”, “Diagonally Weighted”, “WLSMV”, and
-    “Iteratively Reweighted.” Typically the estimator of last resort...
-**2. Maximize Something:** Typically found with names that have
-    “maximum” in the title. Forms include “Maximum likelihood”,
-    “ML”, “Residual Maximum Likelihood” (REML), “Robust ML”.
-    Typically the gold standard of estimators (and we now know why).
-**3. Use Simulation to Sample from Something:** more recent advances
-    in simulation use resampling techniques. Names include “Bayesian
-    Markov Chain Monte Carlo”, “Gibbs Sampling”, “Metropolis
-    Hastings”, “Metropolis Algorithm”, and “Monte Carlo”. Used for
-    complex models where ML is not available or for methods where
-    prior values are needed.
-
-
-## How MCMC Estimation Works
-
-- MCMC estimation works by taking samples from the posterior distribution of the
-    data given the parameters:
-      f$\beta_0$,$\sigma^2_e$ () =
-
-
-f() $\beta_0$,$\sigma^2_e$f$\beta_0$f$\sigma^2_e$
-f()
-- How is that possible? We don’t know !(())...but...we’ll see...
-
-- After enough values are drawn, a rough shape of the distribution
-    can be formed
-       - From that shape we can take summaries and make them our parameters (i.e., mean)
-- How the sampling mechanism happens comes from several different algorithms
-    that you will hear about, the most popular being:
-       - **Gibbs Sampling** : used whenf$\beta_0$,$\sigma^2_e$() is known
-          w Parameter values are drawn and kept throughout the chain
-       - **Metropolis-Hastings (within Gibbs):** used whenf$\beta_0$,$\sigma^2_e$() is unknown
-          w Parameter values are proposed, then either kept or rejected
-          w SAS PROC MCMC uses the latter
-          w TRIVIA NOTE: The Metropolis algorithm comes from Chemistry (in 1950)
-       - **Hybrid MC:** Newer versions (1980s; implemented in Stan)
-- In some fields (Physics in particular), MCMC estimation is referred to as
-    Monte Carlo estimation
-
-
-## MCMC Estimation with MHG
-
-- The Metropolis-Hastings algorithm works a bit differently than
-
-
-Gibbs sampling:
-
-1. Each parameter (here !" and $\sigma^2_e$) is given an initial value
-2. In order, a new value is proposed for each model parameter
-
-
-from some distribution:
-!"∗ ∼ ( !"∗ !" ;$\sigma^2_e$
-
-
-∗
-∼ ( $\sigma^2_e$
-
-
-∗
-$\sigma^2_e$
-
-3. The proposed value is then accepted as the current value with
-
-
-probability max(./01, 1 ):
-
-### ./01 =
-
-### 6 78 !"∗,$\sigma^2_e$
-
-
-∗
-6 !"∗ 6 $\sigma^2_e$
-
-
-∗
-( !" !"∗ ( $\sigma^2_e$ $\sigma^2_e$
-
-
-∗
-
-### 6 78 !",$\sigma^2_e$ 6 !") 6 ($\sigma^2_e$ ( !"∗ !" ( $\sigma^2_e$
-
-
-∗
-$\sigma^2_e$
-
-4. The process continues for a pre-specified number of iterations
-
-EPSY 905: Intro to Bayesian and MCMC(more is better) 27
-
-
-## Notes About MHG
-
-- The constant in the denominator of the posterior distribution:
-
-
-f$\beta_0$,$\sigma^2_e$ () =
-
-### f() $\beta_0$,$\sigma^2_e$f$\beta_0$)!($\sigma^2_e$
-
-### f()
-
-_...cancels when the ratio is formed_
-
-- The proposal distributions - $\beta_0$∗ $\beta_0$ and - $\sigma^2_e$
-
-
-∗
-$\sigma^2_e$ can
-literally be any statistical distribution
-- The trick is picking ones that make the chain “converge” quickly
-- Want to find values that lead to moderate number of accepted parameters
-- SAS PROC MCMC/WINBUGS don’t make you pick these
-
-- Given a long enough chain, the final values of the chain will
-
-
-come from the posterior distribution
-- From that you can get your parameter estimates
-
-
-# Introducing Jags...
-
-
-## Iteration History from JAGS
-
-
-## Examining the Chain and Posteriors
-
-
-## Practical Specifics in MCMC Estimation
-
-- A **burn-in** period is used where a chain is run for a set number
-    of iterations before the sampled parameter values are used in
-    the posterior distribution
-- Because of the rejection/acceptance process, any two
-    iterations are likely to have a high correlation (called
-    **autocorrelation** ) à posterior chains use a **thinning interval** to
-    take every Xth sample to reduce the autocorrelation
-       - A high autocorrelation may indicate the standard error of the posterior
-          distribution will be smaller than it should be
-- The **chain length** (and sometimes number of chains) must also
-    be long enough so the rejection/acceptance process can
-    reasonably approximate the posterior distribution
-- How does one what values to pick for these? Output
-    diagnostics
-
-EPSY 905: Intro to Bayesian and MCMC- Trial. And. Error. 32
-
-
-## Best Output Diagnostics: the Eye Ball Test
-
-
-Perfect:
-
-
-Not
-Perfect:
-
-
-Not
-Perfect:
-
-
-Not
-Perfect:
-
-
-## Output Statistics and Diagnostics
-
-
-## Changing Up the Prior
-
-- To demonstrate how changing the prior affects the
-
-
-analysis, we will now try a few prior distributions for our
-parameters
-
-- Prior: !" ∼ $ − 10000 , 10000 ;*+, ∼ $( 0 , 5000 )
-
-
-## Chain Plots
-
-
-## Changing Up the Prior
-
-- Prior: !" ∼ $ 0 , 100 , 000 ;
-- )*+, ∼ -.//.( 1 =. 01 , 4 =. 01 )
-
-
-## Chain Plots
-
-
-## What About an Informative Prior?
-
-- Prior: !" ∼ $ 102 , 103 ;+,- ∼ $ 238 , 242
-
-
-## Chain Plots
-
-
-# MCMC in R
-
-## • R itself does not have an MCMC engine native to the
-
-## language – but there are many free versions available
-
-## outside of R
-
-## • For instance, if you wanted to estimate a path model with
-
-## MCMC you can:
-
-
-- Install the blavaanpackage (Bayesian lavaan)
-- Run the path analysis with MCMC
-
-## • I am not showing you these because I they all end up being
-
-## really frustrating
-
-
-- Very buggy
-- Took me about an hour to just install all code
-
-
-## WRAPPING UP
-
-
-## Wrapping Up
-
-- Today was an introduction to Bayesian statistics
-    - Bayes = use of prior distributions on parameters
-- We used two methods for estimation:
-    - MAP estimation –far less common
-    - MCMC estimation
-       w Commonly, people will say Bayesian and mean MCMC –but Bayesian is just the
-          addition of priors. MCMC is one way of estimating Bayesian models!
-- MCMC is effective for most Bayesian models:
-    - Model likelihood and prior likelihood are all that are needed
-- MCMC is estimation by brute force:
-    - Can be very slow, computationally intensive, and disk-space intensive
-
-
+```{r}
+uninfo <- pdf_posterior_forplot %>% filter(Alpha_Beta == "(2, 6)")
+paste0("Sample Posterior Mean: ", mean(uninfo$p1 * uninfo$pdf)) # .3885
+```
+
+```{r}
+uninfo2 <- pdf_posterior_forplot %>% filter(Alpha_Beta == "(100, 496)")
+paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
+```
+
+------------------------------------------------------------------------
+
+## Introduction to Stan
+
+-   Stan is an MCMC estimation program
+
+    -   Most recent; has many convenient features
+
+    -   Actually does several methods of estimation (ML, Variational Bayes)
+
+-   You create a model using Stan's syntax
+
+    -   Stan translates your model to a custom-built C++ syntax
+
+    -   Stan then compiles your model into its own executable program
+
+-   You then run the program to estimate your model
+
+    -   If you use R, the interface can be seamless
+
+------------------------------------------------------------------------
+
+### Stan and Rstudio
+
+::: columns
+::: {.column width="50%"}
+-   Option 1: Stan has its own syntax which can be built in stand-alone text files (.stan)
+
+    -   Rstudio will let you create a stan file in the new `File` menu
+
+    -   Rstudio also has syntax highlighting in Stan files
+
+    -   Save `.stan` to the same path of your `.r`
+
+-   Option 2: You can also use Stan in a interactive way in **qmd** file
+
+    -   Which is helpful when you want to test multiple stan models and report your results at the same time
+:::
+
+------------------------------------------------------------------------
+
+::: {.column width="50%"}
+![Create a new Stan file in Rstudio](Fig2_CreateStanFile.png){width="200"}
+
+![Stan and R code blocks in qmd file](Fig2_StanCodeinQmd.png){width="450"}
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Install CmdStan
+
+[cmdstanr Installation](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan) [cmdstanr Users' Guide](https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html#troubleshooting-the-installation)
+
+------------------------------------------------------------------------
+
+### Stan Code for the example model
+
+```{r}
+library(cmdstanr)
+register_knitr_engine(override = FALSE)
+```
+
+```{cmdstan, output.var='dice_model', cache=FALSE}
+data {
+  int<lower=0> N; // sample size
+  array[N] int<lower=0, upper=1> y; // observed data
+  real<lower=1> alpha; // hyperparameter alpha
+  real<lower=1> beta; // hyperparameter beta
+}
+parameters {
+  real<lower=0,upper=1> p1; // parameters
+}
+model {
+  p1 ~ beta(alpha, beta); // prior distribution
+  for(n in 1:N){
+    y[n] ~ bernoulli(p1); // model
+  }
+}
+```
+
+------------------------------------------------------------------------
+
+```{r}
+#| code-fold: true
+# mod <- cmdstan_model('dice_model.stan')
+data_list1 <- list(
+  y = c(0, 1, 0, 1, 1),
+  N = 5,
+  alpha = 2,
+  beta = 6
+)
+data_list2 <- list(
+  y = c(0, 1, 0, 1, 1),
+  N = 5,
+  alpha = 100,
+  beta = 496
+)
+fit1 <- dice_model$sample(
+  data = data_list1,
+  seed = 123,
+  chains = 4,
+  parallel_chains = 4,
+  refresh = 1000
+)
+fit2 <- dice_model$sample(
+  data = data_list2,
+  seed = 123,
+  chains = 4,
+  parallel_chains = 4,
+  refresh = 1000
+)
+```
+
+------------------------------------------------------------------------
+
+#### Uninformative prior distribution (2, 6) and posterior distribution
+
+```{r}
+#| code-fold: true
+bayesplot::mcmc_dens(fit1$draws('p1')) +
+  geom_path(aes(x = p1, y = pdf), data = pdf_posterior_forplot %>% filter(Alpha_Beta == '(2, 6)'), col = "red") +
+  geom_vline(xintercept = 1/6, col = "green") +
+  geom_vline(xintercept = 3/5, col = "purple") +
+  labs(title = "Posterior distribution using uninformative prior vs. the conjugate prior (The Gibbs sampler) method", caption = 'Green: mode of prior distribution; Purple: expected value from observed data; Red: Gibbs sampling method')
+fit1$summary()
+```
+
+------------------------------------------------------------------------
+
+#### Informative prior distribution (100, 496) and posterior distribution
+
+```{r}
+#| code-fold: true
+bayesplot::mcmc_dens(fit2$draws('p1')) +
+  geom_path(aes(x = p1, y = pdf), data = pdf_posterior_forplot %>% filter(Alpha_Beta == '(100, 496)'), col = "red") +
+  geom_vline(xintercept = 1/6, col = "green") +
+  geom_vline(xintercept = 3/5, col = "purple") +
+  labs(title = "Posterior distribution using informative prior vs. the conjugate prior (The Gibbs sampler) method", caption = 'Green: mode of prior distribution; Purple: expected value from observed data; Red: Gibbs sampling method')
+fit2$summary()
+```
+
+------------------------------------------------------------------------
+
+## Bayesian updating
+
+We can use the posterior distribution as a prior!
+
+1.  data {0, 1, 0, 1, 1} with the prior hyperparameter {2, 6} -\> posterior parameter {5, 9}
+
+2.  new data {1, 1, 1, 1, 1} with the prior hyperparameter {5, 9} -\> posterior parameter {10, 9}
+
+3.  one more new data {0, 0, 0, 0, 0} with the prior hyperparameter {10, 9} -\> posterior parameter {10, 14}
+
+# Bayesian Linear Regression
+
+## Our Data Today
+
+```{r}
+library(ESRM64503)
+dat <- dataSexHeightWeight
+
+# Linear Model with Least Squares
+## Center independent variable - HeightIN for better interpretation
+dat$heightIN <- dat$heightIN - 60
+
+## an empty model suggested by data
+EmptyModel <- lm(weightLB ~ 1, data = dat)
+
+## Examine assumptions and leverage of fit
+### Residual plot, Q-Q residuals, Scale-Location
+# plot(EmptyModel)
+
+## Look at ANOVA table
+### F-values, Sum/Mean of square of residuals
+# anova(EmptyModel)
+
+## look at parameter summary
+summary(EmptyModel)
+```
+
+## Stan Syntax for Empty Model
+
+```{r}
+#| echo: false
+library(cmdstanr)
+register_knitr_engine(override = FALSE) 
+```
+
+A Stan file saved as `EmptyModel.stan`
+
+-   Each line ends with a semi colon `;`
+-   Comments are put in with `//`
+-   Each block starts with `block type` and is surrounded by curly brackets `{}`
+
+```{r}
+stanModel <- "
+data {
+  int<lower=0> N;
+  vector[N] weightLB;
+}
+parameters {
+  real beta0;
+  real<lower=0> sigma;
+}
+model {
+  beta0 ~ normal(0, 1000);
+  sigma ~ uniform(0, 100000);
+  weightLB ~ normal(beta0, sigma);
+}
+"
+model00.fromString = cmdstan_model(stan_file = write_stan_file(stanModel)) #<1>
+```
+
+1.  the `data` block include the observed information
+2.  sample size (declared as a integer value)
+3.  dependent variable (declared as vector with the length as sample size)
+4.  the `parameter` block includes all parameters we want to estimate
+5.  intercept parameter
+6.  standard deviation of residuals
+7.  the `model` block includes the prior information and likelihood
+8.  prior distribution for `beta_0`
+9.  prior distribution for SD of residuals
+10. likelihood function for observed data
+
+## Prepare data for Empty Model
+
+```{r}
+#| eval: true
+# build R list containing data for Stan: Must be named what "data" are listed in analysis
+stanData = list(
+  N = nrow(dat), #<1>
+  weightLB = dat$weightLB #<2>
+)
+```
+
+1.  Sample size, `nrow()` calculates the number of rows of data
+2.  Vector of dependent variable
+
+-   Stan needs the data you declared in you syntax to be able to run
+
+-   Within R, we can pass this data list to Stan via a list object
+
+-   The entries in the list should correspond to the data block of the Stan syntax
+
+## Run Markov Chains in CmdStanr
+
+```{r}
+#| eval: true
+#| result: 'hide'
+# run MCMC chain (sample from posterior)
+model00.samples = model00.fromString$sample(
+  data = stanData, #<1>
+  seed = 1, #<2>
+  chains = 4, #<3>
+  parallel_chains = 4, #<4>
+  iter_warmup = 1000, #<5>
+  iter_sampling = 1000 #<6>
+)
+```
+
+1.  Data list
+2.  Random number seed
+3.  Number of chains (and parallel chains)
+4.  Number of warmup iterations (more details shortly)
+5.  Number of sampling iterations
+
+::: nonincremental
+-   Within the compiled program and the data, the next step is to run the Markov Chain Monte Carlo (MCMC) sampling (this is basically equivalent to drawing from a posterior distribution)
+
+-   In `cmdstanr`, running the MCMC sampling comes from the `$sample()` function that is part of the compiled program object
+:::
+
+## Results of Bayesian Empty Model
+
+```{r}
+model00.samples$summary()[c('variable','mean', 'rhat')]
+bayesplot::mcmc_trace(model00.samples$draws("beta0"))
+```
+
+## Bayesian full model using `blavaan`
+
+![](images/clipboard-1983629374.png)
+
+## Bayesian Full Model
+
+```{r}
+library(blavaan)
+library(lavaan)
+
+model01.syntax = 
+" 
+#endogenous variable equations
+weightLB ~ sex
+heightIN ~ sex
+
+heightIN ~~ weightLB
+"
+
+#estimate model with Bayesian
+model01.fit_mcmc = bsem(model01.syntax, data=dat)
+#estimate model with MCMC
+model01.fit_ML = sem(model01.syntax, data=dat)
+```
+
+## Trace Plots of Parameters
+
+```{r}
+plot(model01.fit_mcmc)
+```
+
+## Posterior Distribution of coefficient
+
+```{r}
+parameterestimates(model01.fit_ML)
+```
+
+```{r}
+post_coefs <- blavaan::blavInspect(model01.fit_mcmc, "mcmc")
+coda::densplot(post_coefs)
+```
+
+## Summary of coefficients
+
+```{r}
+summary(model01.fit_mcmc)
+```
+
+```{r}
+standardizedsolution(model01.fit_mcmc)
+```
+
+## Wrapping up
+
+Today is a quick introduction to Bayesian Concept
+
+-   Bayes' Theorem: Fundamental theorem of Bayesian Inference
+-   Prior distribution: What we know about the parameter before seeing the data
+    -   hyperparameter: parameter of the prior distribution
+    -   Uninformative prior: Prior distribution that does not convey any information about the parameter
+    -   Informative prior: Prior distribution that conveys information about the parameter
+    -   Conjugate prior: Prior distribution that makes the posterior distribution the same family as the prior distribution
+-   Likelihood: What the data tell us about the parameter
+    -   Likelihood function: Probability of the data given the parameter
+    -   Likelihood principle: All the information about the data is contained in the likelihood function
+    -   Likelihood is a sort of "scientific judgment" on the generation process of the data
+-   Posterior distribution: What we know about the parameter after seeing the data
