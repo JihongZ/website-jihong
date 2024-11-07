@@ -512,10 +512,36 @@ exe2_mixedmodel$modelStruct$corStruct #  msc~~mas: 0.807; msc~~mse: 0.643; mas~~
 
 ## Wrapping up
 
--   Things we get directly from path models that we do not get directly in mixed models: - Tests for approximate model fit - Scaled Chi-square for some types of non-normal data - Standardized parameter coefficients - Tests for indirect effects - R-squared statistics
+-   Things we get directly from path models that we do not get directly in mixed models:
 
--   Things we get directly in mixed models that we do not get in path models: - REML (unbiased estimates of variances/covariances)
+    -   Tests for approximate model fit
 
--   In this lecture we discussed the basics of mixed model analyses for multivariate models - Model specification/identification - Model estimation - Model modification and re-estimation - Final model parameter interpretation
+    -   Scaled Chi-square for some types of non-normal data
 
--   There is a lot to the analysis – but what is important to remember is the over-arching principal of multivariate analyses: covariance between variables is important - Mixed models imply very specific covariance structures - The validity of the results still hinge upon accurately finding an approximation to the covariance matrix
+    -   Standardized parameter coefficients
+
+    -   Tests for indirect effects
+
+    -   R-squared statistics
+
+-   Things we get directly in mixed models that we do not get in path models:
+
+    -   REML (unbiased estimates of variances/covariances)
+
+-   In this lecture we discussed the basics of mixed model analyses for multivariate models
+
+    -   Model specification/identification
+
+    -   Model estimation
+
+    -   Model modification and re-estimation
+
+    -   Final model parameter interpretation
+
+-   There is a lot to the analysis
+
+    -   but what is important to remember is the over-arching principal of multivariate analyses: covariance between variables is important
+
+    -   Mixed models imply very specific covariance structures
+
+    -   The validity of the results still hinge upon accurately finding an approximation to the covariance matrix
