@@ -44,43 +44,44 @@ filters:
 
 1.  Bayes' Theorem
 
-2.  Likelihood function, Posterior distribution
+2.  Likelihood function vs. Posterior distribution
 
 3.  How to report posterior distribution of parameters
 
 4.  Bayesian update
 
+5.  Bayesian Linear Regression and Multivariate Regression
+
 ## What is Bayesian?
 
 1.  What are key components of Bayesian models?
 
-    1.  Likelihood function - **data**
+    1.  Likelihood function - likelihood of **data given assumed probability distribution**
     2.  Prior distribution - belief / previous evidences of **parameters**
-    3.  Posterior distribution - updated information of parameters given our data and model
+    3.  Posterior distribution - updated information of parameters given our data and modeling
     4.  Posterior predictive distribution - future / predicted data
 
 2.  What are the differences between Bayesian with Frequentist analysis?
 
-    1.  prior distribution: Bayesian
-    2.  hypothesis of fixed parameters: frequentist
-    3.  estimation process: MCMC vs. MLE
-    4.  posterior distribution vs. point estimates of parameters
-    5.  credible interval (plausibility of the parameters having those values) vs. confidence interval (the proportion of infinite samples having the fixed parameters)
+    1.  **Input**: prior distribution: **Bayesian** vs. hypothesis of fixed parameters: **frequentist**
+    2.  **Estimation process**: Markov Chain Monte Carlo (MCMC) vs. Maximum Likelihood Estimation (MLE)
+    3.  **Result**: posterior distribution vs. point estimates of parameters
+    4.  **Accuracy check**: credible interval (plausibility of the parameters having those values) vs. confidence interval (the proportion of infinite samples having the fixed parameters)
 
 ## Bayes' Theorem: How Bayesian Statistics Work
 
 Bayesian methods rely on Bayes' Theorem
 
 $$
-P(\theta | Data) = \frac{P(Data|\theta)P(\theta)}{P(Data)} \propto P(Data|\theta) P(\theta)
+P(\boldsymbol{\theta} | Data) = \frac{P(Data|\boldsymbol{\theta})P(\boldsymbol{\theta})}{P(Data)} \propto P(Data|\boldsymbol{\theta}) P(\boldsymbol{\theta})
 $$
 
 Where:
 
 1.  P: probability distribution function (PDF)
-2.  $P(\theta|Data)$ : the [posterior distribution]{.underline} of parameter $\theta$, given the observed data
-3.  $P(Data|\theta)$: the likelihood function (conditional distributin) of the observed data, given the parameters
-4.  $P(\theta)$: the [prior distribution]{.underline} of parameter $\theta$
+2.  $P(\boldsymbol{\theta}|Data)$ : the [posterior distribution]{.underline} of parameter $\boldsymbol{\theta}$, given the observed data
+3.  $P(Data|\boldsymbol{\theta})$: the likelihood function (conditional distributin) of the observed data, given the parameters
+4.  $P(\boldsymbol{\theta})$: the [prior distribution]{.underline} of parameter $\boldsymbol{\theta}$
 5.  $P(Data)$: the marginal distribution of the observed data
 
 ------------------------------------------------------------------------
@@ -90,19 +91,19 @@ Where:
 -   Suppose we want to assess the probability of rolling a "1" on a six-sided die:
 
     $$
-    \theta \equiv p_{1} = P(D = 1)
+    \boldsymbol{\theta} \equiv p_{1} = P(D = 1)
     $$
 
 -   Suppose we collect a sample of data (N = 5):\
     $$Data \equiv X = \{0, 1, 0, 1, 1\}$$
 
--   The [prior distribution]{.underline} of parameters is denoted as $P(p_1)$ ;
+-   The [prior distribution]{.underline} of parameters is denoted as $P(p_1)$: how much the probability of "1" will occur we "believe" ;
 
--   The [likelihood function]{.underline}is denoted as $P(X | p_1)$;
+-   The [likelihood function]{.underline} is denoted as $P(X | p_1)$;
 
 -   The [posterior distribution]{.underline} is denoted as $P(p_1|X)$
 
--   Then we have:
+-   Then we have [the probability of rolling a "1" give the Data]{.underline} as:
 
     $$
     P(p_1|X) = \frac{P(X|p_1)P(p_1)}{P(X)} \propto P(X|p_1) P(p_1)
@@ -112,20 +113,20 @@ Where:
 
 ## Step 1: Choose the Likelihood function (Model)
 
--   The Likelihood function $P(X|p_1)$ follows Binomial distribution of 3 succuess out of 5 samples:\
+-   The Likelihood function $P(X|p_1)$ follows Binomial distribution of 3 successes out of 5 samples:\
     $$P(X|p_1) = \prod_{i =1}^{N=5} p_1^{X_i}(1-p_1)^{X_i} 
     \\= (1-p_i) \cdot p_i \cdot (1-p_i) \cdot p_i \cdot p_i$$
 
--   Question here: WHY use Bernoulli (Binomial) Distribution (feat. *Jacob Bernoulli, 1654-1705*)?
+-   We use Bernoulli (Binomial) Distribution (feat. *Jacob Bernoulli, 1654-1705*) because Bernoulli dist. has nice statistical probability.
 
--   My answer: Bernoulli dist. has nice statistical probability. "Nice" means making totally sense in normal life-- a common belief. For example, the $p_1$ value that maximizes the Bernoulli-based likelihood function is $Mean(X)$, and the $p_1$ values that minimizes the Bernoulli-based likelihood function is 0 or 1
+    -   "Nice" means making totally sense in normal life-- a common belief. For example, the $p_1$ value that maximizes the Bernoulli-based likelihood function is $Mean(X)$, and the $p_1$ values that minimizes the Bernoulli-based likelihood function is 0 or 1
 
 ------------------------------------------------------------------------
 
 ### Log-likelihood Function along "Parameter"
 
 $$
-LL(p_1|\{0, 1, 0, 1, 1\})
+LL(p_1, Data =\{0, 1, 0, 1, 1\})
 $$
 
 ```{r}
@@ -142,7 +143,7 @@ p1[which.max(Likelihood)] # p1 = 0.6 = 3 / 5
 ### Log-likelihood Function along "Data"
 
 $$
-LL(Data|p_1 \in \{0, 0.2,0.4, 0.6, 0.8,1\})
+LL(p_1 \in \{0, 0.2,0.4, 0.6, 0.8,1\}, Data \in \{0/5, 1/5, 2/5, 3/5, 4/5, 5/5\})
 $$
 
 ```{r}
@@ -192,9 +193,9 @@ $$
 
 ------------------------------------------------------------------------
 
-### The Beta Distribution
+### Prior for probability parameter: The Beta Distribution
 
-For parameters that range between 0 and 1, the beta distribution makes a good choice for prior distribution:
+For parameters that range between 0 and 1, the beta distribution with two hyperparameters {$\alpha$, $\beta$} makes a good choice for prior distribution:
 
 $$
 P(p_1) = \frac{(p_1)^{a-1} (1-p_1)^{\beta-1}}{B(\alpha,\beta)}
@@ -214,13 +215,13 @@ $$
 
 ------------------------------------------------------------------------
 
-### More Beta Distribution
+### More nice properties: Beta Distribution
 
 -   The Beta distribution has a mean of $\frac{\alpha}{\alpha+\beta}$ and a mode of $\frac{\alpha -1}{\alpha + \beta -2}$ for $\alpha > 1$ & $\beta > 1$; (fun fact: when $\alpha\ \&\ \beta< 1$, pdf is U-shape, what that mean?)
 
 -   $\alpha$ and $\beta$ are called [hyperparameters]{.underline} of the parameter $p_1$;
 
--   [Hyperparameters]{.underline} are parameters of prior parameters ;
+-   [**Hyperparameters**]{.underline} are parameters of prior parameters ;
 
 -   When $\alpha = \beta = 1$, the distribution is uniform distribution;
 
@@ -229,6 +230,8 @@ $$
     -   Many choices: $\alpha =2$ and $\beta = 6$ has the same mode as $\alpha = 100$ and $\beta = 496$; (hint: $\beta = 5\alpha - 4$)
 
     -   The differences between choices is how strongly we feel in our beliefs
+
+![](images/Screenshot 2024-11-11 at 11.48.20 AM.png){width="800"}
 
 ------------------------------------------------------------------------
 
