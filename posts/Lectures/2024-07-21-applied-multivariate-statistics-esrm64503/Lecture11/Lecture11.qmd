@@ -15,7 +15,7 @@ execute:
   warning: false
 output-location: default
 code-annotations: below
-highlight-style: "nord"
+highlight-style: "atom-one"
 format: 
   uark-revealjs:
     scrollable: true
