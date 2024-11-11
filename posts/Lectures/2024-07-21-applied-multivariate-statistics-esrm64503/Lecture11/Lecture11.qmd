@@ -23,7 +23,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 11: Absolute Model fit and Path Analysis"
+    footer: "ESRM 64503 - Lecture 11: Introduction to Bayesian"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
@@ -56,14 +56,18 @@ filters:
 
 ## What is Bayesian?
 
-1.  What are key components of Bayesian models?
+-  A statistical inference based on **Bayesian Probability Theory to estimate uncertainty**
+
+[![Bayesian Data Analysis course material by Aki Vehtari](images/clipboard-292128306.png){width="600"}](https://github.com/avehtari/BDA_course_Aalto)
+
+-  What are key components of Bayesian models?
 
     1.  Likelihood function - likelihood of **data given assumed probability distribution**
     2.  Prior distribution - belief / previous evidences of **parameters**
     3.  Posterior distribution - updated information of parameters given our data and modeling
     4.  Posterior predictive distribution - future / predicted data
 
-2.  What are the differences between Bayesian with Frequentist analysis?
+-  What are the differences between Bayesian with Frequentist analysis?
 
     1.  **Input**: prior distribution: **Bayesian** vs. hypothesis of fixed parameters: **frequentist**
     2.  **Estimation process**: Markov Chain Monte Carlo (MCMC) vs. Maximum Likelihood Estimation (MLE)
@@ -131,7 +135,7 @@ Where:
 
 ------------------------------------------------------------------------
 
-### Log-likelihood Function along "Parameter"
+### Log-likelihood Function across different values of Parameter
 
 $$
 LL(p_1, Data =\{0, 1, 0, 1, 1\})
@@ -148,7 +152,7 @@ p1[which.max(Likelihood)] # p1 = 0.6 = 3 / 5
 
 ------------------------------------------------------------------------
 
-### Log-likelihood Function along "Data"
+### Log-likelihood Function given different Data sets
 
 $$
 LL(p_1 \in \{0, 0.2,0.4, 0.6, 0.8,1\}, Data \in \{0/5, 1/5, 2/5, 3/5, 4/5, 5/5\})
@@ -430,11 +434,11 @@ pdf_posterior_forplot %>%
 
 ### Manually calculate summaries of the posterior distribution
 
-To determine the estimate of $p_1$, we need to summarize the posterior distribution:
+To determine the estimate of $p_1$ using data $\{0, 1, 0, 1,1\}$, we need to summarize the posterior distribution:
 
--   With prior hyperparameters $\alpha = 2$ and $\beta = 6$:
+-   With prior hyperparameters $\alpha = 2$ and $\beta = 6$ and the data $\sum_{i=1}^{N}X = 3$ and $N = 5$:
 
-    -   $\hat p_1 = \frac{2+3}{2+3+6+2}=\frac{5}{13} = .3846$
+    -   $\hat p_1 = \frac{\alpha'}{\alpha' + \beta'}= \frac{2+3}{2+3+6+2}=\frac{5}{13} = .3846$
 
     -   SD = `r sqrt(varianceFun(c(2+3, 6+2)))`
 
@@ -453,8 +457,6 @@ paste0("Sample Posterior Mean: ", mean(uninfo$p1 * uninfo$pdf)) # .3885
 uninfo2 <- pdf_posterior_forplot %>% filter(Alpha_Beta == "(100, 496)")
 paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 ```
-
-------------------------------------------------------------------------
 
 # Bayesian Analysis in R: Stan Program
 
@@ -480,8 +482,6 @@ paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 
 ### Stan and Rstudio
 
-::: columns
-::: {.column width="50%"}
 -   Option 1: Stan has its own syntax which can be built in stand-alone text files (.stan)
 
     -   Rstudio will let you create a *stan* file in the new `File` menu
@@ -493,16 +493,11 @@ paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 -   Option 2: You can also use Stan in a interactive way in **qmd** file
 
     -   Which is helpful when you want to test multiple stan models and report your results at the same time
-:::
+    
+![Create a new Stan file in Rstudio](Fig2_CreateStanFile.png)
 
-------------------------------------------------------------------------
+![Stan and R code blocks in qmd file](Fig2_StanCodeinQmd.png)
 
-::: {.column width="50%"}
-![Create a new Stan file in Rstudio](Fig2_CreateStanFile.png){width="200"}
-
-![Stan and R code blocks in qmd file](Fig2_StanCodeinQmd.png){width="450"}
-:::
-:::
 
 ------------------------------------------------------------------------
 
@@ -542,7 +537,7 @@ model {
 ------------------------------------------------------------------------
 
 ```{r}
-#| code-fold: true
+#| code-fold: false
 # mod <- cmdstan_model('dice_model.stan')
 data_list1 <- list(
   y = c(0, 1, 0, 1, 1),
@@ -619,6 +614,7 @@ We can use the posterior distribution as a prior!
 ```{r}
 library(ESRM64503)
 dat <- dataSexHeightWeight
+dat$Female <- ifelse(dat$sex == "F", 1, 0)
 
 # Linear Model with Least Squares
 ## Center independent variable - HeightIN for better interpretation
@@ -751,8 +747,8 @@ library(lavaan)
 model01.syntax = 
 " 
 #endogenous variable equations
-weightLB ~ sex
-heightIN ~ sex
+weightLB ~ Female
+heightIN ~ Female
 
 heightIN ~~ weightLB
 "
@@ -771,9 +767,13 @@ plot(model01.fit_mcmc)
 
 ## Posterior Distribution of coefficient
 
+### MLE results
+
 ```{r}
 parameterestimates(model01.fit_ML)
 ```
+
+### MCMC results
 
 ```{r}
 post_coefs <- blavaan::blavInspect(model01.fit_mcmc, "mcmc")
@@ -796,10 +796,10 @@ Today is a quick introduction to Bayesian Concept
 
 -   Bayes' Theorem: Fundamental theorem of Bayesian Inference
 -   Prior distribution: What we know about the parameter before seeing the data
-    -   hyperparameter: parameter of the prior distribution
-    -   Uninformative prior: Prior distribution that does not convey any information about the parameter
-    -   Informative prior: Prior distribution that conveys information about the parameter
-    -   Conjugate prior: Prior distribution that makes the posterior distribution the same family as the prior distribution
+    -   **hyperparameter**: parameter(s) of the prior distribution(s)
+    -   **Uninformative** prior: Prior distribution that does not convey any information about the parameter
+    -   **Informative** prior: Prior distribution that conveys information about the parameter
+    -   **Conjugate** prior: Prior distribution that makes the posterior distribution the same family as the prior distribution
 -   Likelihood: What the data tell us about the parameter
     -   Likelihood function: Probability of the data given the parameter
     -   Likelihood principle: All the information about the data is contained in the likelihood function
