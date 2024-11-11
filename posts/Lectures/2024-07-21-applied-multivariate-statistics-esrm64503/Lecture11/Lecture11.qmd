@@ -231,7 +231,7 @@ $$
 
     -   The differences between choices is how strongly we feel in our beliefs
 
-![](images/Screenshot 2024-11-11 at 11.48.20 AM.png){width="800"}
+![](images/Screenshot%202024-11-11%20at%2011.48.20%20AM.png){width="800"}
 
 ------------------------------------------------------------------------
 
@@ -448,9 +448,11 @@ paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 
 ------------------------------------------------------------------------
 
+# Bayesian Analysis in R: Stan Program
+
 ## Introduction to Stan
 
--   Stan is an MCMC estimation program
+-   Stan is a widely used MCMC estimation program
 
     -   Most recent; has many convenient features
 
@@ -474,7 +476,7 @@ paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 ::: {.column width="50%"}
 -   Option 1: Stan has its own syntax which can be built in stand-alone text files (.stan)
 
-    -   Rstudio will let you create a stan file in the new `File` menu
+    -   Rstudio will let you create a *stan* file in the new `File` menu
 
     -   Rstudio also has syntax highlighting in Stan files
 
