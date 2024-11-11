@@ -52,6 +52,8 @@ filters:
 
 5.  Bayesian Linear Regression and Multivariate Regression
 
+# Brief Introduction to Bayesian
+
 ## What is Bayesian?
 
 1.  What are key components of Bayesian models?
@@ -103,13 +105,19 @@ Where:
 
 -   The [posterior distribution]{.underline} is denoted as $P(p_1|X)$
 
--   Then we have [the probability of rolling a "1" give the Data]{.underline} as:
+-   The aim of Bayesian is to estimate [the probability of rolling a "1" give the Data]{.underline} (posterior distribution) as:
 
     $$
     P(p_1|X) = \frac{P(X|p_1)P(p_1)}{P(X)} \propto P(X|p_1) P(p_1)
     $$
 
 ------------------------------------------------------------------------
+
+## Why use Bayesian
+
+1.  Bayesian approach to statistics is more intuitive; it resembles how we think about probability in everyday life (our prior belif and our updated belief after observing the data) – in the odds of hypotheses, not those of data. In comparison, the frequentist conclusion sounds complex and difficult to comprehend.
+2.  Bayesian approach is much easier to construct very complicated model: using MCMC, we did not need to derive likelihood function by ourselves.
+3.  Bayesian approach is very flexible to incorporate prior (old, history) data; while the frequentist inference is static, which only use current data.
 
 ## Step 1: Choose the Likelihood function (Model)
 
@@ -231,7 +239,7 @@ $$
 
     -   The differences between choices is how strongly we feel in our beliefs
 
-![](images/Screenshot%202024-11-11%20at%2011.48.20%20AM.png){width="800"}
+![](images/beta_distribution.png)
 
 ------------------------------------------------------------------------
 
