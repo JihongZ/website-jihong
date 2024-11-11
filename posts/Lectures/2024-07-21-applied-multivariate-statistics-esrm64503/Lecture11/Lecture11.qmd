@@ -500,7 +500,9 @@ paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 
 ## Install CmdStan
 
-[cmdstanr Installation](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan) [cmdstanr Users' Guide](https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html#troubleshooting-the-installation)
+-   [cmdstanr Installation](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan)
+
+-   [cmdstanr Users' Guide](https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html#troubleshooting-the-installation)
 
 ------------------------------------------------------------------------
 
@@ -702,9 +704,9 @@ stanData = list(
 model00.samples = model00.fromString$sample(
   data = stanData, #<1>
   seed = 1, #<2>
-  chains = 4, #<3>
+  chains = 3, #<3>
   parallel_chains = 4, #<4>
-  iter_warmup = 1000, #<5>
+  iter_warmup = 2000, #<5>
   iter_sampling = 1000 #<6>
 )
 ```
