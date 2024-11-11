@@ -40,6 +40,9 @@ filters:
   - line-highlight
 ---
 
+
+
+
 ## Today's Lecture Objectives
 
 1.  Bayes' Theorem
@@ -129,6 +132,9 @@ $$
 LL(p_1, Data =\{0, 1, 0, 1, 1\})
 $$
 
+
+
+
 ```{r}
 #| echo: true
 #| code-line-numbers: "2"
@@ -138,6 +144,9 @@ plot(x = p1, y = log(Likelihood))
 p1[which.max(Likelihood)] # p1 = 0.6 = 3 / 5
 ```
 
+
+
+
 ------------------------------------------------------------------------
 
 ### Log-likelihood Function along "Data"
@@ -145,6 +154,9 @@ p1[which.max(Likelihood)] # p1 = 0.6 = 3 / 5
 $$
 LL(p_1 \in \{0, 0.2,0.4, 0.6, 0.8,1\}, Data \in \{0/5, 1/5, 2/5, 3/5, 4/5, 5/5\})
 $$
+
+
+
 
 ```{r}
 #| echo: true
@@ -166,6 +178,9 @@ Likelihood_forPlot %>%
   geom_point(size = 2) +
   geom_path(aes(group=p1), size = 1.3)
 ```
+
+
+
 
 ------------------------------------------------------------------------
 
@@ -260,6 +275,9 @@ This is the kernel of a beta distribution with updated parameters $\alpha' = x +
 :::
 
 ::: {.column width="50%"}
+
+
+
 ```{r, fig.width=10,fig.height=11}
 #| code-fold: true
 # Function for variance of Beta distribution
@@ -295,12 +313,18 @@ alpha_beta_variance_plot %>%
   labs(title = "Variances along difference choices of alpha and beta") +
   theme(text = element_text(size = 21)) 
 ```
+
+
+
 :::
 :::
 
 ------------------------------------------------------------------------
 
 ### Visualize prior distribution $P(p_1)$
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -345,6 +369,9 @@ pdf_forplot %>%
 
 ```
 
+
+
+
 **Question: WHY NOT USE NORMAL DISTRIBUTION?**
 
 ------------------------------------------------------------------------
@@ -368,6 +395,9 @@ Choose a Beta distribution as the prior distribution of $p_1$ is very convenient
 ------------------------------------------------------------------------
 
 ### Visualize the posterior distribution $P(p_1|Data)$
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -418,6 +448,9 @@ pdf_posterior_forplot %>%
   labs( y = '')
 ```
 
+
+
+
 ------------------------------------------------------------------------
 
 ### Manually calculate summaries of the posterior distribution
@@ -436,6 +469,9 @@ To determine the estimate of $p_1$, we need to summarize the posterior distribut
 
     -   SD = `r sqrt(varianceFun(c(100+3, 496+2)))`
 
+
+
+
 ```{r}
 uninfo <- pdf_posterior_forplot %>% filter(Alpha_Beta == "(2, 6)")
 paste0("Sample Posterior Mean: ", mean(uninfo$p1 * uninfo$pdf)) # .3885
@@ -445,6 +481,9 @@ paste0("Sample Posterior Mean: ", mean(uninfo$p1 * uninfo$pdf)) # .3885
 uninfo2 <- pdf_posterior_forplot %>% filter(Alpha_Beta == "(100, 496)")
 paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 ```
+
+
+
 
 ------------------------------------------------------------------------
 
@@ -508,6 +547,9 @@ paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 
 ### Stan Code for the example model
 
+
+
+
 ```{r}
 library(cmdstanr)
 register_knitr_engine(override = FALSE)
@@ -531,7 +573,13 @@ model {
 }
 ```
 
+
+
+
 ------------------------------------------------------------------------
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -564,9 +612,15 @@ fit2 <- dice_model$sample(
 )
 ```
 
+
+
+
 ------------------------------------------------------------------------
 
 #### Uninformative prior distribution (2, 6) and posterior distribution
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -578,9 +632,15 @@ bayesplot::mcmc_dens(fit1$draws('p1')) +
 fit1$summary()
 ```
 
+
+
+
 ------------------------------------------------------------------------
 
 #### Informative prior distribution (100, 496) and posterior distribution
+
+
+
 
 ```{r}
 #| code-fold: true
@@ -591,6 +651,9 @@ bayesplot::mcmc_dens(fit2$draws('p1')) +
   labs(title = "Posterior distribution using informative prior vs. the conjugate prior (The Gibbs sampler) method", caption = 'Green: mode of prior distribution; Purple: expected value from observed data; Red: Gibbs sampling method')
 fit2$summary()
 ```
+
+
+
 
 ------------------------------------------------------------------------
 
@@ -607,6 +670,9 @@ We can use the posterior distribution as a prior!
 # Bayesian Linear Regression
 
 ## Our Data Today
+
+
+
 
 ```{r}
 library(ESRM64503)
@@ -631,7 +697,13 @@ EmptyModel <- lm(weightLB ~ 1, data = dat)
 summary(EmptyModel)
 ```
 
+
+
+
 ## Stan Syntax for Empty Model
+
+
+
 
 ```{r}
 #| echo: false
@@ -639,11 +711,17 @@ library(cmdstanr)
 register_knitr_engine(override = FALSE) 
 ```
 
+
+
+
 A Stan file saved as `EmptyModel.stan`
 
 -   Each line ends with a semi colon `;`
 -   Comments are put in with `//`
 -   Each block starts with `block type` and is surrounded by curly brackets `{}`
+
+
+
 
 ```{r}
 stanModel <- "
@@ -664,6 +742,9 @@ model {
 model00.fromString = cmdstan_model(stan_file = write_stan_file(stanModel)) #<1>
 ```
 
+
+
+
 1.  the `data` block include the observed information
 2.  sample size (declared as a integer value)
 3.  dependent variable (declared as vector with the length as sample size)
@@ -677,6 +758,9 @@ model00.fromString = cmdstan_model(stan_file = write_stan_file(stanModel)) #<1>
 
 ## Prepare data for Empty Model
 
+
+
+
 ```{r}
 #| eval: true
 # build R list containing data for Stan: Must be named what "data" are listed in analysis
@@ -685,6 +769,9 @@ stanData = list(
   weightLB = dat$weightLB #<2>
 )
 ```
+
+
+
 
 1.  Sample size, `nrow()` calculates the number of rows of data
 2.  Vector of dependent variable
@@ -696,6 +783,9 @@ stanData = list(
 -   The entries in the list should correspond to the data block of the Stan syntax
 
 ## Run Markov Chains in CmdStanr
+
+
+
 
 ```{r}
 #| eval: true
@@ -711,6 +801,9 @@ model00.samples = model00.fromString$sample(
 )
 ```
 
+
+
+
 1.  Data list
 2.  Random number seed
 3.  Number of chains (and parallel chains)
@@ -725,16 +818,25 @@ model00.samples = model00.fromString$sample(
 
 ## Results of Bayesian Empty Model
 
+
+
+
 ```{r}
 model00.samples$summary()[c('variable','mean', 'rhat')]
 bayesplot::mcmc_trace(model00.samples$draws("beta0"))
 ```
+
+
+
 
 ## Bayesian full model using `blavaan`
 
 ![](images/clipboard-1983629374.png)
 
 ## Bayesian Full Model
+
+
+
 
 ```{r}
 library(blavaan)
@@ -755,13 +857,25 @@ model01.fit_mcmc = bsem(model01.syntax, data=dat)
 model01.fit_ML = sem(model01.syntax, data=dat)
 ```
 
+
+
+
 ## Trace Plots of Parameters
+
+
+
 
 ```{r}
 plot(model01.fit_mcmc)
 ```
 
+
+
+
 ## Posterior Distribution of coefficient
+
+
+
 
 ```{r}
 parameterestimates(model01.fit_ML)
@@ -772,7 +886,13 @@ post_coefs <- blavaan::blavInspect(model01.fit_mcmc, "mcmc")
 coda::densplot(post_coefs)
 ```
 
+
+
+
 ## Summary of coefficients
+
+
+
 
 ```{r}
 summary(model01.fit_mcmc)
@@ -781,6 +901,9 @@ summary(model01.fit_mcmc)
 ```{r}
 standardizedsolution(model01.fit_mcmc)
 ```
+
+
+
 
 ## Wrapping up
 
@@ -797,3 +920,4 @@ Today is a quick introduction to Bayesian Concept
     -   Likelihood principle: All the information about the data is contained in the likelihood function
     -   Likelihood is a sort of "scientific judgment" on the generation process of the data
 -   Posterior distribution: What we know about the parameter after seeing the data
+
