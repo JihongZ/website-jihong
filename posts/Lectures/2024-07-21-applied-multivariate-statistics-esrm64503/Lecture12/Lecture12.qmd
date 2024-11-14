@@ -1,0 +1,165 @@
+---
+title: "Lecture 12: Principal Components Analysis and Factor Analysis"
+subtitle: "Absolute Model fit and Model Interpretation"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 12: Absolute Model fit and Path Analysis"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+bibliography: references.bib
+---
+
+## Today's Class
+
+-   Methods for exploratory factor analysis (EFA)
+    - Principal Components-based
+    - Maximum Likelihood-based Exploratory Factor Analysis
+    - Exploratory Structural Equation Modeling
+- Comparisons of CFA and EFA
+- How to do exploratory analyses with CFA
+    - Structure of no items known
+    - Structure of some items known
+
+```{r}
+#| output-location: default
+library(ESRM64503)
+library(kableExtra)
+library(tidyverse)
+library(DescTools) # Desc() allows you to quick screen data
+library(lavaan) # Desc() allows you to quick screen data
+# options(digits = 3)
+```
+
+## The Logic of Exploratory Analyses
+
+- Exploratory analyses attempt to discover hidden structure in data with little to no
+user input
+    -  Aside from the selection of analysis and estimation
+- The results from exploratory analyses can be misleading
+    -  If data do not meet assumptions of model or method selected
+    -  If data have quirks that are idiosyncratic to the sample selected
+    -  If some cases are extreme relative to others
+    -  If constraints made by analysis are implausible
+- Sometimes, exploratory analyses are needed
+    -  Must construct an analysis that capitalizes on the known features of data
+    -  There are better ways to conduct such analyses
+- Often, exploratory analyses are not needed
+    -  But are conducted anyway – see a lot of reports of scale development that start with the idea that a construct has a certain number of dimensions
+
+# Advanced matrix operations
+
+## Matrix Orthogonality
+
+-   A square matrix $\Lambda$ is said to be orthogonal if:
+
+$$
+\mathbf{\Lambda\Lambda^T = \Lambda^T\Lambda = I}
+$$
+
+-   Orthogonal matrices are characterized by two properties
+    1. The dot product of all row vector multiples is the zero vector 
+        - Meaning vectors are orthogonal (or uncorrelated)
+    2. For each row vector, the sum of all elements is one
+        - Meaning vectors are “normalized”
+
+-   The matrix above is also called **orthonormal**
+    -   The diagonal is equal to 1 (each vector has a unit length)
+    
+-   Orthonormal matrices are used in principal components and exploratory factor analysis    
+
+
+## Eigenvalues and Eigenvectors
+
+-   A square matrix $\mathbf{\Sigma}$ can be decomposed into a set of eigenvalues $\mathbf{\lambda}$ and a set of eigenvectors $e$:
+
+$$
+\mathbf{\Sigma e} = \lambda \mathbf{e}
+$$
+
+-   Each eigenvalue has a corresponding eigenvector
+    -   The number equal to the number of rows/columns of $\mathbf{\Sigma}$
+    
+-   Principal components analysis uses eigenvalues and eigenvectors to reconfigure data
+
+## Example: Eigenvalues and Eigenvectors
+
+```{r}
+## Correlation matrix of SAR sR
+sat_corrmat = cor(dataSAT[, c("SATV", "SATM")])
+
+## eignvalues and eigenvectors of correlation matrix:
+sat_eigen = eigen(x = sat_corrmat, symmetric = TRUE)
+sat_eigen$values # eigenvalues
+sat_eigen$vectors # eigenvectors
+```
+
+-   In our SAT sample, the two eigenvalues obtained were:
+
+$$
+\lambda_1 = 1.775; 
+\lambda_2 = 0.224 \\
+$$
+
+- The two eigenvectors obtained were:
+
+$$
+\mathbf{e}_1 = \begin{bmatrix}0.707 \\ 0.707\end{bmatrix};
+\mathbf{e}_2 = \begin{bmatrix}-0.707 \\ 0.707\end{bmatrix}
+$$
+
+-   These terms will have much greater meaning principal components analysis
+
+## Spectral Decomposition
+
+-   Using the eigenvalues and eigenvectors, we can reconstruct the original matrix using a spectral decomposition:
+
+$$
+\mathbf{\Sigma =}\sum_{i=1}^{p} \lambda_i\mathbf{e}_i \mathbf{e}_i^T
+$$
+
+where i is the index of row/column of square matrix
+
+-   For our example, we can get back to our 2*2 original matrix:
+
+$$
+\mathbf{R}_1 = \lambda_1 \mathbf{e}_i \mathbf{e}_i^T = 1.775 \begin{bmatrix}0.707 \\ 0.707\end{bmatrix} \begin{bmatrix}0.707 & 0.707\end{bmatrix} = \begin{bmatrix}0.890 & 0.890\\ 0.890 & 0.890\end{bmatrix}
+$$
+$$
+\begin{align}
+\mathbf{R}_2 &= \mathbf{R}_1 +\lambda_1 \mathbf{e}_i \mathbf{e}_i^T \\
+&= \begin{bmatrix}0.890 & 0.890\\ 0.890 & 0.890\end{bmatrix}
+ + 0.224 \begin{bmatrix}-0.707 \\ 0.707\end{bmatrix} \begin{bmatrix}-0.707 & 0.707\end{bmatrix} \\
+&= \begin{bmatrix}1.000 & 0.780\\ 0.780 & 1.000 \end{bmatrix}
+\end{align}
+$$
