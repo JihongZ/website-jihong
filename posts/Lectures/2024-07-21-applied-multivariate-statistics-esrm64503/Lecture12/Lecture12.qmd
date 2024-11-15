@@ -40,16 +40,18 @@ filters:
 bibliography: references.bib
 ---
 
+## Course Evaluation
+
 ## Today's Class
 
 -   Methods for exploratory factor analysis (EFA)
-    - Principal Components-based
-    - Maximum Likelihood-based Exploratory Factor Analysis
-    - Exploratory Structural Equation Modeling
-- Comparisons of CFA and EFA
-- How to do exploratory analyses with CFA
-    - Structure of no items known
-    - Structure of some items known
+    -   Principal Components-based
+    -   Maximum Likelihood-based Exploratory Factor Analysis
+    -   Exploratory Structural Equation Modeling
+-   Comparisons of CFA and EFA
+-   How to do exploratory analyses with CFA
+    -   Structure of no items known
+    -   Structure of some items known
 
 ```{r}
 #| output-location: default
@@ -63,19 +65,18 @@ library(lavaan) # Desc() allows you to quick screen data
 
 ## The Logic of Exploratory Analyses
 
-- Exploratory analyses attempt to discover hidden structure in data with little to no
-user input
-    -  Aside from the selection of analysis and estimation
-- The results from exploratory analyses can be misleading
-    -  If data do not meet assumptions of model or method selected
-    -  If data have quirks that are idiosyncratic to the sample selected
-    -  If some cases are extreme relative to others
-    -  If constraints made by analysis are implausible
-- Sometimes, exploratory analyses are needed
-    -  Must construct an analysis that capitalizes on the known features of data
-    -  There are better ways to conduct such analyses
-- Often, exploratory analyses are not needed
-    -  But are conducted anyway – see a lot of reports of scale development that start with the idea that a construct has a certain number of dimensions
+-   Exploratory analyses attempt to discover hidden structure in data with little to no user input
+    -   Aside from the selection of analysis and estimation
+-   The results from exploratory analyses can be misleading
+    -   If data do not meet assumptions of model or method selected
+    -   If data have quirks that are idiosyncratic to the sample selected
+    -   If some cases are extreme relative to others
+    -   If constraints made by analysis are implausible
+-   Sometimes, exploratory analyses are needed
+    -   Must construct an analysis that capitalizes on the known features of data
+    -   There are better ways to conduct such analyses
+-   Often, exploratory analyses are not needed
+    -   But are conducted anyway – see a lot of reports of scale development that start with the idea that a construct has a certain number of dimensions
 
 # Advanced matrix operations
 
@@ -88,16 +89,13 @@ $$
 $$
 
 -   Orthogonal matrices are characterized by two properties
-    1. The dot product of all row vector multiples is the zero vector 
-        - Meaning vectors are orthogonal (or uncorrelated)
-    2. For each row vector, the sum of all elements is one
-        - Meaning vectors are “normalized”
-
+    1.  The dot product of all row vector multiples is the zero vector
+        -   Meaning vectors are orthogonal (or uncorrelated)
+    2.  For each row vector, the sum of all elements is one
+        -   Meaning vectors are “normalized”
 -   The matrix above is also called **orthonormal**
     -   The diagonal is equal to 1 (each vector has a unit length)
-    
--   Orthonormal matrices are used in principal components and exploratory factor analysis    
-
+-   Orthonormal matrices are used in principal components and exploratory factor analysis
 
 ## Eigenvalues and Eigenvectors
 
@@ -109,7 +107,6 @@ $$
 
 -   Each eigenvalue has a corresponding eigenvector
     -   The number equal to the number of rows/columns of $\mathbf{\Sigma}$
-    
 -   Principal components analysis uses eigenvalues and eigenvectors to reconfigure data
 
 ## Example: Eigenvalues and Eigenvectors
@@ -131,7 +128,7 @@ $$
 \lambda_2 = 0.224 \\
 $$
 
-- The two eigenvectors obtained were:
+-   The two eigenvectors obtained were:
 
 $$
 \mathbf{e}_1 = \begin{bmatrix}0.707 \\ 0.707\end{bmatrix};
@@ -150,12 +147,11 @@ $$
 
 where i is the index of row/column of square matrix
 
--   For our example, we can get back to our 2*2 original matrix:
+-   For our example, we can get back to our 2\*2 original matrix:
 
 $$
 \mathbf{R}_1 = \lambda_1 \mathbf{e}_i \mathbf{e}_i^T = 1.775 \begin{bmatrix}0.707 \\ 0.707\end{bmatrix} \begin{bmatrix}0.707 & 0.707\end{bmatrix} = \begin{bmatrix}0.890 & 0.890\\ 0.890 & 0.890\end{bmatrix}
-$$
-$$
+$$ $$
 \begin{align}
 \mathbf{R}_2 &= \mathbf{R}_1 +\lambda_1 \mathbf{e}_i \mathbf{e}_i^T \\
 &= \begin{bmatrix}0.890 & 0.890\\ 0.890 & 0.890\end{bmatrix}
@@ -163,3 +159,451 @@ $$
 &= \begin{bmatrix}1.000 & 0.780\\ 0.780 & 1.000 \end{bmatrix}
 \end{align}
 $$
+
+```{r}
+# spectral decomposition
+corr_rank1 = sat_eigen$values[1] * tcrossprod(sat_eigen$vectors[,1]) #<1>
+corr_rank1
+```
+
+1.  `tcrossprod`: $\mathbf{e}\mathbf{e}^T$
+
+```{r}
+corr_rank2 = corr_rank1 + sat_eigen$values[2] * tcrossprod(sat_eigen$vectors[,2])
+corr_rank2
+```
+
+## Additional Eigenvalue Properties
+
+-   The matrix trace is the sum of the eigenvalues:
+
+$$
+tr(\mathbf\Sigma) = \sum_{i=1}^{p}\lambda_i
+$$
+
+-   In our example, the $tr(\mathbf R) = 1.775 + 0.224 \approx 2$
+
+```{r}
+sum(sat_eigen$values)
+```
+
+-   The matrix determinant can be found by the product of the eigenvalues
+
+$$
+|\mathbf\Sigma| = \prod_{i=1}^p \lambda_i
+$$
+
+-   In our example, the $|\mathbf R| = 1.775 * 0.224 \approx .3976$
+
+# AN INTRODUCTION TO PRINCIPAL COMPONENTS ANALYSIS
+
+## PCA Overview
+
+1.  **Principal Components Analysis** (PCA) is a method for re-expressing the covariance (or often correlation) between a set of variables
+
+    -   The re-expression comes from creating a set of new variables (linear combinations) of the original variables
+
+2.  PCA has two objectives:
+
+    1.  Data reduction - Moving from many original variables down to a few "components"
+
+    2.  Interpretation - Determining which original variables contribute most to the new "components"
+
+## Goals of PCA
+
+-   The **goal** of PCA is to find a set of k principal components (composite variables) that:
+    -   Is much smaller in number than the original set of V variables
+    -   Accounts for nearly all of the total variance
+        -   Total variance = trace of covariance/correlation matrix
+-   If these two goals can be accomplished, then the set of k principal components contains almost as much information as the original V variables
+    -   Meaning – the components can now replace the original variables in any subsequent analyses
+
+## Questions when using PCA
+
+-   PCA analyses proceed by seeking the answers to two questions:
+    1.  How many components (new variables) are needed to “adequately” represent the original data?
+        -   The term adequately is fuzzy (and will be in the analysis)
+    2.  (once #1 has been answered): What does each component represent?
+        -   The term “represent” is also fuzzy
+
+## PCA Features
+
+-   PCA often reveals relationships between variables that were not previously suspected
+    -   New interpretations of data and variables often stem from PCA
+-   PCA usually serves as more of a means to an end rather than an end it itself
+    -   Components (the new variables) are often used in other statistical techniques
+        -   Multiple regression/ANOVA
+        -   Cluster analysis
+-   Unfortunately, PCA is often intermixed with Exploratory Factor Analysis
+    -   Don’t. Please don’t. Please make it stop.
+
+## PCA Details
+
+-   Notation: $Z$ are our new components and $\mathbf Y$ is our original data matrix (with N observations and V variables)
+    -   We will let p be our index for a subject
+-   The new components are linear combinations:
+
+$$
+\begin{array}{c}
+Z_{p 1}=\mathbf{e}_{1}^{T} \mathbf{Y}=e_{11} Y_{p 1}+e_{21} Y_{p 2}+\cdots+e_{V 1} Y_{p V} \\
+Z_{p 2}=\mathbf{e}_{2}^{T} \mathbf{Y}=e_{12} Y_{p 1}+e_{22} Y_{p 2}+\cdots+e_{V 2} Y_{p V} \\
+\vdots \\
+Z_{p V}=\mathbf{e}_{V}^{T} \mathbf{Y}=e_{1 V} Y_{p 1}+e_{2 V} Y_{p 2}+\cdots+e_{V V} Y_{p V}
+\end{array}
+$$
+
+-   The weights of the components ($e_{jk}$) come from the eigenvectors of the covariance or correlation matrix for component k and variable j
+
+## Details about the components
+
+-   The components ($Z$) are formed by the weights of the eigenvectors of the covariance or correlation matrix of the original data
+
+    -   The variance of a component is given by the eigenvalue associated with the eigenvector for the component
+
+-   Using the eigenvalue and eigenvectors means:
+
+    -   Each successive component has lower variance
+        -   Var(Z1) \> Var(Z2) \> … \> Var(Zv)
+    -   All components are uncorrelated
+    -   The sum of the variances of the principal components is equal to the total variance:
+
+    $$
+    \sum_{v=1}^{V} \operatorname{Var}\left(Z_{v}\right)=\operatorname{tr} \mathbf{\Sigma}=\sum_{v=1}^{V} \lambda_{v}
+    $$
+
+## PCA on our example
+
+1.  We will now conduct a PCA on the correlation matrix of our sample data
+    -   This example is given for demonstration purposes – typically we will not do PCA on small numbers of variables
+
+![](images/clipboard-2518475766.png){fig-align="center" width="670"}
+
+## PCA in R
+
+-   The R function that does principal components is called `prcomp()`
+
+```{r}
+data01 <- dataSAT[, c("SATV", "SATM")]
+# PCA of correlation matrix 
+sat_pca_corr = prcomp(x = data01, scale. = TRUE)
+
+# show the results
+sat_pca_corr
+
+# show the summary statistics
+summary(sat_pca_corr)
+```
+
+## Graphical Representation
+
+-   Plotting the components and the original data side by side reveals the nature of PCA:
+    -   Shown from PCA of covariance matrix
+
+```{r}
+#| code-fold: true
+#| fig-align: center
+#| fig-width: 18
+#| fig-height: 6
+#create same analysis but with covariance matrix (for visual) scale.=FALSE (covariance matrix) 
+sat_pca_cov = prcomp(x = data01, scale. = FALSE)
+
+#create augmented data matrix for plot
+data01a = data01
+data01a$type = "Raw"
+
+data01b = data.frame(SATV = sat_pca_cov$x[,1], SATM = sat_pca_cov$x[,2], type="PC")
+data01c = rbind(data01a, data01b)
+
+plot(x = data01c$SATV, y = data01c$SATM, ylab = "SATM/PC2", xlab = "SATV/PC1", cex.main=1.5, frame.plot=FALSE, col=ifelse(data01c$type=="Raw", "red", "blue"))
+legend(0, 400, pch=1, col=c("red", "blue"), c("Data", "PCs"), bty="o",  box.col="darkgreen", cex=1.5)
+```
+
+## An empirical example: The Growth of Gambling Access
+
+-   In past 25 years:
+    -   An exponential increase in the accessibility of gambling
+    -   An increased rate of with problem or pathological gambling (Volberg, 2002, Welte et al., 2009)
+-   Hence, there is a need to better:
+    -   Understand the underlying causes of the disorder
+    -   Reliably identify potential pathological gamblers
+    -   Provide effective treatment interventions
+
+## Pathological Gambling: DSM Definition
+
+-   To be diagnosed as a pathological gambler, an individual must meet **5 of 10 defined criteria**:
+
+::: columns
+::: {.column width="50%"}
+1.  Is preoccupied with gambling
+2.  Needs to gamble with increasing amounts of money in order to achieve the desired excitement
+3.  Has repeated unsuccessful efforts to control, cut back, or stop gambling
+4.  Is restless or irritable when attempting to cut down or stop gambling
+5.  Gambles as a way of escaping from problems or relieving a dysphoric mood
+:::
+
+::: {.column width="50%"}
+6.  After losing money gambling, often returns another day to get even (“chasing” one’s losses)
+7.  Lies to family members, therapist, or others to conceal the extent of involvement with gambling
+8.  Has committed illegal acts such as forgery, fraud, theft, or embezzlement to finance gambling
+9.  Has jeopardized or lost a significant relationship, job, or educational or career opportunity because of gambling
+10. Relies on others to provide money to relieve a desperate financial situation caused by gambling
+:::
+:::
+
+## Research on Pathological Gambling
+
+-   In order to study the etiology of pathological gambling, more variability in responses was needed
+-   The Gambling Research Instrument (Feasel, Henson, & Jones,2002) was created with 41 Likert-type items
+    -   Items were developed to measure each criterion
+-   Example items (ratings: Strongly Disagree to Strongly Agree):
+    -   I worry that I am spending too much money on gambling (C3)
+    -   There are few things I would rather do than gamble (C1)
+-   The instrument was used on a sample of experienced gamblers from a riverboat casino in a Flat Midwestern State
+    -   Casino patrons were solicited after playing roulette
+
+## The GRI Items
+
+-   The Gambling Research Instrument (GRI) used a 6-point Likert scale:
+    -   1: Strongly Disagree
+    -   2: Disagree
+    -   3: Slightly Disagree
+    -   4: Slightly Agree
+    -   5: Agree
+    -   6: Strongly Agree
+-   To meet the assumptions of factor analysis, we will treat these responses as being continuous
+    -   This is tenuous at best, but often is the case in factor analysis
+    -   Categorical items would be better….but you’d need another course for how to do that
+        -   Hint: Item Response Models
+
+## The Sample
+
+-   Data were collected from two sources:
+    -   112 “experienced” gamblers
+        -   Many from an actual casino
+    -   1192 college students from a “rectangular” midwestern state
+        -   Many never gambled before
+
+```{r}
+data02 = read.csv(file="gambling_lecture12.csv",header=TRUE)
+#listwise removal of missing data (common in PCA -- but still a problem)
+data02a = data02[complete.cases(data02),]
+dim(data02a)
+```
+
+-   Today, we will combine both samples and treat them as homogenous – one sample of 1304 subjects
+
+## Final 10 items on the scale
+
+| Item | Criterion | Question |
+|------|-----------|----------|
+| GRI1  | 3    |I would like to cut back on my gambling.          |
+| GRI3  | 6    |If I lost a lot of money gambling one day, I would be more likely to want to play again the following day.          |
+| GRI5  | 2    |I find it necessary to gamble with larger amounts of money (than when I first gambled) for gambling to be exciting.          |
+| GRI9  | 4    |I feel restless when I try to cut down or stop gambling.          |
+| GRI10 | 1    |It bothers me when I have no money to gamble.          |
+| GRI13 | 3    |I find it difficult to stop gambling.          |
+| GRI14 | 2    |I am drawn more by the thrill of gambling than by the money I could win.          |
+| GRI18 | 9    |My family, coworkers, or others who are close to me disapprove of my gambling.          |
+| GRI21 | 1    |It is hard to get my mind off gambling.          |
+| GRI23 | 5    |I gamble to improve my mood.          |
+
+  
+## Question #1: How Many Components?
+
+- To answer the question of how many components, two methods are used:
+    - Scree plot of eigenvalues (looking for the “elbow”)
+    - Variance accounted for (should be > 70%)
+- We will go with 4 components: (variance accounted for VAC = 75%)
+- Variance accounted for is for the total sample variance
+
+```{r}
+#analysis of covariance matrix of gambling data items
+gambling_pca_cov = prcomp(x = data02a, scale. = FALSE) 
+# gambling_pca_cov
+summary(gambling_pca_cov)
+```
+## Plots to Answer How Many Components
+
+```{r}
+#| fig-width: 16
+#| fig-height: 9
+#| code-fold: true
+#| fig-align: center
+prop_var = t(summary(gambling_pca_cov)$importance[2:3,])
+#creating a scree plot and a proportion of variance plot
+
+par(mfrow = c(1,2))
+plot(gambling_pca_cov, type="l", main = "Scree Plot of PCA Eigenvalues", lwd = 5)
+matplot(prop_var, type="l", main = "Proportion of Variance Explained by Component", lwd = 5)
+legend(x=5, y=.5, legend = c("Component Variance", "Cumulative Variance"), lty = 1:2, lwd=5, col=1:2)
+```
+
+## Question #2: What Does Each Component Represent?
+
+-   To answer question #2 – we look at the weights of the eigenvectors (here is the unrotated solution)
+
+```{r}
+round(gambling_pca_cov$rotation, 3)
+```
+
+## Final Result: Four Principal Components
+
+-   Using the weights of the eigenvectors, we can create four new variables – the four principal components
+
+```{r}
+head(gambling_pca_cov$x[, 1:4], 10)
+```
+
+- Each of these is uncorrelated with each other
+  -   The variance of each is equal to the corresponding eigenvalue
+  
+- We would then use these in subsequent analyses
+
+## PCA Summary
+
+-   PCA is a **data reduction** technique that relies on the mathematical properties of eigenvalues and eigenvectors
+    -   Used to create new variables (small number) out of the old data (lots of variables)、
+    -   The new variables are principal components (they are not factor scores)
+    
+-   PCA appeared first in the psychometric literature
+    -   Many “factor analysis” methods used variants of PCA before likelihood-based statistics were available
+    
+-   Currently, PCA (or variants) methods are the default option in SPSS and SAS (PROC FACTOR)    
+
+## Potentially Solvable Statistical Issues in PCA
+
+- The typical PCA analysis also has a few statistical concerns
+    -  Some of these can be solved if you know what you are doing
+    -  The typical analysis (using program defaults) does not solve these
+- Missing data is omitted using listwise deletion – biases possible
+    -  Could use ML to estimate covariance matrix, but then would have to assume
+multivariate normality
+    -  Could use MI to impute data
+- The distributions of variables can be anything…but variables
+with much larger variances will look like they contribute more
+to each component
+    -  Could standardize variables – but some can’t be standardized easily (think gender)
+- The lack of standard errors makes the component weights
+(eigenvector elements)
+hard to interpret
+    -  Can use a resampling/bootstrap analysis to get SEs (but not easy to do)
+    
+## (Unsolvable) Issues with PCA
+
+- My issues with PCA involve the two questions in need of
+answers for any use of PCA:
+1. The number of components needed is not based on a
+statistical hypothesis test and hence is subjective
+    -  Variance accounted for is a descriptive measure
+    -  No statistical test for whether an additional component significantly accounts
+for more variance
+2. The relative meaning of each component is questionable
+at best and hence is subjective
+    -  Typical packages provide no standard errors for each eigenvector weight (can
+be obtained in bootstrap analyses)
+    -  No definitive answer for component composition
+- In sum, I feel it is very easy to be misled (or purposefully
+mislead) with PCA
+
+# EXPLORATORY FACTOR ANALYSIS
+
+## Primary Purpose of EFA
+
+-  **EFA**: “Determine nature and number of latent variables that account
+for observed variation and covariation among set of observed
+indicators (≈ items or variables)”
+    -  In other words, what causes these observed responses?
+    -  Summarize patterns of correlation among indicators
+    -  Solution is an end (i.e., is of interest) in and of itself
+-  Compared with **PCA**: “Reduce multiple observed variables into fewer
+components that summarize their variance”
+    -  In other words, how can I abbreviate this set of variables?
+    -  Solution is usually a means to an end
+    
+## Methods for EFA
+
+-   You will see many different types of methods for “extraction” of factors in EFA
+    - Many are PCA-based
+    - Most were developed before computers became relevant or likelihood theory was developed
+    
+-   You can ignore all of them and focus on one:
+    - Only Use Maximum Likelihood for EFA
+    
+-   The maximum likelihood method of EFA extraction:
+    -  Uses the same log-likelihood as confirmatory factor analyses/SEM
+        - Default assumption: multivariate normal distribution of data
+    -  Provides consistent estimates with good statistical properties (assuming you have a
+large enough sample)
+    -  Missing data using all the data that was observed (MAR)
+    -  Is consistent with modern statistical practices    
+
+## Questions when using EFA
+
+-   EFAs proceed by seeking the answers to two questions: (the same questions posed in PCA; but with different terms)
+    1. How many latent factors are needed to “adequately” represent the original data?
+        - “Adequately” = does a given EFA model fit well?
+    2. (once #1 has been answered): What does each factor represent?
+        - The term “represent” is fuzzy
+        
+## The Syntax of Factor Analysis
+
+-   Factor analysis works by hypothesizing that a set of latent factors helps to determine a person’s response to a set of variables
+
+    -   This can be explained by a system of simultaneous linear models
+    -   Here Y = observed data, p = person, v = variable, F = factor score (Q factors)
+
+$$
+\begin{array}{c}
+Y_{p 1}=\mu_{y_{1}}+\lambda_{11} F_{p 1}+\lambda_{12} F_{p 2}+\cdots+\lambda_{1 Q} F_{p Q}+e_{p 1} \\
+Y_{p 2}=\mu_{y_{2}}+\lambda_{21} F_{p 1}+\lambda_{22} F_{p 2}+\cdots+\lambda_{2 Q} F_{p Q}+e_{p 2} \\
+\vdots \\
+Y_{p V}=\mu_{y_{V}}+\lambda_{V 1} F_{p 1}+\lambda_{V 2} F_{p 2}+\cdots+\lambda_{V Q} F_{p Q}+e_{p V}
+\end{array}   
+$$
+
+-   $\mu_{y_v}$ = mean for variable $v$;
+-   $\lambda_{vq}$ = factor loading for variable v onto factor f (regression slope) 
+    -   Factors are assumed distributed MVN with zero mean and (for EFA) identity covariance matrix (uncorrelated factors – to start)
+-   $e_{pv}$  = residual for person p and variable v;
+    -   Residuals are assumed distributed MVN (across items) with a zero mean and a diagonal covariance matrix $\mathbf\Psi$ containing the unique variances
+-   Often, this gets shortened into matrix form:
+
+$$
+\mathbf{Y_p = \mu_Y+\Lambda F_p^T + e_p}
+$$
+
+## How Maximum Likelihood EFA Works
+
+-   Maximum likelihood EFA assumes the data follow a multivariate normal distribution
+    -   The basis for the log-likelihood function (same log-likelihood we have used in every analysis to this point)
+    
+-   The log-likelihood function depends on two sets of parameters: the mean vector and the covariance matrix    
+    -   Mean vector is saturated (just uses the item means for item intercepts) – so it is often not thought of in analysis
+        -   Denoted as $\boldsymbol\mu_y = \boldsymbol\mu_I$
+        
+    -   Covariance matrix is what gives "factor structure"
+        -   EFA models provide a structure for the covariance matrix
+        
+## The EFA Model for the Covariance Matrix
+
+-   The covariance matrix is modeled based on how it would look if a set of hypothetical (latent) factors had caused the data
+
+-   For an analysis measuring $F$ factors, each item in the EFA:
+    -   Has 1 unique variance parameter
+    -   Has F factor loadings
+    
+-   The initial estimation of factor loadings is conducted based on the assumption of uncorrelated factors
+    -   Assumption is dubious at best – yet is the cornerstone of the analysis
+    
+## Model Implied Covariance Matrix
+
+-   The factor model implied covariance matrix is $\boldsymbol{\Sigma_Y=\Lambda\Phi\Lambda^T+\Psi}$
+    -   Where:
+        -  $\boldsymbol{\Sigma_Y}$ = model implied covariance matrix of the observed data (size $I \times I$)
+        -  $\boldsymbol{\Lambda}$ = matrix of factor loadings (size $I \times F$)
+            - In EFA: all terms in $\boldsymbol{\Lambda}$ are estimated
+        - $\boldsymbol{\Phi}$  = factor covariance matrix (size $F \times F$)
+        – In EFA: $\boldsymbol{\Phi}$ = $\boldsymbol{I}$ (all factors have variances of 1 and covariances of 0)
+            - In CFA: this is estimated
+        - $\boldsymbol{\Psi}$ = matrix of unique (residual) variances (size $I \times I$)
+            - In EFA: $\boldsymbol{\Psi}$ is diagonal by default (no residual covariances)
