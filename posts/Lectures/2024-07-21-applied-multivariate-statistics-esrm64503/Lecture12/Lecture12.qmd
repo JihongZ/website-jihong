@@ -394,27 +394,26 @@ dim(data02a)
 
 ## Final 10 items on the scale
 
-| Item | Criterion | Question |
-|------|-----------|----------|
-| GRI1  | 3    |I would like to cut back on my gambling.          |
-| GRI3  | 6    |If I lost a lot of money gambling one day, I would be more likely to want to play again the following day.          |
-| GRI5  | 2    |I find it necessary to gamble with larger amounts of money (than when I first gambled) for gambling to be exciting.          |
-| GRI9  | 4    |I feel restless when I try to cut down or stop gambling.          |
-| GRI10 | 1    |It bothers me when I have no money to gamble.          |
-| GRI13 | 3    |I find it difficult to stop gambling.          |
-| GRI14 | 2    |I am drawn more by the thrill of gambling than by the money I could win.          |
-| GRI18 | 9    |My family, coworkers, or others who are close to me disapprove of my gambling.          |
-| GRI21 | 1    |It is hard to get my mind off gambling.          |
-| GRI23 | 5    |I gamble to improve my mood.          |
+| Item  | Criterion | Question                                                                                                            |
+|----------------|----------------|-----------------------------------------|
+| GRI1  | 3         | I would like to cut back on my gambling.                                                                            |
+| GRI3  | 6         | If I lost a lot of money gambling one day, I would be more likely to want to play again the following day.          |
+| GRI5  | 2         | I find it necessary to gamble with larger amounts of money (than when I first gambled) for gambling to be exciting. |
+| GRI9  | 4         | I feel restless when I try to cut down or stop gambling.                                                            |
+| GRI10 | 1         | It bothers me when I have no money to gamble.                                                                       |
+| GRI13 | 3         | I find it difficult to stop gambling.                                                                               |
+| GRI14 | 2         | I am drawn more by the thrill of gambling than by the money I could win.                                            |
+| GRI18 | 9         | My family, coworkers, or others who are close to me disapprove of my gambling.                                      |
+| GRI21 | 1         | It is hard to get my mind off gambling.                                                                             |
+| GRI23 | 5         | I gamble to improve my mood.                                                                                        |
 
-  
 ## Question #1: How Many Components?
 
-- To answer the question of how many components, two methods are used:
-    - Scree plot of eigenvalues (looking for the “elbow”)
-    - Variance accounted for (should be > 70%)
-- We will go with 4 components: (variance accounted for VAC = 75%)
-- Variance accounted for is for the total sample variance
+-   To answer the question of how many components, two methods are used:
+    -   Scree plot of eigenvalues (looking for the “elbow”)
+    -   Variance accounted for (should be \> 70%)
+-   We will go with 4 components: (variance accounted for VAC = 75%)
+-   Variance accounted for is for the total sample variance
 
 ```{r}
 #analysis of covariance matrix of gambling data items
@@ -422,6 +421,7 @@ gambling_pca_cov = prcomp(x = data02a, scale. = FALSE)
 # gambling_pca_cov
 summary(gambling_pca_cov)
 ```
+
 ## Plots to Answer How Many Components
 
 ```{r}
@@ -454,97 +454,79 @@ round(gambling_pca_cov$rotation, 3)
 head(gambling_pca_cov$x[, 1:4], 10)
 ```
 
-- Each of these is uncorrelated with each other
-  -   The variance of each is equal to the corresponding eigenvalue
-  
-- We would then use these in subsequent analyses
+-   Each of these is uncorrelated with each other
+    -   The variance of each is equal to the corresponding eigenvalue
+-   We would then use these in subsequent analyses
 
 ## PCA Summary
 
 -   PCA is a **data reduction** technique that relies on the mathematical properties of eigenvalues and eigenvectors
     -   Used to create new variables (small number) out of the old data (lots of variables)、
     -   The new variables are principal components (they are not factor scores)
-    
 -   PCA appeared first in the psychometric literature
     -   Many “factor analysis” methods used variants of PCA before likelihood-based statistics were available
-    
--   Currently, PCA (or variants) methods are the default option in SPSS and SAS (PROC FACTOR)    
+-   Currently, PCA (or variants) methods are the default option in SPSS and SAS (PROC FACTOR)
 
 ## Potentially Solvable Statistical Issues in PCA
 
-- The typical PCA analysis also has a few statistical concerns
-    -  Some of these can be solved if you know what you are doing
-    -  The typical analysis (using program defaults) does not solve these
-- Missing data is omitted using listwise deletion – biases possible
-    -  Could use ML to estimate covariance matrix, but then would have to assume
-multivariate normality
-    -  Could use MI to impute data
-- The distributions of variables can be anything…but variables
-with much larger variances will look like they contribute more
-to each component
-    -  Could standardize variables – but some can’t be standardized easily (think gender)
-- The lack of standard errors makes the component weights
-(eigenvector elements)
-hard to interpret
-    -  Can use a resampling/bootstrap analysis to get SEs (but not easy to do)
-    
+-   The typical PCA analysis also has a few statistical concerns
+    -   Some of these can be solved if you know what you are doing
+    -   The typical analysis (using program defaults) does not solve these
+-   Missing data is omitted using listwise deletion – biases possible
+    -   Could use ML to estimate covariance matrix, but then would have to assume multivariate normality
+    -   Could use MI to impute data
+-   The distributions of variables can be anything…but variables with much larger variances will look like they contribute more to each component
+    -   Could standardize variables – but some can’t be standardized easily (think gender)
+-   The lack of standard errors makes the component weights (eigenvector elements) hard to interpret
+    -   Can use a resampling/bootstrap analysis to get SEs (but not easy to do)
+
 ## (Unsolvable) Issues with PCA
 
-- My issues with PCA involve the two questions in need of
-answers for any use of PCA:
-1. The number of components needed is not based on a
-statistical hypothesis test and hence is subjective
-    -  Variance accounted for is a descriptive measure
-    -  No statistical test for whether an additional component significantly accounts
-for more variance
-2. The relative meaning of each component is questionable
-at best and hence is subjective
-    -  Typical packages provide no standard errors for each eigenvector weight (can
-be obtained in bootstrap analyses)
-    -  No definitive answer for component composition
-- In sum, I feel it is very easy to be misled (or purposefully
-mislead) with PCA
+-   My issues with PCA involve the two questions in need of answers for any use of PCA:
+
+1.  The number of components needed is not based on a statistical hypothesis test and hence is subjective
+    -   Variance accounted for is a descriptive measure
+    -   No statistical test for whether an additional component significantly accounts for more variance
+2.  The relative meaning of each component is questionable at best and hence is subjective
+    -   Typical packages provide no standard errors for each eigenvector weight (can be obtained in bootstrap analyses)
+    -   No definitive answer for component composition
+
+-   In sum, I feel it is very easy to be misled (or purposefully mislead) with PCA
 
 # EXPLORATORY FACTOR ANALYSIS
 
 ## Primary Purpose of EFA
 
--  **EFA**: “Determine nature and number of latent variables that account
-for observed variation and covariation among set of observed
-indicators (≈ items or variables)”
-    -  In other words, what causes these observed responses?
-    -  Summarize patterns of correlation among indicators
-    -  Solution is an end (i.e., is of interest) in and of itself
--  Compared with **PCA**: “Reduce multiple observed variables into fewer
-components that summarize their variance”
-    -  In other words, how can I abbreviate this set of variables?
-    -  Solution is usually a means to an end
-    
+-   **EFA**: “Determine nature and number of latent variables that account for observed variation and covariation among set of observed indicators (≈ items or variables)”
+    -   In other words, what causes these observed responses?
+    -   Summarize patterns of correlation among indicators
+    -   Solution is an end (i.e., is of interest) in and of itself
+-   Compared with **PCA**: “Reduce multiple observed variables into fewer components that summarize their variance”
+    -   In other words, how can I abbreviate this set of variables?
+    -   Solution is usually a means to an end
+
 ## Methods for EFA
 
 -   You will see many different types of methods for “extraction” of factors in EFA
-    - Many are PCA-based
-    - Most were developed before computers became relevant or likelihood theory was developed
-    
+    -   Many are PCA-based
+    -   Most were developed before computers became relevant or likelihood theory was developed
 -   You can ignore all of them and focus on one:
-    - Only Use Maximum Likelihood for EFA
-    
+    -   Only Use Maximum Likelihood for EFA
 -   The maximum likelihood method of EFA extraction:
-    -  Uses the same log-likelihood as confirmatory factor analyses/SEM
-        - Default assumption: multivariate normal distribution of data
-    -  Provides consistent estimates with good statistical properties (assuming you have a
-large enough sample)
-    -  Missing data using all the data that was observed (MAR)
-    -  Is consistent with modern statistical practices    
+    -   Uses the same log-likelihood as confirmatory factor analyses/SEM
+        -   Default assumption: multivariate normal distribution of data
+    -   Provides consistent estimates with good statistical properties (assuming you have a large enough sample)
+    -   Missing data using all the data that was observed (MAR)
+    -   Is consistent with modern statistical practices
 
 ## Questions when using EFA
 
 -   EFAs proceed by seeking the answers to two questions: (the same questions posed in PCA; but with different terms)
-    1. How many latent factors are needed to “adequately” represent the original data?
-        - “Adequately” = does a given EFA model fit well?
-    2. (once #1 has been answered): What does each factor represent?
-        - The term “represent” is fuzzy
-        
+    1.  How many latent factors are needed to “adequately” represent the original data?
+        -   “Adequately” = does a given EFA model fit well?
+    2.  (once #1 has been answered): What does each factor represent?
+        -   The term “represent” is fuzzy
+
 ## The Syntax of Factor Analysis
 
 -   Factor analysis works by hypothesizing that a set of latent factors helps to determine a person’s response to a set of variables
@@ -562,9 +544,9 @@ Y_{p V}=\mu_{y_{V}}+\lambda_{V 1} F_{p 1}+\lambda_{V 2} F_{p 2}+\cdots+\lambda_{
 $$
 
 -   $\mu_{y_v}$ = mean for variable $v$;
--   $\lambda_{vq}$ = factor loading for variable v onto factor f (regression slope) 
+-   $\lambda_{vq}$ = factor loading for variable v onto factor f (regression slope)
     -   Factors are assumed distributed MVN with zero mean and (for EFA) identity covariance matrix (uncorrelated factors – to start)
--   $e_{pv}$  = residual for person p and variable v;
+-   $e_{pv}$ = residual for person p and variable v;
     -   Residuals are assumed distributed MVN (across items) with a zero mean and a diagonal covariance matrix $\mathbf\Psi$ containing the unique variances
 -   Often, this gets shortened into matrix form:
 
@@ -576,34 +558,200 @@ $$
 
 -   Maximum likelihood EFA assumes the data follow a multivariate normal distribution
     -   The basis for the log-likelihood function (same log-likelihood we have used in every analysis to this point)
-    
--   The log-likelihood function depends on two sets of parameters: the mean vector and the covariance matrix    
+-   The log-likelihood function depends on two sets of parameters: the mean vector and the covariance matrix
     -   Mean vector is saturated (just uses the item means for item intercepts) – so it is often not thought of in analysis
         -   Denoted as $\boldsymbol\mu_y = \boldsymbol\mu_I$
-        
     -   Covariance matrix is what gives "factor structure"
         -   EFA models provide a structure for the covariance matrix
-        
+
 ## The EFA Model for the Covariance Matrix
 
 -   The covariance matrix is modeled based on how it would look if a set of hypothetical (latent) factors had caused the data
 
 -   For an analysis measuring $F$ factors, each item in the EFA:
+
     -   Has 1 unique variance parameter
     -   Has F factor loadings
-    
+
 -   The initial estimation of factor loadings is conducted based on the assumption of uncorrelated factors
+
     -   Assumption is dubious at best – yet is the cornerstone of the analysis
-    
+
 ## Model Implied Covariance Matrix
 
 -   The factor model implied covariance matrix is $\boldsymbol{\Sigma_Y=\Lambda\Phi\Lambda^T+\Psi}$
     -   Where:
-        -  $\boldsymbol{\Sigma_Y}$ = model implied covariance matrix of the observed data (size $I \times I$)
-        -  $\boldsymbol{\Lambda}$ = matrix of factor loadings (size $I \times F$)
-            - In EFA: all terms in $\boldsymbol{\Lambda}$ are estimated
-        - $\boldsymbol{\Phi}$  = factor covariance matrix (size $F \times F$)
-        – In EFA: $\boldsymbol{\Phi}$ = $\boldsymbol{I}$ (all factors have variances of 1 and covariances of 0)
-            - In CFA: this is estimated
-        - $\boldsymbol{\Psi}$ = matrix of unique (residual) variances (size $I \times I$)
-            - In EFA: $\boldsymbol{\Psi}$ is diagonal by default (no residual covariances)
+        -   $\boldsymbol{\Sigma_Y}$ = model implied covariance matrix of the observed data (size $I \times I$)
+        -   $\boldsymbol{\Lambda}$ = matrix of factor loadings (size $I \times F$)
+            -   In EFA: all terms in $\boldsymbol{\Lambda}$ are estimated
+        -   $\boldsymbol{\Phi}$ = factor covariance matrix (size $F \times F$) – In EFA: $\boldsymbol{\Phi}$ = $\boldsymbol{I}$ (all factors have variances of 1 and covariances of 0)
+            -   In CFA: this is estimated
+        -   $\boldsymbol{\Psi}$ = matrix of unique (residual) variances (size $I \times I$)
+            -   In EFA: $\boldsymbol{\Psi}$ is diagonal by default (no residual covariances)
+
+- Therefore, the EFA model-implied covariance matrix is:
+
+$$
+\boldsymbol{\Sigma}_{Y}=\boldsymbol{\Lambda} \mathbf{\Lambda}^{T}+\boldsymbol{\Psi}
+$$
+
+## EFA Model Identifiability
+
+- Under the ML method for EFA, the same rules of identification apply to EFA as to Path Analysis
+    - **T-rule**: Total number of EFA model parameters must not exceed unique elements in saturated covariance matrix of data
+        - For an analysis with a number of factors $F$ and a set number of items $I$ there are $F*I+I=I(F+1)$ EFA model parameters
+        - As we will see, there must be $\frac{F(F-1)}{2}$ constraints for the model to work
+        - Therefore, $I(F+1)-\frac{F(F-1)}{2}<\frac{I(I+1)}{2}$
+        
+    - **Local identification**: each portion of the model must be locally identified
+        -   With all factor loadings estimated local identification fails
+            -   No way of differentiating factors without constraints
+            
+##  Constraints to Make EFA in ML Identified
+
+-   The EFA model imposes the following constraint:
+$$
+\mathbf{\Lambda^T\Psi\Lambda=\Delta}
+$$
+
+such that $\mathbf\Delta$ is a diagonal matrix
+
+- This puts $\frac{F(F-1)}{2}$ constraints on the model (that many fewer parameters to estimate).
+
+- This constraint is not well known – and how it functions is hard to describe
+    -   For a 1-factor model, the results of EFA and CFA will match
+    
+- Note: the other methods of EFA “extraction” avoid this constraint by not being statistical models in the first place  
+    -   PCA-based routines rely on matrix properties to resolve identification
+    
+## The Nature of the Constraints in EFA
+
+-   The EFA constraints provide some detailed assumptions about the nature of the factor model and how it pertains to the data
+
+-   For example, take a 2-factor model (one constraint):
+
+$$
+\sum_{v=1}^{V} \psi_{v}^{2} \prod_{f=1}^{Q=2} \lambda_{v f}=0
+$$
+
+-   In short, some combinations of factor loadings and unique variances (across and within items) cannot happen
+
+    -   This goes against most of our statistical constraints – which must be justifiable and understandable (therefore testable)
+    -   This constraint is not testable in CFA
+    
+## Benefits and Consequences of EFA with ML
+
+- The parameters of the EFA model under ML retain the same benefits and consequences of any model (i.e., CFA)
+    -   Asymptotically (large N) they are consistent, normal, and efficient
+    -   Missing data are “skipped” in the likelihood, allowing for incomplete observations to contribute (assumed MAR)
+    
+-  Furthermore, the same types of model fit indices are available in EFA as are in CFA      
+
+-  As with CFA, though, an EFA model must be a close approximation to the saturated model covariance matrix if the parameters are to be believed
+
+## ML-based EFA Using the `factanal()` Function
+
+- The base R program has the `factanal()` function that conducts ML-based EFA
+
+- Although the function use ML, you still cannot have missing data in the analysis
+    -   We will remove cases with any missing data (listwise deletion) and proceed
+    
+- We will also not use a rotation method at first as to show how default constraints in EFA with ML are ridiculous
+
+## Step 1: Determine Number of Factors
+
+- The EFA `factanal()` function provides a rudimentary test for model fit
+
+```{r}
+#one-factor model
+EFA_1factor = factanal(x = data02a, factors = 1, rotation = "none")
+EFA_1factor
+```
+
+- Remember the saturated model from path analysis?
+    - All covariances estimated
+
+- The model fit tests the solution from EFA vs the saturated model
+    - EFA 1-factor model shown
+
+-   The goal is to find a model that fits well
+
+## Step 1: Select Best Model: Chi-square
+
+```{r}
+#| code-fold: false
+#| results: hold
+chi_sq_test <- function(mod) {
+  num_factor <- mod$factors
+  chi_stat <- round(mod$STATISTIC, 3)
+  dof <- mod$dof
+  p_value <- round(mod$PVAL, 4)
+  print(glue::glue("{num_factor}-factor model: The chi square statistic is {chi_stat} on {dof} degrees of freedom. The p-value is {p_value}"))
+}
+
+#one-factor model
+EFA_1factor = factanal(x = data02a, factors = 1, rotation = "none")
+chi_sq_test(EFA_1factor)
+
+#two-factor model
+EFA_2factor = factanal(x = data02a, factors = 2, rotation = "none")
+chi_sq_test(EFA_2factor)
+
+#three-factor model
+EFA_3factor = factanal(x = data02a, factors = 3, rotation = "none")
+chi_sq_test(EFA_3factor)
+
+#four-factor model
+EFA_4factor = factanal(x = data02a, factors = 4, rotation = "none")
+chi_sq_test(EFA_4factor)
+
+```
+
+
+## Step 2: Interpreting the Best Model
+
+-   As the four-factor solution fit best, we will interpret it
+
+-   Unrotated solution of factor loadings:
+
+```{r}
+EFA_4factor$loadings
+```
+
+- F1 has the most number of relationships with all items of gambling (general gambling level?), followed by F2 (special type of gambling?), F3, and F4. It is very difficult to know what each factor really means.
+
+## Step 3: Rotations of Factor Loadings in EFA
+
+-   Transformations of the factor loadings are possible as the matrix of factor loadings is only unique up to an orthogonal transformation
+
+-   Historically, rotations use the properties of matrix algebra to adjust the factor loadings to more interpretable numbers
+
+-   Modern versions of rotations/transformations rely on “target functions” that specify what a “good” solution should look like
+
+## Step 3: Types of Classical Rotated Solutions
+
+-   Multiple types of rotations exist but two broad categories seem to dominate how they are discussed:
+
+-   Orthogonal rotations: rotations that force the factor correlation to zero (orthogonal factors). The name orthogonal relates to the angle between axes of factor solutions being 90 degrees. The most prevalent is the varimax rotation.
+
+-   Oblique rotations: rotations that allow for non-zero factor correlations. The name orthogonal relates to the angle between axes of factor solutions not being 90 degrees. The most prevalent is the promax rotation.
+
+    -   These rotations provide an estimate of “factor correlation”
+    
+## Step 3: How Classical Orthogonal Rotation Works
+
+-   Classical orthogonal rotation algorithms work by defining a new rotated set of factor loadings 𝚲∗ as a function of the original (non-rotated) loadings $\mathbf\Lambda$ and an orthogonal rotation matrix $\mathbf T$
+
+$$
+\mathbf{\Lambda}^{*}=\boldsymbol{\Lambda} \mathbf{T}
+$$
+
+where: $\mathbf {TT^T=T^TT = I}$
+
+$$
+\begin{array}{l}
+\boldsymbol{\Sigma}_{Y}=\boldsymbol{\Lambda}^{*} \boldsymbol{\Lambda}^{* T}+\boldsymbol{\Psi}=\boldsymbol{\Lambda} \mathbf{T}(\boldsymbol{\Lambda} \mathbf{T})^{T}+\boldsymbol{\Psi}=\boldsymbol{\Lambda} \mathbf{T T}^{T} \boldsymbol{\Lambda}^{T}+\boldsymbol{\Psi} \\
+=\boldsymbol{\Lambda} \boldsymbol{\Lambda}^{T}+\boldsymbol{\Psi}
+\end{array}
+$$
+
