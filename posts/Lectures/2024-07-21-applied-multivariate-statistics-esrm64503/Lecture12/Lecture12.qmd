@@ -1,6 +1,6 @@
 ---
 title: "Lecture 12: Principal Components Analysis and Exploratory Factor Analysis"
-subtitle: "ESRM 64503 - Lecture 12: PCA and EFA"
+subtitle: "ESRM 64503 - PCA and EFA"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -66,7 +66,7 @@ library(lavaan) # Desc() allows you to quick screen data
 # options(digits = 3)
 ```
 
-## The Logic of Exploratory Analyses
+## The Logic of Exploratory Analysis
 
 -   Exploratory analyses attempt to discover hidden structure in data with little to no user input
     -   Aside from the selection of analysis and estimation

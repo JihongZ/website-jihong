@@ -20,7 +20,7 @@ citation:
   issued: 2025-01-13
 ---
 
-![](images/clipboard-4222849525.png){fig-align="center" width="400"}
+![](images/clipboard-4222849525.png){fig-align="center" width="40%"}
 
 # General Information
 
