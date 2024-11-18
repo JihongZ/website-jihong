@@ -44,9 +44,9 @@ bibliography: references.bib
 
 -   [You will get 2 extra credit points if you finish the course evaluation.]{style="color: royalblue; font-weight: bold"}
 
-| **Course**       | **Course Name**             | **Survey Open** | **Survey Close** |
+| **Course**       | **Course Name**             | **Survey Open** | **Survey Close** |
 |------------------|-----------------------------|-----------------|------------------|
-| ESRM 64503 - 001 | APPLIED MULTIVARIATE STATS  | Nov 21          | Dec 6            |
+| ESRM 64503 - 001 | APPLIED MULTIVARIATE STATS  | Nov 21          | Dec 6            |
 
 ## Today's Class
 
@@ -101,9 +101,7 @@ $$
         \end{bmatrix}
         $$
 
-```{=html}
-<!-- -->
-```
+
 -   Orthogonal matrices are characterized by two properties
     1.  The dot product of all row vector multiples is the zero vector
         -   Meaning vectors are orthogonal (or uncorrelated)

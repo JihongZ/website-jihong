@@ -59,9 +59,9 @@ This course has three main objectives:
 
 Class time will be devoted to interactive lectures, live coding demonstrations, and hands-on exercises. All lecture materials, including R scripts and datasets, will be available in .html and .R formats on the course website prior to each class. Weekly coding assignments will reinforce concepts covered in lectures. While recorded lectures will be available upon request, active participation in class is essential for developing programming skills.
 
--  Required software:
-    -   R (latest stable version) 
-    -   RStudio Desktop 
+-   Required software:
+    -   R (latest stable version)
+    -   RStudio Desktop
     -   Git (for version control)
 
 No prior programming experience is required, but basic statistical knowledge and familiarity with data analysis concepts is recommended. Students should have access to a laptop computer capable of running R and RStudio.
@@ -124,11 +124,11 @@ This 17-week course is structured in four main modules that progressively build 
     -   Version control with Git and GitHub
     -   Final project implementation and presentation
 
--  Key Features: 
-    -   Hands-on learning approach with weekly lectures 
-    -   Focus on tidyverse ecosystem for modern R programming 
-    -   Integration of professional tools (Quarto, Git) 
-    -   Culminates in a final project 
+-   Key Features:
+    -   Hands-on learning approach with weekly lectures
+    -   Focus on tidyverse ecosystem for modern R programming
+    -   Integration of professional tools (Quarto, Git)
+    -   Culminates in a final project
     -   Two scheduled breaks: MLK Holiday (Week 2) and Spring Break (Week 12)
 
 Learning Progression: The course is designed to progress from basic R fundamentals to advanced data manipulation and visualization techniques, concluding with professional development tools and a practical final project that synthesizes all learned concepts.
@@ -140,118 +140,122 @@ This book is free and comprehensive for a broad R tasks of data analysis. For ex
 # Final Project Requirements
 
 ## Overview
+
 The final project is an opportunity to demonstrate your proficiency in R programming and data analysis by conducting an end-to-end data science project. You will apply the skills learned throughout the course to analyze a real-world environmental or natural resource dataset of your choice.
 
 ## Project Objectives
-1. Demonstrate proficiency in R programming fundamentals
-2. Apply data manipulation and visualization techniques
-3. Create reproducible research documentation
-4. Practice version control and project management
-5. Present findings effectively using R-based tools
+
+1.  Demonstrate proficiency in R programming fundamentals
+2.  Apply data manipulation and visualization techniques
+3.  Create reproducible research documentation
+4.  Practice version control and project management
+5.  Present findings effectively using R-based tools
 
 ## Project Components and Weights
-* **Project Proposal (10%)** - Due Week 14
-  - Dataset description and source
-  - Research questions/objectives
-  - Proposed analysis methods
-  - Timeline for completion
 
-* **GitHub Repository (20%)**
-  - Well-organized project structure
-  - Clear documentation
-  - Regular commits showing progress
-  - README.md file with project description and instructions
-
-* **R Code and Analysis (40%)**
-  - Clean, well-commented R scripts
-  - Efficient use of tidyverse functions
-  - At least three different types of data visualizations using ggplot2
-  - Appropriate data cleaning and transformation steps
-  - Error handling and code optimization
-
-* **Final Report (20%)**
-  - Created using Quarto markdown
-  - Professional formatting
-  - Clear methodology description
-  - Effective visualization presentation
-  - Discussion of findings and limitations
-  - 2,500-3,000 words (excluding code)
-
-* **Presentation (10%)** - Week 17
-  - 10-minute presentation
-  - 5-minute Q&A
-  - Clear communication of findings
-  - Demonstration of key code features
+-   **Project Proposal (10%)** - Due Week 14
+    -   Dataset description and source
+    -   Research questions/objectives
+    -   Proposed analysis methods
+    -   Timeline for completion
+-   **GitHub Repository (20%)**
+    -   Well-organized project structure
+    -   Clear documentation
+    -   Regular commits showing progress
+    -   README.md file with project description and instructions
+-   **R Code and Analysis (40%)**
+    -   Clean, well-commented R scripts
+    -   Efficient use of tidyverse functions
+    -   At least three different types of data visualizations using ggplot2
+    -   Appropriate data cleaning and transformation steps
+    -   Error handling and code optimization
+-   **Final Report (20%)**
+    -   Created using Quarto markdown
+    -   Professional formatting
+    -   Clear methodology description
+    -   Effective visualization presentation
+    -   Discussion of findings and limitations
+    -   2,500-3,000 words (excluding code)
+-   **Presentation (10%)** - Week 17
+    -   10-minute presentation
+    -   5-minute Q&A
+    -   Clear communication of findings
+    -   Demonstration of key code features
 
 ## Requirements
 
 ### Dataset
-* Minimum 150 observations
-* At least 5 variables
-* Must be related to environmental science or natural resources
-* Can be public or private data (with appropriate permissions)
-* Must require significant cleaning or transformation
+
+-   Minimum 150 observations
+-   At least 5 variables
+-   Must be related to environmental science or natural resources
+-   Can be public or private data (with appropriate permissions)
+-   Must require significant cleaning or transformation
 
 ### Required Technical Elements
-1. **Data Processing**
-   - Data import from at least two different file formats
-   - Data cleaning and transformation using tidyverse
-   - Creation of derived variables
 
-2. **Data Visualization**
-   - Minimum three different types of plots using ggplot2
-   - At least one complex visualization (multiple layers/facets)
-   - Professional formatting and theming
-
-3. **Programming**
-   - Use of functions
-   - Proper error handling
-   - Efficient code structure
-   - Well-documented code
-
-4. **Version Control**
-   - Minimum 15 meaningful GitHub commits
-   - Clear commit messages
-   - Proper .gitignore file
-   - Well-structured repository
+1.  **Data Processing**
+    -   Data import from at least two different file formats
+    -   Data cleaning and transformation using tidyverse
+    -   Creation of derived variables
+2.  **Data Visualization**
+    -   Minimum three different types of plots using ggplot2
+    -   At least one complex visualization (multiple layers/facets)
+    -   Professional formatting and theming
+3.  **Programming**
+    -   Use of functions
+    -   Proper error handling
+    -   Efficient code structure
+    -   Well-documented code
+4.  **Version Control**
+    -   Minimum 15 meaningful GitHub commits
+    -   Clear commit messages
+    -   Proper .gitignore file
+    -   Well-structured repository
 
 ## Deliverables Timeline
-* Week 14: Project proposal due
-* Week 15: Progress check-in
-* Week 16: Code and repository review
-* Week 17: Final presentation and submission of all materials
+
+-   Week 14: Project proposal due
+-   Week 15: Progress check-in
+-   Week 16: Code and repository review
+-   Week 17: Final presentation and submission of all materials
 
 ## Submission Requirements
-1. GitHub repository link containing:
-   - All R scripts
-   - Raw and processed data (or data access instructions)
-   - Quarto markdown files
-   - README.md with setup instructions
 
-2. Final report in PDF format generated from Quarto
+1.  GitHub repository link containing:
 
-3. Presentation slides in PDF format
+    -   All R scripts
+    -   Raw and processed data (or data access instructions)
+    -   Quarto markdown files
+    -   README.md with setup instructions
+
+2.  Final report in PDF format generated from Quarto
+
+3.  Presentation slides in PDF format
 
 ## Evaluation Criteria
-* Code quality and efficiency (25%)
-* Data analysis depth and appropriateness (25%)
-* Visualization effectiveness (20%)
-* Documentation clarity (15%)
-* Presentation quality (15%)
+
+-   Code quality and efficiency (25%)
+-   Data analysis depth and appropriateness (25%)
+-   Visualization effectiveness (20%)
+-   Documentation clarity (15%)
+-   Presentation quality (15%)
 
 ## Tips for Success
-* Start early and commit code regularly
-* Choose a dataset that interests you
-* Focus on clean, readable code
-* Document your process thoroughly
-* Test your analysis with different approaches
-* Seek feedback during office hours
-* Practice your presentation
+
+-   Start early and commit code regularly
+-   Choose a dataset that interests you
+-   Focus on clean, readable code
+-   Document your process thoroughly
+-   Test your analysis with different approaches
+-   Seek feedback during office hours
+-   Practice your presentation
 
 ## Academic Integrity
-* All code must be original or properly cited
-* Data sources must be properly referenced
-* Collaboration is encouraged for brainstorming, but all submitted work must be individual
+
+-   All code must be original or properly cited
+-   Data sources must be properly referenced
+-   Collaboration is encouraged for brainstorming, but all submitted work must be individual
 
 This project is designed to be challenging but achievable with the skills learned in the course. It provides flexibility in topic selection while ensuring rigorous application of R programming concepts.
 
