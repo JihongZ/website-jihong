@@ -50,10 +50,10 @@ bibliography: references.bib
 
 ## Today's Class
 
--   Methods for exploratory factor analysis (EFA)
+-   Methods for exploratory analysis
 
-    -   Principal Components-based
-    -   Maximum Likelihood-based Exploratory Factor Analysis
+    -   Principal Components-based exploratory approach (PCA)
+    -   Maximum Likelihood-based Exploratory Factor Analysis (EFA)
     -   Exploratory Structural Equation Modeling
 
 ```{r}
@@ -123,11 +123,12 @@ $$
     -   The number equal to the number of rows/columns of $\mathbf{\Sigma}$
 -   **Principal components analysis** uses eigenvalues and eigenvectors to reconfigure data
 
-## Example: Eigenvalues and Eigenvectors
+## R Code: Eigenvalues and Eigenvectors
 
 -   In R, we can use `eigen()` function to get eigenvalues and eigenvectors of a square matrix (e.g., a correlation matrix).
 
 ```{r}
+library(ESRM64503)
 ## Correlation matrix of SAT-Verbal and SAT-Math
 sat_corrmat = cor(dataSAT[, c("SATV", "SATM")])
 
@@ -167,7 +168,9 @@ where $i$ is the index of row/column of square matrix
 
 $$
 \mathbf{R}_1 = \lambda_1 \mathbf{e}_i \mathbf{e}_i^T = 1.775 \begin{bmatrix}0.707 \\ 0.707\end{bmatrix} \begin{bmatrix}0.707 & 0.707\end{bmatrix} = \begin{bmatrix}0.890 & 0.890\\ 0.890 & 0.890\end{bmatrix}
-$$ $$
+$$ 
+
+$$
 \begin{align}
 \mathbf{R}_2 &= \mathbf{R}_1 +\lambda_1 \mathbf{e}_i \mathbf{e}_i^T \\
 &= \begin{bmatrix}0.890 & 0.890\\ 0.890 & 0.890\end{bmatrix}
@@ -529,7 +532,7 @@ plot(density(gambling_pca_cov$x[, 1]),
 
 -   In sum, I feel it is very easy to be misled (or purposefully mislead) with PCA
 
-# EXPLORATORY FACTOR ANALYSIS
+# EXPLORATORY FACTOR ANALYSIS (EFA)
 
 ## Primary Purpose of EFA
 
