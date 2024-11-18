@@ -797,4 +797,43 @@ $$
 \end{array}
 $$
 
-## 
+## Rotation Algorithms
+
+-   Given a target function, rotation algorithms seek to find a rotated solution that simultaneously:
+
+    -   Minimizes the distance between the rotated solution and the original factor loadings
+    -   Fits best to the target function
+    
+    
+## Example: Orthogonal Rotation via Varimax
+
+-   no factor correlation
+
+```{r}
+#varimax rotation
+EFA_4factor_varimax = factanal(x = data02a, factors = 4, rotation = "varimax")
+EFA_4factor_varimax$loadings
+```
+
+
+
+## Example: Oblique Rotation via Promax
+
+-   It also brought about the following factor correlations:
+
+-   Each factor explain different sets of items
+
+```{r}
+#promax rotation
+EFA_4factor_varimax = factanal(x = data02a, factors = 4, rotation = "promax")
+EFA_4factor_varimax$loadings
+```
+
+## Wrapping Up
+
+-   Today we discussed the world of exploratory factor analysis and found the following:
+
+    1. PCA is what people typically run before they found EFA
+    2. ML EFA is a better option to pick (likelihood based)
+    3. Constraints of EFA employed are hidden!
+    4. Rotations can break without you realizing they do (cannot interpret the factors)
