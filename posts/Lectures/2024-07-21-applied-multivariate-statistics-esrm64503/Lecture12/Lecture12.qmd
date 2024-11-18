@@ -1,6 +1,6 @@
 ---
 title: "Lecture 12: Principal Components Analysis and Exploratory Factor Analysis"
-subtitle: "Absolute Model fit and Model Interpretation"
+subtitle: "ESRM 64503 - Lecture 12: PCA and EFA"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
