@@ -56,18 +56,18 @@ filters:
 
 ## What is Bayesian?
 
--  A statistical inference based on **Bayesian Probability Theory to estimate uncertainty**
+-   A statistical inference based on **Bayesian Probability Theory to estimate uncertainty**
 
 [![Bayesian Data Analysis course material by Aki Vehtari](images/clipboard-292128306.png){width="600"}](https://github.com/avehtari/BDA_course_Aalto)
 
--  What are key components of Bayesian models?
+-   What are key components of Bayesian models?
 
     1.  Likelihood function - likelihood of **data given assumed probability distribution**
     2.  Prior distribution - belief / previous evidences of **parameters**
     3.  Posterior distribution - updated information of parameters given our data and modeling
     4.  Posterior predictive distribution - future / predicted data
 
--  What are the differences between Bayesian with Frequentist analysis?
+-   What are the differences between Bayesian with Frequentist analysis?
 
     1.  **Input**: prior distribution: **Bayesian** vs. hypothesis of fixed parameters: **frequentist**
     2.  **Estimation process**: Markov Chain Monte Carlo (MCMC) vs. Maximum Likelihood Estimation (MLE)
@@ -493,11 +493,10 @@ paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 -   Option 2: You can also use Stan in a interactive way in **qmd** file
 
     -   Which is helpful when you want to test multiple stan models and report your results at the same time
-    
+
 ![Create a new Stan file in Rstudio](Fig2_CreateStanFile.png)
 
 ![Stan and R code blocks in qmd file](Fig2_StanCodeinQmd.png)
-
 
 ------------------------------------------------------------------------
 

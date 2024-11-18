@@ -1,5 +1,5 @@
 ---
-title: "Lecture 12: Principal Components Analysis and Factor Analysis"
+title: "Lecture 12: Principal Components Analysis and Exploratory Factor Analysis"
 subtitle: "Absolute Model fit and Model Interpretation"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -22,7 +22,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 12: Absolute Model fit and Path Analysis"
+    footer: "ESRM 64503 - Lecture 12: PCA and EFA"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
@@ -42,16 +42,19 @@ bibliography: references.bib
 
 ## Course Evaluation
 
+-   [You will get 2 extra credit points if you finish the course evaluation.]{style="color: royalblue; font-weight: bold"}
+
+| **Course**       | **Course Name**             | **Survey Open** | **Survey Close** |
+|------------------|-----------------------------|-----------------|------------------|
+| ESRM 64503 - 001 | APPLIED MULTIVARIATE STATS  | Nov 21          | Dec 6            |
+
 ## Today's Class
 
 -   Methods for exploratory factor analysis (EFA)
+
     -   Principal Components-based
     -   Maximum Likelihood-based Exploratory Factor Analysis
     -   Exploratory Structural Equation Modeling
--   Comparisons of CFA and EFA
--   How to do exploratory analyses with CFA
-    -   Structure of no items known
-    -   Structure of some items known
 
 ```{r}
 #| output-location: default
@@ -78,7 +81,7 @@ library(lavaan) # Desc() allows you to quick screen data
 -   Often, exploratory analyses are not needed
     -   But are conducted anyway – see a lot of reports of scale development that start with the idea that a construct has a certain number of dimensions
 
-# Advanced matrix operations
+# Advanced Matrix Operations
 
 ## Matrix Orthogonality
 
@@ -88,6 +91,19 @@ $$
 \mathbf{\Lambda\Lambda^T = \Lambda^T\Lambda = I}
 $$
 
+-   For example, $\mathbf \Lambda$ is a orthogonal matrix
+
+    -   $$
+        \mathbf \Lambda = \frac{1}{7}\begin{bmatrix}
+        3 & 2 & 6 \\
+        -6 & 3 & 2 \\
+        2 & 6 & 3
+        \end{bmatrix}
+        $$
+
+```{=html}
+<!-- -->
+```
 -   Orthogonal matrices are characterized by two properties
     1.  The dot product of all row vector multiples is the zero vector
         -   Meaning vectors are orthogonal (or uncorrelated)
@@ -99,7 +115,7 @@ $$
 
 ## Eigenvalues and Eigenvectors
 
--   A square matrix $\mathbf{\Sigma}$ can be decomposed into a set of eigenvalues $\mathbf{\lambda}$ and a set of eigenvectors $e$:
+-   A square matrix $\mathbf{\Sigma}$ can be decomposed into a set of eigenvalues $\mathbf{\lambda}$ and a set of eigenvectors $\mathbf e$:
 
 $$
 \mathbf{\Sigma e} = \lambda \mathbf{e}
@@ -107,12 +123,14 @@ $$
 
 -   Each eigenvalue has a corresponding eigenvector
     -   The number equal to the number of rows/columns of $\mathbf{\Sigma}$
--   Principal components analysis uses eigenvalues and eigenvectors to reconfigure data
+-   **Principal components analysis** uses eigenvalues and eigenvectors to reconfigure data
 
 ## Example: Eigenvalues and Eigenvectors
 
+-   In R, we can use `eigen()` function to get eigenvalues and eigenvectors of a square matrix (e.g., a correlation matrix).
+
 ```{r}
-## Correlation matrix of SAR sR
+## Correlation matrix of SAT-Verbal and SAT-Math
 sat_corrmat = cor(dataSAT[, c("SATV", "SATM")])
 
 ## eignvalues and eigenvectors of correlation matrix:
@@ -145,9 +163,9 @@ $$
 \mathbf{\Sigma =}\sum_{i=1}^{p} \lambda_i\mathbf{e}_i \mathbf{e}_i^T
 $$
 
-where i is the index of row/column of square matrix
+where $i$ is the index of row/column of square matrix
 
--   For our example, we can get back to our 2\*2 original matrix:
+-   For our example, we can get back to our 2\*2 correlation matrix by combining two matrices of eigenvalues and eigenvectors:
 
 $$
 \mathbf{R}_1 = \lambda_1 \mathbf{e}_i \mathbf{e}_i^T = 1.775 \begin{bmatrix}0.707 \\ 0.707\end{bmatrix} \begin{bmatrix}0.707 & 0.707\end{bmatrix} = \begin{bmatrix}0.890 & 0.890\\ 0.890 & 0.890\end{bmatrix}
@@ -181,6 +199,10 @@ $$
 tr(\mathbf\Sigma) = \sum_{i=1}^{p}\lambda_i
 $$
 
+::: callout-note
+The transformation of data: In Mathematics, an **eigenvector** corresponds to the real nonzero eigenvalues which point in the direction stretched by the transformation; **eigenvalue** is considered as a factor by which it is stretched.
+:::
+
 -   In our example, the $tr(\mathbf R) = 1.775 + 0.224 \approx 2$
 
 ```{r}
@@ -195,7 +217,7 @@ $$
 
 -   In our example, the $|\mathbf R| = 1.775 * 0.224 \approx .3976$
 
-# AN INTRODUCTION TO PRINCIPAL COMPONENTS ANALYSIS
+# PRINCIPAL COMPONENTS ANALYSIS
 
 ## PCA Overview
 
@@ -205,13 +227,15 @@ $$
 
 2.  PCA has two objectives:
 
-    1.  Data reduction - Moving from many original variables down to a few "components"
+    1.  **Data reduction** - Moving from many original variables down to a few "components"
 
-    2.  Interpretation - Determining which original variables contribute most to the new "components"
+        -   You have 100 variables, but you only need 7 composite scores that summarizes all 100 variables.
+
+    2.  **Interpretation** - Determining which original variables contribute most to the new "components"
 
 ## Goals of PCA
 
--   The **goal** of PCA is to find a set of k principal components (composite variables) that:
+-   The **goal** of PCA is to find a set of [*k*]{.underline} principal components (composite variables) that:
     -   Is much smaller in number than the original set of V variables
     -   Accounts for nearly all of the total variance
         -   Total variance = trace of covariance/correlation matrix
@@ -221,10 +245,12 @@ $$
 ## Questions when using PCA
 
 -   PCA analyses proceed by seeking the answers to two questions:
-    1.  How many components (new variables) are needed to “adequately” represent the original data?
-        -   The term adequately is fuzzy (and will be in the analysis)
+    1.  How many **components** are needed to “adequately” represent the original data?
+        -   e.g., for 10-item depression survey, we may need one composite score of "deperssion"
+        -   The term "[adequately"]{.underline} is fuzzy (and will be in the analysis)
     2.  (once #1 has been answered): What does each component represent?
-        -   The term “represent” is also fuzzy
+        -   The term [“represent”]{.underline} is also fuzzy
+        -   e.g., what does the "component" score mean? For one component, it can be interpreted as "general depression level". What about two or three components?
 
 ## PCA Features
 
@@ -237,11 +263,12 @@ $$
 -   Unfortunately, PCA is often intermixed with Exploratory Factor Analysis
     -   Don’t. Please don’t. Please make it stop.
 
-## PCA Details
+## PCA Formulas
 
 -   Notation: $Z$ are our new components and $\mathbf Y$ is our original data matrix (with N observations and V variables)
     -   We will let p be our index for a subject
 -   The new components are linear combinations:
+    -   We can generate V number of components at most, same as number of observed variables:
 
 $$
 \begin{array}{c}
@@ -254,6 +281,10 @@ $$
 
 -   The weights of the components ($e_{jk}$) come from the eigenvectors of the covariance or correlation matrix for component k and variable j
 
+## Diagram of PCA
+
+![PC: Principal components; Item: Observed variables](images/clipboard-3451643663.png){fig-align="center" width="800"}
+
 ## Details about the components
 
 -   The components ($Z$) are formed by the weights of the eigenvectors of the covariance or correlation matrix of the original data
@@ -262,10 +293,10 @@ $$
 
 -   Using the eigenvalue and eigenvectors means:
 
-    -   Each successive component has lower variance
+    -   Each successive component has **lower variance**
         -   Var(Z1) \> Var(Z2) \> … \> Var(Zv)
-    -   All components are uncorrelated
-    -   The sum of the variances of the principal components is equal to the total variance:
+    -   All components are **uncorrelated**
+    -   The sum of the variances of the principal components is equal to the **total variance**:
 
     $$
     \sum_{v=1}^{V} \operatorname{Var}\left(Z_{v}\right)=\operatorname{tr} \mathbf{\Sigma}=\sum_{v=1}^{V} \lambda_{v}
@@ -274,7 +305,7 @@ $$
 ## PCA on our example
 
 1.  We will now conduct a PCA on the correlation matrix of our sample data
-    -   This example is given for demonstration purposes – typically we will not do PCA on small numbers of variables
+    -   This example is given for demonstration purposes – typically we will not do PCA on small numbers of variables (\> 20 variables?)
 
 ![](images/clipboard-2518475766.png){fig-align="center" width="670"}
 
@@ -298,6 +329,7 @@ summary(sat_pca_corr)
 
 -   Plotting the components and the original data side by side reveals the nature of PCA:
     -   Shown from PCA of covariance matrix
+    -   PC I (Principal component I) is uncorrelated to PC II
 
 ```{r}
 #| code-fold: true
@@ -320,9 +352,9 @@ legend(0, 400, pch=1, col=c("red", "blue"), c("Data", "PCs"), bty="o",  box.col=
 
 ## An empirical example: The Growth of Gambling Access
 
--   In past 25 years:
-    -   An exponential increase in the accessibility of gambling
-    -   An increased rate of with problem or pathological gambling (Volberg, 2002, Welte et al., 2009)
+-   Background:
+    -   In past 25 years, an exponential increase in the accessibility of gambling
+    -   An increased rate of with problem or pathological gambling (Volberg, 2002; Welte et al., 2009)
 -   Hence, there is a need to better:
     -   Understand the underlying causes of the disorder
     -   Reliably identify potential pathological gamblers
@@ -353,9 +385,9 @@ legend(0, 400, pch=1, col=c("red", "blue"), c("Data", "PCs"), bty="o",  box.col=
 ## Research on Pathological Gambling
 
 -   In order to study the etiology of pathological gambling, more variability in responses was needed
--   The Gambling Research Instrument (Feasel, Henson, & Jones,2002) was created with 41 Likert-type items
+-   The **Gambling Research Instrument** (**GRI**; Feasel, Henson, & Jones,2002) was created with 41 Likert-type items
     -   Items were developed to measure each criterion
--   Example items (ratings: Strongly Disagree to Strongly Agree):
+-   Example items (ratings: *Strongly Disagree* to *Strongly Agree*):
     -   I worry that I am spending too much money on gambling (C3)
     -   There are few things I would rather do than gamble (C1)
 -   The instrument was used on a sample of experienced gamblers from a riverboat casino in a Flat Midwestern State
@@ -395,7 +427,7 @@ dim(data02a)
 ## Final 10 items on the scale
 
 | Item  | Criterion | Question                                                                                                            |
-|----------------|----------------|-----------------------------------------|
+|-----------------|-----------------|--------------------------------------|
 | GRI1  | 3         | I would like to cut back on my gambling.                                                                            |
 | GRI3  | 6         | If I lost a lot of money gambling one day, I would be more likely to want to play again the following day.          |
 | GRI5  | 2         | I find it necessary to gamble with larger amounts of money (than when I first gambled) for gambling to be exciting. |
@@ -410,8 +442,8 @@ dim(data02a)
 ## Question #1: How Many Components?
 
 -   To answer the question of how many components, two methods are used:
-    -   Scree plot of eigenvalues (looking for the “elbow”)
-    -   Variance accounted for (should be \> 70%)
+    -   **Scree plot** of eigenvalues (looking for the “elbow”)
+    -   **Variance** accounted for (should be \> 70%)
 -   We will go with 4 components: (variance accounted for VAC = 75%)
 -   Variance accounted for is for the total sample variance
 
@@ -440,23 +472,29 @@ legend(x=5, y=.5, legend = c("Component Variance", "Cumulative Variance"), lty =
 
 ## Question #2: What Does Each Component Represent?
 
--   To answer question #2 – we look at the weights of the eigenvectors (here is the unrotated solution)
+-   To answer question #2 – we look at the weights of the **eigenvectors** (here is the unrotated solution)
 
 ```{r}
 round(gambling_pca_cov$rotation, 3)
 ```
 
+-   Given 10-item survey, we can extract **10** components at most, but we only use first **4** principal components. They are enough to explain the total variance of data.
+
 ## Final Result: Four Principal Components
 
 -   Using the weights of the eigenvectors, we can create four new variables – the four principal components
-
-```{r}
-head(gambling_pca_cov$x[, 1:4], 10)
-```
-
--   Each of these is uncorrelated with each other
+-   **Strong assumption**: Each of these is uncorrelated with each other
     -   The variance of each is equal to the corresponding eigenvalue
 -   We would then use these in subsequent analyses
+
+```{r}
+#| fig-align: center
+#| fig-width: 8
+#| output-location: column
+head(gambling_pca_cov$x[, 1:4], 5)
+plot(density(gambling_pca_cov$x[, 1]), 
+     main = "first PC")
+```
 
 ## PCA Summary
 
@@ -511,7 +549,7 @@ head(gambling_pca_cov$x[, 1:4], 10)
     -   Many are PCA-based
     -   Most were developed before computers became relevant or likelihood theory was developed
 -   You can ignore all of them and focus on one:
-    -   Only Use Maximum Likelihood for EFA
+    -   Only use **Maximum Likelihood** method for EFA
 -   The maximum likelihood method of EFA extraction:
     -   Uses the same log-likelihood as confirmatory factor analyses/SEM
         -   Default assumption: multivariate normal distribution of data
@@ -554,6 +592,10 @@ $$
 \mathbf{Y_p = \mu_Y+\Lambda F_p^T + e_p}
 $$
 
+## Diagram of EFA
+
+![Latent factors are common factors of observed variables](images/clipboard-2439552403.png){fig-align="center" width="800"}
+
 ## How Maximum Likelihood EFA Works
 
 -   Maximum likelihood EFA assumes the data follow a multivariate normal distribution
@@ -588,8 +630,7 @@ $$
             -   In CFA: this is estimated
         -   $\boldsymbol{\Psi}$ = matrix of unique (residual) variances (size $I \times I$)
             -   In EFA: $\boldsymbol{\Psi}$ is diagonal by default (no residual covariances)
-
-- Therefore, the EFA model-implied covariance matrix is:
+-   Therefore, the EFA model-implied covariance matrix is:
 
 $$
 \boldsymbol{\Sigma}_{Y}=\boldsymbol{\Lambda} \mathbf{\Lambda}^{T}+\boldsymbol{\Psi}
@@ -597,33 +638,33 @@ $$
 
 ## EFA Model Identifiability
 
-- Under the ML method for EFA, the same rules of identification apply to EFA as to Path Analysis
-    - **T-rule**: Total number of EFA model parameters must not exceed unique elements in saturated covariance matrix of data
-        - For an analysis with a number of factors $F$ and a set number of items $I$ there are $F*I+I=I(F+1)$ EFA model parameters
-        - As we will see, there must be $\frac{F(F-1)}{2}$ constraints for the model to work
-        - Therefore, $I(F+1)-\frac{F(F-1)}{2}<\frac{I(I+1)}{2}$
-        
-    - **Local identification**: each portion of the model must be locally identified
+-   Under the ML method for EFA, the same rules of identification apply to EFA as to Path Analysis
+    -   **T-rule**: Total number of EFA model parameters must not exceed unique elements in saturated covariance matrix of data
+        -   For an analysis with a number of factors $F$ and a set number of items $I$ there are $F*I+I=I(F+1)$ EFA model parameters
+        -   As we will see, there must be $\frac{F(F-1)}{2}$ constraints for the model to work
+        -   Therefore, $I(F+1)-\frac{F(F-1)}{2}<\frac{I(I+1)}{2}$
+    -   **Local identification**: each portion of the model must be locally identified
         -   With all factor loadings estimated local identification fails
             -   No way of differentiating factors without constraints
-            
-##  Constraints to Make EFA in ML Identified
 
--   The EFA model imposes the following constraint:
-$$
-\mathbf{\Lambda^T\Psi\Lambda=\Delta}
-$$
+## Constraints to Make EFA in ML Identified
+
+-   The EFA model imposes the following constraint: $$
+    \mathbf{\Lambda^T\Psi\Lambda=\Delta}
+    $$
 
 such that $\mathbf\Delta$ is a diagonal matrix
 
-- This puts $\frac{F(F-1)}{2}$ constraints on the model (that many fewer parameters to estimate).
+-   This puts $\frac{F(F-1)}{2}$ constraints on the model (that many fewer parameters to estimate).
 
-- This constraint is not well known – and how it functions is hard to describe
+-   This constraint is not well known – and how it functions is hard to describe
+
     -   For a 1-factor model, the results of EFA and CFA will match
-    
-- Note: the other methods of EFA “extraction” avoid this constraint by not being statistical models in the first place  
+
+-   Note: the other methods of EFA “extraction” avoid this constraint by not being statistical models in the first place
+
     -   PCA-based routines rely on matrix properties to resolve identification
-    
+
 ## The Nature of the Constraints in EFA
 
 -   The EFA constraints provide some detailed assumptions about the nature of the factor model and how it pertains to the data
@@ -638,29 +679,31 @@ $$
 
     -   This goes against most of our statistical constraints – which must be justifiable and understandable (therefore testable)
     -   This constraint is not testable in CFA
-    
+
 ## Benefits and Consequences of EFA with ML
 
-- The parameters of the EFA model under ML retain the same benefits and consequences of any model (i.e., CFA)
+-   The parameters of the EFA model under ML retain the same benefits and consequences of any model (i.e., CFA)
+
     -   Asymptotically (large N) they are consistent, normal, and efficient
     -   Missing data are “skipped” in the likelihood, allowing for incomplete observations to contribute (assumed MAR)
-    
--  Furthermore, the same types of model fit indices are available in EFA as are in CFA      
 
--  As with CFA, though, an EFA model must be a close approximation to the saturated model covariance matrix if the parameters are to be believed
+-   Furthermore, the same types of model fit indices are available in EFA as are in CFA
+
+-   As with CFA, though, an EFA model must be a close approximation to the saturated model covariance matrix if the parameters are to be believed
 
 ## ML-based EFA Using the `factanal()` Function
 
-- The base R program has the `factanal()` function that conducts ML-based EFA
+-   The base R program has the `factanal()` function that conducts ML-based EFA
 
-- Although the function use ML, you still cannot have missing data in the analysis
-    -   We will remove cases with any missing data (listwise deletion) and proceed
-    
-- We will also not use a rotation method at first as to show how default constraints in EFA with ML are ridiculous
+-   Although the function use ML, you still **cannot have missing data** in the analysis based of the limitations of `factanal` function
+
+    -   Thus, we will remove cases with any missing data (listwise deletion) and proceed
+
+-   We will also not use a rotation method at first as to show how default constraints in EFA with ML are ridiculous
 
 ## Step 1: Determine Number of Factors
 
-- The EFA `factanal()` function provides a rudimentary test for model fit
+-   The EFA `factanal()` function provides a rudimentary test for model fit
 
 ```{r}
 #one-factor model
@@ -668,13 +711,13 @@ EFA_1factor = factanal(x = data02a, factors = 1, rotation = "none")
 EFA_1factor
 ```
 
-- Remember the saturated model from path analysis?
-    - All covariances estimated
-
-- The model fit tests the solution from EFA vs the saturated model
-    - EFA 1-factor model shown
-
+-   Remember the saturated model from path analysis?
+    -   All covariances estimated
+-   The model fit tests the solution from EFA vs the saturated model
+    -   EFA 1-factor model shown
 -   The goal is to find a model that fits well
+
+# A quick example using EFA
 
 ## Step 1: Select Best Model: Chi-square
 
@@ -707,7 +750,6 @@ chi_sq_test(EFA_4factor)
 
 ```
 
-
 ## Step 2: Interpreting the Best Model
 
 -   As the four-factor solution fit best, we will interpret it
@@ -718,7 +760,7 @@ chi_sq_test(EFA_4factor)
 EFA_4factor$loadings
 ```
 
-- F1 has the most number of relationships with all items of gambling (general gambling level?), followed by F2 (special type of gambling?), F3, and F4. It is very difficult to know what each factor really means.
+-   F1 has the most number of relationships with all items of gambling (general gambling level?), followed by F2 (special type of gambling?), F3, and F4. It is very difficult to know what each factor really means.
 
 ## Step 3: Rotations of Factor Loadings in EFA
 
@@ -737,7 +779,7 @@ EFA_4factor$loadings
 -   Oblique rotations: rotations that allow for non-zero factor correlations. The name orthogonal relates to the angle between axes of factor solutions not being 90 degrees. The most prevalent is the promax rotation.
 
     -   These rotations provide an estimate of “factor correlation”
-    
+
 ## Step 3: How Classical Orthogonal Rotation Works
 
 -   Classical orthogonal rotation algorithms work by defining a new rotated set of factor loadings 𝚲∗ as a function of the original (non-rotated) loadings $\mathbf\Lambda$ and an orthogonal rotation matrix $\mathbf T$
@@ -755,3 +797,4 @@ $$
 \end{array}
 $$
 
+## 

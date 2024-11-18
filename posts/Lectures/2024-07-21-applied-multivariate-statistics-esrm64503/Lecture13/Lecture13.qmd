@@ -1,0 +1,513 @@
+---
+title: "Lecture 13: Confirmatory Factor Analysis and Network Psychometrics"
+subtitle: ""
+author: "Jihong Zhang"
+institute: "Educational Statistics and Research Methods"
+sidebar: false
+execute: 
+  echo: true
+  eval: true
+  warning: false
+  message: false
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "Lecture 13: Confirmatory Factor Analysis and Network Psychometrics"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+bibliography: references.bib
+---
+
+## Today's Objectives
+
+1.  Understand what is network analysis and confirmatory factor analysis
+
+2.  Understand the relationship between psychometric/psychological network with factor analysis
+
+3.  Understand how network model can be applied into real scenarios
+
+# Background
+
+## Network Analysis
+
+Network analysis is a broad area. It has many names in varied fields:
+
+1.  Graphical Models (Computer Science, Machine Learning)
+2.  Bayesian Network (Computer Science, Educational Measurement)
+3.  Social Network (Sociology)
+4.  Psychological/Psychometric Network (Psychopathology, Psychology)
+5.  Structural Equation Model, Path Analysis (Psychology, Education)
+
+1 and 2 focus on the probabilistic relationships and further casual relationships among variables. 3 and 4 focuses on network structure and node importance. 5 focus on the regression coefficients of structural and measurement model.
+
+All 5 analysis methods have a network-shaped diagram. [**Graphical modeling**]{.underline} is a more "general" term that can comprise of the other network models.
+
+## Examples of Varied Networks
+
+::: {layout="[[40,40], [100]]" layout-halign="bottom"}
+![Bayesian Network (Briganti et al., 2023)](/posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/BN_DAG.png){#fig-BN-DAG}
+
+![Facebook friendship network in a single undergraduate dorm (Lewis et al., 2008)](/posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/SocialNetwork.png){#fig-social-network}
+
+![Factor Analysis and Psychological Network (Borsboom et al., 2021)](/posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png){#fig-GGM}
+:::
+
+## Research Aims
+
+1.  Bayesian Network (BN) aims to derive the casual relations between variables
+2.  Social Network aims to examine the network structure (community, density or centrality) of [individuals]{.underline}
+3.  Factor Analysis aims to identify latent variables
+4.  Psychological Network aims to examines the associations among observed variables (topological structures) and their positions in the network.
+
+## Network Psychometrics
+
+1.  Network psychometrics is a novel area that allows representing complex phenomena of measured constructs in terms of a set of elements that interact with each other.
+2.  It is inspired by the so-called [mutualism model]{.underline} and research in ecosystem modeling [@kan2019].
+    -   A mutualism model proposes that basic cognitive abilities directly and positively interact during development.
+3.  Psychometric network arises as [dynamics or reciprocal causation]{.underline} among variables are getting more attentions.
+4.  For example, individual differences in depression could arise from, and could be maintained by, vicious cycles of mutual relationships among symptoms.
+5.  A depression symptom such as insomnia can cause another symptom, such as fatigue, which in turn can determine concentration problems and worrying, which can result in more insomnia and so on.
+
+## Comparison to factor analysis
+
+[**Factor analysis**]{.underline} (common factor model) assumes the associations between observed features can be explained by one or more common factors.
+
+-   For example, higher "depression" level leads to increased frequency of depressive behaviors
+
+[**Psychometric network**]{.underline}, however, assumes the associations between observed features ARE the reason of the development of depression. Or "depression" is the network itself.
+
+-   unavoidable cycle of "fatigue -\> worrying -\> insomnia -\> fatigue" will leads to higher "depression"
+
+## Utility of Psychometric Network
+
+1.  Explain the pathways of certain psychological phenomenon
+2.  Identify the most important problem that needed to be intervene in the treatment procedure
+3.  Examine group differences in interactions among observed features
+4.  Examine density of network: more dense network indicates more dynamic of certain problems
+5.  Examine clusters/communities of observed features: some symptoms are more likely to concur than other symptoms
+
+## Terminology I - Overall procedure
+
+1.  [Network structure estimation]{.underline}: the application of statistical models to assess the structure of pairwise (conditional) associations in multivariate data.
+2.  [Network description]{.underline}: characterization of the global topology and the position of individual nodes in that topology.
+3.  [Psychometric network analysis]{.underline}: the analysis of multivariate psychometric data using network structure estimation and network description.
+
+## Terminology II - Network description
+
+::: columns
+::: {.column width="50%"}
+1.  [Node]{.underline}: psychometric variables that are selected in the network
+    -   such as responses to questionnaire items, symptom ratings, and cognitive test scores, background variables such as age and gender, experimental interventions.
+2.  [Edge (conditional association)]{.underline}: associations between variables taking into account other variables that may explain the association
+3.  [Edge weight]{.underline}: parameter estimates that represent the strength of conditional association between nodes
+4.  [Node centrality]{.underline}: the relative importance of a node in the context of other nodes, that can be calculated using different statistics
+:::
+
+::: {.column width="50%"}
+![](/posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/girls_contemporaneous_MG.jpg)
+:::
+:::
+
+## Terminology III - Network structure estimation
+
+1.  [Node selection]{.underline}: the choice of which variables will function as nodes in the network model.
+2.  [Network stability analysis]{.underline}: the assessment of estimation precision and robustness to sampling error of psychometric networks.
+3.  [Pairwise Markov random field (PMRF)]{.underline}: an undirected network that represents variables as nodes and conditional associations as edges, in which unconnected nodes are conditionally independent.
+
+## Exploratory Nature
+
+Psychometric network is exploratory by nature. To obtain a meaningful network structure, psychometric networks need to drop weak edges but keep strong edges.
+
+This procedure is typically called edge selection. One popular edge selection method is [regularization]{.underline}.
+
+-   Original network structure without regularization is called saturated network; vice versa regularized network
+
+::: columns
+::: {.column width="50%"}
+![Emotion regulation (Awareness), Interpersonal problems and eating disorder](/posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/girls_betweensubject_MG.jpg){fig-align="center"}
+:::
+
+::: {.column width="50%"}
+![](/posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/girls_contemporaneous_MG.jpg)
+:::
+:::
+
+## Workflow of psychometric network
+
+::: columns
+::: {.column width="60%"}
+![](/posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/workflow.png){fig-align="center"}
+:::
+
+::: {.column width="40%"}
+Psychometric network analysis methodology includes steps of network structure estimation (to construct the network), network description (to characterize the network) and network stability analysis (to assess the robustness of results).
+:::
+:::
+
+## Types of data and network models
+
+1.  Cross-sectional data (N = large, T = 1)
+    -   **Ising** model for categorical variables
+    -   Gaussian graphical model (**GGM**; Foygel & Drton, 2010) for continuous variables
+    -   Mixed graphical model (**MGM**) for mixed types of variables: include both categorical variables and continuous variables
+2.  Panel data (N \>\> T)
+    -   Multilevel Graphical vector autoregressive model (**GVAR**)
+        -   i.e., longitudinal data, repeated measures
+3.  Time-series data ($N \geq 1$, T = large)
+    -   Graphical vector autoregression
+        -   i.e., ecological momentary assessment, conducted via smartphones
+
+# Network Estimation
+
+## Gaussian graphical model
+
+GGM is one type of Pairwise Markov random field (PMRF) when data are continuous.
+
+In a PMRF, the joint likelihood of multivariate data is modeled through the use of pairwise conditional associations, leading to a network representation that is undirected.
+
+For $p$-dimensional data following multivariate normal distribution:
+
+$$
+\boldsymbol{X} \sim \mathcal{N}(\mu, \boldsymbol{K}^{-1})
+$$
+
+Where $K$ is a inverse covariance matrix of $\boldsymbol{X}$ ($K = \Sigma^{-1}$), also known as *precision*/*concentration* matrix.
+
+To obtain sparse network structure, the $i$th row and $j$th column element of $\boldsymbol{K}$, $k_{ij}=0$ when edge $\{j, k\}$ is not included in the network $G$,
+
+-   It means $X^{(i)}$ and $X^{(j)}$ are independent conditional on the other variables .
+
+## Partial correlation networks
+
+GGM can be standardized as the partial correlation network, in which each edge of GGM representing partial correlations between two nodes.
+
+$$
+\rho_{ij}=\rho(X^{(i)}, X^{(j)}|\boldsymbol{X}^{-(i,j)}) = -\frac{k_{ij}}{\sqrt{k_{ii}}\sqrt{k_{jj}}}
+$$
+
+Assume there are three variables: fatigue, insomnia, concentration
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| code-summary: 'True Covariance Matrix - $\boldsymbol{\Sigma}$'
+Sigma = matrix(c(
+  1,    -.26,  .31,
+  -.26,    1, -.08,
+  .31,  -.08,    1  
+), ncol = 3, byrow = T)
+Sigma
+```
+
+```{r}
+#| code-summary: 'True Precision Matrix - K'
+K = solve(Sigma)
+round(K, 2)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| code-summary: 'Partial correlation matrix - R'
+R = K
+for (i in 1:nrow(R)) {
+  for (j in 1:ncol(R)){
+    if (i != j) {
+      R[i, j] = - K[i, j] / (sqrt(K[i, i])*sqrt(K[j, j]))
+    }else{
+      R[i, j] = 1
+    }
+  }
+}
+round(R, 2)
+```
+:::
+:::
+
+## Network Interpretation
+
+1.  Someone who is tired is also more likely to suffer from concentration problems and insomnia.
+2.  Concentration problems and insomnia are conditional independent given the level of fatigue
+    -   Or the correlation between insomnia and concentration can be totally explained by the relationships of both variables with fatigue
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+qgraph::qgraph(R, labels = c("Fatigue", "Concentration", "Insomnia"))
+```
+
+## Estimation of partial correlation model for cross-sectional data
+
+Factor analysis model:
+
+$$
+\boldsymbol{X}\sim\mathcal{N}(\mu, \boldsymbol{\Lambda\Psi\Lambda^\text{T}+\Phi})
+$$
+
+GGM with partial correlation matrix:
+
+$$
+\boldsymbol{X} \sim \mathcal{N}(0, \boldsymbol{\Delta(I-\Omega)^{-1}\Delta})
+$$
+
+Where
+
+1.  $\boldsymbol{\Delta}$ is a diagonal scaling matrix that controls the variances
+2.  $\boldsymbol{\Omega}$ is a square symmetrical matrix with $0$s on the diagonal and partial correlation coefficients on the off diagonal.
+
+## `psychonetrics`: Partial correlation matrix estimation
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| code-summary: 'Population covariance matrix - $\Sigma$'
+Sigma |> round(3)
+```
+
+```{r}
+#| code-summary: 'Population partial correlation matrix - R'
+R |> round(3)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| code-summary: 'Estimated sample partial correlation matrix - $\hat\Omega$'
+library(psychonetrics)
+fit = ggm(covs = Sigma, nobs = 50)
+Omega <- fit |> getmatrix("omega") 
+Omega |> round(3)# estimated Omega
+```
+
+```{r}
+#| code-summary: 'Estimated sample scaling matrix - $\hat\Delta$'
+Delta <- fit |> getmatrix('delta') 
+Delta |> round(3)
+```
+
+```{r}
+#| code-summary: 'Estimated sample covaraicne matrix - $\hat S$'
+S = Delta %*% solve(diag(1, 3) - Omega) %*% Delta
+S |> round(3)
+```
+:::
+:::
+
+## `BGGM`: Bayesian approach
+
+```{r}
+#| code-summary: 'Posterior means of partial correlation matrix'
+library(BGGM)
+set.seed(1234)
+dat <- mvtnorm::rmvnorm(500, mean = rep(0, 3), sigma = Sigma)
+fit_bggm <- BGGM::estimate(dat, type = "continuous", iter = 1000, analytic = FALSE)
+fit_bggm$pcor_mat |> round(3)
+```
+
+```{r}
+#| code-summary: 'Posterior distributions of partial correlations'
+summary(fit_bggm)
+```
+
+## Edge Selection: Regularization
+
+Multiple procedure and software can be used to perform edge selection:
+
+1.  `prune` function in `psychonetrics` package uses stepdown model search by pruning non-significant parameters
+
+    -   a edge with significance level lower than $\alpha$ will be removed and re-fit the model until no nonsignificant edge existed
+    -   $p$ values of edges needed to be adjusted
+
+2.  `EBICglasso` in `qgraph` and `glasso` package uses Extended Bayesian Information Criterion (EBIC) to select best model
+
+    $$
+    \text{EBIC}=-2\text{L}+E(\log(N))+4\gamma E(log(P))
+    $$
+
+3.  `select` function in [`BGGM`](https://osf.io/preprints/psyarxiv/ypxd8) package uses Bayesian Hypothesis Testing — Bayes Factor (BF) to select model
+
+    -   $\mathcal{H}_0: \rho_{ij}=0$
+    -   $\mathcal{H}_1: \rho_{ij}\in(-1, 1)$
+    -   $$
+        BF = \frac{p(\boldsymbol{X}|\mathcal{H}_0)}{p(\boldsymbol{X}|\mathcal{H}_1)}
+        $$
+    -   By default, edges with BF \< 3 will be included
+
+## Network Description
+
+1.  Network-level metrics:
+    -   **Network stability**: The assessment of estimation precision and robustness to sampling error of psychometric networks. Assess whether edge weights and node centrality changes with case dropping subset bootstrap.
+    -   **Network sensitivity**: The sensitivity analysis of the network by adding covariates (age, gender, hukou, education, marital status, and self-rated health) to the model to control their confounding effects. Report whether some central nodes are no longer central after adding some variables.
+2.  Node-level metrics:
+    -   **Total number of node**
+    -   **Node centrality**: the position of individual nodes within the network. A generic term that subsumes a family of measures that aim to assess how central a node is in a network topology, such as node strength, betweenness and closeness.
+    -   **Node bridge strength**: the degree to which one node connects two nodes from different facets. The bridge nodes (nodes with high bridge strength) that connect different communities of nodes (e.g., Neurotic factors is bridge nodes between personality traits and depressive symptoms @liPersonalityTraitsDepressive2024).
+    -   **Node centrality differences between groups**: node A is central in group 1's network but not so central in group 2's network.
+3.  Edge-level metrics:
+    -   **Total Number of edges**: proportions of non-zero edges
+    -   **Edge weight**: edge weights typically are parameter estimates that represent the strength of the conditional association between nodes. **Average edge weight** can be used to assess the overall strength of network connections.
+
+# Example: Big Five Personality Scale
+
+## Data Information
+
+25 self-reported personality items representing 5 factors.
+
+70.6% edges are nonzero using EBICglasso, while only 63.6% edges are nonzero using BF method and 62.0% edges are kept using $\alpha =.01$ significance testing
+
+```{r}
+#| code-summary: 'EBICglasso'
+library(psych)
+library(qgraph)
+data(bfi)
+big5groups <- list(
+  Agreeableness = 1:5,
+  Conscientiousness = 6:10,
+  Extraversion = 11:15,
+  Neuroticism = 16:20,
+  Openness = 21:25
+)
+CorMat <- cor_auto(bfi[,1:25])
+
+EBICgraph <- EBICglasso(CorMat, nrow(bfi), 0.5, threshold = TRUE)
+
+## density
+density_nonzero_edge <- function(pcor_matrix){
+  N_nonzero_edge = (sum(pcor_matrix == 0) - ncol(pcor_matrix)) /2
+  N_all_edge = ncol(pcor_matrix)*(ncol(pcor_matrix)-1)/2
+  N_nonzero_edge/N_all_edge
+}
+density_nonzero_edge(EBICgraph)
+```
+
+```{r}
+#| code-summary: 'Significance testing'
+PruneFit <- ggm(bfi[,1:25]) |> prune(alpha = .01)
+density_nonzero_edge(getmatrix(PruneFit, "omega"))
+```
+
+```{r}
+#| code-summary: 'Bayes Factor'
+BGGMfit <- BGGM::explore(bfi[,1:25], type = "continuous", iter = 1000, analytic = FALSE) |> 
+  select()
+density_nonzero_edge(BGGMfit$pcor_mat_zero)
+```
+
+## Network Structure
+
+::: {layout-nrow="2"}
+::: column
+```{r}
+#| echo: false
+#| fig-cap: "EBICglasso"
+library(qgraph)
+qgraph(EBICgraph, groups = big5groups)
+```
+:::
+
+::: column
+```{r}
+#| echo: false
+#| fig-cap: "Sig. Test" 
+prune_omega <- getmatrix(PruneFit, "omega")
+colnames(prune_omega) <- colnames(bfi[,1:25])
+qgraph(prune_omega, labels=colnames(bfi[,1:25]), groups = big5groups)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-cap: "BF"
+BGGMfit_omega <- BGGMfit$pcor_mat_zero
+colnames(BGGMfit_omega) <- colnames(bfi[,1:25])
+qgraph(BGGMfit_omega,  labels=colnames(bfi[,1:25]), groups = big5groups)
+```
+:::
+:::
+
+## Centrality - Strength
+
+Strength centrality measures suggest that `C4` and `E4` or `N1` have highest centrality indicating they play most imporatant roles in the networks.
+
+```{r}
+#| fig-subcap:
+#|  - "Method 1: EBICglasso"
+#|  - "Method 2: Sig. Test"
+#|  - "Method 3: Bayes Factor"
+#| layout-ncol: 3
+#| fig-height: 12
+#| echo: false
+library(ggplot2)
+p1 <- centralityPlot(EBICgraph, print = FALSE) 
+p2 <- centralityPlot(prune_omega, print = FALSE)
+p3 <- centralityPlot(BGGMfit_omega, print = FALSE)
+p1$layers[[2]] <- NULL
+p2$layers[[2]] <- NULL
+p3$layers[[2]] <- NULL
+hl1 = !(colnames(bfi[,1:25])%in%c("C4", "E4"))
+hl2 = !(colnames(bfi[,1:25])%in%c("C4", "E4"))
+hl3 = !(colnames(bfi[,1:25])%in%c("N1", "C4"))
+p1 + geom_point(aes(color = hl1), size = 10)+ theme(text = element_text(size = 30), legend.position="none")
+p2 + geom_point(aes(color = hl2), size = 10)+ theme(text = element_text(size = 30), legend.position="none")
+p3 + geom_point(aes(color = hl3), size = 10)+ theme(text = element_text(size = 30), legend.position="none")
+```
+
+## Centrality - Bridge
+
+`E4` and `E5` has highest bridge strength, indicating they serve as bridges linking communities of personality. They are important elements connecting varied types of personality
+
+```{r}
+#| fig-subcap:
+#|  - "Method 1: EBICglasso"
+#|  - "Method 2: Sig. Test"
+#|  - "Method 3: Bayes Factor"
+#| layout-ncol: 3
+#| fig-height: 12
+#| echo: false
+library(tidyverse)
+library(networktools)
+p1 <- bridge(EBICgraph, communities = big5groups)[[1]]
+p2 <- bridge(prune_omega, communities = big5groups)[[1]]
+p3 <- bridge(BGGMfit$pcor_mat_zero, communities = big5groups)[[1]]
+
+bridge_plot <- function(p) {
+  data.frame(
+    Node = colnames(bfi[,1:25]),
+    Bridge = as.numeric(p)
+  ) |> 
+    ggplot(aes(y = Node, x = Bridge)) +
+    geom_path(group = 1) +
+    geom_point(group = 1, size = 10) +
+    theme_bw()+
+    theme(text = element_text(size = 30), legend.position="none")
+}
+  
+bridge_plot(p1)
+bridge_plot(p2)
+bridge_plot(p3)
+```
+
+## Wrapping up
+
+1.  Network analysis is an alternative way of modeling dependency among variables.
+2.  Gaussian graphical model is used for multivariate continuous data.
+3.  The goal is to estimate network structure, node importance, and stability.
+
+## Other Materials:
+
+1.  [Jihong's post: how to choose network analysis estimation](https://jihongzhang.org/notes/2024-04-04-Network-Estimation-Methods)
+
+## Reference
