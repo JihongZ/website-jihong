@@ -210,7 +210,7 @@ The transformation of data: In Mathematics, an **eigenvector** corresponds to th
 sum(sat_eigen$values)
 ```
 
--   The matrix determinant can be found by the product of the eigenvalues
+-   The determinant of correlation matrix (the generalized variance) can be found by the product of the eigenvalues
 
 $$
 |\mathbf\Sigma| = \prod_{i=1}^p \lambda_i
@@ -218,7 +218,7 @@ $$
 
 -   In our example, the $|\mathbf R| = 1.775 * 0.224 \approx .3976$
 
-# PRINCIPAL COMPONENTS ANALYSIS
+# PRINCIPAL COMPONENTS ANALYSIS (PCA)
 
 ## PCA Overview
 
@@ -240,7 +240,7 @@ $$
     -   Is much smaller in number than the original set of V variables
     -   Accounts for nearly all of the total variance
         -   Total variance = trace of covariance/correlation matrix
--   If these two goals can be accomplished, then the set of k principal components contains almost as much information as the original V variables
+-   If these two goals can be accomplished, then the set of [*k*]{.underline} principal components contains almost as much information as the original V variables
     -   Meaning – the components can now replace the original variables in any subsequent analyses
 
 ## Questions when using PCA
