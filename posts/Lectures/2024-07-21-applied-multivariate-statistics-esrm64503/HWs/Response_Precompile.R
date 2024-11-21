@@ -9,6 +9,28 @@ hw_root_path <- "posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm6
 assignment_filenames <- list.files(hw_resp_path)
 
 
+# In-Class Quiz -----------------------------------------------------------
+quiz_tbl <- readxl::read_xlsx(paste0(hw_resp_path, "ESRM 64503_In-class Quiz 1.xlsx"))
+colnames(quiz_tbl)
+quiz_tbl_clean <- quiz_tbl[, c(2, 7, 8, 9)]
+colnames(quiz_tbl_clean) <- c("Starting_Time", "Name", "Question1_Response", "Question2_Response")
+quiz_tbl_clean$TotalScore <- 16
+
+quiz_tbl_clean$Name <- toupper(quiz_tbl_clean$Name)
+quiz_tbl_clean <- quiz_tbl_clean |> 
+  mutate(Name = case_when(
+    Name == "SUMAIYA FARZANA" ~ "SUMAIYA FARZANA MISHU",
+    Name == "ENIOLA" ~ "ENIOLA OLA",
+    TRUE ~ Name
+  )) |> 
+  group_by(Name) |> 
+  filter(Starting_Time == max(Starting_Time)) |> 
+  pivot_longer(-c(Starting_Time, Name, TotalScore), names_to = "Questions", values_to = "Responses") |> 
+  separate(Questions, into = c("Questions", "Type")) |> 
+  pivot_wider(names_from = "Type", values_from = "Responses") |> 
+  mutate(HW = "Quiz0")
+
+
 # Homework 0 --------------------------------------------------------------
 assignment_tbl <- readxl::read_xlsx(paste0(hw_resp_path, "ESRM 64503_Homework 0.xlsx"))
 colnames(assignment_tbl)
@@ -27,7 +49,7 @@ hw0_assignment_tbl_clean <- hw0_assignment_tbl_clean |>
   pivot_longer(-c(Starting_Time, Name, TotalScore), names_to = "Questions", values_to = "Responses") |> 
   separate(Questions, into = c("Questions", "Type")) |> 
   pivot_wider(names_from = "Type", values_from = "Responses") |> 
-  mutate(HW = 0)
+  mutate(HW = "0")
 
 
 # Homework 1 --------------------------------------------------------------
@@ -48,7 +70,7 @@ hw1_assignment_tbl_clean <- hw1_assignment_tbl_clean |>
   pivot_longer(-c(Starting_Time, Name, TotalScore), names_to = "Questions", values_to = "Responses") |> 
   separate(Questions, into = c("Questions", "Type")) |> 
   pivot_wider(names_from = "Type", values_from = "Responses") |> 
-  mutate(HW = 1)
+  mutate(HW = "1")
 
 
 # Homework 2 --------------------------------------------------------------
@@ -72,7 +94,7 @@ hw2_assignment_tbl_clean <- hw2_assignment_tbl_clean |>
   mutate(
     TotalScore = ifelse(sum(Score) > 21, 21, sum(Score)),
     Answer = "See Website",
-    HW = 2)
+    HW = "2")
 
 ## Homework 2B -------------------------------------------------------------
 assignment_tbl2B <- readxl::read_xlsx(paste0(hw_resp_path, "ESRM 64503_Homework 2B.xlsx"))
@@ -112,12 +134,13 @@ hw2b_assignment_tbl_clean <- hw2b_assignment_tbl_clean |>
     Score = Score_2b,
     TotalScore = ifelse(sum(Score_2b) > 21, 21, sum(Score_2b)),
     Answer = "See Website",
-    HW = 2
+    HW = "2"
   )
 
 # Combine Homeworks -------------------------------------------------------
 hw_all_tbl <- 
   rbind(
+    quiz_tbl_clean,
     hw0_assignment_tbl_clean,
     hw1_assignment_tbl_clean,
     hw2_assignment_tbl_clean,
@@ -127,13 +150,14 @@ hw_all_tbl <-
 
 set.seed(1234)
 
-passwords <- data.frame(
-  Name = unique(hw_all_tbl$Name),
-  Code = sample(x = 1000:9999, size = 12)
-) |> arrange(Name)
-write.csv(passwords, file = paste0(hw_root_path, "ESRM64503_Homework_PW.csv"))
+# passwords <- data.frame(
+#   Name = unique(hw_all_tbl$Name),
+#   Code = sample(x = 1000:9999, size = 12)
+# ) |> arrange(Name)
+# write.csv(passwords, file = paste0(hw_root_path, "ESRM64503_Homework_PW.csv"))
+passwords <- read.csv(paste0(hw_root_path, "ESRM64503_Homework_PW.csv"), row.names = NULL)
 
 hw_all_tbl <- hw_all_tbl |> 
-  left_join(passwords, by = "Name")
+  left_join(passwords |> select(-X), by = "Name")
 
 saveRDS(hw_all_tbl, file = paste0(hw_root_path, "ESRM64503_Homework_Combined.rds"))

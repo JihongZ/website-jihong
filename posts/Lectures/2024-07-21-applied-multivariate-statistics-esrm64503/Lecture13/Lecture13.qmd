@@ -32,11 +32,38 @@ bibliography: references.bib
 
 ## Today's Objectives
 
-1.  Understand what is network analysis and confirmatory factor analysis
+1.  Understand the relationship between Exploratory and Confirmatory Factor Analysis
 
-2.  Understand the relationship between psychometric/psychological network with factor analysis
+2.  Understand what is network analysis and confirmatory factor analysis
 
-3.  Understand how network model can be applied into real scenarios
+3.  Understand the relationship between psychometric/psychological network with factor analysis
+
+4.  Understand how network model can be applied into real scenarios
+
+# Confirmatory Factor Analysis
+
+## CFA Approach to EFA
+
+- EFA and CFA are same things except that one is to explore the factor structure (EFA) and one is to confirm pre-determined factor structure (CFA).
+
+- But ... we can also conduct **exploratory analysis** using a CFA model
+    - Need to set the right number of constraints for identification
+    - We set the value of factor loadings for a few items on a few of the factors
+        - Typically to zero 
+        - Sometimes to one (Brown, 2002)
+    - We keep the factor covariance matrix as an identity
+        - Uncorrelated factors (as in EFA) with variances of one
+        
+- Benefits of using CFA for exploratory analyses: 
+- CFA constraints remove rotational indeterminacy of factor loadings – no
+rotating is needed (or possible)
+Ø Defines factors with potentially less ambiguity
+w Constraints are easy to see
+Ø For some software (SAS and SPSS), we get much more model
+fit information
+
+
+
 
 # Background
 
