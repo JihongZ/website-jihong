@@ -1,5 +1,5 @@
 ---
-title: "Lecture 13: Confirmatory Factor Analysis and Network Psychometrics"
+title: "Lecture 13: Confirmatory Factor Analysis and Psychological Network"
 subtitle: ""
 author: "Jihong Zhang"
 institute: "Educational Statistics and Research Methods"
@@ -44,26 +44,29 @@ bibliography: references.bib
 
 ## CFA Approach to EFA
 
-- EFA and CFA are same things except that one is to explore the factor structure (EFA) and one is to confirm pre-determined factor structure (CFA).
+-   EFA and CFA are same things except that one is to explore the factor structure (EFA) and one is to confirm pre-determined factor structure (CFA).
 
-- But ... we can also conduct **exploratory analysis** using a CFA model
-    - Need to set the right number of constraints for identification
-    - We set the value of factor loadings for a few items on a few of the factors
-        - Typically to zero 
-        - Sometimes to one (Brown, 2002)
-    - We keep the factor covariance matrix as an identity
-        - Uncorrelated factors (as in EFA) with variances of one
-        
-- Benefits of using CFA for exploratory analyses: 
-- CFA constraints remove rotational indeterminacy of factor loadings – no
-rotating is needed (or possible)
-Ø Defines factors with potentially less ambiguity
-w Constraints are easy to see
-Ø For some software (SAS and SPSS), we get much more model
-fit information
+-   But ... we can also conduct **exploratory analysis** using a CFA model
 
+    -   Need to set the right number of constraints for identification
+    -   We set the value of factor loadings for a few items on a few of the factors
+        -   Typically to zero
+        -   Sometimes to one (Brown, 2002)
+    -   We keep the factor covariance matrix as an identity
+        -   Uncorrelated factors (as in EFA) with variances of one
 
+-   Benefits of using CFA for exploratory analyses:
 
+-   CFA constraints remove rotational indeterminacy of factor loadings – no rotating is needed (or possible)
+
+    -   Defines factors with potentially less ambiguity
+    -   Constraints are easy to see
+
+-   For some software (SAS and SPSS), we get much more model fit information
+
+## Example of CFA
+
+See the [example](https://www.lavaan.ugent.be/tutorial/cfa.html) from lavaan package
 
 # Background
 
@@ -313,14 +316,14 @@ R |> round(3)
 ```{r}
 #| code-summary: 'Estimated sample partial correlation matrix - $\hat\Omega$'
 library(psychonetrics)
-fit = ggm(covs = Sigma, nobs = 50)
+fit = ggm(covs = Sigma, nobs = 50) |> runmodel()
 Omega <- fit |> getmatrix("omega") 
 Omega |> round(3)# estimated Omega
 ```
 
 ```{r}
 #| code-summary: 'Estimated sample scaling matrix - $\hat\Delta$'
-Delta <- fit |> getmatrix('delta') 
+Delta <- fit |> getmatrix(matrix = "delta") 
 Delta |> round(3)
 ```
 
