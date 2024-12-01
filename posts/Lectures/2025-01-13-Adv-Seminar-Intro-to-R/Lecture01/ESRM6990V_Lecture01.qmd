@@ -40,6 +40,14 @@ filters:
   - line-highlight
 ---
 
+## Today's Class
+
+1.  Why using R?
+    1.  Brief history of R
+    2.  Main features of R
+2.  Installation of R
+3.  How to use RStudio
+
 # Why R?
 
 ## Brief History
@@ -55,6 +63,8 @@ filters:
 -   **1997**: The [Comprehensive R Archive Network](https://en.wikipedia.org/wiki/R_package#Comprehensive_R_Archive_Network_(CRAN) "R package") (**CRAN**) was founded by Kurt Hornik and [Friedrich Leisch](https://en.wikipedia.org/wiki/Friedrich_Leisch "Friedrich Leisch") to host R's [source code](https://en.wikipedia.org/wiki/Source_code "Source code"), executable files, documentation, and user-created packages
 
 -   **2000**: the first official 1.0 version of R was released
+
+-   2024: I am using ver. 4.2.1
 
 ## Example of S Language: the Subscripting Operator / Indexing
 
@@ -114,7 +124,7 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 
 # Rstudio (now called Posit)
 
-## Introduce Rstudio 
+## Introduce Rstudio
 
 -   RStudio will be our launching pad for data science projects. It not only provides an editor for us to create and edit our scripts but also provides many other useful tools.
 
@@ -160,7 +170,7 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 
     -   `General` \> `Basic` \> `Workspace`: Change the [*Save workspace to .RData*]{.underline} *on exit* to [*Never*]{.underline} .
 
-    -   `General` \> `Basic` \> `Workspace`: Uncheck the [*Restore .RData into workspace at startup*]{.underline}to *[Never]{.underline}*
+    -   `General` \> `Basic` \> `Workspace`: Uncheck the [*Restore .RData into workspace at startup*]{.underline}to [*Never*]{.underline}
 
     -   `Code` \> `Editing`: check [*use the native piper operator, \|\>*]{.underline}
 
@@ -188,13 +198,13 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 
 ## Installing R Packages: Code
 
--   For example, to install the **dslabs** package, you would type the following in your console:
+-   For example, to install the **`dslabs`** package, you would type the following in your console:
 
     ```{r}
     install.packages("dslabs") # DON'T FORGET DOUBLE QUOTE
     ```
 
--   We can then load the package into our R sessions using the `library` function in your Rscript:
+-   We can then load the package into our R sessions using the `library` function in your rscript file:
 
     ```{r}
     library(dslabs) # DOUBLE QUOTE IS NOT NEEDED HERE
@@ -214,7 +224,86 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
     installed.packages()
     ```
 
-## Ex01: Edit R script
+# R Package Structure
+
+You will learn:
+
+1.  the various states a package can be in and the difference between a package and library (and why you should care).
+
+## R Package states
+
+1.  When you create or modify a package, you work on its “source code” or “source files”. You interact with the in-development package in its **source** form.
+2.  To better understand package, we need to know the five states of R package:
+    1.  source
+    2.  bundled
+    3.  binary
+    4.  installed
+    5.  in-memory
+3.  We already know two functions:
+    1.  `install.packages()` can move a package from **source/bundled/binary** into **installed** state.
+    2.  `library` can load a package from installed state into memory (**in-memory** state)
+4.  What are source/bundled/binary states then? Why they differ?
+
+## Source package
+
+1.  A source package is just a directory of files with specific structure including:
+    1.  **DESCRIPTION** file
+    2.  `R/` folder containing all `.r` files
+2.  Many R packages on GitHub are in source state
+    1.  `networkscore`: <https://github.com/JihongZ/networkscore>
+    2.  `esrm64503`: <https://github.com/JihongZ/ESRM64503>
+3.  You may also find some `tar.gz` file on packages' CRAN landing page via the “Package source” field (this is the bundled state of the package). Decompressing the `tar.gz` file will have the source directory including `R/` and `DESCRIPTION`
+    1.  forcats: <https://cran.r-project.org/web/packages/forcats/index.html>
+    2.  You can depress using commands in terminal like:
+
+``` bash
+tar xvf forcats_0.4.0.tar.gz
+```
+
+## Bundled package
+
+1.  A bundled package is a package that's been compressed into a single file (this process is called `build` the package). Bundled state is a compressed form of package with only single file.
+
+2.  By convention, package bundles in R use the extension `.tar.gz` and are sometimes referred to as "source tarballs". In computer science, it is called gzipped tar file format.
+
+3.  A "source tarballs" file is not simply compressed file of source directory. When build source directory into bundled (.tar.gz), a few diagnostic checks and cleanups are performed. See more details [here](https://cran.r-project.org/doc/manuals/R-exts.html#Building-package-tarballs).
+
+## Binary package
+
+1.  If you want to distribute your package to an R user who doesn’t have package development tools, you’ll need to provide a **binary** package. The main distributor of **binary** package is CRAN.
+
+2.  Like a package bundle, a binary package is a single file. Unlike a bundled package, a binary package is platform specific and there are two basic flavors: Windows and macOS.
+
+3.  CRAN packages are usually available in binary form:
+
+    -   forcats for macOS: forcats_0.4.0.tgz
+    -   readxl for Windows: readxl_1.3.1.zip
+
+4.  This is, indeed, part of what’s usually going on behind the scenes when you call `install.packages()`.
+
+5.  Uncompressing binary file will give you totally difference file structure than source/bundled package.
+
+    -   There are no .R files in the R/ directory - instead there are three files that store the parsed functions in an efficient file format.
+
+![](images/clipboard-1257891007.png)
+
+## Installed package
+
+1.  An installed package is a binary package that's been decompressed into a package library
+
+2.  In practice, you don't need to care about stats if you install popular package, unless you have issues installing R package via `install.packages()` or you install in-development packages .
+
+![](images/clipboard-400935868.png)
+
+## In-memory package
+
+1.  When we use `library()` function, we load installed package into the memory of R.
+2.  This is the last step of using the package in our R task.
+3.  When you call `library(somepackage)`, R looks through the current libraries for an installed package named “somepackage” and, if successful, it makes somepackage available for use.
+
+# Exercises
+
+## Exercise 01: Edit R script (10 mins)
 
 Let's try the following steps:
 
