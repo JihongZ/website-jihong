@@ -1,0 +1,149 @@
+---
+title: "ESRM 64103 - EXPERIMENTAL DESIGN IN EDUC"
+subtitle: "Spring 2025, Monday, 5:00-7:45PM, Classroom GRAD 229, 2025/01/13 - 2025/05/01"
+author: "Jihong Zhang"
+date: "Jan 13 2025" 
+date-modified: "Oct 12 2024"
+categories:
+  - Lecture
+draft: false
+draft-mode: unlinked
+sidebar: false
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+  typst: 
+    df-print: tibble
+citation:
+  type: webpage
+  issued: 2025-01-13
+---
+
+# General Information
+
+------------------------------------------------------------------------
+
+-   Course Code: ESRM 64103
+-   Credits: 3 CH
+-   Course time and location: Mon 17:00-19:45; GRAD 210
+-   Instructor: Dr. Jihong Zhang
+-   Contact Information: [jzhang\@uark.edu](mailto:jzhang@uark.edu)
+-   Personal Website: <http://jihongzhang.org>
+-   Office Location: GRAD 133B
+-   Office Hours: Tu 1:30-4:30PM
+-   Office Phone +1 479-575-5235
+-   Semester: Spring 2025
+
+# Course Overview
+
+## Course Objectives:
+
+The purpose of the course is to enhance your understanding of how to analyze and interpret research data using analysis-of-variance (ANOVA) techniques. The course builds upon your foundation from ESRM 6403 and will lead into the methods in subsequent ESRM courses. The specific educational objectives of the course are as follows:
+
+-   To select appropriate statistical techniques given the research methods employed and research questions asked
+
+-   To understand what affects each of the statistics discussed
+
+-   We will use R to display data and conduct statistical analyses. However, it is also necessary to build a mathematical framework to understand the nature of the procedures and to enable you to troubleshoot or design appropriate analysis strategies for unique research situations. Both computing skills and mathematical perspectives will be helpful in preparing for continued study of research methodology and applied statistics.
+
+-   We will thoughtfully apply both descriptive and inferential methods to analyze the empirical data.
+
+-   In addition to conducting analyses using statistical software, we will interpret, write, and discuss the results in accordance with APA format.
+
+The course is not a mathematics course; however, students must have a conceptual understanding of each of the methods so that they will apply and interpret statistical techniques in an appropriate and, in some cases, creative fashion.
+
+## Course Topics
+
+1.  Identification of ANOVA Designs
+2.  Model Comparison: Two-Group Situation
+3.  Model Comparison: General Case of One-Way Designs
+4.  Tests of Comparisons
+5.  Multiple Comparisons
+6.  Brief Overview of Trend Analysis
+7.  Two-Way Between-Subjects Factorial Designs
+8.  Interactions and simple main effects
+9.  One-Way Within-Subjects Designs: Univariate Approach
+10. Two-Way Within-Subjects Designs: Univariate Approach
+11. Designs with both Between-Subjects and Within-Subjects Factors
+
+## Prerequisites
+
+Educational Statistics and Data Processing (ESRM 64003) or an equivalent course with a grade of C or better.
+
+## Recommended Textbooks
+
+-   Maxwell, S. E., Delaney, H. D., & Kelley K. (2017). *Designing experiments and analyzing data: A model comparison perspective* (3rd ed.). Routledge.
+
+## Resources
+
+All course materials, such as the lecture notes, and the resources of homework and project instructions, will be posted on the Blackboard system (https://learn.uark.edu/webapps/login/). Because this course will cover the computer program practice, it is recommended to bring your own laptop to class. Except the exams, all course assignments will be submitted through the Blackboard system by the due date.
+
+## Attendance
+
+In an in-person course at graduate level, there are not really any attendance issues. If you know that you will be out of town for a few days when an assignment is due, it is expected that you will make arrangements to complete the assignment before you leave. The deadlines are set as a designation of the maximum amount of time that you should allow.
+
+## Homework
+
+Homework will be provided for instructional and evaluation purposes. You will notice that there is homework due approximately every week. The homework will be a set of questions related to the course materials including the lectures and the computer program practices. I highly\
+recommend you finish your homework and submit it by the due date through Blackboard. This will keep you on track to complete the course in the weeks allocated.
+
+# Academic Policies
+
+## AI Statement
+
+Specific permissions will be provided to students regarding the use of generative artificial intelligence tools on certain graded activities in this course. In these instances, I will communicate explicit permission as well as expectations and any pertinent limitations for use and attribution. Without this permission, the use of generative artificial intelligence tools in any capacity while completing academic work submitted for credit, independently or collaboratively, will be considered academic dishonesty and reported to the Office of Academic Initiatives and Integrity.
+
+## Academic Integrity
+
+As a core part of its mission, the University of Arkansas provides students with the opportunity to further their educational goals through programs of study and research in an environment that promotes freedom of inquiry and academic responsibility. Accomplishing this mission is only possible when intellectual honesty and individual integrity prevail.
+
+Each University of Arkansas student is required to be familiar with and abide by the University's **Academic Integrity Policy** at [honesty.uark.edu/policy](https://honesty.uark.edu/policy). Students with questions about how these policies apply to a particular course or assignment should immediately contact their instructor.
+
+## Emergency Preparedness
+
+The University of Arkansas is committed to providing a safe and healthy environment for study and work. In that regard, the university has developed a campus safety plan and an emergency preparedness plan to respond to a variety of emergency situations. The emergency preparedness plan can be found at [emergency.uark.edu](https://emergency.uark.edu). Additionally, the university uses a campus-wide emergency notification system, UARKAlert, to communicate important emergency information via email and text messaging. To learn more and to sign up: <http://safety.uark.edu/emergency-preparedness/emergency-notification-system/>
+
+## Inclement Weather
+
+If you have any questions about whether or not class will be canceled due to inclement weather, please contact me. If I cancel class, I will notify you via email and/or Blackboard. In general, students need to know how and when they will be notified in the event that class is cancelled for weather-related reasons. Please see [here](http://safety.uark.edu/inclement-weather/) for more information.
+
+## Access and Accommodations
+
+Your experience in this class is important to me. University of Arkansas [Academic Policy Series 1520.10](https://provost.uark.edu/policies/152010.php) requires that students with disabilities are provided reasonable accommodations to ensure their equal access to course content. If you have already established accommodations with the Center for Educational Access (CEA), please request your accommodations letter early in the semester and contact me privately, so that we have adequate time to arrange your approved academic accommodations.
+
+If you have **not** yet established services through CEA, but have a documented disability and require accommodations *(conditions include but not limited to: mental health, attention-related, learning, vision, hearing, physical, health or temporary impacts)*, contact CEA directly to set up an Access Plan. CEA facilitates the interactive process that establishes reasonable accommodations. For more information on CEA registration procedures contact 479–575–3104, [ada\@uark.edu](mailto:ada@uark.edu) or visit [cea.uark.edu.](https://cea.uark.edu/)
+
+## Academic Support
+
+A complete list and brief description of academic support programs can be found on the University's Academic Support site, along with links to the specific services, hours, and locations. Faculty are encouraged to be familiar with these programs and to assist students with finding an using the support services that will help them be successful. Please see [here](http://www.uark.edu/academics/academic-support.php) for more information.
+
+## Religious Holidays
+
+The university does not observe religious holidays; however Campus Council has passed the following resolution concerning individual observance of religious holidays and class attendance:
+
+> When members of any religion seek to be excused from class for religious reasons, they are expected to provide their instructors with a schedule of religious holidays that they intend to observe, in writing, before the completion of the first week of classes.
+
+# Schedule
+
+Following materials are only allowed for previewing for students registered in ESRM 64503. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
+
+| Week | Date             | Topic                                                                 | Reading                                                                            | HW  | Code/Data |
+|:-----------|:-----------|:-----------|:-----------|:-----------|------------|
+| 1    | 01/13            | Lecture 1: Basics of R                                                | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) |     |           |
+| 2    | 01/20 (No Class) | Martin Luther King Holiday                                            |                                                                                    |     |           |
+| 3    | 01/27            | Lecture 2: Programming Basics                                         |                                                                                    |     |           |
+| 4    | 02/03            | Lecture 3: Write academic reports with R projects and Quarto markdown |                                                                                    |     |           |
+| 5    | 02/10            | Lecture 4: Data summarization with *tidyverse*                        |                                                                                    |     |           |
+| 6    | 02/17            | Lecture 5: Data cleaning with *tidyverse*                             |                                                                                    |     |           |
+| 7    | 02/24            | Lecture 6: Data transformation with *tidyverse*                       |                                                                                    |     |           |
+| 8    | 03/03            | Lecture 7: Data Importing                                             |                                                                                    |     |           |
+| 9    | 03/10            | Lecture 8: Data Visualization I with *ggplot2*                        |                                                                                    |     |           |
+| 10   | 03/17            | Lecture 9: Data Visualization II with *ggplot2*                       |                                                                                    |     |           |
+| 11   | 03/24 (No class) | Lecture 10: Data Visualization III with *ggplot2*                     |                                                                                    |     |           |
+| 12   | 03/31            | Spring Break                                                          |                                                                                    |     |           |
+| 13   | 04/07            | Lecture 11: File Organizing with Terminal / Powershell                |                                                                                    |     |           |
+| 14   | 04/14            | Lecture 12: Git and GitHub                                            | [Pro Git Book](https://git-scm.com/book/en/v2)                                     |     |           |
+| 15   | 04/21            | Final Project                                                         |                                                                                    |     |           |
+| 16   | 04/28            | Final Project                                                         |                                                                                    |     |           |
+| 17   | 05/05            | Final Project                                                         |                                                                                    |     |           |
