@@ -137,6 +137,18 @@ hw2b_assignment_tbl_clean <- hw2b_assignment_tbl_clean |>
     HW = "2"
   )
 
+
+# Final Homework ----------------------------------------------------------
+final_assignment_tbl_clean <- readxl::read_xlsx(path = paste0(hw_resp_path, "ESRM 64503_ Final Homework(1-16).xlsx"), sheet = 1)
+final_assignment_tbl_clean <- final_assignment_tbl_clean |> 
+  select(-Name) |> 
+  rename("Starting_Time" = "Start time", "Name" = "Your name is", "TotalScore" = "Total points") |> 
+  group_by(Name) |> # Only keep the lastest record
+  filter(Starting_Time == max(Starting_Time)) |> 
+  select(Name, TotalScore) |> 
+  mutate(HW = "3")
+
+
 # Combine Homeworks -------------------------------------------------------
 hw_all_tbl <- 
   rbind(
@@ -147,6 +159,13 @@ hw_all_tbl <-
     hw2b_assignment_tbl_clean
   )
 
+
+totalscore_tbl <- hw_all_tbl |> 
+  select(Name, TotalScore, HW) |> 
+  distinct() |> 
+  rbind(final_assignment_tbl_clean) |> 
+  group_by(Name) |> 
+  summarise(FinalScore = sum(TotalScore))
 
 set.seed(1234)
 
