@@ -81,6 +81,10 @@ Educational Statistics and Data Processing (ESRM 64003) or an equivalent course 
 
 All course materials, such as the lecture notes, and the resources of homework and project instructions, will be posted on the Blackboard system (https://learn.uark.edu/webapps/login/). Because this course will cover the computer program practice, it is recommended to bring your own laptop to class. Except the exams, all course assignments will be submitted through the Blackboard system by the due date.
 
+### Online Resources
+
+1.  [Blog: ANOVA in R](https://statsandr.com/blog/anova-in-r/)
+
 ## Attendance
 
 In an in-person course at graduate level, there are not really any attendance issues. If you know that you will be out of town for a few days when an assignment is due, it is expected that you will make arrangements to complete the assignment before you leave. The deadlines are set as a designation of the maximum amount of time that you should allow.
@@ -91,30 +95,20 @@ In an in-person course at graduate level, there are not really any attendance is
 
 Homework will be provided for instructional and evaluation purposes. You will notice that there is homework due approximately every two weeks. The homework will be a set of questions related to the course materials including the lectures and the computer program practices. **I highly recommend you finish your homework and submit it by the due date through my website (see @sec-homeworkportal Homework portal)**. This will keep you on track to complete the course in the weeks allocated.
 
-## Class Project
-
--   Students will complete a project which is an ANOVA-related design analysis (e.g., factorial ANOVA, ANCOVA, repeated measures ANOVA, etc.) by analyzing the data based on your own research scenario and utilizing the theoretical knowledge and the computer program skills related to the contents of the lectures and the textbook.
--   Grading of the project will be based on both the adequacy and completeness of the work and the quality of the written communication.
--   The report of the project and your computer program code should be submitted by the due date through the Blackboard.
--   The project is recommended to be written in APA style.
--   The detailed instructions for the project will be provided.
-
 ## Grading for Criteria
 
 This is a Graduate level class. As such, students are expected to read the chapters of the textbooks and lecture notes, attend the in-person classes, carefully complete all assignments, and participate in class activities. Students who do this typically earn passing grades in the course. More specifically, the grades will be calculated based on the following point system:
 
-|                       | Raw Score | Proportion |
-|-----------------------|-----------|------------|
-| Homework 1            | 10        | 10%        |
-| Homework 2            | 10        | 10%        |
-| Homework 3            | 10        | 10%        |
-| Project Proposal      | 20        | 20%        |
-| Final Proposal Report | 50        | 50%        |
-| **Total**             | **100**   | **100%**   |
+|               | Raw Score | Proportion |
+|---------------|-----------|------------|
+| Homeworks     | 88        | 88%        |
+| In-Class Quiz | 12        | 12%        |
+| Bonus points  | 10        |            |
+| **Total**     | **110**   | **100%**   |
 
 : Proportional Scoring
 
-Students earning A's have mastered over 90% of the material. Conversely, students mastering less than 60% of the material do not earn a passing grade. The grading scale employed in this course is the following:
+The grading scale employed in this course is the following:
 
 | Percentage of Points | Grade |
 |----------------------|-------|
@@ -162,10 +156,9 @@ The university does not observe religious holidays; however Campus Council has p
 
 # Homework Portal {#sec-homeworkportal}
 
-1.  Homework 0 (2 credit points)
-2.  Homework 1
-3.  Homework 2
-4.  Homework 3
+1.  Homework 1
+2.  Homework 2
+3.  Homework 3
 
 # Schedule
 
@@ -186,7 +179,7 @@ Following materials are only allowed for previewing for students registered in E
 | 11   | **03/24** | **Spring break: No Class**                          |         |         |
 | 12   | 03/31     | Lec11: Repeated Measure ANOVA                       |         |         |
 | 13   | 04/07     | Lec12: ANCOVA                                       |         | HW#3    |
-| 14   | 04/14     | Lec13: Mixed Design                                 |         |         |
+| 14   | 04/14     | Lec13: Mixed Design I                               |         |         |
 | 15   | **04/21** | **2025 AERA Conference (April 23-27): No Class**    |         |         |
-| 16   | 04/28     | Homework Q&A                                        |         | Project |
-| 17   | 05/05     | Re-submit Homew                                     |         |         |
+| 16   | 04/28     | Lec14: Mixed Design II                              |         | Project |
+| 17   | 05/05     | Homework Q&A                                        |         |         |
