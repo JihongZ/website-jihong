@@ -33,7 +33,7 @@ citation:
 -   Contact Information: [jzhang\@uark.edu](mailto:jzhang@uark.edu)
 -   Personal Website: <http://jihongzhang.org>
 -   Office Location: GRAD 133B
--   Office Hours: Tu 1:30-4:30PM
+-   Office Hours: Monday 2:00-5:00PM or by appointment
 -   Office Phone +1 479-575-5235
 -   Semester: Spring 2025
 
@@ -171,22 +171,22 @@ The university does not observe religious holidays; however Campus Council has p
 
 Following materials are only allowed for previewing for students registered in ESRM 64503. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon on next Thursday.**
 
-| Week | Date      | Topic                                               | Reading                                                                            | HW      |
-|:-----------|:-----------|:-----------|:-----------|:-----------|
-| 1    | 01/15     | Lec1: Welcome to ESRM 64103                         | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) |         |
-| 2    | 01/22     | Lec2: Hypothesis testing                            |                                                                                    |         |
-| 3    | 01/29     | Lec3: One-way ANOVA                                 |                                                                                    | HW#1    |
-| 4    | 02/05     | Lec4: Comparison and Contrast (1)                   |                                                                                    |         |
-| 5    | 02/12     | Lec5: Comparison and Contrast (2)                   |                                                                                    | HW#2    |
-| 6    | 02/19     | Lec6: Validity                                      |                                                                                    |         |
-| 7    | 02/26     | Lec7: Blocking desing (1) and Project proposal prep |                                                                                    |         |
-| 8    | 03/05     | Lec8: Project Proposal Presentation                 |                                                                                    |         |
-| 9    | 03/12     | Lec9: Blocking design (2) and 2-Way ANOVA (1)       |                                                                                    |         |
-| 10   | 03/19     | Lec10: 2-Way ANOVA (2)                              |                                                                                    |         |
-| 11   | **03/26** | **Spring break: No Class**                          |                                                                                    |         |
-| 12   | 04/02     | Lec11: Repeated Measure ANOVA                       |                                                                                    |         |
-| 13   | 04/09     | Lec12: ANCOVA                                       |                                                                                    | HW#3    |
-| 14   | 04/16     | Lec13: Mixed Design                                 |                                                                                    |         |
-| 15   | **04/23** | **2025 AERA Conference (April 23-27): No Class**    |                                                                                    |         |
-| 16   | 04/30     | Final Project                                       |                                                                                    | Project |
-| 17   | 05/07     | Final Project                                       |                                                                                    |         |
+| Week | Date      | Topic                                               | Reading | HW      |
+|:--------------|:--------------|:--------------|:--------------|:--------------|
+| 1    | 01/13     | Lec1: Welcome to ESRM 64103                         |         |         |
+| 2    | 01/20     | Lec2: Hypothesis testing                            |         |         |
+| 3    | 01/27     | Lec3: One-way ANOVA                                 |         | HW#1    |
+| 4    | 02/03     | Lec4: Comparison and Contrast (1)                   |         |         |
+| 5    | 02/10     | Lec5: Comparison and Contrast (2)                   |         | HW#2    |
+| 6    | 02/17     | Lec6: Validity                                      |         |         |
+| 7    | 02/24     | Lec7: Blocking desing (1) and Project proposal prep |         |         |
+| 8    | 03/03     | Lec8: Project Proposal Presentation                 |         |         |
+| 9    | 03/10     | Lec9: Blocking design (2) and 2-Way ANOVA (1)       |         |         |
+| 10   | 03/17     | Lec10: 2-Way ANOVA (2)                              |         |         |
+| 11   | **03/24** | **Spring break: No Class**                          |         |         |
+| 12   | 03/31     | Lec11: Repeated Measure ANOVA                       |         |         |
+| 13   | 04/07     | Lec12: ANCOVA                                       |         | HW#3    |
+| 14   | 04/14     | Lec13: Mixed Design                                 |         |         |
+| 15   | **04/21** | **2025 AERA Conference (April 23-27): No Class**    |         |         |
+| 16   | 04/28     | Homework Q&A                                        |         | Project |
+| 17   | 05/05     | Re-submit Homew                                     |         |         |
