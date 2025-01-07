@@ -160,7 +160,7 @@ format:
 
     -   You can also join the class via Zoom
 
-    -   You won't miss out: I will post **YouTube** recordings (audio + screenshare) by requested at the course website.
+    -   You won't miss out: I will post **YouTube** recordings (audio + screen share) by requested at the course website.
 
 -   **Changes** will be sent via email by 9 am on class days
 
@@ -202,7 +202,7 @@ format:
 -   Linear Mixed Model
 :::
 
-# Brief Introduction to R 
+# Brief Introduction to R
 
 ## Why R?
 
@@ -406,8 +406,8 @@ format:
 
 1.  Note that the syllabus, schedule, and all materials are uploaded online the week before class.
 2.  We learn that R, Rstudio, and Quarto (*.qmd*) can be used to execute R code/syntax.
-3.  In-class quiz will be administered in the begining of class. Should be quick and easy. Don't be stressful ever!
-4.  Office hour will be 2PM - 4PM on Tuesday. Feel free to stop by my office and ask questions.
-5.  Next week, we will start to reiterate general linear regression.
+3.  In-class quiz will be administered randomly. Should be quick and easy. Don't be stressful ever!
+4.  Office hour will be 2PM - 4PM on Monday. Feel free to stop by my office and ask questions.
+5.  Next week, we will start to learn some basics about Experimental Design
 
 ## 
