@@ -15,6 +15,11 @@ format:
     code-line-numbers: false
   typst: 
     df-print: tibble
+format-links:
+  - html
+  - format: typst
+    text: "Printable Syllabus"
+    icon: file-pdf    
 citation:
   type: webpage
   issued: 2025-01-13
@@ -26,14 +31,16 @@ citation:
 
 ------------------------------------------------------------------------
 
--   Course Code: ESRM 6990V
+-   Course Code: ESRM 6990V - 001 Advanced Seminar
 -   Credits: 3 CH
--   Course time and location: Wed 17:00-19:45; GRAD 210
+-   Course time: Th 17:00 - 19:45
+-   Course location: Classroom GRAD 0229
+-   Meeting Dates: 2025/01/13 - 2025/05/01
 -   Instructor: Jihong Zhang, Dr.
 -   Contact Information: [jzhang\@uark.edu](mailto:jzhang@uark.edu)
 -   Personal Website: <http://jihongzhang.org>
 -   Office Location: GRAD 133B
--   Office Hours: Tu 1:30-4:30PM
+-   Office Hours: Thur 2:00-4:00PM or by appointment
 -   Office Phone +1 479-575-5235
 -   Semester: Spring 2025
 
@@ -85,12 +92,11 @@ No prior programming experience is required, but basic statistical knowledge and
 ::: panel-tabset
 ## Web Books
 
-1.  [Introduction to Data Science Part I - Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/) by *Rafael A. Irizarry*
-2.  [Introduction to Data Science Part II - Statistics and Prediction Algorithms Through Case Studies](http://rafalab.dfci.harvard.edu/dsbook-part-2/) by *Rafael A. Irizarry*
-3.  [R for Data Science](https://r4ds.hadley.nz/) - Visualize, Model, Transform, Tidy and Import Data by *Hadley Wickham* & *Garret Grolemund*
-4.  [Yet Again: R + Data Science](https://yards.albert-rapp.de/)by *Albert Rapp*
-5.  [Happy Git and GitHub for the useR](https://happygitwithr.com/) by [*Jennifer Bryan*](https://github.com/jennybc/happy-git-with-r)
-6.  [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/) by *Roger D. Peng*
+1.  **ITDS**: [Introduction to Data Science Part I - Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/) by *Rafael A. Irizarry*
+2.  **R4DS**: [R for Data Science](https://r4ds.hadley.nz/) - Visualize, Model, Transform, Tidy and Import Data by *Hadley Wickham* & *Garret Grolemund*
+3.  [Yet Again: R + Data Science](https://yards.albert-rapp.de/)by *Albert Rapp*
+4.  [Happy Git and GitHub for the useR](https://happygitwithr.com/) by [*Jennifer Bryan*](https://github.com/jennybc/happy-git-with-r)
+5.  [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/) by *Roger D. Peng*
 
 ## R Community
 
@@ -137,6 +143,20 @@ Learning Progression: The course is designed to progress from basic R fundamenta
 
 This book is free and comprehensive for a broad R tasks of data analysis. For example, the book covers R programming (**basics of R**), data wrangling with **dplyr**, data visualization with **ggplot2**, file organization with **Unix/Linux shell**, version control with **Git/Github**, and reproducible document preparation with ***Quarto*** and ***knitr***.
 
+## Course Requirement
+
+1.  Research project using R (80%)
+    -   **Research Proposal (10%)**
+    -   **Create a GitHub Repository (20%)**
+    -   **Upload R Code and Analysis (40%)**
+    -   **Generate Final Report (20%)**
+    -   **Presentation (10%)**
+2.  Attendance and In-Class exercises (20%)
+
+## In-Class exercises
+
+1.  We will have around one-hour exercises every lecture. This exercise is not graded.
+
 # Final Project Requirements
 
 ## Overview
@@ -158,18 +178,18 @@ The final project is an opportunity to demonstrate your proficiency in R program
     -   Research questions/objectives
     -   Proposed analysis methods
     -   Timeline for completion
--   **GitHub Repository (20%)**
+-   **Create a GitHub Repository (20%)**
     -   Well-organized project structure
     -   Clear documentation
     -   Regular commits showing progress
     -   README.md file with project description and instructions
--   **R Code and Analysis (40%)**
+-   **Upload R Code and Analysis (40%)**
     -   Clean, well-commented R scripts
     -   Efficient use of tidyverse functions
     -   At least three different types of data visualizations using ggplot2
     -   Appropriate data cleaning and transformation steps
     -   Error handling and code optimization
--   **Final Report (20%)**
+-   **Generate Final Report (20%)**
     -   Created using Quarto markdown
     -   Professional formatting
     -   Clear methodology description
@@ -188,7 +208,6 @@ The final project is an opportunity to demonstrate your proficiency in R program
 
 -   Minimum 150 observations
 -   At least 5 variables
--   Must be related to environmental science or natural resources
 -   Can be public or private data (with appropriate permissions)
 -   Must require significant cleaning or transformation
 
@@ -213,7 +232,7 @@ The final project is an opportunity to demonstrate your proficiency in R program
     -   Proper .gitignore file
     -   Well-structured repository
 
-## Deliverables Timeline
+## Timeline
 
 -   Week 14: Project proposal due
 -   Week 15: Progress check-in
@@ -297,24 +316,26 @@ The university does not observe religious holidays; however Campus Council has p
 
 # Schedule
 
-Following materials are only allowed for previewing for students registered in ESRM 64503. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
+Following materials are only allowed for previewing for students registered in ESRM 6990V. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
 
-| Week | Date             | Topic                                                                 | Reading                                                                            | HW  | Code/Data |
+| Week | Date             | Topic                                                                              | Reading                                                                            | HW  | Code/Data |
 |:-----------|:-----------|:-----------|:-----------|:-----------|------------|
-| 1    | 01/13            | Lecture 1: Basics of R                                                | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) |     |           |
-| 2    | 01/20 (No Class) | Martin Luther King Holiday                                            |                                                                                    |     |           |
-| 3    | 01/27            | Lecture 2: Programming Basics                                         |                                                                                    |     |           |
-| 4    | 02/03            | Lecture 3: Write academic reports with R projects and Quarto markdown |                                                                                    |     |           |
-| 5    | 02/10            | Lecture 4: Data summarization with *tidyverse*                        |                                                                                    |     |           |
-| 6    | 02/17            | Lecture 5: Data cleaning with *tidyverse*                             |                                                                                    |     |           |
-| 7    | 02/24            | Lecture 6: Data transformation with *tidyverse*                       |                                                                                    |     |           |
-| 8    | 03/03            | Lecture 7: Data Importing                                             |                                                                                    |     |           |
-| 9    | 03/10            | Lecture 8: Data Visualization I with *ggplot2*                        |                                                                                    |     |           |
-| 10   | 03/17            | Lecture 9: Data Visualization II with *ggplot2*                       |                                                                                    |     |           |
-| 11   | 03/24 (No class) | Lecture 10: Data Visualization III with *ggplot2*                     |                                                                                    |     |           |
-| 12   | 03/31            | Spring Break                                                          |                                                                                    |     |           |
-| 13   | 04/07            | Lecture 11: File Organizing with Terminal / Powershell                |                                                                                    |     |           |
-| 14   | 04/14            | Lecture 12: Git and GitHub                                            | [Pro Git Book](https://git-scm.com/book/en/v2)                                     |     |           |
-| 15   | 04/21            | Final Project                                                         |                                                                                    |     |           |
-| 16   | 04/28            | Final Project                                                         |                                                                                    |     |           |
-| 17   | 05/05            | Final Project                                                         |                                                                                    |     |           |
+| 1    | 01/13            | [Lecture 0: Welcome to ESRM6990V](ESRM6990V_Lecture00.qmd)                         | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) |     |           |
+| 2    | 01/20 (No Class) | **No Class**: Martin Luther King Holiday                                           |                                                                                    |     |           |
+| 3    | 01/27            | [Lecture 1: Basics of R and Programming Basics](Lecture01/ESRM6990V_Lecture01.qmd) |                                                                                    |     |           |
+| 4    | 02/03            | Lecture 2: Write academic reports with R projects and Quarto markdown              |                                                                                    |     |           |
+| 5    | 02/10            | Lecture 3: Data summarization with *tidyverse*                                     |                                                                                    |     |           |
+| 6    | 02/17            | Lecture 4: Data cleaning with *tidyverse*                                          |                                                                                    |     |           |
+| 7    | 02/24            | Lecture 5: Data transformation with *tidyverse*                                    |                                                                                    |     |           |
+| 8    | 03/03            | Lecture 6: Data Importing                                                          |                                                                                    |     |           |
+| 9    | 03/10            | Lecture 7: Data Visualization I with *ggplot2*                                     |                                                                                    |     |           |
+| 10   | 03/17            | Lecture 8: Data Visualization II with *ggplot2*                                    |                                                                                    |     |           |
+| 11   | 03/24 (No class) | Lecture 9: Data Visualization III with *ggplot2*                                   |                                                                                    |     |           |
+| 12   | 03/31            | **No Class:** Spring Break                                                         |                                                                                    |     |           |
+| 13   | 04/07            | Lecture 10: File Organizing with Terminal / Powershell                             |                                                                                    |     |           |
+| 14   | 04/14            | Lecture 11: Git and GitHub                                                         | [Pro Git Book](https://git-scm.com/book/en/v2)                                     |     |           |
+| 15   | 04/21            | **No Class**: AERA 2025 Conference                                                 |                                                                                    |     |           |
+| 16   | 04/28            | Final Project                                                                      |                                                                                    |     |           |
+| 17   | 05/05            | Final Project                                                                      |                                                                                    |     |           |
+
+: Weekly Schedule {tbl-colwidths="\[10,10,50,15,15\]"}
