@@ -23,7 +23,6 @@ format:
     footer: "ESRM 64503: Lecture01"
     slide-number: c/t
     tbl-colwidths: auto
-    output-file: slides-index.html
     scrollable: true
 #jupyter: python3
 ---
@@ -90,13 +89,24 @@ format:
 ## Which type statistics to use
 
 1.  How many structures burned in California wildfire in the first week?
+
     -   [Descriptive]{.heimu}
+
 2.  Which factor is most important causing the fires?
-    -   [Inference ]{.heimu}
+
+    -   [Inference]{.heimu}
+
 3.  How likely the California wildfire will not happen again in next 5 years?
+
     -   [Predictive]{.heimu}
+
 4.  How likely human will live on Mars?
+
     -   [Not statistics. Sci-Fi]{.heimu}
+
+5.  ChatGPT?
+
+    ![](images/clipboard-793465966.png){width="500"}
 
 ## Statistical Hypothesis Testing Steps
 
@@ -114,9 +124,8 @@ format:
 
 -   ANOVA is one of the most frequently used statistical tool for inference statistics in experimental design.
 
-```{=html}
 <!-- -->
-```
+
 -   Settings for Analysis of Variance (ANOVA):
 
     -   One dependent variable (DV),
