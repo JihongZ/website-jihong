@@ -1,0 +1,166 @@
+---
+title: "Example 02: Hypothesis Testing"
+subtitle: "Experimental design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-08-18"
+sidebar: false
+format: 
+  #html: 
+  #  page-layout: full
+  #  toc: true
+  #  toc-depth: 2
+  #  lightbox: true
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: true
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503: Lecture01"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+    scrollable: true
+#jupyter: python3
+---
+
+## Research Question & Data
+
+**Context:**
+
+-   Data were collected for two species: *O. exclamationis* and *O. niveus*. The data are contained in a data frame called `crickets` with a total of 31 data points.
+
+-   Study on cricket chirp rates and temperature for two species
+
+-   Data: Temperature (°C) and chirps per minute
+
+**Research Questions:**
+
+-   Does temperature affect chirp rate?
+
+-   Do species differ in their chirp rates?
+
+-   Do species respond differently to temperature?
+
+```{r setup}
+library(tidyverse) #install.packages("tidyverse")
+data(crickets, package = "modeldata")
+```
+
+## Data Visualization
+
+```{r cricket_plot}
+ggplot(crickets, 
+       aes(x = temp, y = rate, color = species)) + 
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  labs(x = "Temperature (C)", 
+       y = "Chirp Rate (per minute)")
+```
+
+## Statistical Hypotheses & Model
+
+**Null Hypotheses:**
+
+1.  Temperature has no effect on the chirp rate.
+2.  There are no differences between the species’ chirp rate, e.g., overall chirp rate and sensitivity to temperature
+
+**Null Hypotheses for hypothesis testing:**
+
+1\. H₀: Temperature has no effect ($β_{temp}$ = 0)
+
+2\. H₀: No species difference ($β_{species}$ = 0)
+
+3\. H₀: No interaction ($β_{temp×species}$ = 0)
+
+```{r model_fit}
+# Full model with interaction
+interaction_fit <- lm(rate ~ (temp + species)^2, data = crickets)
+```
+
+## Model Diagnostics
+
+```{r diagnostics}
+par(mfrow = c(1, 2))
+plot(interaction_fit, which = 1) # Residuals vs Fitted
+plot(interaction_fit, which = 2) # Normal Q-Q
+```
+
+## Testing Interaction Effect
+
+```{r test_interaction}
+# Fit main effects model
+main_effect_fit <- lm(rate ~ temp + species, data = crickets)
+
+# Compare models
+anova(main_effect_fit, interaction_fit)
+```
+
+**Result:** Interaction not significant (p \> 0.05). Choose simpler model without interaction
+
+## Final Model Results
+
+```{r final_model}
+summary(main_effect_fit)
+```
+
+**Interpretation:**
+
+-   Temperature effect: +3.75 chirps/°C (p \< 0.001)
+
+-   O. niveus: 17 fewer chirps/minute (p \< 0.001)
+
+## Model Predictions
+
+```{r predictions}
+new_temps <- data.frame(
+  species = "O. exclamationis",
+  temp = seq(15, 25, by = 5)
+)
+
+predict(main_effect_fit, new_temps)
+```
+
+## Conclusions
+
+**Statistical Evidence:**
+
+1\. Strong temperature effect (p \< 0.001)
+
+2\. Clear species difference (p \< 0.001)
+
+3\. Similar temperature response (no interaction)
+
+**Limitations:**
+
+-   Valid within observed temperature range (15-32°C)
+
+-   Only two species studied
+
+## Takeaway Note: the key steps
+
+Here are the key steps for performing inferential statistics using the cricket example:
+
+1.  Data visualization and propose Null Hypotheses
+    -   Temperature has no effect on chirp rate
+    -   No differences between species' chirp rates
+2.  Fit Initial Model
+    -   Used `lm()` with interaction terms between temperature and species
+    -   Formula: `rate ~ (temp + species)^2`
+3.  Check Model Diagnostics
+    -   Examined residual plots vs predicted values
+    -   Checked normality of residuals using Q-Q plot
+    -   Verified assumptions were reasonable
+4.  Test Model Components
+    -   Compared models with/without interaction using ANOVA
+    -   Found interaction term was not statistically significant (p \> 0.05)
+    -   Selected simpler main effects model
+5.  Interpret Final Model
+    -   Analyzed **coefficients** and **p-values** for temperature and species effects
+    -   Temperature showed significant positive effect
+    -   Species showed significant difference in baseline chirp rates
+    -   Limited conclusions to observed temperature range

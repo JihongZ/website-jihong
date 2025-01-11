@@ -170,7 +170,7 @@ The university does not observe religious holidays; however Campus Council has p
 Following materials are only allowed for previewing for students registered in ESRM 64503. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon on next Thursday.**
 
 | Week | Date  | Topic                                                  | Reading | HW   |
-|:-------|:--------|:-------------------------|:--------------|:--------------|
+|:-----|:------|:-------------------------------------------------------|:--------|:-----|
 | 1    | 01/13 | [Lec1: Welcome to ESRM 64103](Lecture01/Lecture01.qmd) |         |      |
 | 2    | 01/20 | Lec2: Hypothesis testing                               |         |      |
 | 3    | 01/27 | Lec3: One-way ANOVA                                    |         | HW#1 |
