@@ -28,31 +28,37 @@ format:
 #jupyter: python3
 ---
 
-## Presentation Outline
+## Outline of Today's Class
 
-1.  Introduce youselves
+1.  Self Introduction
 
-2.  Walk through the syllabus
+2.  Introduce yourselves
 
-    1.  Goal of this class
+3.  Walk you through the syllabus
 
-    2.  Delivery method of class materials
+    1.  How to have access to syllabus
 
-    3.  Assignments
+    2.  Basic information of this course
 
-    4.  Policy
+    3.  Goal of this course
 
-    5.  Weekly schedule
+    4.  Delivery method of class materials
+
+    5.  Assignments
+
+    6.  Weekly schedule
+
+4.  Brief Introduction to R
 
 ## Self Introduction
 
 ::: {.columns .column-screen}
 ::: {.column width="33%"}
-![University of Kansas (2015-2019)](figures/school_ku.png){fig-align="center" width="73%"}
+![Master, University of Kansas (2015-2019)](figures/school_ku.png){fig-align="center" width="73%"}
 :::
 
 ::: {.column width="33%"}
-![University of Iowa (2019-2022)](figures/school_ui.png){fig-align="center" width="73%"}
+![PhD, University of Iowa (2019-2022)](figures/school_ui.png){fig-align="center" width="73%"}
 :::
 
 ::: {.column width="33%"}
@@ -60,38 +66,45 @@ format:
 :::
 :::
 
+## What is Experimental Design in Education?
+
+1.  In education? No, applied to other areas, such as psychology, finance, biology
+2.  Focus on the statistical thinking to test the hypothesis
+3.  Be flexible to the class example. Cover traditional statistical thinking as well as cutting-edge statistical methods. For example, machine learning and AI.
+
 ## About this class
 
--   No examination
+-   No examination or class project
 
--   Light homeworks, 3-5 assignments with multiple-choice questions and light calculations
+-   Office hours will be 2pm to 4pm just before class
 
--   To teach big picture and general directions rather than statistical details
+-   Light assignment load: 3-5 assignments with multiple-choice questions and light calculations
 
--   A lot of examples
+-   To teach big picture and general directions rather than technical details of statistical methods
 
--   All materials use R!
+    -   But some software tools will be taught
 
-## Your turn
+-   All materials use R
 
--   Tell me:
+## Introduce to yourself
+
+-   Let's get familiar to each other. Tell me:
 
     1.  Your name
-    2.  Department name
-    3.  Which year in your program
-    4.  Why you are interested in Experimental design
+    2.  Department name and Which year in your program
+    3.  Why you are interested in Experimental design
 
 ## Class Time
 
 1.  Unit 1 (17:00 - 17:45): Lectures about concepts
-2.  Unit 2 (18:00 - 18:45): Examples
+2.  Unit 2 (18:00 - 18:45): Illustrate relevant Examples
 3.  Unit 3 (19:00 - 19:45): Practice with R Code by yourself and Ask Questions
 
 ## What To Expect This Semester
 
 -   **Philosophy**: Focus on accessibility + learning-by-doing
 
-    -   The AMS class heavily emphasize on hands-on task-oriented practices
+    -   This class heavily emphasize on hands-on task-oriented practices
 
     -   **No** anxiety-prone tasks (e.g., hand calculations, memorizing formulas)
 
@@ -125,8 +138,8 @@ format:
 
 ## Homework delivery
 
-1.  [Online Microsoft form]{.underline} or [Word document via Email]{.underline}
-2.  <https://www.menti.com/alu3mgbzvd6g>
+1.  [Online Microsoft form]{.underline}
+2.  Exercise: Use the Homework Portal
 
 ## Our Other Responsibility
 
@@ -154,7 +167,7 @@ format:
 
 -   **Attendance**: Strongly recommended but not required
 
-    -   **Please do not attend in-person if you might be sick!**
+    -   **Please do not attend** if you might be sick!
 
     -   **Please do not attend** if you received the inclement weather notification
 
@@ -192,7 +205,6 @@ format:
 
 ## What We Will Cover
 
-::: columns
 -   Hypothesis Testing
 -   ANOVA
     -   One-way
@@ -200,7 +212,6 @@ format:
     -   Repeated-measure
 -   ANCOVA
 -   Linear Mixed Model
-:::
 
 # Brief Introduction to R
 
