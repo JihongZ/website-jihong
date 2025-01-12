@@ -100,7 +100,7 @@ format:
 2.  Unit 2 (18:00 - 18:45): Illustrate relevant Examples
 3.  Unit 3 (19:00 - 19:45): Practice with R Code by yourself and Ask Questions
 
-## What To Expect This Semester
+## Course Philosophy 
 
 -   **Philosophy**: Focus on accessibility + learning-by-doing
 
@@ -110,11 +110,19 @@ format:
 
     -   **No** anxiety-prone methods of evaluation (e.g., timed tests)
 
+## How to use materials
+
 -   **Materials:**
 
     -   **Lecture** slides present concepts—the **what** and the **why**
 
+        -   Slides can be displayed as html by clicking the link in the weekly schedule table on the course webpage
+
+        -   You can print it out by press `e` and then press `Cmd/Ctrl + p`; Select `Save to PDF`
+
     -   **Example** documents: reinforce the concepts and demonstrate the **how** using software—R packages
+
+        -   Examples will be displayed as html. Code and syntax can be copied and pasted.
 
     -   All available at the course website (hosted outside of Blackboard)
 
