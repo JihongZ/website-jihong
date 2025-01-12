@@ -40,11 +40,11 @@ format:
 
 **Research Questions:**
 
--   Does temperature affect chirp rate?
+-   RQ1: Does temperature affect chirp rate?
 
--   Do species differ in their chirp rates?
+-   RQ2: Do species differ in their chirp rates?
 
--   Do species respond differently to temperature?
+-   RQ3: Do species respond differently to temperature?
 
 ```{r setup}
 library(tidyverse) #install.packages("tidyverse")
