@@ -8,23 +8,16 @@ institute: |
   University of Arkansas
 date: "2025-08-18"
 sidebar: false
+execute: 
+  warning: false
+  message: false
 format: 
-  #html: 
-  #  page-layout: full
-  #  toc: true
-  #  toc-depth: 2
-  #  lightbox: true
-  uark-revealjs:
-    chalkboard: true
-    embed-resources: false
-    code-fold: true
-    number-sections: true
-    number-depth: 1
-    footer: "ESRM 64503: Lecture01"
-    slide-number: c/t
-    tbl-colwidths: auto
-    output-file: slides-index.html
-    scrollable: true
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    lightbox: true
+    code-fold: show
 #jupyter: python3
 ---
 
@@ -36,22 +29,48 @@ format:
 
 -   Study on cricket chirp rates and temperature for two species
 
--   Data: Temperature (°C) and chirps per minute
+-   Data:
+
+    -   Temperature (°C)
+
+    -   Chirps per minute
+
+    -   Species: (A) O. exclamationis (B) O. niveus
+
+**Motivation:**
+
+-   Scientists are interested in whether the temperature affects crickets' chirp rates.
 
 **Research Questions:**
 
--   RQ1: Does temperature affect chirp rate?
+-   RQ1: Does temperature affect chirp rate in general?
 
 -   RQ2: Do species differ in their chirp rates?
 
 -   RQ3: Do species respond differently to temperature?
 
+### Load the data into the R
+
+```{r}
+#| eval: false
+
+## If you did not install modeldata and tidyverse packages, execute following codes:
+install.packages("modeldata")
+install.packages("tidyverse")
+```
+
 ```{r setup}
-library(tidyverse) #install.packages("tidyverse")
+library(tidyverse)
 data(crickets, package = "modeldata")
 ```
 
 ## Data Visualization
+
+```{r}
+ggplot(crickets, 
+       aes(x = rate, fill = species, color = species)) + 
+  geom_density(alpha = .5)
+```
 
 ```{r cricket_plot}
 ggplot(crickets, 
