@@ -254,6 +254,10 @@ format:
 
 ## More RStudio
 
+{{< video https://www.youtube.com/watch?v=FIrsOBy5k58 width="1024" height="768" >}}
+
+------------------------------------------------------------------------
+
 ![](figures/Rstudio_labelled.png){fig-align="left" width="100%"}
 
 ## Installation of R and RStudio
