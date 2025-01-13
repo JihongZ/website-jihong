@@ -25,7 +25,7 @@ citation:
   issued: 2025-01-13
 ---
 
-![](images/logo_ESRM6990V.webp){fig-align="center" width="512"}
+![](images/logo_ESRM6990V.png){fig-align="center" width="512"}
 
 # General Information
 
@@ -319,7 +319,7 @@ The university does not observe religious holidays; however Campus Council has p
 Following materials are only allowed for previewing for students registered in ESRM 6990V. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
 
 | Week | Date             | Topic                                                                              | Reading                                                                            | HW  | Code/Data |
-|:-----------|:-----------|:------------|:------------|:-----------|------------|
+|:-----------|:-----------|:-----------|:-----------|:-----------|------------|
 | 1    | 01/13            | [Lecture 0: Welcome to ESRM6990V](Lecture00/ESRM6990V_Lecture00.qmd)               | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) |     |           |
 | 2    | 01/20 (No Class) | **No Class**: Martin Luther King Holiday                                           |                                                                                    |     |           |
 | 3    | 01/27            | [Lecture 1: Basics of R and Programming Basics](Lecture01/ESRM6990V_Lecture01.qmd) |                                                                                    |     |           |
