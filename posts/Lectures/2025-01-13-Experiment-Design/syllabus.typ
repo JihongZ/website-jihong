@@ -443,7 +443,7 @@ When members of any religion seek to be excused from class for religious reasons
 
 = Schedule
 <schedule>
-Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. #strong[All homework are due at noon on next Thursday.]
+Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. #strong[All homework are due at noon on next Monday.]
 
 #figure(
   align(center)[#table(
@@ -451,7 +451,11 @@ Following materials are only allowed for previewing for students registered in E
     align: (left,left,left,left,left,),
     table.header([Week], [Date], [Topic], [Reading], [HW],),
     table.hline(),
-    [1], [01/13], [#link("Lecture01/Lecture01.qmd")[Lec1: Welcome to ESRM 64103];], [], [#link("https://forms.office.com/r/v5QU6KMgXc")[ESRM64103: EDIC Assignment Demo];],
+    [1], [01/13], [#link("Lecture01/Lecture01.qmd")[Lec1: Welcome to ESRM 64103]
+
+    #link("Lecture01/MakeFridentsWithR.qmd")[Example01 - MakeFriendsWithR]
+
+    ], [], [#link("https://forms.office.com/r/v5QU6KMgXc")[ESRM64103: EDIC Assignment Demo];],
     [2], [01/20], [Lec2: Hypothesis testing
 
     #link("Lecture02/Example02.qmd")[Example02 - Crickets]

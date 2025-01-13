@@ -123,23 +123,18 @@ format:
 ## ANOVA Introduction
 
 -   ANOVA is one of the most frequently used statistical tool for inference statistics in experimental design.
-
-<!-- -->
-
 -   Settings for Analysis of Variance (ANOVA):
-
     -   One dependent variable (DV),
     -   One independent variable (IV) with multiple levels
-
 -   **Example question**: "Are there mean differences in SAT math scores for high school program type (college prep, vocational, general)?"
-
 -   Course covers advanced ANOVA topics:
-
     -   Model comparisons
     -   Between/within-subject design
     -   Interaction effects
 
-## ANOVA Example 1 - Background
+# Example 1: Political Study on Tax Reform Attitudes
+
+## Background
 
 -   Political scientist study on tax reform attitudes:
     -   Groups: Democrats, Republicans, Independents
@@ -150,7 +145,7 @@ format:
         -   Standard deviations and variances for each group
         -   Grand mean: 5.625
 
-## ANOVA Example 1 - Analysis Steps
+## Analysis Steps
 
 1.  Hypothesis statements:
     -   H₀: X̄democrat = X̄republican = X̄independent
@@ -161,6 +156,20 @@ format:
     -   F_critical = 3.81
     -   F_observed = 20.31
 4.  Results show rejection of H₀ (F_obs \> F_critical)
+
+# Example 2: English Learners' digital competency
+
+## Background
+
+-   **Digital literacy** is essential for effective participation in today's society, yet "digital divides"—disparities in access to and usage of digital resources—are prevalent.
+
+-   These divides are particularly significant for ethnolinguistic minority students, such as English learners, who face challenges within educational systems biased toward monolingual English norms.
+
+## Research Purpose and Hypothesis
+
+-   **Research Purpose**: The study examines whether there are [noticeable differences in Information and Communication Technology (ICT)-related achievement, self-efficacy, and perceptions]{.underline} between native English speakers and English learners in U.S. schools. It aims to identify how these differences are influenced by linguistic barriers in the context of digital literacy.
+
+-   **Hypotheses:** The research proposes that [English learners will demonstrate lower levels of mastery experience, self-efficacy, and positive perceptions of Information and Communication Technology]{.underline} compared to native English speakers due to systemic linguistic inequalities in educational settings. These disparities arise from both tangible and intangible barriers to accessing digital resources and support.
 
 ## Statistical Testing Review - Part 1
 

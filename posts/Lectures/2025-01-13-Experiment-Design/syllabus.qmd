@@ -172,7 +172,7 @@ The university does not observe religious holidays; however Campus Council has p
 
 # Schedule
 
-Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon on next Thursday.**
+Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon on next Monday.**
 
 +--------+--------+-----------------------------------------------------------------+----------------------+--------------------------------------------------------------------------+
 | Week   | Date   | Topic                                                           | Reading              | HW                                                                       |
@@ -216,4 +216,4 @@ Following materials are only allowed for previewing for students registered in E
 | 17     | 05/05  | Homework Q&A                                                    |                      |                                                                          |
 +--------+--------+-----------------------------------------------------------------+----------------------+--------------------------------------------------------------------------+
 
-: Weekly Schedule {tbl-colwidths="\[10,10,50,15,15\]"}
+: Weekly Schedule {tbl-colwidths="\[5,10,40,25,20\]"}
