@@ -28,13 +28,13 @@ format:
 #jupyter: python3
 ---
 
-# Course Information
+# Overview
 
 ## Presentation Outline
 
 1.  Self introduction
 
-2.  Walk through the syllabus
+2.  The syllabus
 
     1.  Goal of this class
 
@@ -84,6 +84,30 @@ format:
     2.  Department name
     3.  Which year in your program
     4.  Why you are interested in Experimental design
+
+## This Course is:
+
+1.  Required for [Graduate Certificate in Educational Statistics and Research Methods](https://esrm.uark.edu/certificates/statistics-research-methods.php)
+2.  Prerequisite to Multiple Regression and Applied Multivariate Statistics
+3.  to provide the broad picture of one of the most popular research design - group comparisons
+
+## Learning Path of Graduate Certificate
+
+### Statistics Learning Path:
+
+1. **ESRM 64003 — Educational Statistics and Data Processing**: Establish fundamental statistical skills.
+2. **ESRM 64103 — Experimental Design**: Learn research design methodologies.
+3. **ESRM 64203 — Multiple Regression**: Explore complex relationships between variables.
+4. Elective: **ESRM 64503 — Applied Multivariate Statistics**: Extend analysis to multiple dependent and independent variables.
+5. Elective: **ESRM 65203 — Structural Equation Modeling**: Develop expertise in complex model testing.
+
+### Measurement Learning Path:
+
+1. **ESRM 64003 — Educational Statistics and Data Processing**: Gain foundational knowledge in statistics.
+2. **ESRM 64103 — Experimental Design**: Acquire skills in designing educational research.
+3. **ESRM 64203 — Multiple Regression**: Understand the influence of multiple predictors.
+4. Elective: **ESRM 66503 — Measurement and Evaluation**: Focus on assessment and evaluation techniques.
+5. Elective: **ESRM 67503 — Item Response Theory**: Specialize in modern test theory applications.
 
 ## Class Time
 
