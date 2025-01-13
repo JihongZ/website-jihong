@@ -28,9 +28,11 @@ format:
 #jupyter: python3
 ---
 
+# Course Information
+
 ## Presentation Outline
 
-1.  Introduce youselves
+1.  Self introduction
 
 2.  Walk through the syllabus
 
@@ -43,6 +45,8 @@ format:
     4.  Policy
 
     5.  Weekly schedule
+
+3.  Brief introduction to statistical software
 
 ## Self Introduction
 
@@ -83,9 +87,9 @@ format:
 
 ## Class Time
 
-1.  Unit 1 (17:00 - 17:45): Lectures about concepts
-2.  Unit 2 (18:00 - 18:45): Examples
-3.  Unit 3: 19:00 - 19:45 (**Self** **Practice with R Code on your laptop and Ask Questions**)
+1.  **Unit 1** (17:00 - 17:45): Lectures about concepts
+2.  **Unit 2** (18:00 - 18:45): Examples
+3.  **Unit 3** (19:00 - 19:45): Self Practice with R Code on your laptop and Ask Questions
 
 ## What To Expect This Semester
 
@@ -107,7 +111,7 @@ format:
 
         -   [Let me can show you how to use the website]{.underline}
 
-## Course Requirements
+## Assignments and Grading
 
 -   Participants will have the opportunity to earn **up to 100 total points** in this course.
 
@@ -202,7 +206,7 @@ format:
 -   Linear Mixed Model
 :::
 
-# Brief Introduction to R
+# Unit 2: Brief Introduction to R
 
 ## Why R?
 
