@@ -1,0 +1,219 @@
+---
+title: "Example 01: Make Friends with R"
+sidebar: false
+format: 
+  html:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    toc_collapsed: true
+    number_sections: true
+    code-fold: show
+    code-summary: "Hide the code"
+---
+
+# How to use this file
+
+1.  You can review all R code on this webpage.
+
+2.  To test one certain chunk of code, you click the "copy" icon in the upper right hand side of the chunk block (see screenshot below)
+
+    -   ![](figures/R-copy-paste.png)
+
+3.  To review the whole file, click "\</\> Code" next to the title of this paper. Find "View Source" and click the button. Then, you can paste to the newly created Quarto Document.
+
+    ![](figures/code-copy-paste.png)
+
+# R SYNTAX AND NAMING CONVENTIONS
+
+```{r}
+#| eval: FALSE
+# MAKE FRIENDS WITH R
+# BASED ON MAKE FRIENDS WITH R BY JONATHAN TEMPLIN
+# CREATED BY JIHONG ZHANG
+
+# R comments begin with a # -- there are no multiline comments
+
+# RStudio helps you build syntax
+#   GREEN: Comments and character values in single or double quotes
+
+# You can use the tab key to complete object names, functions, and arugments
+
+# R is case sensitive. That means R and r are two different things.
+```
+
+# R Functions
+
+```{r}
+# In R, every statement is a function
+
+# The print function prints the contents of what is inside to the console
+print(x = 10)
+
+# The terms inside the function are called the arguments; here print takes x
+#   To find help with what the arguments are use:
+?print
+
+# Each function returns an object
+print(x = 10)
+
+# You can determine what type of object is returned by using the class function
+class(print(x = 10))
+```
+
+# R Objects
+
+```{r}
+# Each objects can be saved into the R environment (the workspace here)
+#   You can save the results of a function call to a variable of any name
+MyObject = print(x = 10)
+class(MyObject)
+
+# You can view the objects you have saved in the Environment tab in RStudio
+# Or type their name
+MyObject
+
+# There are literally thousands of types of objects in R (you can create them),
+#   but for our course we will mostly be working with data frames (more later)
+
+# The process of saving the results of a function to a variable is called 
+#   assignment. There are several ways you can assign function results to 
+#   variables:
+
+# The equals sign takes the result from the right-hand side and assigns it to
+#   the variable name on the left-hand side:
+MyObject = print(x = 10)
+
+# The <- (Alt "-" in RStudio) functions like the equals (right to left)
+MyObject2 <- print(x = 10)
+
+identical(MyObject, MyObject2)
+
+# The -> assigns from left to right:
+print(x = 10) -> MyObject3
+
+identical(MyObject, MyObject2, MyObject3)
+```
+
+# Importing and Exporting Data
+
+-   The data frame is an R object that is a rectangular array of data. The variables in the data frame can be any class (e.g., numeric, character) and go across the columns. The observations are across the rows.
+
+-   We will start by importing data from a comma-separated values (csv) file.
+
+-   We will use the read.csv() function. Here, the argument `stringsAsFactors` keeps R from creating data strings
+
+-   We will use `here::here()` function to quickly point to the target data file.
+
+```{r}
+#| error: true
+#| eval: false
+# You can also set the directory using setwd(). Here, I set my directory to 
+#   my root folder:
+setwd("~")
+
+getwd()
+dir()
+# If I tried to re-load the data, I would get an error:
+HeightsData = read.csv(file = "heights.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Method 2: I can use the full path to the file:
+# HeightsData = 
+#   read.csv(
+#     file = "/Users/jihong/Documents/website-jihong/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/data/heights.csv", 
+#     stringsAsFactors = FALSE)
+
+# Or, I can reset the current directory and use the previous syntax:
+# setwd("/Users/jihong/Documents/website-jihong/posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/data/")
+
+HeightsData = read.csv(file = "heights.csv", stringsAsFactors = FALSE)
+HeightsData
+```
+
+```{r}
+# Note: Windows users will have to either change the direction of the slash
+#   or put two slashes between folder levels.
+
+# To show my data in RStudio, I can either double click it in the 
+#   Environment tab or use the View() function
+View(HeightsData)
+
+# You can see the variable names and contents by using the $:
+HeightsData$ID
+
+# To read in SPSS files, we will need the foreign library. The foreign
+#   library comes installed with R (so no need to use install.packages()).
+library(foreign)
+
+# The read.spss() function imports the SPSS file to an R data frame if the 
+#   argument to.data.frame is TRUE
+WideData = read.spss(file = "wide.sav", to.data.frame = TRUE)
+WideData
+```
+
+# Merging R data frame objects
+
+```{r}
+# The WideData and HeightsData have the same set of ID numbers. We can use the merge() function to merge them into a single data frame. Here, x is the name of the left-side data frame and y is the name of the right-side data frame. The arguments by.x and by.y are the name of the variable(s) by which we will merge:
+AllData = merge(x = WideData, y = HeightsData, by.x = "ID", by.y = "ID")
+AllData
+
+## Method 2: Use dplyr method, |> can be typed using `command + shift + M`
+library(dplyr)
+WideData |> 
+  left_join(HeightsData, by = "ID")
+```
+
+# Transforming Wide to Long
+
+```{r}
+# Sometimes, certain packages require repeated measures data to be in a long
+# format. 
+
+library(dplyr) # contains variable selection 
+
+## Wrong Way
+AllData |> 
+  tidyr::pivot_longer(starts_with("DVTime"), names_to = "DV", values_to = "DV_Value") |> 
+  tidyr::pivot_longer(starts_with("AgeTime"), names_to = "Age", values_to = "Age_Value") 
+
+## Correct Way
+AllData |> 
+  tidyr::pivot_longer(c(starts_with("DVTime"), starts_with("AgeTime"))) |> 
+  tidyr::separate(name, into = c("Variable", "Time"), sep = "Time") |> 
+  tidyr::pivot_wider(names_from = "Variable", values_from = "value") -> AllDataLong
+```
+
+# Gathering Descriptive Statistics
+
+```{r}
+# The psych package makes getting descriptive statistics very easy.
+## install.packages("psych")
+library(psych)
+
+# We can use describe() to get descriptive statistics across all cases:
+DescriptivesWide = describe(AllData)
+DescriptivesWide
+
+DescriptivesLong = describe(AllDataLong)
+DescriptivesLong
+
+# We can use describeBy() to get descriptive statistics by groups:
+DescriptivesLongID = describeBy(AllDataLong, group = AllDataLong$ID)
+DescriptivesLongID
+```
+
+# Transforming Data
+
+```{r}
+# Transforming data is accomplished by the creation of new variables. 
+AllDataLong$AgeC = AllDataLong$Age - mean(AllDataLong$Age)
+
+# You can also use functions to create new variables. Here we create new terms
+#   using the function for significant digits:
+AllDataLong$AgeYear = signif(x = AllDataLong$Age, digits = 2)
+AllDataLong$AgeDecade = signif(x = AllDataLong$Age, digits = 1)
+head(AllDataLong)
+```

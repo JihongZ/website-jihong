@@ -402,10 +402,6 @@ format:
 
 : {.striped}
 
-## Example 1: More Usage about R
-
--   Open up [MakeFriendsWithR.qmd](MakeFriendsWithR.qmd)
-
 ## Summary
 
 1.  Note that the syllabus, schedule, and all materials are uploaded online the week before class.
