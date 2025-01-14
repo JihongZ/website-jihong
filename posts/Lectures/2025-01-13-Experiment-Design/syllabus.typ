@@ -447,13 +447,15 @@ Following materials are only allowed for previewing for students registered in E
 
 #figure(
   align(center)[#table(
-    columns: (10%, 10%, 50%, 15%, 15%),
+    columns: (5%, 10%, 40%, 25%, 20%),
     align: (left,left,left,left,left,),
     table.header([Week], [Date], [Topic], [Reading], [HW],),
     table.hline(),
     [1], [01/13], [#link("Lecture01/Lecture01.qmd")[Lec1: Welcome to ESRM 64103]
 
-    #link("Lecture01/MakeFridentsWithR.qmd")[Example01 - MakeFriendsWithR]
+    #link("Lecture01/MakeFriendsWithR.qmd")[Example01 - MakeFriendsWithR]
+
+    #link("Lecture01/heights.csv")[heights.csv]
 
     ], [], [#link("https://forms.office.com/r/v5QU6KMgXc")[ESRM64103: EDIC Assignment Demo];],
     [2], [01/20], [Lec2: Hypothesis testing
@@ -473,7 +475,7 @@ Following materials are only allowed for previewing for students registered in E
     [12], [03/31], [Lec11: Repeated Measure ANOVA], [], [],
     [13], [04/07], [Lec12: ANCOVA], [], [HW\#3],
     [14], [04/14], [Lec13: Mixed Design I], [], [],
-    [15], [04/21], [#strong[2025 AERA Conference (April 23-27): No Class];], [], [],
+    [15], [04/21], [#strong[2025 AERA Conference: No Class];], [], [],
     [16], [04/28], [Lec14: Mixed Design II], [], [],
     [17], [05/05], [Homework Q&A], [], [],
   )]
