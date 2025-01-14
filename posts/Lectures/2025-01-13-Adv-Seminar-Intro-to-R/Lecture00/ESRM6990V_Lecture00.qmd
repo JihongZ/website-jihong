@@ -44,3 +44,14 @@ filters:
 
 1.  Introduce ourselves
 2.  Go through syllabus
+
+## Introduce yourself
+
+1.  Your name
+2.  Department
+3.  Which year in your program
+4.  What you want to learn from this class
+
+## Syllabus
+
+1.  [Online syllabus](Lecture00/ESRM6990V_Lecture00.qmd)

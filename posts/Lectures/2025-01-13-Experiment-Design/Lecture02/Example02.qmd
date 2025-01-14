@@ -73,6 +73,7 @@ ggplot(crickets,
 ```
 
 ```{r cricket_plot}
+#| warning: false
 ggplot(crickets, 
        aes(x = temp, y = rate, color = species)) + 
   geom_point() +
@@ -86,7 +87,8 @@ ggplot(crickets,
 **Null Hypotheses:**
 
 1.  Temperature has no effect on the chirp rate.
-2.  There are no differences between the species’ chirp rate, e.g., overall chirp rate and sensitivity to temperature
+2.  There are no differences between the species’ chirp rate,
+    -   e.g., overall chirp rate and sensitivity to temperature
 
 **Null Hypotheses for hypothesis testing:**
 

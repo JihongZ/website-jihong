@@ -1,0 +1,42 @@
+---
+title: "Example 02: Contribute to Github Package"
+subtitle: "Experimental design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-08-18"
+sidebar: false
+execute: 
+  warning: false
+  message: false
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    lightbox: true
+    code-fold: show
+#jupyter: python3
+---
+
+![](images/clipboard-2866824460.png)
+
+![](images/clipboard-3532538832.png)
+
+![](images/clipboard-1834425519.png)
+
+![](images/clipboard-476048666.png)
+
+![](images/clipboard-234191273.png)
+
+![](images/clipboard-2101517891.png)
+
+![](images/clipboard-3421328490.png)
+
+![](images/clipboard-4132346343.png)
+
+## More Resource
+
+1.  [Git 6.2 GitHub - Contributing to a Project](https://git-scm.com/book/ms/v2/GitHub-Contributing-to-a-Project)

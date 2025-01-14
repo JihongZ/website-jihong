@@ -23,18 +23,10 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 08: Multivariate Analysis"
+    footer: "ESRM 64503 - Lecture 01: Introduction to R"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
-  html: 
-    page-layout: full
-    toc: true
-    toc-depth: 2
-    toc-expand: true
-    lightbox: true
-    code-fold: false
-    fig-align: center
 filters:
   - quarto
   - line-highlight
@@ -66,7 +58,7 @@ filters:
 
 -   2024: I am using ver. 4.2.1
 
-## Example of S Language: the Subscripting Operator / Indexing
+## Example of S Language
 
 ```{r}
 #| error: true
@@ -226,10 +218,6 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 
 # R Package Structure
 
-You will learn:
-
-1.  the various states a package can be in and the difference between a package and library (and why you should care).
-
 ## R Package states
 
 1.  When you create or modify a package, you work on its “source code” or “source files”. You interact with the in-development package in its **source** form.
@@ -301,6 +289,18 @@ tar xvf forcats_0.4.0.tar.gz
 2.  This is the last step of using the package in our R task.
 3.  When you call `library(somepackage)`, R looks through the current libraries for an installed package named “somepackage” and, if successful, it makes somepackage available for use.
 
+## R package components
+
+1.  R Code (.R)
+2.  Data (.csv/.Rd)
+3.  DESCRIPTION
+
+# Github R Package
+
+Steps:
+
+1.  Download [GitHub Desktop](https://desktop.github.com/download/)
+
 # Exercises
 
 ## Exercise 01: Edit R script (10 mins)
@@ -314,3 +314,8 @@ Let's try the following steps:
 5.  We install a R package called `tidyverse` in **Console**.
 6.  We add the code to load the tidyverse package in the script
 7.  Finally, we save the script.
+
+## Next Week: Make Contribute to Github R Package
+
+1.  Make sure you have set up a [GitHub account](https://github.com/)
+2.  Make sure you download the [GitHub Desktop](https://desktop.github.com/download/)

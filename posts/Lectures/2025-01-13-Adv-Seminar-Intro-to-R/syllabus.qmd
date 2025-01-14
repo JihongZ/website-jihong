@@ -33,7 +33,7 @@ citation:
 
 -   Course Code: ESRM 6990V - 001 Advanced Seminar
 -   Credits: 3 CH
--   Course time: Th 17:00 - 19:45
+-   Course time: Thur 17:00 - 19:45
 -   Course location: Classroom GRAD 0229
 -   Meeting Dates: 2025/01/13 - 2025/05/01
 -   Instructor: Jihong Zhang, Dr.
@@ -157,11 +157,13 @@ This book is free and comprehensive for a broad R tasks of data analysis. For ex
 
 1.  We will have around one-hour exercises every lecture. This exercise is not graded.
 
-# Final Project Requirements
+# Research Project Requirements
 
 ## Overview
 
-The final project is an opportunity to demonstrate your proficiency in R programming and data analysis by conducting an end-to-end data science project. You will apply the skills learned throughout the course to analyze a real-world environmental or natural resource dataset of your choice.
+-   The final project is an opportunity to demonstrate your proficiency in R programming or data analysis by conducting an end-to-end data science project. You will apply the skills learned throughout the course to analyze a real-world environmental or natural resource dataset of your choice.
+
+-   The research project can be done by single developer or up-to two members as the developer group
 
 ## Project Objectives
 
@@ -173,7 +175,7 @@ The final project is an opportunity to demonstrate your proficiency in R program
 
 ## Project Components and Weights
 
--   **Project Proposal (10%)** - Due Week 14
+-   **Project Proposal (10%)** - [Due Week 14]{.underline}
     -   Dataset description and source
     -   Research questions/objectives
     -   Proposed analysis methods
@@ -204,7 +206,7 @@ The final project is an opportunity to demonstrate your proficiency in R program
 
 ## Requirements
 
-### Dataset
+### Data set
 
 -   Minimum 150 observations
 -   At least 5 variables
@@ -263,7 +265,7 @@ The final project is an opportunity to demonstrate your proficiency in R program
 ## Tips for Success
 
 -   Start early and commit code regularly
--   Choose a dataset that interests you
+-   Choose a data set that interests you
 -   Focus on clean, readable code
 -   Document your process thoroughly
 -   Test your analysis with different approaches
@@ -318,24 +320,44 @@ The university does not observe religious holidays; however Campus Council has p
 
 Following materials are only allowed for previewing for students registered in ESRM 6990V. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
 
-| Week | Date             | Topic                                                                              | Reading                                                                            | HW  | Code/Data |
-|:-----------|:-----------|:-----------|:-----------|:-----------|------------|
-| 1    | 01/13            | [Lecture 0: Welcome to ESRM6990V](Lecture00/ESRM6990V_Lecture00.qmd)               | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) |     |           |
-| 2    | 01/20 (No Class) | **No Class**: Martin Luther King Holiday                                           |                                                                                    |     |           |
-| 3    | 01/27            | [Lecture 1: Basics of R and Programming Basics](Lecture01/ESRM6990V_Lecture01.qmd) |                                                                                    |     |           |
-| 4    | 02/03            | Lecture 2: Write academic reports with R projects and Quarto markdown              |                                                                                    |     |           |
-| 5    | 02/10            | Lecture 3: Data summarization with *tidyverse*                                     |                                                                                    |     |           |
-| 6    | 02/17            | Lecture 4: Data cleaning with *tidyverse*                                          |                                                                                    |     |           |
-| 7    | 02/24            | Lecture 5: Data transformation with *tidyverse*                                    |                                                                                    |     |           |
-| 8    | 03/03            | Lecture 6: Data Importing                                                          |                                                                                    |     |           |
-| 9    | 03/10            | Lecture 7: Data Visualization I with *ggplot2*                                     |                                                                                    |     |           |
-| 10   | 03/17            | Lecture 8: Data Visualization II with *ggplot2*                                    |                                                                                    |     |           |
-| 11   | 03/24 (No class) | Lecture 9: Data Visualization III with *ggplot2*                                   |                                                                                    |     |           |
-| 12   | 03/31            | **No Class:** Spring Break                                                         |                                                                                    |     |           |
-| 13   | 04/07            | Lecture 10: File Organizing with Terminal / Powershell                             |                                                                                    |     |           |
-| 14   | 04/14            | Lecture 11: Git and GitHub                                                         | [Pro Git Book](https://git-scm.com/book/en/v2)                                     |     |           |
-| 15   | 04/21            | **No Class**: AERA 2025 Conference                                                 |                                                                                    |     |           |
-| 16   | 04/28            | Final Project                                                                      |                                                                                    |     |           |
-| 17   | 05/05            | Final Project                                                                      |                                                                                    |     |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| Week | Date             | Topic                                                                              | Reading                                                                            | HW                   | Code/Data |
++:=====+:=================+:===================================================================================+:===================================================================================+:=====================+===========+
+| 1    | 01/13            | [Lecture 0: Welcome to ESRM6990V](Lecture00/ESRM6990V_Lecture00.qmd)               | [ITDS Ch.1](https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html) |                      |           |
+|      |                  |                                                                                    |                                                                                    |                      |           |
+|      |                  | [Lecture 1: Basics of R and Programming Basics](Lecture01/ESRM6990V_Lecture01.qmd) |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 2    | 01/20 (No Class) | **No Class**: Martin Luther King Holiday                                           |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 3    | 01/27            | Lecture 2: Write academic reports with R projects and Quarto markdown              |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 4    | 02/03            | Lecture 3: Data summarization with *tidyverse*                                     |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 5    | 02/10            | Lecture 4: Data cleaning with *tidyverse*                                          |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 6    | 02/17            | Lecture 5: Data transformation with *tidyverse*                                    |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 7    | 02/24            | Lecture 6: Data Importing                                                          |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 8    | 03/03            | Lecture 7: Data Visualization I with *ggplot2*                                     |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 9    | 03/10            | Lecture 8: Data Visualization II with *ggplot2*                                    |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 10   | 03/17            | Lecture 9: Data Visualization III with *ggplot2*                                   |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 11   | 03/24 (No class) | **No Class**: Spring break                                                         |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 12   | 03/31            | Lecture 10: Functions and Package Building                                         |                                                                                    | Project Proposal Due |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 13   | 04/07            | Lecture 11: Git and GitHub                                                         |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 14   | 04/14            | Final Project                                                                      | [Pro Git Book](https://git-scm.com/book/en/v2)                                     | Project Presentation |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 15   | 04/21            | **No Class**: AERA 2025 Conference                                                 |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 16   | 04/28            | Final Project                                                                      |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
+| 17   | 05/05            | Final Project                                                                      |                                                                                    |                      |           |
++------+------------------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------+----------------------+-----------+
 
 : Weekly Schedule {tbl-colwidths="\[10,10,50,15,15\]"}

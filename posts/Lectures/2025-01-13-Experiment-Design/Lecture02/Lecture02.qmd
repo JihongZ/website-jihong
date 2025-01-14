@@ -20,7 +20,7 @@ format:
     code-fold: true
     number-sections: true
     number-depth: 1
-    footer: "ESRM 64503: Lecture01"
+    footer: "ESRM 64503: Lecture02"
     slide-number: c/t
     tbl-colwidths: auto
     scrollable: true
@@ -30,10 +30,10 @@ format:
 ## Presentation Outline
 
 -   Types of Statistics
-    -   Descriptive: Summarizes data (central tendency, variability, shape)
+    -   Descriptive: Summarize data (central tendency, variability, shape)
     -   Inferential: Makes population inferences from samples
 -   Hypothesis Testing
-    1.  State H₀ and HA
+    1.  State $H_0$ and $H_A$
     2.  Set α level
     3.  Compute test statistics
     4.  Conduct test
