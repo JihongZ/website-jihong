@@ -216,7 +216,33 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
     installed.packages()
     ```
 
+## Let's Practice
+
+1.  Exercise 1
+
 # R Package Structure
+
+## Basic Information
+
+1.  **What**: An R package is a structured collection of R functions, data, and compiled code that is bundled together according to a specific format.
+    -   They can be thought of as libraries or modules in other programming languages.
+2.  **Why**: R Packages are designed to add functionality to R, allowing users to perform specific tasks or analyses that are not covered by the basic installation of R.
+3.  **How:** You can install/uninstall, create, load, and use R packages.
+    -   If you want to build or publish your own package, the Comprehensive R Archive Network (CRAN), Bioconductor, and GitHub are popular repositories where R packages are commonly published and maintained.
+
+## What R package include
+
+-   **Functions**: A set of R functions that perform specific tasks, which are not available in the default R environment.
+
+-   **Data**: Some packages include datasets that are useful for demonstrating functions within the package or for use in specific types of analysis.
+
+-   **Documentation**: Every package comes with documentation that explains how the functions work, the data included (if any), and examples of how to use the package. This is often accessible via R help pages.
+
+-   **Vignettes**: Many packages include vignettes, which are long-form documentation that shows how to use the package functions in a more detailed and contextual way, often in the form of tutorials.
+
+-   **Namespace**: A namespace file that manages how functions from the package are imported and exported, helping avoid naming conflicts between different packages.
+
+-   **Meta-information**: A DESCRIPTION file containing metadata about the package, such as its name, version, dependencies (other packages it requires to function), author, and license information.
 
 ## R Package states
 
@@ -289,33 +315,9 @@ tar xvf forcats_0.4.0.tar.gz
 2.  This is the last step of using the package in our R task.
 3.  When you call `library(somepackage)`, R looks through the current libraries for an installed package named “somepackage” and, if successful, it makes somepackage available for use.
 
-## R package components
+# Next Week
 
-1.  R Code (.R)
-2.  Data (.csv/.Rd)
-3.  DESCRIPTION
-
-# Github R Package
-
-Steps:
-
-1.  Download [GitHub Desktop](https://desktop.github.com/download/)
-
-# Exercises
-
-## Exercise 01: Edit R script (10 mins)
-
-Let's try the following steps:
-
-1.  Opening a new script as we did before
-2.  Give the script a name by saving the current new unnamed script (`ctrl + S` for Win and `Cmd + S` for Mac)
-3.  A good convention is to use a descriptive name, with lower case letters, no spaces, only hyphens to separate words, and then followed by the suffix `.R`. We will call this script `my-first-script.R`.
-4.  Now we are ready to start editing our first script.
-5.  We install a R package called `tidyverse` in **Console**.
-6.  We add the code to load the tidyverse package in the script
-7.  Finally, we save the script.
-
-## Next Week: Make Contribute to Github R Package
+## Preparation: Make Contribute to Github R Package
 
 1.  Make sure you have set up a [GitHub account](https://github.com/)
 2.  Make sure you download the [GitHub Desktop](https://desktop.github.com/download/)

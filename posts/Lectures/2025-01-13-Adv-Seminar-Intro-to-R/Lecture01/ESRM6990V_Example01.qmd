@@ -1,0 +1,163 @@
+---
+title: "Example 01: Basics of R"
+subtitle: "Getting Started"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-01-15"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+  eval: true
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+    fig-align: center
+filters:
+  - quarto
+  - line-highlight
+---
+
+# Example 01: Math/Comments/Functions
+
+## Coding Basics
+
+-   Use R for basic math, like `1 / 200 * 30`.
+-   Create objects using the assignment operator `<-`, for example, `x <- 3 * 4`.
+-   Vectors can be formed using `c()`, like `primes <- c(2, 3, 5, 7, 11, 13)`.
+-   Utilize keyboard shortcuts in RStudio for efficiency.
+
+```{r}
+1 / 200 * 30
+#> [1] 0.15
+(59 + 73 + 2) / 3
+#> [1] 44.66667
+sin(pi / 2)
+#> [1] 1
+```
+
+```{r}
+primes <- c(2, 3, 5, 7, 11, 13)
+primes * 2
+#> [1]  4  6 10 14 22 26
+primes - 1
+#> [1]  1  2  4  6 10 12
+```
+
+## Comments
+
+-   R ignores text after `#`, which allows for inline documentation.
+-   Comments should explain the purpose and rationale behind code sections.
+-   Avoid over-commenting straightforward code; focus on complex logic.
+
+```{r}
+# create vector of primes
+primes <- c(2, 3, 5, 7, 11, 13)
+
+# multiply primes by 2
+primes * 2
+#> [1]  4  6 10 14 22 26
+```
+
+## Name of R object
+
+-   R Object names should start with a letter and can include numbers, `_`, and `.`.
+-   Use snake_case for clarity in names involving multiple words.
+
+```{r}
+this_is_a_really_long_name <- 2.5
+r_rocks <- 2^3
+```
+
+## Calling Functions
+
+-   Built-in functions are called by specifying arguments, like `function_name(value1, value2)`.
+-   Use RStudio’s auto-completion and tooltips to assist in function usage.
+
+```{r}
+#| eval: false
+function_name(argument1 = value1, argument2 = value2, ...)
+```
+
+```{r}
+mean(c(1, 2, 3))
+```
+
+## Install R Package
+
+-   You can install external package to use more functions
+
+```{r}
+#| eval: false
+install.packages("ggplot2")
+```
+
+-   Both `ggplot()` and `geom_point()` are functions included in the package `ggplot2`
+-   To use them, you need to load the package `ggplot2` using `library()` function
+-   `mapping`, `color`, and `size` are called arguments of `geom_point()` for detailed settings.
+
+```{r}
+library(ggplot2)
+ggplot() +
+  geom_point(mapping = aes(x = 1:100, y = 100:1), 
+             color = "tomato", 
+             size = 2)
+```
+
+# Exercises
+
+## Exercise 01: Edit R script
+
+Let's try the following steps:
+
+1.  Opening a new script as we just did
+
+2.  Give the script a name by saving the current new unnamed script (`ctrl + S` for Win and `Cmd + S` for Mac)
+
+3.  A good convention is to use a descriptive name, with lower case letters, no spaces, only hyphens to separate words, and then followed by the suffix `.R`. We will call this script `my-first-script.R`.
+
+4.  Now we are ready to start editing our first script.
+
+5.  We install a R package called `tidyverse` in **Console**.
+
+6.  We add the code to load the `tidyverse` package in the script
+
+7.  We add the following code in the script. Run the whole script.
+
+```{r}
+#| eval: false
+# Left
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth()
+
+# Middle
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth(aes(group = drv))
+
+# Right
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_smooth(aes(color = drv), show.legend = FALSE)
+```
+
+8.  Finally, we save the script.
+
+::: callout-note
+## Dataset `mpg`
+
+- `displ`: A car’s engine size, in liters. A numerical variable.
+
+- `hwy`: A car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance. A numerical variable.
+
+- `class`: Type of car. A categorical variable.
+:::
