@@ -1,5 +1,5 @@
 ---
-title: "Lecture 01: Basics of R"
+title: "Lecture 02: R Objects, Workspace, Commenting"
 subtitle: "Getting Started"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
