@@ -106,7 +106,7 @@ X[]
 
 ## Mac/Linux
 
-![](terminal_R.png){fig-align="center"}
+![](images/terminal_R.png){fig-align="center"}
 :::
 
 As a quick example, try using the console to calculate a 15% tip on a meal that cost \$19.71:
