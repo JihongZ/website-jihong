@@ -137,6 +137,13 @@ Let's try the following steps:
 
 ```{r}
 #| eval: false
+
+install.packages("remotes") # install one package called "remotes"
+library("remotes") # load the package into your R session
+install_github(repo = "JihongZ/ESRM6990V") # install one GitHub package from my GitHub repository
+library(ESRM6990V) # load the package into your R session
+jihong(details = TRUE) # call one function called "jihong" from the package
+
 # Left
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth()

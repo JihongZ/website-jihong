@@ -117,6 +117,153 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 
 # Rstudio (now called Posit)
 
+## Installation of R and RStudio
+
+-   You can download and install **R base** via r-project.org (currently R-4.4.1)
+
+    -   for [Linux](https://cloud.r-project.org/bin/linux/)
+
+    -   for [Windows](https://cloud.r-project.org/bin/windows/)
+
+    -   for [MacOS](https://cloud.r-project.org/bin/macosx/)
+
+-   Then, after the installation of R, you can download RStudio via posit.co (currently)
+
+    -   for [Windows](https://download1.rstudio.org/electron/windows/RStudio-2024.04.2-764.exe)
+
+    -   for [MacOS](https://download1.rstudio.org/electron/macos/RStudio-2024.04.2-764.dmg)
+
+-   After installation of R and RStudio, you can open up the RStudio to start your R programming.
+
+    -   however, your R only has the **base** package
+
+    -   To enhance its utility, most users will install **R packages** for certain purposes
+
+## R packages
+
+-   R packages are uploaded to some platforms (i.e., CRAN or Github) by researchers or companies
+
+    -   Those R packages typically have their version numbers. Some functions may be available for some version (like Ver. 1.1) but not be available in other versions.
+
+    -   Do not upgrade your packages if you code is running well
+
+-   R users are free to download and use those R packages
+
+    -   To download certain package, you should know package name
+
+    -   For example, if you want to download the latest version of `tidyverse` package, you can type in following command in **the console panel** of Rstudio
+
+    ```{r}
+    #| eval: false
+    #| echo: true
+    #| code-fold: false
+    install.packages("tidyverse")
+    ```
+
+    -   Or if you want to install the older version of package
+
+    ```{r}
+    #| eval: false
+    #| echo: true
+    #| code-fold: false
+    require(devtools)
+    install_version("tidyverse", version = "1.3.0", repos = "http://cran.us.r-project.org")
+    ```
+
+## More about R packages
+
+-   **CRAN** (Comprehensive R Archive Network) is a network of servers around the world that store identical, up-to-date, versions of code and documentation for R.
+    -   It contains most stable version of packages.
+    -   Most of time, we download package from CRAN
+-   **Github** is for the fast development for R packages
+    -   It contains the up-to-date version of R which may potentially be unstable
+
+    -   You can download the package from Github using `pak` package
+
+        ```{r}
+        #| eval: false
+        #| echo: true
+        #| code-fold: false
+        pak::pak("tidyverse/ggplot2")
+        ```
+
+    -   You can update the package and its dependencies
+
+        ```{r}
+        #| eval: false
+        #| echo: true
+        #| code-fold: false
+        pak::pkg_install("ggplot2", upgrade = TRUE)
+        ```
+
+## R functions
+
+-   To operate certain tasks, you need to use functions contained in R packages
+
+    -   There are two ways of using R functions
+
+    -   **Direct way**: you don't have to load your package first
+
+    -   ![](images/function.png)
+
+    ------------------------------------------------------------------------
+
+    -   **Use-after-load way**: Package is loaded in your session before you can call the function name without specifying the package name
+
+        ```{r}
+        #| eval: true
+        #| echo: true
+        #| code-fold: false
+        library("ggplot2")
+        ggplot() +
+          geom_point(aes(x = 1:100, y = 100:1), color = "tomato")
+        ```
+
+## R functions (Cont.)
+
+-   How do you know you already load the package or not
+
+-   You can use `sessionInfo` function
+
+    ```{r}
+    #| echo: true
+    #| code-fold: false
+    sessionInfo()
+    ```
+
+-   It outputs multiple info:
+
+    -   R version, Operations System, Matrix operation package, Locale
+
+    -   **Attached packages** (you can call the functions of those package)
+
+    -   **Loaded package via a namespace (and not attached)**, which you cannot call functions and need to `library` or `require` them
+
+## Execute R code
+
+-   After you finish R script, you have **multiple ways of executing the code and output the results on Consol**e:
+
+    -   **Method 1**: you can click `Run` button in the top right-head of **Rstudio**
+
+    -   **Method 2**: you can select certain code and press `Ctrl + Enter` (Win) or `Command + Return` (Mac)
+
+    -   **Method 3**: you can `Rscript [FILENAME].r` to run the whole script
+
+    -   **Method 4**: you can using R notebook to interactively run R code
+
++----------------------------+-------------------+-----------------------------+
+|                            | Script file is .R | Script file is .rmd or .qmd |
++============================+===================+=============================+
+| **Run the whole script**   | -   Method 1      | -   Method 4                |
+|                            | -   Method 3      |                             |
++----------------------------+-------------------+-----------------------------+
+| **Run the partial script** | -   Method 2      | -   Method 4                |
++----------------------------+-------------------+-----------------------------+
+
+: {.striped}
+
+## 
+
 ## Introduce Rstudio
 
 -   RStudio will be our launching pad for data science projects. It not only provides an editor for us to create and edit our scripts but also provides many other useful tools.
@@ -163,7 +310,7 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 
     -   `General` \> `Basic` \> `Workspace`: Change the [*Save workspace to .RData*]{.underline} *on exit* to [*Never*]{.underline} .
 
-    -   `General` \> `Basic` \> `Workspace`: Uncheck the [*Restore .RData into workspace at startup*]{.underline}to [*Never*]{.underline}
+    -   `General` \> `Basic` \> `Workspace`: Uncheck the [*Restore .RData into workspace at startup*]{.underline} to [*Never*]{.underline}
 
     -   `Code` \> `Editing`: check [*use the native piper operator, \|\>*]{.underline}
 
@@ -177,19 +324,7 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
 -   We find that this causes confusion especially when we share code with colleagues and assume they have this .RData file.
 :::
 
-## Installing R Packages
-
--   The functionality provided by a fresh install of R is only **a small fraction** of what is possible.
-
--   We refer to what you get after your first install as *base R*.
-
-    -   You can check base R packages when you type `loadedNamespaces()`
-
--   The extra functionality comes from add-ons available from developers. We called those add-on functionality as `packages` (similar to python modules)
-
-    -   Currently hundreds of these packages available from CRAN and many others shared via other repositories such as GitHub
-
-## Installing R Packages: Code
+## Installing R Packages: from CRAN
 
 -   For example, to install the **`dslabs`** package, you would type the following in your console:
 
@@ -197,10 +332,12 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
     install.packages("dslabs") # DON'T FORGET DOUBLE QUOTE
     ```
 
--   We can then load the package into our R sessions using the `library` function in your rscript file:
+-   We can then load the package into our R sessions using the `library` function in your Rscript file:
 
     ```{r}
-    library(dslabs) # DOUBLE QUOTE IS NOT NEEDED HERE
+    #| eval: true
+    library("dslabs")
+    head(admissions)
     ```
 
 -   As you go through this class, you will see that we load packages without installing them. This is because once you install a package, it remains installed and only needs to be loaded with `library`.
@@ -217,9 +354,24 @@ As a quick example, try using the console to calculate a 15% tip on a meal that 
     installed.packages()
     ```
 
-## Let's Practice
+## Installing R Packages: from GitHub
 
-1.  Exercise 1
+-   You can also install user-built package from GitHub
+
+-   I built a package for this course: [link](https://github.com/JihongZ/ESRM6990V)
+
+```{r}
+#| eval: false
+install.packages("remotes") # install one package called "remotes"
+library("remotes") # load the package into your R session
+install_github(repo = "JihongZ/ESRM6990V") # install one GitHub package from my GitHub repository
+library(ESRM6990V) # load the package into your R session
+jihong(details = TRUE) # call one function called "jihong" from the package
+```
+
+### Let's Practice
+
+1.  [Finish Exercise 1](ESRM6990V_Example01.qmd)
 
 # R Package Structure
 
