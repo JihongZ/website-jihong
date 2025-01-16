@@ -99,7 +99,6 @@ mean(c(1, 2, 3))
 -   You can install external package to use more functions
 
 ```{r}
-#| eval: false
 install.packages("ggplot2")
 ```
 
@@ -162,9 +161,9 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ::: callout-note
 ## Dataset `mpg`
 
-- `displ`: A car’s engine size, in liters. A numerical variable.
+-   `displ`: A car’s engine size, in liters. A numerical variable.
 
-- `hwy`: A car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance. A numerical variable.
+-   `hwy`: A car’s fuel efficiency on the highway, in miles per gallon (mpg). A car with a low fuel efficiency consumes more fuel than a car with a high fuel efficiency when they travel the same distance. A numerical variable.
 
-- `class`: Type of car. A categorical variable.
+-   `class`: Type of car. A categorical variable.
 :::
