@@ -56,7 +56,7 @@ filters:
 
 -   **2000**: the first official 1.0 version of R was released
 
--   2024: I am using ver. 4.2.1
+-   **2024**: R ver. 4.2.1
 
 ## Example of S Language
 
