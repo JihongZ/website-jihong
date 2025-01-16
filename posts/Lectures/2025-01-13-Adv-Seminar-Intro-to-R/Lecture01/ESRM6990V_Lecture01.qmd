@@ -63,6 +63,7 @@ filters:
 ```{r}
 #| error: true
 #| output-location: column
+#| eval: true
 X = 1:5 # A vector of numbers from 1 to 5
 X[c(TRUE, TRUE, TRUE, FALSE, FALSE)]
 X[1:3]
