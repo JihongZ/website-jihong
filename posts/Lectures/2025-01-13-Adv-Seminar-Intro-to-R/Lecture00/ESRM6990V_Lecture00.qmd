@@ -23,27 +23,16 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 08: Multivariate Analysis"
+    footer: "Lecture 00: Welcome to ESRM6990V"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
-  html: 
-    page-layout: full
-    toc: true
-    toc-depth: 2
-    toc-expand: true
-    lightbox: true
-    code-fold: false
-    fig-align: center
-filters:
-  - quarto
-  - line-highlight
 ---
 
 ## Today's Outline
 
 1.  Introduce ourselves
-2.  Go through syllabus
+2.  Go through [syllabus](../ESRM6990V_syllabus.qmd)
 
 ## Introduce yourself
 

@@ -349,7 +349,7 @@ No prior programming experience is required, but basic statistical knowledge and
 <course-materials>
 == Web Books
 + #strong[ITDS];: #link("https://rafalab.dfci.harvard.edu/dsbook-part-1/")[Introduction to Data Science Part I - Data Wrangling and Visualization with R] by #emph[Rafael A. Irizarry]
-+ #strong[R4DS];: #link("https://r4ds.hadley.nz/")[R for Data Science] - Visualize, Model, Transform, Tidy and Import Data by #emph[Hadley Wickham] & #emph[Garret Grolemund]
++ #strong[R4DS];: #link("https://r4ds.hadley.nz/")[R for Data Science (2e)] - Visualize, Model, Transform, Tidy and Import Data by #emph[Hadley Wickham] & #emph[Garret Grolemund]
 + #link("https://yards.albert-rapp.de/")[Yet Again: R + Data Science];by #emph[Albert Rapp]
 + #link("https://happygitwithr.com/")[Happy Git and GitHub for the useR] by #link("https://github.com/jennybc/happy-git-with-r")[#emph[Jennifer Bryan];]
 + #link("https://bookdown.org/rdpeng/rprogdatascience/")[R Programming for Data Science] by #emph[Roger D. Peng]
@@ -358,28 +358,28 @@ No prior programming experience is required, but basic statistical knowledge and
 + #link("https://rweekly.org/")[RWeekly.org]
 
 == Publications
-== Outline
-<outline>
+== Content
+<content>
 This 17-week course is structured in four main modules that progressively build students’ R programming and data science skills:
 
-+ #strong[Foundations of R Programming] (Weeks 1-3)
++ #strong[Module 1: Foundations of R Programming] (Weeks 1-3)
   - Introduction to R basics and environment
   - Core programming concepts
   - Fundamental R syntax and operations
-+ #strong[Data Management and Processing] (Weeks 4-8)
++ #strong[Module 2: Data Management and Processing] (Weeks 4-8)
   - Academic reporting with R projects and Quarto markdown
   - Data manipulation using tidyverse ecosystem:
     - Data summarization
     - Data cleaning
     - Data transformation
   - Data importing techniques
-+ #strong[Data Visualization] (Weeks 9-11)
++ #strong[Module 3: Data Visualization] (Weeks 9-11)
   - Comprehensive coverage of ggplot2:
     - Basic plotting principles
     - Advanced visualization techniques
     - Complex visualization applications
-+ #strong[Professional Tools and Project Management] (Weeks 13-17)
-  - Command-line operations (Terminal/PowerShell)
++ #strong[Module 4: R package building and Project Management] (Weeks 13-17)
+  - (Optional) Command-line operations (Terminal/PowerShell)
   - Version control with Git and GitHub
   - Final project implementation and presentation
 
@@ -410,8 +410,8 @@ This book is free and comprehensive for a broad R tasks of data analysis. For ex
 <in-class-exercises>
 + We will have around one-hour exercises every lecture. This exercise is not graded.
 
-= Research Project Requirements
-<research-project-requirements>
+= Research Project
+<research-project>
 == Overview
 <overview>
 - The final project is an opportunity to demonstrate your proficiency in R programming or data analysis by conducting an end-to-end data science project. You will apply the skills learned throughout the course to analyze a real-world environmental or natural resource dataset of your choice.
@@ -459,8 +459,8 @@ This book is free and comprehensive for a broad R tasks of data analysis. For ex
 
 == Requirements
 <requirements>
-=== Data set
-<data-set>
+=== Data set (Recommendation)
+<data-set-recommendation>
 - At least 100 observations
 - At least 5 variables
 - Can be public/private and real/simulated data (with appropriate permissions)
@@ -577,31 +577,39 @@ Following materials are only allowed for previewing for students registered in E
 
 #figure(
   align(center)[#table(
-    columns: (9%, 9%, 44%, 13%, 13%, 13%),
-    align: (left,left,left,left,left,auto,),
-    table.header([Week], [Date], [Topic], [Reading], [HW], [Code/Data],),
+    columns: (8%, 8%, 39%, 23%, 23%),
+    align: (left,left,left,left,left,),
+    table.header([Week], [Date], [Topic], [Reading], [Project],),
     table.hline(),
     [1], [01/17], [#link("Lecture00/ESRM6990V_Lecture00.qmd")[Lecture 0: Welcome to ESRM6990V]
 
     #link("Lecture01/ESRM6990V_Lecture01.qmd")[Lecture 1: Basics of R and Programming Basics]
 
-    ], [#link("https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html")[ITDS Ch.1];], [], [],
-    [2], [01/24], [#link("Lecture01/ESRM6990V_Lecture01.qmd")[Lecture 1 (Cont.): Basics of R and Programming Basics];], [], [], [],
-    [3], [01/31], [Lecture 2: Write academic reports with R projects and Quarto markdown], [], [], [],
-    [4], [02/07], [Lecture 3: Data summarization with #emph[tidyverse];], [], [], [],
-    [5], [02/14], [Lecture 4: Data cleaning with #emph[tidyverse];], [], [], [],
-    [6], [02/21], [Lecture 5: Data transformation with #emph[tidyverse];], [], [], [],
-    [7], [02/28], [Lecture 6: Data Importing], [], [], [],
-    [8], [03/07], [Lecture 7: Data Visualization I with #emph[ggplot2];], [], [], [],
-    [9], [03/14], [Lecture 8: Data Visualization II with #emph[ggplot2];], [], [], [],
-    [10], [03/21], [Lecture 9: Data Visualization III with #emph[ggplot2];], [], [], [],
-    [11], [03/28 (No class)], [#strong[No Class];: Spring break], [], [], [],
-    [12], [03/31], [Lecture 10: Functions and Package Building], [], [Project Proposal Due], [],
-    [13], [04/04], [Lecture 11: Git and GitHub], [], [], [],
-    [14], [04/11], [Final Project], [#link("https://git-scm.com/book/en/v2")[Pro Git Book];], [Project Presentation], [],
-    [15], [04/18], [#strong[No Class];: AERA 2025 Conference], [], [], [],
-    [16], [04/25], [Final Project], [], [], [],
-    [17], [05/02], [Final Project], [], [], [],
+    ], [#link("https://rafalab.dfci.harvard.edu/dsbook-part-1/R/getting-started.html")[ITDS Ch.1]
+
+    #link("https://r4ds.hadley.nz/workflow-basics")[R4DS Workflow: Basic]
+
+    ], [],
+    [2], [01/24], [#link("Lecture01/ESRM6990V_Lecture01.qmd")[Lecture 1 (Cont.): Basics of R and Programming Basics]
+
+    #link("Lecture01/ESRM6990V_Example01.qmd")[Example 1: R Workflow]
+
+    ], [], [],
+    [3], [01/31], [Lecture 2: Write academic reports with R projects and Quarto markdown], [], [],
+    [4], [02/07], [Lecture 3: Data summarization with #emph[tidyverse];], [], [],
+    [5], [02/14], [Lecture 4: Data cleaning with #emph[tidyverse];], [], [],
+    [6], [02/21], [Lecture 5: Data transformation with #emph[tidyverse];], [], [],
+    [7], [02/28], [Lecture 6: Data Importing], [], [],
+    [8], [03/07], [Lecture 7: Data Visualization I with #emph[ggplot2];], [], [],
+    [9], [03/14], [Lecture 8: Data Visualization II with #emph[ggplot2];], [], [],
+    [10], [03/21], [Lecture 9: Data Visualization III with #emph[ggplot2];], [], [],
+    [11], [03/28 (No class)], [#strong[No Class];: Spring break], [], [],
+    [12], [03/31], [Lecture 10: Functions and Package Building], [], [Project Proposal Due],
+    [13], [04/04], [Lecture 11: Git and GitHub], [], [],
+    [14], [04/11], [Final Project], [#link("https://git-scm.com/book/en/v2")[Pro Git Book];], [Project Presentation],
+    [15], [04/18], [#strong[No Class];: AERA 2025 Conference], [], [],
+    [16], [04/25], [Final Project], [], [],
+    [17], [05/02], [Final Project], [], [],
   )]
   , caption: [Weekly Schedule]
   , kind: table
