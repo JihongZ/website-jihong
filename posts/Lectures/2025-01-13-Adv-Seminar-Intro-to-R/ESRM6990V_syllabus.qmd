@@ -95,9 +95,10 @@ No prior programming experience is required, but basic statistical knowledge and
 
 1.  **ITDS**: [Introduction to Data Science Part I - Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/) by *Rafael A. Irizarry*
 2.  **R4DS**: [R for Data Science (2e)](https://r4ds.hadley.nz/) - Visualize, Model, Transform, Tidy and Import Data by *Hadley Wickham* & *Garret Grolemund*
-3.  [Yet Again: R + Data Science](https://yards.albert-rapp.de/) by *Albert Rapp*
-4.  [Happy Git and GitHub for the useR](https://happygitwithr.com/) by [*Jennifer Bryan*](https://github.com/jennybc/happy-git-with-r)
-5.  [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/) by *Roger D. Peng*
+3.  [Advanced R](https://adv-r.hadley.nz/index.html) by *Hadley Wickham*
+4.  [Yet Again: R + Data Science](https://yards.albert-rapp.de/) by *Albert Rapp*
+5.  [Happy Git and GitHub for the useR](https://happygitwithr.com/) by [*Jennifer Bryan*](https://github.com/jennybc/happy-git-with-r)
+6.  [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/) by *Roger D. Peng*
 
 ## R Community
 
