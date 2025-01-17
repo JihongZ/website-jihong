@@ -1,5 +1,5 @@
 ---
-title: "Lecture 02: R Objects, Workspace, Commenting"
+title: "Lecture 02: R Objects, Functions, Packages"
 subtitle: "Getting Started"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -53,6 +53,14 @@ filters:
 9.  Basic Plot
 
 # R Object and Pre-built function
+
+```{r}
+this.is.a.numer <- 2
+`@this` <- 3 
+print(`@this`)
+`I hate R programming` <- "No, you don't"
+print(`I hate R programming`)
+```
 
 ## Objects
 
