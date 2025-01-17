@@ -23,41 +23,49 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 08: Multivariate Analysis"
+    footer: "ESRM 64503 - Lecture 02: Object/Function/Package"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
-  html: 
-    page-layout: full
-    toc: true
-    toc-depth: 2
-    toc-expand: true
-    lightbox: true
-    code-fold: false
-    fig-align: center
-filters:
-  - quarto
-  - line-highlight
 ---
 
 ## Today's Class
 
 1.  R objects and prebuilt function
-2.  Data types
-3.  Vectors
-4.  Coercion
-5.  Not available (NA)
-6.  Sorting
-7.  Vector arithmetics
-8.  Indexing
-9.  Basic Plot
+    -   Data types
+    -   Vectors
+    -   Coercion
+    -   Not available (NA)
+    -   Sorting
+    -   Vector arithmetics
+    -   Indexing
+2.  Functions
+    -   Input and Output
+    -   Arguments
+3.  Pakcages
 
 # R Object and Pre-built function
 
+## Naming Convention of R Object is so @_@
+
 ```{r}
-this.is.a.numer <- 2
+#| error: true
+#| eval: false
+# ------------------
+this.is.a.numer <- 3
+print(this.is.a.numer)
+# ------------------
+2 <- this.is.a.numer
+`2` <- this.is.a.numer
+print(2)
+print(`2`)
+# ------------------
+`@_@` <- "funny"
+paste0("You look like ", `@_@`)
+# ------------------
 `@this` <- 3 
 print(`@this`)
+# ------------------
 `I hate R programming` <- "No, you don't"
 print(`I hate R programming`)
 ```
@@ -455,3 +463,25 @@ sum(x)
 -   In the background, R stores these *levels* as integers and keeps a map to keep track of the labels. This is more memory efficient than storing all the characters.
 
 Stop at <https://rafalab.dfci.harvard.edu/dsbook-part-1/R/R-basics.html#sec-factors>
+
+
+# R Function
+## Play sounds
+```{r}
+#| eval: false
+system("say ESRM6 9 9 0 Vi is exciting ")
+system("say Professor Jihong Zhang can play the R code all day")
+for (i in 1:10) {
+  system("say hate you")
+}
+```
+
+## Want to watch firework in R?
+
+```{r}
+#| eval: false
+# install.packages('robservable')
+library(robservable)
+robservable("@rstata/happynewyear", hide = c(1:2, 4:20))
+```
+
