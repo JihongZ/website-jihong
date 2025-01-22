@@ -40,6 +40,15 @@ format:
     6.  Vector arithmetics
     7.  Indexing
 
+## Preparation
+
+-   Install and load `dslabs` package
+
+    ```{r}
+    #| eval: false
+    install.packages("dslabs")
+    library(dslabs)
+    ```
 
 # R Objects
 
@@ -533,7 +542,6 @@ codes["canada"]
 codes[c("egypt","italy")]
 ```
 
-
 ## Exercise 02-02
 
 1.  What is the sum of the first 100 positive integers? The formula for the sum of integers 1 through n is $n(n+1)/2$. Define
@@ -556,7 +564,7 @@ sum(x)
 
 ## Coercion
 
--    When an entry does not match the expected, some of the prebuilt R functions try to guess what was meant before throwing an error.
+-   When an entry does not match the expected, some of the prebuilt R functions try to guess what was meant before throwing an error.
 
 ```{r}
 x <- c(1, "canada", 3)
@@ -565,8 +573,7 @@ class(x)
 ```
 
 ::: callout-note
-R *coerced* the data into characters. It guessed that because you put a character string in the vector, you meant the 1 and 3 to actually
-be character strings `"1"` and `"3"`.
+R *coerced* the data into characters. It guessed that because you put a character string in the vector, you meant the 1 and 3 to actually be character strings `"1"` and `"3"`.
 :::
 
 ------------------------------------------------------------------------
@@ -638,9 +645,7 @@ murders[rank(murders$total) == 1, ]
 murders[rank(murders$total) == max(rank(murders$total)), ]
 ```
 
-------------------------------------------------------------------------
-
-### Vector arithmeics
+## Vector arithmetics
 
 -   You can summarize a numeric vector using some familiar math terms
 
@@ -660,7 +665,127 @@ mean(x); median(x); min(x); max(x)
     which(x == 4)
     ```
 
+------------------------------------------------------------------------
 
+### Rescaling a vector
+
+-   Arithmetic operations on vectors occur *element-wise*. For a quick example, suppose we have height in inches:
+
+    -   and want to convert to centimeters. Notice what happens when we multiply `inches` by 2.54:
+
+```{r}
+inches <- c(69, 62, 66, 70, 70, 73, 67, 73, 67, 70)
+inches * 2.54
+```
+
+-   Similarly, if for each entry we want to compute how many inches taller or shorter than 69 inches, the average height for males, we can subtract it from every entry like this:
+
+```{r}
+inches - 69
+```
+
+------------------------------------------------------------------------
+
+### Two vectors
+
+-   If we have two vectors of the same length, and we sum them in R, they will be added entry by entry as follows:
+
+$$
+\begin{bmatrix}a\\b\\c\\d\end{bmatrix} + \begin{bmatrix}e\\f\\g\\h\end{bmatrix} = \begin{bmatrix}a+e\\b+f\\c+g\\d+h\end{bmatrix}
+$$
+
+-   The same holds for other mathematical operations, such as `-`, `*` and `/`.
+
+    -   This implies that to compute the murder rates we can simply type:
+
+```{r}
+murder_rate <- murders$total / murders$population * 100000
+```
+
+-   Once we do this, we notice that California is no longer near the top of the list.
+
+```{r}
+murders$state[order(murder_rate)]
+```
+
+------------------------------------------------------------------------
+
+-   **What if the lengths of two vectors differ?**
+
+```{r}
+x <- c(1, 2, 3)
+y <- c(10, 20, 30, 40, 50, 60, 70)
+x + y
+```
+
+::: callout-warning
+So if the vectors don’t match in length, it is natural to assume that we should get an error. But we don’t. Notice what happens: one vector `x` **recycles**. Another common source of unnoticed errors in R is the use of ***recycling***.
+:::
+
+## Index
+
+-   R provides a powerful and convenient way of indexing vectors. We can, for example, subset a vector based on properties of another vector.
+
+    -   Imagine you are moving from Italy where, according to an ABC news report, the murder rate is only 0.71 per 100,000. You would prefer to move to a state with a similar murder rate.
+
+```{r}
+ind <- murder_rate <= 0.71
+ind
+murders$state[ind]
+murders$state[which(murder_rate <= 0.71)]
+```
+
+::: callout-note
+Note that we get back a logical vector with `TRUE` for each entry smaller than or equal to 0.71. To see which states these are, we
+can leverage the fact that vectors can be indexed with logicals.
+:::
+
+------------------------------------------------------------------------
+
+### Logical Operation
+
+-   we can use the `&` to get a vector of logicals that tells us which states satisfy both conditions:
+
+```{r}
+TRUE & TRUE
+TRUE & FALSE
+FALSE & FALSE
+```
+
+-   We can find out states that meets two conditions: (1) West region (2) nyrder_rate lower than .71
+
+```{r}
+west <- murders$region == "West"
+safe <- murder_rate <= .71
+ind <- safe & west
+murders$state[ind]
+```
+
+------------------------------------------------------------------------
+
+### Other Indexing: Which one & match & `%in%`
+
+-   The function `which` tells us which entries of a logical vector are TRUE. So we can type:
+
+```{r}
+ind <- which(murders$state == "California")
+murder_rate[ind]
+```
+
+-   Instead of just one state we want to find out the murder rates for several states
+
+```{r}
+ind <- match(c("New York", "Florida", "Texas"), murders$state)
+murder_rate[ind]
+```
+
+-   When you are uncertain, use `%in%`. Imagine you are not sure if Boston, Dakota, and Washington are states.
+
+```{r}
+c("Boston", "Dakota", "Washington") %in% murders$state
+
+murders$state %in% c("Boston", "Dakota", "Washington")
+```
 
 ## Exercise 02-03
 
@@ -672,7 +797,7 @@ mean(x); median(x); min(x); max(x)
 
 4 Now we know how small the smallest state is and we know which row represents it. Which state is it? Define a variable states to be the state names from the murders data frame. Report the name of the state with the smallest population.
 
-5. You can create a data frame using the data.frame function. Here is a quick example:
+5.  You can create a data frame using the data.frame function. Here is a quick example:
 
 ```{r}
 temp <- c(35, 88, 42, 84, 81, 30)
@@ -683,9 +808,9 @@ city_temps <- data.frame(name = city, temperature = temp)
 
 Use the `rank` function to determine the population rank of each state from smallest population size to biggest. Save these ranks in an object called ranks, then create a data frame with the state name and its rank. Call the data frame `my_df`.
 
-6. Repeat the previous exercise, but this time order my_df so that the states are ordered from least populous to most populous. Hint: create an object ind that stores the indexes needed to order the population values. Then use the bracket operator [ to re-order each column in the data frame.
+6.  Repeat the previous exercise, but this time order my_df so that the states are ordered from least populous to most populous. Hint: create an object ind that stores the indexes needed to order the population values. Then use the bracket operator \[ to re-order each column in the data frame.
 
-7. The na_example vector represents a series of counts. You can quickly examine the object using:
+7.  The na_example vector represents a series of counts. You can quickly examine the object using:
 
 ```{r}
 str(na_example)
@@ -699,4 +824,4 @@ mean(na_example)
 
 The `is.na` function returns a logical vector that tells us which entries are NA. Assign this logical vector to an object called ind and determine how many NAs does na_example have.
 
-8. Now compute the average again, but only for the entries that are not NA. Hint: remember the ! operator, which turns FALSE into TRUE and vice versa.
+8.  Now compute the average again, but only for the entries that are not NA. Hint: remember the ! operator, which turns FALSE into TRUE and vice versa.
