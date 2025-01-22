@@ -769,6 +769,7 @@ murders$state[ind]
 
 ```{r}
 ind <- which(murders$state == "California")
+ind
 murder_rate[ind]
 ```
 
@@ -776,6 +777,7 @@ murder_rate[ind]
 
 ```{r}
 ind <- match(c("New York", "Florida", "Texas"), murders$state)
+ind
 murder_rate[ind]
 ```
 
