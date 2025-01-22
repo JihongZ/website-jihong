@@ -1,0 +1,153 @@
+---
+title: "Exercise 02: R Objects"
+subtitle: ""
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-08-18"
+sidebar: false
+execute: 
+  warning: false
+  message: false
+  eval: false
+  echo: false
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    lightbox: true
+    code-fold: show
+#jupyter: python3
+---
+
+```{r}
+#| eval: true
+library(dslabs)
+```
+
+## Exercise 02-01
+
+1.  Make sure the US murders dataset is loaded. Use the function `str` to examine the structure of the murders object. Which of the following best describes the variables represented in this data frame?
+
+    -   The 51 states.
+    -   The murder rates for all 50 states and DC.
+    -   The state name, the abbreviation of the state name, the state’s region, and the state’s population and total number of murders for 2010.
+    -   `str` shows no relevant information.
+
+```{r ans1}
+str(murders)
+?murders
+```
+
+2.  What are the column names used by the data frame for these five variables?
+
+```{r ans2}
+colnames(murders)
+```
+
+
+3.  Use the accessor `$` to extract the state abbreviations and assign them to the object `a`. What is the class of this object?
+
+```{r ans3}
+a <- murders$state
+```
+
+
+4.  Now use the square brackets to extract the state abbreviations and assign them to the object `b`. Use the identical function to determine if a and b are the same.
+
+```{r ans4}
+b <- murders[["state"]]
+identical(a, b)
+```
+
+
+5.  We saw that the region column stores a factor. You can corroborate this by typing:
+
+```{r}
+#| eval: false
+#| echo: true
+class(murders$region)
+```
+
+With one line of code, use the functions levels and length to determine the number of regions defined by this dataset.
+
+```{r ans5}
+length(levels(murders$region))
+```
+
+6.  The function `table` takes a vector and returns the frequency of each element. You can quickly see how many states are in each region by applying this function. Use this function in one line of code to create a table of number of states per region.
+
+```{r ans6}
+table(murders$region)
+```
+
+
+## Exercise 02-02
+
+1.  What is the sum of the first 100 positive integers? The formula for the sum of integers 1 through n is $n(n+1)/2$. Define
+
+    $n=100$ and then use R to compute the sum of 1 through 100 using the formula. What is the sum?
+
+2.  Now use the same formula to compute the sum of the integers from 1 through 1000.
+
+3.  Look at the result of typing the following code into R:
+
+    -   Based on the result, what do you think the functions `seq` and `sum` do? You can use help.
+
+```{r}
+#| eval: true
+#| echo: true
+n <- 1000 
+x <- seq(1, n) 
+sum(x)
+```
+
+4.  In math and programming, we say that we evaluate a function when we replace the argument with a given value. So if we type `sqrt(4)`, we evaluate the `sqrt` function. In R, you can evaluate a function inside another function. The evaluations happen from the inside out. Use one line of code to compute the log (use `log()` function), in base 10, of the square root of 100.
+
+## Exercise 02-03
+
+1 We will use the US murders dataset for this exercises. Make sure you load it prior to starting. Use the `$` operator to access the population size data and store it as the object `pop`. Then use the sort function to redefine `pop` so that it is sorted. Finally, use the `[` operator to report the smallest population size.
+
+2 Now instead of the smallest population size, find the index of the entry with the smallest population size. Hint: use order instead of sort.
+
+3 We can actually perform the same operation as in the previous exercise using the function which.min. Write one line of code that does this.
+
+4 Now we know how small the smallest state is and we know which row represents it. Which state is it? Define a variable states to be the state names from the murders data frame. Report the name of the state with the smallest population.
+
+5. You can create a data frame using the data.frame function. Here is a quick example:
+
+```{r}
+#| eval: true
+#| echo: true
+temp <- c(35, 88, 42, 84, 81, 30)
+city <- c("Beijing", "Lagos", "Paris", "Rio de Janeiro", 
+          "San Juan", "Toronto")
+city_temps <- data.frame(name = city, temperature = temp)
+```
+
+Use the `rank` function to determine the population rank of each state from smallest population size to biggest. Save these ranks in an object called ranks, then create a data frame with the state name and its rank. Call the data frame `my_df`.
+
+6. Repeat the previous exercise, but this time order my_df so that the states are ordered from least populous to most populous. Hint: create an object ind that stores the indexes needed to order the population values. Then use the bracket operator [ to re-order each column in the data frame.
+
+7. The na_example vector represents a series of counts. You can quickly examine the object using:
+
+```{r}
+#| eval: true
+#| echo: true
+str(na_example)
+```
+
+However, when we compute the average with the function mean, we obtain an NA:
+
+```{r}
+#| eval: true
+#| echo: true
+mean(na_example)
+```
+
+The `is.na` function returns a logical vector that tells us which entries are NA. Assign this logical vector to an object called ind and determine how many NAs does na_example have.
+
+8. Now compute the average again, but only for the entries that are not NA. Hint: remember the ! operator, which turns FALSE into TRUE and vice versa.

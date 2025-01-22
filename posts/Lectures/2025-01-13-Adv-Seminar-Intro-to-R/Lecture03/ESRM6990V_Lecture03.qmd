@@ -1,0 +1,75 @@
+---
+title: "Lecture 03: R Functions and Packages"
+subtitle: "Getting Started"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-10-09"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+  eval: true
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+# R Function
+
+## Prebuilt functions
+
+-   **Functions**: Once we defined the objects, the data analysis process can usually be described as [a series of *functions*]{.underline} applied to the data.
+
+    -   In other words, we considered "function" as a set of pre-specified operations (e.g., macro in SAS)
+
+    -   R includes several **predefined functions** and most of the analysis pipelines we construct make extensive use of these.
+
+    -   We already used or discussed the `install.packages`, `library`, and `ls` functions. We also used the function `sqrt` to solve the quadratic equation above.
+
+-   **Evaluation**: In general, we need to use parentheses followed by a function name to evaluate a function.
+
+    -   If you type `ls`, the function is not evaluated and instead R shows you the code that defines the function. If you type [`ls()`](https://rdrr.io/r/base/ls.html) the function is evaluated and, as seen above, we see objects in the workspace.
+
+-   **Function Arguments:** Unlike `ls`, most functions require one or more *arguments* to specify the settings of the function.
+
+    -   For example, we assign different object to the argument of the function `log`. Remember that we earlier defined `coef_a` to be 1:
+
+```{r}
+#| eval: true
+log(8)
+```
+
+## Play sounds
+
+```{r}
+#| eval: false
+system("say ESRM6 9 9 0 Vi is exciting ")
+system("say Professor Jihong Zhang can play the R code all day")
+for (i in 1:10) {
+  system("say hate you")
+}
+```
+
+## Want to watch firework in R?
+
+```{r}
+#| eval: false
+# install.packages('robservable')
+library(robservable)
+robservable("@rstata/happynewyear", hide = c(1:2, 4:20))
+```
