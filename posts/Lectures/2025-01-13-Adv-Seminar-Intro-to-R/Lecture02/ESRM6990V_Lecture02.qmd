@@ -81,6 +81,13 @@ class(murders)
 
 1.  The most common way of storing a dataset in R is in a *data frame*.
 
+    1.  We will use `murders` data in the `dslabs` package as the example:
+        - state. US state
+        - abb. Abbreviation of US state
+        - region. Geographical US region
+        - population. State population (2010)
+        - total. Number of gun murders in state (2010)
+
 2.  we can think of a data frame as a table with **rows** representing **observations** and the different **variables** reported for each observation defining the **columns**.
 
     ```{r}
