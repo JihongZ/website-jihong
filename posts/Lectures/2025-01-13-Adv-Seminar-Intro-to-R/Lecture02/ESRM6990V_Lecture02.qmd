@@ -50,15 +50,21 @@ format:
     library(dslabs)
     ```
 
+```{r}
+#| eval: true
+#| echo: false
+library(dslabs)
+```
+
 # R Objects
 
 ## Data Types
 
 1.  Variables is one most frequently used R object. Variables can be of different types. Some examples of variables are:
-    1.  `character`
-    2.  `numeric`
-    3.  `logical`
-    4.  `data.frame`
+    1.  `character/numeric/logical variable`
+    2.  `vector`
+    3.  `list (data.frame)`
+    4.  `matrix`
 
 ```{r}
 #| eval: true
@@ -77,21 +83,29 @@ class(murders)
 
 2.  we can think of a data frame as a table with **rows** representing **observations** and the different **variables** reported for each observation defining the **columns**.
 
+    ```{r}
+    head(murders)
+    ```
+
 3.  Most pre-built datasets are stored in R packages For example, you can access the `murders` by loading the `dslabs` package.
 
     ```{r}
-    library(dslabs)
     class(murders)
     ```
 
-4.  Some helpful functions that you can find out more about the structure of data frame.
+------------------------------------------------------------------------
+
+-   Some **helpful functions** that you can find out more about the structure of data frame.
 
     ```{r}
     #| eval: true
+    #| error: true
     str(murders) # structure of the data frame
-    head(murders)
     tail(murders)
-    murders$population # access the specific column
+    murders$population # method 1: access the specific column
+    murders[["population"]] # method 2: access the specific column
+    murders[["flower"]] # it will say "NULL" when the column doesn't exist
+    murders$flower # it will say "NULL" when the column doesn't exist
     names(murders) # variables' name
     ```
 
@@ -101,28 +115,33 @@ class(murders)
 
 1.  The object `murders$population` is not one number but several. We call these types of objects ***vectors***.
 
-2.  A single number is technically a vector of length 1, but in general we use the term vectors to refer to objects with several entries.
+2.  A vector is a combination of **values with the same type\* (except NA)**
 
-3.  Some helpful functions that tells you more about the vector
+3.  A single number is technically a vector of length 1, but in general we use the term vectors to refer to objects with several entries.
+
+4.  Some helpful functions that tells you more about the vector
 
     ```{r}
     #| eval: true
     pop <- murders$population
     length(pop) # how many entries are in the vector
+    pop[5] # extract 5th entries from the vector
     class(pop) # one vector has only have one data types (except list)
     class(murders$state)
     ```
 
 ------------------------------------------------------------------------
 
-4.  One special vector is **logical** vector. It must be either `TRUE` or `FALSE`:
+4.  One special vector is **logical** vector. It must be either `TRUE` (1) or `FALSE` (0), which are special values in R
 
     ```{r}
     #| eval: true
-
+    TRUE == 1
+    "TRUE" == 1
     z <- c(2, 3, 7, 8, 10)
     LargerThanFive <- (z > 5)
     LargerThanFive
+    z[LargerThanFive]
     class(LargerThanFive)
 
     EqualToSeven <- (z == 7)
@@ -155,7 +174,7 @@ table(murders$region)
 
 ------------------------------------------------------------------------
 
-4.  We can manipulate the order of the factor based on another varaible using `reorder` function
+4.  We can manipulate the order of the factor based on another variables using `reorder` function
 
 ```{r}
 region <- murders$region
@@ -736,8 +755,7 @@ murders$state[which(murder_rate <= 0.71)]
 ```
 
 ::: callout-note
-Note that we get back a logical vector with `TRUE` for each entry smaller than or equal to 0.71. To see which states these are, we
-can leverage the fact that vectors can be indexed with logicals.
+Note that we get back a logical vector with `TRUE` for each entry smaller than or equal to 0.71. To see which states these are, we can leverage the fact that vectors can be indexed with logicals.
 :::
 
 ------------------------------------------------------------------------
