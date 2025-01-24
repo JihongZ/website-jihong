@@ -135,6 +135,38 @@ format:
     -   Between/within-subject design
     -   Interaction effects
 
+## Types of ANOVA: Key Differences
+
+-   [**One-Way ANOVA**]{.underline}
+
+    -   **Purpose**: Tests **one** factor with three or more levels on a **continuous** outcome.
+
+    -   **Use Case**: Comparing means across multiple groups (e.g., diet types on weight loss).
+
+-   [**Two-Way ANOVA**]{.underline}
+
+    -   **Purpose**: Examines **two factors and their interaction** on a **continuous** outcome.
+
+    -   **Use Case**: Studying effects of diet and exercise on weight loss.
+
+-   [**Repeated Measures ANOVA**]{.underline}
+
+    -   **Purpose**: Tests the same subjects under **different conditions or time points**.
+
+    -   **Use Case**: Longitudinal studies measuring the same outcome over time (e.g., cognitive tests after varying sleep durations).
+
+-   [**Mixed-Design ANOVA**]{.underline}
+
+    -   **Purpose**: Combines **between-subjects and within-subjects** factors in one analysis.
+
+    -   **Use Case**: Evaluating treatment effects over time with control and experimental groups.
+
+-   [**Multivariate Analysis of Variance (MANOVA)**]{.underline}
+
+    -   **Purpose**: Assesses **multiple continuous outcomes** (dependent variables) influenced by independent variables.
+
+    -   **Use Case**: Impact of psychological interventions on anxiety, stress, and self-esteem.
+
 # Example 1: Political Study on Tax Reform Attitudes
 
 ## Background
@@ -324,6 +356,36 @@ ggplot(data_to_plot) +
 -   If the p-value obtained from the ANOVA is less than α, then reject H0 and accept the HA with (1-α) level of confidence.
 :::
 :::::
+
+## Step 5: Results Report
+
+A one-way ANOVA was conducted to compare the level of concern for tax reform among three political groups: Democrats, Republicans, and Independents. There was a significant effect of political affiliation on tax reform concern at the p \< .001 level for the three conditions \[F(2, 13) = 20.31, p \< .001\]. This result indicates significant differences in the attitudes toward tax reform among the groups.
+
+## Note: Relationship Between P-values and Type I Error
+
+1.  p-values: the probability of observing data as extreme as, or more extreme than, the data observed [under the assumption that the null hypothesis is true]{.underline}.
+    -   Lower the p-values are, we are more likely to see the observed data given the null hypothesis is true
+    -   Question: Given that we already have the observed data, does **lower p-values means the null hypothesis is unlikely to be true**, which is our goal for inference statistics?
+    -   Answer: [p(observed data exists \| H0 = true) is not equal to p(H0 = true \| observed data exists), P-values are often misconstrued as the probability that the null hypothesis is true given the observed data. However, this interpretation is incorrect.]{.heimu}
+2.  Type I error, also known as a "false positive," occurs when the null hypothesis is incorrectly rejected when it is, in fact, true.
+3.  The alpha level set before conducting a test (commonly α = 0.05) essentially defines the cut-off point for the p-value below which the null hypothesis will be rejected.
+    -   **A p-value that is less than the alpha level** suggests a low probability that the observed data would occur if the null hypothesis were true. Consequently, rejecting the null hypothesis in this context implies that there is a statistically significant difference likely not due to random chance.
+
+## Note: Limitations of p-values
+
+Relying solely on p-values to reject the null hypothesis can be problematic for several reasons:
+
+-   **Binary Decision Making**: The use of a threshold (e.g., α = 0.05) to determine whether to reject the null hypothesis reduces the complexity of the data and the underlying phenomena to a binary decision. This can oversimplify the interpretation and overlook the nuances in the data.
+
+    -   Confidence Intervals. Bayesian statistics - reporting posterior distribution.
+
+-   **Neglect of Effect Size**: P-values do not convey the size or importance of an effect. A very small effect can produce a small p-value if the sample size is large enough, leading to a rejection of the null hypothesis even when the effect may not be practically significant.
+
+    -   Independent of sample size.
+
+-   **Probability of Extremes Under the Null**: Since p-values quantify the extremeness of the observed data under the null hypothesis, they do not address whether similarly extreme data could also occur under alternative hypotheses. This can lead to an overemphasis on the null hypothesis and potentially disregard other plausible explanations for the data.
+
+    -   Explore theory. Find other explanations. Tried varied models.
 
 # Example 2: English Learners' digital competency
 
