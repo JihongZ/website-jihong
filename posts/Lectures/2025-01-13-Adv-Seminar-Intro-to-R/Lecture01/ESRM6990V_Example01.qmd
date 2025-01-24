@@ -99,6 +99,7 @@ mean(c(1, 2, 3))
 -   You can install external package to use more functions
 
 ```{r}
+#| eval: false
 install.packages("ggplot2")
 ```
 
