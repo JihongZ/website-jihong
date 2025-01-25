@@ -49,7 +49,6 @@ format:
     -   Variance analysis (SST, SSB, SSW)
     -   F-statistics and critical values
 -   Examples
-    -   Weight loss study (control, diet, exercise)
     -   Political attitudes (Democrats, Republicans, Independents)
 -   Decision Making
     -   Compare F-observed vs F-critical
@@ -309,6 +308,24 @@ ggplot(data_to_plot) +
 
     -   Large sample size needs lower alpha level : .01/.001 (more restrict rejection rate)
 
+2.  When we conduct a hypothesis testing, these four cases might be occured
+
++----------------------+-------------------------+--------------------------+
+|                      | **Reality**             |                          |
++----------------------+-------------------------+--------------------------+
+| **Decision**         | True $H_0$              | False $H_0$              |
++----------------------+-------------------------+--------------------------+
+| Fail to reject $H_0$ | Correct Decision        | Error made.              |
+|                      |                         |                          |
+|                      |                         | Type II error ($\beta$). |
++----------------------+-------------------------+--------------------------+
+| Reject $H_0$         | Error made.             | Correct Decision (Power) |
+|                      |                         |                          |
+|                      | Type I error ($\alpha$) |                          |
++----------------------+-------------------------+--------------------------+
+
+: Type I & II Error
+
 ## Step 3: Compute the test statistics
 
 -   Investigate where the variability of outcome come from?
@@ -342,7 +359,7 @@ ggplot(data_to_plot) +
 
 -   In addition to the comparison of the critical value and the observed value of the test statistics, we also can compare the alpha and the p-value:
 
-::::: columns
+::: columns
 ::: column
 ![](images/clipboard-3877350302.png)
 :::
@@ -355,7 +372,7 @@ ggplot(data_to_plot) +
 -   If the F statistic from the data (=F_obs) is larger than the F critical, then you are in the rejection region and you can reject the $H_0$ and accept the $H_A$ with (1-α) level of confidence.
 -   If the p-value obtained from the ANOVA is less than α, then reject H0 and accept the HA with (1-α) level of confidence.
 :::
-:::::
+:::
 
 ## Step 5: Results Report
 
@@ -387,69 +404,70 @@ Relying solely on p-values to reject the null hypothesis can be problematic for 
 
     -   Explore theory. Find other explanations. Tried varied models.
 
-# Example 2: English Learners' digital competency
+# Example 2: the Effect of Sleep on Academic Performance (Simulation)
 
 ## Background
 
--   **Digital literacy** is essential for effective participation in today's society, yet "digital divides"—disparities in access to and usage of digital resources—are prevalent.
+-   A study investigates the effect of different sleep durations on the academic performance of university students. Three groups are defined based on nightly sleep duration: Less than 6 hours, 6 to 8 hours, and more than 8 hours.
 
--   These divides are particularly significant for ethnolinguistic minority students, such as English learners, who face challenges within educational systems biased toward monolingual English norms.
+-   We can simulate the data
 
-## Research Purpose and Hypothesis
+```{r}
+#| eval: false
+# Set seed for reproducibility
+set.seed(42)
 
--   **Research Purpose**: The study examines whether there are [noticeable differences in Information and Communication Technology (ICT)-related achievement, self-efficacy, and perceptions]{.underline} between native English speakers and English learners in U.S. schools. It aims to identify how these differences are influenced by linguistic barriers in the context of digital literacy.
+# Generate data for three sleep groups
+less_than_6_hours <- rnorm(30, mean = 65, sd = 10)
+six_to_eight_hours <- rnorm(50, mean = 75, sd = 8)
+more_than_8_hours <- rnorm(20, mean = 78, sd = 7)
 
--   **Hypotheses:** The research proposes that [English learners will demonstrate lower levels of mastery experience, self-efficacy, and positive perceptions of Information and Communication Technology]{.underline} compared to native English speakers due to systemic linguistic inequalities in educational settings. These disparities arise from both tangible and intangible barriers to accessing digital resources and support.
+# Combine data into a single data frame
+sleep_data <- data.frame(
+  Sleep_Group = factor(c(rep("<6 hours", 30), rep("6-8 hours", 50), rep(">8 hours", 20))),
+  Exam_Score = c(less_than_6_hours, six_to_eight_hours, more_than_8_hours)
+)
 
-## Statistical Testing Review - Part 1
+# View the first few rows of the dataset
+head(sleep_data)
+```
 
--   Important terminology for hypothesis testing:
-    -   Working Hypothesis: Direct statement of research idea/question
-    -   Null Hypothesis: No difference/effect
-    -   Alternative Hypothesis: Significant difference/effect
--   Example using weight loss study:
-    -   Research question: "Do people in different diet groups lose different amounts of weight?"
-    -   Hypothesis: "People in different diet groups will lose different amounts of weight"
+## Descriptive Statistics
 
-## Type I & II Errors
+-   **Groups**:
 
--   Four possible outcomes in hypothesis testing:
-    1.  Correct Decision (Fail to reject H₀ when true)
-    2.  Type I Error (Reject H₀ when true)
-    3.  Type II Error (Fail to reject H₀ when false)
-    4.  Correct Decision (Reject H₀ when false)
+    -   **Less than 6 hours**: 30 students
 
-## Alpha Levels and Critical Values
+    -   **6 to 8 hours**: 50 students
 
--   Alpha determines:
-    -   Critical value of test statistics
-    -   Rejection region
--   Example with df_b=2, df_w=13:
-    -   α=0.05: F_critical=3.81
-    -   α=0.01: F_critical=6.70
+    -   **More than 8 hours**: 20 students
 
-## Test Statistics Components
+-   **Performance Metric**: Average exam scores out of 100.
 
--   Diagram shows variance components:
-    -   Total Variability (SST)
-    -   Variance explained by model (SSB)
-    -   Unexpected Variance (SSW)
-    -   Various factor variances (SSA, SSB, SSA×B)
+    -   **Less than 6 hours**: Mean = 65, SD = 10
 
-## F-Statistics Calculation
+    -   **6 to 8 hours**: Mean = 75, SD = 8
 
--   Details for computing test statistics:
-    -   F_obs = SSb/dfb ÷ SSw/dfw
-    -   SSb calculation explained (between-groups variability)
-    -   SSw calculation explained (within-groups variability)
-    -   F_critical determined by alpha, df_b, and df_w
+    -   **More than 8 hours**: Mean = 78, SD = 7
 
-## Hypothesis Testing Conclusion
+## You turn:
 
--   Final steps in hypothesis testing:
-    -   Compare F_obs with F_critical
-    -   Compare p-value with alpha
-    -   Decision rules:
-        -   Reject H₀ if F_obs \> F_critical
-        -   Reject H₀ if p-value \< α
-    -   Confidence level: (1-α)
+#### F-test
+
+-   **Analysis**: One-way ANOVA was conducted to compare the average exam scores among the three groups.
+
+-   **Results**: F_observed = XX.XX, p = 0.001
+
+#### Interpretation
+
+-   **Alpha Level**: α = 0.05
+
+-   **P-value Interpretation**: [The p-value (0.001) is less than the alpha level (0.05), indicating a statistically significant difference in exam scores among the different sleep groups.]{.heimu}
+
+-   **Conclusion**: [The results suggest that the amount of sleep significantly affects academic performance, with students getting 6 hours or more of sleep performing better on average than those with less sleep. The findings highlight the importance of adequate sleep among students for optimal academic outcomes.]{.heimu}
+
+## Homework 1
+
+Due on 02/03 5PM.
+
+## 
