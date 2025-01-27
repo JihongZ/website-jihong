@@ -245,7 +245,7 @@ ggplot(data = mean_byGroup) +
 
 2.  Set the significant alpha = 0.05
 
-3.  Test statistics of F:
+3.  Quick Review of F-statistics:
 
     $$
     F_{obs} = \frac{SS_b/df_b}{SS_w/df_w} 
@@ -390,7 +390,7 @@ ggplot(data_to_plot) +
 
 ::::: columns
 ::: column
-![](images/clipboard-3877350302.png)
+![](images/clipboard-3877350302.png){width="100%"}
 :::
 
 ::: column
