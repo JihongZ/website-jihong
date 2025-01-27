@@ -61,54 +61,6 @@
 
 }
 
-// Subfloats
-// This is a technique that we adapted from https://github.com/tingerrr/subpar/
-#let quartosubfloatcounter = counter("quartosubfloatcounter")
-
-#let quarto_super(
-  kind: str,
-  caption: none,
-  label: none,
-  supplement: str,
-  position: none,
-  subrefnumbering: "1a",
-  subcapnumbering: "(a)",
-  body,
-) = {
-  context {
-    let figcounter = counter(figure.where(kind: kind))
-    let n-super = figcounter.get().first() + 1
-    set figure.caption(position: position)
-    [#figure(
-      kind: kind,
-      supplement: supplement,
-      caption: caption,
-      {
-        show figure.where(kind: kind): set figure(numbering: _ => numbering(subrefnumbering, n-super, quartosubfloatcounter.get().first() + 1))
-        show figure.where(kind: kind): set figure.caption(position: position)
-
-        show figure: it => {
-          let num = numbering(subcapnumbering, n-super, quartosubfloatcounter.get().first() + 1)
-          show figure.caption: it => {
-            num.slice(2) // I don't understand why the numbering contains output that it really shouldn't, but this fixes it shrug?
-            [ ]
-            it.body
-          }
-
-          quartosubfloatcounter.step()
-          it
-          counter(figure.where(kind: it.kind)).update(n => n - 1)
-        }
-
-        quartosubfloatcounter.update(0)
-        body
-      }
-    )#label]
-  }
-}
-
-// callout rendering
-// this is a figure show rule because callouts are crossreferenceable
 #show figure: it => {
   if type(it.kind) != "string" {
     return it
@@ -146,6 +98,35 @@
     old_callout.body.children.at(1))
 }
 
+#show ref: it => locate(loc => {
+  let suppl = it.at("supplement", default: none)
+  if suppl == none or suppl == auto {
+    it
+    return
+  }
+
+  let sup = it.supplement.text.matches(regex("^45127368-afa1-446a-820f-fc64c546b2c5%(.*)")).at(0, default: none)
+  if sup != none {
+    let target = query(it.target, loc).first()
+    let parent_id = sup.captures.first()
+    let parent_figure = query(label(parent_id), loc).first()
+    let parent_location = parent_figure.location()
+
+    let counters = numbering(
+      parent_figure.at("numbering"), 
+      ..parent_figure.at("counter").at(parent_location))
+      
+    let subcounter = numbering(
+      target.at("numbering"),
+      ..target.at("counter").at(target.location()))
+    
+    // NOTE there's a nonbreaking space in the block below
+    link(target.location(), [#parent_figure.at("supplement") #counters#subcounter])
+  } else {
+    it
+  }
+})
+
 // 2023-10-09: #fa-icon("fa-info") is not working, so we'll eval "#fa-info()" instead
 #let callout(body: [], title: "Callout", background_color: rgb("#dddddd"), icon: none, icon_color: black) = {
   block(
@@ -162,13 +143,10 @@
         fill: background_color, 
         width: 100%, 
         inset: 8pt)[#text(icon_color, weight: 900)[#icon] #title]) +
-      if(body != []){
-        block(
-          inset: 1pt, 
-          width: 100%, 
-          block(fill: white, width: 100%, inset: 8pt, body))
-      }
-    )
+      block(
+        inset: 1pt, 
+        width: 100%, 
+        block(fill: white, width: 100%, inset: 8pt, body)))
 }
 
 
@@ -178,7 +156,6 @@
   authors: none,
   date: none,
   abstract: none,
-  abstract-title: none,
   cols: 1,
   margin: (x: 1.25in, y: 1.25in),
   paper: "us-letter",
@@ -235,7 +212,7 @@
 
   if abstract != none {
     block(inset: 2em)[
-    #text(weight: "semibold")[#abstract-title] #h(1em) #abstract
+    #text(weight: "semibold")[Abstract] #h(1em) #abstract
     ]
   }
 
@@ -447,9 +424,9 @@ Following materials are only allowed for previewing for students registered in E
 
 #figure(
   align(center)[#table(
-    columns: (5%, 10%, 40%, 25%, 20%),
-    align: (left,left,left,left,left,),
-    table.header([Week], [Date], [Topic], [Reading], [HW],),
+    columns: (5%, 10%, 40%, 25%),
+    align: (left,left,left,left,),
+    table.header([Week], [Date], [Topic], [HW],),
     table.hline(),
     [1], [01/13], [#link("Lecture01/Lecture01.qmd")[Lec1: Welcome to ESRM 64103]
 
@@ -461,27 +438,27 @@ Following materials are only allowed for previewing for students registered in E
 
     #link("Lecture01/ExtraCode.R")[ExtraCode.R]
 
-    ], [], [#link("https://forms.office.com/r/v5QU6KMgXc")[ESRM64103: EDIC Assignment Demo];],
-    [2], [01/20], [#strong[No Class];; M.L.K. Holiday], [], [],
-    [3], [01/27], [Lec2: Hypothesis testing
+    ], [#link("https://forms.office.com/r/v5QU6KMgXc")[ESRM64103: EDIC Assignment Demo];],
+    [2], [01/20], [#strong[No Class];; M.L.K. Holiday], [],
+    [3], [01/27], [#link("Lecture02/ESRM64103_Lecture02.qmd")[Lec2: Hypothesis testing];], [#link("https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAbGr9vVUQlNUUjFTQ09ISU1WODM1QzZDRlZLR0xZTS4u")[HW\#1]
 
-    #link("Lecture02/Example02.qmd")[Example02 - Crickets]
+    Due on 02/03 5PM
 
-    ], [], [HW\#1],
-    [4], [02/03], [Lec3: One-way ANOVA], [], [],
-    [5], [02/10], [Lec4: Comparison and Contrast (1)], [], [HW\#2],
-    [6], [02/17], [Lec5: Comparison and Contrast (2)], [], [],
-    [7], [02/24], [Lec6: Validity], [], [],
-    [8], [03/03], [Lec7: Blocking designing (1)], [], [],
-    [9], [03/10], [Lec8: Blocking design (2)], [], [],
-    [10], [03/17], [Lec9: 2-Way ANOVA (1)], [], [],
-    [11], [03/24], [#strong[Spring break: No Class];], [], [],
-    [12], [03/31], [Lec10: 2-Way ANOVA (2)], [], [],
-    [13], [04/07], [Lec11: Repeated Measure ANOVA], [], [HW\#3],
-    [14], [04/14], [Lec12: ANCOVA], [], [],
-    [15], [04/21], [#strong[2025 AERA Conference: No Class];], [], [],
-    [16], [04/28], [Lec13: Mixed Design], [], [],
-    [17], [05/05], [Homework Q&A], [], [],
+    ],
+    [4], [02/03], [Lec3: One-way ANOVA], [],
+    [5], [02/10], [Lec4: Comparison and Contrast (1)], [HW\#2],
+    [6], [02/17], [Lec5: Comparison and Contrast (2)], [],
+    [7], [02/24], [Lec6: Validity], [],
+    [8], [03/03], [Lec7: Blocking designing (1)], [],
+    [9], [03/10], [Lec8: Blocking design (2)], [],
+    [10], [03/17], [Lec9: 2-Way ANOVA (1)], [],
+    [11], [03/24], [#strong[Spring break: No Class];], [],
+    [12], [03/31], [Lec10: 2-Way ANOVA (2)], [],
+    [13], [04/07], [Lec11: Repeated Measure ANOVA], [HW\#3],
+    [14], [04/14], [Lec12: ANCOVA], [],
+    [15], [04/21], [#strong[2025 AERA Conference: No Class];], [],
+    [16], [04/28], [Lec13: Mixed Design], [],
+    [17], [05/05], [Homework Q&A], [],
   )]
   , caption: [Weekly Schedule]
   , kind: table
