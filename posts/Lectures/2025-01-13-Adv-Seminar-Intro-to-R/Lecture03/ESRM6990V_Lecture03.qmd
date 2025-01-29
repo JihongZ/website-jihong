@@ -1,18 +1,18 @@
 ---
-title: "Lecture 03: R Functions and Packages"
-subtitle: "Getting Started"
+title: "Lecture 03: R Functions"
+subtitle: "R Function"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2024-10-09"
+date: "2025-01-28"
 date-modified: "2024-10-11"
 sidebar: false
 execute: 
   echo: true
   warning: false
-  eval: true
+  eval: false
 output-location: default
 code-annotations: below
 highlight-style: "nord"
@@ -54,22 +54,311 @@ format:
 log(8)
 ```
 
-## Play sounds
+
+
+
+
+## Functions in R
+
+### Overview of Functions
+
+- **Definition**: Functions are blocks of code designed to perform specific tasks.
+- **Purpose**: 
+    - Automate repetitive tasks.
+    - Increase code reusability and readability.
+      - A good rule of thumb is to consider writing a function whenever you’ve copied and pasted a block of code more than twice 
+- **Key Characteristics**:
+    - Inputs (arguments) → Process → Output (return value).
+    - Functions can contain other functions.
+
+---
+
+### Benefits of Using Functions
+
+1. **Code Reusability**: Write once, use multiple times.
+2. **Readability**: Simplify complex code.
+3. **Debugging**: Isolate errors within specific functions.
+4. **Scalability**: Build modular, extensible codebases.
+
+# Factor Creation
+
+## Helpful function: Pipe
+
+- In R, a pipe is a powerful operator ("|>" or "%>%") used to streamline the flow of data analysis. 
+
+- It enables chaining multiple operations together in a readable, sequential manner. 
+
+- Key idea: The pipe operator passes the output of one function as the first argument to the next function, eliminating the need for intermediate variables or nested function calls.
 
 ```{r}
-#| eval: false
-system("say ESRM6 9 9 0 Vi is exciting ")
-system("say Professor Jihong Zhang can play the R code all day")
-for (i in 1:10) {
-  system("say hate you")
+data |> function1() |> function2() |> function3()
+```
+
+This is equivalent to:
+
+```{r}
+function3(function2(function1(data)))
+```
+
+--- 
+
+### Example: With vs. Without Pipe
+
+Example: Without Pipe
+
+```{r}
+# Without pipe
+result <- filter(mtcars, mpg > 20)
+result <- select(result, mpg, cyl)
+result <- arrange(result, desc(mpg))
+```
+
+Example: With Pipe
+
+```{r}
+# With pipe
+mtcars |> 
+  filter(mpg > 20) |> 
+  select(mpg, cyl) |> 
+  arrange(desc(mpg))
+```
+
+- Which one you prefer?
+
+
+
+## Creating Custom Function
+
+### Example: Celsius to Fahrenheit Converter
+
+```{r}
+celsius_to_fahrenheit <- function(temp_c) {
+  temp_f <- (temp_c * 9/5) + 32
+  return(temp_f)
+}
+
+celsius_to_fahrenheit(25)  # Output: 77
+```
+
+- Converts a temperature from Celsius to Fahrenheit.
+- Input: `temp_c` (temperature in Celsius).
+- Output: `temp_f` (temperature in Fahrenheit).
+
+---
+
+### Example: Standardization
+
+- Did you spot the mistake? 
+
+```{r}
+#| eval: true
+
+library(dplyr)
+df <- tibble(
+  a = rnorm(5),
+  b = rnorm(5),
+  c = rnorm(5),
+  d = rnorm(5),
+)
+df
+df |> mutate(
+  a = (a - mean(a, na.rm = TRUE)) / sd(a),
+  b = (b - mean(a, na.rm = TRUE)) / sd(b),
+  c = (c - mean(c, na.rm = TRUE)) / sd(c),
+  d = (d - mean(d, na.rm = TRUE)) / sd(d),
+)
+```
+
+- `tibble` creates a data frame with 4 columns
+- `mutate` creates new columns - generate standardized scores of all columns
+
+---
+
+- Extract the "**argument**":
+  - The **arguments** are things that vary across calls and our analysis above tells us that we have just one. We’ll call it x because this is the conventional name for a numeric vector.
+
+```{r}
+#| eval: true
+standardized <- function(x){
+  (x - mean(x, na.rm = TRUE)) / sd(x)
+}
+
+df |> mutate(
+  a = standardized(a),
+  b = standardized(b),
+  c = standardized(c),
+  d = standardized(d)
+)
+```
+
+---
+
+### Exercise: Rescale
+
+- Create a new function called `rescale` to simplify following code:
+
+```{r}
+#| eval: true
+df |> mutate(
+  a = (a - mean(a, na.rm = TRUE)) / (max(a) - min(a)),
+  b = (b - mean(b, na.rm = TRUE)) / (max(b) - min(b)),
+  c = (c - mean(c, na.rm = TRUE)) / (max(c) - min(c)),
+  d = (d - mean(d, na.rm = TRUE)) / (max(d) - min(d)),
+)
+```
+
+- The basic skeleton of function is like this: 
+
+```{r}
+name <- function(arguments) {
+  body
 }
 ```
 
-## Want to watch firework in R?
+- A name. Here we’ll use 'rescale' because this function rescales a vector to lie between 0 and 1.
+
+- The body. The body is the code that’s repeated across all the calls.
+
+
+## Anatomy of a Function
+
+### Example Code for one function
+```{r}
+function_name <- function(argument1, argument2 = default_value) {
+  # Body of the function
+  result <- argument1 + argument2
+  return(result)
+}
+```
+
+- **Components**:
+    - `function_name`: Name of the function.
+    - `arguments`: Inputs provided to the function.
+    - `body`: Code block that performs the computation.
+    - `return()`: Specifies the output of the function.
+
+---
+
+## Arguments in Functions
+
+### Default Arguments
+
+- Assign default values to arguments to make them optional.
 
 ```{r}
-#| eval: false
-# install.packages('robservable')
-library(robservable)
-robservable("@rstata/happynewyear", hide = c(1:2, 4:20))
+greet <- function(name = "World") {
+  return(paste("Hello,", name))
+}
+
+greet()            # Output: "Hello, World"
+greet("R User")    # Output: "Hello, R User"
 ```
+
+### Flexible Arguments
+
+- `...`: Allow a function to accept a variable number of arguments.
+
+```{r}
+#| eval: true
+sum_numbers <- function(...) {
+  numbers <- c(...) # combine into a vector
+  return(sum(numbers))
+}
+
+sum_numbers(1, 2, 3, 4)  # Output: 10
+```
+
+- Look at the help page of `mean`, tell me why we can have `y` argument in `mean` function
+
+```{r}
+#| eval: true
+mean(x = c(1, 2, 3), y = 3)
+```
+
+--- 
+
+- Flexible argument can be useful when you do not know users want to use which argument
+
+```{r}
+#| eval: true
+mean(y = 3, x = 8, z = 9, one_vector = c(7, TRUE))
+(3 + 8 + 9 + 7 + 1 ) / 5 # what we expect
+flexible_mean <- function(...){
+  return(mean(x = c(...)))
+}
+flexible_mean(y = 3, x = 8, z = 9, one_vector = c(7, TRUE))
+```
+
+- Question: test the `sum` function, tell me why `sum` can accept flexible arguments.
+
+```{r}
+sum(y = 3, x = 8, z = 9, one_vector = c(7, TRUE))
+```
+
+
+---
+
+## Returning Values
+
+- Functions return the last evaluated expression by default.
+- Use `return()` for clarity.
+
+### Example: Summing Two Numbers
+
+```{r}
+#| eval: true
+add <- function(x, y) {
+  return(x + y)
+}
+
+add(10, 5)  # Output: 15
+```
+
+---
+
+## Nested Functions
+
+- Functions can call other functions.
+
+### Example: Calculating BMI
+
+```{r}
+bmi <- function(weight, height) {
+  return(weight / (height^2))
+}
+
+bmi(70, 1.75)  # Output: 22.86
+```
+
+- Combines mathematical operations into a single function.
+
+---
+
+## Function Scope
+
+- **Local Scope**: Variables defined inside a function are local to that function.
+- **Global Scope**: Variables defined outside a function are accessible throughout the script.
+
+### Example: Local Scope
+
+```{r}
+add <- function(x, y) {
+  result <- x + y
+  return(result)
+}
+
+add(2, 3)   # Output: 5
+result      # Error: object 'result' not found
+```
+
+---
+
+
+
+
+## Summary
+
+- Functions are the cornerstone of programming in R.
+- They encapsulate reusable logic, making code efficient and modular.
+- Key concepts include arguments, return values, and scope.
+- Practice writing functions to automate tasks and solve complex problems.

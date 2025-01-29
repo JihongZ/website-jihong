@@ -1,0 +1,31 @@
+---
+title: "Lecture 03: One-way ANOVA"
+subtitle: "Experimental Design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-08-18"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+format: 
+  #html: 
+  #  page-layout: full
+  #  toc: true
+  #  toc-depth: 2
+  #  lightbox: true
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503: Lecture02"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+#jupyter: python3
+---

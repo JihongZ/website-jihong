@@ -288,12 +288,15 @@ Results show rejection of H₀ (F_obs \> F_critical)
     -   Example: Investigating whether diet groups affect weight loss.
         -   Research question: "Is there a variance in weight loss among different diet groups?"
         -   Hypothesis: "[**Different diet groups will show varying weight loss.**]{.underline}"
-    -   Definitions:
-        -   Null hypothesis (𝐻₀): No observed difference or effect.
-        -   Alternative hypothesis (𝐻ₐ): Noticeable difference or effect, contrary to 𝐻₀.
+    -   Operational Definitions:
+        -   Null hypothesis (𝐻₀): No observed difference or effect ("[Something is something]{.underline}").
+            -   Group A's mean - Group B's mean = 0
+        -   Alternative hypothesis (𝐻ₐ): Noticeable difference or effect, contrary to 𝐻₀. ("[Something is not something]{.underline}")
     -   The adequacy of the data will dictate if 𝐻₀ can be confidently rejected.
 
 ## Step 2: Rejection region
+
+F-statistic has two degree of freedoms. This is the density distribution of F-statistics for degree of freedoms as 2 and 13.
 
 ```{r}
 #| code-fold: true
@@ -410,7 +413,7 @@ A one-way ANOVA was conducted to compare the level of concern for tax reform amo
 ## Note: Relationship Between P-values and Type I Error
 
 1.  p-values: the probability of observing data as extreme as, or more extreme than, the data observed [under the assumption that the null hypothesis is true]{.underline}.
-    -   Lower the p-values are, we are more likely to see the observed data given the null hypothesis is true
+    -   Lower the p-values are, we are less likely to see the observed data given the null hypothesis is true
     -   Question: Given that we already have the observed data, does **lower p-values means the null hypothesis is unlikely to be true**, which is our goal for inference statistics?
     -   Answer: [p(observed data exists \| H0 = true) is not equal to p(H0 = true \| observed data exists), P-values are often misconstrued as the probability that the null hypothesis is true given the observed data. However, this interpretation is incorrect.]{.heimu}
 2.  Type I error, also known as a "false positive," occurs when the null hypothesis is incorrectly rejected when it is, in fact, true.

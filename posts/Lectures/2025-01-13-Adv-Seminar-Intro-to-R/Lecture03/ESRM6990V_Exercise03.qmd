@@ -1,0 +1,147 @@
+---
+title: "Exercise 03: R Functions"
+subtitle: ""
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-08-18"
+sidebar: false
+execute: 
+  warning: false
+  message: false
+  eval: false
+  echo: false
+format: 
+  html: 
+    page-layout: full
+toc: true
+toc-depth: 2
+lightbox: true
+code-fold: show
+---
+
+## Creating Custom Functions
+
+1.  Write a function called `fahrenheit_to_celsius` that converts a temperature from Fahrenheit to Celsius.
+
+-   Formula: $C = \frac{(F - 32) \times 5}{9}$
+-   Test your function with $F = 98.6$.
+
+2.  Create a function called `circle_area` that calculates the area of a circle given its radius.
+
+-   Formula: $A = \pi \times r^2$
+-   Use the built-in constant `pi` in R and test the function with $r = 5$.
+
+------------------------------------------------------------------------
+
+## Piping
+
+1.  Transform the following code into a pipe-based version:
+
+```{r}
+result <- filter(mtcars, hp > 100)
+result <- arrange(result, desc(mpg))
+result <- select(result, hp, mpg)
+```
+
+2.  Explain why the pipe operator improves code readability in the context of data manipulation.
+
+------------------------------------------------------------------------
+
+## Debugging Functions
+
+1.  Identify and correct the mistake in the following code:
+
+```{r}
+df |> mutate(
+  a = (a - mean(a, na.rm = TRUE)) / sd(a),
+  b = (b - mean(a, na.rm = TRUE)) / sd(b)
+)
+```
+
+2.  Rewrite the code by creating a custom function `standardized()` to avoid code repetition.
+
+------------------------------------------------------------------------
+
+## Arguments in Functions
+
+1.  Create a function `greet` that takes two arguments, `name` (default = "World") and `punctuation` (default = "!"). The function should return a greeting message.
+
+-   Example: `greet("Alice", "?")` should return `"Hello, Alice?"`.
+
+2.  Test the `sum()` function by passing named arguments (`x = 3, y = 5`) and explain how the function handles them.
+
+------------------------------------------------------------------------
+
+## Function Scope
+
+1.  Explain why the following code throws an error:
+
+```{r}
+add <- function(x, y) {
+  result <- x + y
+  return(result)
+}
+add(5, 3)
+result  # Error
+```
+
+2.  Modify the code to make the variable `result` accessible outside the function.
+
+------------------------------------------------------------------------
+
+## Flexible Arguments
+
+1.  Write a function `multiply_all()` that accepts a variable number of arguments and multiplies all the numbers together. Test your function with `multiply_all(2, 3, 4)`.
+
+2.  Investigate the `mean()` function by using the help page. Explain why it can accept additional arguments like `y` in the code below:
+
+```{r}
+mean(x = c(1, 2, 3), y = 3)
+```
+
+------------------------------------------------------------------------
+
+## Nested Functions
+
+1.  Write a function `rect_prism_volume()` that calculates the volume of a rectangular prism given its length, width, and height. Inside this function, create another function `rect_area()` to calculate the base area.
+
+    -   The **formula for the volume of a rectangular prism** is:
+
+        $V =  A_b \times h$
+
+        $A_b = l \times w$
+
+        where:
+
+        -   V = Volume of the rectangular prism,
+
+        -   $A_b$ = base area
+
+            -   l = Length,
+
+            -   w = Width,
+
+        -   h = Height.
+
+2.  Test your function with length = 5, width = 3, height = 4.
+
+------------------------------------------------------------------------
+
+## Rescale Function
+
+1.  Create a custom function `rescale()` that rescales a numeric vector to the range 0 to 1.
+
+-   Formula: $x_{\text{scaled}} = \frac{x - \min(x)}{\max(x) - \min(x)}$
+
+2.  Use your `rescale()` function to rescale the columns of the following data frame:
+
+```{r}
+df <- tibble(
+ a = rnorm(5),
+ b = rnorm(5),
+ c = rnorm(5)
+)
+```

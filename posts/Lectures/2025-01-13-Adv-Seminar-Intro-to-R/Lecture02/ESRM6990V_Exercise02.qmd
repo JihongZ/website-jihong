@@ -48,13 +48,11 @@ str(murders)
 colnames(murders)
 ```
 
-
 3.  Use the accessor `$` to extract the state abbreviations and assign them to the object `a`. What is the class of this object?
 
 ```{r ans3}
 a <- murders$state
 ```
-
 
 4.  Now use the square brackets to extract the state abbreviations and assign them to the object `b`. Use the identical function to determine if a and b are the same.
 
@@ -62,7 +60,6 @@ a <- murders$state
 b <- murders[["state"]]
 identical(a, b)
 ```
-
 
 5.  We saw that the region column stores a factor. You can corroborate this by typing:
 
@@ -83,7 +80,6 @@ length(levels(murders$region))
 ```{r ans6}
 table(murders$region)
 ```
-
 
 ## Exercise 02-02
 
@@ -117,7 +113,7 @@ sum(x)
 
 4 Now we know how small the smallest state is and we know which row represents it. Which state is it? Define a variable states to be the state names from the murders data frame. Report the name of the state with the smallest population.
 
-5. You can create a data frame using the data.frame function. Here is a quick example:
+5.  You can create a data frame using the data.frame function. Here is a quick example:
 
 ```{r}
 #| eval: true
@@ -130,9 +126,9 @@ city_temps <- data.frame(name = city, temperature = temp)
 
 Use the `rank` function to determine the population rank of each state from smallest population size to biggest. Save these ranks in an object called ranks, then create a data frame with the state name and its rank. Call the data frame `my_df`.
 
-6. Repeat the previous exercise, but this time order my_df so that the states are ordered from least populous to most populous. Hint: create an object ind that stores the indexes needed to order the population values. Then use the bracket operator [ to re-order each column in the data frame.
+6.  Repeat the previous exercise, but this time order my_df so that the states are ordered from least populous to most populous. Hint: create an object ind that stores the indexes needed to order the population values. Then use the bracket operator \[ to re-order each column in the data frame.
 
-7. The na_example vector represents a series of counts. You can quickly examine the object using:
+7.  The na_example vector represents a series of counts. You can quickly examine the object using:
 
 ```{r}
 #| eval: true
@@ -150,4 +146,4 @@ mean(na_example)
 
 The `is.na` function returns a logical vector that tells us which entries are NA. Assign this logical vector to an object called ind and determine how many NAs does na_example have.
 
-8. Now compute the average again, but only for the entries that are not NA. Hint: remember the ! operator, which turns FALSE into TRUE and vice versa.
+8.  Now compute the average again, but only for the entries that are not NA. Hint: remember the ! operator, which turns FALSE into TRUE and vice versa.
