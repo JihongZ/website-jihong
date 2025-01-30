@@ -46,8 +46,6 @@ result <- arrange(result, desc(mpg))
 result <- select(result, hp, mpg)
 ```
 
-2.  Explain why the pipe operator improves code readability in the context of data manipulation.
-
 ------------------------------------------------------------------------
 
 ## Debugging Functions
