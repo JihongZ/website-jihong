@@ -29,10 +29,26 @@ code-fold: show
 -   Formula: $C = \frac{(F - 32) \times 5}{9}$
 -   Test your function with $F = 98.6$.
 
+```{r}
+fahrenheit_to_celsius <- function(temp_f) {
+  return((temp_f - 32) * 5 / 9)
+}
+fahrenheit_to_celsius(temp_f = 98.6)
+```
+
 2.  Create a function called `circle_area` that calculates the area of a circle given its radius.
 
 -   Formula: $A = \pi \times r^2$
 -   Use the built-in constant `pi` in R and test the function with $r = 5$.
+
+```{r}
+# r is the circle radius
+circle_area <- function(r){
+  return(pi * r^2) 
+}
+circle_area(r = 5)
+circle_area(5) # 5 assign to r
+```
 
 ------------------------------------------------------------------------
 
@@ -44,6 +60,14 @@ code-fold: show
 result <- filter(mtcars, hp > 100)
 result <- arrange(result, desc(mpg))
 result <- select(result, hp, mpg)
+result
+```
+
+```{r}
+mtcars |> 
+  filter(hp > 100) |> 
+  arrange(desc(mpg)) |> 
+  select(hp, mpg)
 ```
 
 ------------------------------------------------------------------------
@@ -55,11 +79,21 @@ result <- select(result, hp, mpg)
 ```{r}
 df |> mutate(
   a = (a - mean(a, na.rm = TRUE)) / sd(a),
-  b = (b - mean(a, na.rm = TRUE)) / sd(b)
+  b = (b - mean(a, na.rm = TRUE)) / sd(b) # a should be changed to b
 )
 ```
 
 2.  Rewrite the code by creating a custom function `standardized()` to avoid code repetition.
+
+```{r}
+standardized <- function(x){
+  return((x - mean(x, na.rm = TRUE)) / sd(x))
+}
+df |> mutate(
+  a = standardized(a),
+  b = standardized(b)
+)
+```
 
 ------------------------------------------------------------------------
 
@@ -69,7 +103,22 @@ df |> mutate(
 
 -   Example: `greet("Alice", "?")` should return `"Hello, Alice?"`.
 
+```{r}
+greet <- function(name = "World", punctuation = "!") {
+  paste0("Hello, ", name, punctuation)
+}
+greet(name = "Alice", punctuation = "?")
+```
+
 2.  Test the `sum()` function by passing named arguments (`x = 3, y = 5`) and explain how the function handles them.
+
+```{r}
+sum(x = 3, y = 5)
+sum(3, 5)
+sum(c(3, 5))
+# mean(x = 3, 5)
+# mean(c(3, 5))
+```
 
 ------------------------------------------------------------------------
 
@@ -79,7 +128,7 @@ df |> mutate(
 
 ```{r}
 add <- function(x, y) {
-  result <- x + y
+  result <- x + y # beacuase result is in the local scope
   return(result)
 }
 add(5, 3)
@@ -88,16 +137,43 @@ result  # Error
 
 2.  Modify the code to make the variable `result` accessible outside the function.
 
+```{r}
+add <- function(x, y) {
+  result <<- x + y # beacuase result is in the local scope
+  return(result)
+}
+add(6, 3)
+result
+```
+
 ------------------------------------------------------------------------
 
 ## Flexible Arguments
 
 1.  Write a function `multiply_all()` that accepts a variable number of arguments and multiplies all the numbers together. Test your function with `multiply_all(2, 3, 4)`.
 
-2.  Investigate the `mean()` function by using the help page. Explain why it can accept additional arguments like `y` in the code below:
+```{r}
+multiply_all <- function(x, y, z) { # flexible arguments
+  x * y * z
+}
+multiply_all(2, 3, 4)
+
+```
 
 ```{r}
-mean(x = c(1, 2, 3), y = 3)
+multiply_all_flexible <- function(...) {
+  prod(c(...))
+}
+multiply_all_flexible(1, 2, 3)
+multiply_all_flexible(1, 2, 3, 5)
+multiply_all_flexible(1, 2, 3, 5, 8)
+multiply_all_flexible(c(1, 2, 3, 5, 8))
+```
+
+1.  Investigate the `mean()` function by using the help page. Explain why it can accept additional arguments like `y` in the code below:
+
+```{r}
+mean(x = c(1, 2, 3), y = 3) # because y is flexible argument. It is not included into calculation of mean
 ```
 
 ------------------------------------------------------------------------
@@ -124,7 +200,24 @@ mean(x = c(1, 2, 3), y = 3)
 
         -   h = Height.
 
-2.  Test your function with length = 5, width = 3, height = 4.
+```{r}
+# the first function
+rect_area <- function(l, w){
+  A_base = l * w
+  return(A_base)
+}
+
+# the second function that contains the first function
+rect_prism_volume <- function(l, w, h){
+  return(rect_area(l, w) * h)
+}
+```
+
+1.  Test your function with length = 5, width = 3, height = 4.
+
+```{r}
+rect_prism_volume(l =5, w = 3, h = 4)
+```
 
 ------------------------------------------------------------------------
 
@@ -134,12 +227,30 @@ mean(x = c(1, 2, 3), y = 3)
 
 -   Formula: $x_{\text{scaled}} = \frac{x - \min(x)}{\max(x) - \min(x)}$
 
+```{r}
+rescale <- function(x){
+  res = (x - min(x)) / (max(x) - min(x))
+  return(res)
+}
+```
+
 2.  Use your `rescale()` function to rescale the columns of the following data frame:
 
 ```{r}
+set.seed(1234)
 df <- tibble(
  a = rnorm(5),
  b = rnorm(5),
  c = rnorm(5)
 )
+df
+```
+
+```{r}
+df |> 
+  mutate(
+    a = rescale(a),
+    b = rescale(b),
+    c = rescale(c)
+  )
 ```
