@@ -12,7 +12,7 @@ execute:
   warning: false
   message: false
   eval: false
-  echo: false
+  echo: true
 format: 
   html: 
     page-layout: full

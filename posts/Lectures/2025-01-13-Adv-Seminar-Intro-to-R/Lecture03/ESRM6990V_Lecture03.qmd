@@ -84,7 +84,14 @@ log(8)
 
 ## Helpful function: Pipe
 
-- In R, a pipe is a powerful operator ("|>" or "%>%") used to streamline the flow of data analysis. 
+- In R, a pipe is a powerful operator ("|>" or "%>%") used to streamline the flow of data analysis.
+  -   A operator is a special function with the name as symbol and left/right hand sides as arguments.
+  
+```{r}
+1 + 2
+`+`(1, 2)
+```
+
 
 - It enables chaining multiple operations together in a readable, sequential manner. 
 
@@ -337,7 +344,16 @@ bmi(70, 1.75)  # Output: 22.86
 ## Function Scope
 
 - **Local Scope**: Variables defined inside a function are local to that function.
+
+```{r}
+x = 5
+print_x <- function(x) {x = 3; return(x)}
+x
+```
+
 - **Global Scope**: Variables defined outside a function are accessible throughout the script.
+
+---
 
 ### Example: Local Scope
 
@@ -351,9 +367,21 @@ add(2, 3)   # Output: 5
 result      # Error: object 'result' not found
 ```
 
+```{r}
+add <- function(x, y) {
+  result <<- x + y
+  return(result)
+}
+add(2, 3)   # Output: 5
+result 
+```
+
 ---
 
+## Exercise 03
 
+- Create a blank Quarto document
+- Finish Exercise 03: R Function in the Quarto
 
 
 ## Summary
