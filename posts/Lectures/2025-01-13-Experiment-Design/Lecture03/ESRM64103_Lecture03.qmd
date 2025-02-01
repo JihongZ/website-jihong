@@ -9,7 +9,7 @@ institute: |
 date: "2025-08-18"
 sidebar: false
 execute: 
-  eval: true
+  eval: false
   echo: true
 format: 
   #html: 
@@ -29,3 +29,240 @@ format:
     scrollable: true
 #jupyter: python3
 ---
+
+# One-Way ANOVA
+
+## Lecture Outline
+- Introduction to ANOVA
+- Why use ANOVA instead of multiple t-tests?
+- Logic and components of ANOVA
+- Steps and assumptions in ANOVA
+- Example scenario and real-world applications
+- Performing ANOVA in R
+- Checking homogeneity of variance
+- Post-hoc analysis
+- Using weights in ANOVA
+- Where to find weights for ANOVA
+- Conclusion and homework assignment
+
+## Introduction
+- Overview of ANOVA and its applications.
+- Used for comparing means across multiple groups.
+- Explanation of why ANOVA is essential in statistical analysis.
+
+## ANOVA Basics
+- **Analysis of Variance (ANOVA)** compares multiple group means (more than two groups).
+- If comparing only 2 groups, either a t-test or an F-test can be used.
+- When more than 2 groups are compared, an F-test (ANOVA) is required.
+
+## Why Use ANOVA Instead of Multiple t-tests?
+- Computational complexity increases with the number of groups.
+- Multiple t-tests inflate the Type I error rate.
+- ANOVA provides an omnibus test to detect any significant difference.
+- Example demonstrating inflated Type I error with multiple t-tests.
+
+## Logic of ANOVA
+- ANOVA compares group means by analyzing variance.
+- Two independent variance estimates:
+  1. **Between-group variability** (treatment effect)
+  2. **Within-group variability** (error or chance)
+- Illustration: Graph showing variance breakdown.
+
+## Components of ANOVA
+- **Total Sum of Squares (SS_total)**: Total variance in the data.
+- **Sum of Squares Between (SS_between)**: Variance due to the model.
+- **Sum of Squares Within (SS_within)**: Variance due to error.
+- Relationship: \( SS_{total} = SS_{between} + SS_{within} \)
+
+## Steps in ANOVA
+1. Compute total variability.
+2. Decompose total variability into model-related and error-related components.
+3. Compute the F-statistic:
+   \[
+   F_{obs} = \frac{MS_{between}}{MS_{within}}
+   \]
+4. Construct the ANOVA table and draw conclusions.
+5. Examine Homogeneity of Variance
+6. Conduct Post-Hoc Analysis
+
+## Assumptions of ANOVA
+- Independence of observations.
+- Normality of residuals.
+- Homogeneity of variance (homoscedasticity).
+- Consequences of violating these assumptions.
+
+## Example Scenario
+- Investigating the effect of an intervention on children's verbal acquisition.
+- **IV (Factor):** Intervention groups (G1, G2, G3, Control).
+- **DV:** Verbal acquisition scores.
+- **Hypotheses:**
+  - \( H_0: \mu_{Control} = \mu_{G1} = \mu_{G2} = \mu_{G3} \)
+  - \( H_A \): At least two group means differ.
+
+## Homogeneity of Variance
+- ANOVA assumes that variance across groups is equal.
+- Unequal variances can lead to incorrect conclusions.
+- Example illustrating different variance conditions.
+
+## Methods to Check Homogeneity of Variance
+- **Levene’s Test**: Tests for equal variances across groups.
+- **Bartlett’s Test**: Specifically tests for homogeneity in normally distributed data.
+- **Visual Inspection**: Boxplots can help assess variance equality.
+- Graph: Example of equal and unequal variance in boxplots.
+
+## Performing ANOVA in R
+### Load Libraries
+```{r}
+#| eval: true
+library(ggplot2)
+library(car) # used for leveneTest
+```
+
+### Load Sample Data
+
+- Context: the example research focus on whether three different teaching methods (labeled as G1, G2, G3) on students' test scores.
+
+- In total, 40 students are assigned to three teaching group and one default teaching group. Each group have 10 samples.
+
+```{r}
+#| eval: true
+set.seed(1234)
+data <- data.frame(
+  group = rep(c("G1", "G2", "G3", "Control"), each = 10),
+  score = c(rnorm(10, 20, 5), rnorm(10, 25, 5), rnorm(10, 30, 5), rnorm(10, 22, 5))
+)
+data_unequal <- data.frame(
+  group = rep(c("G1", "G2", "G3", "Control"), each = 10),
+  score = c(rnorm(10, 20, 10), rnorm(10, 25, 5), rnorm(10, 30, 1), rnorm(10, 22, .1))
+)
+```
+
+### Conduct ANOVA Test
+```{r}
+#| eval: true
+anova_result <- aov(score ~ group, data = data)
+summary(anova_result)
+```
+
+## Checking Homogeneity of Variance
+### Using Bartlett’s Test
+
+```{r}
+#| eval: true
+bartlett.test(score ~ group, data = data)
+bartlett.test(score ~ group, data = data_unequal)
+```
+
+--- 
+
+### Using Levene’s Test
+
+```{r}
+#| eval: true
+leveneTest(score ~ group, data = data)
+leveneTest(score ~ group, data = data_unequal)
+```
+
+--- 
+
+### Visual Inspection of Variance Equality
+```{r}
+#| eval: true
+ggplot(data, aes(x = group, y = score)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Boxplot of Scores by Group", x = "Group", y = "Score")
+```
+
+--- 
+
+```{r}
+#| eval: true
+ggplot(data_unequal, aes(x = group, y = score)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Boxplot of Scores by Group", x = "Group", y = "Score")
+```
+
+## Post-hoc Analysis
+### Tukey HSD Test
+
+- Create a set of confidence intervals on the differences between the means of the levels of a factor with the specified family-wise probability of coverage.
+
+- When comparing the means for the levels of a factor in an analysis of variance, a simple comparison using t-tests will inflate the probability of declaring a significant difference when it is not in fact present.
+
+- Tukey Honest Significant Differences
+
+```{r}
+#| eval: true
+tukey_result <- TukeyHSD(anova_result)
+print(tukey_result$group)
+```
+
+## Interpreting Results
+
+### ANOVA Statistics
+```
+           Df Sum Sq Mean Sq F value   Pr(>F)    
+group        3  724.1  241.37   11.45 2.04e-05 ***
+Residuals   36  759.2   21.09                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+```{r}
+#| eval: true
+#| code-fold: true
+
+library(dplyr)
+data |> 
+  group_by(group) |> 
+  summarise(
+    Mean = mean(score),
+    SD = sd(score)
+  )
+```
+
+- A one-way analysis of variance (ANOVA) was conducted to examine the effect of teaching method on students' test scores. The results indicated a statistically significant difference in test scores across the three teaching methods, \( F(3, 27) = 11.45, p < .001 \). Post-hoc comparisons using the Tukey HSD test revealed that the Interactive method (G3) \( M = 28.06, SD = 3.33 \) resulted in significantly higher scores than the Traditional method \( M = 18.17, SD = 4.47\) with the p-value lower than .001, but no significant difference was found between the Interactive (G1) and the traditional methods \( p = .99 \). These results suggest that using interactive teaching methods can improve student performance compared to traditional methods.
+
+
+## Real-world Applications of ANOVA
+- Experimental designs in psychology.
+- Clinical trials in medicine.
+- Market research and A/B testing.
+- Example case studies.
+
+## Using Weights in ANOVA
+- In some cases, observations may have different levels of reliability or importance.
+- Weighted ANOVA allows us to account for these differences by assigning weights.
+- Example: A study where some groups have higher variance and should contribute less to the analysis.
+
+## Example: Applying Weights in aov()
+```{r}
+weights <- c(rep(1, 10), rep(2, 10), rep(0.5, 10), rep(1.5, 10))
+anova_weighted <- aov(score ~ group, data = data, weights = weights)
+summary(anova_weighted)
+```
+- The weights modify the influence of each observation in the model.
+- Helps in cases where data reliability varies across groups.
+
+## Where Do We Get Weights for ANOVA?
+- Weights can be derived from:
+  - **Large-scale assessments**: Different student groups may have varying reliability in measurement.
+  - **Survey data**: Unequal probability of selection can be adjusted using weights.
+  - **Experimental data**: Measurement error models may dictate different weight assignments.
+
+## Example: Using Weights in Large-Scale Assessments
+- Consider an educational study where test scores are collected from schools of varying sizes.
+- Larger schools may contribute more observations but should not dominate the analysis.
+- Weighting adjusts for this imbalance:
+```{r}
+weights <- ifelse(data$group == "LargeSchool", 0.5, 1)
+anova_weighted <- aov(score ~ group, data = data, weights = weights)
+summary(anova_weighted)
+```
+- Ensures fair representation in the analysis.
+
+## Conclusion and Interpretation
+- Review results and discuss findings.
+- Key takeaways from the analysis.
