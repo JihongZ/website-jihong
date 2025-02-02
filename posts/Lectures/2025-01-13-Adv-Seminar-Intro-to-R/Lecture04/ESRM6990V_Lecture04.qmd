@@ -1,0 +1,533 @@
+---
+title: "Lecture 04: Data Import and Data Tidying"
+subtitle: "R Function"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-01-28"
+date-modified: "2024-10-11"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+  eval: true
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+## Introduction to Data Import
+
+In this presentation, we will learn how to import data into R and tidy it for analysis. Data is often messy, but understanding how to manipulate it is a critical skill for any data scientist.
+
+------------------------------------------------------------------------
+
+## Working with Your Own Data
+
+While R packages provide a great way to work with sample data, at some point, you'll need to apply what you've learned to your own data. In this chapter, we'll focus on importing rectangular data, especially CSV files.
+
+------------------------------------------------------------------------
+
+## Prerequisites for Reading Data
+
+To read data in R, we’ll use the `readr` package, which is part of the `tidyverse`. Before you start, make sure to load the package.
+
+```{r}
+library(tidyverse)
+```
+
+------------------------------------------------------------------------
+
+## Reading Data from a CSV File
+
+Let’s start with a common file format: CSV. Here’s a simple example:
+
+``` csv
+Student ID,Full Name,favourite.food,mealPlan,AGE
+1,Sunil Huffmann,Strawberry yoghurt,Lunch only,4
+2,Barclay Lynn,French fries,Lunch only,5
+3,Jayendra Lyne,N/A,Breakfast and lunch,7
+4,Leon Rossini,Anchovies,Lunch only,
+5,Chidiegwu Dunkel,Pizza,Breakfast and lunch,five
+6,Güvenç Attila,Ice cream,Lunch only,6
+```
+
+You can read this CSV file into R using the `read_csv()` function.
+
+```{r}
+students <- read_csv("data/students.csv")
+students
+```
+
+------------------------------------------------------------------------
+
+## Practical Tips for Data Import
+
+After loading your data, you'll typically need to transform it for easier analysis. For instance, handling missing values is essential.
+
+```{r}
+students_fixedNA <- read_csv("data/students.csv", na = c("N/A", ""))
+students_fixedNA
+```
+
+------------------------------------------------------------------------
+
+## Handling Non-Syntactic Column Names
+
+In some cases, column names may contain spaces, making them non-syntactic in R. You can handle this by renaming columns:
+
+```{r}
+students_fixedColNames <- students |> 
+  rename(
+    student_id = `Student ID`,
+    full_name = `Full Name`,
+    favourite_food = `favourite.food`,
+    meal_plan = `mealPlan`
+  )
+students_fixedColNames
+```
+
+-   Alternatively, use the `janitor::clean_names()` function for quick renaming. `clean_names()` use some heuristics to turn them all into snake case at once1.
+
+```{r}
+students |> janitor::clean_names()
+```
+
+------------------------------------------------------------------------
+
+## Fixing Data Types
+
+Ensure that the variables are of the correct type. For example, the `meal_plan` column is categorical and should be a factor:
+
+```{r}
+students_fixedDataType <- students_fixedColNames |> 
+  mutate(meal_plan = factor(meal_plan))
+students_fixedDataType
+str(students_fixedDataType)
+```
+
+```{r}
+table(students_fixedDataType$meal_plan)
+```
+
+------------------------------------------------------------------------
+
+## Reading Data from Multiple Files
+
+Sometimes, your data is split across multiple files. You can read them all at once and combine them into a single data frame:
+
+```{csv}
+#| code-summary: "01-sales.csv"
+#| code-fold: true
+month,year,brand,item,n
+January,2019,1,1234,3
+January,2019,1,8721,9
+January,2019,1,1822,2
+January,2019,2,3333,1
+January,2019,2,2156,9
+January,2019,2,3987,6
+January,2019,2,3827,6
+```
+
+```{csv}
+#| code-summary: "02-sales.csv"
+#| code-fold: true
+month,year,brand,item,n
+February,2019,1,1234,8
+February,2019,1,8721,2
+February,2019,1,1822,3
+February,2019,2,3333,1
+February,2019,2,2156,3
+February,2019,2,3987,6
+```
+
+```{csv}
+#| code-summary: "03-sales.csv"
+#| code-fold: true
+month,year,brand,item,n
+March,2019,1,1234,3
+March,2019,1,3627,1
+March,2019,1,8820,3
+March,2019,2,7253,1
+March,2019,2,8766,3
+March,2019,2,8288,6
+```
+
+```{r}
+sales_files <- c("data/01-sales.csv", "data/02-sales.csv", "data/03-sales.csv")
+sales_data <- read_csv(sales_files, id = "file")
+sales_data
+```
+
+This will add a new column identifying which file the data came from.
+
+------------------------------------------------------------------------
+
+## Writing Data to a File
+
+You can also write data back to a file. For example, save the `students` data frame as a CSV:
+
+```{r}
+#| eval: false
+write_csv(students_fixedDataType, "data/students_final.csv")
+```
+
+For more complex objects, consider using `write_rds()` for saving R-specific objects.
+
+## Other file types
+
+-   Once you’ve mastered read_csv(), using readr’s other functions is straightforward; it’s just a matter of knowing which function to reach for:
+
+    -   `read_csv2()` reads semicolon-separated files. These use ; instead of , to separate fields and are common in countries that use , as the decimal marker.
+
+    -   `read_tsv()` reads tab-delimited files.
+
+    -   `read_delim()` reads in files with any delimiter, attempting to automatically guess the delimiter if you don’t specify it.
+
+    -   `read_fwf()` reads fixed-width files. You can specify fields by their widths with fwf_widths() or by their positions with fwf_positions().
+
+    -   `read_table()` reads a common variation of fixed-width files where columns are separated by white space.
+
+    -   `read_log()` reads Apache-style log files.
+
+## Other Importing Packages
+
+### readxl
+
+-   The `readxl` package provides functions to read-in Microsoft Excel formats.
+
+```{r}
+#| eval: false
+library(readxl)
+# Specify sheet either by position or by name
+read_excel(datasets, 2)
+read_excel(datasets, "mtcars")
+```
+
+The main functions are:
+
+| Function   | Format                 | Typical suffix |
+|------------|------------------------|----------------|
+| read_excel | auto detect the format | xls, xlsx      |
+| read_xls   | original format        | xls            |
+| read_xlsx  | new format             | xlsx           |
+
+The Microsoft Excel formats permit you to have more than one spreadsheet in one file. These are referred to as sheets. The functions listed above read the first sheet by default, but we can also read the others. The excel_sheets function gives us the names of all the sheets in an Excel file. These names can then be passed to the sheet argument in the three functions above to read sheets other than the first.
+
+## Data Entry
+
+-   Sometimes you’ll need to assemble a tibble “by hand” doing a little data entry in your R script.
+
+-   You can use `tibble` and `tribble` to create a new data frame
+
+```{r}
+tibble(
+  x = c(1, 2, 5), 
+  y = c("h", "m", "g"),
+  z = c(0.08, 0.83, 0.60)
+)
+```
+
+-   `tribble()` is customized for data entry in code: column headings start with \~ and entries are separated by commas.
+
+```{r}
+tribble(
+  ~x, ~y, ~z,
+  1, "h", 0.08,
+  2, "m", 0.83,
+  5, "g", 0.60
+)
+```
+
+# Data Tidying
+
+## Introduction to Data Tidying
+
+Once you’ve loaded your data, the next step is often to tidy it for analysis. In this section, we’ll focus on transforming messy datasets into tidy ones.
+
+------------------------------------------------------------------------
+
+## What is Tidy Data?
+
+Tidy data has three key rules:
+
+-   Each variable is a column.
+-   Each observation is a row.
+-   Each value is a cell.
+
+Tidy data is easy to work with in R and other data analysis tools.
+
+------------------------------------------------------------------------
+
+## Why Ensure Your Data is Tidy?
+
+Tidy data allows for consistent use of tools like `dplyr` and `ggplot2`. The vectorized nature of R works best with tidy data because most functions expect each variable to be in its own column.
+
+------------------------------------------------------------------------
+
+## Pivoting Data: An Overview
+
+-   To tidy messy data, we often need to pivot it. Pivoting allows us to transform the structure of data without changing the underlying values.
+
+-   The `billboard` dataset records the billboard rank of songs in the year 2000:
+
+-   In this dataset, each observation is a song. The first three columns (artist, track and date.entered) are variables that describe the song.
+
+-   Then we have 76 columns (wk1-wk76) that describe the rank of the song in each week1.
+
+```{r}
+billboard
+```
+
+------------------------------------------------------------------------
+
+## Pivoting Data Longer
+
+We use the `pivot_longer()` function to convert wide data into a longer format. This is helpful when multiple pieces of data are spread across columns.
+
+```{r}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), # pecifies which columns need to be pivoted
+    names_to = "week",  # names the variable stored in the column names, we named that variable week
+    values_to = "rank" # names the variable stored in the cell values, we named that variable rank.
+  )
+```
+
+------------------------------------------------------------------------
+
+## Dropping NA Values While Pivoting
+
+When pivoting data, you might encounter missing values. You can remove them using the `values_drop_na` argument.
+
+```{r}
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    values_drop_na = TRUE
+  )
+```
+
+------------------------------------------------------------------------
+
+## Converting Columns to More Useful Data Types
+
+After tidying your data, you might need to convert data types. For instance, convert `week` from a character string to a number:
+
+```{r}
+billboard_longer <- billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    values_drop_na = TRUE
+  ) |> 
+  mutate(
+    week = parse_number(week)
+  )
+billboard_longer
+```
+
+------------------------------------------------------------------------
+
+## How it works: I
+
+```{r}
+#| code-fold: true
+df <- tribble(
+  ~id,  ~bp1, ~bp2,
+   "A",  100,  120,
+   "B",  140,  115,
+   "C",  120,  125
+)
+df
+df |> 
+  pivot_longer(
+    cols = bp1:bp2,
+    names_to = "measurement",
+    values_to = "value"
+  )
+```
+
+------------------------------------------------------------------------
+
+## How it works: II
+
+```{r}
+#| eval: false
+pivot_longer(
+    cols = bp1:bp2,
+    names_to = "measurement",
+    values_to = "value"
+  )
+```
+
+![](images/clipboard-3820106916.png)
+
+## Widening Data: Pivoting in the Other Direction
+
+Sometimes, you need to make your data wider. The `pivot_wider()` function is used when you have one observation spread across multiple rows.
+
+------------------------------------------------------------------------
+
+## Pivoting with Multiple Variables in Column Names
+
+If your column names contain multiple pieces of information, you can split them into separate variables during the pivot process:
+
+```{r}
+who2 |> 
+  pivot_longer(
+    cols = !(country:year),
+    names_to = c("diagnosis", "gender", "age"), 
+    names_sep = "_",
+    values_to = "count"
+  )
+```
+
+------------------------------------------------------------------------
+
+## When Data Contains Both Variable and Value Names
+
+If a dataset has both variable names and values in its columns, you can use `.value` in `pivot_longer()` to separate these:
+
+```{r}
+household |> 
+  pivot_longer(
+    cols = !family, 
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    values_drop_na = TRUE
+  )
+```
+
+------------------------------------------------------------------------
+
+## Summary of Data Tidying
+
+In this chapter, you’ve learned how to transform your data into a tidy format using `pivot_longer()` and `pivot_wider()`. These tools are fundamental for cleaning messy data and making it ready for analysis.
+
+------------------------------------------------------------------------
+
+## Exercise: Practicing pivot_longer() and pivot_wider()
+
+### Scenario 1: Using pivot_longer()
+
+Imagine you have a dataset that tracks the number of visitors to a museum for each day of the week. The data is stored in wide format, where each day of the week is a separate column:
+
+```{r}
+#| eval: true
+visitors_wide <- tibble(
+  museum = c("Museum A", "Museum B", "Museum C"),
+  monday = c(120, 150, 110),
+  tuesday = c(130, 160, 120),
+  wednesday = c(140, 170, 130),
+  thursday = c(110, 140, 100),
+  friday = c(160, 180, 150)
+)
+visitors_wide
+```
+
+**Task 1**: Use pivot_longer() to convert this data into a long format where each row represents a single observation of a visitor count for a specific day.
+
+**Hint**: The `names_to` argument should be set to "day" to create a column for the days of the week, and the `values_to` argument should be set to "visitors" to store the number of visitors.
+
+```{r}
+#| echo: false
+#| eval: false
+visitors_long <- visitors_wide |> 
+  pivot_longer(
+    cols = monday:friday, 
+    names_to = "day", 
+    values_to = "visitors"
+  )
+visitors_long
+```
+
+------------------------------------------------------------------------
+
+### Scenario 2: Using pivot_wider()
+
+Now, imagine you have a dataset in long format that tracks the average test scores of students in different subjects over several terms. The data is structured like this:
+
+```{r}
+scores_long <- tibble(
+  student = c("Alice", "Alice", "Bob", "Bob", "Charlie", "Charlie"),
+  term = c("Term 1", "Term 2", "Term 1", "Term 2", "Term 1", "Term 2"),
+  subject = c("Math", "Math", "Math", "Math", "Math", "Math"),
+  score = c(85, 90, 78, 80, 92, 95)
+)
+scores_long
+```
+
+**Task 2**: Use pivot_wider() to convert this data into a wide format, where each term is a separate column, and the values represent the student scores.
+
+**Hint**: The names_from argument should be set to "term" to create columns for each term, and the values_from argument should be set to "score" to get the student scores.
+
+```{r}
+#| echo: false
+#| eval: false
+scores_wide <- scores_long |> 
+  pivot_wider(
+    names_from = term, 
+    values_from = score
+  )
+scores_wide
+```
+
+## Bonus Task: Combining pivot_longer() and pivot_wider()
+
+Imagine you have a dataset that tracks the number of calls received by a customer service center over three months for various departments. The dataset is in wide format like this:
+
+```{r}
+calls_wide <- tibble(
+  department = c("Sales", "Support", "Billing"),
+  jan = c(200, 150, 180),
+  feb = c(210, 160, 190),
+  mar = c(220, 170, 200)
+)
+calls_wide
+```
+
+**Task 3**:
+
+-   First, use `pivot_longer()` to convert this dataset into a long format.
+
+-   Then, use `pivot_wider()` to convert the data back into a wide format, but with the months as columns and the number of calls as the values.
+
+```{r}
+#| eval: false
+#| echo: false
+calls_long <- calls_wide |> 
+  pivot_longer(
+    cols = c("jan", "feb", "mar"), 
+    names_to = "month", 
+    values_to = "calls"
+  )
+calls_long
+
+calls_wide_again <- calls_long |> 
+  pivot_wider(
+    names_from = month, 
+    values_from = calls
+  )
+calls_wide_again
+```
+
+## Next Steps
+
+Now that you understand data tidying, you can begin organizing your analysis in R scripts. In the next chapter, we’ll explore how to use projects and organize your code into files and directories.

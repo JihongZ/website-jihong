@@ -1,0 +1,472 @@
+---
+title: "Lecture 04: ANOVA Assumptions"
+subtitle: "Experimental Design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-08-18"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+format: 
+  #html: 
+  #  page-layout: full
+  #  toc: true
+  #  toc-depth: 2
+  #  lightbox: true
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503: Lecture 04"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+#jupyter: python3
+---
+
+## Class Outline
+
+-  Go through three assumptions of ANOVA and their checking statistics
+-  Omnibus test for more group comparisons.
+-  Example: Intervention and Verbal Acquisition
+-  Exercise: Effect of Sleep Duration on Cognitive Performance
+
+
+## ANOVA Procedure
+
+1.  **Set hypotheses**:
+    -   **Null hypothesis** ($H_0$): All group means are equal.
+    -   **Alternative hypothesis** ($H_A$): At least one group mean differs.
+2.  **Determine statistical parameters**:
+    -   Significance level $\alpha$
+    -   Degrees of freedom for between-group ($df_b$) and within-group ($df_w$)
+    -   Find the critical F-value.
+3.  **Compute test statistic**:
+    -   Calculate **F-ratio** based on between-group and within-group variance.
+4.  **Compare results**:
+    -   Either compare $F_{\text{obs}}$ with $F_{\text{crit}}$ or $p$-value with $\alpha$.
+    -   If $p < \alpha$, reject $H_0$.
+
+# ANOVA Assumptions
+
+## Overview
+
+-   Like all statistical tests, ANOVA requires certain assumptions to be met for valid conclusions:
+    -   **Independence**: Observations are independent of each other.
+    -   **Normality**: The residuals (errors) follow a normal distribution.
+    -   **Homogeneity of variance (HOV)**: The variance within each group is approximately equal.
+
+## Importance of Assumptions
+
+-   **If assumptions are violated**, the results of ANOVA may not be reliable.
+-   **Robustness**:
+    -   ANOVA is **robust** to minor violations of normality, especially for large sample sizes (Central Limit Theorem).
+    -   **Not robust** to violations of independence—if independence is violated, ANOVA is inappropriate.
+    -   **Moderately robust** to HOV violations if sample sizes are equal.
+
+## Assumption 1: Independence
+
+-   **Definition**: Each observation should be independent of others.
+-   **Violations**:
+    -   Clustering of data (e.g., repeated measures).
+    -   Participants influencing each other (e.g., classroom discussions).
+-   **Check**: Use the **Durbin-Watson test**.
+-   **Consequences**: If independence is violated, **ANOVA results are not valid**.
+
+------------------------------------------------------------------------
+
+### Durbin-Watson Statistic (DW)
+
+::: callout-note
+-   The Durbin-Watson test is primarily used for detecting **autocorrelation** in time-series data.
+
+-   In the context of ANOVA with independent groups, residuals are generally assumed to be independent. However, it's still good practice to check this assumption, especially if there's a reason to suspect potential autocorrelation.
+:::
+
+-   Properties of DW Statistic:
+    -   Ranges from 0 to 4.
+        -   A value around 2 suggests no autocorrelation.
+        -   Values approaching 0 indicate positive autocorrelation.
+        -   Values toward 4 suggest negative autocorrelation.
+    -   P-value
+        -   P-Value: A small p-value (typically \< 0.05) indicates significant autocorrelation in the residuals. A larger p-value suggests no evidence of autocorrelation.
+
+## Assumption 2: Normality
+
+-   The **dependent variable (DV)** should be normally distributed within each group.
+-   **Assessments**:
+    -   **Graphical methods**: Histograms, Q-Q plots.
+    -   **Statistical tests**:
+        -   **Shapiro-Wilk test** (common)
+        -   **Kolmogorov-Smirnov (KS) test** (for large samples)
+        -   **Anderson-Darling test** (detects kurtosis issues).
+-   **Robustness**:
+    -   ANOVA is **robust** to normality violations for **large samples**.
+    -   **If normality is violated**, consider transformations or non-parametric tests.
+
+## Assumption 3: Homogeneity of Variance (HOV)
+
+-   Variance across groups should be equal.
+-   **Assessments**:
+    -   **Levene’s test**: Tests equality of variances.
+    -   **Brown-Forsythe test**: More robust to non-normality.
+    -   **Boxplots**: Visual inspection.
+-   **What if violated?**
+    -   Use **Welch’s ANOVA**, which corrects for variance differences.
+
+## ANOVA Robustness
+
+-   **Robust to**:
+    -   Minor normality violations (for large samples).
+    -   Small HOV violations if group sizes are **equal**.
+-   **Not robust to**:
+    -   **Independence violations**—ANOVA is invalid if data points are dependent.
+    -   **Severe HOV violations**—Type I error rates become unreliable.
+
+## Homogeneity of Variance Violation
+
+-   If HOV is **violated**, options include:
+    -   **Welch’s ANOVA** (adjusted for variance differences).
+    -   **Transforming** the dependent variable.
+    -   **Using non-parametric tests** (e.g., Kruskal-Wallis).
+
+# Omnibus ANOVA Test
+
+## Overview
+
+-   **What does it test?**
+    -   Whether there is **at least one** significant difference among means.
+-   **Limitation**:
+    -   Does **not** tell **which** groups are different.
+-   **Solution**:
+    -   Conduct **post-hoc tests**.
+
+## Individual Comparisons of Means
+
+-   If ANOVA is **significant**, follow-up tests identify **where** differences occur.
+-   **Types**:
+    -   **Planned comparisons**: Defined **before** data collection.
+    -   **Unplanned (post-hoc) comparisons**: Conducted **after** ANOVA.
+
+## Planned vs. Unplanned Comparisons
+
+-   **Planned**:
+    -   Based on **theory**.
+    -   Can be done **even if ANOVA is not significant**.
+-   **Unplanned (post-hoc)**:
+    -   **Data-driven**.
+    -   Only performed **if ANOVA is significant**.
+
+## Types of Unplanned Comparisons
+
+-   **Common post-hoc tests**:
+    1.  **Fisher’s LSD**
+    2.  **Bonferroni correction**
+    3.  **Sidák correction**
+    4.  **Tukey’s HSD**
+
+## Fisher’s LSD
+
+-   **Least Significant Difference test**.
+-   **Problem**: Does not control for **multiple comparisons** (inflated Type I error).
+
+## Bonferroni Correction
+
+-   Adjusts **alpha** to reduce **Type I error**.
+-   New alpha: $\alpha / c$ (where $c$ is the number of comparisons).
+-   **Conservative**: Less power, avoids false positives.
+
+## Sidák Correction
+
+-   Similar to Bonferroni but slightly more powerful.
+-   New alpha: $1 - (1 - \alpha)^{1/c}$.
+
+## Tukey’s HSD
+
+-   Controls for **Type I error** across multiple comparisons.
+-   Uses a **q-statistic** from a Tukey table.
+-   Preferred when **all pairs** need comparison.
+
+## ANOVA Example: Intervention and Verbal Acquisition
+
+### Background
+
+-   Research Question: Does an intensive intervention improve students’ verbal acquisition scores?
+-   Study Design:
+    -   4 groups: Control, G1, G2, G3 (treatment levels).
+    -   Outcome variable: Verbal acquisition score (average of three assessments).
+-   Hypotheses:
+    -   $H_0$: No difference in verbal acquisition scores across groups.
+    -   $H_A$: At least one group has a significantly different mean.
+
+## Step 1: Generate Simulated Data in R
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Generate synthetic data for 4 groups
+data <- tibble(
+  group = rep(c("Control", "G1", "G2", "G3"), each = 30),
+  verbal_score = c(
+    rnorm(30, mean = 70, sd = 10),  # Control group
+    rnorm(30, mean = 75, sd = 12),  # G1
+    rnorm(30, mean = 80, sd = 10),  # G2
+    rnorm(30, mean = 85, sd = 8)    # G3
+  )
+)
+
+# View first few rows
+head(data)
+```
+
+## Step 2: Summary Statistics
+
+```{r}
+# Summary statistics by group
+data %>%
+  group_by(group) %>%
+  summarise(
+    mean_score = mean(verbal_score),
+    sd_score = sd(verbal_score),
+    n = n()
+  )
+```
+
+------------------------------------------------------------------------
+
+```{r}
+# Boxplot visualization
+ggplot(data, aes(x = group, y = verbal_score, fill = group)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Verbal Acquisition Scores Across Groups", y = "Score", x = "Group")
+```
+
+## Step 3: Check ANOVA Assumptions
+
+### Assumption Check 1: Independence of residuals Check
+
+```{r}
+# Fit the ANOVA model
+anova_model <- lm(verbal_score ~ group, data = data)
+
+# Install lmtest package if not already installed
+# install.packages("lmtest")
+
+# Load the lmtest package
+library(lmtest)
+
+# Perform the Durbin-Watson test
+dw_test_result <- dwtest(anova_model)
+
+# View the test results
+print(dw_test_result)
+```
+
+-   Interpretation:
+    -   In this example, the `DW` value is close to 2, and the p-value is greater than 0.05, indicating no significant autocorrelation in the residuals.
+
+------------------------------------------------------------------------
+
+### Assumption Check 2: Normality Check
+
+```{r}
+# Shapiro-Wilk normality test for each group
+data %>%
+  group_by(group) %>%
+  summarise(
+    shapiro_p = shapiro.test(verbal_score)$p.value
+  )
+```
+
+-   Interpretation:
+    -   If $p>0.05$, normality assumption is not violated.
+    -   If $p<0.05$, data deviates from normal distribution.
+
+------------------------------------------------------------------------
+
+-   Alternative Check: Q-Q Plot
+
+```{r}
+ggplot(data, aes(sample = verbal_score)) +
+  geom_qq() + geom_qq_line() +
+  facet_wrap(~group) +
+  theme_minimal() +
+  labs(title = "Q-Q Plot for Normality Check")
+```
+
+------------------------------------------------------------------------
+
+### Assumption Check 3: Homogeneity of Variance (HOV) Check
+
+```{r}
+# Levene's Test for homogeneity of variance
+library(car)
+leveneTest(verbal_score ~ group, data = data)
+```
+
+-   Interpretation:
+    -   If $p>0.05$, variance is homogeneous (ANOVA assumption met).
+    -   If $p<0.05$, variance differs across groups (consider Welch’s ANOVA).
+
+## Step 4: Perform One-Way ANOVA
+
+```{r}
+anova_model <- aov(verbal_score ~ group, data = data)
+summary(anova_model)
+```
+
+-   Interpretation:
+    -   If $p<0.05$, at least one group mean is significantly different.
+    -   If $p>0.05$, fail to reject $H0$ (no significant differences).
+
+## Step 5: Post-Hoc Tests (Tukey’s HSD)
+
+```{r}
+# Tukey HSD post-hoc test
+tukey_results <- TukeyHSD(anova_model)
+tukey_results
+```
+
+-   Interpretation:
+    -   Identifies which groups differ.
+    -   If $p<0.05$, the groups significantly differ.
+        -   G1-Control
+        -   G2-Control
+        -   G3-Control
+        -   G3-G1
+
+## Step 6: Reporting ANOVA Results
+
+A one-way ANOVA was conducted to examine the effect of an intensive intervention on verbal acquisition scores. There was a statistically significant difference between groups, $F(3,116)=14.33$, $p<.001$. Tukey's post-hoc comparisons revealed that the G3 intervention group (M=84.2, SD=7.25) had significantly higher scores than the Control (M=69.5,SD=9.81) and G1 (M=77.1,SD=10.0) groups (all p\<.05). However, no significant difference was found between G2 and G3 (p=.31). These findings suggest that higher intervention intensity improves verbal acquisition performance.
+
+# Exercise: Effect of Sleep Duration on Cognitive Performance
+
+## Background
+
+-   Research Question:
+
+    -   Does the amount of sleep affect cognitive performance on a standardized test?
+
+-   Study Design
+
+    -   Independent variable: Sleep duration (3 groups: Short (≤5 hrs), Moderate (6-7 hrs), Long (≥8 hrs)).
+    -   Dependent variable: Cognitive performance scores (measured as test scores out of 100).
+
+## Data
+
+```{r}
+# Set seed for reproducibility
+set.seed(42)
+
+# Generate synthetic data for sleep study
+sleep_data <- tibble(
+  sleep_group = rep(c("Short", "Moderate", "Long"), each = 30),
+  cognitive_score = c(
+    rnorm(30, mean = 65, sd = 10),  # Short sleep group (≤5 hrs)
+    rnorm(30, mean = 75, sd = 12),  # Moderate sleep group (6-7 hrs)
+    rnorm(30, mean = 80, sd = 8)    # Long sleep group (≥8 hrs)
+  )
+)
+
+# View first few rows
+head(sleep_data)
+```
+
+Go through all six steps.
+
+## Answer:
+
+```{r}
+#| eval: false
+#| echo: false
+# Summary statistics by sleep group
+sleep_data %>%
+  group_by(sleep_group) %>%
+  summarise(
+    mean_score = mean(cognitive_score),
+    sd_score = sd(cognitive_score),
+    n = n()
+  )
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Boxplot visualization
+ggplot(sleep_data, aes(x = sleep_group, y = cognitive_score, fill = sleep_group)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Cognitive Performance Across Sleep Groups", y = "Test Score", x = "Sleep Duration")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Step 3: Check ANOVA Assumptions
+# Perform the Durbin-Watson test
+dw_test_result <- dwtest(aov(cognitive_score ~ sleep_group, data = sleep_data))
+
+# View the test results
+print(dw_test_result)
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Shapiro-Wilk normality test for each group
+sleep_data %>%
+  group_by(sleep_group) %>%
+  summarise(
+    shapiro_p = shapiro.test(cognitive_score)$p.value
+  )
+ggplot(sleep_data, aes(sample = cognitive_score)) +
+  geom_qq() + geom_qq_line() +
+  facet_wrap(~sleep_group) +
+  theme_minimal() +
+  labs(title = "Q-Q Plot for Normality Check")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Levene's Test for homogeneity of variance
+library(car)
+leveneTest(cognitive_score ~ sleep_group, data = sleep_data)
+```
+
+```{r}
+# Step 5: Perform One-Way ANOVA
+anova_sleep <- aov(cognitive_score ~ sleep_group, data = sleep_data)
+summary(anova_sleep)
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Tukey HSD post-hoc test
+tukey_sleep <- TukeyHSD(anova_sleep)
+tukey_sleep
+```
+
+:::{.heimu}
+- A one-way ANOVA was conducted to examine the effect of sleep duration on cognitive performance.
+
+- There was a statistically significant difference in cognitive test scores across sleep groups, $F(2,87)=15.88$,$p<.001$.
+
+- Tukey's post-hoc test revealed that participants in the Long sleep group (M=81.52,SD=6.27) performed significantly better than those in the Short sleep group (M=65.68,SD=12.55), p<.01.
+
+
+- These results suggest that inadequate sleep is associated with lower cognitive performance.
+:::
+
