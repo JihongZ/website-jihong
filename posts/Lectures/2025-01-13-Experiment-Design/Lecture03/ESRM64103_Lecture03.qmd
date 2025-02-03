@@ -41,7 +41,7 @@ format:
 
 # Homework 1
 
-## Let's walk through HW1 
+## Let's walk through HW1
 
 # One-Way ANOVA
 
@@ -59,14 +59,14 @@ format:
 
 ## Why Use ANOVA Instead of Multiple t-tests?
 
--   Computational complexity increases with the number of groups.
--   Multiple t-tests inflate the Type I error rate.
--   ANOVA provides an omnibus test to detect any significant difference.
--   Example demonstrating inflated Type I error with multiple t-tests.
+1.  Computational complexity increases with the number of groups.
+2.  Multiple t-tests inflate the Type I error rate.
+3.  ANOVA provides an omnibus test to detect any significant difference.
+4.  Example demonstrating inflated Type I error with multiple t-tests.
 
 ## Logic of ANOVA
 
--   ANOVA compares group means by analyzing variance.
+-   ANOVA compares group means by analyzing [variance components]{.underline}.
 -   Two independent variance estimates:
     1.  **Between-group variability** (treatment effect)
     2.  **Within-group variability** (error or chance)
@@ -74,14 +74,14 @@ format:
 
 ## Components of ANOVA
 
--   **Total Sum of Squares ($SS_{total}$)**: Total variance of outcomes in the data.
--   **Sum of Squares Between ($SS_{between}$)**: Variability of outcomes due to the group(s).
--   **Sum of Squares Within ($SS_{within}$)**: Variability due to error (some we do not test yet).
--   Relationship: $SS_{total} = SS_{between} + SS_{within}$
+1.  **Total Sum of Squares** ($SS_{total}$): Total variance of outcomes in the data.
+2.  **Sum of Squares Between** ($SS_{between}$): Variability of outcomes due to the group(s).
+3.  **Sum of Squares Within** ($SS_{within}$): Variability due to error (some we do not test yet).
+    -   Relationship: $SS_{total} = SS_{between} + SS_{within}$
 
----
+------------------------------------------------------------------------
 
-### If $SS_{between}$ > $SS_{within}$ ...
+### If $SS_{between}$ \> $SS_{within}$ ...
 
 ```{r}
 #| eval: true
@@ -124,9 +124,9 @@ res <-  summary(anova_result)
 res
 ```
 
----
+------------------------------------------------------------------------
 
-### If $SS_{between}$ < $SS_{within}$ ...
+### If $SS_{between}$ \< $SS_{within}$ ...
 
 ```{r}
 #| eval: true
@@ -184,15 +184,6 @@ res
 -   Homogeneity of variance (homoscedasticity).
 -   Consequences of violating these assumptions.
 
-## Example Scenario
-
--   Investigating the effect of an intervention on children's verbal acquisition.
--   **IV (Factor):** Intervention groups (G1, G2, G3, Control).
--   **DV:** Verbal acquisition scores.
--   **Hypotheses:**
-    - $H_0$: $\mu_{Control} = \mu_{G1} = \mu_{G2} = \mu_{G3}$
-    - $H_A$: At least two group means differ.
-
 ## Homogeneity of Variance
 
 -   ANOVA assumes that variance across groups is equal.
@@ -209,6 +200,17 @@ res
 -   **Bartlett’s Test**: Specifically tests for homogeneity in normally distributed data.
 -   **Visual Inspection**: Boxplots can help assess variance equality.
 -   Graph: Example of equal and unequal variance in boxplots.
+
+# Example: One-way ANOVA in R
+
+## Example Scenario
+
+-   **Research Aim**: Investigating the effect of an teaching intervention on children's [verbal acquisition]{.underline}.
+-   **IV (Factor):** Intervention groups (G1, G2, G3, Control).
+-   **DV:** Verbal acquisition scores.
+-   **Hypotheses:**
+    -   $H_0$: $\mu_{Control} = \mu_{G1} = \mu_{G2} = \mu_{G3}$
+    -   $H_A$: At least two group means differ.
 
 ## Performing ANOVA in R
 
@@ -243,7 +245,7 @@ data_unequal <- data.frame(
 )
 ```
 
---- 
+------------------------------------------------------------------------
 
 ### Conduct ANOVA Test
 
@@ -257,11 +259,10 @@ summary(anova_result2)
 
 ## Checking Homogeneity of Variance
 
-
-
 ### Method 1: Visual Inspection of Variance Equality
 
 #### Equal Variances across groups
+
 ```{r}
 #| eval: true
 ggplot(data, aes(x = group, y = score)) +
@@ -270,8 +271,7 @@ ggplot(data, aes(x = group, y = score)) +
   labs(title = "Boxplot of Scores by Group", x = "Group", y = "Score")
 ```
 
-
----
+------------------------------------------------------------------------
 
 #### Unequal Variances across groups
 
@@ -283,7 +283,7 @@ ggplot(data_unequal, aes(x = group, y = score)) +
   labs(title = "Boxplot of Scores by Group", x = "Group", y = "Score")
 ```
 
----
+------------------------------------------------------------------------
 
 ### Method 2: Using Bartlett’s Test
 
@@ -303,9 +303,6 @@ leveneTest(score ~ group, data = data)
 leveneTest(score ~ group, data = data_unequal)
 ```
 
-
-
-
 ## Post-hoc Analysis
 
 ### Tukey Honest Significant Differences (HSD) Test
@@ -322,7 +319,7 @@ tukey_result <- TukeyHSD(anova_result)
 print(tukey_result$group)
 ```
 
----
+------------------------------------------------------------------------
 
 ```{r}
 #| eval: true
@@ -407,3 +404,23 @@ summary(anova_weighted)
 
 -   Review results and discuss findings.
 -   Key takeaways from the analysis.
+
+## Bonus: AI + Statistics
+
+```{r}
+#| eval: true
+#| echo: true
+
+library(ellmer)
+chat <- chat_ollama(model = "llama3.2", seed = 1234)
+
+prompt <- paste0("Perform ANOVA analysis using R code given the generated data sets by R and then interpret the results",
+'
+set.seed(1234)
+data <- data.frame(
+  group = rep(c("G1", "G2", "G3", "Control"), each = 10),
+  score = c(rnorm(10, 20, 5), rnorm(10, 25, 5), rnorm(10, 30, 5), rnorm(10, 22, 5))
+)
+')
+chat$chat(prompt)
+```
