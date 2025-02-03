@@ -12,11 +12,6 @@ execute:
   eval: false
   echo: true
 format: 
-  #html: 
-  #  page-layout: full
-  #  toc: true
-  #  toc-depth: 2
-  #  lightbox: true
   uark-revealjs:
     chalkboard: true
     embed-resources: false
@@ -27,7 +22,6 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     scrollable: true
-#jupyter: python3
 ---
 
 ## Lecture Outline
@@ -326,6 +320,12 @@ leveneTest(score ~ group, data = data_unequal)
 #| eval: true
 tukey_result <- TukeyHSD(anova_result)
 print(tukey_result$group)
+```
+
+---
+
+```{r}
+#| eval: true
 plot(tukey_result)
 ```
 

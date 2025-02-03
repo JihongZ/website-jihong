@@ -171,13 +171,14 @@ code span.er {
   text-decoration: none;
 }
 
-.reveal div.sourceCode {
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 10px !important;
-  box-shadow: 0 20px 47px rgb(0 0 0 / 55%);
-  margin: auto !important;
-}
+//.reveal div.sourceCode {
+//  background-color: #ebcb8b;
+//  border: none;
+//  border-radius: 5px;
+//  margin-bottom: 10px !important;
+//  box-shadow: 0 20px 47px rgb(0 0 0 / 55%);
+//  margin: auto !important;
+//}
 
 .reveal div.sourceCode pre code {
   padding: 25px;
@@ -188,7 +189,7 @@ code span.er {
   background-color: #FAF9F6;
   border-radius: 8px;
   border: none;
-  box-shadow: 0 10px 17px rgb(0 0 0 / 55%);
+  box-shadow: 0 10px 5px rgb(0 0 0 / 55%);
   //width: fit-content;
 }
 

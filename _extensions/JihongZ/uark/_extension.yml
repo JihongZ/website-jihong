@@ -7,7 +7,7 @@ contributes:
     revealjs:
         logo: UA_Logo.png
         theme: uark-theme.scss
-        highlight-style: github
+        highlight-style: atom-one
         width: 1920
         height: 1080
         slide-number: true
