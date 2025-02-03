@@ -32,11 +32,10 @@ format:
 
 ## Class Outline
 
--  Go through three assumptions of ANOVA and their checking statistics
--  Omnibus test for more group comparisons.
--  Example: Intervention and Verbal Acquisition
--  Exercise: Effect of Sleep Duration on Cognitive Performance
-
+-   Go through three assumptions of ANOVA and their checking statistics
+-   Omnibus test for more group comparisons.
+-   Example: Intervention and Verbal Acquisition
+-   Exercise: Effect of Sleep Duration on Cognitive Performance
 
 ## ANOVA Procedure
 
@@ -459,14 +458,12 @@ tukey_sleep <- TukeyHSD(anova_sleep)
 tukey_sleep
 ```
 
-:::{.heimu}
-- A one-way ANOVA was conducted to examine the effect of sleep duration on cognitive performance.
+::: heimu
+-   A one-way ANOVA was conducted to examine the effect of sleep duration on cognitive performance.
 
-- There was a statistically significant difference in cognitive test scores across sleep groups, $F(2,87)=15.88$,$p<.001$.
+-   There was a statistically significant difference in cognitive test scores across sleep groups, $F(2,87)=15.88$,$p<.001$.
 
-- Tukey's post-hoc test revealed that participants in the Long sleep group (M=81.52,SD=6.27) performed significantly better than those in the Short sleep group (M=65.68,SD=12.55), p<.01.
+-   Tukey's post-hoc test revealed that participants in the Long sleep group (M=81.52,SD=6.27) performed significantly better than those in the Short sleep group (M=65.68,SD=12.55), p\<.01.
 
-
-- These results suggest that inadequate sleep is associated with lower cognitive performance.
+-   These results suggest that inadequate sleep is associated with lower cognitive performance.
 :::
-

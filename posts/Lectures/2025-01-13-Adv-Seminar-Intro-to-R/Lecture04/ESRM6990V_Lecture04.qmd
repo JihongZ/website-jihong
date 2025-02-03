@@ -10,9 +10,9 @@ date: "2025-01-28"
 date-modified: "2024-10-11"
 sidebar: false
 execute: 
+  eval: true
   echo: true
   warning: false
-  eval: true
 output-location: default
 code-annotations: below
 highlight-style: "nord"
@@ -28,6 +28,90 @@ format:
     tbl-colwidths: auto
     output-file: slides-index.html
 ---
+
+## Function Scope
+
+-   **Local Scope (Environment)**: Variables defined inside a function are local to that function.
+
+```{r}
+x = 5
+print_x <- function(x) {x = 3; return(x)}
+x
+```
+
+-   **Global Scope (Environment)**: Variables defined outside a function are accessible throughout the script.
+
+------------------------------------------------------------------------
+
+### Example: Local Scope
+
+```{r}
+#| error: true
+add <- function(x, y) {
+  result <- x + y
+  return(result)
+}
+
+add(2, 3)   # Output: 5
+result      # Error: object 'result' not found
+```
+
+- We can use `<<-` to copy the object `result` to the global enviroment.
+
+```{r}
+add <- function(x, y) {
+  result <<- x + y
+  return(result)
+}
+add(2, 3)   # Output: 5
+result 
+```
+
+## Practical Example of Function Scoping
+
+```{r}
+library(car)
+m2 <- lm(prestige ~ education, data=carData::Prestige)
+car::ncvTest(m2, ~ income)
+```
+This fits `prestige` as a linear function of `education`, and tests for nonconstant
+variance as a function of `income`, another regressor in the data set `Prestige.`
+
+---
+
+### Issue of `lm`
+
+```{r}
+#| error: true
+f3 <- function(meanmod, dta, varmod) {
+  m3 <- lm(meanmod, dta)
+  car::ncvTest(m3, varmod)
+}
+f3(meanmod=prestige ~ education, dta=carData::Prestige, varmod = varmod ~ income)
+```
+
+The arguments `dta` and `meanmod` are defined in the environment of the function, but the call to `lm` looks for them in the global environment, and they are
+therefore invisible when `lm` is called.
+
+--- 
+
+### Solution: copy to global environment
+
+The assign function copies the `dta` and `meanmod` arguments to the global environment and rename them as `.dta` and `.meanmod` where ncvTest will be evaluated, and the remove function removes them before exiting the function.
+
+```{r}
+f4 <- function(meanmod, dta, varmod) {
+  assign(".dta", dta, envir=.GlobalEnv)
+  assign(".meanmod", meanmod, envir=.GlobalEnv)
+  m1 <- lm(.meanmod, .dta)
+  ans <- car::ncvTest(m1, varmod)
+  remove(".dta", envir=.GlobalEnv)
+  remove(".meanmod", envir=.GlobalEnv)
+  ans
+}
+f4(prestige ~ education, carData::Prestige, ~income)
+```
+
 
 ## Introduction to Data Import
 

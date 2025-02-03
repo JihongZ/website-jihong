@@ -1,5 +1,5 @@
 ---
-title: "Lecture 03: One-way ANOVA"
+title: "Lecture 03: Introduction to One-way ANOVA"
 subtitle: "Experimental Design in Education"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -23,7 +23,7 @@ format:
     code-fold: false
     number-sections: true
     number-depth: 1
-    footer: "ESRM 64503: Lecture02"
+    footer: "ESRM 64503: Lecture 03"
     slide-number: c/t
     tbl-colwidths: auto
     scrollable: true
@@ -32,17 +32,22 @@ format:
 
 ## Lecture Outline
 
+-   Homework assignment
 -   Introduction to ANOVA
--   Why use ANOVA instead of multiple t-tests?
--   Logic and components of ANOVA
--   Steps and assumptions in ANOVA
--   Example scenario and real-world applications
+    -   Why use ANOVA instead of multiple t-tests?
+    -   Logic and components of ANOVA
+    -   Steps and assumptions in ANOVA
+    -   Example scenario and real-world applications
 -   Performing ANOVA in R
--   Checking homogeneity of variance
--   Post-hoc analysis
--   Using weights in ANOVA
--   Where to find weights for ANOVA
--   Conclusion and homework assignment
+    -   Checking homogeneity of variance
+    -   Post-hoc analysis
+    -   Using weights in ANOVA
+    -   Where to find weights for ANOVA
+-   Conclusion
+
+# Homework 1
+
+## Let's walk through HW1 
 
 # One-Way ANOVA
 
@@ -75,17 +80,106 @@ format:
 
 ## Components of ANOVA
 
--   **Total Sum of Squares (SS_total)**: Total variance in the data.
--   **Sum of Squares Between (SS_between)**: Variance due to the model.
--   **Sum of Squares Within (SS_within)**: Variance due to error.
--   Relationship: ( SS\_{total} = SS\_{between} + SS\_{within} )
+-   **Total Sum of Squares ($SS_{total}$)**: Total variance of outcomes in the data.
+-   **Sum of Squares Between ($SS_{between}$)**: Variability of outcomes due to the group(s).
+-   **Sum of Squares Within ($SS_{within}$)**: Variability due to error (some we do not test yet).
+-   Relationship: $SS_{total} = SS_{between} + SS_{within}$
 
-## Steps in ANOVA
+---
+
+### If $SS_{between}$ > $SS_{within}$ ...
+
+```{r}
+#| eval: true
+#| echo: false
+library(ggplot2)
+library(dplyr)
+set.seed(1234)
+data <- data.frame(
+  group = rep(c("G1", "Control"), each = 20),
+  score = c(rnorm(20, mean = 20, sd = 1), rnorm(20, mean = 25, sd = 1))
+)
+mean_tbl <- data |> 
+  group_by(group) |> 
+  summarise(G_means = mean(score),
+            G_max = max(score),
+            G_min = min(score))
+ggplot(data) +
+  geom_point(aes(x = group, y = score, color = group)) +
+  geom_point(aes(x = group, y = G_means, color = group), data = mean_tbl, size = 5) +
+  geom_errorbar(aes(ymin = G_min, ymax = G_max, x = group), 
+                 data = mean_tbl, width = .05,
+                color = "green2", linewidth = 1.3,
+                position = position_nudge(x = -.1)) +
+  annotate(geom = "errorbar", 
+           ymin = min(mean_tbl$G_means[2]), 
+           ymax = max(mean_tbl$G_means[1]), 
+           x = 1.5, width = .05, linewidth = 1.3,
+           color = "royalblue") +
+  theme_classic() +
+  labs(title = "Scatter Plot of Scores by Group", x = "Group", y = "Score", caption = "SD = 1, Mean = {25, 20}")
+```
+
+#### R output:
+
+```{r}
+#| eval: true
+#| echo: false
+anova_result <- aov(score ~ group, data = data)
+res <-  summary(anova_result)
+res
+```
+
+---
+
+### If $SS_{between}$ < $SS_{within}$ ...
+
+```{r}
+#| eval: true
+#| echo: false
+set.seed(1234)
+data <- data.frame(
+  group = rep(c("G1", "Control"), each = 20),
+  score = c(rnorm(20, mean = 20, sd = 5), 
+            rnorm(20, mean = 25, sd = 5))
+)
+mean_tbl <- data |> 
+  group_by(group) |> 
+  summarise(G_means = mean(score),
+            G_max = max(score),
+            G_min = min(score))
+ggplot(data) +
+  geom_point(aes(x = group, y = score, color = group)) +
+  geom_point(aes(x = group, y = G_means, color = group), data = mean_tbl, size = 5) +
+  geom_errorbar(aes(ymin = G_min, ymax = G_max, x = group), 
+                 data = mean_tbl, width = .05,
+                color = "green2", linewidth = 1.3,
+                position = position_nudge(x = -.1)) +
+  annotate(geom = "errorbar", 
+           ymin = min(mean_tbl$G_means[2]), 
+           ymax = max(mean_tbl$G_means[1]), 
+           x = 1.5, width = .05, linewidth = 1.3,
+           color = "royalblue") +
+  theme_classic() +
+  labs(title = "Scatter Plot of Scores by Group", x = "Group", y = "Score", caption = "SD = 5, Mean = {25, 20}")
+```
+
+#### R output:
+
+```{r}
+#| eval: true
+#| echo: false
+anova_result <- aov(score ~ group, data = data)
+res <-  summary(anova_result)
+res
+```
+
+## Practical Steps in One-way ANOVA
 
 1.  Compute total variability.
 2.  Decompose total variability into model-related and error-related components.
-3.  Compute the F-statistic: \[ F\_{obs} = \frac{MS_{between}}{MS_{within}} \]
-4.  Construct the ANOVA table and draw conclusions.
+3.  Compute the F-statistic: $F_{obs} = \frac{SS_{between}/df_{between}}{SS_{within}/df_{within}}=  \frac{MS_{between}}{MS_{within}}$
+4.  Construct the ANOVA table, determine alpha level and draw conclusions.
 5.  Examine Homogeneity of Variance
 6.  Conduct Post-Hoc Analysis
 
@@ -102,8 +196,8 @@ format:
 -   **IV (Factor):** Intervention groups (G1, G2, G3, Control).
 -   **DV:** Verbal acquisition scores.
 -   **Hypotheses:**
-    -   ( H_0: \mu*{Control} =* \mu{G1} = \mu*{G2} =* \mu{G3} )
-    -   ( H_A ): At least two group means differ.
+    - $H_0$: $\mu_{Control} = \mu_{G1} = \mu_{G2} = \mu_{G3}$
+    - $H_A$: At least two group means differ.
 
 ## Homogeneity of Variance
 
@@ -129,10 +223,10 @@ format:
 ```{r}
 #| eval: true
 library(ggplot2)
-library(car) # used for leveneTest
+library(car) # used for leveneTest; install.packages("car")
 ```
 
-### Load Sample Data
+### Generate Sample Data
 
 -   Context: the example research focus on whether three different teaching methods (labeled as G1, G2, G3) on students' test scores.
 
