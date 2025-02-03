@@ -228,6 +228,10 @@ library(car) # used for leveneTest; install.packages("car")
 
 ### Generate Sample Data
 
+```{r}
+rnorm(10, 20, 10) # generate 10 data points from a normal distribution of mean as 20 and SD as 10
+```
+
 -   Context: the example research focus on whether three different teaching methods (labeled as G1, G2, G3) on students' test scores.
 
 -   In total, 40 students are assigned to three teaching group and one default teaching group. Each group have 10 samples.
@@ -245,38 +249,25 @@ data_unequal <- data.frame(
 )
 ```
 
+--- 
+
 ### Conduct ANOVA Test
 
 ```{r}
 #| eval: true
 anova_result <- aov(score ~ group, data = data)
 summary(anova_result)
+anova_result2 <- aov(score ~ group, data = data_unequal)
+summary(anova_result2)
 ```
 
 ## Checking Homogeneity of Variance
 
-### Using Bartlett’s Test
 
-```{r}
-#| eval: true
-bartlett.test(score ~ group, data = data)
-bartlett.test(score ~ group, data = data_unequal)
-```
 
-------------------------------------------------------------------------
+### Method 1: Visual Inspection of Variance Equality
 
-### Using Levene’s Test
-
-```{r}
-#| eval: true
-leveneTest(score ~ group, data = data)
-leveneTest(score ~ group, data = data_unequal)
-```
-
-------------------------------------------------------------------------
-
-### Visual Inspection of Variance Equality
-
+#### Equal Variances across groups
 ```{r}
 #| eval: true
 ggplot(data, aes(x = group, y = score)) +
@@ -285,7 +276,10 @@ ggplot(data, aes(x = group, y = score)) +
   labs(title = "Boxplot of Scores by Group", x = "Group", y = "Score")
 ```
 
-------------------------------------------------------------------------
+
+---
+
+#### Unequal Variances across groups
 
 ```{r}
 #| eval: true
@@ -295,20 +289,44 @@ ggplot(data_unequal, aes(x = group, y = score)) +
   labs(title = "Boxplot of Scores by Group", x = "Group", y = "Score")
 ```
 
+---
+
+### Method 2: Using Bartlett’s Test
+
+```{r}
+#| eval: true
+bartlett.test(score ~ group, data = data)
+bartlett.test(score ~ group, data = data_unequal)
+```
+
+------------------------------------------------------------------------
+
+### Method 3: Using Levene’s Test
+
+```{r}
+#| eval: true
+leveneTest(score ~ group, data = data)
+leveneTest(score ~ group, data = data_unequal)
+```
+
+
+
+
 ## Post-hoc Analysis
 
-### Tukey HSD Test
+### Tukey Honest Significant Differences (HSD) Test
 
--   Create a set of confidence intervals on the differences between the means of the levels of a factor with the specified family-wise probability of coverage.
+-   Create a set of confidence intervals on the differences between the means of the pairwise levels of a factor with the specified family-wise probability of coverage.
 
 -   When comparing the means for the levels of a factor in an analysis of variance, a simple comparison using t-tests will inflate the probability of declaring a significant difference when it is not in fact present.
 
--   Tukey Honest Significant Differences
+-   Based on Tukey's 'Honest Significant Differences' method
 
 ```{r}
 #| eval: true
 tukey_result <- TukeyHSD(anova_result)
 print(tukey_result$group)
+plot(tukey_result)
 ```
 
 ## Interpreting Results
@@ -351,9 +369,10 @@ data |>
 -   Weighted ANOVA allows us to account for these differences by assigning weights.
 -   Example: A study where some groups have higher variance and should contribute less to the analysis.
 
-## Example: Applying Weights in aov()
+## Example: Applying Weights in `aov()`
 
 ```{r}
+#| eval: true
 weights <- c(rep(1, 10), rep(2, 10), rep(0.5, 10), rep(1.5, 10))
 anova_weighted <- aov(score ~ group, data = data, weights = weights)
 summary(anova_weighted)
@@ -376,6 +395,7 @@ summary(anova_weighted)
 -   Weighting adjusts for this imbalance:
 
 ```{r}
+#| eval: true
 weights <- ifelse(data$group == "LargeSchool", 0.5, 1)
 anova_weighted <- aov(score ~ group, data = data, weights = weights)
 summary(anova_weighted)
