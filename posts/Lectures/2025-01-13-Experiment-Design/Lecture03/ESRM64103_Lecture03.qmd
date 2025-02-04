@@ -424,3 +424,9 @@ data <- data.frame(
 ')
 chat$chat(prompt)
 ```
+
+```{r}
+library(ellmer)
+chat <- chat_ollama(model = "llama3.2", seed = 1234)
+chat$chat("What is the null hypothesis for Bartlett's test?")
+```
