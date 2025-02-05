@@ -1,0 +1,76 @@
+---
+title: "VSCode & Quarto Setup, Current Status and Questions"
+subtitle: ""
+description: ''
+author: 'Jihong Zhang'
+date: '10 18 2024'
+sidebar: false
+categories:
+  - R
+  - Shiny
+  - Quarto
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  error: true
+format: 
+  html: 
+    code-fold: false
+    code-summary: 'Click to see the code'
+    number-sections: true
+bibliography: references.bib
+---
+
+## Basic workflow
+
+1.  [VSCode Docs - Language R](https://code.visualstudio.com/docs/languages/r)
+2.  [quarto Docs - VSCode tutorial](https://quarto.org/docs/get-started/hello/vscode.html)
+
+### Render the .qmd
+
+To render and preview, execute the **Quarto: Preview** command. You can alternatively use the `Cmd+Shift+K` keyboard shortcut.
+
+### Running Cells
+
+Use `cmd+shift+i` to create new code cell.
+
+```{r}
+#| eval: true
+#| echo: fenced
+theta = 3 * 4
+beta = theta + 2
+print(beta)
+```
+
+```{python}
+#| echo: fenced
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+### Visual Editing in VS Code
+
+Similar to RStudio, use the `⇧⌘ F4` keyboard shortcut to switch to Visual Editing Mode.
+
+### Execution Option
+
+Do not use `jupyter: python3`. Instead, leave it blank to execute both R and Python and output.
+
+## Radian terminal on VSCode
+
+1.  [Blog - R and radian on macOS and VSCode](https://luongbui.com/r-and-radian-on-macos-and-vscode/)
+2.  [radian GitHub](https://github.com/randy3k/radian)
