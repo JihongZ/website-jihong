@@ -3,7 +3,7 @@ title: ''
 subtitle: ''
 listing:
   - id: lectures
-    contents: posts/Lectures/*/*.[Rq]md
+    contents: posts/Lectures/*/*_syllabus.[Rq]md
     sort: "date desc"
     type: grid
 title-block-banner: false
