@@ -1,6 +1,10 @@
 ---
 title: "ESRM64103: Student Grades"
 sidebar: false
+format: 
+  html:
+    code-link: false
+    code-tools: false
 filters:
   - shinylive
 ---
