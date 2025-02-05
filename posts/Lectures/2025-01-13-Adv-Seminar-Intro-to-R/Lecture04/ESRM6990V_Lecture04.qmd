@@ -6,8 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2025-01-28"
-date-modified: "2024-10-11"
+date: "2025-02-05"
 sidebar: false
 execute: 
   eval: true
@@ -21,7 +20,7 @@ format:
     code-tools: true
     code-line-numbers: false
     code-fold: false
-    number-offset: 1
+    number-offset: 0
   uark-revealjs:
     scrollable: true
     chalkboard: true
@@ -33,6 +32,8 @@ format:
     tbl-colwidths: auto
     output-file: slides-index.html
 ---
+
+# Nested Function
 
 ## Function Scope
 
@@ -80,11 +81,11 @@ m2 <- lm(prestige ~ education, data=carData::Prestige)
 car::ncvTest(m2, ~ income)
 ```
 
-This fits `prestige` as a linear function of `education`, and tests for nonconstant variance as a function of `income`, another regressor in the data set `Prestige.`
+This fits variable `prestige` as a linear function of predictor `education`, and tests for nonconstant variance as a function of `income`, another regressor in the data set `Prestige.`
 
 ------------------------------------------------------------------------
 
-### Issue of `lm`
+### Issue of `lm` when call it in the function
 
 ```{r}
 #| error: true
@@ -95,7 +96,7 @@ f3 <- function(meanmod, dta, varmod) {
 f3(meanmod=prestige ~ education, dta=carData::Prestige, varmod = varmod ~ income)
 ```
 
-The arguments `dta` and `meanmod` are defined in the environment of the function, but the call to `lm` looks for them in the global environment, and they are therefore invisible when `lm` is called.
+The arguments `dta` and `meanmod` are defined in the environment of the function, but the call to `lm` looks for them in the **global environment**, and they are therefore invisible when `lm` is called.
 
 ------------------------------------------------------------------------
 
@@ -116,6 +117,8 @@ f4 <- function(meanmod, dta, varmod) {
 f4(prestige ~ education, carData::Prestige, ~income)
 ```
 
+# Data Import
+
 ## Introduction to Data Import
 
 In this presentation, we will learn how to import data into R and tidy it for analysis. Data is often messy, but understanding how to manipulate it is a critical skill for any data scientist.
@@ -124,7 +127,9 @@ In this presentation, we will learn how to import data into R and tidy it for an
 
 ## Working with Your Own Data
 
-While R packages provide a great way to work with sample data, at some point, you'll need to apply what you've learned to your own data. In this chapter, we'll focus on importing rectangular data, especially CSV files.
+- While R packages provide a great way to work with sample data, at some point, you'll need to apply what you've learned to your own data. 
+
+- In today's lecture, we'll focus on importing rectangular data, especially CSV files.
 
 ------------------------------------------------------------------------
 
@@ -134,6 +139,8 @@ To read data in R, we’ll use the `readr` package, which is part of the `tidyve
 
 ```{r}
 library(tidyverse)
+# or
+library(readr)
 ```
 
 ------------------------------------------------------------------------
