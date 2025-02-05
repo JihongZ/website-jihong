@@ -6,7 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2025-08-18"
+date: "2025-02-05"
 sidebar: false
 execute: 
   warning: false
@@ -14,13 +14,14 @@ execute:
 format: 
   html: 
     page-layout: full
+    number-offset: 1
     toc: true
     toc-depth: 2
     lightbox: true
     code-fold: show
 ---
 
-### Open-Ended Homework Questions on P-values, Alpha, and F-statistics
+## Open-Ended Homework Questions on P-values, Alpha, and F-statistics
 
 #### Question 1: Theoretical Foundations
 
