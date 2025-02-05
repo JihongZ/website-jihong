@@ -266,7 +266,7 @@
   stroke: none
 )
 #show: doc => article(
-  title: [ESRM 64103: EXPERIMENTAL DESIGN IN EDUC],
+  title: [ESRM 64103: Experimental Design In Education],
   authors: (
     ( name: [Jihong Zhang],
       affiliation: [],

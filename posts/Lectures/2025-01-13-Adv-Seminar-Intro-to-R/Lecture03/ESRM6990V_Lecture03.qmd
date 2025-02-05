@@ -17,6 +17,11 @@ output-location: default
 code-annotations: below
 highlight-style: "nord"
 format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 1
   uark-revealjs:
     scrollable: true
     chalkboard: true

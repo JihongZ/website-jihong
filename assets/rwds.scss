@@ -4,6 +4,23 @@
 
 /*-- scss:rules --*/
 @font-face {
+    font-family: 'MiSans';
+    src: local('MiSans Regular'), local('MiSans-Regular'),
+         url('./fonts/MiSans/MiSans-Regular.woff2') format('woff2'),
+         url('./fonts/MiSans/MiSans-Regular.woff') format('woff'),
+         url('./fonts/MiSans/MiSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+@font-face {
+    font-family: 'MiSans Bold';
+    src: local('MiSans Bold'), local('MiSans-Bold'),
+         url('./fonts/MiSans/MiSans-Bold.woff2') format('woff2'),
+         url('./fonts/MiSans/MiSans-Bold.woff') format('woff'),
+         url('./fonts/MiSans/MiSans-Bold.ttf') format('truetype');
+    font-style: bold;
+  }  
+@font-face {
     font-family: 'Taub Sans';
     src: local('Taub Sans Regular'), local('Taub-Sans-Regular'),
          url('./fonts/TaubSans-Regular/TaubSans-Regular.woff2') format('woff2'),
@@ -44,7 +61,7 @@
 }
 
 body {
-  font-family: "Titillium Web", sans-serif;
+  font-family: "MiSans", sans-serif;
 }
 
 h1, h2, h3 {
@@ -55,12 +72,13 @@ h1, h2, h3 {
 }
 
 p { // main font family of post content
-  font-family: "Titillium Web", sans-serif;
-  font-weight: 400;
+  font-family: "MiSans", sans-serif;
+  font-weight: 200;
 }
 
 strong {
-  font-weight: 700;
+  font-family: "MiSans Bold", sans-serif;
+  font-weight: 600;
 }
 
 /*-- scss:uses --*/

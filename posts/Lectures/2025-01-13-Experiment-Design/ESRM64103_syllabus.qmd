@@ -1,5 +1,5 @@
 ---
-title: "ESRM 64103: EXPERIMENTAL DESIGN IN EDUC"
+title: "ESRM 64103: Experimental Design In Education"
 subtitle: "Spring 2025, Monday, 5:00-7:45PM, Classroom GRAD 239, 2025/01/13 - 2025/05/01"
 author: "Jihong Zhang"
 date: "Jan 13 2025" 

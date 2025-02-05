@@ -17,6 +17,11 @@ output-location: default
 code-annotations: below
 highlight-style: "nord"
 format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 1
   uark-revealjs:
     scrollable: true
     chalkboard: true
@@ -56,7 +61,7 @@ add(2, 3)   # Output: 5
 result      # Error: object 'result' not found
 ```
 
-- We can use `<<-` to copy the object `result` to the global enviroment.
+-   We can use `<<-` to copy the object `result` to the global enviroment.
 
 ```{r}
 add <- function(x, y) {
@@ -74,10 +79,10 @@ library(car)
 m2 <- lm(prestige ~ education, data=carData::Prestige)
 car::ncvTest(m2, ~ income)
 ```
-This fits `prestige` as a linear function of `education`, and tests for nonconstant
-variance as a function of `income`, another regressor in the data set `Prestige.`
 
----
+This fits `prestige` as a linear function of `education`, and tests for nonconstant variance as a function of `income`, another regressor in the data set `Prestige.`
+
+------------------------------------------------------------------------
 
 ### Issue of `lm`
 
@@ -90,10 +95,9 @@ f3 <- function(meanmod, dta, varmod) {
 f3(meanmod=prestige ~ education, dta=carData::Prestige, varmod = varmod ~ income)
 ```
 
-The arguments `dta` and `meanmod` are defined in the environment of the function, but the call to `lm` looks for them in the global environment, and they are
-therefore invisible when `lm` is called.
+The arguments `dta` and `meanmod` are defined in the environment of the function, but the call to `lm` looks for them in the global environment, and they are therefore invisible when `lm` is called.
 
---- 
+------------------------------------------------------------------------
 
 ### Solution: copy to global environment
 
@@ -111,7 +115,6 @@ f4 <- function(meanmod, dta, varmod) {
 }
 f4(prestige ~ education, carData::Prestige, ~income)
 ```
-
 
 ## Introduction to Data Import
 
@@ -213,7 +216,7 @@ table(students_fixedDataType$meal_plan)
 
 Sometimes, your data is split across multiple files. You can read them all at once and combine them into a single data frame:
 
-```{csv}
+```csv
 #| code-summary: "01-sales.csv"
 #| code-fold: true
 month,year,brand,item,n
@@ -226,7 +229,7 @@ January,2019,2,3987,6
 January,2019,2,3827,6
 ```
 
-```{csv}
+```csv
 #| code-summary: "02-sales.csv"
 #| code-fold: true
 month,year,brand,item,n
@@ -238,7 +241,7 @@ February,2019,2,2156,3
 February,2019,2,3987,6
 ```
 
-```{csv}
+```csv
 #| code-summary: "03-sales.csv"
 #| code-fold: true
 month,year,brand,item,n
