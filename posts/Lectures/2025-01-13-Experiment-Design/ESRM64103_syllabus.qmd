@@ -170,6 +170,8 @@ The university does not observe religious holidays; however Campus Council has p
 3.  Homework 2
 4.  Homework 3
 
+Please the online [gradebook](Grade.qmd) for your current grade.
+
 # Schedule
 
 Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon on next Monday.**

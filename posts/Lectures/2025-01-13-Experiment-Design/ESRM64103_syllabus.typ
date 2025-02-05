@@ -441,6 +441,8 @@ When members of any religion seek to be excused from class for religious reasons
 + Homework 2
 + Homework 3
 
+Please the online #link("Grade.qmd")[gradebook] for your current grade.
+
 = Schedule
 <schedule>
 Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. #strong[All homework are due at noon on next Monday.]
