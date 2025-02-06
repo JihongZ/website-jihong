@@ -294,7 +294,7 @@ Employee ID,Full Name,Department,Salary,Years of Experience
 ```
 
 1. Use the `read_csv()` function to import this data into R.
-  - For illustration, you can use literal data for importing.
+  - For illustration, you can use the literal data (hint: use `I()`) to import the csv text.
 
 ```{r}
 #| eval: false
