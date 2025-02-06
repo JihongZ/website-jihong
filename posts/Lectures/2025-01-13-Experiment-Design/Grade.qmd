@@ -142,7 +142,15 @@ data = FileAttachment("homework_scores.csv")
     }))
   );
 
-// Create a styled input box for the student ID
+// Create a styled container for input and button (aligned in one row)
+viewof inputContainer = html`<div style="
+  display: flex; 
+  align-items: center; 
+  gap: 10px;
+  margin-bottom: 15px;
+">`;
+
+// Define the input box for Student ID
 viewof studentID = Inputs.text({
   label: "🔍 Enter Student ID:",
   placeholder: "e.g., 012345667",
@@ -151,27 +159,28 @@ viewof studentID = Inputs.text({
     padding: "10px",
     borderRadius: "8px",
     border: "1px solid #ccc",
-    width: "250px",
-    marginBottom: "10px"
+    width: "250px"
   }
 });
 
-// Create a stylized button with hover effect
+// Define the stylized confirm button
 viewof confirmButton = Inputs.button("✔ Confirm", {
   style: {
     fontSize: "16px",
     padding: "10px 20px",
     backgroundColor: "#4CAF50",
-    color: "blue",
+    color: "white",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
-    transition: "background-color 0.3s",
-    marginTop: "10px"
+    transition: "background-color 0.3s"
   },
   onmouseover: function () { this.style.backgroundColor = "#45a049"; },
   onmouseout: function () { this.style.backgroundColor = "#4CAF50"; }
 });
+
+// Append input and button to the container
+inputContainer.append(studentID, confirmButton);
 
 // Filter the data based on the entered student ID
 filteredData = {
