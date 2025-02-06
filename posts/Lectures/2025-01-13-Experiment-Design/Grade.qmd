@@ -130,30 +130,65 @@ write.csv(grades_data, "homework_scores.csv")
 
 ```{ojs}
 // Import necessary modules
-import { Table, Inputs } from "@observablehq/inputs"
+import { Table, Inputs } from "@observablehq/inputs";
 
-// Load the CSV data and convert Student_ID to string
-data = FileAttachment("homework_scores.csv").csv({typed: true}).then(rows => 
-  rows.map(row => ({...row, Student_ID: String(row.Student_ID).padStart(9, '0')}))
-)
+// Load the CSV data and ensure Student_ID is a string with leading zeros
+data = FileAttachment("homework_scores.csv")
+  .csv({ typed: true })
+  .then(rows =>
+    rows.map(row => ({
+      ...row,
+      Student_ID: String(row.Student_ID).padStart(9, '0')
+    }))
+  );
 
-// Create an input box for the student ID
+// Create a styled input box for the student ID
 viewof studentID = Inputs.text({
-  label: "Enter Student ID",
-  placeholder: "e.g., 012345667"
-})
+  label: "🔍 Enter Student ID:",
+  placeholder: "e.g., 012345667",
+  style: {
+    fontSize: "16px",
+    padding: "10px",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+    width: "250px",
+    marginBottom: "10px"
+  }
+});
 
-// Create a button to confirm the input
-viewof confirmButton = Inputs.button("Confirm")
+// Create a stylized button with hover effect
+viewof confirmButton = Inputs.button("✔ Confirm", {
+  style: {
+    fontSize: "16px",
+    padding: "10px 20px",
+    backgroundColor: "#4CAF50",
+    color: "blue",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+    marginTop: "10px"
+  },
+  onmouseover: function () { this.style.backgroundColor = "#45a049"; },
+  onmouseout: function () { this.style.backgroundColor = "#4CAF50"; }
+});
 
 // Filter the data based on the entered student ID
 filteredData = {
   if (confirmButton) {
-    return data.filter(d => d.Student_ID === studentID)
+    return data.filter(d => d.Student_ID === studentID);
   }
-  return []
-}
+  return [];
+};
 
-// Display the filtered data in a table
-Table(filteredData, {columns: ["Student_ID", "Name", "Bonus", "HW1_Grade", "Total"]})
+// Display the filtered data in a table with custom styling
+Table(filteredData, {
+  columns: ["Student_ID", "Name", "Bonus", "HW1_Grade", "Total"],
+  style: {
+    width: "100%",
+    borderCollapse: "collapse",
+    fontSize: "16px"
+  }
+});
+
 ```
