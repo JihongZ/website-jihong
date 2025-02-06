@@ -93,10 +93,22 @@ f3 <- function(meanmod, dta, varmod) {
   m3 <- lm(meanmod, dta)
   car::ncvTest(m3, varmod)
 }
-f3(meanmod=prestige ~ education, dta=carData::Prestige, varmod = varmod ~ income)
+f3(meanmod=prestige ~ education, dta=carData::Prestige, varmod = ~ income)
+```
+
+```{r}
+library(pryr) #install.packages("pryr")
+
+f3_2 <- function(meanmod, dta, varmod) {
+    m3 <- lm(meanmod, dta)
+    print(environment(formula(m3))) # lm define formula in the global enviroment
+    where("dta")
+} 
+f3_2(meanmod=prestige ~ education, dta=carData::Prestige, varmod = ~ income)
 ```
 
 The arguments `dta` and `meanmod` are defined in the environment of the function, but the call to `lm` looks for them in the **global environment**, and they are therefore invisible when `lm` is called.
+
 
 ------------------------------------------------------------------------
 
@@ -107,11 +119,9 @@ The assign function copies the `dta` and `meanmod` arguments to the global envir
 ```{r}
 f4 <- function(meanmod, dta, varmod) {
   assign(".dta", dta, envir=.GlobalEnv)
-  assign(".meanmod", meanmod, envir=.GlobalEnv)
-  m1 <- lm(.meanmod, .dta)
+  m1 <- lm(meanmod, .dta)
   ans <- car::ncvTest(m1, varmod)
   remove(".dta", envir=.GlobalEnv)
-  remove(".meanmod", envir=.GlobalEnv)
   ans
 }
 f4(prestige ~ education, carData::Prestige, ~income)
@@ -121,7 +131,9 @@ f4(prestige ~ education, carData::Prestige, ~income)
 
 ## Introduction to Data Import
 
-In this presentation, we will learn how to import data into R and tidy it for analysis. Data is often messy, but understanding how to manipulate it is a critical skill for any data scientist.
+- In this presentation, we will learn how to import data into R and tidy it for analysis. 
+
+- Data is often messy, but understanding how to manipulate it is a critical skill for any data scientist.
 
 ------------------------------------------------------------------------
 
@@ -129,9 +141,16 @@ In this presentation, we will learn how to import data into R and tidy it for an
 
 - While R packages provide a great way to work with sample data, at some point, you'll need to apply what you've learned to your own data. 
 
-- In today's lecture, we'll focus on importing rectangular data, especially CSV files.
+- In today's lecture, we'll focus on importing rectangular data, especially `CSV` files.
+
+### CSV file 
+
+- A CSV (Comma Separated Values) file is a plain text file that contains tabular data, such as lists of information, in a format that can be easily read and written by humans and machines.
+
+- The values in each cell are separated by commas (hence the name), but other delimiters like semicolons, tabs, or pipes can also be used.
 
 ------------------------------------------------------------------------
+
 
 ## Prerequisites for Reading Data
 
@@ -145,11 +164,12 @@ library(readr)
 
 ------------------------------------------------------------------------
 
-## Reading Data from a CSV File
+## Reading Data
 
 Let’s start with a common file format: CSV. Here’s a simple example:
 
-``` csv
+```{csv}
+#| eval: false
 Student ID,Full Name,favourite.food,mealPlan,AGE
 1,Sunil Huffmann,Strawberry yoghurt,Lunch only,4
 2,Barclay Lynn,French fries,Lunch only,5
@@ -165,6 +185,170 @@ You can read this CSV file into R using the `read_csv()` function.
 students <- read_csv("data/students.csv")
 students
 ```
+
+### Import with literal data
+
+- To be recognised as literal data, the input must be either wrapped with I(), be a string containing at least one new line, or be a vector containing at least one string with a new line.
+
+```{r}
+#| message: false
+students_literal <- read_csv(I("
+Student ID,Full Name,favourite.food,mealPlan,AGE
+1,Sunil Huffmann,Strawberry yoghurt,Lunch only,4
+2,Barclay Lynn,French fries,Lunch only,5
+3,Jayendra Lyne,N/A,Breakfast and lunch,7
+4,Leon Rossini,Anchovies,Lunch only,
+5,Chidiegwu Dunkel,Pizza,Breakfast and lunch,five
+6,Güvenç Attila,Ice cream,Lunch only,6"))
+students_literal
+```
+
+---
+
+- Use `read_delim` as a more generic function to import data with customized deliminator.
+
+```{r}
+#| message: false
+students_pipe <- read_delim(I("
+Student ID|Full Name|favourite.food|mealPlan|AGE
+1|Sunil Huffmann|Strawberry yoghurt|Lunch only|4
+2|Barclay Lynn|French fries|Lunch only|5
+3|Jayendra Lyne|N/A|Breakfast and lunch|7
+4|Leon Rossini|Anchovies|Lunch only|
+5|Chidiegwu Dunkel|Pizza|Breakfast and lunch|five
+6|Güvenç Attila|Ice cream|Lunch only|6"), delim = "|")
+students_pipe
+```
+
+------------------------------------------------------------------------
+
+### Import from Wikipedia Webpage
+
+- If you want to copy this web [Billboard Christian  and Gospel table](https://en.wikipedia.org/wiki/Billboard_charts#Christian_and_Gospel) from Wikipedia, choose `inspect` from the right-clicked menu. Find the "\<table\>" html element, and copy `outer HTML`.
+
+- Install and Load `rvest` package
+
+- `minimal_html`: Convert the HTML text into html R object
+
+- `html_element` and `html_table` can convert the local html table into "tibble" format
+
+```{r}
+#| code-fold: true
+#| code-summary: "Click this to see the code"
+library(rvest)
+sample1 <- minimal_html('
+<table class="wikitable sortable jquery-tablesorter">
+<thead><tr>
+<th width="200" class="headerSort" tabindex="0" role="columnheader button" title="Sort ascending">Chart title
+</th>
+<th width="120" class="headerSort" tabindex="0" role="columnheader button" title="Sort ascending">Chart type
+</th>
+<th class="headerSort" tabindex="0" role="columnheader button" title="Sort ascending"><small>Number of<br>positions</small>
+</th>
+<th class="unsortable">Description
+</th></tr></thead><tbody>
+<tr>
+<td><a href="/wiki/Hot_Christian_Songs" title="Hot Christian Songs">Hot Christian Songs</a>
+</td>
+<td align="center">Sales, streaming, all format airplay
+</td>
+<td align="center">50
+</td>
+<td>Combines sales, airplay from all radio formats, and streaming data
+</td></tr>
+<tr>
+<td>Christian Digital Song Sales
+</td>
+<td align="center">Digital downloads
+</td>
+<td align="center">50
+</td>
+<td>Top-downloaded <a href="/wiki/Christian_music" title="Christian music">Christian songs</a>, ranked by sales data as compiled by Luminate.
+</td></tr>
+<tr>
+<td>Christian Streaming Songs
+</td>
+<td align="center">Streaming
+</td>
+<td align="center">50
+</td>
+<td>Most streamed Christian songs
+</td></tr>
+<tr>
+<td><a href="/wiki/Christian_Airplay" title="Christian Airplay">Christian Airplay</a>
+</td>
+<td align="center">Airplay (audience)
+</td>
+<td align="center">50
+</td>
+<td>Audience impressions from Christian AC, Hot AC, CHR/Pop, Soft AC, and Christian Rock stations.
+</td></tr>
+<tr>
+<td>Christian AC Airplay
+</td>
+<td align="center">Airplay (spins)
+</td>
+<td align="center">30
+</td>
+<td>Measures airplay spins on <a href="/wiki/Christian_adult_contemporary" title="Christian adult contemporary">Christian adult contemporary</a> stations
+</td></tr>
+<tr>
+<td><a href="/wiki/Hot_Gospel_Songs" title="Hot Gospel Songs">Hot Gospel Songs</a>
+</td>
+<td align="center">Sales, streaming, allformat airplay
+</td>
+<td align="center">25
+</td>
+<td>Combines sales, airplay, and streaming data of Gospel songs
+</td></tr>
+<tr>
+<td>Gospel Airplay
+</td>
+<td align="center">Radio (airplay)
+</td>
+<td align="center">30
+</td>
+<td>Measures airplay spins of Gospel stations
+</td></tr>
+<tr>
+<td>Gospel Digital Song Sales
+</td>
+<td align="center">Digital sales
+</td>
+<td align="center">25
+</td>
+<td>Top-downloaded Gospel songs, ranked by sales data as compiled by Luminate.
+</td></tr>
+<tr>
+<td>Gospel Streaming Songs
+</td>
+<td align="center">Streaming
+</td>
+<td align="center">15
+</td>
+<td>Top-streamed Gospel songs, ranked by sales data as compiled by Luminate.
+</td></tr></tbody><tfoot></tfoot></table>  '
+)
+sample1 |> 
+  html_element("table") |> 
+  html_table()
+```
+
+---
+
+### Exercise 
+
+Try to import [R&B and HipHop Table](https://en.wikipedia.org/wiki/Billboard_charts#R&B/Hip-Hop) form Wikipedia to R.
+
+```{r}
+#| echo: false
+tbl_html_text <- paste(read_lines("RB_HipHop_html.txt"), collapse = "")
+tbl_html <- minimal_html(tbl_html_text)
+tbl_html |> 
+  html_element("table") |> 
+  html_table()
+```
+
 
 ------------------------------------------------------------------------
 

@@ -1,0 +1,154 @@
+<table class="wikitable sortable jquery-tablesorter">
+<thead><tr>
+<th style="width:200px;" class="headerSort" tabindex="0" role="columnheader button" title="Sort ascending">Chart title
+</th>
+<th width="120" class="headerSort" tabindex="0" role="columnheader button" title="Sort ascending">Chart type
+</th>
+<th class="headerSort" tabindex="0" role="columnheader button" title="Sort ascending"><small>Number of<br>positions</small>
+</th>
+<th class="unsortable">Description
+</th></tr></thead><tbody>
+<tr>
+<td><a href="/wiki/Hot_R%26B/Hip-Hop_Songs" title="Hot R&amp;B/Hip-Hop Songs">Hot R&amp;B/Hip-Hop Songs</a>
+</td>
+<td style="text-align:center;">airplay + sales + streaming
+</td>
+<td style="text-align:center;">50<sup id="cite_ref-34" class="reference"><a href="#cite_note-34"><span class="cite-bracket">[</span>A<span class="cite-bracket">]</span></a></sup>
+</td>
+<td>Ranks the most popular by combining airplay from all formats of radio stations, digital download sales, streaming data and YouTube views of R&amp;B and hip-hop songs.
+</td></tr>
+<tr>
+<td><a href="/wiki/R%26B/Hip-Hop_Airplay" title="R&amp;B/Hip-Hop Airplay">R&amp;B/Hip-Hop Airplay</a>
+</td>
+<td style="text-align:center;">airplay (audience)
+</td>
+<td style="text-align:center;">50
+</td>
+<td>Measures airplay based on audience impressions from various <a href="/wiki/Contemporary_R%26B" title="Contemporary R&amp;B">R&amp;B</a>/<a href="/wiki/Hip_hop_music" class="mw-redirect" title="Hip hop music">hip-hop</a> stations. Component of Hot R&amp;B/Hip-Hop Songs chart.
+</td></tr>
+<tr>
+<td>R&amp;B/Hip-Hop Digital Song Sales
+</td>
+<td align="center">digital sales
+</td>
+<td align="center">
+</td>
+<td>Top-downloaded R&amp;B and hip-hop songs, ranked by sales data as compiled by Nielsen SoundScan. Component of Hot R&amp;B/Hip-Hop Songs chart.
+</td></tr>
+<tr>
+<td>R&amp;B/Hip-Hop Streaming Songs
+</td>
+<td align="center">streaming
+</td>
+<td align="center">
+</td>
+<td>Top-streamed R&amp;B and hip-hop songs, ranked by sales data as compiled by Nielsen SoundScan. Component of Hot R&amp;B/Hip-Hop Songs chart.
+</td></tr>
+<tr>
+<td><a href="/wiki/Mainstream_R%26B/Hip-Hop" class="mw-redirect" title="Mainstream R&amp;B/Hip-Hop">Mainstream R&amp;B/Hip-Hop Airplay</a>
+</td>
+<td style="text-align:center;">airplay (spins)
+</td>
+<td style="text-align:center;">40
+</td>
+<td>Ranks songs by combining airplay base on radio plays (spins) from 76 R&amp;B/hip-hop stations. Component of R&amp;B/Hip-Hop Airplay chart.
+</td></tr>
+<tr>
+<td><a href="/wiki/Adult_R%26B_Songs" title="Adult R&amp;B Songs">Adult R&amp;B Airplay</a>
+</td>
+<td style="text-align:center;">airplay (spins)
+</td>
+<td style="text-align:center;">30
+</td>
+<td>Measures airplay from 65 <a href="/wiki/Urban_AC" class="mw-redirect" title="Urban AC">Urban AC</a> radio stations. Component of R&amp;B/Hip-Hop Airplay chart.
+</td></tr>
+<tr>
+<td><a href="/wiki/Rhythmic_(chart)" title="Rhythmic (chart)">Rhythmic Airplay</a>
+</td>
+<td style="text-align:center;">airplay (spins)
+</td>
+<td style="text-align:center;">40
+</td>
+<td>Measures airplay spins on 72 rhythmic stations. Rhythmic is a music radio format that includes of a mix of dance, upbeat rhythmic pop, hip hop and R&amp;B hits. These stations also contribute to the <a href="/wiki/Dance/Mix_Show_Airplay" title="Dance/Mix Show Airplay">Dance/Mix Show Airplay</a> panel.
+</td></tr>
+<tr>
+<td><a href="/wiki/Hot_Rap_Songs" title="Hot Rap Songs">Hot Rap Songs</a>
+</td>
+<td style="text-align:center;">airplay + sales + streaming
+</td>
+<td style="text-align:center;">25
+</td>
+<td>Ranks the top 25 hip-hop/<a href="/wiki/Rap_music" class="mw-redirect" title="Rap music">rap</a> songs by combining airplay from all formats of radio stations, digital download sales, streaming data and YouTube views of rap songs.
+</td></tr>
+<tr>
+<td>Rap Airplay
+</td>
+<td style="text-align:center;">airplay (spins)
+</td>
+<td style="text-align:center;">25
+</td>
+<td>Ranks the top 25 hip-hop/<a href="/wiki/Rap_music" class="mw-redirect" title="Rap music">rap</a> songs by airplay spins from R&amp;B/hip-hop and rhythmic radio stations. Component of Hot Rap Songs chart.
+</td></tr>
+<tr>
+<td>Rap Digital Song Sales
+</td>
+<td align="center">digital sales
+</td>
+<td align="center">
+</td>
+<td>Top-downloaded rap songs, ranked by sales data as compiled by Nielsen SoundScan. Component of Hot Rap Songs chart.
+</td></tr>
+<tr>
+<td>Rap Streaming Songs
+</td>
+<td align="center">streaming
+</td>
+<td align="center">
+</td>
+<td>Top-streamed rap songs, ranked by sales data as compiled by Nielsen SoundScan. Component of Hot Rap Songs chart.
+</td></tr>
+<tr>
+<td>Hot R&amp;B/Hip-Hop Recurrents
+</td>
+<td style="text-align:center;">airplay (spins)
+</td>
+<td style="text-align:center;">20
+</td>
+<td>Ranks songs that have fallen below No. 50 on Hot R&amp;B/Hip-Hop Songs and have been on that chart for over 20 weeks.
+</td></tr>
+<tr>
+<td>Hot R&amp;B/Hip-Hop Recurrent Airplay
+</td>
+<td style="text-align:center;">airplay (spins)
+</td>
+<td style="text-align:center;">20
+</td>
+<td>Ranks the songs that have fallen below No. 25 on the Hot R&amp;B/Hip-Hop Airplay chart and have been on that chart for over 20 weeks.
+</td></tr>
+<tr>
+<td><a href="/wiki/R%26B_Songs" class="mw-redirect" title="R&amp;B Songs">Hot R&amp;B Songs</a>
+</td>
+<td style="text-align:center;">airplay + sales + streaming
+</td>
+<td style="text-align:center;">25
+</td>
+<td>Ranks the top 25 R&amp;B songs by combining airplay from all formats of radio stations, digital download sales, streaming data and YouTube views of R&amp;B songs.
+</td></tr>
+<tr>
+<td>R&amp;B Digital Song Sales
+</td>
+<td align="center">digital sales
+</td>
+<td align="center">
+</td>
+<td>Top-downloaded R&amp;B songs, ranked by sales data as compiled by Nielsen SoundScan. Component of Hot R&amp;B Songs chart.
+</td></tr>
+<tr>
+<td>R&amp;B Streaming Songs
+</td>
+<td align="center">streaming
+</td>
+<td align="center">
+</td>
+<td>Top-streamed R&amp;B songs, ranked by sales data as compiled by Nielsen SoundScan. Component of Hot R&amp;B Songs chart.
+</td></tr></tbody><tfoot></tfoot></table>
