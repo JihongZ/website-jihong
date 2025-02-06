@@ -1,16 +1,14 @@
 ---
-title: "VSCode & Quarto Setup, Current Status and Questions"
+title: "Note: Docker in Action, Second Edition"
 subtitle: ""
 description: ''
 author: 'Jihong Zhang'
-date: '10 18 2024'
+date: '02 05 2025'
 sidebar: false
 categories:
-  - R
-  - Shiny
-  - Quarto
+  - Docker
 execute: 
-  eval: true
+  eval: false
   echo: true
   warning: false
   error: true
@@ -19,58 +17,42 @@ format:
     code-fold: false
     code-summary: 'Click to see the code'
     number-sections: true
-bibliography: references.bib
 ---
 
-## Basic workflow
+# Chapter 1 - Welcome to Docker
 
-1.  [VSCode Docs - Language R](https://code.visualstudio.com/docs/languages/r)
-2.  [quarto Docs - VSCode tutorial](https://quarto.org/docs/get-started/hello/vscode.html)
+> “Docker is a tool that makes adopting software packaging, distribution, and utilization best practices cheap and sensible defaults.”
 
-### Render the .qmd
+Docker provides an expressive language that can:
 
-To render and preview, execute the **Quarto: Preview** command. You can alternatively use the `Cmd+Shift+K` keyboard shortcut.
+-   inject environment-specific configuration
+-   control access to system resources
+-   built-in package management, tooling, and distribution infrastructure
 
-### Running Cells
+## What is docker?
 
-Use `cmd+shift+i` to create new code cell.
+Docker was lanced in March 2013. It is an open-source Linux software for building, shipping, and running programs.
 
-```{r}
-#| eval: true
-#| echo: fenced
-theta = 3 * 4
-beta = theta + 2
-print(beta)
+```{bash}
+docker run dockerinaction/hello_world
 ```
 
-```{python}
-#| echo: fenced
-#| label: fig-polar
-#| fig-cap: "A line plot on a polar axis"
+`docker run` command tells Docker to trigger the sequence. In the command, `dockerinaction/hello_world` is a Docker *image*.
 
-import numpy as np
-import matplotlib.pyplot as plt
+Docker runs *containers.* Containers are running inside virtual machines for Mac, Windows, and other OS.
 
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(
-  subplot_kw = {'projection': 'polar'} 
-)
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
-plt.show()
+Docker uses Linux *namespaces* and *cgroups*.
+
+Following command can display information about the basic syntax.
+
+```{bash}
+docker help
 ```
 
-### Visual Editing in VS Code
+For specific command,
 
-Similar to RStudio, use the `⇧⌘ F4` keyboard shortcut to switch to Visual Editing Mode.
+```{bash}
+docker help cp
+```
 
-### Execution Option
-
-Do not use `jupyter: python3`. Instead, leave it blank to execute both R and Python and output.
-
-## Radian terminal on VSCode
-
-1.  [Blog - R and radian on macOS and VSCode](https://luongbui.com/r-and-radian-on-macos-and-vscode/)
-2.  [radian GitHub](https://github.com/randy3k/radian)
+show how to copy files from a location inside a container to a location on the host machine.
