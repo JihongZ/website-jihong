@@ -25,11 +25,11 @@ code-fold: show
 
 # Data Import Exercises
 
-## Exercise 0: Importing Data from Website
+## Exercise 0: Importing Data from the online Website
 
-You are working on downloading the [UARK Final exam table](https://registrar.uark.edu/registration/final-exam-schedule/spring-2025-final-exam-schedule.php) and import it into R for data analysis.
+You are working on the student exam analysis for UARK. You want to download the [UARK Final exam table](https://registrar.uark.edu/registration/final-exam-schedule/spring-2025-final-exam-schedule.php) and then import it into R for data analysis.
 
-- Use `rvest` package to construct a data table
+- Hint: use `rvest` package to construct a data table
 
 ```{r}
 #| eval: false
