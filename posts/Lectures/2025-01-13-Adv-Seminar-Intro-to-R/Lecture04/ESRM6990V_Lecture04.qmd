@@ -483,16 +483,22 @@ For more complex objects, consider using `write_rds()` for saving R-specific obj
 
 ## Other Importing Packages
 
-### readxl
+### Import Excel file
 
--   The `readxl` package provides functions to read-in Microsoft Excel formats.
+- The `readxl` package provides functions to read-in Microsoft Excel formats.
+
+- The Microsoft Excel formats permit you to have more than one spreadsheet in one file.
+
+- These are referred to as sheets. The functions listed above read the first sheet by default, but we can also read the others by specifying the sheet's name.
+
+- The `excel_sheets` function gives us the names of all the sheets in an Excel file.
 
 ```{r}
 #| eval: false
-library(readxl)
+library(readxl) # install.packages("readxl")
 # Specify sheet either by position or by name
-read_excel(datasets, 2)
-read_excel(datasets, "mtcars")
+read_excel(datasets, sheet = 2)
+read_excel(datasets, sheet = "mtcars")
 ```
 
 The main functions are:
@@ -503,7 +509,11 @@ The main functions are:
 | read_xls   | original format        | xls            |
 | read_xlsx  | new format             | xlsx           |
 
-The Microsoft Excel formats permit you to have more than one spreadsheet in one file. These are referred to as sheets. The functions listed above read the first sheet by default, but we can also read the others. The excel_sheets function gives us the names of all the sheets in an Excel file. These names can then be passed to the sheet argument in the three functions above to read sheets other than the first.
+--- 
+
+### After-class exercise
+
+1. Try to import one Excel table based on position and sheet names
 
 ## Data Entry
 

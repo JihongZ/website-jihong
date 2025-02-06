@@ -1,5 +1,5 @@
 ---
-title: "Exercise 03: R Functions"
+title: "Exercise 04: Data Manipulation and Function Scope Exercises"
 subtitle: ""
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -22,235 +22,209 @@ lightbox: true
 code-fold: show
 ---
 
-## Creating Custom Functions
 
-1.  Write a function called `fahrenheit_to_celsius` that converts a temperature from Fahrenheit to Celsius.
+# Data Import Exercises
 
--   Formula: $C = \frac{(F - 32) \times 5}{9}$
--   Test your function with $F = 98.6$.
+## Exercise 1: Importing Data from CSV
 
-```{r}
-fahrenheit_to_celsius <- function(temp_f) {
-  return((temp_f - 32) * 5 / 9)
-}
-fahrenheit_to_celsius(temp_f = 98.6)
+You are working with the following CSV file containing employee information:
+
+```
+Employee ID,Full Name,Department,Salary,Years of Experience
+1,John Doe,HR,50000,5
+2,Jane Smith,Engineering,N/A,8
+3,Michael Johnson,Marketing,55000,6
+4,Susan Lee,HR,52000,4
+5,David Kim,Engineering,65000,7
+6,Amy Brown,Marketing,57000,5
 ```
 
-2.  Create a function called `circle_area` that calculates the area of a circle given its radius.
-
--   Formula: $A = \pi \times r^2$
--   Use the built-in constant `pi` in R and test the function with $r = 5$.
+1. Use the `read_csv()` function to import this data into R.
+  - For illustration, you can use literal data for importing.
 
 ```{r}
-# r is the circle radius
-circle_area <- function(r){
-  return(pi * r^2) 
-}
-circle_area(r = 5)
-circle_area(5) # 5 assign to r
+#| eval: false
+#| echo: false
+#| message: false 
+library(readr)
+employee_data <- read_csv(I(
+"
+Employee ID,Full Name,Department,Salary,Years of Experience
+1,John Doe,HR,50000,5
+2,Jane Smith,Engineering,N/A,8
+3,Michael Johnson,Marketing,55000,6
+4,Susan Lee,HR,52000,4
+5,David Kim,Engineering,65000,7
+6,Amy Brown,Marketing,57000,5
+"  
+))
+employee_data
+```  
+  
+2. Clean the data by replacing any missing salary values with NA.
+
+```{r}
+#| eval: false
+#| echo: false
+#| message: false 
+employee_data_NATrans <- read_csv(I(
+"
+Employee ID,Full Name,Department,Salary,Years of Experience
+1,John Doe,HR,50000,5
+2,Jane Smith,Engineering,N/A,8
+3,Michael Johnson,Marketing,55000,6
+4,Susan Lee,HR,52000,4
+5,David Kim,Engineering,65000,7
+6,Amy Brown,Marketing,57000,5
+"  
+), na = "N/A")
+employee_data_NATrans
 ```
 
-------------------------------------------------------------------------
-
-## Piping
-
-1.  Transform the following code into a pipe-based version:
+3. Rename the columns to use snake case (employee_id, full_name, department, salary, years_of_experience).
 
 ```{r}
-result <- filter(mtcars, hp > 100)
-result <- arrange(result, desc(mpg))
-result <- select(result, hp, mpg)
-result
+#| eval: false
+#| echo: false
+#| message: false 
+library(dplyr)
+employee_data_cleaned <- employee_data_NATrans %>%
+  rename(employee_id = `Employee ID`,
+         full_name = `Full Name`,
+         department = `Department`,
+         salary = `Salary`,
+         years_of_experience = `Years of Experience`)
+employee_data_cleaned
 ```
 
-```{r}
-mtcars |> 
-  filter(hp > 100) |> 
-  arrange(desc(mpg)) |> 
-  select(hp, mpg)
+
+
+
+
+## Exercise 2: Importing Data Using Custom Delimiters
+
+You have another dataset where the values are separated by semicolons (;) instead of commas:
+
+```
+Employee ID;Full Name;Department;Salary;Years of Experience
+1;John Doe;HR;50000;5
+2;Jane Smith;Engineering;60000;8
+3;Michael Johnson;Marketing;55000;6
+4;Susan Lee;HR;52000;4
+5;David Kim;Engineering;65000;7
+6;Amy Brown;Marketing;57000;5
 ```
 
-------------------------------------------------------------------------
-
-## Debugging Functions
-
-1.  Identify and correct the mistake in the following code:
+- Use `read_delim()` to import this dataset with the semicolon delimiter (`;`).
 
 ```{r}
-df |> mutate(
-  a = (a - mean(a, na.rm = TRUE)) / sd(a),
-  b = (b - mean(a, na.rm = TRUE)) / sd(b) # a should be changed to b
+#| eval: false
+#| echo: false
+#| message: false
+data_txt = "
+Employee ID;Full Name;Department;Salary;Years of Experience
+1;John Doe;HR;50000;5
+2;Jane Smith;Engineering;60000;8
+3;Michael Johnson;Marketing;55000;6
+4;Susan Lee;HR;52000;4
+5;David Kim;Engineering;65000;7
+6;Amy Brown;Marketing;57000;5"
+employee_data_semicolon <- read_delim(I(data_txt), delim = ";")
+employee_data_semicolon
+```
+
+# Data Tidying Exercises
+
+## Exercise 3: Pivoting Data Longer
+
+You have a dataset that tracks the number of customers visiting different stores each week:
+
+```{r}
+store_visits <- tibble(
+  store = c("Store A", "Store B", "Store C"),
+  week_1 = c(120, 150, 110),
+  week_2 = c(130, 160, 120),
+  week_3 = c(140, 170, 130),
+  week_4 = c(110, 140, 100),
+  week_5 = c(160, 180, 150)
 )
 ```
 
-2.  Rewrite the code by creating a custom function `standardized()` to avoid code repetition.
+- Use `pivot_longer()` to convert this dataset into a long format, where each row represents a single observation for a specific week.
 
 ```{r}
-standardized <- function(x){
-  return((x - mean(x, na.rm = TRUE)) / sd(x))
-}
-df |> mutate(
-  a = standardized(a),
-  b = standardized(b)
+#| eval: false
+#| echo: false
+#| message: false
+store_visits_long <- store_visits %>%
+  pivot_longer(
+    cols = starts_with("week_"), 
+    names_to = "week", 
+    values_to = "visits"
+  )
+store_visits_long
+```
+
+## Exercise 4: Pivoting Data Wider
+
+You have a long-format dataset that tracks the average test scores of students in different subjects over several terms:
+
+```{r}
+scores_long <- tibble(
+  student = c("Alice", "Alice", "Bob", "Bob", "Charlie", "Charlie"),
+  term = c("Term 1", "Term 2", "Term 1", "Term 2", "Term 1", "Term 2"),
+  subject = c("Math", "Math", "Math", "Math", "Math", "Math"),
+  score = c(85, 90, 78, 80, 92, 95)
 )
 ```
 
-------------------------------------------------------------------------
 
-## Arguments in Functions
-
-1.  Create a function `greet` that takes two arguments, `name` (default = "World") and `punctuation` (default = "!"). The function should return a greeting message.
-
--   Example: `greet("Alice", "?")` should return `"Hello, Alice?"`.
+- Use `pivot_wider()` to convert this dataset into a wide format, where each term (e.g., "Term 1", "Term 2") is a column, and the scores are the values.
 
 ```{r}
-greet <- function(name = "World", punctuation = "!") {
-  paste0("Hello, ", name, punctuation)
-}
-greet(name = "Alice", punctuation = "?")
+#| eval: false
+#| echo: false
+#| message: false
+scores_wide <- scores_long %>%
+  pivot_wider(
+    names_from = term, 
+    values_from = score
+  )
+scores_wide
 ```
 
-2.  Test the `sum()` function by passing named arguments (`x = 3, y = 5`) and explain how the function handles them.
+
+## Exercise 5: Combining pivot_longer() and pivot_wider()
+
+You have a dataset tracking the number of calls received by a customer service center, split by department and month:
 
 ```{r}
-sum(x = 3, y = 5)
-sum(3, 5)
-sum(c(3, 5))
-# mean(x = 3, 5)
-# mean(c(3, 5))
-```
-
-------------------------------------------------------------------------
-
-## Function Scope
-
-1.  Explain why the following code throws an error:
-
-```{r}
-add <- function(x, y) {
-  result <- x + y # beacuase result is in the local scope
-  return(result)
-}
-add(5, 3)
-result  # Error
-```
-
-2.  Modify the code to make the variable `result` accessible outside the function.
-
-```{r}
-add <- function(x, y) {
-  result <<- x + y # beacuase result is in the local scope
-  return(result)
-}
-add(6, 3)
-result
-```
-
-------------------------------------------------------------------------
-
-## Flexible Arguments
-
-1.  Write a function `multiply_all()` that accepts a variable number of arguments and multiplies all the numbers together. Test your function with `multiply_all(2, 3, 4)`.
-
-```{r}
-multiply_all <- function(x, y, z) { # flexible arguments
-  x * y * z
-}
-multiply_all(2, 3, 4)
-
-```
-
-```{r}
-multiply_all_flexible <- function(...) {
-  prod(c(...))
-}
-multiply_all_flexible(1, 2, 3)
-multiply_all_flexible(1, 2, 3, 5)
-multiply_all_flexible(1, 2, 3, 5, 8)
-multiply_all_flexible(c(1, 2, 3, 5, 8))
-```
-
-1.  Investigate the `mean()` function by using the help page. Explain why it can accept additional arguments like `y` in the code below:
-
-```{r}
-mean(x = c(1, 2, 3), y = 3) # because y is flexible argument. It is not included into calculation of mean
-```
-
-------------------------------------------------------------------------
-
-## Nested Functions
-
-1.  Write a function `rect_prism_volume()` that calculates the volume of a rectangular prism given its length, width, and height. Inside this function, create another function `rect_area()` to calculate the base area.
-
-    -   The **formula for the volume of a rectangular prism** is:
-
-        $V =  A_b \times h$
-
-        $A_b = l \times w$
-
-        where:
-
-        -   V = Volume of the rectangular prism,
-
-        -   $A_b$ = base area
-
-            -   l = Length,
-
-            -   w = Width,
-
-        -   h = Height.
-
-```{r}
-# the first function
-rect_area <- function(l, w){
-  A_base = l * w
-  return(A_base)
-}
-
-# the second function that contains the first function
-rect_prism_volume <- function(l, w, h){
-  return(rect_area(l, w) * h)
-}
-```
-
-1.  Test your function with length = 5, width = 3, height = 4.
-
-```{r}
-rect_prism_volume(l =5, w = 3, h = 4)
-```
-
-------------------------------------------------------------------------
-
-## Rescale Function
-
-1.  Create a custom function `rescale()` that rescales a numeric vector to the range 0 to 1.
-
--   Formula: $x_{\text{scaled}} = \frac{x - \min(x)}{\max(x) - \min(x)}$
-
-```{r}
-rescale <- function(x){
-  res = (x - min(x)) / (max(x) - min(x))
-  return(res)
-}
-```
-
-2.  Use your `rescale()` function to rescale the columns of the following data frame:
-
-```{r}
-set.seed(1234)
-df <- tibble(
- a = rnorm(5),
- b = rnorm(5),
- c = rnorm(5)
+calls_wide <- tibble(
+  department = c("Sales", "Support", "Billing"),
+  january = c(200, 150, 180),
+  february = c(210, 160, 190),
+  march = c(220, 170, 200)
 )
-df
 ```
 
+
+- First, use `pivot_longer()` to convert this dataset into a long format, where each row corresponds to a specific department and month.
+- Then, use `pivot_wider()` to convert the long dataset back into a wide format, where the months are columns and the values represent the number of calls.
+
 ```{r}
-df |> 
-  mutate(
-    a = rescale(a),
-    b = rescale(b),
-    c = rescale(c)
+#| eval: false
+#| echo: false
+#| message: false
+calls_long <- calls_wide %>%
+  pivot_longer(
+    cols = c("january", "february", "march"), 
+    names_to = "month", 
+    values_to = "calls"
+  )
+calls_wide_again <- calls_long %>%
+  pivot_wider(
+    names_from = month, 
+    values_from = calls
   )
 ```
+
