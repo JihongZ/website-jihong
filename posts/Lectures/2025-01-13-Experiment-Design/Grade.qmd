@@ -142,45 +142,24 @@ data = FileAttachment("homework_scores.csv")
     }))
   );
 
-// Create a styled container for input and button (aligned in one row)
+// Create a flexbox container to align input and custom button in the same row
 viewof inputContainer = html`<div style="
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  align-items: center;
   gap: 10px;
   margin-bottom: 15px;
-">`;
+"></div>`;
 
-// Define the input box for Student ID
+// Create the input box
 viewof studentID = Inputs.text({
-  label: "🔍 Enter Student ID:",
-  placeholder: "e.g., 012345667",
-  style: {
-    fontSize: "16px",
-    padding: "10px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
-    width: "250px"
-  }
+  placeholder: "Enter Student ID (e.g., 012345667)"
 });
 
-// Define the stylized confirm button
-viewof confirmButton = Inputs.button("✔ Confirm", {
-  style: {
-    fontSize: "16px",
-    padding: "10px 20px",
-    backgroundColor: "#4CAF50",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    transition: "background-color 0.3s"
-  },
-  onmouseover: function () { this.style.backgroundColor = "#45a049"; },
-  onmouseout: function () { this.style.backgroundColor = "#4CAF50"; }
-});
+// Create a custom HTML button (not using Inputs.button)
+viewof confirmButton = Inputs.button("Confirm");
 
-// Append input and button to the container
-inputContainer.append(studentID, confirmButton);
+// Append the input box and custom button to the flexbox row
+inputContainer.append(viewof studentID, viewof confirmButton);
 
 // Filter the data based on the entered student ID
 filteredData = {
@@ -192,12 +171,8 @@ filteredData = {
 
 // Display the filtered data in a table with custom styling
 Table(filteredData, {
-  columns: ["Student_ID", "Name", "Bonus", "HW1_Grade", "Total"],
-  style: {
-    width: "100%",
-    borderCollapse: "collapse",
-    fontSize: "16px"
-  }
+  columns: ["Student_ID", "Name", "Bonus", "HW1_Grade", "Total"]
 });
+
 
 ```
