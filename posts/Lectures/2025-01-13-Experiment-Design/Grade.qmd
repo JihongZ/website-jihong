@@ -1,16 +1,17 @@
 ---
 title: "ESRM64103: Student Grades"
 sidebar: false
+execute: 
+  echo: false
 format: 
   html:
     code-link: false
     code-tools: false
-filters:
-  - shinylive
 ---
 
-```{shinylive-r}
-#| standalone: true
+```{r}
+#| standalone: false
+#| eval: false
 #| viewerHeight: 420
 library(shiny)
 library(DT)
@@ -86,4 +87,73 @@ server <- function(input, output) {
 
 # Run the application
 shinyApp(ui = ui, server = server)
+```
+
+```{r}
+#| eval: false
+Student_name = c(
+  "Ayankoya, Monisola Beauty",
+  "Barr, Stephanie Marie",
+  "Binhuwaimel, Azizah Abdulrahman A",
+  "Bonge, Nicole Grace",
+  "Cascante  Vallejo,Diana Carolina",
+  "Hughes, Yale",
+  "Lan, Xi",
+  "Negrete  Becerra,Luis Arturo",
+  "Shakeri, Sepideh",
+  "West, Abigail Joan"
+)
+Student_ID = 
+c(
+  "011021830",
+  "002796491",
+  "010686196",
+  "010734654",
+  "010827156",
+  "011088780",
+  "010848887",
+  "010866994",
+  "011015879",
+  "010953825"
+)
+
+# Example data: Student IDs and their corresponding grades
+grades_data <- data.frame(
+  Student_ID = Student_ID,
+  Name = Student_name,
+  Bonus = rep("2pts", 10),
+  HW1_Grade = rep("10/10", 10),
+  Total = rep("12", 10)
+)
+write.csv(grades_data, "homework_scores.csv")
+```
+
+```{ojs}
+// Import necessary modules
+import { Table, Inputs } from "@observablehq/inputs"
+
+// Load the CSV data and convert Student_ID to string
+data = FileAttachment("homework_scores.csv").csv({typed: true}).then(rows => 
+  rows.map(row => ({...row, Student_ID: String(row.Student_ID).padStart(9, '0')}))
+)
+
+// Create an input box for the student ID
+viewof studentID = Inputs.text({
+  label: "Enter Student ID",
+  placeholder: "e.g., 012345667"
+})
+
+// Create a button to confirm the input
+viewof confirmButton = Inputs.button("Confirm")
+
+// Filter the data based on the entered student ID
+filteredData = {
+  if (confirmButton) {
+    return data.filter(d => d.Student_ID === studentID)
+  }
+  return []
+}
+
+// Display the filtered data in a table
+Table(filteredData, {columns: ["Student_ID", "Name", "Bonus", "HW1_Grade", "Total"]})
 ```

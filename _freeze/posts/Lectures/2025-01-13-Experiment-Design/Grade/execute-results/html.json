@@ -1,0 +1,15 @@
+{
+  "hash": "aa38cf9210254e7acd83f14fc98212ef",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"ESRM64103: Student Grades\"\nsidebar: false\nexecute: \n  echo: false\nformat: \n  html:\n    code-link: false\n    code-tools: false\n---\n\n::: {.cell standalone='false' viewerHeight='420'}\n\n:::\n\n::: {.cell}\n\n:::\n\n```{ojs}\n// Import necessary modules\nimport { Table, Inputs } from \"@observablehq/inputs\"\n\n// Load the CSV data and convert Student_ID to string\ndata = FileAttachment(\"homework_scores.csv\").csv({typed: true}).then(rows => \n  rows.map(row => ({...row, Student_ID: String(row.Student_ID).padStart(9, '0')}))\n)\n\n// Create an input box for the student ID\nviewof studentID = Inputs.text({\n  label: \"Enter Student ID\",\n  placeholder: \"e.g., 012345667\"\n})\n\n// Create a button to confirm the input\nviewof confirmButton = Inputs.button(\"Confirm\")\n\n// Filter the data based on the entered student ID\nfilteredData = {\n  if (confirmButton) {\n    return data.filter(d => d.Student_ID === studentID)\n  }\n  return []\n}\n\n// Display the filtered data in a table\nTable(filteredData, {columns: [\"Student_ID\", \"Name\", \"Bonus\", \"HW1_Grade\", \"Total\"]})\n```",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
