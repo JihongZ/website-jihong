@@ -25,6 +25,260 @@ code-fold: show
 
 # Data Import Exercises
 
+## Exercise 0: Importing Data from Website
+
+You are working on downloading the [UARK Final exam table](https://registrar.uark.edu/registration/final-exam-schedule/spring-2025-final-exam-schedule.php) and import it into R for data analysis.
+
+- Use `rvest` package to construct a data table
+
+```{r}
+#| eval: false
+#| echo: false
+#| message: false 
+html_text_raw <- '
+<table class="table table-bordered">
+                  
+                  <tbody>
+                     
+                     <tr>
+                        
+                        <th>Final Exam Date</th>
+                        
+                        <th>Class Meeting Time/<br>Common Final</th>
+                        
+                        <th>Exam Time</th>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td rowspan="7">Monday,<br>May 5, 2025</td>
+                        
+                        <td>MATH 11103, 12003, 21003, 22003</td>
+                        
+                        <td>During Posted Math Testing Center Hours</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>CHEM 12103; CHEM 14103</td>
+                        
+                        <td>8:00 AM to 10:00 AM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed/Fri 10:45 AM</td>
+                        
+                        <td>10:15 AM to 12:15 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed/Fri 12:55 PM</td>
+                        
+                        <td>12:45 PM to 2:45 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed/Fri 2:00 PM</td>
+                        
+                        <td>3:00 PM&nbsp; to 5:00 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>SEVI 30103/SEVI 301H3 <br>MATH 13004, 24005, 24004, 240H4, 25004, 250H4, 26004, 260H4</td>
+                        
+                        <td>5:30 PM to 7:30 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed/Fri 5:15 PM <br>Mon &amp; Mon/Wed Classes Starting<br>5:00 PM or Later Alternate Time Slot for Makeup Exams</td>
+                        
+                        <td>7:45 PM to 9:45 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td rowspan="8">Tuesday,<br>May 6, 2025</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>MATH 11003 (Sections 51 and Above) <br>See Instructor for Details</td>
+                        
+                        <td>During Posted Math Testing Center Hours</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Tue/Thu 9:30 AM</td>
+                        
+                        <td>8:00 AM to 10:00 AM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>FOREIGN LANGUAGE 10103, 10203, 10106, 11003, 20103, 20203<br>CLASSES (FREN, JAPN, CHIN) EXCEPT ARAB 10103, 10106, 20106; <br>CHRK 10103, 10203; GERM 10103, 10203, 20103, 20203; <br>GREK 10203, 20103, 20203; <br>ITAL 10103, 10203, 20103, 20203;<br>LATN 10103, 10203, 20203; <br>RUSS 10103, 10203, 20103, 20203;<br>SPAN 10103, 10203, 20103, 20203, 202H3</td>
+                        
+                        <td>10:15 AM to 12:15 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Tue/Thu 12:30 PM</td>
+                        
+                        <td>12:45 PM to 2:45 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Tue/Thu 3:30 PM</td>
+                        
+                        <td>3:00 PM&nbsp; to 5:00 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>FINN 20403/FINN 204H3</td>
+                        
+                        <td>5:30 PM to 7:30 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Tue &amp; Tue/Thu <br>Classes Starting 5:00 PM or Later<br>Alternate Time Slot for Makeup Exams</td>
+                        
+                        <td>7:45 PM to 9:45 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td rowspan="7">Wednesday,<br>May 7, 2025</td>
+                        
+                        <td>MATH 11003 (Sections 1 - 50)<br>See Instructor for Details</td>
+                        
+                        <td>During Posted Math Testing Center Hours</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed/Fri 8:35 AM</td>
+                        
+                        <td>8:00 AM to 10:00 AM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed/Fri 9:40 AM</td>
+                        
+                        <td>10:15 AM to 12:15 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed/Fri 11:50 AM</td>
+                        
+                        <td>12:45 PM to 2:45 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed/Fri 3:05 PM</td>
+                        
+                        <td>3:00 PM&nbsp; to 5:00 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>SEVI 20503/SEVI 205H3 <br>CHEM 14203/CHEM 142H3 <br>CHEM 36203/CHEM 362H3/CHEM 37103</td>
+                        
+                        <td>5:30 PM to 7:30 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Mon/Wed 4:35 <br>Mon/Wed/Fri 4:10 PM <br>Wed Classes Starting 5:00 PM or Later <br>Alternate Time Slot for Makeup Exams</td>
+                        
+                        <td>7:45 PM to 9:45 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td rowspan="7">Thursday,<br>May 8, 2025</td>
+                        
+                        <td>MATH 20503</td>
+                        
+                        <td>During Posted Math Testing Center Hours</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Tue/Thu 8:00 AM</td>
+                        
+                        <td>8:00 AM to 10:00 AM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Tue/Thu 11:00 AM</td>
+                        
+                        <td>10:15 AM to 12:15 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Tue/Thu 2:00 PM</td>
+                        
+                        <td>12:45 PM to 2:45 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Tue/Thu 4:00 PM <br>Tue/Thu 4:30 PM</td>
+                        
+                        <td>3:00 PM to 5:00 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>PHYS 20203<br>MGMT 21003/MGMT 210H3</td>
+                        
+                        <td>5:30 PM to 7:30 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>Thu Classes Starting 5:00 PM or Later Alternate Time Slot for Makeup Exams</td>
+                        
+                        <td>7:45 PM to 9:45 PM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td rowspan="4">Friday,<br>May 9, 2025</td>
+                        
+                        <td>Mon/Wed/Fri 7:30 AM Alternate Time Slot for Makeup Exams</td>
+                        
+                        <td>8:00 AM to 10:00 AM</td>
+                        </tr>
+                     
+                     <tr>
+                        
+                        <td>ISYS 21003/ISYS 210H3; <br>BUSI 10303/BUSI 103H3<br>Alternate Time Slot for Makeup Exams</td>
+                        
+                        <td>10:15 AM to 12:15 PM</td>
+                        </tr>
+                     </tbody>
+                  </table>
+'
+final_example_tbl <- html_table(html_element(minimal_html(html_text_raw), "table"))
+final_example_tbl
+```
+
+
 ## Exercise 1: Importing Data from CSV
 
 You are working with the following CSV file containing employee information:
