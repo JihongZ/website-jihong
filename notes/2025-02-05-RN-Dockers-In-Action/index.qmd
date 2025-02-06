@@ -3,7 +3,7 @@ title: "Note: Docker in Action, Second Edition"
 subtitle: ""
 description: ''
 author: 'Jihong Zhang'
-date: '02 05 2025'
+date: '2025-05-02'
 sidebar: false
 categories:
   - Docker
@@ -31,9 +31,9 @@ Docker provides an expressive language that can:
 
 ## What is docker?
 
-Docker was lanced in March 2013. It is an open-source Linux software for building, shipping, and running programs.
+Docker was launched in March 2013. It is an open-source Linux software for building, shipping, and running programs.
 
-```{bash}
+```bash
 docker run dockerinaction/hello_world
 ```
 
@@ -45,13 +45,13 @@ Docker uses Linux *namespaces* and *cgroups*.
 
 Following command can display information about the basic syntax.
 
-```{bash}
+```bash
 docker help
 ```
 
 For specific command,
 
-```{bash}
+```bash
 docker help cp
 ```
 

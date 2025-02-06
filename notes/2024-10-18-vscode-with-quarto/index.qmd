@@ -3,7 +3,7 @@ title: "VSCode & Quarto Setup, Current Status and Questions"
 subtitle: ""
 description: ''
 author: 'Jihong Zhang'
-date: '10 18 2024'
+date: '2024-10-18'
 sidebar: false
 categories:
   - R

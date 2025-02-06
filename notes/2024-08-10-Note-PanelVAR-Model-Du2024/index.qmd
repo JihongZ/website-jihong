@@ -5,8 +5,7 @@ author: 'Jihong Zhang'
 date: 'April 15 2024'
 categories:
   - Quarto
-  - ChatGPT
-  - AI
+  - CFA
 execute: 
   eval: true
   echo: true
