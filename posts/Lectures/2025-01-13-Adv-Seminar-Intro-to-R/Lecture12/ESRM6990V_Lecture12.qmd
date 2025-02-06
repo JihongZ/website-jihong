@@ -1,0 +1,293 @@
+---
+title: "Lecture 12: Introduction to Git and GitHub"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-05"
+sidebar: false
+execute: 
+  eval: false
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 0
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+# Introduction to Git and GitHub
+
+## What is Git?
+
+-   A distributed version control system
+-   Tracks changes in files
+-   Allows multiple users to work on the same project
+
+------------------------------------------------------------------------
+
+## Why Use Git?
+
+-   **Version Control**: Keep track of changes made to code or documents
+-   **Collaboration**: Allow multiple developers to work on the same codebase
+-   **Backup**: Keep a backup of previous versions of your project
+
+------------------------------------------------------------------------
+
+## What is GitHub?
+
+-   A platform for hosting Git repositories
+-   Enables collaboration with others on code-based projects
+-   Provides cloud storage for your code
+
+------------------------------------------------------------------------
+
+## Git vs. GitHub
+
+-   **Git**: A tool for managing versions of your code locally
+-   **GitHub**: A web-based service for hosting Git repositories and collaboration
+
+------------------------------------------------------------------------
+
+## Setting Up Git
+
+1.  Install Git on your computer
+    -   [Git Downloads](https://git-scm.com/downloads)
+2.  Configure Git
+
+``` bash
+git config --global user.name "Your Name"
+git config --global user.email "youremail@example.com"
+```
+
+------------------------------------------------------------------------
+
+## Basic Git Commands
+
+-   `git init`: Initialize a new Git repository
+-   `git add <file>`: Stage changes for commit
+-   `git commit -m "message"`: Save changes with a commit message
+-   `git status`: Check the status of your files
+-   `git log`: View commit history
+
+------------------------------------------------------------------------
+
+## Creating a GitHub Repository
+
+1.  Go to [GitHub](https://github.com).
+2.  Click on the **+** icon at the top right corner and select **New repository**.
+3.  Name your repository and choose whether it will be **public** or **private**.
+4.  Click **Create repository**.
+
+------------------------------------------------------------------------
+
+## Cloning the Repository to Your Local Machine
+
+Once the repository is created on GitHub, follow these steps to clone it to your local machine.
+
+1.  Copy the repository URL from GitHub.
+2.  In your terminal, type:
+
+``` bash
+git clone https://github.com/yourusername/yourrepository.git
+```
+
+3.  Navigate into the repository:
+
+``` bash
+cd yourrepository
+```
+
+------------------------------------------------------------------------
+
+## Modify Files Locally
+
+1.  Create a new file or modify an existing one. Example: Create a file `hello.txt` with the content:
+
+    ``` txt
+    Hello, GitHub! This is my first file.
+    ```
+
+2.  Check the status of the changes:
+
+    ``` bash
+    git status
+    ```
+
+------------------------------------------------------------------------
+
+## Staging Changes
+
+After modifying the files, you need to stage the changes before committing them.
+
+1.  Stage the file using the `git add` command:
+
+    ``` bash
+    git add hello.txt
+    ```
+
+2.  Check the status again to confirm the file is staged:
+
+    ``` bash
+    git status
+    ```
+
+------------------------------------------------------------------------
+
+## Committing Changes
+
+1.  Commit the staged changes with a descriptive message:
+
+``` bash
+git commit -m "Add hello.txt with initial content"
+```
+
+2.  View the commit history:
+
+``` bash
+git log
+```
+
+------------------------------------------------------------------------
+
+## Pushing Changes to GitHub
+
+Now that the changes are committed locally, you can push them to GitHub.
+
+1.  Push the changes to the GitHub repository:
+
+    ``` bash
+    git push origin main
+    ```
+
+2.  Check the repository on GitHub, and you should see the file `hello.txt` uploaded.
+
+------------------------------------------------------------------------
+
+## Modifying Existing Files
+
+1.  Modify an existing file (e.g., `hello.txt`).
+
+2.  Stage the changes:
+
+    ``` bash
+    git add hello.txt
+    ```
+
+3.  Commit the changes with a message:
+
+    ``` bash
+    git commit -m "Update hello.txt with a new message"
+    ```
+
+4.  Push the changes to GitHub:
+
+    ``` bash
+    git push origin main
+    ```
+
+------------------------------------------------------------------------
+
+## Branching and Merging
+
+1.  Create a new branch:
+
+    ``` bash
+    git branch new-feature
+    git checkout new-feature
+    ```
+
+2.  Make some changes in a file (e.g., update `hello.txt`).
+
+3.  Stage and commit those changes:
+
+    ``` bash
+    git add hello.txt
+    git commit -m "Add a new feature"
+    ```
+
+4.  Merge the `new-feature` branch back to `main`:
+
+    ``` bash
+    git checkout main
+    git merge new-feature
+    ```
+
+5.  Push the merged changes to GitHub:
+
+    ``` bash
+    git push origin main
+    ```
+
+------------------------------------------------------------------------
+
+## Collaborative Workflow on GitHub
+
+1.  Fork a repository on GitHub.
+
+2.  Clone the forked repository to your local machine:
+
+    ``` bash
+    git clone https://github.com/yourusername/forked-repository.git
+    ```
+
+3.  Create a new branch:
+
+    ``` bash
+    git branch my-branch
+    git checkout my-branch
+    ```
+
+4.  Make changes, commit them, and push them to GitHub:
+
+    ``` bash
+    git add .
+    git commit -m "Describe the changes"
+    git push origin my-branch
+    ```
+
+5.  Create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) to merge your changes into the original repository.
+
+    1.  [Tutorial of creating a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=desktop)
+
+![](images/clipboard-131139395.png)
+
+------------------------------------------------------------------------
+
+## Conclusion
+
+-   Git and GitHub are essential tools for version control and collaboration.
+-   Git manages local changes, while GitHub enables collaboration in the cloud.
+-   Start using Git and GitHub for better project management and teamwork!
+
+------------------------------------------------------------------------
+
+## Questions?
+
+Feel free to ask any questions or explore Git and GitHub further!
+
+### Steps for Students to Follow:
+
+1.  **Create a new GitHub repository**.
+2.  **Clone the repository** to their local machine using `git clone`.
+3.  **Make a change** to a file (e.g., creating or modifying a text file).
+4.  **Stage, commit**, and **push** the changes back to GitHub.
+5.  **Fork, branch, and create pull requests** for collaborative work.
+
+This example should provide a full workflow for students to practice, from creating a repository to collaborating on projects. Let me know if you need further modifications!
