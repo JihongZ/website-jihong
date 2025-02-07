@@ -279,6 +279,19 @@ final_example_tbl
 ```
 
 
+```{r}
+final_example_tbl$`Exam Time` <- ifelse(final_example_tbl$`Exam Time` == "During Posted Math Testing Center Hours", NA, final_example_tbl$`Exam Time`)
+final_example_tbl2 <- final_example_tbl |> 
+  separate(`Exam Time`, into = c("Start_Time", "End_Time"), sep = " to ")
+
+final_example_tbl2 |> 
+  mutate(
+    Start_Time = parse_time(trimws(Start_Time)),
+    End_Time = parse_time(trimws(End_Time))
+  )
+```
+
+
 ## Exercise 1: Importing Data from CSV
 
 You are working with the following CSV file containing employee information:

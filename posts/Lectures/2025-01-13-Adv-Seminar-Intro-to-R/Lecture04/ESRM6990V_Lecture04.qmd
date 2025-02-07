@@ -184,6 +184,8 @@ You can read this CSV file into R using the `read_csv()` function.
 ```{r}
 students <- read_csv("data/students.csv")
 students
+students$`Student ID`
+"StudentID" # snake name
 ```
 
 ### Import with literal data
@@ -357,7 +359,7 @@ tbl_html |>
 After loading your data, you'll typically need to transform it for easier analysis. For instance, handling missing values is essential.
 
 ```{r}
-students_fixedNA <- read_csv("data/students.csv", na = c("N/A", ""))
+  students_fixedNA <- read_csv("data/students.csv", na = c("N/A", ""))
 students_fixedNA
 ```
 
@@ -728,6 +730,29 @@ visitors_wide <- tibble(
   friday = c(160, 180, 150)
 )
 visitors_wide
+```
+```{r}
+visitors_long <- visitors_wide |> 
+  pivot_longer(
+    cols = monday:friday,
+    names_to = "day",
+    values_to = "vistors"
+  )
+visitors_long
+
+# summary statistics
+visitors_long |> 
+  group_by(museum) |> 
+  summarise(
+    Mean_Num_Vistors = mean(vistors),
+    Range_Num_Vistors = max(vistors) - min(vistors)
+  )
+
+visitors_long |> 
+  pivot_wider(
+    names_from = day,
+    values_from = vistors
+  )
 ```
 
 **Task 1**: Use pivot_longer() to convert this data into a long format where each row represents a single observation of a visitor count for a specific day.
