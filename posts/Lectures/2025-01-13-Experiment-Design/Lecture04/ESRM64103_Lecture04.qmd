@@ -52,6 +52,22 @@ format:
     -   Either compare $F_{\text{obs}}$ with $F_{\text{crit}}$ or $p$-value with $\alpha$.
     -   If $p < \alpha$, reject $H_0$.
 
+## ANOVA Type I Error
+
+1.  The way to compare the means of multiple groups (i.e., more than two groups)
+
+-   Compared to multiple t-tests, the ANOVA does not inflate Type I error rates.
+    -   For F-test in ANOVA, Type I error rate is not inflated
+    -   Type I error rate is inflated when we do multiple comparison
+-   Family-wise error rate: probability of at least one Type I error occur = $1 −  (1 − \alpha)^c$ where c =number of tests
+
+::: callout-note
+## Family-Wise Error Rate
+
+1.  The **Family-Wise Error Rate** (FWER) is the probability of making at least one **Type I error** (false positive) across a set of multiple comparisons.
+2.  In **Analysis of Variance (ANOVA)**, multiple comparisons are often necessary when analyzing the differences between group means. FWER control is crucial to ensure the validity of statistical conclusions.
+:::
+
 # ANOVA Assumptions
 
 ## Overview
@@ -64,7 +80,8 @@ format:
 ## Importance of Assumptions
 
 -   **If assumptions are violated**, the results of ANOVA may not be reliable.
--   **Robustness**:
+-   **We call it Robustness** as to what degree ANOVAs are not influenced by the violation of assumption.
+-   Typically:
     -   ANOVA is **robust** to minor violations of normality, especially for large sample sizes (Central Limit Theorem).
     -   **Not robust** to violations of independence—if independence is violated, ANOVA is inappropriate.
     -   **Moderately robust** to HOV violations if sample sizes are equal.
@@ -75,39 +92,101 @@ format:
 -   **Violations**:
     -   Clustering of data (e.g., repeated measures).
     -   Participants influencing each other (e.g., classroom discussions).
--   **Check**: Use the **Durbin-Watson test**.
--   **Consequences**: If independence is violated, **ANOVA results are not valid**.
+-   **Check (Optional)**: Use the [Durbin-Watson test]{.redcolor}.
+-   **Solution**: Repeated Measured ANOVA, Mixed ANOVA, Multilevel Model
+-   **Consequences**: If independence is violated, [ANOVA results are not valid]{.red}.
 
 ------------------------------------------------------------------------
 
-### Durbin-Watson Statistic (DW)
+[Durbin-Watson (DW) Test]{.bluecolor .bigger}
 
 ::: callout-note
 -   The Durbin-Watson test is primarily used for detecting **autocorrelation** in time-series data.
 
--   In the context of ANOVA with independent groups, residuals are generally assumed to be independent. However, it's still good practice to check this assumption, especially if there's a reason to suspect potential autocorrelation.
+-   In the context of ANOVA with independent groups, residuals are generally assumed to be independent.
+
+    -   However, it's still good practice to check this assumption, especially if there's a reason to suspect potential autocorrelation.
 :::
 
+::: callout-important
 -   Properties of DW Statistic:
+    -   $H_0$: [Independence of residual is satisfied.]{.redcolor}
     -   Ranges from 0 to 4.
         -   A value around 2 suggests no autocorrelation.
         -   Values approaching 0 indicate positive autocorrelation.
         -   Values toward 4 suggest negative autocorrelation.
     -   P-value
-        -   P-Value: A small p-value (typically \< 0.05) indicates significant autocorrelation in the residuals. A larger p-value suggests no evidence of autocorrelation.
+        -   P-Value: A small p-value (typically \< 0.05) indicates violation of independency
+:::
+
+------------------------------------------------------------------------
+
+[`lmtest::dwtest()`]{.bluecolor .bigger}
+
+-   Performs the Durbin-Watson test for autocorrelation of disturbances.
+
+-   The Durbin-Watson test has the null hypothesis that the autocorrelation of the disturbances is 0.
+
+```{r}
+#| eval: false
+err1 <- rnorm(100)
+
+## generate regressor and dependent variable
+x <- rep(c(-1,1), 50)
+y1 <- 1 + x + err1 
+## perform Durbin-Watson test
+dwtest(y1 ~ x)
+```
+
+This results suggest there are no autocorrelation at the alpha level of .05.
 
 ## Assumption 2: Normality
 
 -   The **dependent variable (DV)** should be normally distributed within each group.
 -   **Assessments**:
-    -   **Graphical methods**: Histograms, Q-Q plots.
-    -   **Statistical tests**:
-        -   **Shapiro-Wilk test** (common)
-        -   **Kolmogorov-Smirnov (KS) test** (for large samples)
-        -   **Anderson-Darling test** (detects kurtosis issues).
+    -   Graphical methods: Histograms, Q-Q plots.
+    -   Statistical tests:
+        -   Shapiro-Wilk test (common)
+        -   Kolmogorov-Smirnov (KS) test (for large samples)
+        -   Anderson-Darling test (detects kurtosis issues).
 -   **Robustness**:
-    -   ANOVA is **robust** to normality violations for **large samples**.
-    -   **If normality is violated**, consider transformations or non-parametric tests.
+    -   ANOVA is robust to normality violations for large samples.
+    -   If normality is violated, consider transformations or non-parametric tests.
+
+------------------------------------------------------------------------
+
+[Normality within Each Group]{.bluecolor .bigger}
+
+-   Assume that the DV (Y) is distributed normally within each group for ANOVA
+
+-   ANOVA is **robust** to minor violations of normality
+
+    -   So generally start with homogeneity, then assess normality
+
+![](images/clipboard-3483482689.png)
+
+---
+
+[`shapiro.test()`]{.bigger}
+
+```{r}
+#| eval: true
+set.seed(123)  # For reproducibility
+sample_normal_data <- rnorm(100, mean = 50, sd = 10)  # Generate normal data
+sample_nonnormal_data <- runif(100, min = 2, max = 4)  # Generate non-normal data
+
+shapiro.test(sample_normal_data)
+shapiro.test(sample_nonnormal_data)
+```
+
+---
+
+```{r}
+# Perform Kolmogorov-Smirnov test against a normal distribution
+ks.test(scale(sample_normal_data), "pnorm")
+ks.test(scale(sample_nonnormal_data), "pnorm")
+```
+
 
 ## Assumption 3: Homogeneity of Variance (HOV)
 
@@ -122,13 +201,50 @@ format:
 ## ANOVA Robustness
 
 -   **Robust to**:
+
     -   Minor normality violations (for large samples).
     -   Small HOV violations if group sizes are **equal**.
+
 -   **Not robust to**:
+
     -   **Independence violations**—ANOVA is invalid if data points are dependent.
     -   **Severe HOV violations**—Type I error rates become unreliable.
 
-## Homogeneity of Variance Violation
+-   The robustness of assumptions is something you should be carefull before/when you perform data collection. They are not something you can do after data collection has been finished.
+
+------------------------------------------------------------------------
+
+[Robustness to Violations of Normality Assumption]{.redcolor}
+
+-   ANOVA assumes that the residuals (errors) are normally distributed within each group.
+
+-   However, ANOVA is generally robust to violations of normality, particularly when **the sample size is large**.
+
+-   **Theoretical Justification**: This robustness is primarily due to the Central Limit Theorem (CLT), which states that, for sufficiently large sample sizes (typically $n≥30$ per group), the sampling distribution of the mean approaches normality, even if the underlying population distribution is non-normal.
+
+-   This means that, unless the data are heavily skewed or have extreme outliers, ANOVA results remain valid and Type I error rates are not severely inflated.
+
+------------------------------------------------------------------------
+
+### Robustness to Violations of Homogeneity of Variance
+
+-   The homogeneity of variance (homoscedasticity) assumption states that all groups should have equal variances. ANOVA can tolerate moderate violations of this assumption, particularly when:
+
+    -   **Sample sizes are equal (or nearly equal) across groups** – When groups have equal sample sizes, the F-test remains robust to variance heterogeneity because the pooled variance estimate remains balanced.
+
+    -   **The degree of variance heterogeneity is not extreme** – If the largest group variance is no more than about four times the smallest variance, ANOVA results tend to remain accurate.
+
+------------------------------------------------------------------------
+
+### ANOVA: Lack of Robustness to Violations of Independence of Errors
+
+-   The assumption of independence of errors means that observations within and between groups must be uncorrelated. Violations of this assumption severely compromise ANOVA’s validity because:
+
+    -   **Inflated Type I error rates** – If errors are correlated (e.g., due to clustering or repeated measures), standard errors are underestimated, leading to an increased likelihood of falsely rejecting the null hypothesis.
+    -   **Biased parameter estimates** – When observations are not independent, the variance estimates do not accurately reflect the true variability in the data, distorting F-statistics and p-values.
+    -   **Common sources of dependency** – Examples include nested data (e.g., students within schools), repeated measurements on the same subjects, or time-series data. In such cases, alternatives like mixed-effects models or generalized estimating equations (GEE) should be considered.
+
+## Homogeneity of Variance Violation Checking
 
 -   If HOV is **violated**, options include:
     -   **Welch’s ANOVA** (adjusted for variance differences).
@@ -312,6 +428,7 @@ ggplot(data, aes(sample = verbal_score)) +
 # Levene's Test for homogeneity of variance
 library(car)
 leveneTest(verbal_score ~ group, data = data)
+bartlett.test(verbal_score ~ group, data = data)
 ```
 
 -   Interpretation:
@@ -334,7 +451,7 @@ summary(anova_model)
 ```{r}
 # Tukey HSD post-hoc test
 tukey_results <- TukeyHSD(anova_model)
-tukey_results
+round(tukey_results$group, 3)
 ```
 
 -   Interpretation:
@@ -344,6 +461,82 @@ tukey_results
         -   G2-Control
         -   G3-Control
         -   G3-G1
+
+------------------------------------------------------------------------
+
+### multcomp: Choose which method for adjustment of P-Values
+
+Other multicomparison method allow you to choose which method for adjust p-values.
+
+```{r}
+library(multcomp)
+# install.packages("multcomp")
+### set up multiple comparisons object for all-pair comparisons
+# head(model.matrix(anova_model))
+comprs <- rbind(
+  "G1 - Ctrl" = c(0, 1, 0,  0),
+  "G2 - Ctrl" = c(0, 0, 1,  0),
+  "G3 - Ctrl" = c(0, 0, 0,  1),
+  "G2 - G1" = c(0, -1, 1,  0),
+  "G3 - G1" = c(0, -1, 0,  1),
+  "G3 - G2" = c(0, 0, -1,  1)
+)
+cht <- glht(anova_model, linfct = comprs)
+summary(cht, test = adjusted("fdr"))
+
+```
+
+------------------------------------------------------------------------
+
+### Side-by-Side comparison of two methods
+
+::::: columns
+::: {.column width="50%"}
+#### TukeyHSD method
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+#| code-summary: "TukeyHSD method"
+             diff    lwr    upr p adj
+G1-Control  7.611  1.545 13.677 0.008
+G2-Control 10.715  4.649 16.782 0.000
+G3-Control 14.720  8.654 20.786 0.000
+G2-G1       3.104 -2.962  9.170 0.543
+G3-G1       7.109  1.042 13.175 0.015
+G3-G2       4.005 -2.062 10.071 0.318
+```
+:::
+
+::: {.column width="50%"}
+#### FDR method
+
+```{r}
+#| eval: false
+#| code-line-numbers: false
+#| code-summary: "multcomp package"
+               Estimate Std. Error t value Pr(>|t|)    
+G1 - Ctrl == 0    7.611      2.327   3.270  0.00283 ** 
+G2 - Ctrl == 0   10.715      2.327   4.604 3.20e-05 ***
+G3 - Ctrl == 0   14.720      2.327   6.325 2.94e-08 ***
+G2 - G1 == 0      3.104      2.327   1.334  0.18487    
+G3 - G1 == 0      7.109      2.327   3.055  0.00419 ** 
+G3 - G2 == 0      4.005      2.327   1.721  0.10555 
+```
+:::
+
+-   The differences in p-value adjustment between the `TukeyHSD` method and the `multcomp` package stem from how each approach calculates and applies the multiple comparisons correction. Below is a detailed explanation of these differences
+:::::
+
+### Comparison of Differences
+
+| Feature | `TukeyHSD()` (Base R) | `multcomp::glht()` |
+|-------------------|-----------------------------|-------------------------|
+| **Distribution Used** | Studentized Range (q-distribution) | t-distribution |
+| **Error Rate Control** | Strong FWER control | Flexible error control |
+| **Simultaneous Confidence Intervals** | Yes | Typically not (depends on method used) |
+| **Adjustment Method** | Tukey-Kramer adjustment | Single-step, Westfall, Holm, Bonferroni, etc. |
+| **P-value Differences** | More conservative (larger p-values) | Slightly different due to t-distribution |
 
 ## Step 6: Reporting ANOVA Results
 

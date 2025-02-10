@@ -238,3 +238,12 @@ body.quarto-dark .menu-text:hover > .menutext-cn {
 .mohu:hover .mohu, .mohu:active .mohu {
     filter: none !important;
 }
+
+.redcolor, .redcolor a, a .redcolor, .redcolor a.new {
+  color: #e60000; /* Bright red text */
+  background-color: #ccccff; /* Light blue background */
+  font-weight: bold; /* Makes the text bold */
+  padding: 5px; /* Adds spacing around the text */
+  border-radius: 5px; /* Softens the background edges */
+  display: inline-block; /* Ensures proper background wrapping */
+}

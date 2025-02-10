@@ -153,11 +153,6 @@ $code-block-font-size: 70% !default;
   height:1.5em; /*use this to adjust underline position*/
 }
 
-.reveal .slides h3{
-  text-transform: uppercase;
-  color: $red;
-  font-size: 120%;
-}
 
 .v-center-container {
   display: flex !important;
@@ -351,4 +346,28 @@ button.show-answer:hover {
   background-color: white;
   color: #04AA6D;
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.redcolor, .redcolor a, a .redcolor, .redcolor a.new {
+  color: #e60000; /* Bright red text */
+  background-color: #ccccff; /* Light blue background */
+  font-weight: bold; /* Makes the text bold */
+  padding: 5px; /* Adds spacing around the text */
+  border-radius: 5px; /* Softens the background edges */
+  display: inline-block; /* Ensures proper background wrapping */
+}
+
+.bluecolor, .bluecolor a, a .bluecolor, .bluecolor a.new {
+  color: #0000e6; /* Deep blue text */
+  background-color: #D6D2C4; /* Light red/pink background */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+  font-weight: bold; /* Bold text for emphasis */
+  padding: 5px; /* Adds spacing for better readability */
+  border-radius: 5px; /* Rounded corners for aesthetics */
+  display: inline-block; /* Ensures the background properly wraps */
+}
+
+.bigger {
+  font-size: 33px;
+  font-size: 3.5rem;
 }
