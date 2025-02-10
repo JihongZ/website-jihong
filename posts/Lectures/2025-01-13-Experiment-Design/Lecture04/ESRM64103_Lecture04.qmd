@@ -172,8 +172,8 @@ This results suggest there are no autocorrelation at the alpha level of .05.
 ```{r}
 #| eval: true
 set.seed(123)  # For reproducibility
-sample_normal_data <- rnorm(100, mean = 50, sd = 10)  # Generate normal data
-sample_nonnormal_data <- runif(100, min = 2, max = 4)  # Generate non-normal data
+sample_normal_data <- rnorm(200, mean = 50, sd = 10)  # Generate normal data
+sample_nonnormal_data <- runif(200, min = 1, max = 10)  # Generate non-normal data
 
 shapiro.test(sample_normal_data)
 shapiro.test(sample_nonnormal_data)
