@@ -1,5 +1,5 @@
 ---
-title: "Lecture 04: ANOVA Assumptions"
+title: "Lecture 04: ANOVA Assumptions Checking"
 subtitle: "Experimental Design in Education"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -12,11 +12,11 @@ execute:
   eval: true
   echo: true
 format: 
-  #html: 
-  #  page-layout: full
-  #  toc: true
-  #  toc-depth: 2
-  #  lightbox: true
+  # html: 
+  #   page-layout: full
+  #   toc: true
+  #   toc-depth: 2
+  #   lightbox: true
   uark-revealjs:
     chalkboard: true
     embed-resources: false
@@ -27,7 +27,8 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     scrollable: true
-#jupyter: python3
+    mermaid:
+      theme: forest
 ---
 
 ## Class Outline
@@ -144,9 +145,9 @@ This results suggest there are no autocorrelation at the alpha level of .05.
 
 -   The **dependent variable (DV)** should be normally distributed within each group.
 -   **Assessments**:
-    -   Graphical methods: Histograms, Q-Q plots.
+    -   Graphical methods: Histograms, [Q-Q plots]{.redcolor}.
     -   Statistical tests:
-        -   Shapiro-Wilk test (common)
+        -   [Shapiro-Wilk test (common)]{.redcolor}
         -   Kolmogorov-Smirnov (KS) test (for large samples)
         -   Anderson-Darling test (detects kurtosis issues).
 -   **Robustness**:
@@ -165,7 +166,7 @@ This results suggest there are no autocorrelation at the alpha level of .05.
 
 ![](images/clipboard-3483482689.png)
 
----
+------------------------------------------------------------------------
 
 [`shapiro.test()`]{.bigger}
 
@@ -179,7 +180,7 @@ shapiro.test(sample_normal_data)
 shapiro.test(sample_nonnormal_data)
 ```
 
----
+------------------------------------------------------------------------
 
 ```{r}
 # Perform Kolmogorov-Smirnov test against a normal distribution
@@ -187,16 +188,66 @@ ks.test(scale(sample_normal_data), "pnorm")
 ks.test(scale(sample_nonnormal_data), "pnorm")
 ```
 
-
 ## Assumption 3: Homogeneity of Variance (HOV)
 
 -   Variance across groups should be equal.
 -   **Assessments**:
     -   **Levene’s test**: Tests equality of variances.
     -   **Brown-Forsythe test**: More robust to non-normality.
+    -   **Bartlett's test**: For data with normality.
     -   **Boxplots**: Visual inspection.
 -   **What if violated?**
-    -   Use **Welch’s ANOVA**, which corrects for variance differences.
+    -   **Welch’s ANOVA** (adjusted for variance differences).
+    -   **Transforming** the dependent variable.
+    -   **Using non-parametric tests** (e.g., Kruskal-Wallis).
+
+------------------------------------------------------------------------
+
+[Practical Considerations]{.bluecolor .bigger}
+
+```{r}
+#| eval: false
+## Computes Levene's test for homogeneity of variance across groups.
+car::leveneTest(outcome ~ group, data = data)
+
+## Boxplots to visualize the variance by groups
+boxplot(outcome ~ group, data = data)
+
+## Brown-Forsythe test 
+onewaytests::bf.test(outcome ~ group, data = data)
+
+## Bartlett's Test
+bartlett.test(outcome ~ group, data = data)
+```
+
+-   **Levene's test** and **Brown-Forsythe test** are often preferred when data does not meet the assumption of normality, especially for small sample sizes.
+-   **Bartlett’s test** is most powerful when the data is normally distributed and when sample sizes are equal across groups. However, it can be less reliable if these assumptions are violated.
+
+---
+
+[Decision Tree]{.redcolor .bigger}
+
+
+```{dot}
+//| echo: false
+digraph flowchart {
+    node [shape=box, style=filled, fillcolor=lightgray];
+    
+    A [label="Is the data normal by group?"];
+    B [label="Use Bartlett's Test"];
+    C [label="Are there outliers?"];
+    D [label="Use Brown-Forsythe Test"];
+    E [label="Use Levene's Test"];
+    
+    A -> B [label="Yes"];
+    A -> C [label="No"];
+    C -> D [label="Yes"];
+    C -> E [label="No"];
+}
+
+```
+
+------------------------------------------------------------------------
 
 ## ANOVA Robustness
 
@@ -244,13 +295,6 @@ ks.test(scale(sample_nonnormal_data), "pnorm")
     -   **Biased parameter estimates** – When observations are not independent, the variance estimates do not accurately reflect the true variability in the data, distorting F-statistics and p-values.
     -   **Common sources of dependency** – Examples include nested data (e.g., students within schools), repeated measurements on the same subjects, or time-series data. In such cases, alternatives like mixed-effects models or generalized estimating equations (GEE) should be considered.
 
-## Homogeneity of Variance Violation Checking
-
--   If HOV is **violated**, options include:
-    -   **Welch’s ANOVA** (adjusted for variance differences).
-    -   **Transforming** the dependent variable.
-    -   **Using non-parametric tests** (e.g., Kruskal-Wallis).
-
 # Omnibus ANOVA Test
 
 ## Overview
@@ -282,27 +326,29 @@ ks.test(scale(sample_nonnormal_data), "pnorm")
 
 -   **Common post-hoc tests**:
     1.  **Fisher’s LSD**
-    2.  **Bonferroni correction**
+    2.  **Bonferroni correction** or Adjusted p-values
     3.  **Sidák correction**
     4.  **Tukey’s HSD**
 
-## Fisher’s LSD
+---
+
+[Fisher’s LSD]{.bluecolor}
 
 -   **Least Significant Difference test**.
 -   **Problem**: Does not control for **multiple comparisons** (inflated Type I error).
 
-## Bonferroni Correction
+[Bonferroni Correction]{.bluecolor}
 
 -   Adjusts **alpha** to reduce **Type I error**.
 -   New alpha: $\alpha / c$ (where $c$ is the number of comparisons).
 -   **Conservative**: Less power, avoids false positives.
 
-## Sidák Correction
+[Family-wise Error Rate (adjusted p-values)]{.bluecolor}
 
--   Similar to Bonferroni but slightly more powerful.
--   New alpha: $1 - (1 - \alpha)^{1/c}$.
+- Adjusts p-values to reduce Type I error
+- Report adjusted p-values (typically larger that original p-values)
 
-## Tukey’s HSD
+[Tukey’s HSD]{.bluecolor}
 
 -   Controls for **Type I error** across multiple comparisons.
 -   Uses a **q-statistic** from a Tukey table.
@@ -408,6 +454,9 @@ data %>%
     -   If $p>0.05$, normality assumption is not violated.
     -   If $p<0.05$, data deviates from normal distribution.
 
+-   Since the data meets the normality requirement and no outliers, we can use [Bartlett's or Levene's tests]{.redcolor} for HOV checking.
+
+
 ------------------------------------------------------------------------
 
 -   Alternative Check: Q-Q Plot
@@ -426,14 +475,16 @@ ggplot(data, aes(sample = verbal_score)) +
 
 ```{r}
 # Levene's Test for homogeneity of variance
-library(car)
-leveneTest(verbal_score ~ group, data = data)
-bartlett.test(verbal_score ~ group, data = data)
+car::leveneTest(verbal_score ~ group, data = data)
+stats::bartlett.test(verbal_score ~ group, data = data)
+onewaytests::bf.test(verbal_score ~ group, data = data)
 ```
 
 -   Interpretation:
     -   If $p>0.05$, variance is homogeneous (ANOVA assumption met).
     -   If $p<0.05$, variance differs across groups (consider Welch’s ANOVA).
+    
+-   It turns out our data does not violate the homogeneity of variance assumption.    
 
 ## Step 4: Perform One-Way ANOVA
 
@@ -464,7 +515,7 @@ round(tukey_results$group, 3)
 
 ------------------------------------------------------------------------
 
-### multcomp: Choose which method for adjustment of P-Values
+### multcomp: Family-wise Error Rate Control
 
 Other multicomparison method allow you to choose which method for adjust p-values.
 
@@ -531,7 +582,7 @@ G3 - G2 == 0      4.005      2.327   1.721  0.10555
 ### Comparison of Differences
 
 | Feature | `TukeyHSD()` (Base R) | `multcomp::glht()` |
-|-------------------|-----------------------------|-------------------------|
+|-------------------|----------------------------|-------------------------|
 | **Distribution Used** | Studentized Range (q-distribution) | t-distribution |
 | **Error Rate Control** | Strong FWER control | Flexible error control |
 | **Simultaneous Confidence Intervals** | Yes | Typically not (depends on method used) |
@@ -540,9 +591,19 @@ G3 - G2 == 0      4.005      2.327   1.721  0.10555
 
 ## Step 6: Reporting ANOVA Results
 
-A one-way ANOVA was conducted to examine the effect of an intensive intervention on verbal acquisition scores. There was a statistically significant difference between groups, $F(3,116)=14.33$, $p<.001$. Tukey's post-hoc comparisons revealed that the G3 intervention group (M=84.2, SD=7.25) had significantly higher scores than the Control (M=69.5,SD=9.81) and G1 (M=77.1,SD=10.0) groups (all p\<.05). However, no significant difference was found between G2 and G3 (p=.31). These findings suggest that higher intervention intensity improves verbal acquisition performance.
+[Result]{.bigger}
 
-# Exercise: Effect of Sleep Duration on Cognitive Performance
+1. We first examined three assumptions of ANOVA for our data as the preliminary analysis. According to the Durbin-Watson test, the Shapiro-Wilk normality test, and the Bartletts' test, the sample data meets all assumptions of the one-way ANOVA modeling.
+
+2. A one-way ANOVA was then conducted to examine the effect of three intensive intervention methods (Control, G1, G2, G3) on verbal acquisition scores. There was a statistically significant difference between groups, $F(3,116)=14.33$, $p<.001$. 
+
+3. To further examine which intervention method is most effective, we performed Tukey's post-hoc comparisons. The results revealed that all three intervention methods have significantly higher scores than the control group (G1-Ctrl: p = .003; G2-Ctrl: p < .001; G3-Ctrl: p < .001). Among three intervention methods, G3 seems to be the most effective. Specifically, G3 showed significantly higher scores than G1 (p = .004). However, no significant difference was found between G2 and G3 (p = .105). 
+
+[Discussion]{.bigger}
+
+These findings suggest that higher intervention intensity improves verbal acquisition performance, which is consistent with prior literatures [xxxx/references]
+
+# Aftre-Class Exercise: Effect of Sleep Duration on Cognitive Performance
 
 ## Background
 
