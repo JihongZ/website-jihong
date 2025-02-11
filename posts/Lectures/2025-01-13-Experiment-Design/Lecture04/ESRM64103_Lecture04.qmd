@@ -6,7 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2025-08-18"
+date: "2025-02-10"
 sidebar: false
 execute: 
   eval: true
@@ -34,9 +34,9 @@ format:
 ## Class Outline
 
 -   Go through three assumptions of ANOVA and their checking statistics
--   Omnibus test for more group comparisons.
+-   Post-hoc test for more group comparisons.
 -   Example: Intervention and Verbal Acquisition
--   Exercise: Effect of Sleep Duration on Cognitive Performance
+-   After-class Exercise: Effect of Sleep Duration on Cognitive Performance
 
 ## ANOVA Procedure
 
@@ -60,7 +60,7 @@ format:
 -   Compared to multiple t-tests, the ANOVA does not inflate Type I error rates.
     -   For F-test in ANOVA, Type I error rate is not inflated
     -   Type I error rate is inflated when we do multiple comparison
--   Family-wise error rate: probability of at least one Type I error occur = $1 −  (1 − \alpha)^c$ where c =number of tests
+-   Family-wise error rate: probability of at least one Type I error occur = $1 −  (1 − \alpha)^c$ where c =number of tests. Frequently used FWER methods include Bonferroni or FDR.
 
 ::: callout-note
 ## Family-Wise Error Rate
@@ -130,6 +130,9 @@ format:
 
 ```{r}
 #| eval: false
+
+#install.packages("lmtest")
+library(lmtest)
 err1 <- rnorm(100)
 
 ## generate regressor and dependent variable
@@ -223,10 +226,9 @@ bartlett.test(outcome ~ group, data = data)
 -   **Levene's test** and **Brown-Forsythe test** are often preferred when data does not meet the assumption of normality, especially for small sample sizes.
 -   **Bartlett’s test** is most powerful when the data is normally distributed and when sample sizes are equal across groups. However, it can be less reliable if these assumptions are violated.
 
----
+------------------------------------------------------------------------
 
 [Decision Tree]{.redcolor .bigger}
-
 
 ```{dot}
 //| echo: false
@@ -244,6 +246,15 @@ digraph flowchart {
     C -> D [label="Yes"];
     C -> E [label="No"];
 }
+
+```
+
+---
+
+```{r}
+library(ellmer)
+chat = ellmer::chat_ollama(model = "llama3.2")
+chat$chat("How large can be considered as large sample size in one-way ANOVA")
 
 ```
 
@@ -330,7 +341,7 @@ digraph flowchart {
     3.  **Sidák correction**
     4.  **Tukey’s HSD**
 
----
+------------------------------------------------------------------------
 
 [Fisher’s LSD]{.bluecolor}
 
@@ -345,8 +356,8 @@ digraph flowchart {
 
 [Family-wise Error Rate (adjusted p-values)]{.bluecolor}
 
-- Adjusts p-values to reduce Type I error
-- Report adjusted p-values (typically larger that original p-values)
+-   Adjusts p-values to reduce Type I error
+-   Report adjusted p-values (typically larger that original p-values)
 
 [Tukey’s HSD]{.bluecolor}
 
@@ -453,9 +464,7 @@ data %>%
 -   Interpretation:
     -   If $p>0.05$, normality assumption is not violated.
     -   If $p<0.05$, data deviates from normal distribution.
-
 -   Since the data meets the normality requirement and no outliers, we can use [Bartlett's or Levene's tests]{.redcolor} for HOV checking.
-
 
 ------------------------------------------------------------------------
 
@@ -483,8 +492,7 @@ onewaytests::bf.test(verbal_score ~ group, data = data)
 -   Interpretation:
     -   If $p>0.05$, variance is homogeneous (ANOVA assumption met).
     -   If $p<0.05$, variance differs across groups (consider Welch’s ANOVA).
-    
--   It turns out our data does not violate the homogeneity of variance assumption.    
+-   It turns out our data does not violate the homogeneity of variance assumption.
 
 ## Step 4: Perform One-Way ANOVA
 
@@ -593,15 +601,15 @@ G3 - G2 == 0      4.005      2.327   1.721  0.10555
 
 [Result]{.bigger}
 
-1. We first examined three assumptions of ANOVA for our data as the preliminary analysis. According to the Durbin-Watson test, the Shapiro-Wilk normality test, and the Bartletts' test, the sample data meets all assumptions of the one-way ANOVA modeling.
+1.  We first examined three assumptions of ANOVA for our data as the preliminary analysis. According to the Durbin-Watson test, the Shapiro-Wilk normality test, and the Bartletts' test, the sample data meets all assumptions of the one-way ANOVA modeling.
 
-2. A one-way ANOVA was then conducted to examine the effect of three intensive intervention methods (Control, G1, G2, G3) on verbal acquisition scores. There was a statistically significant difference between groups, $F(3,116)=14.33$, $p<.001$. 
+2.  A one-way ANOVA was then conducted to examine the effect of three intensive intervention methods (Control, G1, G2, G3) on verbal acquisition scores. There was a statistically significant difference between groups, $F(3,116)=14.33$, $p<.001$.
 
-3. To further examine which intervention method is most effective, we performed Tukey's post-hoc comparisons. The results revealed that all three intervention methods have significantly higher scores than the control group (G1-Ctrl: p = .003; G2-Ctrl: p < .001; G3-Ctrl: p < .001). Among three intervention methods, G3 seems to be the most effective. Specifically, G3 showed significantly higher scores than G1 (p = .004). However, no significant difference was found between G2 and G3 (p = .105). 
+3.  To further examine which intervention method is most effective, we performed Tukey's post-hoc comparisons. The results revealed that all three intervention methods have significantly higher scores than the control group (G1-Ctrl: p = .003; G2-Ctrl: p \< .001; G3-Ctrl: p \< .001). Among three intervention methods, G3 seems to be the most effective. Specifically, G3 showed significantly higher scores than G1 (p = .004). However, no significant difference was found between G2 and G3 (p = .105).
 
 [Discussion]{.bigger}
 
-These findings suggest that higher intervention intensity improves verbal acquisition performance, which is consistent with prior literatures [xxxx/references]
+These findings suggest that higher intervention intensity improves verbal acquisition performance, which is consistent with prior literatures \[xxxx/references\]
 
 # Aftre-Class Exercise: Effect of Sleep Duration on Cognitive Performance
 

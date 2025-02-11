@@ -1,0 +1,278 @@
+---
+title: "Lecture 05: Other Formats of Data"
+subtitle: "R Function"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-05"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 0
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+## Class Outline
+
+1.  String and Text Data
+2.  Image Data
+3.  Audio Data
+4.  Video Data
+
+# String and Text Data
+
+## Special characters
+
+-   Quotation marks can be used in strings. Note that a single quote can only be used within a double quote or the other way around.
+
+```{r}
+"I'm a student"
+
+'He says "it is ok!"'
+
+"I'm a student. He says \"it is ok\"!"
+```
+
+-   It is generally a good idea to “escape” the quotation marks using the backslash `\`.
+    -   If it is needed in a string, one needs to use two of them `\\`. For example,
+
+```{r}
+cat("To show \\ , we need to use two of them.")
+```
+
+::: callout-tip
+`cat()`: Print the objects.
+:::
+
+------------------------------------------------------------------------
+
+### Other special characters
+
+-   [`\t` and `\n`]{.redcolor}: Special characters for changing lines and tab.
+
+-   `\u` for escaping special characters in Unicode other than alphabetical letters. https://unicode-table.com/en/
+
+```{r}
+test <- "This is the first line. \nThis the \t second line with a tab."
+cat(test)
+cat("\u03BC \u03A3 \u03B1 \u03B2")
+cat("❤ ♫")
+```
+
+## Basic string operations
+
+```{r}
+library(tidyverse)
+# or 
+library(stringr) # install.packages("stringr")
+```
+
+-   A vector of strings
+
+```{r}
+tweet1 <- "MAKE AMERICA GREAT AGAIN!" 
+tweet2 <- "Congratulations @ClemsonFB! https://t.co/w8viax0OWY"
+
+(tweet <- c(tweet1, tweet2))
+```
+
+-   Change the lower/upper case of strings
+
+```{r}
+tolower(tweet)
+toupper(tweet)
+```
+
+------------------------------------------------------------------------
+
+[Basic string operations (Cont.)]{.bluecolor .bigger}
+
+-   Caclulate length of a string
+
+```{r}
+nchar(tweet1)
+
+str_length(tweet) # function of package stringr
+```
+
+-   Split strings based on a [pattern]{.redcolor}.
+    1.  pattern tells how to split a string.
+    2.  the output is a list.
+
+```{r}
+str_split(tweet, pattern = " ")
+## Use str_split_1 to return one vector rather than list
+str_split_1(tweet2, pattern = " https://")
+```
+- Check regular expresssion for more pattern detection
+
+```{r}
+#| eval: false
+vignette("regular-expressions")
+```
+
+------------------------------------------------------------------------
+
+[Basic string operations (Cont.)]{.bluecolor .bigger}
+
+- Combine string vectors into one
+
+```{r}
+(tweet.words <- unlist(str_split(tweet, pattern = " ")))
+str_c(tweet.words, collapse=" ")
+```
+
+# Project: Analysis of Trump Tweets
+
+## Download of Trump Tweets
+
+- For demonstration, we will analyze the tweets from President Donald Trump from 2009 to 2017. 
+
+```{r}
+library(dslabs) # install.packages("dslabs")
+library(tidyverse) 
+glimpse(dslabs::trump_tweets)
+```
+
+:::callout-note
+- `source`. Device or service used to compose tweet.
+- `id_str`. Tweet ID.
+- `text`. Tweet.
+- `created_at`. Data and time tweet was tweeted.
+- `retweet_count`. How many times tweet had been retweeted at time dataset was created.
+- `in_reply_to_user_id_str`. If a reply, the user id of person being replied to.
+- `favorite_count`. Number of times tweet had been favored at time dataset was created.
+- `is_retweet`. A logical telling us if it is a retweet or not.
+:::
+
+---
+
+###  Basic analysis of Trump tweets
+
+- Where the tweets were sent from
+
+
+```{r}
+#| code-fold: false
+table(trump_tweets$source)
+n_distinct(trump_tweets$source)
+```
+
+
+---
+
+```{r}
+#| code-fold: true
+n_source_tbl <- trump_tweets |> 
+  group_by(source) |> 
+  summarise(
+    N = n()
+  )
+ggplot(data = n_source_tbl) +
+  geom_col(aes(x = fct_reorder(source, N), y = N)) +
+  geom_label(aes(x = fct_reorder(source, N), y = N, label = N), nudge_y = 500) +
+  labs(x = "", y = "") +
+  coord_flip()
+```
+
+---
+
+- The length of each tweet
+
+```{r}
+hist(str_length(trump_tweets$text))
+```
+
+Most tweets have the length from 100 to 150 characters.
+
+---
+
+- Word counts in the tweet
+  - `lengths`: Get the length of each element of a list or atomic vector (is.atomic) as an integer or numeric vector.
+
+```{r}
+#| fig-output: column
+trump.split <- str_split(trump_tweets$text, pattern = " ")
+lengths(trump.split) |> head()
+hist(lengths(trump.split))
+```
+
+Most tweets has less than 30 words.
+
+---
+
+- Top 20 most frequently used words
+
+```{r}
+#| code-fold: true
+trump.split <- unlist(str_split(trump_tweets$text, pattern = " "))
+
+word.freq <- as.data.frame(sort(table(word = tolower(trump.split)), decreasing = T))
+word.freq |> 
+  mutate(word = trimws(word)) |> 
+  filter(
+    word != "",
+    !(word %in% stopwords::stopwords("en")),
+    !(word %in% c("I", "&amp;", "The", "-", "just"))
+  ) -> word_freq_tbl
+
+ggplot(data = word_freq_tbl[1:20, ]) +
+  geom_col(aes(x = fct_reorder(word, Freq), y = Freq)) +
+  geom_label(aes(x = fct_reorder(word, Freq), y = Freq, label = Freq)) +
+  labs(x = "", y = "") +
+  coord_flip()
+```
+
+# Image Data
+
+## Read Image Data Into R
+
+```{r}
+# install package
+# install.packages("magick")
+# install.packages("tesseract")
+# load package
+library(magick)
+library(tesseract)
+```
+
+```{r}
+img1 <- image_read("https://ggplot2.tidyverse.org/logo.png")
+#show the image
+print(img1)
+```
+
+---
+
+- Extract text from the image
+
+```{r}
+MAGAImg <- image_read("https://shop.trumpwinery.com/assets/images/products/pictures/WineDirectMERCHphotos3.png")
+print(MAGAImg)
+```
+
+## Reference
+
+1. [Tidyverse Skills for Data Science](https://jhudatascience.org/tidyversecourse/get-data.html#images) 
+2. [Practical Data Processing for Social and Behavioral Research Using R](https://books.psychstat.org/rdata/image-data.html)
