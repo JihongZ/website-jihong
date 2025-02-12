@@ -109,7 +109,6 @@ f3_2(meanmod=prestige ~ education, dta=carData::Prestige, varmod = ~ income)
 
 The arguments `dta` and `meanmod` are defined in the environment of the function, but the call to `lm` looks for them in the **global environment**, and they are therefore invisible when `lm` is called.
 
-
 ------------------------------------------------------------------------
 
 ### Solution: copy to global environment
@@ -131,26 +130,25 @@ f4(prestige ~ education, carData::Prestige, ~income)
 
 ## Introduction to Data Import
 
-- In this presentation, we will learn how to import data into R and tidy it for analysis. 
+-   In this presentation, we will learn how to import data into R and tidy it for analysis.
 
-- Data is often messy, but understanding how to manipulate it is a critical skill for any data scientist.
+-   Data is often messy, but understanding how to manipulate it is a critical skill for any data scientist.
 
 ------------------------------------------------------------------------
 
 ## Working with Your Own Data
 
-- While R packages provide a great way to work with sample data, at some point, you'll need to apply what you've learned to your own data. 
+-   While R packages provide a great way to work with sample data, at some point, you'll need to apply what you've learned to your own data.
 
-- In today's lecture, we'll focus on importing rectangular data, especially `CSV` files.
+-   In today's lecture, we'll focus on importing rectangular data, especially `CSV` files.
 
-### CSV file 
+### CSV file
 
-- A CSV (Comma Separated Values) file is a plain text file that contains tabular data, such as lists of information, in a format that can be easily read and written by humans and machines.
+-   A CSV (Comma Separated Values) file is a plain text file that contains tabular data, such as lists of information, in a format that can be easily read and written by humans and machines.
 
-- The values in each cell are separated by commas (hence the name), but other delimiters like semicolons, tabs, or pipes can also be used.
+-   The values in each cell are separated by commas (hence the name), but other delimiters like semicolons, tabs, or pipes can also be used.
 
 ------------------------------------------------------------------------
-
 
 ## Prerequisites for Reading Data
 
@@ -190,7 +188,7 @@ students$`Student ID`
 
 ### Import with literal data
 
-- To be recognised as literal data, the input must be either wrapped with I(), be a string containing at least one new line, or be a vector containing at least one string with a new line.
+-   To be recognised as literal data, the input must be either wrapped with I(), be a string containing at least one new line, or be a vector containing at least one string with a new line.
 
 ```{r}
 #| message: false
@@ -205,9 +203,9 @@ Student ID,Full Name,favourite.food,mealPlan,AGE
 students_literal
 ```
 
----
+------------------------------------------------------------------------
 
-- Use `read_delim` as a more generic function to import data with customized deliminator.
+-   Use `read_delim` as a more generic function to import data with customized deliminator.
 
 ```{r}
 #| message: false
@@ -226,13 +224,13 @@ students_pipe
 
 ### Import from Wikipedia Webpage
 
-- If you want to copy this web [Billboard Christian  and Gospel table](https://en.wikipedia.org/wiki/Billboard_charts#Christian_and_Gospel) from Wikipedia, choose `inspect` from the right-clicked menu. Find the "\<table\>" html element, and copy `outer HTML`.
+-   If you want to copy this web [Billboard Christian and Gospel table](https://en.wikipedia.org/wiki/Billboard_charts#Christian_and_Gospel) from Wikipedia, choose `inspect` from the right-clicked menu. Find the "\<table\>" html element, and copy `outer HTML`.
 
-- Install and Load `rvest` package
+-   Install and Load `rvest` package
 
-- `minimal_html`: Convert the HTML text into html R object
+-   `minimal_html`: Convert the HTML text into html R object
 
-- `html_element` and `html_table` can convert the local html table into "tibble" format
+-   `html_element` and `html_table` can convert the local html table into "tibble" format
 
 ```{r}
 #| code-fold: true
@@ -336,9 +334,9 @@ sample1 |>
   html_table()
 ```
 
----
+------------------------------------------------------------------------
 
-### Exercise 
+### Exercise
 
 Try to import [R&B and HipHop Table](https://en.wikipedia.org/wiki/Billboard_charts#R&B/Hip-Hop) form Wikipedia to R.
 
@@ -350,7 +348,6 @@ tbl_html |>
   html_element("table") |> 
   html_table()
 ```
-
 
 ------------------------------------------------------------------------
 
@@ -409,7 +406,7 @@ table(students_fixedDataType$meal_plan)
 
 Sometimes, your data is split across multiple files. You can read them all at once and combine them into a single data frame:
 
-```csv
+``` csv
 #| code-summary: "01-sales.csv"
 #| code-fold: true
 month,year,brand,item,n
@@ -422,7 +419,7 @@ January,2019,2,3987,6
 January,2019,2,3827,6
 ```
 
-```csv
+``` csv
 #| code-summary: "02-sales.csv"
 #| code-fold: true
 month,year,brand,item,n
@@ -434,7 +431,7 @@ February,2019,2,2156,3
 February,2019,2,3987,6
 ```
 
-```csv
+``` csv
 #| code-summary: "03-sales.csv"
 #| code-fold: true
 month,year,brand,item,n
@@ -487,13 +484,13 @@ For more complex objects, consider using `write_rds()` for saving R-specific obj
 
 ### Import Excel file
 
-- The `readxl` package provides functions to read-in Microsoft Excel formats.
+-   The `readxl` package provides functions to read-in Microsoft Excel formats.
 
-- The Microsoft Excel formats permit you to have more than one spreadsheet in one file.
+-   The Microsoft Excel formats permit you to have more than one spreadsheet in one file.
 
-- These are referred to as sheets. The functions listed above read the first sheet by default, but we can also read the others by specifying the sheet's name.
+-   These are referred to as sheets. The functions listed above read the first sheet by default, but we can also read the others by specifying the sheet's name.
 
-- The `excel_sheets` function gives us the names of all the sheets in an Excel file.
+-   The `excel_sheets` function gives us the names of all the sheets in an Excel file.
 
 ```{r}
 #| eval: false
@@ -511,11 +508,11 @@ The main functions are:
 | read_xls   | original format        | xls            |
 | read_xlsx  | new format             | xlsx           |
 
---- 
+------------------------------------------------------------------------
 
 ### After-class exercise
 
-1. Try to import one Excel table based on position and sheet names
+1.  Try to import one Excel table based on position and sheet names
 
 ## Data Entry
 
@@ -731,6 +728,7 @@ visitors_wide <- tibble(
 )
 visitors_wide
 ```
+
 ```{r}
 visitors_long <- visitors_wide |> 
   pivot_longer(

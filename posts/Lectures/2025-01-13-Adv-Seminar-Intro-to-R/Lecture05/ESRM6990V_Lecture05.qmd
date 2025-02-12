@@ -1,5 +1,5 @@
 ---
-title: "Lecture 05: Other Formats of Data"
+title: "Lecture 05: Text Data Analysis and Data Summary"
 subtitle: "R Function"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -36,9 +36,8 @@ format:
 ## Class Outline
 
 1.  String and Text Data
-2.  Image Data
-3.  Audio Data
-4.  Video Data
+2.  Basic Data Summary Using `dplyr`
+3.  Case Study of Trump Tweets
 
 # String and Text Data
 
@@ -108,7 +107,7 @@ toupper(tweet)
 
 [Basic string operations (Cont.)]{.bluecolor .bigger}
 
--   Caclulate length of a string
+-   Calculate length of a string
 
 ```{r}
 nchar(tweet1)
@@ -125,7 +124,8 @@ str_split(tweet, pattern = " ")
 ## Use str_split_1 to return one vector rather than list
 str_split_1(tweet2, pattern = " https://")
 ```
-- Check regular expresssion for more pattern detection
+
+-   Check regular expresssion for more pattern detection
 
 ```{r}
 #| eval: false
@@ -136,18 +136,309 @@ vignette("regular-expressions")
 
 [Basic string operations (Cont.)]{.bluecolor .bigger}
 
-- Combine string vectors into one
+-   Combine string vectors into one
 
 ```{r}
 (tweet.words <- unlist(str_split(tweet, pattern = " ")))
 str_c(tweet.words, collapse=" ")
 ```
 
-# Project: Analysis of Trump Tweets
+# AI + Text Analysis
+
+## Motivating Example: Extract Structural Information from Text
+
+-   Make use of language models to extract key information more easily
+
+-   This is not a step-by-step guide of using LLMs, but a motivating example so that you may want to explore more usage of LLMs in data analysis.
+
+    -   The details of techniques can be found in this [link](https://ellmer.tidyverse.org/articles/structured-data.html).
+
+-   Note that the following code cannot be successfully executed in your local device without ChatGPT account and access to API keys.
+
+    -   Here is a video [tutorial](https://www.youtube.com/watch?v=B_Fbd_vxZyE) for using ChatGPT in R.
+
+## Extract Structured data
+
+-   To programming LLMs for text analysis, I suggested using `ellmer` package (the [manual](https://ellmer.tidyverse.org/)) which was developed by the same person who developed `tidyverse` package.
+
+```{r}
+#| cache: true
+library(ellmer)
+chat <- chat_openai(echo = FALSE, model = "gpt-4o-mini")
+
+chat$extract_data(
+  tweet2,
+  type = type_object(
+    URL = type_string("URL address starting with 'http'")
+  )  
+)
+
+```
+
+```{r}
+#| cache: true
+chat$extract_data(
+  "My name is Susan and I'm 13 years old. I like traveling and hiking.",
+  type = type_object(
+    age = type_number("Age, in years."), # extract the numeric information as "age" from the provided text
+    name = type_string("Name, Uppercase"), # extract the character information as "name" from the provided text
+    hobbies = type_array(
+      description = "List of hobbies.",
+      items = type_string()
+    )
+  )
+)
+```
+
+-   Here, `type_()`
+
+## Open Sourced LLM - LLAMA
+
+-   You can freely download the open source LLM - Llama developed by Meta on this [link](https://ollama.com/).
+
+-   Teaching how to set up the LLMs is out of scope of this class. There are a lot of tutorials that you can use. For example, this [medium post](https://medium.com/@arunpatidar26/run-llm-locally-ollama-8ea296747505).
+
+-   Just showcase how you can extract key information. Llama needs more guide information to extract certain key words than ChatGPT.
+
+```{r}
+#| cache: true
+chat <- chat_ollama(model = "llama3.2")
+
+chat$extract_data(
+  "My name is Jihong and I'm an assistant professor. I like reading and hiking.",
+  type = type_object(
+    job = type_string("Job"), # extract the numeric information as "age" from the provided text
+    name = type_string("Name of the person, uppercase"), # extract the character information as "name" from the provided text
+    hobbies = type_array(
+      description = "List of hobbies. transform to Uppercase",
+      items = type_string()
+    )
+  )
+)  
+```
+
+------------------------------------------------------------------------
+
+### Deepseek distilled model
+
+```{r}
+#| cache: true
+chat <- chat_ollama(model = "deepseek-r1:8b")
+
+Text_to_summarize <- "Researchers have devised an ecological momentary assessment study following 80 students (mean age = 20.38 years, standard deviation = 3.68, range = 18–48 years; n = 60 female, n = 19 male, n = 1 other) from Leiden University for 2 weeks in their daily lives."
+
+chat$extract_data(
+  Text_to_summarize,
+  type = type_object(
+    N = type_number("total sample size"),
+    Age = type_number("Average age in years"),
+    Method = type_string("Assessment for data collection"),
+    Participants = type_string("source of data collection"),
+    Days = type_string("Duration of data collection")
+  )
+)
+```
+
+# Data Transformation
+
+## Overview
+
+-   Visualization is a key tool for generating insights.
+-   Data often needs transformation to fit the desired analysis or visualization.
+
+## Prerequisites
+
+-   Learn to use the `dplyr` package for data transformation.
+-   Explore the `nycflights13` dataset.
+
+### Required Libraries
+
+```{r}
+library(nycflights13) # `nycflights13` for the dataset flights.
+library(tidyverse)
+glimpse(flights)
+```
+
+-   `glimpse()` for the quick screening of the data.
+
+## `dplyr` Basics
+
+------------------------------------------------------------------------
+
+### Core Functions
+
+-   `filter()`: Subset rows based on conditions.
+-   `arrange()`: Reorder rows.
+-   `select()`: Choose columns by name.
+-   `mutate()`: Create new columns.
+-   `summarize()`: Aggregate data.
+
+------------------------------------------------------------------------
+
+### `filter()`: select cases based on condtions
+
+-   Use `|>` (Preferred) or `|>` to chain multiple operations.
+-   Select flights on January 1st:
+
+```{r}
+jan1 <- flights |> filter(month == 1, day == 1)
+jan1
+```
+
+-   Comparison operators: `==`, `!=`, `<`, `<=`, `>`, `>=`.
+-   Logical operators: `&`, `|`, `!`.
+-   Include: `%in%`
+
+```{r}
+#| eval: false
+flights |> filter(month != 1) # Months other than January
+flights |> filter(month %in% 1:10) # Months other than Nov. and Dec.
+```
+
+------------------------------------------------------------------------
+
+### `arrange()`: Arranging Rows
+
+-   Sort flights by departure delay:
+
+```{r}
+flights[, c("year", "month", "day", "dep_delay")] |> arrange(dep_delay)
+```
+
+-   Descending order:
+
+```{r}
+flights[, c("year", "month", "day", "dep_delay")] |> arrange(desc(dep_delay))
+```
+
+------------------------------------------------------------------------
+
+### `select()`: Selecting Columns
+
+-   Choose specific columns:
+
+```{r}
+flights |> select(year, month, day)
+
+## is equivalent to 
+# flights[, c("year", "month", "day")]
+```
+
+-   Helper functions for selecting the variables: `starts_with()`, `ends_with()`, `contains()`, `matches()`, `num_range()`.
+
+------------------------------------------------------------------------
+
+### `mutate()`: Adding New Variables
+
+-   Create new columns:
+
+```{r}
+flights_sml <- flights |> select(
+  year:day,
+  ends_with("delay"),
+  distance,
+  air_time
+)
+
+flights_sml |> mutate(
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+) |> 
+  select(year:day, gain, speed)
+```
+
+-   Use `transmute()` to keep only the new variables.
+
+```{r}
+flights_sml |> transmute(
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+) 
+```
+
+------------------------------------------------------------------------
+
+#### `mutate()` and `case_when`: Create new categories
+
+-   `case_when`: The left hand side (LHS) determines which values match this case. The right hand side (RHS) provides the replacement value.
+    -   The LHS inputs must evaluate to logical vectors.
+    -   The RHS inputs will be coerced to their common type. In following case, it is character type
+
+```{r}
+x <- c(1:10, NA)
+categorized_x <- case_when(
+  x %in% 1:3 ~ "low",
+  x %in% 4:7 ~ "med",
+  x %in% 7:10 ~ "high",
+  is.na(x) ~ "Missing"
+)
+categorized_x
+```
+
+-   Combine `mutate()` and `case_when()` to create a new categorical variable
+    -   `na.rm = TRUE` to ignore the NA values when calculating the mean
+
+```{r}
+flights |> 
+  mutate(
+    Half_year = case_when(
+      month %in% 1:6 ~ 1,
+      month %in% 6:12 ~ 2,
+      is.na(month) ~ 999
+    )
+  ) |> 
+  group_by(year, Half_year) |> 
+  summarise(
+    Mean_dep_delay = mean(dep_delay, na.rm = TRUE)
+  )
+```
+
+------------------------------------------------------------------------
+
+### `summarize()` with `group_by()`: Summarizing Data
+
+-   Calculate average delay by destination:
+
+```{r}
+by_dest <- flights |> group_by(dest)
+delay <- summarize(by_dest,
+  count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE)
+)
+```
+
+-   Visualize the results:
+
+```{r}
+ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+
+------------------------------------------------------------------------
+
+### `group_by()` and `ungroup()`: Grouping and Ungrouping
+
+-   Group data by multiple variables:
+
+```{r}
+by_day <- flights |> group_by(year, month, day)
+by_day |> 
+  summarize(avg_dep_delay = mean(dep_delay, na.rm = TRUE))
+```
+
+-   Ungroup data:
+
+```{r}
+by_day <- ungroup(by_day)
+```
+
+# Case Study: Analysis of Trump Tweets
 
 ## Download of Trump Tweets
 
-- For demonstration, we will analyze the tweets from President Donald Trump from 2009 to 2017. 
+-   For demonstration, we will analyze the tweets from President Donald Trump from 2009 to 2017.
 
 ```{r}
 library(dslabs) # install.packages("dslabs")
@@ -155,32 +446,35 @@ library(tidyverse)
 glimpse(dslabs::trump_tweets)
 ```
 
-:::callout-note
-- `source`. Device or service used to compose tweet.
-- `id_str`. Tweet ID.
-- `text`. Tweet.
-- `created_at`. Data and time tweet was tweeted.
-- `retweet_count`. How many times tweet had been retweeted at time dataset was created.
-- `in_reply_to_user_id_str`. If a reply, the user id of person being replied to.
-- `favorite_count`. Number of times tweet had been favored at time dataset was created.
-- `is_retweet`. A logical telling us if it is a retweet or not.
+::: callout-note
+-   `source`. Device or service used to compose tweet.
+-   `id_str`. Tweet ID.
+-   `text`. Tweet.
+-   `created_at`. Data and time tweet was tweeted.
+-   `retweet_count`. How many times tweet had been retweeted at time dataset was created.
+-   `in_reply_to_user_id_str`. If a reply, the user id of person being replied to.
+-   `favorite_count`. Number of times tweet had been favored at time dataset was created.
+-   `is_retweet`. A logical telling us if it is a retweet or not.
 :::
 
----
+## Basic summary of Trump tweets
 
-###  Basic analysis of Trump tweets
-
-- Where the tweets were sent from
-
+-   Where the tweets were sent from
 
 ```{r}
 #| code-fold: false
-table(trump_tweets$source)
-n_distinct(trump_tweets$source)
+
+trump_tweets |> 
+  group_by(
+    source
+  ) |> 
+  summarise(N = n()) |> 
+  arrange(desc(N))
 ```
 
+------------------------------------------------------------------------
 
----
+### Histogram of tweet sources
 
 ```{r}
 #| code-fold: true
@@ -196,47 +490,68 @@ ggplot(data = n_source_tbl) +
   coord_flip()
 ```
 
----
+------------------------------------------------------------------------
 
-- The length of each tweet
-
-```{r}
-hist(str_length(trump_tweets$text))
-```
-
-Most tweets have the length from 100 to 150 characters.
-
----
-
-- Word counts in the tweet
-  - `lengths`: Get the length of each element of a list or atomic vector (is.atomic) as an integer or numeric vector.
+### The length of each tweet
 
 ```{r}
-#| fig-output: column
-trump.split <- str_split(trump_tweets$text, pattern = " ")
-lengths(trump.split) |> head()
-hist(lengths(trump.split))
+summary(str_length(trump_tweets$text))
 ```
 
-Most tweets has less than 30 words.
+-   Most tweets have the length from 100 to 150 characters.
 
----
+-   Filter the tweet less than 20 characters
 
-- Top 20 most frequently used words
+```{r}
+trump_short_tweets <- trump_tweets |> 
+  mutate(
+    N_characters = str_length(text)
+  ) |> 
+  filter(N_characters <= 20)
+```
+
+## Extract Frequent Words from the Short Tweets
+
+```{r}
+trump_short_clean_tweets <- trump_short_tweets |> 
+  mutate(
+    clean_text = str_remove(text, "@\\S+ ")
+  ) |> 
+  mutate(
+    clean_text2 = str_remove_all(clean_text, "[[:punct:]]") # Remove punctuation
+  ) |> 
+  select(text, clean_text, clean_text2)
+trump_short_clean_tweets
+```
+
+Explanation of the Regular Expression:
+
+-   `@` matches the \@ symbol.
+-   `\\S+` matches one or more non-whitespace characters (i.e., the username).
+-   `str_remove()` removes the matched pattern.
+
+------------------------------------------------------------------------
+
+-   Top 20 most frequently used words
 
 ```{r}
 #| code-fold: true
-trump.split <- unlist(str_split(trump_tweets$text, pattern = " "))
+
+trump.split <- unlist(str_split(trump_short_clean_tweets$clean_text2, 
+                                pattern = " "))
 
 word.freq <- as.data.frame(sort(table(word = tolower(trump.split)), decreasing = T))
-word.freq |> 
+
+word_freq_tbl <- word.freq |> 
   mutate(word = trimws(word)) |> 
   filter(
     word != "",
     !(word %in% stopwords::stopwords("en")),
     !(word %in% c("I", "&amp;", "The", "-", "just"))
-  ) -> word_freq_tbl
+  )
+```
 
+```{r}
 ggplot(data = word_freq_tbl[1:20, ]) +
   geom_col(aes(x = fct_reorder(word, Freq), y = Freq)) +
   geom_label(aes(x = fct_reorder(word, Freq), y = Freq, label = Freq)) +
@@ -244,35 +559,7 @@ ggplot(data = word_freq_tbl[1:20, ]) +
   coord_flip()
 ```
 
-# Image Data
-
-## Read Image Data Into R
-
-```{r}
-# install package
-# install.packages("magick")
-# install.packages("tesseract")
-# load package
-library(magick)
-library(tesseract)
-```
-
-```{r}
-img1 <- image_read("https://ggplot2.tidyverse.org/logo.png")
-#show the image
-print(img1)
-```
-
----
-
-- Extract text from the image
-
-```{r}
-MAGAImg <- image_read("https://shop.trumpwinery.com/assets/images/products/pictures/WineDirectMERCHphotos3.png")
-print(MAGAImg)
-```
-
 ## Reference
 
-1. [Tidyverse Skills for Data Science](https://jhudatascience.org/tidyversecourse/get-data.html#images) 
-2. [Practical Data Processing for Social and Behavioral Research Using R](https://books.psychstat.org/rdata/image-data.html)
+1.  [Tidyverse Skills for Data Science](https://jhudatascience.org/tidyversecourse/get-data.html#images)
+2.  [Practical Data Processing for Social and Behavioral Research Using R](https://books.psychstat.org/rdata/image-data.html)

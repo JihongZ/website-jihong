@@ -1,5 +1,5 @@
 ---
-title: "Exercise 05: Other formats of data"
+title: "Exercise 05: Text Data Analysis and Data Summary"
 subtitle: ""
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -21,3 +21,71 @@ toc-depth: 2
 lightbox: true
 code-fold: show
 ---
+
+## Objective
+Use the `nycflights13` dataset to analyze flight delays and apply key `dplyr` functions.
+
+## Instructions
+Using the `flights` dataset from the `nycflights13` package:
+
+1. **Filter flights** that departed from JFK in June.
+    -  Hint `origin == "JFK"` and `month == 6`
+2. **Select relevant columns**: `year`, `month`, `day`, `dep_time`, `arr_time`, `carrier`, `flight`, and `dep_delay`.
+3. **Arrange flights** in descending order of departure delay.
+4. **Create a new column** called `delay_category`:
+   - `"On Time"` if `dep_delay <= 0`
+   - `"Slight Delay"` if `dep_delay` is between 1 and 30 minutes
+   - `"Severe Delay"` if `dep_delay` is greater than 30 minutes
+5. **Summarize the average delay** for each airline (`carrier`).
+
+## Questions
+
+1. What proportion of flights from JFK in June were categorized as "Severe Delay"?
+2. Which airline had the second longest average departure delay?
+
+```{r}
+#| echo: false
+# Load required packages
+library(nycflights13)
+library(tidyverse)
+
+# Step 1: Filter flights departing from JFK in June
+jfk_june_flights <- flights |> 
+  filter(origin == "JFK", month == 6)
+
+# Step 2: Select relevant columns
+jfk_june_flights_selected <- jfk_june_flights |> 
+  select(year, month, day, dep_time, arr_time, carrier, flight, dep_delay)
+
+# Step 3: Arrange by departure delay (descending order)
+jfk_june_flights_sorted <- jfk_june_flights_selected |> 
+  arrange(desc(dep_delay))
+
+# Step 4: Create delay categories
+jfk_june_flights_categorized <- jfk_june_flights_sorted |> 
+  mutate(
+    delay_category = case_when(
+      dep_delay <= 0 ~ "On Time",
+      dep_delay > 0 & dep_delay <= 30 ~ "Slight Delay",
+      dep_delay > 30 ~ "Severe Delay",
+      is.na(dep_delay) ~ "Dont Know"
+    )
+  )
+mean(jfk_june_flights_categorized$delay_category == "Severe Delay") # 0.201
+  
+# Step 5: Summarize average delay by carrier
+avg_delay_by_carrier <- jfk_june_flights_categorized |> 
+  group_by(carrier) |> 
+  summarize(avg_dep_delay = mean(dep_delay, na.rm = TRUE)) |> 
+  arrange(desc(avg_dep_delay))
+avg_delay_by_carrier # Q1 Answer: VX carrier: Virgin America.
+
+# Step 6: Visualize the average delay per airline
+ggplot(avg_delay_by_carrier, aes(x = fct_reorder(carrier, avg_dep_delay), y = avg_dep_delay)) +
+  geom_col(fill = "steelblue") +
+  geom_label(aes(label = round(avg_dep_delay, 1))) +
+  labs(title = "Average Departure Delay by Carrier (JFK, June)",
+       x = "Carrier", y = "Avg Departure Delay (min)") +
+  coord_flip()
+```
+
