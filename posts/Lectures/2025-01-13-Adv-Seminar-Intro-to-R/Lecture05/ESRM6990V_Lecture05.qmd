@@ -315,12 +315,12 @@ by_day <- ungroup(by_day)
 
 ## More dplyr Functions
 
--   `rename`()\`: Select rows based on conditions.
--   `relocate`()\`: Reorder rows.
+-   `rename()`: Select rows based on conditions.
+-   `relocate()`: Reorder rows.
 -   `distinct()`: Choose distinct/unique cases.
 -   `count()`: Create new columns.
--   `summarize()`: Aggregate data.
--   `group_by()`: Perform calculations within groups.
+-   `slice()`: select cases or random sampling.
+-   `rowwise()`: Perform calculations for each row.
 
 ------------------------------------------------------------------------
 
@@ -384,6 +384,8 @@ df |>
 
 ### `slice()`: Selecting Specific Rows
 
+`slice_*()` family allows you to choose rows based on their positions
+
 ```{r}
 # Select the first 10 flights
 df |> slice(1:10)
@@ -401,16 +403,16 @@ df |> slice_min(arrival_delay, n = 5)
 
 ------------------------------------------------------------------------
 
-### `sample_n()` and `sample_frac()`: Random Sampling
+### `slice_sample()`: Random Sampling
 
 ```{r}
 # Randomly select 5 flights
-df |> sample_n(5)
+df |> slice_sample(n = 5)
 ```
 
 ```{r}
 # Select 1% random sample
-df |> sample_frac(0.01)
+df |> slice_sample(prop = 0.01)
 ```
 
 ------------------------------------------------------------------------
@@ -421,7 +423,7 @@ df |> sample_frac(0.01)
 
 -   When you're working with a rowwise tibble, then dplyr will use `[[` instead of `[` to make your life a little easier.
 
-[Assume you want to calculate the mean of variables x, y and c: $\frac{x + y + z}{3}$]{.redcolor}
+-   [Assume you want to calculate the mean of variables x, y and c: $\frac{x + y + z}{3}$]{.redcolor}
 
 ```{r}
 set.seed(1234)

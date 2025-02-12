@@ -23,25 +23,27 @@ code-fold: show
 ---
 
 ## Objective
+
 Use the `nycflights13` dataset to analyze flight delays and apply key `dplyr` functions.
 
 ## Instructions
+
 Using the `flights` dataset from the `nycflights13` package:
 
-1. **Filter flights** that departed from JFK in June.
-    -  Hint `origin == "JFK"` and `month == 6`
-2. **Select relevant columns**: `year`, `month`, `day`, `dep_time`, `arr_time`, `carrier`, `flight`, and `dep_delay`.
-3. **Arrange flights** in descending order of departure delay.
-4. **Create a new column** called `delay_category`:
-   - `"On Time"` if `dep_delay <= 0`
-   - `"Slight Delay"` if `dep_delay` is between 1 and 30 minutes
-   - `"Severe Delay"` if `dep_delay` is greater than 30 minutes
-5. **Summarize the average delay** for each airline (`carrier`).
+1.  **Filter flights** that departed from JFK in June.
+    -   Hint `origin == "JFK"` and `month == 6`
+2.  **Select relevant columns**: `year`, `month`, `day`, `dep_time`, `arr_time`, `carrier`, `flight`, and `dep_delay`.
+3.  **Arrange flights** in descending order of departure delay.
+4.  **Create a new column** called `delay_category`:
+    -   `"On Time"` if `dep_delay <= 0`
+    -   `"Slight Delay"` if `dep_delay` is between 1 and 30 minutes
+    -   `"Severe Delay"` if `dep_delay` is greater than 30 minutes
+5.  **Summarize the average delay** for each airline (`carrier`).
 
 ## Questions
 
-1. What proportion of flights from JFK in June were categorized as "Severe Delay"?
-2. Which airline had the second longest average departure delay?
+1.  What proportion of flights from JFK in June were categorized as "Severe Delay"?
+2.  Which airline had the second longest average departure delay?
 
 ```{r}
 #| echo: false
@@ -88,4 +90,3 @@ ggplot(avg_delay_by_carrier, aes(x = fct_reorder(carrier, avg_dep_delay), y = av
        x = "Carrier", y = "Avg Departure Delay (min)") +
   coord_flip()
 ```
-
