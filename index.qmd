@@ -11,6 +11,9 @@ about:
   image-shape: rounded
   image-width: 20em
   links:
+    - icon: bi-person-lines-fill
+      text: C.V.
+      href: uploads/Curriculum_Vitae.pdf
     - icon: envelope
       text: Email
       href: mailto:jzhang@uark.edu
