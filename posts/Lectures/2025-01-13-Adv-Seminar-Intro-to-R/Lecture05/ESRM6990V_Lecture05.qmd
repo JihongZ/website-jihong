@@ -1,6 +1,6 @@
 ---
 title: "Lecture 05: Text Data Analysis and Data Summary"
-subtitle: "R Function"
+subtitle: "`dplyr` package"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -33,44 +33,42 @@ format:
     output-file: slides-index.html
 ---
 
-## Class Outline
+[Class Outline]{.redcolor .bigger}
 
 1.  String and Text Data
 2.  Basic Data Summary Using `dplyr`
 3.  Case Study of Trump Tweets
+4.  AI + Text Analysis?
 
 # String and Text Data
 
-## Special characters
+## Special Characters
 
--   Quotation marks can be used in strings. Note that a single quote can only be used within a double quote or the other way around.
+- Strings can be enclosed in either single or double quotes.
+- If using both within a string, escape necessary quotes using `\`.
 
 ```{r}
-"I'm a student"
-
-'He says "it is ok!"'
-
-"I'm a student. He says \"it is ok\"!"
+cat("I'm a student")
+cat('He says "it is ok!"')
+cat("I'm a student. He says \"it is ok\"!")
 ```
 
--   It is generally a good idea to “escape” the quotation marks using the backslash `\`.
-    -   If it is needed in a string, one needs to use two of them `\\`. For example,
+- Use `\` to escape special characters such as `\n` (new line) and `\t` (tab).
 
 ```{r}
 cat("To show \\ , we need to use two of them.")
 ```
 
 ::: callout-tip
-`cat()`: Print the objects.
+`cat()`: Prints the string output directly and escape special symbols.
 :::
 
-------------------------------------------------------------------------
+---
 
-### Other special characters
+## Unicode and Other Special Characters
 
--   [`\t` and `\n`]{.redcolor}: Special characters for changing lines and tab.
-
--   `\u` for escaping special characters in Unicode other than alphabetical letters. https://unicode-table.com/en/
+- `\n` and `\t`: Represent new line and tab space.
+- `\u` followed by Unicode code points allows special character insertion.
 
 ```{r}
 test <- "This is the first line. \nThis the \t second line with a tab."
@@ -79,164 +77,49 @@ cat("\u03BC \u03A3 \u03B1 \u03B2")
 cat("❤ ♫")
 ```
 
-## Basic string operations
+---
+
+## Basic String Operations
 
 ```{r}
-library(tidyverse)
-# or 
-library(stringr) # install.packages("stringr")
+library(tidyverse)  # Or use stringr: install.packages("stringr")
 ```
 
--   A vector of strings
+### Creating and Manipulating Strings
 
 ```{r}
-tweet1 <- "MAKE AMERICA GREAT AGAIN!" 
+tweet1 <- "MAKE AMERICA GREAT AGAIN!"
 tweet2 <- "Congratulations @ClemsonFB! https://t.co/w8viax0OWY"
 
 (tweet <- c(tweet1, tweet2))
 ```
 
--   Change the lower/upper case of strings
-
+#### Change Case
 ```{r}
 tolower(tweet)
 toupper(tweet)
 ```
 
-------------------------------------------------------------------------
-
-[Basic string operations (Cont.)]{.bluecolor .bigger}
-
--   Calculate length of a string
-
+#### Calculate String Length
 ```{r}
 nchar(tweet1)
-
-str_length(tweet) # function of package stringr
+str_length(tweet)  # `stringr` alternative
 ```
 
--   Split strings based on a [pattern]{.redcolor}.
-    1.  pattern tells how to split a string.
-    2.  the output is a list.
+---
 
+### Splitting and Combining Strings
+
+#### Splitting Strings by Pattern
 ```{r}
 str_split(tweet, pattern = " ")
-## Use str_split_1 to return one vector rather than list
-str_split_1(tweet2, pattern = " https://")
+str_split_1(tweet2, pattern = " https://")  # Returns a vector instead of a list
 ```
 
--   Check regular expresssion for more pattern detection
-
+#### Combining Strings
 ```{r}
-#| eval: false
-vignette("regular-expressions")
-```
-
-------------------------------------------------------------------------
-
-[Basic string operations (Cont.)]{.bluecolor .bigger}
-
--   Combine string vectors into one
-
-```{r}
-(tweet.words <- unlist(str_split(tweet, pattern = " ")))
+tweet.words <- unlist(str_split(tweet, pattern = " "))
 str_c(tweet.words, collapse=" ")
-```
-
-# AI + Text Analysis
-
-## Motivating Example: Extract Structural Information from Text
-
--   Make use of language models to extract key information more easily
-
--   This is not a step-by-step guide of using LLMs, but a motivating example so that you may want to explore more usage of LLMs in data analysis.
-
-    -   The details of techniques can be found in this [link](https://ellmer.tidyverse.org/articles/structured-data.html).
-
--   Note that the following code cannot be successfully executed in your local device without ChatGPT account and access to API keys.
-
-    -   Here is a video [tutorial](https://www.youtube.com/watch?v=B_Fbd_vxZyE) for using ChatGPT in R.
-
-## Extract Structured data
-
--   To programming LLMs for text analysis, I suggested using `ellmer` package (the [manual](https://ellmer.tidyverse.org/)) which was developed by the same person who developed `tidyverse` package.
-
-```{r}
-#| cache: true
-library(ellmer)
-chat <- chat_openai(echo = FALSE, model = "gpt-4o-mini")
-
-chat$extract_data(
-  tweet2,
-  type = type_object(
-    URL = type_string("URL address starting with 'http'")
-  )  
-)
-
-```
-
-```{r}
-#| cache: true
-chat$extract_data(
-  "My name is Susan and I'm 13 years old. I like traveling and hiking.",
-  type = type_object(
-    age = type_number("Age, in years."), # extract the numeric information as "age" from the provided text
-    name = type_string("Name, Uppercase"), # extract the character information as "name" from the provided text
-    hobbies = type_array(
-      description = "List of hobbies.",
-      items = type_string()
-    )
-  )
-)
-```
-
--   Here, `type_()`
-
-## Open Sourced LLM - LLAMA
-
--   You can freely download the open source LLM - Llama developed by Meta on this [link](https://ollama.com/).
-
--   Teaching how to set up the LLMs is out of scope of this class. There are a lot of tutorials that you can use. For example, this [medium post](https://medium.com/@arunpatidar26/run-llm-locally-ollama-8ea296747505).
-
--   Just showcase how you can extract key information. Llama needs more guide information to extract certain key words than ChatGPT.
-
-```{r}
-#| cache: true
-chat <- chat_ollama(model = "llama3.2")
-
-chat$extract_data(
-  "My name is Jihong and I'm an assistant professor. I like reading and hiking.",
-  type = type_object(
-    job = type_string("Job"), # extract the numeric information as "age" from the provided text
-    name = type_string("Name of the person, uppercase"), # extract the character information as "name" from the provided text
-    hobbies = type_array(
-      description = "List of hobbies. transform to Uppercase",
-      items = type_string()
-    )
-  )
-)  
-```
-
-------------------------------------------------------------------------
-
-### Deepseek distilled model
-
-```{r}
-#| cache: true
-chat <- chat_ollama(model = "deepseek-r1:8b")
-
-Text_to_summarize <- "Researchers have devised an ecological momentary assessment study following 80 students (mean age = 20.38 years, standard deviation = 3.68, range = 18–48 years; n = 60 female, n = 19 male, n = 1 other) from Leiden University for 2 weeks in their daily lives."
-
-chat$extract_data(
-  Text_to_summarize,
-  type = type_object(
-    N = type_number("total sample size"),
-    Age = type_number("Average age in years"),
-    Method = type_string("Assessment for data collection"),
-    Participants = type_string("source of data collection"),
-    Days = type_string("Duration of data collection")
-  )
-)
 ```
 
 # Data Transformation
@@ -261,11 +144,7 @@ glimpse(flights)
 
 -   `glimpse()` for the quick screening of the data.
 
-## `dplyr` Basics
-
-------------------------------------------------------------------------
-
-### Core Functions
+## `dplyr` Core Functions
 
 -   `filter()`: Subset rows based on conditions.
 -   `arrange()`: Reorder rows.
@@ -434,6 +313,241 @@ by_day |>
 by_day <- ungroup(by_day)
 ```
 
+## More dplyr Functions
+
+-   `rename`()\`: Select rows based on conditions.
+-   `relocate`()\`: Reorder rows.
+-   `distinct()`: Choose distinct/unique cases.
+-   `count()`: Create new columns.
+-   `summarize()`: Aggregate data.
+-   `group_by()`: Perform calculations within groups.
+
+------------------------------------------------------------------------
+
+### `rename()`: Renaming Columns
+
+```{r}
+# Rename columns
+df <- flights |> rename(
+  departure_time = dep_time,
+  arrival_time = arr_time,
+  departure_delay = dep_delay,
+  arrival_delay = arr_delay
+)
+glimpse(df)
+```
+
+------------------------------------------------------------------------
+
+### `relocate()`: Changing Column Order
+
+```{r}
+# Move the "year" column after "carrier" column
+df |> 
+  select(carrier, departure_time, arrival_time, year) |> 
+  relocate(year, .after = carrier)
+```
+
+------------------------------------------------------------------------
+
+### `distinct()`: Remove Duplicates
+
+-   `unique()` function outputs unique [values]{.redcolor} from a vector.
+-   `distinct()` function outputs unique [cases]{.redcolor} from a dataset
+
+```{r}
+unique(c(1, 2, 3, 4, 4, 5, 5))
+# flights with unique carrier-destination pairs
+df |> 
+  distinct(carrier, dest)
+```
+
+------------------------------------------------------------------------
+
+### `count()`: Quick Grouping & Summarization
+
+```{r}
+# Count number of flights per carrier
+df |> count(carrier, sort = TRUE)
+
+# equivalent to
+if (0) {
+df |> 
+  group_by(carrier) |> 
+  summarise(
+    n = n()
+  )
+}
+```
+
+------------------------------------------------------------------------
+
+### `slice()`: Selecting Specific Rows
+
+```{r}
+# Select the first 10 flights
+df |> slice(1:10)
+```
+
+```{r}
+# Select the top 5 flights with the highest departure delay
+df |> slice_max(departure_delay, n = 5)
+```
+
+```{r}
+# Select the 5 flights with the lowest arrival delay
+df |> slice_min(arrival_delay, n = 5)
+```
+
+------------------------------------------------------------------------
+
+### `sample_n()` and `sample_frac()`: Random Sampling
+
+```{r}
+# Randomly select 5 flights
+df |> sample_n(5)
+```
+
+```{r}
+# Select 1% random sample
+df |> sample_frac(0.01)
+```
+
+------------------------------------------------------------------------
+
+### `rowwise()`: Row-Wise Grouping Operations
+
+-   Similar to `group_by`, but each row/case will be considered as one group
+
+-   When you're working with a rowwise tibble, then dplyr will use `[[` instead of `[` to make your life a little easier.
+
+[Assume you want to calculate the mean of variables x, y and c: $\frac{x + y + z}{3}$]{.redcolor}
+
+```{r}
+set.seed(1234)
+xyz <- tibble(x = runif(6), y = runif(6), z = runif(6))
+rowMeans(xyz[, c("x", "y", "z")])
+# Compute the mean of x, y, z in each row
+xyz |> 
+  rowwise() |> 
+  mutate(m = mean(c(x, y, z)))
+```
+
+```{r}
+# Compute the total delay per flight
+df |> 
+  rowwise() |> 
+  mutate(avg_delay_time_perMile = sum(departure_delay, arrival_delay, na.rm = TRUE) / distance,
+         .keep = "used")
+```
+
+::: callout-tip
+`.keep = "used"` retains only the columns used in `...` to create new columns. This is useful for checking your work, as it displays inputs and outputs side-by-side.
+:::
+
+## Summary & Takeaways
+
+-   `dplyr` provides powerful tools for data transformation.
+-   Combining functions allows for efficient data manipulation.
+-   `group_by()` and `summarize()` are key for data aggregation.
+-   Functions like `rename()`, `slice()`, `relocate()`, and `case_when()` enhance usability.
+
+# Motivating Example: AI + Text Analysis
+
+## Extract Structural Information from Text
+
+-   Make use of language models to extract key information from a unstructral text file
+
+-   This is not a step-by-step guide of using LLMs, but a motivating example so that you may want to explore more usage of LLMs in data analysis.
+
+    -   The details of techniques can be found in this [link](https://ellmer.tidyverse.org/articles/structured-data.html).
+
+-   Note that the following code cannot be successfully executed in your local device without ChatGPT account and access to API keys.
+
+    -   Here is a video [tutorial](https://www.youtube.com/watch?v=B_Fbd_vxZyE) for using ChatGPT in R.
+
+## Programming LLMs in R
+
+-   Rather than using ChatBot on the OpenAI website, to programming LLMs for text analysis, I suggested using `ellmer` package (the [manual](https://ellmer.tidyverse.org/)) which was developed by the same person who developed `tidyverse` package.
+
+```{r}
+#| cache: true
+library(ellmer)
+chat <- chat_openai(echo = FALSE, model = "gpt-4o-mini")
+
+chat$extract_data(
+  tweet2,
+  type = type_object(
+    URL = type_string("URL address starting with 'http'")
+  )  
+)
+
+```
+
+```{r}
+#| cache: true
+chat$extract_data(
+  "My name is Susan and I'm 13 years old. I like traveling and hiking.",
+  type = type_object(
+    age = type_number("Age, in years."), # extract the numeric information as "age" from the provided text
+    name = type_string("Name, Uppercase"), # extract the character information as "name" from the provided text
+    hobbies = type_array(
+      description = "List of hobbies.",
+      items = type_string()
+    )
+  )
+)
+```
+
+-   Here, `type_()`
+
+## Open Sourced LLM - LLAMA
+
+-   You can freely download the open source LLM - Llama developed by Meta on this [link](https://ollama.com/).
+
+-   Teaching how to set up the LLMs is out of scope of this class. There are a lot of tutorials that you can use. For example, this [medium post](https://medium.com/@arunpatidar26/run-llm-locally-ollama-8ea296747505).
+
+-   Just showcase how you can extract key information. Llama needs more guide information to extract certain key words than ChatGPT.
+
+```{r}
+#| cache: true
+chat <- chat_ollama(model = "llama3.2")
+
+chat$extract_data(
+  "My name is Jihong and I'm an assistant professor. I like reading and hiking.",
+  type = type_object(
+    job = type_string("Job"), # extract the numeric information as "age" from the provided text
+    name = type_string("Name of the person, uppercase"), # extract the character information as "name" from the provided text
+    hobbies = type_array(
+      description = "List of hobbies. transform to Uppercase",
+      items = type_string()
+    )
+  )
+)  
+```
+
+------------------------------------------------------------------------
+
+### Deepseek distilled model
+
+```{r}
+#| cache: true
+chat <- chat_ollama(model = "deepseek-r1:8b")
+
+Text_to_summarize <- "Researchers have devised an ecological momentary assessment study following 80 students (mean age = 20.38 years, standard deviation = 3.68, range = 18–48 years; n = 60 female, n = 19 male, n = 1 other) from Leiden University for 2 weeks in their daily lives."
+
+chat$extract_data(
+  Text_to_summarize,
+  type = type_object(
+    N = type_number("total sample size"),
+    Age = type_number("Average age in years"),
+    Method = type_string("Assessment for data collection"),
+    Participants = type_string("source of data collection"),
+    Days = type_string("Duration of data collection")
+  )
+)
+```
+
 # Case Study: Analysis of Trump Tweets
 
 ## Download of Trump Tweets
@@ -521,7 +635,7 @@ trump_short_clean_tweets <- trump_short_tweets |>
     clean_text2 = str_remove_all(clean_text, "[[:punct:]]") # Remove punctuation
   ) |> 
   select(text, clean_text, clean_text2)
-trump_short_clean_tweets
+slice_sample(trump_short_clean_tweets, n = 5)
 ```
 
 Explanation of the Regular Expression:
