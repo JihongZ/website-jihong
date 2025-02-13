@@ -1,6 +1,6 @@
 ---
 title: "Lecture 05: Text Data Analysis and Data Summary"
-subtitle: "`dplyr` package"
+subtitle: "Using `dplyr` package"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -44,8 +44,17 @@ format:
 
 ## Special Characters
 
--   Strings can be enclosed in either single or double quotes.
+-   Strings (character-type variable) can be enclosed in either single or double quotes.
+
+    ```{r}
+    class("some text")
+    ```
+
 -   If using both within a string, escape necessary quotes using `\`.
+
+::: callout-tip
+`cat()`: Prints the string output directly and escape special symbols.
+:::
 
 ```{r}
 cat("I'm a student")
@@ -57,11 +66,10 @@ cat("I'm a student. He says \"it is ok\"!")
 
 ```{r}
 cat("To show \\ , we need to use two of them.")
+cat("You are my student\nI am your teacher/")
 ```
 
-::: callout-tip
-`cat()`: Prints the string output directly and escape special symbols.
-:::
+
 
 ------------------------------------------------------------------------
 
@@ -130,15 +138,11 @@ str_c(tweet.words, collapse=" ")
 
 ## Overview
 
--   Visualization is a key tool for generating insights.
 -   Data often needs transformation to fit the desired analysis or visualization.
+  -   Learn to use the `dplyr` package for data transformation.
+  -   Explore the `nycflights13` dataset.
 
-## Prerequisites
-
--   Learn to use the `dplyr` package for data transformation.
--   Explore the `nycflights13` dataset.
-
-### Required Libraries
+[Required Libraries]{.redcolor .bigger}
 
 ```{r}
 library(nycflights13) # `nycflights13` for the dataset flights.
