@@ -44,8 +44,8 @@ format:
 
 ## Special Characters
 
-- Strings can be enclosed in either single or double quotes.
-- If using both within a string, escape necessary quotes using `\`.
+-   Strings can be enclosed in either single or double quotes.
+-   If using both within a string, escape necessary quotes using `\`.
 
 ```{r}
 cat("I'm a student")
@@ -53,7 +53,7 @@ cat('He says "it is ok!"')
 cat("I'm a student. He says \"it is ok\"!")
 ```
 
-- Use `\` to escape special characters such as `\n` (new line) and `\t` (tab).
+-   Use `\` to escape special characters such as `\n` (new line) and `\t` (tab).
 
 ```{r}
 cat("To show \\ , we need to use two of them.")
@@ -63,12 +63,12 @@ cat("To show \\ , we need to use two of them.")
 `cat()`: Prints the string output directly and escape special symbols.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Unicode and Other Special Characters
 
-- `\n` and `\t`: Represent new line and tab space.
-- `\u` followed by Unicode code points allows special character insertion.
+-   `\n` and `\t`: Represent new line and tab space.
+-   `\u` followed by Unicode code points allows special character insertion.
 
 ```{r}
 test <- "This is the first line. \nThis the \t second line with a tab."
@@ -77,7 +77,7 @@ cat("\u03BC \u03A3 \u03B1 \u03B2")
 cat("❤ ♫")
 ```
 
----
+------------------------------------------------------------------------
 
 ## Basic String Operations
 
@@ -95,28 +95,32 @@ tweet2 <- "Congratulations @ClemsonFB! https://t.co/w8viax0OWY"
 ```
 
 #### Change Case
+
 ```{r}
 tolower(tweet)
 toupper(tweet)
 ```
 
 #### Calculate String Length
+
 ```{r}
 nchar(tweet1)
 str_length(tweet)  # `stringr` alternative
 ```
 
----
+------------------------------------------------------------------------
 
 ### Splitting and Combining Strings
 
 #### Splitting Strings by Pattern
+
 ```{r}
 str_split(tweet, pattern = " ")
 str_split_1(tweet2, pattern = " https://")  # Returns a vector instead of a list
 ```
 
 #### Combining Strings
+
 ```{r}
 tweet.words <- unlist(str_split(tweet, pattern = " "))
 str_c(tweet.words, collapse=" ")
@@ -494,16 +498,43 @@ chat$extract_data(
     age = type_number("Age, in years."), # extract the numeric information as "age" from the provided text
     name = type_string("Name, Uppercase"), # extract the character information as "name" from the provided text
     hobbies = type_array(
-      description = "List of hobbies.",
+      description = "List of hobbies. Uppercase",
       items = type_string()
     )
   )
 )
 ```
 
--   Here, `type_()`
+-   Here, `type_*()` specify object types in a way that LLMs can understand and are used for structured data extraction.
 
-## Open Sourced LLM - LLAMA
+## Article Summarisation
+
+```{r}
+#| cache: true
+library(pdftools)
+paper_text <- paste0(pdf_text("example_paper.pdf"), collapse = "\n")
+
+type_summary <- type_object(
+  "Summary of the article.",
+  author = type_string("Name of the article author"),
+  topics = type_array(
+    'Array of topics, e.g. ["tech", "politics"]. Should be as specific as possible, and can overlap.',
+    type_string(),
+  ),
+  summary = type_string("Summary of the article. One or two paragraphs max"),
+  measures = type_string("Key performance measures in results")
+)
+
+chat <- chat_openai(model = "gpt-4o-mini")
+data <- chat$extract_data(paper_text, type = type_summary)
+str(data)
+cat(data$author)
+print(data$topics)
+cat(data$summary)
+cat(data$measures)
+```
+
+## Open Sourced Local Distilled Models
 
 -   You can freely download the open source LLM - Llama developed by Meta on this [link](https://ollama.com/).
 
@@ -536,17 +567,18 @@ chat$extract_data(
 #| cache: true
 chat <- chat_ollama(model = "deepseek-r1:8b")
 
-Text_to_summarize <- "Researchers have devised an ecological momentary assessment study following 80 students (mean age = 20.38 years, standard deviation = 3.68, range = 18–48 years; n = 60 female, n = 19 male, n = 1 other) from Leiden University for 2 weeks in their daily lives."
+Text_to_summarize <- "Results of Paper: Researchers have devised an ecological momentary assessment study following 80 students (mean age = 20.38 years, standard deviation = 3.68, range = 18–48 years; n = 60 female, n = 19 male, n = 1 other) from Leiden University for 2 weeks in their daily lives."
 
-chat$extract_data(
-  Text_to_summarize,
-  type = type_object(
-    N = type_number("total sample size"),
+type_summarize_results = type_object(
+    N = type_number("Total sample size the study used"),
     Age = type_number("Average age in years"),
     Method = type_string("Assessment for data collection"),
     Participants = type_string("source of data collection"),
     Days = type_string("Duration of data collection")
-  )
+)
+chat$extract_data(
+  Text_to_summarize,
+  type = type_summarize_results
 )
 ```
 

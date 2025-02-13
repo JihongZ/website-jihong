@@ -54,9 +54,18 @@ I currently hold the position of [Assistant Professor of Educational Statistics 
 ::: {.panel-tabset align="left"}
 ## Experience
 
--   University of Arkansas \| **Assistant Professor** \| [Dec 2022 - Current]{style="color:darkgrey;"}
+-   University of Arkansas \| **Assistant Professor** \| [Jan 2024 - Current]{style="color:darkgrey;"}
 -   The Chinese University of Hong Kong \| **Postdoctoral Fellow** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
 -   Stanford Research Institute (SRI) \| **Associate Researcher (Intern)** \| [June 2021 - Jan 2022]{style="color:darkgrey;"}
+
+<a href="./uploads/Curriculum_Vitae.pdf"><button type="button" class="btn btn-primary float-end btn-sm">See C.V.</button></a>
+
+## Education
+
+-   **Ph.D.** \| Educational Measurement & Statistics \| University of Iowa \| [2019 - 2022]{style="color:darkgrey;"}
+-   **M.S.** \| Educational Psychology \| University of Kansas \| [2015 - 2019]{style="color:darkgrey;"}
+-   **B.S.** \| Applied Psychology \| Soochow University \| [2009 - 2013]{#date style="color:darkgrey;"}
+-   **B.S.** \| Law \| Soochow University \| [2011 - 2013]{style="color:darkgrey;"}
 
 ## Interests
 
@@ -66,12 +75,7 @@ I currently hold the position of [Assistant Professor of Educational Statistics 
 -   Machine Learning and data mining in Education
 -   Diagnostic Classification Models
 
-## Education
 
--   **Ph.D.** \| Educational Measurement & Statistics \| University of Iowa \| [2019 - 2022]{style="color:darkgrey;"}
--   **M.S.** \| Educational Psychology \| University of Kansas\| [2015 - 2019]{style="color:darkgrey;"}
--   **B.S.** \| Applied Psychology \| Soochow University \| [2009 - 2013]{#date style="color:darkgrey;"}
--   **B.S.** \| Law \| Soochow University \| [2011 - 2013]{style="color:darkgrey;"}
 :::
 
 ::: {.separator}

@@ -1,0 +1,16 @@
+StanHeaders
+rstan
+cmdstanr
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+lubridate
+nycflights13
+ellmer
+pdftools
