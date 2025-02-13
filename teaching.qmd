@@ -9,7 +9,10 @@ listing:
 title-block-banner: false
 ---
 
-My current courses include:
+
+::: {.nice-paragraph}
+
+## Courses
 
 1.  **ESRM 64103. Experimental Design in Education**. 3 Hours.
     -   Principles of experimental design as applied to educational situations. Special emphasis on analysis of variance techniques used in educational research. Prerequisite: [ESRM 64003](https://catalog.uark.edu/search/?P=ESRM%2064003 "ESRM 64003") with a grade of C or better or an equivalent course with a grade of C or better. (Typically offered: **Spring**)
@@ -20,7 +23,7 @@ My current courses include:
 4.  **ESRM 6990V. ADVANCED SEMINAR: Introduction to R.** 3 Hours
     -   This seminar covers basics of R, data wrangling, data visualization, project version control via git etc. (Typically offered: **Spring**)
 
-## Courses
+:::
 
 ::: {#lectures}
 :::
