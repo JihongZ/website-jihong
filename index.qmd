@@ -74,6 +74,10 @@ I currently hold the position of [Assistant Professor of Educational Statistics 
 -   **B.S.** \| Law \| Soochow University \| [2011 - 2013]{style="color:darkgrey;"}
 :::
 
+::: {.separator}
+[Teaching & Research]{.next-section}
+:::
+
 ::::: {.panel-tabset align="left"}
 ## Teaching
 
