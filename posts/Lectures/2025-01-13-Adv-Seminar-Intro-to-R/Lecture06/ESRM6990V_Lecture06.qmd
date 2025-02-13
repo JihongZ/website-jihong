@@ -1,0 +1,208 @@
+---
+title: "Lecture 06: Date, Time, and Locales"
+subtitle: "`dplyr` package"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-05"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 0
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+[Class Outline]{.redcolor .bigger}
+
+# Introduction to Date-Time Parsing
+
+## Importance of Date-Time Data
+- Dates and times are critical for tracking temporal data in analysis.
+- Proper handling ensures accurate filtering, summarization, and visualization.
+- R provides the `Date` and `POSIXct` types to manage date-time information.
+
+## The `Date` Data Type in R
+
+- Dates are stored as the number of days since January 1, 1970 (epoch reference).
+
+```{r}
+as.numeric(as.Date("1970-01-01"))  # Returns 0
+```
+
+- Convert character strings into `Date` format:
+
+```{r}
+as.Date("2025-02-13")  # Convert string to Date type
+```
+
+
+## Using `lubridate` for Date-Time Parsing
+
+[Loading the Package][.bluecolor .bigger]
+
+```{r}
+library(lubridate)
+```
+
+## Parsing Various Date Formats
+
+- `lubridate` provides functions to interpret and standardize date formats.
+
+```{r}
+x <- c("2009-01-01", "09/01/02", "January 2, 2009")
+ymd(x)  # Interprets different formats correctly
+```
+
+## Handling Different Date Orders
+
+- Formats can be ambiguous, `lubridate` helps with appropriate parsing:
+
+```{r}
+x <- "09/01/02"
+ymd(x)  # Assumes year-month-day
+mdy(x)  # Assumes month-day-year
+dmy(x)  # Assumes day-month-year
+```
+
+
+## Extracting Date Components
+
+- Once parsed, individual components can be extracted for further analysis:
+
+```{r}
+dates <- as.Date(c("2016-05-31", "2016-08-08", "2016-08-19"))
+
+year(dates)  # Extract year
+month(dates)  # Extract month
+day(dates)  # Extract day
+```
+
+
+## Handling Date-Time with `POSIXct`
+
+- The `POSIXct` class stores timestamps as seconds since epoch.
+- Use `ymd_hms()` to parse full date-time values:
+
+```{r}
+datetime_str <- "2025-02-12 14:30:00"
+datetime <- ymd_hms(datetime_str)
+print(datetime)
+```
+
+
+## Working with Time Zones
+
+- Time zones are crucial when working with global data.
+- `with_tz()` converts a time to a different zone without altering the actual time:
+
+```{r}
+now()  # Current system time
+with_tz(now(), "America/New_York")  # Convert to Eastern Time
+```
+
+- `force_tz()` forces a time to be interpreted in a different time zone:
+
+```{r}
+force_tz(now(), "America/New_York")
+```
+
+# Locales
+
+## Understanding Locales in R
+
+[What are Locales?]{.redcolor .bigger}
+
+- Locales define how dates, times, numbers, and character encodings are interpreted.
+- Key aspects include:
+  - Date and time formats
+  - Time zones
+  - Character encoding
+  - Decimal and grouping symbols
+
+## Checking and Setting Locales
+
+```{r}
+Sys.getlocale()
+Sys.setlocale("LC_ALL", "en_US.UTF-8")
+```
+
+- `LC_TIME`: Controls date-time formatting.
+- `LC_NUMERIC`: Determines the decimal and grouping symbols.
+
+
+## Handling Different Locales
+
+- Using `readr::locale()`
+- The `readr` package allows setting locales while reading data.
+
+```{r}
+library(readr)
+locale()
+```
+
+- Specifying a locale allows you to parse dates in other languages:
+
+```{r}
+parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
+parse_date("14 oct. 1979", "%d %b %Y", locale = locale("fr"))
+parse_date("1994年10月01日", "%Y年%m月%d日", locale = locale("zh"))
+```
+
+See `vignette("locales")` for more details
+
+## Timezones
+
+You can see a complete list of time zones with `OlsonNames()`.
+
+```{r}
+parse_datetime("2001-10-10 20:10")
+parse_datetime("2001-10-10 20:10", locale = locale(tz = "Pacific/Auckland"))
+parse_datetime("2001-10-10 20:10", locale = locale(tz = "Europe/Dublin"))
+parse_datetime("2001-10-10 20:10", locale = locale(tz = "Asia/Hong_Kong" ))
+```
+
+
+```{r}
+#| eval: false
+current_time <- Sys.Date()
+current_time
+difftime(
+  parse_datetime(current_time, locale = locale(tz = "US/Central")),
+  parse_datetime(current_time, locale = locale(tz = "Asia/Hong_Kong"))
+)
+
+```
+
+- Note that “EST” is a Canadian time zone that does not have DST. It’s not Eastern Standard Time! Instead use:
+
+  - PST/PDT = “US/Pacific”
+  - CST/CDT = “US/Central”
+  - MST/MDT = “US/Mountain”
+  - EST/EDT = “US/Eastern”
+
+## Summary
+
+- `lubridate` simplifies parsing and manipulating date-time data.
+- Converting text-based dates into structured `Date` and `POSIXct` formats enables powerful analysis.
+- Handling time zones correctly ensures accurate comparisons across regions.

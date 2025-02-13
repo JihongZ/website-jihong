@@ -1,0 +1,24 @@
+---
+title: "Exercise 06: Date and Time"
+subtitle: ""
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-08-18"
+sidebar: false
+execute: 
+  warning: false
+  message: false
+  eval: false
+  echo: true
+format: 
+  html: 
+    page-layout: full
+toc: true
+toc-depth: 2
+lightbox: true
+code-fold: show
+---
+
