@@ -521,8 +521,9 @@ type_summary <- type_object(
     'Array of topics, e.g. ["tech", "politics"]. Should be as specific as possible, and can overlap.',
     type_string(),
   ),
-  summary = type_string("Summary of the article. One or two paragraphs max"),
-  measures = type_string("Key performance measures in results")
+  design = type_string("Summary of research design of the article. One or two paragraphs max"),
+  measures = type_string("Key indices in results"),
+  finding = type_string("Summary of key findings. One paragraph max")
 )
 
 chat <- chat_openai(model = "gpt-4o-mini")
@@ -530,8 +531,9 @@ data <- chat$extract_data(paper_text, type = type_summary)
 str(data)
 cat(data$author)
 print(data$topics)
-cat(data$summary)
-cat(data$measures)
+print(data$design)
+print(data$measures)
+print(data$finding)
 ```
 
 ## Open Sourced Local Distilled Models
