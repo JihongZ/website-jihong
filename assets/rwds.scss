@@ -279,17 +279,15 @@ button.show-answer:hover {
 .panel-tabset {
     border-radius: 8px;
     overflow: hidden;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
+    border: 0.1px solid #ddd;
     padding: 15px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 /* Styling the tab navigation */
 .panel-tabset .nav-tabs {
     border-bottom: 2px solid #447099;
     display: flex;
-    gap: 5px;
 }
 
 .panel-tabset .nav-tabs .nav-item {
@@ -299,7 +297,6 @@ button.show-answer:hover {
 .panel-tabset .nav-tabs .nav-link {
     font-size: 0.9rem;
     font-weight: bold;
-    color: #447099;
     padding: 10px 15px;
     background: transparent;
     border-radius: 5px 5px 0 0;

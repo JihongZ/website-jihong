@@ -448,7 +448,7 @@ Following materials are only allowed for previewing for students registered in E
 
     ],
     [4], [02/03], [#link("Lecture03/ESRM64103_Lecture03.qmd")[Lec3: One-way ANOVA];], [#link("Lecture02/ESRM64103_HW1_QA.qmd")[HW\#1 Answer];],
-    [5], [02/10], [#link("Lecture04/ESRM64103_Lecture04.qmd")[Lec4: Comparison and Contrast (Assumption Checking)];], [],
+    [5], [02/10], [#link("Lecture04/ESRM64103_Lecture04.qmd")[Lec4: ANOVA Assumption Checking];], [],
     [6], [02/17], [Lec5: Comparison and Contrast (2)], [HW\#2],
     [7], [02/24], [Lec6: Validity], [],
     [8], [03/03], [Lec7: Blocking designing (1)], [],
