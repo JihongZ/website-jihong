@@ -4,7 +4,7 @@ project:
     
 website:
   search: 
-    location: navbar
+    location: sidebar
     type: overlay
   bread-crumbs: true
   page-navigation: true
@@ -86,7 +86,7 @@ website:
     tools-collapse: true
     pinned: true
     title: "<span class='icon-line'></span><b><span style='color:#447099'>Jihong</span></b><span class='icon-line'></span>"
-    foreground: '#bfa5d0'
+    foreground: "#404041"
     left:
       - text: "|"
       - text: "<span class='menutext-home' style='font-weight:bold; font-family: Taub Sans;'>Home</span><span class='text-line'></span>"
@@ -113,7 +113,6 @@ website:
       - text: "<span class='menutext-db' style='font-weight:bold; font-family: Taub Sans;'>Dashboard</span><span class='text-line-db'></span>"
         #icon: "bi bi-speedometer2"
         file: dashboards/template.qmd  
-      - text: "|"
     tools:
       - icon: "bi bi-person-square" # somehow the file path only works in nav. bar, not link in index
         file: uploads/Curriculum_Vitae.pdf
@@ -133,8 +132,8 @@ format:
       margin-width: 400px # page navigation
       gutter-width: 1.5em
     theme: 
-      light: [Flatly, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
-      dark: [darkly, assets/rwds-dark.scss]
+      light: [Zephyr, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
+      dark: [Cyborg, assets/rwds-dark.scss]
     css: assets/rwds.css
     comments:
       giscus:
