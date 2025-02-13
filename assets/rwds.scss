@@ -148,7 +148,6 @@ div.cell-output {
 }
 
 //.cell-output pre { border: $blue 1px solid;}
-
 div.sourceCode {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -262,18 +261,40 @@ button.show-answer:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+/* Nice Paragraph */
 .nice-paragraph {
     font-size: 0.9rem;
     line-height: 1.6;
     color: #333;
-    background-color: #f9f9f9;
+    background-color: $soft-color1; /* Fallback if $soft-color1 is not defined */
     padding: 15px 20px;
     border-left: 4px solid #447099;
     border-radius: 5px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
     max-width: 100%;
     margin: 0px auto;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
 }
+
+/* Subtle Hover Effect */
+.nice-paragraph:hover {
+    /* background-color: #eef6fc; Light blue shade on hover */
+    transform: scale(1.01); /* Slight zoom effect */
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1); /* Enhanced depth */
+}
+
+/* Decorative Glow Effect */
+.nice-paragraph:hover::before {
+    opacity: 1;
+}
+
+/* Optional - Animate border color on hover */
+.nice-paragraph:hover {
+    border-left: 4px solid #365e7d; /* Darker shade of blue */
+}
+
 
 /* Styling the tab container */
 .panel-tabset {
