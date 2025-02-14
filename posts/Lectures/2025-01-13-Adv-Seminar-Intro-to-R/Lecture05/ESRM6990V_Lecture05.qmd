@@ -142,7 +142,7 @@ str_c(tweet.words, collapse=" ")
   -   Learn to use the `dplyr` package for data transformation.
   -   Explore the `nycflights13` dataset.
 
-[Required Libraries]{.redcolor .bigger}
+[Required Libraries]{.redcolor}
 
 ```{r}
 library(nycflights13) # `nycflights13` for the dataset flights.
@@ -159,13 +159,15 @@ glimpse(flights)
 -   `select()`: Choose columns by name.
 -   `mutate()`: Create new columns.
 -   `summarize()`: Aggregate data.
+-   `group_by()`: group data for summarization.
 
 ------------------------------------------------------------------------
 
 ### `filter()`: select cases based on condtions
 
--   Use `|>` (Preferred) or `|>` to chain multiple operations.
+-   Use `|>` (Preferred) or `%>%` to chain multiple operations (shortcut: `ctrl/cmd` + `shift` + `m`).
 -   Select flights on January 1st:
+    - Compare whether month,day equal to 1,1
 
 ```{r}
 jan1 <- flights |> filter(month == 1, day == 1)
@@ -323,11 +325,11 @@ by_day <- ungroup(by_day)
 
 ## More dplyr Functions
 
--   `rename()`: Select rows based on conditions.
--   `relocate()`: Reorder rows.
+-   `rename()`: Renaming Columns.
+-   `relocate()`: Reorder column position.
 -   `distinct()`: Choose distinct/unique cases.
--   `count()`: Create new columns.
--   `slice()`: select cases or random sampling.
+-   `count()`: Create group size.
+-   `slice()`: Select cases or random sampling.
 -   `rowwise()`: Perform calculations for each row.
 
 ------------------------------------------------------------------------
