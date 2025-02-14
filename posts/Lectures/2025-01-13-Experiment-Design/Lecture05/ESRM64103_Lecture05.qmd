@@ -1,0 +1,40 @@
+---
+title: "Lecture 05: ANOVA Comparisons"
+subtitle: "Experimental Design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-10"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+format: 
+  # html: 
+  #   page-layout: full
+  #   toc: true
+  #   toc-depth: 2
+  #   lightbox: true
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503: Lecture 05"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    mermaid:
+      theme: forest
+---
+
+[Class Outline]{.redcolor .bigger}
+
+-   Go through three assumptions of ANOVA and their checking statistics
+-   Post-hoc test for more group comparisons.
+-   Example: Intervention and Verbal Acquisition
+-   After-class Exercise: Effect of Sleep Duration on Cognitive Performance
+

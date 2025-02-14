@@ -1,0 +1,37 @@
+---
+title: "Lecture 08: Data Visualization - Layers"
+subtitle: "`ggplot2` package"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-05"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 0
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+[Class Outline]{.redcolor .bigger}
+
