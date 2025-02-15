@@ -29,6 +29,8 @@ format:
     scrollable: true
     mermaid:
       theme: forest
+filters:
+  - output-line-highlight.lua
 ---
 
 [Class Outline]{.redcolor .bigger}
@@ -38,3 +40,358 @@ format:
 -   Example: Intervention and Verbal Acquisition
 -   After-class Exercise: Effect of Sleep Duration on Cognitive Performance
 
+# Planned Contrasts and Effect Sizes
+
+## Planned Contrasts
+
+-   Pre-defined:
+
+    -   Unlike post-hoc tests, planned contrasts are determined before looking at the data, meaning the researcher has a specific hypothesis about which groups to compare.
+    -   Definition: Planned contrasts are hypothesis-driven comparisons made before data collection.
+
+-   Weights assigned:
+
+    -   To perform a planned contrast, each group is assigned a numerical "weight" which reflects its role in the comparison, with the weights usually summing to zero.
+
+-   Less stringent correction:
+
+    -   Because planned contrasts are based on specific hypotheses, they typically require less stringent multiple comparison corrections compared to post-hoc tests.
+
+## Example of Planned Contrasts
+
+-   Imagine a study comparing the effects of three different study methods (A, B, C) on test scores. A planned contrast might be to compare the average score of method A (considered the "experimental" method) against the combined average of methods B and C (considered the "control" conditions), testing the hypothesis that method A leads to significantly higher scores than the traditional methods.
+
+-   When to use planned contrasts:
+
+    -   When you have a clear theoretical basis for predicting specific differences between groups in your study.
+    -   When you are only interested in a few specific comparisons, not all possible pairwise comparisons.
+
+## What Does Each Contrast Tell Us?
+
+-   Each contrast is a mean comparison (via t-test).
+-   Simple contrast (pairwise) compares two individual means.
+-   Complex contrast compares a combination of group means.
+-   Must be theoretically justified for meaningful interpretation.
+
+## Simple vs. Complex Comparisons
+
+-   **Simple Comparison:** Two groups directly compared.
+    -   Example: $H_0: \mu_2 = \mu_3$
+-   **Complex Comparison:** Combines means of multiple groups.
+    -   Example: $H_0: (\mu_1 + \mu_2)/2 = \mu_3$
+    -   Example: $H_0: (\mu_1 + \mu_2 + \mu_3)/3 = (\mu_4 + \mu_5)/2$
+
+## Examples of Complex Comparisons
+
+-   Helmert contrast: Compares each mean to the mean of subsequent groups.
+-   Deviation contrast: Compares each mean to the grand mean.
+-   Polynomial contrast: Tests for trends in ordered data.
+
+## Planned Contrast: Orthogonal vs. Non-Orthogonal Contrasts
+
+-   **Orthogonal Contrasts:** Independent from each other, sum of product of weights equals zero.
+-   **Non-Orthogonal Contrasts:** Not independent, lead to inflated Type I error rates.
+-   Orthogonal contrasts allow clear interpretation without redundancy.
+
+## Orthogonal Planned Contrasts
+
+-   If the same exact combination of means is not found in more than one contrast, the contrasts are independent (orthogonal)
+    -   Check this by ensuring that the product of the weights across all contrasts sum to zero
+-   Why does independence matter?
+    -   Type I error rate is unaffected by independent (orthogonal) contrasts
+    -   Interpretation of contrasts is cleaner because contrasts aren’t related (you’ve isolated effects)
+
+| Group | Contrast 1 | Contrast 2 | Product |
+|-------|------------|------------|---------|
+| G1    | -2         | 0          | 0       |
+| G2    | +1         | +1         | +1      |
+| G3    | +1         | -1         | -1      |
+| Sum   | 0          | 0          | 0       |
+
+```{r}
+contras <- matrix(
+  c(-2, 1, 1,
+    0, 1, -1), ncol = 2
+)
+contras
+crossprod(contras) ## if diagnonal matix = orthogonal
+```
+
+## Computing Planned Contrasts
+
+-   Formula for contrast value: $C = c_1\mu_1 + c_2\mu_2 + \dots + c_k\mu_k$
+-   Test statistic: $t = \frac{C}{\sqrt{MSE \sum \frac{c_i^2}{n_i}}}$
+    -   $MSE$: Mean Square Error from ANOVA
+    -   $c_i$: Contrast coefficients
+    -   $n_i$: Sample size per group
+
+# Example - STEM vs. Non-STEM Groups
+
+## Example data background
+
+-   Hypothesis: STEM students have different growth mindset scores than non-STEM students.
+-   Weights assigned:
+    -   STEM (Engineering, Chemistry): $+\frac{1}{2}$
+    -   Non-STEM (Education, Political Sci, Psychology): $-\frac{1}{3}$
+-   Compute contrast value and test using t-statistic.
+
+## Set Contrasts in R
+
+```{r}
+library(tidyverse)
+library(kableExtra)
+# Set seed for reproducibility
+set.seed(42)
+dt <- read.csv("week5_example.csv")
+options(digits = 5)
+summary_tbl <- dt |> 
+  group_by(group) |> 
+  summarise(
+    N = n(),
+    Mean = mean(score),
+    SD = sd(score)
+  )
+kable(summary_tbl)
+```
+
+------------------------------------------------------------------------
+
+### Contrast Matrix
+
+[For example, Helmert Four contrasts:]{.redcolor}
+
+1.  g1 vs. g2: $\mu_{Engineering} = \mu_{Education}$
+2.  $\frac{g1+g2}{2}$ vs. g3: $\mu_{non-Chemistry} = \mu_{Chemistry}$
+3.  $\frac{g1+g2+g3}{3}$ vs. g4: $\mu_{non-Political} = \mu_{Political}$
+4.  $\frac{g1+g2+g3+g4}{4}$ vs. g5: $\mu_{non-Psychology} = \mu_{Psychology}$
+
+Summary Statistics:
+
+```{r}
+#| code-fold: true
+dt$group <- factor(dt$group, levels = c("g1", "g2", "g3", "g4", "g5"))
+groups <- levels(dt$group)
+cH <- contr.helmert(groups) # pre-defined four contrasts
+colnames(cH) <- paste0("Ctras", 1:4)
+summary_ctras_tbl <- cbind(summary_tbl, cH)
+kable(summary_ctras_tbl)
+```
+
+[Features of contrast matrix]{.redcolor}
+
+```{r}
+apply(cH, 2, sum)
+crossprod(cH) # diagonal -- columns are orthogonal
+```
+
+```{r}
+summary(aov(score ~ group, dt))
+```
+
+------------------------------------------------------------------------
+
+### t-value formula for defined contrast matrix
+
+$t = \frac{C}{\sqrt{MSE \sum \frac{c_i^2}{n_i}}}$
+
+```{r}
+Sum_C2_n <- colSums(cH^2 / summary_tbl$N)
+C <- crossprod(summary_tbl$Mean, cH)
+MSE <- 5.0
+t <- as.numeric(C / sqrt(MSE * Sum_C2_n))
+t
+tibble(
+  t_value = t,
+  p_value = pt(t, df = 135) ## p-values
+)
+```
+
+-   g1 vs. g2: We reject the null and determine that the mean of the Education is different from the mean of Engineering in their growth mindset scores (p = 0.531).
+
+-   $\frac{g1+g2}{2}$ vs. g3: We retain the null and determine that the mean of the Chemistry is not significant different from the mean of Education and Engineering in their growth mindset scores (p = 0.531).
+
+------------------------------------------------------------------------
+
+### Helmert Contrast
+
+Remember that Planned Contrast: g1 vs. g2 from Helmert Contrast:
+
+-   t-value: -2.495
+-   p-value: 0.0069
+-   df: 134
+
+```{r}
+contrasts(dt$group) <- "contr.helmert"
+fit_helmert <- lm(score ~ group, dt)
+contr.helmert(levels(dt$group))
+summary(fit_helmert)$coefficients |> round(3)
+```
+
+------------------------------------------------------------------------
+
+### Planned Contrast Connected to Linear Regression
+
+-   Planned contrast can be done using `linear regression` + `contrasts`
+
+-   Let's look at the default contrasts plan: treatment contrasts == dummy coding
+
+```{r}
+attributes(C(dt$group, treatment, 4))$contrasts
+attributes(C(dt$group, sum, 4))$contrasts
+attributes(C(dt$group, helmert, 4))$contrasts
+```
+
+------------------------------------------------------------------------
+
+### Treatment Contrasts
+
+```{r}
+#| output-location: column
+library(multcomp)
+options(contrasts = c("contr.treatment", "contrasts"))
+fit <- lm(score ~ group, dt)
+unique(cbind(model.matrix(fit), group = dt$group))
+```
+
+```{r}
+#| output-location: column
+summary(fit)
+```
+
+------------------------------------------------------------------------
+
+### Sum Contrasts
+
+-   Another type of coding is **effect coding**. In R, the corresponding contrast type are the so-called **sum contrasts**.
+
+-   A detailed post about sum contrasts can be found [here](https://learnb4ss.github.io/learnB4SS/articles/contrasts.html)
+
+-   With sum contrasts the reference level is in fact the grand mean.
+
+    -   $\frac{g1+g2+g3+g4+g5}{5}$ vs. g1/g2/g3/g4: the difference between mean score of g1 with grand mean across all five groups
+
+```{r}
+#| output-location: column
+contrasts(dt$group) <- "contr.sum"
+fit2 <- lm(score ~ group, dt)
+contr.sum(levels(dt$group))
+```
+
+```{r}
+#| output-location: column
+summary(fit2)
+```
+
+```{r}
+mean(dt$score)
+summary_tbl$Mean[1:4] - mean(dt$score)
+```
+
+------------------------------------------------------------------------
+
+## Self-defined Contrast
+
+-   Extended Example 2 : Assume now that I think the average of the STEM groups is different than the average of the non-STEM groups
+
+### Method 1: Calculation by Hand
+
+```{r}
+#| echo: false
+
+(summary_tbl_ext <- cbind(summary_tbl, Contrasts = c(1/2, -1/3, 1/2, -1/3, -1/3)))
+```
+
+$$
+H_0: \frac{\mu_{Engineering}+\mu_{Chemistry}}{2} = \frac{\mu_{Education}+\mu_{PoliSci}+\mu_{Psychology}}{3}
+$$
+
+weighted mean difference:
+
+$$
+C = c_1\mu_{Eng}+c_2\mu_{Edu}+c_3\mu_{Chem}+c_4\mu_{PoliSci}+c_5\mu_{Psych}\\
+= \frac{1}{2}*4.25+(-\frac13)*2.75+(\frac12)*3.54+(-\frac13)*3.85+(-\frac13)*2.02\\
+= 1.0173
+$$
+
+```{r}
+(C <- sum(summary_tbl_ext$Contrasts*summary_tbl_ext$Mean))
+```
+
+$$
+\sum\frac{c^2}{n} = \frac{(\frac12)^2}{28}+\frac{(-\frac13)^2}{28}+\frac{(\frac12)^2}{28}+\frac{(-\frac13)^2}{28}+\frac{(-\frac13)^2}{28}
+$$
+
+```{r}
+(Sum_C2_n <- sum(summary_tbl_ext$Contrasts^2 / summary_tbl$N))
+(MSE = sum((residuals(aov(score ~ group, dt)))^2) / (nrow(dt) - 5))
+(t = as.numeric(C / sqrt(MSE * Sum_C2_n)))
+```
+
+$$
+t = \frac{C}{\sqrt{MSE*\sum\frac{c^2}{n} }} = \frac{1.0173}{\sqrt{5.0011*0.029762}}=2.6368
+$$
+
+```{r}
+pt(t, df = 135, lower.tail = FALSE) * 2
+```
+
+------------------------------------------------------------------------
+
+### Method 2: Linear Regression Contrasts by R
+
+```{r}
+# set first contrast
+contrasts(dt$group) <- matrix(
+  c(1/2, -1/3, 1/2, -1/3, -1/3)
+)
+fit_extended <- lm(score ~ group, dt)
+unique(model.matrix(fit_extended))[, 1:2]
+```
+
+```{r}
+#| output-line-numbers: "3"
+#| class-output: highlight
+summary(fit_extended)$coefficient |> round(3)
+```
+
+# Effect Sizes
+
+## Effect Sizes
+
+-   Effect size measures the magnitude of an effect beyond statistical significance.
+-   Provides context for interpreting practical significance.
+-   Common measures: Eta squared ($\eta^2$), Omega squared ($\omega^2$), Cohen’s d.
+
+## Eta Squared ($\eta^2$)
+
+-   Proportion of total variance explained by the independent variable.
+-   Formula: $\eta^2 = \frac{SS_{Model}}{SS_{Total}}$
+-   Interpretation:
+    -   Small: 0.01, Medium: 0.06, Large: 0.14
+
+## Omega Squared ($\omega^2$)
+
+-   Unbiased estimate of effect size, preferred for small samples.
+-   Formula: $\omega^2 = \frac{SS_{Model} - df_{Model} \cdot MSE}{SS_{Total} + MSE}$
+-   Interpretation follows $\eta^2$ scale but slightly smaller values.
+
+## Effect Size for Planned Contrasts
+
+-   Correlation-based effect size: $r = \sqrt{\frac{t^2}{t^2 + df}}$
+-   Example: For $t = 2.49, df = 135$: $r = \sqrt{\frac{2.49^2}{2.49^2 + 135}} = 0.21$
+    -   Small to moderate effect.
+
+## Cohen’s d and Hedges’ g
+
+-   Used for simple mean comparisons.
+-   Cohen’s d formula: $d = \frac{M_1 - M_2}{SD_{pooled}}$
+-   Hedges’ g corrects for small sample bias.
+-   Guidelines:
+    -   Small: 0.2, Medium: 0.5, Large: 0.8
+
+## Summary
+
+-   Planned contrasts allow hypothesis-driven mean comparisons.
+-   Orthogonal contrasts maintain Type I error control.
+-   Effect sizes help interpret the importance of results.
+-   Combining planned contrasts with effect size measures enhances statistical analysis.

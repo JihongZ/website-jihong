@@ -23,6 +23,82 @@ bibliography: references.bib
 
 > This blog is based on @andersonErrorHandlingGeneration2020 and @wickhamConditionsAdvanced2024.
 
+Let's first go through the `demo(error.catching)` from base R.
+
+- In longer simulations, aka computer experiments, you may want to 
+  1. catch all errors and warnings (and continue) 
+  2. store the error or warning messages
+
+```{r}
+#| error: true
+tryCatch.W.E <- function(expr)
+{
+    W <- NULL # this stores warning
+    w.handler <- function(w) { # warning handler
+	    W <<- w
+	    invokeRestart("muffleWarning")
+    }
+    list(value = withCallingHandlers(tryCatch(expr, error = function(e) e), warning = w.handler),
+         warning = W)
+}
+str( tryCatch.W.E( log(3) ) )
+str( tryCatch.W.E( log( -1) ) )
+str( tryCatch.W.E( log("a") ) )
+```
+[Another function that is]{.redcolor} `withWarnings()` 
+
+```{r}
+withWarnings <- function(expr) {
+  W <- NULL
+  wHandler <- function(w) { # warning handler
+    W <<- c(W, list(w))
+    invokeRestart("muffleWarning")
+  }
+  val <- withCallingHandlers(expr, warning = wHandler)
+  list(value = val, warnings = W)
+}
+withWarnings({ warning("first"); warning("2nd"); pi })
+```
+
+```{r}
+r <- withWarnings({ log(-1) + sqrt(-4); exp(1) })
+str(r, digits=14)
+```
+
+
+```{r}
+## A for loop with 10th elment has warning
+r2 <- withWarnings({
+  x <- c(1:9, "a")
+  res <- rep(NA, 10)
+  for (i in 1:10) {
+    res[i] <- as.numeric(x[i]) + 1
+  }
+  res
+})
+str(r2)
+```
+```{r}
+tryCatch_WEMs <- function(expr) {
+  W <- M <- NULL
+  w.handler <- function(w) { # warning handler
+    W <<- c(W, list(w))
+    invokeRestart("muffleWarning")
+  }
+  m.handler <- function(m) { # message handler
+    M <<- c(M, list(m))
+    invokeRestart("muffleMessage")
+  }
+  list(
+    value = withCallingHandlers(tryCatch(expr, error = function(e) e),
+      warning = w.handler, message = m.handler
+    ),
+    messages = M,
+    warnings = W
+  )
+}
+```
+
 ## What is Error in R?
 
 In R, errors are signaled, or thrown, by `stop()` or `stopifnot()`:
