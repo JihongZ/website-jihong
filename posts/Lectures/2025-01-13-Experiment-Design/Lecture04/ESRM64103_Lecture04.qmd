@@ -249,7 +249,7 @@ digraph flowchart {
 
 ```
 
----
+------------------------------------------------------------------------
 
 ```{r}
 library(ellmer)
@@ -590,7 +590,7 @@ G3 - G2 == 0      4.005      2.327   1.721  0.10555
 ### Comparison of Differences
 
 | Feature | `TukeyHSD()` (Base R) | `multcomp::glht()` |
-|-------------------|----------------------------|-------------------------|
+|----|----|----|
 | **Distribution Used** | Studentized Range (q-distribution) | t-distribution |
 | **Error Rate Control** | Strong FWER control | Flexible error control |
 | **Simultaneous Confidence Intervals** | Yes | Typically not (depends on method used) |
