@@ -1,5 +1,5 @@
 ---
-title: "Lecture 05: ANOVA Plan Comparisons"
+title: "Lecture 05: ANOVA Comparisons and Contrasts"
 subtitle: "Experimental Design in Education"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
@@ -36,30 +36,30 @@ filters:
 [Class Outline]{.redcolor .bigger}
 
 -   Planned Contrast
--   Example: STEM vs. Non-Stem Groups
--   Effect Coding
+-   Example: Group Comparison - STEM vs. Non-STEM Groups
+    -   ANOVA-style t-statistics and Regression-style Coding Schema in R
 -   Effect sizes.
 
-# Planned Contrasts and Effect Sizes
+# Planned Contrasts
 
-## Planned Contrasts
+## Definition: Planned Contrasts
 
 -   Pre-defined:
 
-    -   Unlike post-hoc tests, planned contrasts are determined **before** looking at the data, meaning the researcher has a specific [hypothesis about which groups to compare]{.underline}.
-    -   Definition: Planned contrasts are hypothesis-driven comparisons made before data collection.
+    -   Unlike post-hoc tests, planned contrasts are determined **before** looking at the data, meaning the researcher has a specific [hypothesis about which groups to compare]{.underline .bigger}.
+    -   **Definition**: Planned contrasts are hypothesis-driven comparisons made before data collection.
 
 -   Weights assigned:
 
-    -   To perform a planned contrast, each group is assigned a numerical "weight" which reflects its role in the comparison, with the weights usually summing to zero.
-
--   Less stringent correction:
-
-    -   Because planned contrasts are based on specific hypotheses, they typically require less stringent multiple comparison corrections compared to post-hoc tests.
+    -   To perform a planned contrast, each group is assigned a numerical "weight" which reflects its role in the comparison, with the [weights usually summing to zero]{.underline}.
+    
+    $$
+    \text{unscaled_group_differences} = weights * means
+    $$
 
 ## Example of Planned Contrasts
 
--   Imagine a study comparing the effects of three different study methods (**A, B, C**) on test scores.
+-   **Imagine** a study comparing the effects of three different study methods (**A, B, C**) on test scores.
 
     -   One planned contrast might be to compare the average score of method A (considered the "experimental" method) against the combined average of methods B and C (considered the "control" conditions),
 
@@ -75,7 +75,7 @@ filters:
 ## What Does Each Contrast Tell Us?
 
 -   Each contrast is a mean comparison (via t-test).
--   **Simple** contrast (pairwise) compares two individual means.
+-   **Simple** contrast (pairwise) compares two individual group means.
 -   **Complex** contrast compares a combination of group means.
 -   Must be theoretically justified for meaningful interpretation.
 
@@ -84,18 +84,23 @@ filters:
 -   **Simple Comparison:** Two groups directly compared.
     -   Example: $H_0: \mu_2 = \mu_3$
 -   **Complex Comparison:** Combines means of multiple groups.
-    -   Example: $H_0: (\mu_1 + \mu_2)/2 = \mu_3$
-    -   Example: $H_0: (\mu_1 + \mu_2 + \mu_3)/3 = (\mu_4 + \mu_5)/2$
+    -   Example: $H_0: \frac{(\mu_1 + \mu_2)}{2} = \mu_3$
+    -   Example: $H_0: \frac{(\mu_1 + \mu_2 + \mu_3)}{3} = \frac{(\mu_4 + \mu_5)}{2}$
+    
+::: callout-note
+We should not test all possible combinations of groups. Instead, justify your comparison plan before performing statistic analysis. 
+:::
 
 ## Today's focus: Complex Comparisons
 
 -   We perform ominous test in last lecture, which gives us simple contrasts
+    -  which provides all pairwise group comparisons (simple contrasts) 
 -   Today we focus more on **complex contrasts**.
     -   **Helmert** contrast: Compares each mean to the mean of subsequent groups.
-    -   **Sum** contrast: each group compared to grand mean
-    -   **Deviation** contrast: Compares each mean to the grand mean.
+    -   **Sum (Deviation)** contrast: each group compared to grand mean
     -   **Polynomial** contrast: Tests for trends in ordered data.
--   By default, R uses **treatment** contrasts:
+-   By default, R uses **Treatment** contrasts: each group compared to the reference group
+    -   Question: is "Treatment constrast" simple or complex constrast
     -   G1 vs. Treatment (reference)
     -   G2 vs. Treatment (reference)
     -   ....
@@ -112,7 +117,7 @@ filters:
 
 -   Orthogonal contrasts follows a series of group comparisons that does not overlap variances.
 
-## Understand orthogonal contrasts from variances
+## Orthogonal contrasts from variances: no redundency 
 
 [Hermert contrast for example]{.redcolor}
 
@@ -141,25 +146,20 @@ digraph VarianceDiagram {
 
 ## Example of Orthogonal Contrasts
 
-::: column
--   Assume our groups have three levels: g1, g2, g3
+:::: columns
 
--   One example planned orthogonal contrast "tree":
-
-    -   Contrast 1: g3 vs. (g1, g2)
-
-    -   Contrast 2: g1 vs. g2
-:::
-
-::::: columns
 ::: {.column width="50%"}
+
+-   Contrast 1: g3 vs. (g1, g2)
 ![](image/g3vsg12.jpg){width="90%"}
 :::
 
 ::: {.column width="50%"}
+
+-   Contrast 2: g1 vs. g2
 ![](image/g1vsg2.jpg){width="90%"}
 :::
-:::::
+::::
 
 ## Orthogonal Planned Contrasts
 
@@ -170,15 +170,17 @@ digraph VarianceDiagram {
     -   Each contrast has a sum of weights as 0
     -   Groups not in the contrast get a weight of 0
 -   Why does independence matter?
-    -   Type I error rate is unaffected by independent (orthogonal) contrasts
+    -   [Type I error rate is unaffected by independent (orthogonal) contrasts]{.underline}
     -   Interpretation of contrasts is cleaner because contrasts aren’t related (you’ve isolated effects)
 
 | Group | Contrast 1 | Contrast 2 | Product |
 |-------|------------|------------|---------|
-| G1    | +1         | -1         | 0       |
-| G2    | +1         | +1         | +2      |
-| G3    | -2         | 0          | -2      |
+| G1    | +1         | -1         | -1      |
+| G2    | +1         | +1         | +1      |
+| G3    | -2         | 0          | 0       |
 | Sum   | 0          | 0          | 0       |
+
+## Contrasts' Independence checking in R
 
 ```{r}
 contras <- matrix(
@@ -186,7 +188,9 @@ contras <- matrix(
     -1, 1, 0), ncol = 2
 )
 contras
-crossprod(contras) ## if diagnonal matix = orthogonal
+t(contras[,1]) %*% contras[,2] ## the cross-product of two constrasts should be zero
+crossprod(contras) ## if non-diagnonal elements are zero = orthogonal
+cor(contras) ## or correlation matrix is identity matrix
 ```
 
 ## Computing Planned Contrasts
@@ -240,7 +244,7 @@ Even though assumption checkings did not pass using original categorical levels,
 
 ------------------------------------------------------------------------
 
-### Contrast Matrix
+### Complex Contrast Matrix
 
 - There are multiple "canned" contrasts: Helmert, Sum (Effective Coding), Treatment
 
