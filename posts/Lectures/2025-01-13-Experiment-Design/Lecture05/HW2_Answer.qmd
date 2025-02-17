@@ -1,0 +1,61 @@
+---
+title: "ESRM64103 HW2 QA"
+subtitle: "Experimental design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-05"
+sidebar: false
+execute: 
+  warning: false
+  message: false
+format: 
+  html: 
+    page-layout: full
+    number-offset: 1
+    toc: false
+    toc-depth: 2
+    lightbox: true
+    code-fold: show
+---
+
+## Explain the differences between simple, complex, orthogonal, and non-orthogonal contrasts in ANOVA. Why is it important to consider these distinctions when designing a study?
+
+- **Simple contrasts** compare one group to another, such as comparing a treatment group to a control group.  
+- **Complex contrasts** involve comparisons between multiple groups, such as comparing the average of two treatment groups to a control group.  
+- **Orthogonal contrasts** are independent of each other, meaning the information provided by one contrast does not overlap with another. This ensures that the contrasts partition the total variance without redundancy.  
+- **Non-orthogonal contrasts** are correlated and may lead to overlapping variance components, requiring adjustments in significance testing to avoid inflated Type I error rates.  
+
+Considering these distinctions is crucial in study design because they affect statistical power, interpretation, and error rates. For example, choosing orthogonal contrasts allows researchers to test hypotheses without redundant information, while non-orthogonal contrasts may require corrections such as Bonferroni adjustments.  
+
+---
+
+## How do contrast coding schemes (e.g., Helmert, sum, treatment coding) affect the interpretation of ANOVA results? Provide an example illustrating how different coding schemes influence parameter estimates.
+
+Contrast coding schemes determine how categorical variables are represented in regression-based ANOVA models, affecting coefficient interpretation:  
+
+- **Treatment coding (dummy coding)** compares each level to a reference group, making it useful for comparisons against a control group.  
+- **Sum coding** compares each group to the overall mean, making the intercept interpretable as the grand mean.  
+- **Helmert coding** compares each group to the average of previous groups, helping to identify sequential differences.  
+
+**Example:** Suppose we have three groups (A, B, C). Using treatment coding with A as the reference, the coefficients represent the differences between B vs. A and C vs. A. However, with sum coding, the coefficients reflect differences from the overall mean rather than a single reference category.  
+
+---
+
+## In a study comparing multiple treatment groups, a researcher decides to test specific hypotheses using planned contrasts instead of post-hoc comparisons. Discuss the advantages and limitations of this approach and how it impacts Type I error control.
+
+**Advantages:**  
+- Planned contrasts are hypothesis-driven, increasing statistical power compared to post-hoc comparisons, which test all possible differences.  
+- They allow researchers to focus on meaningful comparisons rather than conducting exploratory analyses.  
+- When orthogonal contrasts are used, multiple comparisons do not inflate Type I error rates.  
+
+**Limitations:**  
+- Planned contrasts must be specified before data collection; they are not useful for unexpected findings.  
+- Non-orthogonal planned contrasts may still require error rate adjustments.  
+- They may not detect all relevant group differences if the chosen contrasts do not capture variability effectively.  
+
+**Impact on Type I Error Control:**  
+Planned contrasts reduce the risk of Type I error compared to post-hoc tests because fewer comparisons are made. However, when multiple non-orthogonal contrasts are tested, adjustments like Bonferroni or Holm corrections may be necessary to maintain the overall alpha level.  
+
