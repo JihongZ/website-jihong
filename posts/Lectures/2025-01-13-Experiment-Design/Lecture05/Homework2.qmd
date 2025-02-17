@@ -1,0 +1,146 @@
+---
+title: "Homework 2"
+subtitle: "Experimental Design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-10"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+format: 
+  html: 
+    page-layout: full
+    toc: false
+    lightbox: true
+filters:
+  - output-line-highlight.lua
+---
+
+## Homework 2: One-Way ANOVA Analysis
+
+### Objective
+This assignment aims to guide students through the complete process of conducting a One-Way ANOVA, ensuring they understand the fundamental assumptions, hypothesis formulation, statistical execution, and interpretation of results.
+
+### Instructions
+1. **Dataset Selection**
+   - Choose an appropriate dataset containing at least one categorical independent variable (with at least three levels) and one continuous dependent variable (DV).
+   - Provide a brief description of the dataset, including its source and relevant background information.
+
+2. **Research Question and Hypothesis**
+   - Clearly state your research question.
+   - Formulate both the null and alternative hypotheses.
+
+3. **Assumption Checking**
+   - Evaluate ANOVA assumptions (normality, homogeneity of variance, and independence).
+   - Provide diagnostic plots and justify whether the assumptions are met.
+
+4. **ANOVA Execution**
+   - Conduct a One-Way ANOVA using R.
+   - Report the ANOVA table and interpret the results.
+
+5. **Post-Hoc Analysis and Contrasts**
+   - Perform an omnibus test to assess the overall significance.
+   - Design and test planned orthogonal contrasts.
+   - If necessary, conduct post-hoc pairwise comparisons.
+
+6. **Effect Size Calculation**
+   - Compute and report an appropriate effect size (e.g., eta-squared or omega-squared).
+   
+7. **Results and Interpretation**
+   - Summarize key findings in a concise and structured format.
+   - Interpret statistical significance, effect size, and practical implications.
+
+8. **R Code Submission**
+   - Include well-documented R code for all analyses.
+
+### Submission Requirements
+- Submit a **2-3 page document** (excluding references) consisting of:
+  - A **1-page report** summarizing the analysis and findings.
+  - **1-2 pages of R code** with comments explaining key steps.
+
+### Evaluation Criteria
+Your submission will be evaluated based on the following criteria through AI-assisted and peer review:
+
+1. **Coverage (30%)**: Completeness of the analysis, ensuring all required components are addressed.
+2. **Structure and Clarity (40%)**: Logical organization, coherence, and readability of the report.
+3. **Statistical and Coding Accuracy (30%)**: Correct use of R functions and appropriate interpretation of results.
+
+
+## Guideline for peer review
+
+Evaluate the student's One-Way ANOVA assignment based on the following criteria. **Provide a score ranging from 0.0 to 10.0 for each criterion**, using the following scale:
+
+  - 1.0 - 3.9 (Not Okay): Significant issues, missing key components, incorrect methodology, or poor presentation.
+  - 4.0 - 5.9 (Okay): Some correct elements, but lacks clarity, has errors, or is incomplete.
+  - 6.0 - 8.9 (Satisfied): Mostly correct and well-structured, with minor issues or room for improvement.
+  - 9.0 - 10.0 (Perfect): Excellent execution with clear, correct, and well-documented work.
+
+    
+
+$$
+Score_{Peer1} = Coverage * .3 + Structure * .4 + Coding * .3
+$$
+
+$$
+Score_{HW2} = \frac{Score_{AI}+Score_{Peer1}+Score_{Peer2}}{3}
+$$
+
+
+### R Code for Shuffling Raters
+
+```{r}
+#| include: false
+#| warning: false
+library(tidyverse)
+arrangement <- tribble(
+  ~ Respondent, ~ Rater1, ~ Rater2,
+  1,  2, 3,
+  2,  3, 4,
+  3,  4, 5,
+  4,  5, 6,
+  5,  6, 7,
+  6,  7, 8,
+  7,  8, 9,
+  8,  9, 10,
+  9,  10, 1,
+  10, 1, 2
+)
+
+## Create a dictionary containing Student Name and Fake ID 
+random_number = 12345
+set.seed(random_number) # 12345 for illustration
+Std_Dict <- tibble(
+  # Fake ID
+  FID = sample(x = 1:10, size = 10),
+  Student_name = c(
+    "Ayankoya, Monisola Beauty",
+    "Barr, Stephanie Marie",
+    "Binhuwaimel, Azizah Abdulrahman A",
+    "Bonge, Nicole Grace",
+    "Cascante  Vallejo,Diana Carolina",
+    "Hughes, Yale",
+    "Lan, Xi",
+    "Negrete  Becerra,Luis Arturo",
+    "Shakeri, Sepideh",
+    "West, Abigail Joan"
+  )
+) 
+
+review_schema_wide <- arrangement |> 
+  left_join(Std_Dict, by = c("Respondent" = "FID")) |> 
+  left_join(Std_Dict, by = c("Rater1" = "FID"), suffix = c("_Respondent" ,"_Rater1"), keep = FALSE) |> 
+  left_join(Std_Dict, by = c("Rater2" = "FID")) |> 
+  rename(Student_name_Rater2 = Student_name) |> 
+  dplyr::select(starts_with("Student_name"))
+
+review_schema_long <- review_schema_wide |> 
+  pivot_longer(contains("Rater"), names_to = "Rater", values_to = "Rater_Name") |> 
+  mutate(Rater = str_remove(Rater, "Student_name_Rater"))
+
+review_schema_long |> arrange(Rater_Name, Rater)
+```
+
