@@ -6,7 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2025-02-10"
+date: "2025-02-17"
 sidebar: false
 execute: 
   eval: true
@@ -289,127 +289,6 @@ summary(aov(score ~ group, dt))
   - ANOVA focuses on partitioning variance, 
   - while regression interprets categorical predictors through coding schemes.
 
-------------------------------------------------------------------------
-
-## Effect Coding (Deviation Coding)
-
-- In modern statistics, Regression-style coding is statistically equivalent as ANOVA-style contrast matrix. 
-  - Equivalent to ANOVA-style contrasts. ([we will use this in R to reproduce ANOVA-style contrast matrix]{.redcolor})
-- Compares each level to the grand mean.
-
-::: callout-note
-Effect coding is a method of encoding categorical variables in regression models, similar to dummy coding, but with a different interpretation of the resulting coefficients. It is particularly useful when researchers want to compare each level of a categorical variable to the overall mean rather than to a specific reference category.
-:::
-
----
-
-### **1. Definition and Representation**
-In effect coding, categorical variables are transformed into numerical variables, typically using values of -1, 0, and 1. The key difference from dummy coding is that the reference category is represented by -1 instead of 0, and the coefficients indicate deviations from the grand mean.
-
-For a categorical variable with `k` levels, effect coding requires `k-1` coded variables. If we have a categorical variable X with three levels: $A, B, C$, the effect coding scheme could be:
-
-| Category | $X_1$ | $X_2$ |
-|----------|--------|--------|
-| A        | 1      | 0      |
-| B        | 0      | 1      |
-| C (reference) | -1     | -1     |
-
-The last category ($C$) is the reference group, coded as -1 for all indicator variables.
-
----
-
-### **2. Interpretation of Coefficients**
-
-:::: columns
-::: {.column width="40%"}
-When effect coding is used in a regression model:
-
-$$
-Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon
-$$
-
-- $X_1$ and $X_2$ are coded varaibles. They have no much meaning, but their coefficients are **important** 
-- $\beta_0$ represents the **grand mean** of $Y$ across all categories.
-- $\beta_1$ and $\beta_2$ represent the **deviation** of categories $A$ and $B$ from the grand mean.
-- The reference group ($C$) does not have a separate coefficient; instead, its deviation can be inferred as $-(\beta_1 + \beta_2)$.
-
-:::
-
-::: {.column width="60%"}
-```{r}
-#| code-fold: true
-#| eval: true
-#| fig-height: 8
-library(ggplot2)
-# Create a data frame for text labels
-text_data <- data.frame(
-  x = rep(0.25, 3),  # Repeating the same x-coordinate
-  y = c(0.3, 0.7, 0.9),  # Different y-coordinates
-  label = c("C: beta[0] - beta[1] - beta[2]", 
-            "A: beta[0] + 1*'×'*beta[1] + 0*'×'*beta[2]", 
-            "B: beta[0] + 0*'×'*beta[1] + 1*'×'*beta[2]")  # Labels
-)
-
-# Create an empty ggplot with defined limits
-ggplot() +
-  geom_text(data = text_data, aes(x = x, y = y, label = label), parse = TRUE, size = 11) +
-  # Add a vertical line at x = 0.5
-  # geom_vline(xintercept = 0.5, color = "blue", linetype = "dashed", linewidth = 1) +
-  # Add two horizontal lines at y = 0.3 and y = 0.7
-  geom_hline(yintercept = c(0.35, 0.75, 0.95), color = "red", linetype = "solid", linewidth = 1) +
-  geom_hline(yintercept = 0.5, color = "grey", linetype = "solid", linewidth = 1) +
-  geom_text(aes(x = .25, y = .45, label = "grand mean of Y"), color = "grey", size = 11) +
-  # Set axis limits
-  xlim(0, 1) + ylim(0, 1) +
-  labs(y = "Y", x = "") +
-  # Theme adjustments
-  theme_minimal() +
-  theme(text = element_text(size = 20))
-```
-:::
-::::
-
-
-
----
-
-### **3. Comparison to Dummy Coding**
-
-- **Dummy Coding**: Compares each category to a **specific reference category** (e.g., comparing A and B to C).
-
-| Category | $X_1$ | $X_2$ |
-|----------|--------|--------|
-| A        | 1      | 0      |
-| B        | 0      | 1      |
-| C (reference) | 0     | 0     |
-
-- **Effect Coding**: Compares each category to the **grand mean** rather than a single reference category.
-
----
-
-### **4. Use Cases**
-
-Effect coding is beneficial when:
-
-- There is no natural baseline category, and comparisons to the **overall mean** are more meaningful.
-- Researchers want to maintain **sum-to-zero constraints** for categorical variables in linear models.
-- In ANOVA-style analyses, where main effects and interaction effects are tested under an equal-weight assumption.
-
----
-
-### **5. Implementation in R**
-Effect coding can be set in R using the `contr.sum` function:
-
-```{r}
-#| eval: false
-X <- factor(c("A", "B", "C"))
-contrasts(X) <- contr.sum(3) # set up effect coding in R
-model <- lm(Y ~ X, data = mydata) # use linear regression to mimic ANOVA-style results
-summary(model)
-```
-
-
-------------------------------------------------------------------------
 
 ## ANOVA: t-value formula for Defined Contrast Matrix
 
@@ -555,7 +434,127 @@ tibble(
 )
 ```
 
-------------------------------------------------------------------------
+
+## Effect Coding (Deviation Coding)
+
+- In modern statistics, Regression-style coding is statistically equivalent as ANOVA-style contrast matrix. 
+  - Equivalent to ANOVA-style contrasts. ([we will use this in R to reproduce ANOVA-style contrast matrix]{.redcolor})
+- Compares each level to the grand mean.
+
+::: callout-note
+Effect coding is a method of encoding categorical variables in regression models, similar to dummy coding, but with a different interpretation of the resulting coefficients. It is particularly useful when researchers want to compare each level of a categorical variable to the overall mean rather than to a specific reference category.
+:::
+
+---
+
+### **1. Definition and Representation**
+In effect coding, categorical variables are transformed into numerical variables, typically using values of -1, 0, and 1. The key difference from dummy coding is that the reference category is represented by -1 instead of 0, and the coefficients indicate deviations from the grand mean.
+
+For a categorical variable with `k` levels, effect coding requires `k-1` coded variables. If we have a categorical variable X with three levels: $A, B, C$, the effect coding scheme could be:
+
+| Category | $X_1$ | $X_2$ |
+|----------|--------|--------|
+| A        | 1      | 0      |
+| B        | 0      | 1      |
+| C (reference) | -1     | -1     |
+
+The last category ($C$) is the reference group, coded as -1 for all indicator variables.
+
+---
+
+### **2. Interpretation of Coefficients**
+
+:::: columns
+::: {.column width="40%"}
+When effect coding is used in a regression model:
+
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon
+$$
+
+- $X_1$ and $X_2$ are coded varaibles. They have no much meaning, but their coefficients are **important** 
+- $\beta_0$ represents the **grand mean** of $Y$ across all categories.
+- $\beta_1$ and $\beta_2$ represent the **deviation** of categories $A$ and $B$ from the grand mean.
+- The reference group ($C$) does not have a separate coefficient; instead, its deviation can be inferred as $-(\beta_1 + \beta_2)$.
+
+:::
+
+::: {.column width="60%"}
+```{r}
+#| code-fold: true
+#| eval: true
+#| fig-height: 8
+library(ggplot2)
+# Create a data frame for text labels
+text_data <- data.frame(
+  x = rep(0.25, 3),  # Repeating the same x-coordinate
+  y = c(0.3, 0.7, 0.9),  # Different y-coordinates
+  label = c("C: beta[0] - beta[1] - beta[2]", 
+            "A: beta[0] + 1*'×'*beta[1] + 0*'×'*beta[2]", 
+            "B: beta[0] + 0*'×'*beta[1] + 1*'×'*beta[2]")  # Labels
+)
+
+# Create an empty ggplot with defined limits
+ggplot() +
+  geom_text(data = text_data, aes(x = x, y = y, label = label), parse = TRUE, size = 11) +
+  # Add a vertical line at x = 0.5
+  # geom_vline(xintercept = 0.5, color = "blue", linetype = "dashed", linewidth = 1) +
+  # Add two horizontal lines at y = 0.3 and y = 0.7
+  geom_hline(yintercept = c(0.35, 0.75, 0.95), color = "red", linetype = "solid", linewidth = 1) +
+  geom_hline(yintercept = 0.5, color = "grey", linetype = "solid", linewidth = 1) +
+  geom_text(aes(x = .25, y = .45, label = "grand mean of Y"), color = "grey", size = 11) +
+  # Set axis limits
+  xlim(0, 1) + ylim(0, 1) +
+  labs(y = "Y", x = "") +
+  # Theme adjustments
+  theme_minimal() +
+  theme(text = element_text(size = 20))
+```
+:::
+::::
+
+
+
+---
+
+### **3. Comparison to Dummy Coding**
+
+- **Dummy Coding**: Compares each category to a **specific reference category** (e.g., comparing A and B to C).
+
+| Category | $X_1$ | $X_2$ |
+|----------|--------|--------|
+| A        | 1      | 0      |
+| B        | 0      | 1      |
+| C (reference) | 0     | 0     |
+
+- **Effect Coding**: Compares each category to the **grand mean** rather than a single reference category.
+
+---
+
+### **4. Use Cases**
+
+Effect coding is beneficial when:
+
+- There is no natural baseline category, and comparisons to the **overall mean** are more meaningful.
+- Researchers want to maintain **sum-to-zero constraints** for categorical variables in linear models.
+- In ANOVA-style analyses, where main effects and interaction effects are tested under an equal-weight assumption.
+
+---
+
+### **5. Implementation in R**
+Effect coding can be set in R using the `contr.sum` function:
+
+```{r}
+#| eval: false
+X <- factor(c("A", "B", "C"))
+contrasts(X) <- contr.sum(3) # set up effect coding in R
+model <- lm(Y ~ X, data = mydata) # use linear regression to mimic ANOVA-style results
+summary(model)
+```
+
+
+
+
 
 ## Self-defined Contrast
 
