@@ -188,6 +188,20 @@ dmy(x)  # Assumes day-month-year
 class(dmy(x))
 ```
 
+## Handling Date-Time with `POSIXct`
+
+-   Previous `Date` type variables contain year-month-day information
+-   The `POSIXct` class stores timestamps as seconds since epoch.
+-   Use `ymd_hms()` to parse full date-time values:
+    - Parse date-times with year, month, and day, hour, minute, and second components.
+
+
+```{r}
+datetime_str <- "2025-02-12 14:30:00"
+datetime <- ymd_hms(datetime_str)
+print(datetime)
+```
+
 - In `lubridate`, there are various type of parsing functions that can parse the character based on the sequence of your date string
 
 ```{r}
@@ -279,7 +293,7 @@ as_datetime(60 * 60 * 10) # offset in seconds
 as_date(365 * 10 + 2) # offset in days
 ```
 
-## Extracting Date Components
+## Extracting Components From Date-Time
 
 -   Once parsed, individual components like year, month, or day information can be extracted for further analysis:
 
@@ -306,6 +320,22 @@ month(dates, label = TRUE) # day of the month
 wday(dates, label = TRUE) # day of the week
 ```
 
+## Modify Components From Date-Time
+
+- You can use `year() <-`, `month() <-`, and `hour() <-` to modify year, month, and hours of original date-time object
+
+```{r}
+(datetime <- ymd_hms("2026-07-08 12:34:56"))
+
+year(datetime) <- 2030
+datetime
+
+month(datetime) <- 01
+datetime
+
+hour(datetime) <- hour(datetime) + 1
+datetime
+```
 
 ## Rounding the Date
 
@@ -343,36 +373,139 @@ flights_dt |>
 ```
 
 
-## Handling Date-Time with `POSIXct`
+## Time Spans
 
--   Previous `Date` type variables contain year-month-day information
--   The `POSIXct` class stores timestamps as seconds since epoch.
--   Use `ymd_hms()` to parse full date-time values:
-    - Parse date-times with year, month, and day, hour, minute, and second components.
+- Three important classes that represent time spans:
+
+  - **Durations**, which represent an exact number of seconds.
+  - **Periods**, which represent human units like weeks and months.
+  - **Intervals**, which represent a starting and ending point.
+
+
+- In R, when you subtract two dates, you get a `difftime` object:
+
+```{r}
+# How old is Hadley?
+h_age <- today() - ymd("1979-10-14")
+h_age
+class(h_age)
+```
+
+::: callout-tip
+A difftime class object records a time span of seconds, minutes, hours, days, or weeks. 
+:::
+
+### Duration: fixed time length
+
+- `lubridate` package provides an alternative which always uses seconds: the duration.
+
+```{r}
+h_duration <- as.duration(h_age)
+
+dseconds(h_duration)
+
+dminutes(1) # one minute difference
+dhours(2) # 2 hours differences
+ddays(4) # 4 days differences
+dweeks(2) # 2 weeks difference
+dyears(1.5) # one and half year difference
+```
+
+- Calculation use old_date + duration = new_date
+  - Next lecture's date
+  
+```{r}
+ymd("2025-02-20") + dweeks(1)
+```
+
+- However, because durations represent an exact number of seconds, sometimes you might get an unexpected result:
+
+  - March 8 only has 23 hours because it’s when DST starts, so if we add a full days worth of seconds we end up with a different time.
+
+```{r}
+one_am <- ymd_hms("2026-03-08 01:00:00", tz = "America/New_York")
+
+one_am
+one_am + ddays(1) # Time changes because of the changes from EST (Eastern Standard Time) to EDT (Eastern Daylight Time)
+```
+
+### Period: "human" times
+
+- Periods are time spans but don’t have a fixed length in seconds, instead they work with “human” times, like days and months. 
+
+  - That allows them to work in a more intuitive way:
+
+```{r}
+one_am
+one_am + days(1)
+```
+
+
+# Locales and Time zones
+    
+## Time Zones
+
+- In R, the time zone is an attribute of the `date-time` that only controls printing. For example, these three objects represent the same instant in time:
+
+```{r}
+x1 <- ymd_hms("2024-06-01 12:00:00", tz = "America/New_York")
+x1
+
+x2 <- ymd_hms("2024-06-01 18:00:00", tz = "Europe/Copenhagen")
+x2
+
+x3 <- ymd_hms("2024-06-02 04:00:00", tz = "Pacific/Auckland")
+x3
+```
+
+```{r}
+x1 - x2
+x1 - x3
+```
+
+-  You can also use `difftime` to calculate time different across different time zones
+
+```{r}
+dublin_time <- ymd_hm("2001-10-10 20:10", tz = "Europe/Dublin")
+hk_time <- ymd_hm("2001-10-10 20:10", tz = "Asia/Hong_Kong" )
+time_diff <- difftime(dublin_time, hk_time, units = "hours")
+days(time_diff)
+```
+
+---
+
+### Checking Timezones
+
+You can see a complete list of time zones with `OlsonNames()`.
+
+```{r}
+Sys.timezone(location = TRUE)
+head(OlsonNames())
+```
+    
+---
+
+### Change time zone
+
+- You can display date-time in another time zone:
+
+```{r}
+x <- ymd_hms("2009-08-07 00:00:01", tz = "America/New_York")
+with_tz(x, "Asia/Hong_Kong")
+```
 
 
 ```{r}
-datetime_str <- "2025-02-12 14:30:00"
-datetime <- ymd_hms(datetime_str)
-print(datetime)
+x4 <- c(x1, x2, x3)
+x4
+with_tz(x4, tzone = "Australia/Lord_Howe")
 ```
 
-## Working with Time Zones
-
--   Time zones are crucial when working with global data.
--   `with_tz()` converts a time to a different zone without altering the actual time:
-
-```{r}
-now()  # Current system time
-with_tz(now(), "America/New_York")  # Convert to Eastern Time
-```
-
-
-# Locales
-
-## Understanding Locales in R
+## Checking and Setting Locales
 
 [What are Locales?]{.redcolor .bigger}
+
+-   The settings related to the language and the regions in which computer program executes.
 
 -   Locales define how dates, times, numbers, and character encodings are interpreted.
 -   Key aspects include:
@@ -380,8 +513,6 @@ with_tz(now(), "America/New_York")  # Convert to Eastern Time
     -   Time zones
     -   Character encoding
     -   Decimal and grouping symbols
-
-## Checking and Setting Locales
 
 ```{r}
 Sys.getlocale()
@@ -411,45 +542,7 @@ parse_date("1994年10月01日", "%Y年%m月%d日", locale = locale("zh"))
 
 See `vignette("locales")` for more details
 
-## Timezones
 
-You can see a complete list of time zones with `OlsonNames()`.
-
-```{r}
-Sys.timezone(location = TRUE)
-OlsonNames()[str_detect(OlsonNames(), "America/N")]
-```
-
--  Use `tz=` in ymd_ functions to set up time zone
-
-```{r}
-ymd_hm("2001-10-10 20:10", tz = "Pacific/Auckland")
-```
--  You can use `difftime` to calculate time different across different time zones
-
-```{r}
-dublin_time <- ymd_hm("2001-10-10 20:10", tz = "Europe/Dublin")
-hk_time <- ymd_hm("2001-10-10 20:10", tz = "Asia/Hong_Kong" )
-difftime(dublin_time, hk_time, units = "hours")
-```
-
-```{r}
-#| eval: false
-current_time <- Sys.Date()
-current_time
-difftime(
-  parse_datetime(current_time, locale = locale(tz = "US/Central")),
-  parse_datetime(current_time, locale = locale(tz = "Asia/Hong_Kong"))
-)
-
-```
-
--   Note that “EST” is a Canadian time zone that does not have DST. It’s not Eastern Standard Time! Instead use:
-
-    -   PST/PDT = “US/Pacific”
-    -   CST/CDT = “US/Central”
-    -   MST/MDT = “US/Mountain”
-    -   EST/EDT = “US/Eastern”
 
 ## Summary
 

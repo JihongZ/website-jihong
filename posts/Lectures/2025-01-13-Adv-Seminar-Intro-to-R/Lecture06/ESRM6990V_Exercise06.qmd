@@ -16,6 +16,7 @@ execute:
 format: 
   html: 
     page-layout: full
+    number-sections: false
 toc: true
 toc-depth: 2
 lightbox: true
