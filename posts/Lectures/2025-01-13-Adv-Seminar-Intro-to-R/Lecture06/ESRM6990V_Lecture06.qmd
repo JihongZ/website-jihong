@@ -1,12 +1,13 @@
 ---
 title: "Lecture 06: Date, Time, and Locales"
-subtitle: "`dplyr` package"
+subtitle: "`lubridate` package"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
 date: "2025-02-05"
+date-modified: "`r Sys.time()`"
 sidebar: false
 execute: 
   eval: true
@@ -27,7 +28,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
+    footer: "ESRM 64503 - Lecture 06: Date/Time/TimeZone"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
@@ -66,9 +67,9 @@ library(lubridate)
 ## Create date/time variable
 
 - Three types of date/time data that refer to an instant in time:
-    - A date. Tibbles print this as <date>.
-    - A time within a day. Tibbles print this as <time>.
-    - A date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). 
+    - A `date`. 
+    - A `time` within a day. 
+    - A `date-time` is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). 
         - Tibbles prints this as <dttm>. Base R calls these POSIXct, but that doesn’t exactly trip off the tongue.
 
 - To get the current date or date-time you can use `today()` or `now()`:
@@ -479,7 +480,7 @@ days(time_diff)
 You can see a complete list of time zones with `OlsonNames()`.
 
 ```{r}
-Sys.timezone(location = TRUE)
+Sys.timezone(location = TRUE) ## check your time zone in your computer system
 head(OlsonNames())
 ```
     
