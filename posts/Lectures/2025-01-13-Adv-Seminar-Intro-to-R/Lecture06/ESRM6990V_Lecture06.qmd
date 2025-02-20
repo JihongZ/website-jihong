@@ -35,74 +35,321 @@ format:
 
 [Class Outline]{.redcolor .bigger}
 
+1.  Talk about the date-time variables
+2.  Locales related to timezone
+
 # Introduction to Date-Time Parsing
 
+
+
 ## Importance of Date-Time Data
-- Dates and times are critical for tracking temporal data in analysis.
-- Proper handling ensures accurate filtering, summarization, and visualization.
-- R provides the `Date` and `POSIXct` types to manage date-time information.
 
-## The `Date` Data Type in R
+-   Dates and times are critical for tracking temporal data in analysis.
+-   Proper handling ensures accurate filtering, summarization, and visualization.
+-   Base R provides the `Date` and `POSIXct` types to manage date-time information.
+    - `tidyverse` provides more types 
+    
+::: callout-tip
+You should always use the simplest possible data type that works for your needs. That means if you can use a date instead of a date-time, you should. Date-times are substantially more complicated because of the need to handle time zones, which we’ll come back to at the end of the chapter.
+:::
 
-- Dates are stored as the number of days since January 1, 1970 (epoch reference).
+## Using `lubridate` for Date-Time Parsing
+
+[Loading the Package]{.bluecolor .bigger}
 
 ```{r}
-as.numeric(as.Date("1970-01-01"))  # Returns 0
+library(tidyverse)
+# or
+library(lubridate)
 ```
 
-- Convert character strings into `Date` format:
+## Create date/time variable
+
+- Three types of date/time data that refer to an instant in time:
+    - A date. Tibbles print this as <date>.
+    - A time within a day. Tibbles print this as <time>.
+    - A date-time is a date plus a time: it uniquely identifies an instant in time (typically to the nearest second). 
+        - Tibbles prints this as <dttm>. Base R calls these POSIXct, but that doesn’t exactly trip off the tongue.
+
+- To get the current date or date-time you can use `today()` or `now()`:
+
+```{r}
+today()
+now()
+```
+
+## Import
+
+- If your CSV contains an ISO8601 `date` or `date-time`, you don’t need to do anything; `readr::read_csv()` will automatically recognize it:
+
+```{r}
+csv <- "
+  date, datetime
+  2022-01-02,2022-01-02 05:12
+"
+read_csv(csv)
+```
+
+::: callout-tip
+The date format follows ISO8601. If you haven’t heard of ISO8601 before, it’s an international standard for writing dates where the components of a date are organized from biggest to smallest separated by `-`. For example, in ISO8601 May 3 2022 is 2022-05-03.
+:::
+
+---
+
+### If you date variable does not follow ISO8601...
+
+- For other date-time formats, you’ll need to use `col_types=` plus `col_date()` or `col_datetime()` along with a date-time format.
+
+```{r}
+csv <- "
+  date
+  01/02/15
+"
+
+read_csv(csv, col_types = cols(date = col_date("%m/%d/%y")))
+
+read_csv(csv, col_types = cols(date = col_date("%d/%m/%y")))
+
+read_csv(csv, col_types = cols(date = col_date("%y/%m/%d")))
+```
+
+---
+
+### Date formats can be understood by readr
+
+| Type | Code | Meaning | Example |
+| --- | --- | --- | --- |
+| Year | `%Y` | 4 digit year | 2021 |
+|  | `%y` | 2 digit year | 21 |
+| Month | `%m` | Number | 2 |
+|  | `%b` | Abbreviated name | Feb |
+|  | `%B` | Full name | February |
+| Day | `%d` | One or two digits | 2 |
+|  | `%e` | Two digits | 02 |
+| Time | `%H` | 24-hour hour | 13 |
+|  | `%I` | 12-hour hour | 1 |
+|  | `%p` | AM/PM | pm |
+|  | `%M` | Minutes | 35 |
+|  | `%S` | Seconds | 45 |
+|  | `%OS` | Seconds with decimal component | 45.35 |
+|  | `%Z` | Time zone name | America/Chicago |
+|  | `%z` | Offset from UTC | +0800 |
+| Other | `%.` | Skip one non-digit | : |
+|  | `%*` | Skip any number of non-digits |  |
+
+
+## The `Date` Type in base R
+
+-   Dates are stored as the number of days since January 1, 1970 (epoch reference).
+
+```{r}
+as.Date("1970-01-01")
+```
+
+```{r}
+format(as.Date("1970-01-01"), format = "%Y/%m/%d")
+```
+
+-   Convert character strings into `Date` format:
 
 ```{r}
 as.Date("2025-02-13")  # Convert string to Date type
 ```
 
-
-## Using `lubridate` for Date-Time Parsing
-
-[Loading the Package][.bluecolor .bigger]
+-   You can have access to the system date:
 
 ```{r}
-library(lubridate)
+Sys.Date()
 ```
 
-## Parsing Various Date Formats
+## Parsing Date From String
 
-- `lubridate` provides functions to interpret and standardize date formats.
+-   `lubridate` provides functions to interpret and standardize date formats.
+  
+  - Parse dates with year, month, and day components
 
 ```{r}
-x <- c("2009-01-01", "09/01/02", "January 2, 2009")
+## heterogeneous formats in a single vector:
+x <- c("2009-01-01", "09/01/02", "2009.Jan.2", "090102")
 ymd(x)  # Interprets different formats correctly
 ```
 
 ## Handling Different Date Orders
 
-- Formats can be ambiguous, `lubridate` helps with appropriate parsing:
+-   Formats can be ambiguous, `lubridate` helps with appropriate parsing:
+
+    - Once parsed, the object type will be converted to `Date` 
 
 ```{r}
 x <- "09/01/02"
 ymd(x)  # Assumes year-month-day
 mdy(x)  # Assumes month-day-year
 dmy(x)  # Assumes day-month-year
+class(dmy(x))
+```
+
+- In `lubridate`, there are various type of parsing functions that can parse the character based on the sequence of your date string
+
+```{r}
+ymd_hms("2024-07-13 14:45:00")
+ymd_hm("2024-07-13 14:45")
+mdy_hm("07-13-2024 14:45")
+mdy_hm("07.13.2024 14:45")
+```
+
+## Example: Multiple columns of date components
+
+- Instead of a single string, sometimes you’ll have the individual components of the date-time spread across multiple columns.
+
+```{r}
+library(nycflights13)
+flights_datetime <- flights |> 
+  select(year, month, day, hour, minute)
+flights_datetime
+```
+
+- To create a date/time from this sort of input, use `make_date()` for dates, or `make_datetime()` for date-times:
+
+```{r}
+flights_datetime |> 
+  mutate(departure_time = make_datetime(year, month, day, hour, minute))
+```
+
+---
+
+### Calculate departure time and arrival time
+
+- In `flights`, `dep_time` and `arr_time` represents the time with the format `HHMM` or `HMM`. 
+  - The first two digits contains hours; The second two digits contains minuts
+  - `dep_time %/% 100` will be hours 
+  - `dep_time %% 100` will be minutes 
+
+```{r}
+flights |> 
+  select(dep_time) |> 
+  mutate(
+    hours = dep_time %/% 100,
+    minutes = dep_time %% 100,
+  ) 
+```
+
+---
+
+### Create departure time
+
+```{r}
+## create a self-made function that can read in HMM time format
+make_datetime_100 <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}
+
+flights_dt <- flights |> 
+  filter(!is.na(dep_time), !is.na(arr_time)) |> # remove missing date
+  mutate(
+    dep_time = make_datetime_100(year, month, day, dep_time),
+    sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
+  ) |> 
+  select(origin, dest, dep_time, sched_dep_time)
+
+flights_dt
 ```
 
 
-## Extracting Date Components
+---
 
-- Once parsed, individual components can be extracted for further analysis:
+### Visualize distribution of departure time
+
+- With this data, we can visualize the distribution of departure times on January 02, 2013
 
 ```{r}
-dates <- as.Date(c("2016-05-31", "2016-08-08", "2016-08-19"))
+flights_dt |> 
+  filter(dep_time < ymd_hms("2013-01-01 23:00:00")) |> 
+  ggplot() + 
+  geom_histogram(aes(x = dep_time), fill = "red", binwidth = 1800, alpha = .8) + # 1800 seconds = 30 min
+  scale_x_datetime(date_breaks = "1 hour") +
+  coord_flip()
+```
+
+## Get date/times as numeric offsets
+
+- Sometimes you’ll get date/times as numeric offsets from the “Unix Epoch”, **1970-01-01**. If the offset is in seconds, use as_datetime(); if it’s in days, use as_date().
+
+```{r}
+as_datetime(60 * 60 * 10) # offset in seconds
+as_date(365 * 10 + 2) # offset in days
+```
+
+## Extracting Date Components
+
+-   Once parsed, individual components like year, month, or day information can be extracted for further analysis:
+
+```{r}
+dates <- as.Date(c("2016-05-31 12:34:56", 
+                   "2016-08-08 12:34:56", 
+                   "2016-09-19 12:34:56"))
 
 year(dates)  # Extract year
 month(dates)  # Extract month
 day(dates)  # Extract day
+
+yday(dates) # day of the year
+mday(dates) # day of the month
+wday(dates) # day of the week
+```
+
+---
+
+- For `month()` and `wday()` you can set label = TRUE to return the abbreviated name of the month or day of the week
+
+```{r}
+month(dates, label = TRUE) # day of the month
+wday(dates, label = TRUE) # day of the week
+```
+
+
+## Rounding the Date
+
+-  `floor_date()`, `round_date()`, and `ceiling_date()` are useful to adjusting our dates. Each function takes a vector of dates to adjust and then the name of the unit to round down (floor), round up (ceiling), or round to. 
+
+```{r}
+dates <- as.Date(c("2016-05-31 12:34:56", 
+                   "2016-08-08 12:34:56", 
+                   "2016-09-19 12:34:56"))
+floor_date(dates, unit = "week") # Monday of the week
+wday(dates)
+ceiling_date(dates, unit = "week") # Sunday of the week
+```
+
+## Example: distribution of number of flights by week days
+
+```{r}
+#| code-line-numbers: "2"
+flights_dt |> 
+  mutate(wday = wday(dep_time, label = TRUE)) |> 
+  ggplot(aes(x = wday, fill = wday)) +
+  geom_bar()
+```
+
+---
+
+### Distribution of number of flights by week
+
+```{r}
+flights_dt |> 
+  count(week = floor_date(dep_time, "week")) |> 
+  ggplot(aes(x = week, y = n)) +
+  geom_line() + 
+  geom_point()
 ```
 
 
 ## Handling Date-Time with `POSIXct`
 
-- The `POSIXct` class stores timestamps as seconds since epoch.
-- Use `ymd_hms()` to parse full date-time values:
+-   Previous `Date` type variables contain year-month-day information
+-   The `POSIXct` class stores timestamps as seconds since epoch.
+-   Use `ymd_hms()` to parse full date-time values:
+    - Parse date-times with year, month, and day, hour, minute, and second components.
+
 
 ```{r}
 datetime_str <- "2025-02-12 14:30:00"
@@ -110,22 +357,16 @@ datetime <- ymd_hms(datetime_str)
 print(datetime)
 ```
 
-
 ## Working with Time Zones
 
-- Time zones are crucial when working with global data.
-- `with_tz()` converts a time to a different zone without altering the actual time:
+-   Time zones are crucial when working with global data.
+-   `with_tz()` converts a time to a different zone without altering the actual time:
 
 ```{r}
 now()  # Current system time
 with_tz(now(), "America/New_York")  # Convert to Eastern Time
 ```
 
-- `force_tz()` forces a time to be interpreted in a different time zone:
-
-```{r}
-force_tz(now(), "America/New_York")
-```
 
 # Locales
 
@@ -133,12 +374,12 @@ force_tz(now(), "America/New_York")
 
 [What are Locales?]{.redcolor .bigger}
 
-- Locales define how dates, times, numbers, and character encodings are interpreted.
-- Key aspects include:
-  - Date and time formats
-  - Time zones
-  - Character encoding
-  - Decimal and grouping symbols
+-   Locales define how dates, times, numbers, and character encodings are interpreted.
+-   Key aspects include:
+    -   Date and time formats
+    -   Time zones
+    -   Character encoding
+    -   Decimal and grouping symbols
 
 ## Checking and Setting Locales
 
@@ -147,21 +388,20 @@ Sys.getlocale()
 Sys.setlocale("LC_ALL", "en_US.UTF-8")
 ```
 
-- `LC_TIME`: Controls date-time formatting.
-- `LC_NUMERIC`: Determines the decimal and grouping symbols.
-
+-   `LC_TIME`: Controls date-time formatting.
+-   `LC_NUMERIC`: Determines the decimal and grouping symbols.
 
 ## Handling Different Locales
 
-- Using `readr::locale()`
-- The `readr` package allows setting locales while reading data.
+-   Using `readr::locale()`
+-   The `readr` package allows setting locales while reading data.
 
 ```{r}
 library(readr)
 locale()
 ```
 
-- Specifying a locale allows you to parse dates in other languages:
+-   Specifying a locale allows you to parse dates in other languages:
 
 ```{r}
 parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
@@ -176,12 +416,22 @@ See `vignette("locales")` for more details
 You can see a complete list of time zones with `OlsonNames()`.
 
 ```{r}
-parse_datetime("2001-10-10 20:10")
-parse_datetime("2001-10-10 20:10", locale = locale(tz = "Pacific/Auckland"))
-parse_datetime("2001-10-10 20:10", locale = locale(tz = "Europe/Dublin"))
-parse_datetime("2001-10-10 20:10", locale = locale(tz = "Asia/Hong_Kong" ))
+Sys.timezone(location = TRUE)
+OlsonNames()[str_detect(OlsonNames(), "America/N")]
 ```
 
+-  Use `tz=` in ymd_ functions to set up time zone
+
+```{r}
+ymd_hm("2001-10-10 20:10", tz = "Pacific/Auckland")
+```
+-  You can use `difftime` to calculate time different across different time zones
+
+```{r}
+dublin_time <- ymd_hm("2001-10-10 20:10", tz = "Europe/Dublin")
+hk_time <- ymd_hm("2001-10-10 20:10", tz = "Asia/Hong_Kong" )
+difftime(dublin_time, hk_time, units = "hours")
+```
 
 ```{r}
 #| eval: false
@@ -194,15 +444,15 @@ difftime(
 
 ```
 
-- Note that “EST” is a Canadian time zone that does not have DST. It’s not Eastern Standard Time! Instead use:
+-   Note that “EST” is a Canadian time zone that does not have DST. It’s not Eastern Standard Time! Instead use:
 
-  - PST/PDT = “US/Pacific”
-  - CST/CDT = “US/Central”
-  - MST/MDT = “US/Mountain”
-  - EST/EDT = “US/Eastern”
+    -   PST/PDT = “US/Pacific”
+    -   CST/CDT = “US/Central”
+    -   MST/MDT = “US/Mountain”
+    -   EST/EDT = “US/Eastern”
 
 ## Summary
 
-- `lubridate` simplifies parsing and manipulating date-time data.
-- Converting text-based dates into structured `Date` and `POSIXct` formats enables powerful analysis.
-- Handling time zones correctly ensures accurate comparisons across regions.
+-   `lubridate` simplifies parsing and manipulating date-time data.
+-   Converting text-based dates into structured `Date` and `POSIXct` formats enables powerful analysis.
+-   Handling time zones correctly ensures accurate comparisons across regions.
