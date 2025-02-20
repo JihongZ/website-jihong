@@ -101,18 +101,23 @@ The date format follows ISO8601. If you haven’t heard of ISO8601 before, it’
 
 - For other date-time formats, you’ll need to use `col_types=` plus `col_date()` or `col_datetime()` along with a date-time format.
 
+- `col_date()` in readr package can uses a format specification
+  - In which, data components are specified with "%" following by a letter
+  - For example, "%m" matches a 2-digit month; "%d" matches 2-digit day; "%y" matches 2-digit yaer: 00-69 -> 2000-2069
+
 ```{r}
 csv <- "
-  date
-  01/02/15
+  ID,birthdate, datatime
+  1,01/02/15, 2024.01.02
+  2,02/03/15, 2024.01.03
 "
 
-read_csv(csv, col_types = cols(date = col_date("%m/%d/%y")))
-
-read_csv(csv, col_types = cols(date = col_date("%d/%m/%y")))
-
-read_csv(csv, col_types = cols(date = col_date("%y/%m/%d")))
+read_csv(csv, col_types = cols(birthdate = col_date(format = "%m/%d/%y")))
+read_csv(csv, col_types = cols(birthdate = col_date(format = "%d/%m/%y")))
+read_csv(csv, col_types = cols(birthdate = col_date(format = "%y/%m/%d")))
 ```
+
+  - Exercise: Try read in the data and convert the datatime into `date` object
 
 ---
 
