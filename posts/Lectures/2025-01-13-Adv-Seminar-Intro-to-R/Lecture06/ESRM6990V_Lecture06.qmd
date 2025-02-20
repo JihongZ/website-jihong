@@ -217,7 +217,7 @@ mdy_hm("07-13-2024 14:45")
 mdy_hm("07.13.2024 14:45")
 ```
 
-## Example: Multiple columns of date components
+## Example: Combine Multiple columns of date components into one date-time
 
 - Instead of a single string, sometimes you’ll have the individual components of the date-time spread across multiple columns.
 
@@ -232,7 +232,8 @@ flights_datetime
 
 ```{r}
 flights_datetime |> 
-  mutate(departure_time = make_datetime(year, month, day, hour, minute))
+  mutate(departure_time = make_datetime(year, month, day, hour, minute),
+         departure_date = make_date(year, month, day))
 ```
 
 ---
@@ -280,14 +281,14 @@ flights_dt
 ### Visualize distribution of departure time
 
 - With this data, we can visualize the distribution of departure times on January 02, 2013
+  - use `%within% interval(start, end)` to select a interval of two timestaps
 
 ```{r}
 flights_dt |> 
-  filter(dep_time < ymd_hms("2013-01-01 23:00:00")) |> 
+  filter(dep_time %within% interval("2013-01-03 00:00:00", 
+                                    "2013-01-04 00:00:00")) |> 
   ggplot() + 
-  geom_histogram(aes(x = dep_time), fill = "red", binwidth = 1800, alpha = .8) + # 1800 seconds = 30 min
-  scale_x_datetime(date_breaks = "1 hour") +
-  coord_flip()
+  geom_histogram(aes(x = dep_time), fill = "skyblue", binwidth = 1800, alpha = .8)
 ```
 
 ## Get date/times as numeric offsets
