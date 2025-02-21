@@ -352,9 +352,10 @@ datetime
 dates <- as.Date(c("2016-05-31 12:34:56", 
                    "2016-08-08 12:34:56", 
                    "2016-09-19 12:34:56"))
-floor_date(dates, unit = "week") # Monday of the week
+floor_date(dates, unit = "week") # Sunday of the week
 wday(dates)
-ceiling_date(dates, unit = "week") # Sunday of the week
+floor_date(dates, unit = "week") |> wday()
+ceiling_date(dates, unit = "week") # Saturday of the week
 ```
 
 ## Example: distribution of number of flights by week days

@@ -43,12 +43,12 @@ Using the `flights` dataset from the `nycflights13` package:
 ## Questions
 
 1.  What proportion of flights from JFK in June were categorized as "Severe Delay"?
-2.  Which airline had the second longest average departure delay?
+2.  Which carrier had the second longest average departure delay?
 
 ```{r}
 #| echo: false
 # Load required packages
-library(nycflights13)
+library(nycflights13) # install.packages("nycflights13")
 library(tidyverse)
 
 # Step 1: Filter flights departing from JFK in June
@@ -70,11 +70,12 @@ jfk_june_flights_categorized <- jfk_june_flights_sorted |>
       dep_delay <= 0 ~ "On Time",
       dep_delay > 0 & dep_delay <= 30 ~ "Slight Delay",
       dep_delay > 30 ~ "Severe Delay",
-      is.na(dep_delay) ~ "Dont Know"
+      is.na(dep_delay) ~ "Dont Know" # character type value
     )
   )
-mean(jfk_june_flights_categorized$delay_category == "Severe Delay") # 0.201
-  
+mean(jfk_june_flights_categorized$delay_category == "Severe Delay") # 20.1%
+mean(c(TRUE, FALSE, FALSE))
+
 # Step 5: Summarize average delay by carrier
 avg_delay_by_carrier <- jfk_june_flights_categorized |> 
   group_by(carrier) |> 
