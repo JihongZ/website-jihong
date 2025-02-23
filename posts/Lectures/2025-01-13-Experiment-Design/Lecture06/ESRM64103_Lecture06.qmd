@@ -1,0 +1,327 @@
+---
+title: "Lecture 06: Validation"
+subtitle: "Experimental Design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-17"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+format: 
+  # html: 
+  #   page-layout: full
+  #   toc: true
+  #   toc-depth: 2
+  #   lightbox: true
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503: Lecture 05"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    mermaid:
+      theme: forest
+filters:
+  - output-line-highlight.lua
+---
+
+[Class Outline]{.redcolor .bigger}
+
+-   Go through different types of experimental design
+-   Validity
+
+## Types of Experimental Design
+
+-   There are three basic types of experimental research designs:
+
+    -   Pre-experimental designs: no control group
+
+    -   **True experimental designs: control group, random assignment**
+
+    -   Quasi-experimental designs: control group, not random assignment by criteria
+
+        -   e.g., Group A: high-performance vs. Group B: low-performance
+
+-   [TRUE experimental design]{.underline} also has different **subtypes**.
+
+    -   Characterized by the methods of random assignments and random selection
+
+    -   Choose which extraneous variables
+
+## Subtypes of true experimental designs
+
+1.  **Post-test Only Design** - Features: control vs. treatment, randomly assigned
+    -   [x] Neither group is pre-tested before treatment
+
+    -   [x] Treatment is applied to the experimental group and the post-test is carried out on both groups to assess the effect of the treatment or manipulation
+
+| Group | Treatment | Post-test |
+|-------|-----------|-----------|
+| 1     | X         | O         |
+| 2     |           | O         |
+
+2.  **Pre-Post-test Only Design**: - Features: control vs. treatment, random assigned
+    -   [x] Both groups are pretested
+    -   [x] Treatment is applied to the experimental group and the post-test is carried out on both groups to assess the effect of the treatment or manipulation
+
+------------------------------------------------------------------------
+
+3.  **Solomon four group design**: - Features: two treatment groups and two control groups. Only two groups are pretested
+    -   One pretested group and one un-pretested group receive the treatment
+    -   All four groups will receive the post-test
+        -   Use this design when it is suspected that, in taking a test more than once, earlier tests have an effect on later tests
+
+| Group | Treatment | Pre-test | Post-test |
+|-------|-----------|----------|-----------|
+| 1     | X         | O        | O         |
+| 2     | X         |          | O         |
+| 3     |           | O        | O         |
+| 4     |           |          | O         |
+
+## Notations for Experimental Design:
+
+-   **Observation, O**: measurement or observation that is recorded.
+    -   This can be a simple activity, such as measuring somebody's height, or it can be the administration of a more complex instrument such as a whole battery of questions or a coherent test.
+-   **Treatment, X**: Treatments (or programs) are actions or interventions taken that change the situation in some way.
+    -   These can range from simple actions such as giving the subject information to complex activities that may range from a whole set of actions to surgical operations.
+
+| Group | Treatment | Pre-test | Post-test |
+|-------|-----------|----------|-----------|
+| 1     | X         | O        | O         |
+| 2     | X         |          | O         |
+| 3     |           | O        | O         |
+| 4     |           |          | O         |
+
+------------------------------------------------------------------------
+
+4.  **Factorial Design**: The researcher manipulates [two or more independent variables (factors)]{.underline} simultaneously to observe their effects on the dependent variable.
+    -   Allows for the testing of two or more hypotheses in a single project.
+    -   They apply the test to the same group at the same time of day and day of week over six weeks.
+
+::: callout-note
+## Example
+
+An investigation into the factors that cause stress in the workplace seeks to discover the effect of various combinations of three levels of background noise and two levels of interruption on scores of a common stress test.
+:::
+
+------------------------------------------------------------------------
+
+5.  **Randomized Block Design**: technique for dealing with nuisance factors (variable which is not of interest, except that it has influence on the variables that are of interest)
+    -   Assume that we want to conduct a posttest-only design. We recognize that our sample has several homogeneous subgroups.
+
+:::::: columns
+:::: {.column width="60%"}
+::: callout-note
+## Example
+
+In a study of college students, we might expect that students are relatively homogeneous with respect to class or year.
+
+-   We can block the sample into four groups: freshman, sophomore, junior, and senior.
+-   We will probably get more powerful estimates of the treatment effect within each block.
+-   Within each of our four blocks, we would implement the simple post-only randomized experiment
+:::
+::::
+
+::: {.column width="40%"}
+| Block | Group | Treatment | Post-test |
+|-------|-------|-----------|-----------|
+| F.    | 1     | X         | O         |
+| F.    | 2     |           | O         |
+| Sop.  | 1     | X         | O         |
+| Sop.  | 2     |           | O         |
+| Ju.   | 1     | X         | O         |
+| Ju.   | 2     |           | O         |
+| Sen.  | 1     | X         | O         |
+| Sen.  | 2     |           | O         |
+:::
+::::::
+
+------------------------------------------------------------------------
+
+6.  **Repeated Measures Design**: each group member in an experiment is tested for multiple conditions over time or under different conditions
+    -   An ordinary repeated measures is where patients are assigned a single treatment, and the results are measured over time (e.g., at 1, 4 and 8 weeks).
+    -   A crossover design is where patients are assigned all treatments, and the results are measured over time.
+        -   The most common crossover design is “two-period, two-treatment.” Participants are randomly assigned to receive either A and then B, or B and then A.
+
+# Validity
+
+## Conceptions of validity
+
+-   Validity: approximate truth of an inference
+
+    -   Judgment about the extent to which relevant evidence supports the inference as being true
+    -   Validity judgments are never absolute
+
+-   Validity is a property of inferences, not of designs or methods
+
+    -   Using an experimental design does not guarantee a valid inference.
+    -   Experiments are still susceptible to threats to validity.
+
+-   Even using a [**randomized experiment**]{.red} does not guarantee a valid causal inference:
+
+    -   [x] Could be “broken” by:
+        -   [x] Differential attrition (i.e., the difference in degree of loss to follow-up between the intervention and control arms of a trial)
+        -   [x] Low statistical power
+        -   [x] Improper statistical analysis
+        -   [x] Sampling error
+
+## Randomized Experiments
+
+::::: columns
+::: {.column width="60%"}
+-   **Randomized experiments** allow researchers to scientifically measure the impact of an intervention on a particular outcome of interest. (e.g., intervention methods on performance)
+
+-   The key to randomized experimental research design is in the **random assignment** of study subjects:
+
+    -   For example, randomly assign individual people, classrooms, or some other group – into [a) treatment or b) control groups]{.redcolor}.
+
+-   **Randomization** has a very specific meaning:
+
+    -   It does not refer to haphazard or casual choosing of some and not others.
+
+-   **Randomization** in this context means that care is taken to ensure that no pattern exists between the assignment of subjects into groups and any characteristics of those subjects.
+
+    -   Ex: not all females over 30 into the exercise group, females 18-30 in the diet group, and males into the control group.
+    -   Every subject is as likely as any other to be assigned to the treatment (or control) group.
+:::
+
+::: {.column width="40%"}
+![](images/clipboard-1819047791.png)
+:::
+:::::
+
+## Reasons for Randomization: 1
+
+::: callout-note
+-   Researchers demand randomization for several reasons:
+-   [First]{.redcolor}, participants in various groups should not differ in any systematic way.
+    -   In an experiment, if treatment groups are systematically different, trial results will be biased.
+        -   Suppose that participants are assigned to control and treatment groups in a study examining the efficacy of a walking intervention. If a greater proportion of older adults is assigned to the treatment group, then the outcome of the walking intervention may be influenced by this imbalance.
+        -   The effects of the treatment would be indistinguishable from the influence of the imbalance of covariates (age), thereby requiring the researcher to control for the covariates in the analysis to obtain an unbiased result.
+:::
+
+------------------------------------------------------------------------
+
+## Reasons for Randomization: 2
+
+::: callout-note
+-   [Second]{.redcolor}, proper randomization ensures no a priori knowledge of group assignment.
+    -   That is, researchers, participants, and others should not know to which group the participant will be assigned.
+        -   Knowledge of group assignment creates a layer of potential **selection bias** that may taint the data.
+        -   Trials with inadequate or unclear randomization tended to overestimate treatment effects up to 40% compared with those that used proper randomization!
+        -   The outcome of the trial can also be negatively influenced by this inadequate randomization.
+:::
+
+## Types of Validity
+
+1.  Statistical Conclusion Validity
+2.  Internal Validity
+3.  Construct Validity
+4.  External Validity
+
+![](images/clipboard-1065141229.png){width="100%"}
+
+## 1. Statistical Conclusion Validity (I)
+
+-   Statistical Conclusion Validity
+    -   Question: “was the original statistical inference correct?”
+-   Did the investigators arrive at the correct conclusion regarding whether or not a relationship between the variables exists, or the extent of the relationship?
+    -   Not concerned with the causal relationship between variables
+    -   Whether or not there is any relationship, either causal or not.
+
+## 1. Statistical Conclusion Validity (II)
+
+-   Statistical Conclusion Validity
+
+-   Threats:
+
+    -   Liberal biases: researchers being overly optimistic regarding the existence of a relationship or exaggerating its strength.
+    -   Conservative biases: being overly pessimistic regarding the absence of a relationship or underestimating its strength.
+    -   Low power: the probability that the evaluation will result in a Type II error.
+
+-   Causes of Threats:
+
+    -   small sample sizes, violation of statistical assumptions, too many repeated trials of experiments, usage of biased estimates of effects, increased error from irrelevant, unreliable, or poorly constructed measures, high variability due to participant diversity, etc.
+
+## 2. Internal Validity
+
+-   Internal Validity:
+    -   Question: “Is there a causal relationship between variable X and variable Y, regardless of what X and Y are theoretically supposed to represent?”
+-   Internal validity occurs when it can be concluded that there is a causal relationship between the variables being studied.
+    -   A danger is that changes might be caused by other factors.
+-   Threats to internal validity:
+    -   Maturation, history, instrumentation, regression, selection, etc.
+    -   diffusion or imitation, compensatory equalization or treatments, compensatory rivalry by people receiving less desirable treatments (John Henry effect), resentful demoralization of respondents receiving less desirable treatments
+
+## 3. External Validity
+
+-   External Validity
+    -   Question: “Can the finding be generalized across populations, settings, or time?”
+-   A primary concern is the heterogeneity and representativeness of the evaluation sample population.
+-   Best approach to minimize this threat: use a heterogeneous group of settings, persons, and times
+-   [Threats to External validity]{.redcolor}:
+    -   **Interaction of Selection and Treatment**: Does the program's impact only apply to this particular group, or is it also applicable to other individuals with different characteristics?
+    -   **Interaction of Testing and Treatment**: If your design included a pretest, would your results be the same if implemented without a pretest?
+    -   **Interaction of Setting and Treatment**: How much of your results are impacted by the setting of your program, and could you apply this program within a different setting and see similar results?
+    -   **Interaction of History and Treatment**: An oversimplification here may be to say how "timeless" is this program. Could you get the same results received today in a future setting or was there something specific to this time point (perhaps a major event) that influenced its impact.
+    -   **Multiple Treatment Threats**: The program may exist in an ecosystem that includes other programs. Can the results seen with the program be generalized to other settings without the same program-filled environment?
+
+## 4. Construct Validity I
+
+-   Construct Validity
+    -   The degree to which a test or instrument is capable of measuring a concept, trait, or other theoretical entity
+    -   “do the theoretical constructs of cause and effect accurately represent the real-world situations they are intended to model?”
+-   General case of translating any construct into an operationalization
+    -   For example, if a researcher develops a new questionnaire to evaluate respondents’ levels of aggression, the construct validity of the instrument would be the extent to which it actually assesses aggression as opposed to assertiveness, social dominance, and so forth.
+-   There are sub-types of construct validity:
+    -   Convergent validity (=congruent validity): The extent to which responses on a test or instrument exhibit a strong relationship with responses on conceptually similar tests or instruments.
+    -   Discriminant validity (=divergent validity): The degree to which a test or measure diverges from (i.e., does not correlate with) another measure whose underlying construct is conceptually unrelated to it.
+    -   face validity, content validity, predictive validity, concurrent validity, etc…
+
+## 4. Construct Validity II
+
+-   [Threats:]{.redcolor7}
+    -   **Experimenter bias**: The experimenter transfers expectations to the participants in a manner that affects performance for dependent variables.
+        -   For instance, the researcher might look pleased when participants give a desired answer.
+        -   If this is what causes the response, it would be wrong to label the response as a treatment effect.
+    -   **Condition diffusion**: The possibility of communication between participants from different condition groups during the evaluation.
+    -   **Resentful demoralization**: A group that is receiving nothing (control/placebo) finds out that a condition (treatment) that others are receiving is effective.
+    -   **Inadequate preoperational explication**: preoperational means before translating constructs into measures or treatments, and explication means explanation
+        -   The researcher didn't do a good enough job of defining (operationally) what was meant by the construct.
+    -   **Mono-method bias**: The use of only a single dependent variable to assess a construct may result in under-representing the construct and containing irrelevancies.
+    -   **Mono-operation bias**: The use of only a single implementation of the independent variable, cause, program or treatment in your study.
+
+## 4. Construct Validity III
+
+-   Multitrait-Multimethod Matrix (MTMM):
+    -   MTMM is an approach to assessing the construct validity of a set of measures in a study (Campbell & Fiske, 1959).
+    -   Along with the MTMM, Campbell and Fiske introduced two new types of validity, both of which the MTMM assesses:
+    -   Convergent validity is the degree to which concepts that should be related theoretically are interrelated in reality.
+    -   Discriminant validity is the degree to which concepts that should not be related theoretically are, in fact, not interrelated in reality.
+    -   In order to be able to claim that your measures have construct validity, you have to demonstrate both convergence and discrimination.
+
+## 4. Construct Validity IV
+
+::::: columns
+::: {.column width="50%"}
+-   Multitrait-Multimethod Matrix (MTMM):
+    -   Example: 3 traits to be measured: c1 (geometry), c2 (algerbra), c3 (reasoning)
+    -   Each trait was measured on 3 methods
+        -   e.g., notation: $c_3^{(2)}$ is trait 3 measured on method 2
+    -   Coefficients in the reliability diagonal should consistently be the highest in the matrix: a trait should be more highly correlated with itself than with anything else!
+    -   Coefficients in the validity diagonals should be significantly different from zero and high enough to warrant further investigation.
+    -   This is essentially used as evidence of convergent validity.\
+:::
+
+::: {.column width="50%"}
+![](images/clipboard-505364376.png)
+:::
+:::::

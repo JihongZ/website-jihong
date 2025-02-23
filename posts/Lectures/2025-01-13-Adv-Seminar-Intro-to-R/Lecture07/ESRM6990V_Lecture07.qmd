@@ -1,0 +1,103 @@
+---
+title: "Lecture 07: Quarto Document"
+subtitle: "`lubridate` package"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-05"
+date-modified: "`r Sys.time()`"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "nord"
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 0
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 07: Quarto"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+[Class Outline]{.redcolor .bigger}
+
+1.  Talk about the date-time variables
+2.  Locales related to timezone
+
+## What is Quarto
+
+-   An open-source scientific and technical publishing system
+
+    -   Author using Jupyter notebooks or with plain text markdown in your favorite editor.
+    -   Create dynamic content with Python, R, Julia, and Observable.
+    -   Publish reproducible, production quality articles, presentations, dashboards, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.
+    -   Share knowledge and insights organization-wide by publishing to Posit Connect, Confluence, or other publishing systems.
+    -   Write using Pandoc markdown, including equations, citations, crossrefs, figure panels, callouts, advanced layout, and more.
+
+## Hello Quarto
+
+-   **Quarto** is a multi-language, next generation version of R Markdown from Posit, with many new features and capabilities. Like R Markdown, Quarto uses knitr to execute R code, and is therefore able to render most existing Rmd files without modification.
+-   The following is a Quarto document with the extension `.qmd` (on the left), along with its rendered version as HTML (`.html` on the right).
+
+![](images/clipboard-2141717442.png)
+
+## Installation
+
+You can install [Quarto](https://quarto.org/docs/get-started/) here
+
+## Tutorial 
+
+You can follow along with the tutorial via the official video - [Get Started with Quarto](https://youtu.be/_f3latmOhew)
+
+If you would like to follow along with this tutorial in your own environment, follow the steps outlined below.
+
+1.  Download and install the latest release of [RStudio](Download and install the latest release of RStudio:)
+
+2.  Be sure that you have installed the `tidyverse` and `palmerpenguins` packages:
+
+    ```{r}
+    #| eval: false
+    install.packages("tidyverse")
+    install.packages("palmerpenguins")
+    ```
+
+3.  Download the Quarto [document](https://quarto.org/docs/get-started/hello/rstudio/_hello.qmd) (`.qmd`) below, open it in RStudio, and click on ![](https://quarto.org/docs/get-started/hello/images/rstudio-render-button.png){width="18" height="15"} Render.
+
+## Preview File
+
+-   Once you open up the `.qmd` file, you can use the ![](https://quarto.org/docs/get-started/hello/images/rstudio-render-button.png){width="18" height="15"} **Render** button in the RStudio IDE to **render** the file and **preview** the output with a single click or keyboard shortcut (⇧⌘K).
+
+    ![](images/clipboard-1323469978.png)
+
+-   If you prefer to automatically render whenever you save, you can check the [Render on Save]{.underline} option on the editor toolbar. The preview will update whenever you re-render the document. Side-by-side preview works for both HTML and PDF outputs.
+
+    ![](images/clipboard-3771274696.png)
+
+## Creating Content
+
+-   There two modes of the RStudio editor: visual (on the left) and source (on the right).
+
+    ![](images/clipboard-2750519872.png)
+
+-   **Source** and **Visual**
+
+    -   Source mode follows the *markdown* format.
+
+    -   Visual mode is more similar to *Word*
+
+    ![](images/clipboard-600796057.png)
