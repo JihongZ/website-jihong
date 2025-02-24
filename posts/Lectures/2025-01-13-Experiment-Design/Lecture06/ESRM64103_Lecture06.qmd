@@ -6,7 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-date: "2025-02-17"
+date: "2025-02-24"
 sidebar: false
 execute: 
   eval: true
@@ -31,6 +31,7 @@ format:
       theme: forest
 filters:
   - output-line-highlight.lua
+bibliography: references.bib
 ---
 
 [Class Outline]{.redcolor .bigger}
@@ -59,7 +60,7 @@ filters:
 ## Subtypes of true experimental designs
 
 1.  **Post-test Only Design** - Features: control vs. treatment, randomly assigned
-    -   [x] Neither group is pre-tested before treatment
+    -   [x] Neither group is pre-tested before the treatment
 
     -   [x] Treatment is applied to the experimental group and the post-test is carried out on both groups to assess the effect of the treatment or manipulation
 
@@ -67,6 +68,8 @@ filters:
 |-------|-----------|-----------|
 | 1     | X         | O         |
 | 2     |           | O         |
+
+: {.striped .hover}
 
 2.  **Pre-Post-test Only Design**: - Features: control vs. treatment, random assigned
     -   [x] Both groups are pretested
@@ -86,6 +89,8 @@ filters:
 | 3     |           | O        | O         |
 | 4     |           |          | O         |
 
+: {.striped .hover}
+
 ## Notations for Experimental Design:
 
 -   **Observation, O**: measurement or observation that is recorded.
@@ -99,6 +104,8 @@ filters:
 | 2     | X         |          | O         |
 | 3     |           | O        | O         |
 | 4     |           |          | O         |
+
+: {.striped .hover}
 
 ------------------------------------------------------------------------
 
@@ -141,6 +148,8 @@ In a study of college students, we might expect that students are relatively hom
 | Ju.   | 2     |           | O         |
 | Sen.  | 1     | X         | O         |
 | Sen.  | 2     |           | O         |
+
+: {.striped .hover}
 :::
 ::::::
 
@@ -153,7 +162,11 @@ In a study of college students, we might expect that students are relatively hom
 
 # Validity
 
-## Conceptions of validity
+## Motivation
+
+-   When we read about psychology experiments with a critical view, one question to ask is [“is this study valid?”]{.redcolor}
+
+## Conceptions of Validity
 
 -   Validity: approximate truth of an inference
 
@@ -220,6 +233,8 @@ In a study of college students, we might expect that students are relatively hom
         -   The outcome of the trial can also be negatively influenced by this inadequate randomization.
 :::
 
+## We are the "Pre-vengers" when constructing Validity {background-image="https://64.media.tumblr.com/daee590bcf26c84522ddda9c987613bf/tumblr_pqvmweJIlD1sysw2co4_540.gifv" background-size="contain"}
+
 ## Types of Validity
 
 1.  Statistical Conclusion Validity
@@ -227,19 +242,22 @@ In a study of college students, we might expect that students are relatively hom
 3.  Construct Validity
 4.  External Validity
 
-![](images/clipboard-1065141229.png){width="100%"}
+![](images/clipboard-1065141229.png){width="30%"}
 
-## 1. Statistical Conclusion Validity (I)
+## 1. Statistical Validity (I)
 
--   Statistical Conclusion Validity
-    -   Question: “was the original statistical inference correct?”
+-   Statistical (Conclusion) Validity
+    -   Question: [“was the original statistical inference correct?”]{.redcolor}
+    -   There are many different types of inferential statistics tests (e.g., t-tests, ANOVA, regression, correlation) and statistical validity concerns the use of the proper type of test to analyze the data.
 -   Did the investigators arrive at the correct conclusion regarding whether or not a relationship between the variables exists, or the extent of the relationship?
     -   Not concerned with the causal relationship between variables
     -   Whether or not there is any relationship, either causal or not.
 
-## 1. Statistical Conclusion Validity (II)
+## 1. Statistical Validity (II)
 
--   Statistical Conclusion Validity
+-   Concern:
+
+    -   Statistical Validity concerns the use of the proper type of test to analyze the data.
 
 -   Threats:
 
@@ -249,7 +267,16 @@ In a study of college students, we might expect that students are relatively hom
 
 -   Causes of Threats:
 
-    -   small sample sizes, violation of statistical assumptions, too many repeated trials of experiments, usage of biased estimates of effects, increased error from irrelevant, unreliable, or poorly constructed measures, high variability due to participant diversity, etc.
+    -   Small Sample Sizes, violation of statistical assumptions, too many repeated trials of experiments, usage of biased estimates of effects, increased error from irrelevant, unreliable, or poorly constructed measures, high variability due to participant diversity, etc.
+
+## 1. Statistical Validity
+
+-   Different statistical inference may have different validity tools:
+    -   effect size
+    -   p-value adjustment
+    -   Type-I error control
+    -   Including control variables (gender, race, age)
+    -   power analysis (the appropriate number of participants can be recruited and tested.)
 
 ## 2. Internal Validity
 
@@ -264,21 +291,55 @@ In a study of college students, we might expect that students are relatively hom
 ## 3. External Validity
 
 -   External Validity
-    -   Question: “Can the finding be generalized across populations, settings, or time?”
+    -   Question: [“Can the finding be generalized across populations, settings, or time?”]{.redcolor}
 -   A primary concern is the heterogeneity and representativeness of the evaluation sample population.
--   Best approach to minimize this threat: use a heterogeneous group of settings, persons, and times
+    -   e.g., In many psychology experiments, the participants are all *undergraduate* students and come to a *classroom or laboratory* to fill out a series of paper-and-pencil questionnaires or to perform a carefully designed computerized task.
+
+::: callout-note
+## Complete math test in swimsuits
+
+Consider, for example, an experiment in which researcher Barbara Fredrickson and her colleagues had undergraduate students come to a laboratory on campus and complete a math test while wearing a swimsuit [@fredrickson1998]. At first, this manipulation might seem silly. When will undergraduate students ever have to complete math tests in their swimsuits outside of this experiment?
+
+-   Assumption: " This self-objectification is hypothesized to (a) produce body shame, which in turn leads to restrained eating, and (b) consume attentional resources, which is manifested in diminished mental performance."
+
+-   "Self-objectification increased body shame, which in turn predicted restrained eating."
+:::
+
+## Example of High External Validity
+
+::: callout-tip
+## Example of Cialdini et al. (2005)
+
+In one such experiment, Robert Cialdini and his colleagues studied whether hotel guests choose to reuse their towels for a second day as opposed to having them washed as a way of conserving water and energy [@cialdini2005]
+
+-   These researchers manipulated the message on a card left in a large sample of hotel rooms.
+    -   One version of the message emphasized showing respect for the environment
+    -   Another emphasized that the hotel would donate a portion of their savings to an environmental cause
+    -   A third emphasized that most hotel guests choose to reuse their towels
+-   Results: Guests who received the message that "most hotel guests choose to reuse their towels (Message 3)", reused their own towels substantially more often than guests receiving either of the other two messages.
+-   Guests are randomly selected; Hotels are randomly chosen; Hotel rooms are large sampled.\
+:::
+
+------------------------------------------------------------------------
+
 -   [Threats to External validity]{.redcolor}:
+
     -   **Interaction of Selection and Treatment**: Does the program's impact only apply to this particular group, or is it also applicable to other individuals with different characteristics?
     -   **Interaction of Testing and Treatment**: If your design included a pretest, would your results be the same if implemented without a pretest?
     -   **Interaction of Setting and Treatment**: How much of your results are impacted by the setting of your program, and could you apply this program within a different setting and see similar results?
     -   **Interaction of History and Treatment**: An oversimplification here may be to say how "timeless" is this program. Could you get the same results received today in a future setting or was there something specific to this time point (perhaps a major event) that influenced its impact.
     -   **Multiple Treatment Threats**: The program may exist in an ecosystem that includes other programs. Can the results seen with the program be generalized to other settings without the same program-filled environment?
 
-## 4. Construct Validity I
+-   [As a general rule]{.redcolor}, studies are higher in external validity when the participants and the situation studied are similar to those that the researchers want to generalize to and participants encounter every day, often described as mundane realism.
 
--   Construct Validity
-    -   The degree to which a test or instrument is capable of measuring a concept, trait, or other theoretical entity
-    -   “do the theoretical constructs of cause and effect accurately represent the real-world situations they are intended to model?”
+-   Best approach to minimize this threat: use a heterogeneous group of settings, persons, and times
+
+## 4. Construct Validity
+
+-   May be the most "broad" or "vague" concept among validity  
+    -   "Do your measured math scores reprsent **MATH**"
+    -   DEFINITION: The degree to which a test or instrument is capable of measuring a concept, trait, or other theoretical entity
+    -   [“do the theoretical constructs of cause and effect accurately represent the real-world situations they are intended to model?”]{.redcolor}
 -   General case of translating any construct into an operationalization
     -   For example, if a researcher develops a new questionnaire to evaluate respondents’ levels of aggression, the construct validity of the instrument would be the extent to which it actually assesses aggression as opposed to assertiveness, social dominance, and so forth.
 -   There are sub-types of construct validity:
@@ -325,3 +386,5 @@ In a study of college students, we might expect that students are relatively hom
 ![](images/clipboard-505364376.png)
 :::
 :::::
+
+## Reference
