@@ -74,11 +74,9 @@ I currently hold the position of [Assistant Professor of Educational Statistics 
 -   Psychometric network and Latent variable modeling
 -   Machine Learning and data mining in Education
 -   Diagnostic Classification Models
-
-
 :::
 
-::: {.separator}
+::: separator
 [Teaching & Research]{.next-section}
 :::
 
