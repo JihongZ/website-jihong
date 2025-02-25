@@ -275,8 +275,8 @@ In a study of college students, we might expect that students are relatively hom
 ## 1. Statistical Validity
 
 -   Different statistical inference may have different validity tools:
-    -   effect size
-    -   p-value adjustment
+    -   Effect size
+    -   p-value adjustment due to multiple comparisons
     -   Type-I error control
     -   Including control variables (gender, race, age)
     -   power analysis (the appropriate number of participants can be recruited and tested.)
@@ -303,7 +303,7 @@ In a study of college students, we might expect that students are relatively hom
 
 Consider, for example, an experiment in which researcher Barbara Fredrickson and her colleagues had undergraduate students come to a laboratory on campus and complete a math test while wearing a swimsuit [@fredrickson1998]. At first, this manipulation might seem silly. When will undergraduate students ever have to complete math tests in their swimsuits outside of this experiment?
 
--   Assumption: " This self-objectification is hypothesized to (a) produce body shame, which in turn leads to restrained eating, and (b) consume attentional resources, which is manifested in diminished mental performance."
+-   Assumption: " This self-objectification is hypothesized to (a) produce body shame, which in turn leads to restrained eating, and (b) consume attention resources, which is manifested in diminished mental performance."
 
 -   "Self-objectification increased body shame, which in turn predicted restrained eating."
 :::
@@ -377,7 +377,7 @@ In one such experiment, Robert Cialdini and his colleagues studied whether hotel
 ::::: columns
 ::: {.column width="50%"}
 -   Multitrait-Multimethod Matrix (MTMM):
-    -   Example: 3 traits to be measured: c1 (geometry), c2 (algerbra), c3 (reasoning)
+    -   Example: 3 traits to be measured: c1 (geometry), c2 (algebra), c3 (reasoning)
     -   Each trait was measured on 3 methods
         -   e.g., notation: $c_3^{(2)}$ is trait 3 measured on method 2
     -   Coefficients in the reliability diagonal should consistently be the highest in the matrix: a trait should be more highly correlated with itself than with anything else!
