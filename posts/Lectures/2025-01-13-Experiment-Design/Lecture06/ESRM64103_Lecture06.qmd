@@ -78,9 +78,9 @@ bibliography: references.bib
 
 ------------------------------------------------------------------------
 
-3.  **Solomon four group design**: 
+3.  **Solomon four group design**:
 
-- Features: two treatment groups and two control groups. Only two groups are pretested
+-   Features: two treatment groups and two control groups. Only two groups are pretested
     -   One pretested group and one un-pretested group receive the treatment
     -   All four groups will receive the post-test
         -   Use this design when it is suspected that, in taking a test more than once, earlier tests have an effect on later tests
@@ -339,7 +339,7 @@ In one such experiment, Robert Cialdini and his colleagues studied whether hotel
 
 ## 4. Construct Validity
 
--   May be the most "broad" or "vague" concept among validity  
+-   May be the most "broad" or "vague" concept among validity
     -   "Do your measured math scores reprsent **MATH**"
     -   DEFINITION: The degree to which a test or instrument is capable of measuring a concept, trait, or other theoretical entity
     -   [“do the theoretical constructs of cause and effect accurately represent the real-world situations they are intended to model?”]{.redcolor}

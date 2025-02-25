@@ -1,6 +1,6 @@
 ---
 title: "Lecture 07: Quarto Document"
-subtitle: "`lubridate` package"
+subtitle: "quarto"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -10,12 +10,12 @@ date: "2025-02-05"
 date-modified: "`r Sys.time()`"
 sidebar: false
 execute: 
-  eval: true
+  eval: false
   echo: true
   warning: false
 output-location: default
 code-annotations: below
-highlight-style: "nord"
+highlight-style: "dracula"
 format: 
   html:
     code-tools: true
@@ -36,8 +36,7 @@ format:
 
 [Class Outline]{.redcolor .bigger}
 
-1.  Talk about the date-time variables
-2.  Locales related to timezone
+1.  Quarto
 
 ## What is Quarto
 
@@ -45,28 +44,28 @@ format:
 
     -   Author using Jupyter notebooks or with plain text markdown in your favorite editor.
     -   Create dynamic content with Python, R, Julia, and Observable.
-    -   Publish reproducible, production quality articles, presentations, dashboards, websites, blogs, and books in HTML, PDF, MS Word, ePub, and more.
+    -   Publish reproducible, production quality **articles, presentations, dashboards, websites, blogs, and books** in HTML, PDF, MS Word, ePub, and more.
     -   Share knowledge and insights organization-wide by publishing to Posit Connect, Confluence, or other publishing systems.
     -   Write using Pandoc markdown, including equations, citations, crossrefs, figure panels, callouts, advanced layout, and more.
 
 ## Hello Quarto
 
--   **Quarto** is a multi-language, next generation version of R Markdown from Posit, with many new features and capabilities. Like R Markdown, Quarto uses knitr to execute R code, and is therefore able to render most existing Rmd files without modification.
+-   **Quarto** is a multi-language of R Markdown from Posit, with many new features and capabilities. Like R Markdown, Quarto uses knitr to execute R code, and is therefore able to render most existing Rmd files without modification.
 -   The following is a Quarto document with the extension `.qmd` (on the left), along with its rendered version as HTML (`.html` on the right).
 
 ![](images/clipboard-2141717442.png)
 
 ## Installation
 
-You can install [Quarto](https://quarto.org/docs/get-started/) here
+You can install [Quarto](https://quarto.org/docs/get-started/) here. It is a standalone software, independent from R and RStudio. It can be used inside RStudio.
 
-## Tutorial 
+## Tutorial
 
 You can follow along with the tutorial via the official video - [Get Started with Quarto](https://youtu.be/_f3latmOhew)
 
 If you would like to follow along with this tutorial in your own environment, follow the steps outlined below.
 
-1.  Download and install the latest release of [RStudio](Download and install the latest release of RStudio:)
+1.  Download and install the latest release of [RStudio](Download%20and%20install%20the%20latest%20release%20of%20RStudio:)
 
 2.  Be sure that you have installed the `tidyverse` and `palmerpenguins` packages:
 
@@ -101,3 +100,154 @@ If you would like to follow along with this tutorial in your own environment, fo
     -   Visual mode is more similar to *Word*
 
     ![](images/clipboard-600796057.png)
+
+## YAML Header
+
+-   Each Quarto document (`.qmd`) typically starts with YAML Header
+
+-   YAML head contains some setup information (metadata) including `title`, `subtitle`, `author`, `date`, output file format (html, pdf, or slides)
+
+-   An (optional) YAML header demarcated by three dashes (`---`) on either end.
+
+```{r}
+#| eval: false
+---
+title: "Hello, Quarto"
+format: html
+editor: visual
+---
+```
+
+-   The basic syntax of YAML uses key-value pairs in the format `key: value`
+
+------------------------------------------------------------------------
+
+### Example: YAML Header of today's lecture
+
+```{yaml}
+---
+title: "Lecture 07: Quarto Document"
+subtitle: "quarto"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-05"
+date-modified: "`r Sys.time()`"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+  warning: false
+output-location: default
+code-annotations: below
+highlight-style: "dracula"
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 0
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503 - Lecture 07: Quarto"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+```
+
+## Code Chunks
+
+-   Code chunks contains code that can be output directly into the output file.
+
+-   R code chunks identified with `{r}` with (optional) chunk options, in YAML style, identified by `#|` at the beginning of the line.
+
+-   You can also run each code chunk interactively in the RStudio editor by clicking the ![](https://d33wubrfki0l68.cloudfront.net/18153fb9953057ee5cff086122bd26f9cee8fe93/3aba9/images/notebook-run-chunk.png) icon or keyboard shortcut (⇧⌘↩).
+
+    -   RStudio executes the code and displays the results either inline within your file or in the Console, depending on your preference.
+
+```{r}
+#| label: load-packages
+#| echo: fenced
+#| eval: true
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(palmerpenguins)
+```
+
+```{r}
+#| label: show-table
+#| echo: fenced
+
+head(penguins)
+```
+
+## Markdown Text
+
+-   Except YAML Header and Code Chunks, other text contents are displayed with the format of Markdown language
+
+    -   You can check markdown basics [here](https://quarto.org/docs/authoring/markdown-basics.html)
+
+-   There are two ways of editing quarto file: (1) markdown in Source mode (2) clicking in Visual mode
+
+-   Quarto uses markdown syntax for text. If using the visual editor, you won’t need to learn much markdown syntax for authoring your document, as you can use the menus and shortcuts to add a header, bold text, insert a table, etc. If using the source editor, you can achieve these with markdown expressions like `##`, `**bold**`, etc.
+
+![](images/clipboard-249611071.png)
+
+## Example: Quarto PDF
+
+-   Create a new file called `quarto_pdf.qmd`
+
+-   Use the `pdf` format to create PDF output. For example:
+
+```{yaml filename="quarto_pdf.qmd"}
+---
+title: "My document"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+---
+```
+
+-   In order to create PDFs you will need to install a recent distribution of TeX. We recommend the use of TinyTeX (which is based on TexLive), which you can install with the following command:
+
+```{bash}
+#| eval: false
+#| echo: fenced
+quarto install tinytex
+```
+
+-   Change to Source Mode, copy and paste the following code into your quarto document
+
+```{r}
+#| warning: false
+#| echo: fenced
+
+library(ggplot2)
+ggplot(airquality, aes(Temp, Ozone)) + 
+  geom_point() + 
+  geom_smooth(method = "loess", se = FALSE)
+```
+
+-   Render the quarto file using ![](images/clipboard-2571102192.png){width="70" height="30"} botton
+
+## General Suggestions
+
+1.  Use Quarto document to report you data analysis results.
+2.  Use Quarto document to write notes
+
+## More Resources about Quarto
+
+-   [Official Quarto Guide](https://quarto.org/docs/guide/)
+
+-   [YouTube Video - Get Started With Quarto](https://www.youtube.com/watch?v=_f3latmOhew)
