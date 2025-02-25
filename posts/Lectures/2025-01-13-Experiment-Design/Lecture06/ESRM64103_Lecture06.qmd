@@ -36,6 +36,7 @@ bibliography: references.bib
 
 [Class Outline]{.redcolor .bigger}
 
+-   Go through homework 2
 -   Go through different types of experimental design
 -   Validity
 
@@ -77,7 +78,9 @@ bibliography: references.bib
 
 ------------------------------------------------------------------------
 
-3.  **Solomon four group design**: - Features: two treatment groups and two control groups. Only two groups are pretested
+3.  **Solomon four group design**: 
+
+- Features: two treatment groups and two control groups. Only two groups are pretested
     -   One pretested group and one un-pretested group receive the treatment
     -   All four groups will receive the post-test
         -   Use this design when it is suspected that, in taking a test more than once, earlier tests have an effect on later tests
