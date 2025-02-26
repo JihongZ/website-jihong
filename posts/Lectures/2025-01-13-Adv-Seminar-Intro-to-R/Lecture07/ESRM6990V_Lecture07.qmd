@@ -22,6 +22,7 @@ format:
     code-line-numbers: false
     code-fold: false
     number-offset: 0
+    anchor-sections: true
   uark-revealjs:
     scrollable: true
     chalkboard: true
@@ -109,7 +110,7 @@ If you would like to follow along with this tutorial in your own environment, fo
 
 -   An (optional) YAML header demarcated by three dashes (`---`) on either end.
 
-```{r}
+``` yaml
 #| eval: false
 ---
 title: "Hello, Quarto"
@@ -124,7 +125,7 @@ editor: visual
 
 ### Example: YAML Header of today's lecture
 
-```{yaml}
+``` yaml
 ---
 title: "Lecture 07: Quarto Document"
 subtitle: "quarto"
@@ -186,9 +187,22 @@ library(palmerpenguins)
 ```{r}
 #| label: show-table
 #| echo: fenced
+#| eval: true
 
 head(penguins)
 ```
+
+-   Documentation of Code Chunk settings is confusing. You can find some illustration in multiple places in quarto.org:
+
+    -   [Chunk Options](https://quarto.org/docs/computations/r.html#chunk-options)
+
+    -   [Code Cells: Knitr](https://quarto.org/docs/reference/cells/cells-knitr.html)
+
+    -   [Execution Options](https://quarto.org/docs/computations/execution-options.html)
+
+        -   [Fenced-Echo](https://quarto.org/docs/computations/execution-options.html#fenced-echo)
+
+    -   [Yihui: Chunk options and package options](https://yihui.org/knitr/options/)
 
 ## Markdown Text
 
@@ -208,7 +222,7 @@ head(penguins)
 
 -   Use the `pdf` format to create PDF output. For example:
 
-```{yaml filename="quarto_pdf.qmd"}
+``` {.yaml filename="quarto_pdf.qmd"}
 ---
 title: "My document"
 format:
@@ -221,7 +235,7 @@ format:
 
 -   In order to create PDFs you will need to install a recent distribution of TeX. We recommend the use of TinyTeX (which is based on TexLive), which you can install with the following command:
 
-```{bash}
+``` bash
 #| eval: false
 #| echo: fenced
 quarto install tinytex
@@ -229,7 +243,7 @@ quarto install tinytex
 
 -   Change to Source Mode, copy and paste the following code into your quarto document
 
-```{r}
+``` r
 #| warning: false
 #| echo: fenced
 
@@ -240,6 +254,124 @@ ggplot(airquality, aes(Temp, Ozone)) +
 ```
 
 -   Render the quarto file using ![](images/clipboard-2571102192.png){width="70" height="30"} botton
+
+## Quarto PDF Template - Extension
+
+-   What: Quarto Extensions are a powerful way to modify or extend the behavior of Quarto, and can be created and distributed by anyone. There are several types of extensions available:
+
+    |  |  |
+    |------------------------------------|------------------------------------|
+    | **Extension Type** | **Description** |
+    | [Shortcodes](https://quarto.org/docs/extensions/shortcodes.html) | Special markdown directives that generate various types of content. For example, you could create shortcodes to embed tweets or videos in a document. |
+    | [Filters](https://quarto.org/docs/extensions/filters.html) | A flexible and powerful tool for introducing new global behaviors and/or new markdown rendering behaviors. For example, you could create filters to implement output folding, an image carousel, or just about anything you can imagine! |
+    | [Journal Articles](https://quarto.org/docs/journals/formats.html) | Enable authoring of professional Journal articles using markdown, and produce both LaTeX (PDF) and HTML versions of the articles. |
+    | [Custom Formats](https://quarto.org/docs/extensions/formats.html) | Create new output formats by bundling together document options, templates, style sheets, and other content. |
+    | [Revealjs Plugins](https://quarto.org/docs/extensions/revealjs.html) | Extend the capabilities of HTML presentations created with Revealjs. |
+    | [Project Types](https://quarto.org/docs/extensions/project-types.html) | Create new project project types that bundle together standard content and options, or make it easy to create a website for a custom HTML format. |
+    | [Starter Templates](https://quarto.org/docs/extensions/starter-templates.html) | Help users get started with new projects by providing a template and example content. Starter templates aren’t strictly extensions (i.e. they aren’t installed in the `_extensions` directory) but they are often used with custom formats and project types. |
+    | [Metadata](https://quarto.org/docs/extensions/metadata.html) | Provide YAML configuration that can be merged into existing Quarto projects. |
+
+------------------------------------------------------------------------
+
+### Where to download extension
+
+-   The [Quarto Extensions GitHub](https://github.com/quarto-ext/) organization provides a set of extensions developed by the core Quarto team. Many of these extensions implement frequently requested features, and all of them provide sound examples of how to implement extensions.
+
+-   The [Quarto Journals](https://github.com/quarto-journals/) GitHub organization contains a set of Journal Article formats developed by the core Quarto team or contributed by third parties.
+
+    -   No APA-7 format unfortunately. But there is a community-version [APA-7 Quarto Template](https://github.com/wjschne/apaquarto), which can be used for creating APA7 documents in .docx, .html, and .pdf formats
+
+-   Finally, most published extensions are hosted on GitHub and therefore have source code available that you can learn from.
+
+------------------------------------------------------------------------
+
+### Example: Create C.V. Using Quarto
+
+1.  We use the the quarto extension [(Github Page)](https://github.com/kazuyanagimoto/quarto-awesomecv-typst#readme) for awesomecv for illustration
+    -   Prerequisite: successfully installed quarto
+    -   type in the following `my-cv` in the Directory name question
+
+``` {.bash filename="terminal"}
+quarto use template kazuyanagimoto/quarto-awesomecv-typst
+```
+
+``` bash
+Quarto templates may execute code when documents are rendered. If you do not
+trust the authors of the template, we recommend that you do not install or
+use the template.
+? Do you trust the authors of this template (Y/n) › Yes
+? Create a subdirectory for template? (Y/n) › Yes
+? Directory name: › my-cv
+[✓] Downloading
+[✓] Unzipping
+
+The template requires the following changes to extensions:
+Quarto-awesomecv-typst   [Install]   0.1.0 (format)
+? Would you like to continue (Y/n) › Yes
+```
+
+2.  Open `my-cv.qmd` in **Source Mode** with Rstudio. Type in the following command in `Console` panel
+
+```{r}
+install.packages("typstcv", repos = "https://kazuyanagimoto.r-universe.dev")
+```
+
+3.  Replace the YAML header with the following
+
+``` yaml
+---
+title: "Jihong Zhang's CV"
+author:
+  firstname: Jihong
+  lastname: Zhang
+  address: "Rämistrasse 101, CH-8092 Zürich, Switzerland, Zürich"
+  position: "Research Physicist ・ Professor"
+  contacts:
+    - icon: fa envelope
+      text: ae@example.com
+      url: "mailto:ae@example.com"
+    - icon: assets/icon/bi-house-fill.svg
+      text: example.com
+      url: https://example.com
+    - icon: fa brands orcid
+      text: 0000-0000-0000-0000
+      url: https://orcid.org/0000-0000-0000-0000
+    - icon: fa brands github
+      text: GitHub
+      url: https://github.com/example
+    - icon: fa brands linkedin
+      text: LinkedIn
+      url: https://linkedin.com/in/example
+    - icon: fa brands x-twitter
+      text: twitter
+      url: https://twitter.com/example
+execute: 
+  echo: false
+  eval: true
+  warning: false
+  output: asis
+format: awesomecv-typst
+---
+```
+
+4.  Copy-and-paste the following code chunks under the `## Education` section
+
+```{{r}}
+library(typstcv)
+
+educ <- data.frame(
+ title = c("Ph.D. in Education", 
+           "Master of Science"),
+ location = c("Iowa, U.S.", 
+              "Kansas, U.S."),
+ date = c("2019", "2015"),
+ description = c("University of Arkansas", "Fayetteville")
+)
+
+resume_entry(educ)
+```
+
+5.  Render the file
 
 ## General Suggestions
 
