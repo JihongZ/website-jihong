@@ -14,7 +14,6 @@ execute:
   warning: false
 output-location: default
 code-annotations: below
-highlight-style: "nord"
 format: 
   html:
     code-tools: true
@@ -33,12 +32,14 @@ format:
     output-file: slides-index.html
 ---
 
+::: objectives
 [Class Outline]{.redcolor .bigger}
 
 1.  String and Text Data
 2.  Basic Data Summary Using `dplyr`
 3.  Case Study of Trump Tweets
 4.  AI + Text Analysis?
+:::
 
 # String and Text Data
 
@@ -52,15 +53,15 @@ format:
 
 -   If using both within a string, escape necessary quotes using `\`.
 
+    ```{r}
+    cat("I'm a student")
+    cat('He says "it is ok!"')
+    cat("I'm a student. He says \"it is ok\"!")
+    ```
+
 ::: callout-tip
 `cat()`: Prints the string output directly and escape special symbols.
 :::
-
-```{r}
-cat("I'm a student")
-cat('He says "it is ok!"')
-cat("I'm a student. He says \"it is ok\"!")
-```
 
 -   Use `\` to escape special characters such as `\n` (new line) and `\t` (tab).
 
@@ -69,20 +70,19 @@ cat("To show \\ , we need to use two of them.")
 cat("You are my student\nI am your teacher/")
 ```
 
-
-
 ------------------------------------------------------------------------
 
 ## Unicode and Other Special Characters
 
 -   `\n` and `\t`: Represent new line and tab space.
 -   `\u` followed by Unicode code points allows special character insertion.
+-   This [Unicode Website](https://c.r74n.com/unicode/bullets) can copy and paste freely
 
 ```{r}
 test <- "This is the first line. \nThis the \t second line with a tab."
 cat(test)
 cat("\u03BC \u03A3 \u03B1 \u03B2")
-cat("❤ ♫")
+cat("❤ ♫ ⦿")
 ```
 
 ------------------------------------------------------------------------
@@ -139,8 +139,8 @@ str_c(tweet.words, collapse=" ")
 ## Overview
 
 -   Data often needs transformation to fit the desired analysis or visualization.
-  -   Learn to use the `dplyr` package for data transformation.
-  -   Explore the `nycflights13` dataset.
+-   Learn to use the `dplyr` package for data transformation.
+-   Explore the `nycflights13` dataset.
 
 [Required Libraries]{.redcolor}
 
@@ -167,7 +167,7 @@ glimpse(flights)
 
 -   Use `|>` (Preferred) or `%>%` to chain multiple operations (shortcut: `ctrl/cmd` + `shift` + `m`).
 -   Select flights on January 1st:
-    - Compare whether month,day equal to 1,1
+    -   Compare whether month,day equal to 1,1
 
 ```{r}
 jan1 <- flights |> filter(month == 1, day == 1)

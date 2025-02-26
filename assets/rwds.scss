@@ -115,7 +115,7 @@ $cyan: #419599;
 $teal: #419599;
 $pink:  #e3abdb;
 
-$freeze-purple:  #e5eaf5; // code block's bg
+// $freeze-purple:  #e5eaf5; // code block's bg
 $soft-color1: #FAF9F6;
 $dark-sage-green: #98A08D;
 $darkteal: #008080;
@@ -132,24 +132,65 @@ $caution: #EE6331;
 
 $body-bg: $soft-color1; // body bg
 //$code-block-bg: #F5F5F5; // code block's bg
-$pre-bg: $blue; // pre code's bg
-$code-block-bg-alpha: .8; // Code blocks
+//$pre-bg: $blue; // pre code's bg
+// $code-block-bg-alpha: .8; // Code blocks
 $input-group-addon-bg: $darkteal;
 $link-color: $danger;
-$breadcrumb-bg: $freeze-purple ;
+$breadcrumb-bg: $soft-color1 ;
 $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
-/* output color for R chunck */
-div.cell-output {
-  background-color: $freeze-purple;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+/* Source Code  */
+pre.sourceCode.r::before, .language-r::before {
+  content:"R";
+}
+pre.sourceCode.yaml::before {
+  content:"YAML"
+}
+pre.sourceCode.bash::before {
+  content:"bash"
+}
+pre.sourceCode.markdown::before {
+  content:"Markdown"
+}
+pre.sourceCode.r::before, pre.sourceCode.yaml::before, pre.sourceCode.markdown::before, pre.sourceCode.bash::before {
+  background-color: #f2eff6;
+  display: block;
+  font-weight: bold;
+  padding: 3px 5px;
+  font-family: 'Taub Sans', monospace;
 }
 
-//.cell-output pre { border: $blue 1px solid;}
-div.sourceCode {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+pre.sourceCode.r, pre.sourceCode.yaml, pre.sourceCode.markdown, pre.sourceCode.bash {
+  color: #360084;
+  background: #f8f8f8;
+  border: solid 1px $warning;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: $warning;
+  border-left: solid 5px $warning;
+  margin: 0px 0px 0px 0;
+  border-radius: 4px 0 0 4px;
+}
+
+/* output color for R chunck */
+div.cell-output::before {
+  content:"Output";
+  background-color: #f2eff6;
+  display: block;
+  font-weight: bold;
+  padding: 3px 5px;
+  font-family: 'Taub Sans';
+}
+div.cell-output {
+  background: #f8f8f8;
+  border-radius: 4px;
+  border: solid 1px #360084;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(54, 0, 132);
+  border-left: solid 5px #360084;
 }
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
@@ -432,4 +473,63 @@ button.show-answer:hover {
 
 .next-section:hover::after {
     opacity: 1;
+}
+
+/* Lesson Color Scheme  */
+.objectives {
+  background-color:#daee8420
+}
+.discussion {
+  background-color:#eec27520
+}
+.objectives {
+  padding:0 0 5px 5px;
+  border:1px solid;
+  border-color:#daee84;
+  border-radius:4px;
+  margin:15px 5px 10px 0
+}
+.objectives h2 {
+  padding-top:5px;
+  padding-bottom:5px;
+  font-size:20px;
+  background:linear-gradient(to bottom, #daee84, #def090);
+  border-color:#daee84;
+  margin-top:0px;
+  margin-left:-5px
+}
+.objectives h2:before {
+  font-family:'Glyphicons Halflings';
+  content:"⦿";
+  float:left;
+  padding-left:5px;
+  padding-right:5px;
+  display:inline-block;
+  -webkit-font-smoothing:antialiased
+}
+
+.discussion {
+  padding:0 0 5px 5px;
+  border:1px solid;
+  border-color:#eec275;
+  border-radius:4px;
+  margin:15px 5px 10px 0
+}
+.discussion h2 {
+  padding-top:5px;
+  padding-bottom:5px;
+  font-size:20px;
+  background:linear-gradient(to bottom, #eec275, #f0c883);
+  border-color:#eec275;
+  margin-top:0px;
+  margin-left:-5px
+}
+.discussion h2:before {
+  font-family:'Glyphicons Halflings';
+  content:"❖";
+  float:left;
+  padding-left:5px;
+  padding-right:5px;
+  display:inline-block;
+  -webkit-font-smoothing:antialiased
 }

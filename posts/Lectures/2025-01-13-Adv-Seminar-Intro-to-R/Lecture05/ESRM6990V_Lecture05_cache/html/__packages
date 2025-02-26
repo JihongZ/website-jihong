@@ -13,3 +13,7 @@ magick
 tesseract
 ellmer
 nycflights13
+StanHeaders
+rstan
+cmdstanr
+pdftools

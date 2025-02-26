@@ -15,7 +15,6 @@ execute:
   warning: false
 output-location: default
 code-annotations: below
-highlight-style: "dracula"
 format: 
   html:
     code-tools: true
@@ -23,6 +22,7 @@ format:
     code-fold: false
     number-offset: 0
     anchor-sections: true
+    number-sections: false
   uark-revealjs:
     scrollable: true
     chalkboard: true
@@ -35,9 +35,14 @@ format:
     output-file: slides-index.html
 ---
 
-[Class Outline]{.redcolor .bigger}
+::: {.objectives}
+## Overview
 
-1.  Quarto
+1.  What is Quarto?
+2.  Installation of Quarto
+3.  YouTube Tutorial
+4.  One Example of Quarto C.V. 
+:::
 
 ## What is Quarto
 
@@ -111,7 +116,6 @@ If you would like to follow along with this tutorial in your own environment, fo
 -   An (optional) YAML header demarcated by three dashes (`---`) on either end.
 
 ``` yaml
-#| eval: false
 ---
 title: "Hello, Quarto"
 format: html
@@ -212,7 +216,8 @@ head(penguins)
 
 -   There are two ways of editing quarto file: (1) markdown in Source mode (2) clicking in Visual mode
 
--   Quarto uses markdown syntax for text. If using the visual editor, you won’t need to learn much markdown syntax for authoring your document, as you can use the menus and shortcuts to add a header, bold text, insert a table, etc. If using the source editor, you can achieve these with markdown expressions like `##`, `**bold**`, etc.
+-   Quarto uses markdown syntax for text. If using the visual editor, you won’t need to learn much markdown syntax for authoring your document, as you can use the menus and shortcuts to add a header, bold text, insert a table, etc. 
+    -   If using the source editor, you can achieve these with markdown expressions like `##`, `**bold**`, etc.
 
 ![](images/clipboard-249611071.png)
 
@@ -236,17 +241,12 @@ format:
 -   In order to create PDFs you will need to install a recent distribution of TeX. We recommend the use of TinyTeX (which is based on TexLive), which you can install with the following command:
 
 ``` bash
-#| eval: false
-#| echo: fenced
 quarto install tinytex
 ```
 
 -   Change to Source Mode, copy and paste the following code into your quarto document
 
-``` r
-#| warning: false
-#| echo: fenced
-
+```{r}
 library(ggplot2)
 ggplot(airquality, aes(Temp, Ozone)) + 
   geom_point() + 
@@ -373,13 +373,17 @@ resume_entry(educ)
 
 5.  Render the file
 
+::: {.discussion}
 ## General Suggestions
 
 1.  Use Quarto document to report you data analysis results.
 2.  Use Quarto document to write notes
+:::
 
-## More Resources about Quarto
+## Other Resources about Quarto
 
 -   [Official Quarto Guide](https://quarto.org/docs/guide/)
 
 -   [YouTube Video - Get Started With Quarto](https://www.youtube.com/watch?v=_f3latmOhew)
+
+-   [Tavareshugo: Joining Tables](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/08-joins/index.html)

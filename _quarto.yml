@@ -145,18 +145,16 @@ format:
     html-math-method: katex
     lightbox: true # Lightbox Figure
     # code settings
-    highlight-style: "nord"
+    # highlight-style: "nord"
     fontsize: 1.1em
     monofont: 'JetBrains Mono'
     reading-time: true
     code-link: false
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
-    code-block-border-left: '#df5925'
+    # code-block-border-left: '#df5925'
     code-line-numbers: false
     code-overflow: scroll
-    code-fold: true
     code-tools: true
-    linestretch: 1.5
     # links
     link-external-newwindow: true
     link-external-icon: false # icon next to href link
