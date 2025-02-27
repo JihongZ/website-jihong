@@ -1,6 +1,6 @@
 ---
 title: "Lecture 07: Quarto Document"
-subtitle: "quarto"
+subtitle: ""
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
@@ -35,13 +35,13 @@ format:
     output-file: slides-index.html
 ---
 
-::: {.objectives}
+::: objectives
 ## Overview
 
 1.  What is Quarto?
 2.  Installation of Quarto
 3.  YouTube Tutorial
-4.  One Example of Quarto C.V. 
+4.  One Example of Quarto C.V.
 :::
 
 ## What is Quarto
@@ -216,7 +216,8 @@ head(penguins)
 
 -   There are two ways of editing quarto file: (1) markdown in Source mode (2) clicking in Visual mode
 
--   Quarto uses markdown syntax for text. If using the visual editor, you won’t need to learn much markdown syntax for authoring your document, as you can use the menus and shortcuts to add a header, bold text, insert a table, etc. 
+-   Quarto uses markdown syntax for text. If using the visual editor, you won’t need to learn much markdown syntax for authoring your document, as you can use the menus and shortcuts to add a header, bold text, insert a table, etc.
+
     -   If using the source editor, you can achieve these with markdown expressions like `##`, `**bold**`, etc.
 
 ![](images/clipboard-249611071.png)
@@ -373,7 +374,9 @@ resume_entry(educ)
 
 5.  Render the file
 
-::: {.discussion}
+------------------------------------------------------------------------
+
+::: discussion
 ## General Suggestions
 
 1.  Use Quarto document to report you data analysis results.

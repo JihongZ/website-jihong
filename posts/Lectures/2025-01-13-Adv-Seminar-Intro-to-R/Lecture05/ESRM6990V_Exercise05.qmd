@@ -45,8 +45,11 @@ Using the `flights` dataset from the `nycflights13` package:
 1.  What proportion of flights from JFK in June were categorized as "Severe Delay"?
 2.  Which carrier had the second longest average departure delay?
 
+::: {.callout-note collapse=true}
+## Answer
+
 ```{r}
-#| echo: false
+#| echo: true
 # Load required packages
 library(nycflights13) # install.packages("nycflights13")
 library(tidyverse)
@@ -91,3 +94,6 @@ ggplot(avg_delay_by_carrier, aes(x = fct_reorder(carrier, avg_dep_delay), y = av
        x = "Carrier", y = "Avg Departure Delay (min)") +
   coord_flip()
 ```
+:::
+
+

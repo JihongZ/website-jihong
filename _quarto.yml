@@ -132,8 +132,8 @@ format:
       margin-width: 400px # page navigation
       gutter-width: 1.5em
     theme: 
-      light: [Zephyr, assets/rwds.scss] # https://bootswatch.com/5/minty/_variables.scss
-      dark: [Cyborg, assets/rwds-dark.scss]
+      light: [Zephyr, assets/rwds.scss, assets/lecture.scss] # https://bootswatch.com/5/minty/_variables.scss
+      dark: [Cyborg, assets/rwds-dark.scss, assets/lecture.scss]
     css: assets/rwds.css
     comments:
       giscus:
@@ -141,7 +141,6 @@ format:
     include-in-header: 
       - file: assets/font.html
       - assets/add-answer-button.html
-      
     html-math-method: katex
     lightbox: true # Lightbox Figure
     # code settings

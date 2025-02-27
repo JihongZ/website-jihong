@@ -16,12 +16,13 @@ execute:
 format: 
   html: 
     page-layout: full
+    code-summary: "❖ Answer ❖"
+    code-fold: true
 toc: true
 toc-depth: 2
 lightbox: true
 code-fold: show
 ---
-
 
 # Data Import Exercises
 
@@ -29,7 +30,7 @@ code-fold: show
 
 You are working on the student exam analysis for UARK. You want to download the [UARK Final exam table](https://registrar.uark.edu/registration/final-exam-schedule/spring-2025-final-exam-schedule.php) and then import it into R for data analysis.
 
-- Hint: use `rvest` package to construct a data table
+-   Hint: use `rvest` package to construct a data table
 
 ```{r}
 #| eval: false
@@ -278,7 +279,6 @@ final_example_tbl <- html_table(html_element(minimal_html(html_text_raw), "table
 final_example_tbl
 ```
 
-
 ```{r}
 final_example_tbl$`Exam Time` <- ifelse(final_example_tbl$`Exam Time` == "During Posted Math Testing Center Hours", NA, final_example_tbl$`Exam Time`)
 final_example_tbl2 <- final_example_tbl |> 
@@ -291,12 +291,11 @@ final_example_tbl2 |>
   )
 ```
 
-
 ## Exercise 1: Importing Data from CSV
 
 You are working with the following CSV file containing employee information:
 
-```
+```         
 Employee ID,Full Name,Department,Salary,Years of Experience
 1,John Doe,HR,50000,5
 2,Jane Smith,Engineering,N/A,8
@@ -306,8 +305,9 @@ Employee ID,Full Name,Department,Salary,Years of Experience
 6,Amy Brown,Marketing,57000,5
 ```
 
-1. Use the `read_csv()` function to import this data into R.
-  - For illustration, you can use the literal data (hint: use `I()`) to import the csv text.
+1.  Use the `read_csv()` function to import this data into R.
+
+-   For illustration, you can use the literal data (hint: use `I()`) to import the csv text.
 
 ```{r}
 #| eval: false
@@ -326,9 +326,9 @@ Employee ID,Full Name,Department,Salary,Years of Experience
 "  
 ))
 employee_data
-```  
-  
-2. Clean the data by replacing any missing salary values with NA.
+```
+
+2.  Clean the data by replacing any missing salary values with NA.
 
 ```{r}
 #| eval: false
@@ -348,7 +348,7 @@ Employee ID,Full Name,Department,Salary,Years of Experience
 employee_data_NATrans
 ```
 
-3. Rename the columns to use snake case (employee_id, full_name, department, salary, years_of_experience).
+3.  Rename the columns to use snake case (employee_id, full_name, department, salary, years_of_experience).
 
 ```{r}
 #| eval: false
@@ -364,15 +364,11 @@ employee_data_cleaned <- employee_data_NATrans %>%
 employee_data_cleaned
 ```
 
-
-
-
-
 ## Exercise 2: Importing Data Using Custom Delimiters
 
 You have another dataset where the values are separated by semicolons (;) instead of commas:
 
-```
+```         
 Employee ID;Full Name;Department;Salary;Years of Experience
 1;John Doe;HR;50000;5
 2;Jane Smith;Engineering;60000;8
@@ -382,7 +378,7 @@ Employee ID;Full Name;Department;Salary;Years of Experience
 6;Amy Brown;Marketing;57000;5
 ```
 
-- Use `read_delim()` to import this dataset with the semicolon delimiter (`;`).
+-   Use `read_delim()` to import this dataset with the semicolon delimiter (`;`).
 
 ```{r}
 #| eval: false
@@ -417,7 +413,7 @@ store_visits <- tibble(
 )
 ```
 
-- Use `pivot_longer()` to convert this dataset into a long format, where each row represents a single observation for a specific week.
+-   Use `pivot_longer()` to convert this dataset into a long format, where each row represents a single observation for a specific week.
 
 ```{r}
 #| eval: false
@@ -445,8 +441,7 @@ scores_long <- tibble(
 )
 ```
 
-
-- Use `pivot_wider()` to convert this dataset into a wide format, where each term (e.g., "Term 1", "Term 2") is a column, and the scores are the values.
+-   Use `pivot_wider()` to convert this dataset into a wide format, where each term (e.g., "Term 1", "Term 2") is a column, and the scores are the values.
 
 ```{r}
 #| eval: false
@@ -459,7 +454,6 @@ scores_wide <- scores_long %>%
   )
 scores_wide
 ```
-
 
 ## Exercise 5: Combining pivot_longer() and pivot_wider()
 
@@ -474,9 +468,8 @@ calls_wide <- tibble(
 )
 ```
 
-
-- First, use `pivot_longer()` to convert this dataset into a long format, where each row corresponds to a specific department and month.
-- Then, use `pivot_wider()` to convert the long dataset back into a wide format, where the months are columns and the values represent the number of calls.
+-   First, use `pivot_longer()` to convert this dataset into a long format, where each row corresponds to a specific department and month.
+-   Then, use `pivot_wider()` to convert the long dataset back into a wide format, where the months are columns and the values represent the number of calls.
 
 ```{r}
 #| eval: false
@@ -494,4 +487,3 @@ calls_wide_again <- calls_long %>%
     values_from = calls
   )
 ```
-

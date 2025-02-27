@@ -3,7 +3,6 @@ title: "ESRM 6990V: Advanced Seminar - Intro to R"
 subtitle: "Spring 2025, Thursday, 5:00-7:45PM, Classroom GRAD 229, 2025/01/13 - 2025/05/01"
 author: "Jihong Zhang"
 date: "Jan 13 2025" 
-date-modified: "Oct 12 2024"
 categories:
   - Lecture
 draft: false
@@ -25,8 +24,9 @@ citation:
   issued: 2025-01-13
 ---
 
-![](images/logo_ESRM6990V.png){fig-align="center" width="44%"}
+![](images/logo_ESRM6990V.png){fig-align="center" width="30%"}
 
+::: objectives
 # General Information
 
 ------------------------------------------------------------------------
@@ -43,6 +43,7 @@ citation:
 -   Office Hours: Thur 2:00-4:00PM or by appointment
 -   Office Phone +1 479-575-5235
 -   Semester: Spring 2025
+:::
 
 ## Course Objectives, Materials, and Pre-Requisites:
 
@@ -358,11 +359,9 @@ Following materials are only allowed for previewing for students registered in E
 |       |                  |                                                                                                                                       |           |                                                                                                                                                                            |                                                  |
 |       |                  | [Exercise 6: Date, Time, and Locale](Lecture06/ESRM6990V_Exercise06.qmd)                                                              |           | ITDS [CH13](https://rafalab.dfci.harvard.edu/dsbook-part-1/wrangling/dates-and-times.html) & [CH14](https://rafalab.dfci.harvard.edu/dsbook-part-1/wrangling/locales.html) |                                                  |
 +-------+------------------+---------------------------------------------------------------------------------------------------------------------------------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
-| 7     | 02/27            | [Lecture 7: Quarto and Data Merging](Lecture06/ESRM6990V_Lecture06.qmd)                                                               |           |                                                                                                                                                                            |                                                  |
+| 7     | 02/27            | [Lecture 7: Quarto - Create Documents Using R](Lecture07/ESRM6990V_Lecture07.qmd)                                                     |           |                                                                                                                                                                            |                                                  |
 +-------+------------------+---------------------------------------------------------------------------------------------------------------------------------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
-| 8     | 03/06            | [Lecture 8: Data Visualization: Layers](Lecture08/ESRM6990V_Lecture08.qmd)                                                            |           | R4DS [CH9](https://r4ds.hadley.nz/layers)                                                                                                                                  |                                                  |
-|       |                  |                                                                                                                                       |           |                                                                                                                                                                            |                                                  |
-|       |                  | [Exercise 8: Data Visualization: Layers](Lecture08/ESRM6990V_Exercise08.qmd)                                                          |           |                                                                                                                                                                            |                                                  |
+| 8     | 03/06            | [Lecture 8: Data Joining](Lecture08/ESRM6990V_Lecture08.qmd)                                                                          |           | R4DS [CH9](https://r4ds.hadley.nz/layers)                                                                                                                                  |                                                  |
 +-------+------------------+---------------------------------------------------------------------------------------------------------------------------------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
 | 9     | 03/13            | Lecture 9: Data Visualization: Exploratory Data Analysis                                                                              |           |                                                                                                                                                                            |                                                  |
 +-------+------------------+---------------------------------------------------------------------------------------------------------------------------------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------+
