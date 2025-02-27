@@ -450,6 +450,12 @@ See the documentation on [Website Navigation](https://quarto.org/docs/websites/w
 
 ![Background Jobs when I render the quarto of today's lecture](images/clipboard-309764461.png)
 
+## Publish the Website?
+
+-   What to publish your website to the Internet?
+
+    -   Check this [YouTube video](https://www.youtube.com/watch?v=nuYNCPRf8Js) - *How to publish a website FOR FREE in under 60 seconds using Quarto*
+
 ::: {.discussion .callout-note}
 ## Summary
 
