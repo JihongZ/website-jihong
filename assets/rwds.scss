@@ -131,15 +131,14 @@ $danger: #9A4665;
 $caution: #EE6331;
 
 $body-bg: $soft-color1; // body bg
-//$code-block-bg: #F5F5F5; // code block's bg
-//$pre-bg: $blue; // pre code's bg
-// $code-block-bg-alpha: .8; // Code blocks
 $input-group-addon-bg: $darkteal;
 $link-color: $danger;
 $breadcrumb-bg: $soft-color1 ;
 $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
+// https://quarto.org/docs/output-formats/html-themes.html#inline-code
+$code-bg: #e7e7e7; // code block's bg
 
 /* Source Code  */
 pre.sourceCode.r::before, .language-r::before {
