@@ -15,8 +15,14 @@ execute:
   eval: true
 output-location: default
 code-annotations: below
-highlight-style: "nord"
 format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 0
+    anchor-sections: true
+    number-sections: false
   uark-revealjs:
     scrollable: true
     chalkboard: true

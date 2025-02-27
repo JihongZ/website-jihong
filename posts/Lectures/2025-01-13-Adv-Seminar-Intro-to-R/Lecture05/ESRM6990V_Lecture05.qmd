@@ -26,14 +26,14 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
+    footer: "ESRM 64503 - Lecture 05: Text Data Analysis"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
 ---
 
 ::: objectives
-[Class Outline]{.redcolor .bigger}
+## Overview
 
 1.  String and Text Data
 2.  Basic Data Summary Using `dplyr`

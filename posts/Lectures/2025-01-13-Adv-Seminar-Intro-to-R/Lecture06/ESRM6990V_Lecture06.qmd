@@ -33,10 +33,12 @@ format:
     output-file: slides-index.html
 ---
 
+::: objectives
 [Class Outline]{.redcolor .bigger}
 
 1.  Talk about the date-time variables
 2.  Locales related to timezone
+:::
 
 # Introduction to Date-Time Parsing
 
