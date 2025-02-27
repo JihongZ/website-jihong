@@ -22,33 +22,25 @@ format:
     code-fold: false
     number-offset: 0
     fig.width: 10
-  uark-revealjs:
-    scrollable: true
-    chalkboard: true
-    embed-resources: false
-    code-fold: false
-    number-sections: false
-    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
-    slide-number: c/t
-    tbl-colwidths: auto
-    output-file: slides-index.html
 ---
+
+------------------------------------------------------------------------
 
 ::: objectives
 ## Overview {.unnumbered}
 
 -   Questions:
     -   "How to build a graph in R?"
-    -   "What types of visualisation are suitable for different types of data?"
+    -   "What types of visualization are suitable for different types of data?"
 -   Objectives:
-    -   "Recognise the necessary elements to build a plot using the `ggplot2` package."
+    -   "Recognize the necessary elements to build a plot using the `ggplot2` package."
     -   "Define data, aesthetics and geometries for a basic graph."
     -   "Distinguish when to use or not to use `aes()` to change graph's aesthetics (e.g. colours, shapes)."
     -   "Overlay multiple geometries on the same graph and define aesthetics separately for each."
-    -   "Adjust and customise scales and labels in the graph."
-    -   "Use `ggplot2` to produce several kinds of visualisations (for continuous and/or discrete data)."
-    -   "Distinguish which types of visualisation are adequate for different types of data and questions."
-    -   "Discuss the importance of scales when analysing and/or visualising data"
+    -   "Adjust and customize scales and labels in the graph."
+    -   "Use `ggplot2` to produce several kinds of visualizations (for continuous and/or discrete data)."
+    -   "Distinguish which types of visualization are adequate for different types of data and questions."
+    -   "Discuss the importance of scales when analysing and/or visualizing data"
 -   Keypoints:
     -   "To build a `ggplot2` graph you need to define: *data*, *aesthetics*, *geometries* (and *scales*)."
     -   "To change an *aesthetic* of our graph **based on data**, include it **inside `aes()`**."
@@ -58,8 +50,6 @@ format:
     -   "You can custommise your graphs using pre-defined themes (e.g. `theme_classic()`) or more finely with the `theme()` function."
     -   "To save graphs use the `ggsave()` function."
 :::
-
-> In this lesson we're going to learn how to build graphs using the `ggplot2` package (part of `tidyverse`). By the end of this lesson, you should be able to recreate some of the graphs below.
 
 ```{r}
 #| echo: false
@@ -101,6 +91,30 @@ p3 <- gapminder2010 |>
 p1 / {p2 | p3}
 ```
 
+## Background
+
+We will use data from the [Gapminder Foundation](https://www.gapminder.org/), which gives access to global data as well as many tools to help explore it. In these lessons we’re going to use some of these data to explore some of these data ourselves.
+
+We have two files with data relating to socio-economic statistics: world data for 2010 only and the same data for 1960 to 2010 (see the setup page for instructions on how to download the data). In this lesson we will use the 2010 data only, and then use the full dataset in future episodes.
+
+| Column | Description |
+|-----------------------|:----------------------------|
+| country | country name |
+| world_region | 6 world regions |
+| year | year that each datapoint refers to |
+| children_per_woman | total fertility rate |
+| life_expectancy | average number of years a newborn child would live if current mortality patterns were to stay the same |
+| income_per_person | gross domestic product per person adjusted for differences in purchasing power |
+| is_oecd | Whether a country belongs to the “OECD” (TRUE) or not (FALSE) |
+| income_groups | categorical classification of income groups |
+| population | total number of a country’s population |
+| main_religion | religion of the majority of population in 2008 |
+| child_mortality | death of children under 5 years old per 1000 births |
+| life_expectancy_female | life expectancy at birth, females |
+| life_expectancy_male | life expectancy at birth, males |
+
+## Read in Data
+
 As usual when starting an analysis on a new script, let's start by loading the packages and reading the data:
 
 ```{r, message=FALSE}
@@ -127,7 +141,7 @@ ggplot(data = <data.frame>,
    geom_<type of geometry>()
 ```
 
-For our first visualisation, let's try to recreate one of the visualisations from [Hans Rosling's talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare). The question we're interested in is: how much separation is there between different world regions in terms of family size and life expectancy? We will explore this by using a [scatterplot](https://www.data-to-viz.com/graph/scatter.html) showing the relationship between `children_per_woman` and `life_expectancy`.
+For our first visualization, let's try to recreate one of the visualizations from [Hans Rosling's talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare). The question we're interested in is: how much separation is there between different world regions in terms of family size and life expectancy? We will explore this by using a [scatterplot](https://www.data-to-viz.com/graph/scatter.html) showing the relationship between `children_per_woman` and `life_expectancy`.
 
 Let's do it step-by-step to see how `ggplot2` works. Start by giving data to `ggplot`:
 
@@ -156,7 +170,7 @@ ggplot(data = gapminder2010,
 
 Notice how `geom_point()` warns you that it had to remove some missing values (if the data is missing for at least one of the variables, then it cannot plot the points).
 
-:::: {.discussion}
+:::: discussion
 ## Exercise {.unnumbered}
 
 It would be useful to explore the pattern of missing data in these two variables. The `naniar` package provides a ggplot geometry that allows us to do this, by replacing `NA` values with values 10% lower than the minimum in the variable.
@@ -165,7 +179,7 @@ Try and modify the previous graph, using the `geom_miss_point()` from this packa
 
 What can you conclude from this exploration? Are the data missing at random?
 
-::: {.callout-note collapse=true}
+::: {.callout-note collapse="true"}
 ## Answer
 
 ```{r}
@@ -175,10 +189,10 @@ ggplot(data = gapminder2010,
   geom_miss_point()
 ```
 
-- The data do not seem to be missing at random: 
-    1. it seems to be the case that when data is missing for one variable it is often also missing for the other. 
-    2. And there seem to be more missing data for `children_per_woman` than `life_expectancy`. 
-    3. However, we only have 9 cases with missing data, so perhaps we should not make very strong conclusions from this. But it gives us more questions that we could follow up on: are the countries with missing data generaly lacking other statistics? Is it harder to obtain data for fertility than for life expectancy?
+-   The data do not seem to be missing at random:
+    1.  it seems to be the case that when data is missing for one variable it is often also missing for the other.
+    2.  And there seem to be more missing data for `children_per_woman` than `life_expectancy`.
+    3.  However, we only have 9 cases with missing data, so perhaps we should not make very strong conclusions from this. But it gives us more questions that we could follow up on: are the countries with missing data generaly lacking other statistics? Is it harder to obtain data for fertility than for life expectancy?
 :::
 ::::
 
@@ -200,7 +214,7 @@ ggplot(data = gapminder2010,
 
 Adding transparency to points is useful when data is very packed, as you can then see which areas of the graph are more densely occupied with points.
 
-:::: {.discussion}
+:::: discussion
 ## Exercise {.unnumbered}
 
 Try changing the *size*, *shape* and *colour* of the points (hint: web search "ggplot2 point shapes" to see how to make a triangle)
@@ -230,26 +244,23 @@ ggplot(data = gapminder2010,
   geom_point()
 ```
 
-
 ::: callout-note
 ## Aesthetics: inside or outside `aes()`?
 
-- The previous examples illustrate an important distinction between *aesthetics* defined inside or outside of `aes()`:
+-   The previous examples illustrate an important distinction between *aesthetics* defined inside or outside of `aes()`:
 
     -   if you want the *aesthetic* to change **based on the data** it goes **inside `aes()`**
     -   if you want to **manually specify** how the geometry should look like, it goes **outside `aes()`**
-    
 :::
 
-
-:::: {.discussion} 
+:::: discussion
 ## Exercise {.unnumbered}
+
 Make a [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) that shows the distribution of `children_per_woman` (y-axis) for each `world_region` (x-axis). (Hint: `geom_boxplot()`)
 
 **Bonus:** Colour the *inside* of the boxplots by `income_groups`.
 
-
-::: {.callout-note collapse=true}
+::: {.callout-note collapse="true"}
 ## Solution
 
 ```{r, warning=FALSE}
@@ -258,8 +269,7 @@ ggplot(data = gapminder2010,
   geom_boxplot()
 ```
 
- -  To colour the inside of the boxplot we use the *fill* geometry. `ggplot2` will automatically split the data into
- groups and make a boxplot for each.
+-   To colour the inside of the boxplot we use the *fill* geometry. `ggplot2` will automatically split the data into groups and make a boxplot for each.
 
 ```{r, warning=FALSE}
 ggplot(data = gapminder2010,
@@ -267,9 +277,9 @@ ggplot(data = gapminder2010,
   geom_boxplot()
 ```
 
-- Some groups have too few observations (possibly only 1) and so we get odd boxplots with only a line representing the median, because there isn't enough variation in the data to have distinct quartiles.
+-   Some groups have too few observations (possibly only 1) and so we get odd boxplots with only a line representing the median, because there isn't enough variation in the data to have distinct quartiles.
 
-- Also, the labels on the x-axis are all overlapping each other. We will see how to solve this later.
+-   Also, the labels on the x-axis are all overlapping each other. We will see how to solve this later.
 :::
 ::::
 
@@ -324,12 +334,11 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
 :::: discussion
 ## Exercise {.unnumbered}
 
-- Modify the graph above by colouring the inside of the boxplots by world region and the inside of the violins in grey colour.
+-   Modify the graph above by colouring the inside of the boxplots by world region and the inside of the violins in grey colour.
 
-- Although we decided to colour our violin plots, is this colouring necessary?
+-   Although we decided to colour our violin plots, is this colouring necessary?
 
-::: {.callout-note collapse=true}
-
+::: {.callout-note collapse="true"}
 ## Solution
 
 Because we want to define the fill colour of the violin "manually" it goes *outside* `aes()`. Whereas for the violin we want the fill to depend on a column of data, so it goes inside `aes()`.
@@ -506,7 +515,6 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
 
 You can see all the available palettes [here](https://r4ds.had.co.nz/graphics-for-communication.html#fig:brewer). Note that some palettes only have a limited number of colours and `ggplot` will give a warning if it has fewer colours available than categories in the data.
 
-
 :::: discussion
 ## Exercise {.unnumbered}
 
@@ -519,7 +527,7 @@ ggplot(data = gapminder2010,
   scale_colour_brewer(palette = "Dark2")
 ```
 
-::: {.callout-note collapse=true}
+::: {.callout-note collapse="true"}
 ## Solution
 
 To make points change by size, we add the *size* aesthetic within the `aes()` function:
@@ -541,7 +549,6 @@ ggplot(data = gapminder2010,
   scale_size_continuous(trans = "log10")
 ```
 :::
-
 ::::
 
 ## Saving graphs
@@ -573,7 +580,7 @@ Every single element of a ggplot can be modified. This is further covered in a [
 ------------------------------------------------------------------------
 
 ::: callout-note
-## Data Tip: visualising data
+## Data Tip: visualizing data
 
 Data visualization is one of the fundamental elements of data analysis. It allows you to assess variation within variables and relationships between variables.
 
