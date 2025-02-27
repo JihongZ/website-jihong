@@ -35,16 +35,18 @@ format:
     output-file: slides-index.html
 ---
 
+::: objectives
 ## Today's Class
-
-1.  R objects
+-  R objects
     1.  Data types
     2.  Vectors
     3.  Coercion
     4.  Not available (NA)
     5.  Sorting
-    6.  Vector arithmetics
+    6.  Vector arithmetic
     7.  Indexing
+:::    
+    
 
 ## Preparation
 
@@ -66,21 +68,25 @@ library(dslabs)
 
 ## Data Types
 
-1.  Variables is one most frequently used R object. Variables can be of different types. Some examples of variables are:
-    1.  `character/numeric/logical variable`
-    2.  `vector`
-    3.  `list (data.frame)`
-    4.  `matrix`
-
-```{r}
-#| eval: true
-library("dslabs")
-class("Hello World")
-class(3)
-class(TRUE)
-class(murders)
-```
-
+1.  **Variables** are most frequently used **R object**.
+2.  **Variables** can be of different types. Some examples of variables are:
+    -  `character/numeric/logical variable`
+    -  `vector`
+    -  `list (data.frame)`
+    -  `matrix`
+    
+    ::: {.callout-caution collapse="true"}
+    ## Use `class()` to check objects' type
+    ```{r}
+    #| eval: true
+    library("dslabs")
+    class("Hello World")
+    class(3)
+    class(TRUE)
+    class(murders)
+    ```
+    :::
+    
 ------------------------------------------------------------------------
 
 ### Data frames
