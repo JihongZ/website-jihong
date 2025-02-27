@@ -1,0 +1,194 @@
+country,world_region,year,children_per_woman,life_expectancy,income_per_person,is_oecd,income_groups,population,main_religion,child_mortality,life_expectancy_female,life_expectancy_male
+Afghanistan,south_asia,2010,5.82,59.85,1672,FALSE,low_income,29185511,muslim,87.95,62.459,59.683
+Angola,sub_saharan_africa,2010,6.16,59.94,6360,FALSE,lower_middle_income,23356247,christian,120.49,58.033,52.848
+Albania,europe_central_asia,2010,1.65,77.64,9928,FALSE,upper_middle_income,2948029,muslim,13.3,79.302,74.145
+Andorra,europe_central_asia,2010,,82.29,38982,FALSE,high_income,,christian,4.18,-,-999
+United Arab Emirates,middle_east_north_africa,2010,1.87,72.88,55363,FALSE,high_income,8549998,muslim,8.48,77.77,75.624
+Argentina,america,2010,2.37,75.82,18912,FALSE,upper_middle_income,40895751,christian,14.44,78.646,71.837
+Armenia,europe_central_asia,2010,1.55,74.05,6703,FALSE,upper_middle_income,2877314,christian,18.52,76.383,69.989
+Antigua and Barbuda,america,2010,2.13,76.61,20660,FALSE,high_income,88030,christian,9.59,77.121,74.439
+Australia,east_asia_pacific,2010,1.93,81.96,41530,TRUE,high_income,22154687,christian,4.77,84.124,79.771
+Austria,europe_central_asia,2010,1.44,80.58,43336,TRUE,high_income,8409945,christian,4.33,83.198,77.902
+Azerbaijan,europe_central_asia,2010,1.96,69.3,16216,FALSE,upper_middle_income,9032465,Muslim,37.64,74.123,67.772
+Burundi,sub_saharan_africa,2010,6.26,57.76,734,FALSE,low_income,8675606,christian,90.72,58.966,55.467
+Belgium,europe_central_asia,2010,1.81,80.07,41086,TRUE,high_income,10938735,christian,4.46,82.652,77.41
+Benin,sub_saharan_africa,2010,5.36,61.43,1819,FALSE,low_income,9199254,,111.12,60.717,57.869
+Burkina Faso,sub_saharan_africa,2010,5.87,58.26,1423,FALSE,low_income,15605211,muslim,114.39,57.616,56.441
+Bangladesh,south_asia,2010,2.28,69.52,2518,FALSE,lower_middle_income,147575433,muslim,49.1,71.257,68.694
+Bulgaria,europe_central_asia,2010,1.49,73.82,15283,FALSE,upper_middle_income,7425011,christian,10.74,77.289,70.278
+Bahrain,middle_east_north_africa,2010,2.14,78.23,40571,FALSE,high_income,1240864,muslim,8.53,77.087,75.268
+Bahamas,america,2010,1.87,73.42,29707,FALSE,high_income,354936,christian,12.87,74.614,69.619
+Bosnia and Herzegovina,europe_central_asia,2010,1.31,76.27,9764,FALSE,upper_middle_income,3705478,,7.18,78.484,73.479
+Belarus,europe_central_asia,2010,1.54,70.4,16261,FALSE,upper_middle_income,9420576,christian,5.52,76.581,65.109
+Belize,america,2010,2.72,73.59,7849,FALSE,upper_middle_income,322465,christian,18.91,74.744,69.594
+Bolivia,america,2010,3.2,70.78,5337,FALSE,lower_middle_income,10048597,christian,41.1,70.518,65.619
+Brazil,america,2010,1.81,74.38,14620,FALSE,upper_middle_income,195713637,christian,18.71,77.378,69.95
+Barbados,america,2010,1.78,76.74,16276,FALSE,high_income,282131,christian,14.62,79.816,76.811
+Brunei,east_asia_pacific,2010,1.84,75.09,80556,FALSE,high_income,388634,muslim,9.66,75.883,73.661
+Bhutan,south_asia,2010,2.38,71.63,6814,FALSE,lower_middle_income,685502,eastern religions,42.51,68.593,68.157
+Botswana,sub_saharan_africa,2010,2.88,60.16,13235,FALSE,upper_middle_income,1987106,Christian,49.84,62.59,57.802
+Central African Republic,sub_saharan_africa,2010,5.22,48.04,982,FALSE,low_income,4386765,,150.02,48.792,45.82
+Canada,america,2010,1.64,81.41,40700,TRUE,high_income,34147566,christian,5.65,83.457,79.101
+Switzerland,europe_central_asia,2010,1.5,82.48,55866,TRUE,high_income,7808674,christian,4.55,84.447,79.932
+Chile,america,2010,1.88,78.62,19363,FALSE,high_income,17062531,christian,8.7,81.661,75.745
+China,east_asia_pacific,2010,1.59,75.78,9498,FALSE,upper_middle_income,1368810604,eastern religions,15.76,76.566,72.476
+Cote d'Ivoire,sub_saharan_africa,2010,5.22,57.41,2673,FALSE,lower_middle_income,20532944,,107.21,54.41,51.689
+Cameroon,sub_saharan_africa,2010,5.11,57.66,2876,FALSE,lower_middle_income,20341236,christian,107.17,56.312,53.889
+"Congo, Dem. Rep.",sub_saharan_africa,2010,6.47,57.88,660,FALSE,low_income,64563853,christian,115.29,58.335,55.479
+"Congo, Rep.",sub_saharan_africa,2010,4.95,59.77,5323,FALSE,lower_middle_income,4273738,christian,62.46,61.141,58.969
+Colombia,america,2010,2.01,78.13,10957,FALSE,upper_middle_income,45222699,christian,18.47,78.405,72.422
+Comoros,sub_saharan_africa,2010,4.92,66.48,2426,FALSE,lower_middle_income,689696,muslim,87.12,63.503,60.27
+Cape Verde,sub_saharan_africa,2010,2.67,74.25,5943,FALSE,lower_middle_income,492644,christian,24.93,74.588,67.268
+Costa Rica,america,2010,1.92,79.43,12909,FALSE,upper_middle_income,4577371,Christian,10.1,81.236,76.367
+Cuba,america,2010,1.64,78.28,6697,FALSE,upper_middle_income,11225833,christian,6.15,80.346,76.368
+Cyprus,europe_central_asia,2010,1.42,80.12,33913,FALSE,high_income,1112617,christian,3.57,81.634,77.243
+Czech Republic,europe_central_asia,2010,1.47,77.68,28353,TRUE,high_income,10536514,christian,3.38,80.673,74.467
+Germany,europe_central_asia,2010,1.39,80.4,40429,TRUE,high_income,80827001,christian,4.18,82.662,77.516
+Djibouti,middle_east_north_africa,2010,3.3,63.76,2673,FALSE,lower_middle_income,840194,Muslim,76.38,61.611,58.612
+Dominica,america,2010,,73.63,10278,FALSE,upper_middle_income,,christian,21.18,-,-999
+Denmark,europe_central_asia,2010,1.88,79.29,43998,TRUE,high_income,5554849,christian,4.11,81.512,77.293
+Dominican Republic,america,2010,2.6,74.02,11365,FALSE,upper_middle_income,9695117,christian,34.23,75.264,69.087
+Algeria,middle_east_north_africa,2010,2.89,76.33,12921,FALSE,upper_middle_income,35977451,muslim,27.41,76.152,73.766
+Ecuador,america,2010,2.66,74.65,9305,FALSE,upper_middle_income,15011114,christian,18.3,78.036,72.266
+Egypt,middle_east_north_africa,2010,3.19,69.39,10019,FALSE,lower_middle_income,82761244,muslim,28.97,72.613,68.178
+Eritrea,sub_saharan_africa,2010,4.61,58.6,1962,FALSE,low_income,3170437,muslim,55.4,64.262,60.191
+Spain,europe_central_asia,2010,1.37,81.98,32507,TRUE,high_income,46931011,Christian,3.85,84.861,78.888
+Estonia,europe_central_asia,2010,1.64,75.99,22741,FALSE,high_income,1332103,Christian,4.57,80.185,70.101
+Ethiopia,sub_saharan_africa,2010,4.92,62.87,1075,FALSE,low_income,87639962,christian,82.94,63.315,59.976
+Finland,europe_central_asia,2010,1.87,80.17,39848,TRUE,high_income,5365784,christian,3.06,83.315,76.904
+Fiji,east_asia_pacific,2010,2.67,67.4,7353,FALSE,upper_middle_income,859816,christian,23.87,68.262,65.178
+France,europe_central_asia,2010,1.99,81.41,36815,TRUE,high_income,62879535,christian,4.27,84.734,78.141
+"Micronesia, Fed. Sts.",east_asia_pacific,2010,3.46,66.96,3320,FALSE,lower_middle_income,102916,christian,39.85,68.15,64.865
+Gabon,sub_saharan_africa,2010,4.08,62.77,15508,FALSE,upper_middle_income,1624146,christian,62.76,62.774,59.995
+United Kingdom,europe_central_asia,2010,1.89,80.42,36509,TRUE,high_income,63459801,christian,5.16,82.311,78.313
+Georgia,europe_central_asia,2010,1.92,72.76,6981,FALSE,upper_middle_income,4099096,christian,14.16,76.048,66.861
+Ghana,sub_saharan_africa,2010,4.27,61.61,3026,FALSE,lower_middle_income,24779614,christian,69.94,61.966,60.101
+Guinea,sub_saharan_africa,2010,5.34,57.4,1666,FALSE,low_income,10192168,muslim,117.24,57.514,56.016
+Gambia,sub_saharan_africa,2010,5.71,63.62,1552,FALSE,low_income,1793199,muslim,77.11,60.957,58.392
+Guinea-Bissau,sub_saharan_africa,2010,5.05,55.9,1431,FALSE,low_income,1522603,,113.83,56.904,52.232
+Equatorial Guinea,sub_saharan_africa,2010,5.21,62.18,33990,FALSE,upper_middle_income,943640,christian,111.93,56.855,54.54
+Greece,europe_central_asia,2010,1.41,80.25,28726,TRUE,high_income,10887640,christian,3.91,83.255,77.888
+Grenada,america,2010,2.24,74.07,11014,FALSE,upper_middle_income,106227,christian,14.24,75.463,70.473
+Guatemala,america,2010,3.38,71.65,6714,FALSE,upper_middle_income,14630420,christian,35.01,74.683,68.219
+Guyana,america,2010,2.66,67.96,5825,FALSE,upper_middle_income,749430,christian,37.43,71.537,64.817
+Honduras,america,2010,2.87,72.83,3913,FALSE,lower_middle_income,8317467,christian,23.6,75.69,70.945
+Croatia,europe_central_asia,2010,1.47,76.75,20758,FALSE,high_income,4328163,christian,5.47,80.098,73.418
+Haiti,america,2010,3.33,32.54,1510,FALSE,low_income,9949318,christian,208.62,62.531,58.495
+Hungary,europe_central_asia,2010,1.33,74.59,22405,TRUE,high_income,9927380,christian,6,78.242,70.564
+Indonesia,east_asia_pacific,2010,2.48,69.69,8458,FALSE,lower_middle_income,241834226,Muslim,34.12,71.311,67.182
+India,south_asia,2010,2.6,66.67,4451,FALSE,lower_middle_income,1234281163,eastern   religions,58.23,67.73,65.723
+Ireland,europe_central_asia,2010,2,80.72,43515,TRUE,high_income,4554330,christian,4.17,82.284,78.058
+Iran,middle_east_north_africa,2010,1.77,75.2,18139,FALSE,upper_middle_income,73762519,Muslim,19.7,75.431,72.476
+Iraq,middle_east_north_africa,2010,4.56,73.45,13154,FALSE,upper_middle_income,29741977,muslim,34.75,71.442,65.857
+Iceland,europe_central_asia,2010,2.07,82.36,40137,TRUE,high_income,320342,Christian,2.62,83.498,80.084
+Israel,middle_east_north_africa,2010,3,81.83,29665,TRUE,high_income,7346446,,4.56,83.256,79.531
+Italy,europe_central_asia,2010,1.43,82,36201,TRUE,high_income,59325232,christian,3.97,84.383,79.35
+Jamaica,america,2010,2.17,75.75,8018,FALSE,upper_middle_income,2810464,Christian,18.31,75.543,72.582
+Jordan,middle_east_north_africa,2010,3.66,77.62,9386,FALSE,upper_middle_income,7261541,muslim,20.32,75.099,71.888
+Japan,east_asia_pacific,2010,1.37,83.14,35750,TRUE,high_income,128542349,eastern religions,3.2,86.214,79.588
+Kazakhstan,europe_central_asia,2010,2.67,68.41,20097,FALSE,upper_middle_income,16252273,muslim,20.23,72.741,62.199
+Kenya,sub_saharan_africa,2010,4.37,61.21,2436,FALSE,lower_middle_income,42030684,christian,56.54,62.944,58.933
+Kyrgyz Republic,europe_central_asia,2010,2.98,69.7,2790,FALSE,lower_middle_income,5422298,muslim,29.58,72.984,64.901
+Cambodia,east_asia_pacific,2010,2.88,67.07,2522,FALSE,lower_middle_income,14312205,eastern religions,44.29,68.64,64.313
+Kiribati,east_asia_pacific,2010,3.84,60.94,1752,FALSE,lower_middle_income,102930,christian,64.67,69.654,61.945
+St. Kitts and Nevis,america,2010,,,24575,FALSE,high_income,,christian,14.71,-,-999
+South Korea,east_asia_pacific,2010,1.19,80.62,30352,TRUE,high_income,49545638,,4.13,83.625,76.995
+Kuwait,middle_east_north_africa,2010,2.22,81.24,75360,FALSE,high_income,2991884,muslim,10.39,75.417,73.63
+Lao,east_asia_pacific,2010,3.15,63.77,4217,FALSE,lower_middle_income,6249168,eastern religions,68.09,66.115,62.477
+Lebanon,middle_east_north_africa,2010,1.61,77.17,14406,FALSE,upper_middle_income,4953064,,10.23,80.334,76.6
+Liberia,sub_saharan_africa,2010,5.02,61.29,1101,FALSE,low_income,3891357,,96.67,61.258,57.978
+Libya,middle_east_north_africa,2010,2.41,73.44,29494,FALSE,upper_middle_income,6197667,muslim,16.64,74.954,69.473
+St. Lucia,america,2010,1.54,75.56,11667,FALSE,upper_middle_income,174092,christian,18.62,76.311,73.457
+Sri Lanka,south_asia,2010,2.2,74.69,8503,FALSE,upper_middle_income,20261738,eastern religions,11.61,78.933,71.995
+Lesotho,sub_saharan_africa,2010,3.3,47.81,2419,FALSE,lower_middle_income,1995575,christian,100.25,48.074,42.412
+Lithuania,europe_central_asia,2010,1.51,73.31,21071,FALSE,high_income,3123825,christian,6.04,78.454,67.135
+Luxembourg,europe_central_asia,2010,1.58,80.8,91743,TRUE,high_income,507890,christian,2.99,82.819,77.785
+Latvia,europe_central_asia,2010,1.51,73.2,18252,FALSE,high_income,2118855,christian,7.81,77.903,67.48
+Morocco,middle_east_north_africa,2010,2.58,72.08,6456,FALSE,lower_middle_income,32343384,muslim,32.05,75.655,73.046
+Monaco,europe_central_asia,2010,,,54146,FALSE,high_income,,christian,4,-,-999
+Moldova,europe_central_asia,2010,1.27,69.75,4734,FALSE,lower_middle_income,4086090,christian,17.17,73.642,65.577
+Madagascar,sub_saharan_africa,2010,4.6,61.66,1386,FALSE,low_income,21151640,,67.33,64.857,61.93
+Maldives,south_asia,2010,2.23,79.16,11965,FALSE,upper_middle_income,365730,muslim,13.85,77.377,74.713
+Mexico,america,2010,2.34,75.23,16160,TRUE,upper_middle_income,114092961,christian,17.36,77.979,72.135
+Marshall Islands,east_asia_pacific,2010,,62.98,3236,FALSE,upper_middle_income,,christian,38.94,-,-999
+North Macedonia,europe_central_asia,2010,1.47,75.86,11355,FALSE,upper_middle_income,2070737,christian,10.16,76.711,72.66
+Mali,sub_saharan_africa,2010,6.55,59.44,1875,FALSE,low_income,15049352,muslim,131.49,55.871,54.62
+Malta,europe_central_asia,2010,1.39,80.42,28340,FALSE,high_income,414257,christian,6.81,82.875,78.733
+Myanmar,east_asia_pacific,2010,2.41,64.75,3688,FALSE,lower_middle_income,50600827,eastern religions,63.3,66.931,60.102
+Montenegro,europe_central_asia,2010,1.77,75.97,14035,FALSE,upper_middle_income,624279,christian,6.44,77.472,72.792
+Mongolia,east_asia_pacific,2010,2.64,66.05,7688,FALSE,lower_middle_income,2719902,,26.05,71.597,63.486
+Mozambique,sub_saharan_africa,2010,5.56,51.99,945,FALSE,low_income,23531567,christian,104.53,54.694,49.816
+Mauritania,sub_saharan_africa,2010,4.98,68.24,3426,FALSE,lower_middle_income,3494200,muslim,97.13,64.29,60.708
+Mauritius,sub_saharan_africa,2010,1.58,73.98,15938,FALSE,upper_middle_income,1247953,,15.15,77.018,70.02
+Malawi,sub_saharan_africa,2010,5.31,54.17,1078,FALSE,low_income,14539609,christian,88.42,58.398,52.807
+Malaysia,east_asia_pacific,2010,2.15,74.4,21036,FALSE,upper_middle_income,28208028,muslim,7.94,76.732,72.497
+Namibia,sub_saharan_africa,2010,3.61,58.95,8678,FALSE,upper_middle_income,2118877,christian,48.34,58.597,54.586
+Niger,sub_saharan_africa,2010,7.49,59.09,812,FALSE,low_income,16464025,muslim,122.62,58.351,56.364
+Nigeria,sub_saharan_africa,2010,5.84,60.51,5085,FALSE,lower_middle_income,158503203,,135.2,51.656,50.161
+Nicaragua,america,2010,2.43,77.64,3969,FALSE,lower_middle_income,5824058,christian,20.44,75.633,69.185
+Netherlands,europe_central_asia,2010,1.8,80.81,46102,TRUE,high_income,16682927,christian,4.46,82.714,78.745
+Norway,europe_central_asia,2010,1.95,80.91,62350,TRUE,high_income,4885878,christian,3.23,83.263,78.981
+Nepal,south_asia,2010,2.61,69.2,1987,FALSE,low_income,27013207,eastern religions,46.83,69.013,66.29
+Nauru,east_asia_pacific,2010,,,6606,FALSE,upper_middle_income,,christian,39.04,-,-999
+New Zealand,east_asia_pacific,2010,2.12,80.69,32233,TRUE,high_income,4370060,christian,6.14,82.736,78.94
+Oman,middle_east_north_africa,2010,2.9,75.21,45336,FALSE,high_income,3041435,muslim,11.69,78.155,73.865
+Pakistan,south_asia,2010,3.86,64.3,4072,FALSE,lower_middle_income,179424643,muslim,87.51,66.228,64.377
+Panama,america,2010,2.62,78.18,15631,FALSE,high_income,3642691,Christian,19.86,79.838,73.932
+Peru,america,2010,2.55,77.51,10075,FALSE,upper_middle_income,29027680,christian,20.13,76.888,71.968
+Philippines,east_asia_pacific,2010,3.16,69.24,5583,FALSE,lower_middle_income,93966784,Christian,32.01,74.012,65.957
+Palau,east_asia_pacific,2010,,,13630,FALSE,high_income,,christian,23.19,-,-999
+Papua New Guinea,east_asia_pacific,2010,3.99,56.3,3103,FALSE,lower_middle_income,7310512,christian,58.22,63.446,60.702
+Poland,europe_central_asia,2010,1.37,76.4,21771,TRUE,high_income,38329784,christian,5.98,80.465,72.146
+North Korea,east_asia_pacific,2010,1.98,70.86,1713,FALSE,low_income,24548840,,29.5,72.859,65.96
+Portugal,europe_central_asia,2010,1.33,80.05,27238,TRUE,high_income,10596055,Christian,3.87,83.121,76.753
+Paraguay,america,2010,2.73,74.61,9741,FALSE,upper_middle_income,6248017,christian,26.04,74.69,70.735
+Palestine,middle_east_north_africa,2010,4.42,73.94,4019,FALSE,lower_middle_income,4055632,muslim,23.32,74.556,71.102
+Qatar,middle_east_north_africa,2010,2.07,78.05,119974,FALSE,high_income,1856329,muslim,9,80.73,77.932
+Romania,europe_central_asia,2010,1.47,73.65,17469,FALSE,upper_middle_income,20471860,Christian,11.48,77.625,70.558
+Russia,europe_central_asia,2010,1.57,68.1,23326,FALSE,upper_middle_income,143479273,Christian,10.34,74.832,62.76
+Rwanda,sub_saharan_africa,2010,4.52,64.27,1396,FALSE,low_income,10039338,christian,63.51,65.11,61.672
+Saudi Arabia,middle_east_north_africa,2010,2.96,74.8,45428,FALSE,high_income,27421468,muslim,12.08,75.529,72.625
+Sudan,sub_saharan_africa,2010,4.88,67.69,3397,FALSE,lower_middle_income,34545014,muslim,75.92,64.545,61.031
+Senegal,sub_saharan_africa,2010,5.06,65.94,2776,FALSE,lower_middle_income,12678143,muslim,66.39,65.829,62.62
+Singapore,east_asia_pacific,2010,1.26,83.19,73061,FALSE,high_income,5131170,eastern religions,2.81,84.161,79.456
+Solomon Islands,east_asia_pacific,2010,4.24,61.71,1871,FALSE,lower_middle_income,527861,christian,25.73,72.547,69.067
+Sierra Leone,sub_saharan_africa,2010,5.2,55.39,1208,FALSE,low_income,6415636,,162.83,50.228,48.497
+El Salvador,america,2010,2.27,73.36,6281,FALSE,lower_middle_income,6183877,christian,19.25,75.714,66.476
+San Marino,europe_central_asia,2010,,,73581,FALSE,high_income,,christian,2.86,-,-999
+Somalia,sub_saharan_africa,2010,6.87,54.95,614,FALSE,low_income,12043886,muslim,157.18,55.623,52.441
+Serbia,europe_central_asia,2010,1.58,74.37,13367,FALSE,upper_middle_income,8991258,christian,7.61,76.807,71.442
+South Sudan,sub_saharan_africa,2010,5.38,57.84,4013,FALSE,low_income,9508372,,109.25,56.048,53.575
+Sao Tome and Principe,sub_saharan_africa,2010,4.79,68.91,2560,FALSE,lower_middle_income,180372,christian,45.37,69.67,65.173
+Suriname,america,2010,2.52,71.43,14131,FALSE,upper_middle_income,529126,christian,24.7,73.807,67.336
+Slovak Republic,europe_central_asia,2010,1.36,75.63,25159,TRUE,high_income,5404293,christian,6.97,79.214,71.656
+Slovenia,europe_central_asia,2010,1.52,79.46,28678,FALSE,high_income,2043336,christian,3.21,82.62,76.109
+Sweden,europe_central_asia,2010,1.99,81.52,42989,TRUE,high_income,9390157,christian,3.06,83.425,79.551
+Eswatini,sub_saharan_africa,2010,3.53,46.02,8242,FALSE,lower_middle_income,1064841,christian,88.7,49.191,44.369
+Seychelles,sub_saharan_africa,2010,2.36,73.17,20365,FALSE,high_income,91273,christian,14.1,76.786,69.301
+Syria,middle_east_north_africa,2010,3.21,75.83,6287,FALSE,low_income,21362541,muslim,16.09,76.778,68.113
+Chad,sub_saharan_africa,2010,6.59,56.43,1915,FALSE,low_income,11952134,muslim,149.73,52.188,49.604
+Togo,sub_saharan_africa,2010,4.87,59.24,1242,FALSE,low_income,6421674,,89.56,58.133,56.781
+Thailand,east_asia_pacific,2010,1.55,77,13489,FALSE,upper_middle_income,67195032,eastern religions,13.34,77.725,70.749
+Tajikistan,europe_central_asia,2010,3.51,69.77,2138,FALSE,low_income,7527397,muslim,43.22,71.153,66.549
+Turkmenistan,europe_central_asia,2010,2.83,69.61,9942,FALSE,upper_middle_income,5087211,muslim,59.91,70.221,63.161
+Timor-Leste,east_asia_pacific,2010,6.23,70.04,9005,FALSE,lower_middle_income,1093517,christian,62.3,68.794,65.631
+Tonga,east_asia_pacific,2010,3.91,71.02,4991,FALSE,upper_middle_income,103981,christian,17.4,72.03,68.081
+Trinidad and Tobago,america,2010,1.81,73.62,31260,FALSE,high_income,1328144,Christian,23.37,74.766,69.217
+Tunisia,middle_east_north_africa,2010,2.14,76.95,10441,FALSE,lower_middle_income,10635245,muslim,18.39,77.392,72.842
+Turkey,europe_central_asia,2010,2.16,77.58,17959,TRUE,upper_middle_income,72326992,muslim,17.33,77.84,71.199
+Tuvalu,east_asia_pacific,2010,,,2987,FALSE,upper_middle_income,,christian,31.5,-,-999
+Tanzania,sub_saharan_africa,2010,5.43,60.93,2228,FALSE,low_income,44346532,christian,72.27,60.369,56.776
+Uganda,sub_saharan_africa,2010,6.15,59.07,1585,FALSE,low_income,32428164,christian,77.39,58.725,55.349
+Ukraine,europe_central_asia,2010,1.45,70.85,7824,FALSE,lower_middle_income,45792086,christian,11.72,74.794,63.993
+Uruguay,america,2010,2.08,76.43,17159,FALSE,high_income,3359273,christian,10.7,80.382,72.929
+United States,america,2010,1.93,78.74,49479,TRUE,high_income,309011469,christian,7.33,81.056,76.191
+Uzbekistan,europe_central_asia,2010,2.44,68.84,4240,FALSE,lower_middle_income,28515908,muslim,36.44,72.465,66.943
+St. Vincent and the Grenadines,america,2010,2.07,72.9,10013,FALSE,upper_middle_income,108260,christian,20.85,74.335,69.491
+Venezuela,america,2010,2.47,75.28,16887,FALSE,upper_middle_income,28439942,christian,17,77.105,69.405
+Vietnam,east_asia_pacific,2010,1.95,73.45,4433,FALSE,lower_middle_income,87967655,eastern religions,23.09,78.883,70.725
+Vanuatu,east_asia_pacific,2010,3.5,64,2949,FALSE,lower_middle_income,236216,christian,29.44,70.771,67.634
+Samoa,east_asia_pacific,2010,4.34,72.47,5407,FALSE,upper_middle_income,185944,christian,18.7,74.03,69.51
+Yemen,middle_east_north_africa,2010,4.67,67.95,4566,FALSE,low_income,23154854,muslim,55.96,67.228,63.93
+South Africa,sub_saharan_africa,2010,2.59,56.12,11973,FALSE,upper_middle_income,51216967,christian,52.49,60.565,54.906
+Zambia,sub_saharan_africa,2010,5.4,55.99,3338,FALSE,lower_middle_income,13605986,christian,80.27,57.786,53.478
+Zimbabwe,sub_saharan_africa,2010,4.03,49.67,1928,FALSE,lower_middle_income,12697728,christian,86.34,52.239,48.884

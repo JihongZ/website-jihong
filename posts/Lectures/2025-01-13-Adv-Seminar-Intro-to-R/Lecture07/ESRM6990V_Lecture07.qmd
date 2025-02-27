@@ -56,7 +56,7 @@ format:
 
 ## Hello Quarto
 
--   **Quarto** is a multi-language of R Markdown from _Posit_ (the company of RStudio), with many new features and capabilities. 
+-   **Quarto** is a multi-language of R Markdown from *Posit* (the company of RStudio), with many new features and capabilities.
 -   Like R Markdown (`.rmd`), Quarto uses knitr (the engine translating Markdown text into html/pdf files) to execute R code (`.qmd`).
 -   The following screenshot is a Quarto document with the extension `.qmd` (on the left), along with its rendered version as HTML (webpage `.html` on the right).
 
@@ -65,8 +65,8 @@ format:
 ::: callout-note
 ## Installation
 
-- Quarto is a software that should be downloaded separately. It DOES NOT comes with R or RStudio 
-- You can install [Quarto](https://quarto.org/docs/get-started/) here. It is independent from R and RStudio, but it can be used inside RStudio after the installation.
+-   Quarto is a software that should be downloaded separately. It DOES NOT comes with R or RStudio
+-   You can install [Quarto](https://quarto.org/docs/get-started/) here. It is independent from R and RStudio, but it can be used inside RStudio after the installation.
 :::
 
 ## Tutorial
@@ -267,7 +267,7 @@ ggplot(airquality, aes(Temp, Ozone)) +
 -   What: Quarto Extensions are a powerful way to modify or extend the behavior of Quarto, and can be created and distributed by anyone. There are several types of extensions available:
 
     |  |  |
-    |------------------------------------|------------------------------------|
+    |----|----|
     | **Extension Type** | **Description** |
     | [Shortcodes](https://quarto.org/docs/extensions/shortcodes.html) | Special markdown directives that generate various types of content. For example, you could create shortcodes to embed tweets or videos in a document. |
     | [Filters](https://quarto.org/docs/extensions/filters.html) | A flexible and powerful tool for introducing new global behaviors and/or new markdown rendering behaviors. For example, you could create filters to implement output folding, an image carousel, or just about anything you can imagine! |
