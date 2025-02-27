@@ -56,14 +56,18 @@ format:
 
 ## Hello Quarto
 
--   **Quarto** is a multi-language of R Markdown from Posit, with many new features and capabilities. Like R Markdown, Quarto uses knitr to execute R code, and is therefore able to render most existing Rmd files without modification.
--   The following is a Quarto document with the extension `.qmd` (on the left), along with its rendered version as HTML (`.html` on the right).
+-   **Quarto** is a multi-language of R Markdown from _Posit_ (the company of RStudio), with many new features and capabilities. 
+-   Like R Markdown (`.rmd`), Quarto uses knitr (the engine translating Markdown text into html/pdf files) to execute R code (`.qmd`).
+-   The following screenshot is a Quarto document with the extension `.qmd` (on the left), along with its rendered version as HTML (webpage `.html` on the right).
 
 ![](images/clipboard-2141717442.png)
 
+::: callout-note
 ## Installation
 
-You can install [Quarto](https://quarto.org/docs/get-started/) here. It is a standalone software, independent from R and RStudio. It can be used inside RStudio.
+- Quarto is a software that should be downloaded separately. It DOES NOT comes with R or RStudio 
+- You can install [Quarto](https://quarto.org/docs/get-started/) here. It is independent from R and RStudio, but it can be used inside RStudio after the installation.
+:::
 
 ## Tutorial
 
