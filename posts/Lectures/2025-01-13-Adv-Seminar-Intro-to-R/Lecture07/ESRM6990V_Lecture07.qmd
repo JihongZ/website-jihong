@@ -222,6 +222,8 @@ head(penguins)
 
 ![](images/clipboard-249611071.png)
 
+# Quarto PDF
+
 ## Example: Quarto PDF
 
 -   Create a new file called `quarto_pdf.qmd`
@@ -376,7 +378,86 @@ resume_entry(educ)
 
 ------------------------------------------------------------------------
 
-::: discussion
+# Quarto Website
+
+## Overview
+
+-   Quarto Websites are a convenient way to publish groups of documents. Documents published as part of a website share navigational elements, rendering options, and visual style.
+
+-   Website navigation can be provided through a global navbar, a sidebar with links, or a combination of both for sites that have multiple levels of content. You can also enable full text search for websites.
+
+-   Quarto websites can be published to a wide variety of destinations including GitHub Pages, Netlify, Posit Connect, or any other static hosting service or intranet web server. See the documentation on Publishing Websites for additional details.
+
+## Quick Start
+
+-   To create a new website project within RStudio, use the **New Project** command and select **Quarto** Website:
+
+::::: columns
+::: {.column width="50%"}
+![](https://quarto.org/docs/websites/images/rstudio-project-new-directory.png){fig-align="center"}
+:::
+
+::: {.column width="50%"}
+![](https://quarto.org/docs/websites/images/rstudio-project-website.png){fig-align="center"}
+:::
+:::::
+
+-   Then, provide a directory name and other relevant options for the website:
+
+![](https://quarto.org/docs/websites/images/rstudio-project-website-options.png){fig-align="center"}
+
+-   Click the Render button to preview the website:
+
+![](https://quarto.org/docs/websites/images/rstudio-project-website-preview.png){fig-align="center"}
+
+## Config File
+
+-   Every website has a `_quarto.yml` config file that provides website options as well as defaults for HTML documents created within the site.
+-   For example, here is the default config file for the simple site created above:
+    -   You can change `theme: cosmo` to `theme: materia` to see how website differ
+    -   You can check the full list of **website themes** in [HTML Theming](https://quarto.org/docs/output-formats/html-themes.html)
+
+```{yaml filename="_quarto.yml"}
+project:
+  type: website
+
+website:
+  title: "today"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+```
+
+::: {.callout-note collapse="true"}
+## Documentation
+
+See the documentation on [Website Navigation](https://quarto.org/docs/websites/website-navigation.html) and [Website Tools](https://quarto.org/docs/websites/website-tools.html) for additional details on website configuration. See [HTML Documents](https://quarto.org/docs/output-formats/html-basics.html) for details on customizing HTML format options.
+:::
+
+## Website Preview
+
+-   If you are using RStudio, **Render** button (RStudio), automatically preview the website in an embedded window.
+
+-   As you preview your site, pages will be rendered and updated. However, if you make changes to global options (e.g. `_quarto.yml` or included files) you need to fully re-render your site to have all of the changes reflected.
+
+![Background Jobs when I render the quarto of today's lecture](images/clipboard-309764461.png)
+
+::: {.discussion .callout-note}
+## Summary
+
+1.  Today, we learnt the basic information of Quarto Document (`.qmd`)
+2.  Quarto can be rendered into different formats: html/pdf
+3.  We can install Quarto extension to use the template of PDF
+4.  Settings can be manipulated in YAML header of each quarto document
+
 ## General Suggestions
 
 1.  Use Quarto document to report you data analysis results.
