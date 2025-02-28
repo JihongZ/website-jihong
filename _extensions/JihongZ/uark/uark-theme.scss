@@ -166,32 +166,26 @@ code span.er {
   text-decoration: none;
 }
 
-//.reveal div.sourceCode {
-//  background-color: #ebcb8b;
-//  border: none;
-//  border-radius: 5px;
-//  margin-bottom: 10px !important;
-//  box-shadow: 0 20px 47px rgb(0 0 0 / 55%);
-//  margin: auto !important;
-//}
-
-.reveal div.sourceCode pre code {
-  padding: 25px;
-  //border: 0.3rem solid $purple;
+.reveal div.cell-output-stdout::before{
+  content: "R Output:";
+  color: $red;
+  background-color: #f2eff6;
+  display: block;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 3px 5px;
+  font-family: 'Taub Sans', monospace;
 }
 
-.reveal div.cell-output-stdout{
-  background-color: #FAF9F6;
+.reveal div.cell-output-stdout{ // outside of code block
   border-radius: 8px;
-  border: none;
-  box-shadow: 0 10px 5px rgb(0 0 0 / 55%);
-  //width: fit-content;
+  border: 2px solid $purple;
+  margin-bottom: 1em; // spacing between output box to next element
 }
 
 .reveal .slides code{ // for in-line code
   background-color: #e5eaf5;
   border-radius: 8px;
-  border: none;
   color: $stone !important;
 }
 

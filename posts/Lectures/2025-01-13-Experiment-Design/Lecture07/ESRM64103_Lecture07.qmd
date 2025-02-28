@@ -189,7 +189,7 @@ bibliography: references.bib
     -   If the nuisance factor is known, but uncontrollable, we considers **ANCOVA**. (gender, class, school)
     -   If the nuisance factor is unknown and uncontrollable (i.e., lurking variable), we re-do the randomization.
 
-[^1]: PennStat STAT503: https://online.stat.psu.edu/stat503/lesson/4/4.1
+[^1]: [PennStat STAT503](https://online.stat.psu.edu/stat503/lesson/4/4.1)
 
 ## Types of nuisance factors:
 
@@ -245,7 +245,7 @@ where:
 -   When we have a single blocking factor (Form): utilize a [randomized complete block design]{.bluecolor} (RCBD)[^2].
 -   *b* blocks, each with *a* treatment levels
     -   *a* treatment levels are randomly assigned within each block
--   In this case, we have 3 blocks ([Form 1]{.red}, [Form 2]{.green}, [Form 3]{.purple}) with each having 4 treatment levels (Method 1 vs. 2 vs. 3 vs. 4).
+-   In this case, we have 3 blocks ([Form 1]{.red}, [Form 2]{.green}, [Form 3]{.purple}) with each having 4 treatment levels.
 
 [^2]: PennStat [STAT502](https://online.stat.psu.edu/stat502/lesson/7/7.3)
 
@@ -258,7 +258,8 @@ where:
 
 ::: {.callout-note collapse="true"}
 -   Numbers in each cell are means
--   Blocks for each form; within each block, we have each level of the IV
+-   Within each block, we have designed a more homogenous set of experimental units on which to test math scores.
+-   Variability **between** blocks can be large, since we will remove this source of variability, whereas variability **within** a block should be relatively small. In general, a block is a specific level of the nuisance factor.
 :::
 
 ------------------------------------------------------------------------
@@ -279,6 +280,7 @@ where:
 
 ```{r}
 #| code-fold: true
+#| code-summary: "Output of ANOVA"
 library(tidyverse)
 exp <- tribble(
   ~method, ~F1, ~F2, ~F3,
@@ -292,8 +294,48 @@ exp_l <- exp |>
   mutate(method = factor(method, levels = 1:4)) |> 
   pivot_longer(F1:F3, names_to = "block", values_to = "score")
 summary(aov(score ~ block + method, data = exp_l))
-stats::TukeyHSD(aov(score ~ block + method, data = exp_l))$method |> round(2)
 ```
+
+---
+
+### Proportion of Sum of Square
+
+:::: columns
+::: {.column}
+```{r}
+aov_fit <- aov(score ~ block + method, data = exp_l)
+summary(aov_fit)
+```
+:::
+
+::: {.column}
+```{r}
+#| echo: false
+
+par(mar = c(.1, .1, .1, .1))
+x <- summary(aov_fit)[[1]]
+SS <- x$`Sum Sq`
+names(SS) <- trimws(rownames(x))
+pie(SS, col = c("purple", "green3", "violetred1"), 
+    labels = paste0(names(SS), ": ", round(SS / sum(SS) * 100, 2), "%"))
+```
+
+:::
+::::
+
+:::: columns
+::: column
+```{r}
+stats::TukeyHSD(aov_fit)$method |> round(2)
+```
+:::
+
+::: column
+- After removing the variability of the blocking factor (forms), we observed significant Group Differences using block design in the following group pairs: 
+  -   Method 4 vs. 2; 
+  -   Method 4 vs. 3;
+:::
+::::
 
 ## 2. Latin Square Design
 
@@ -309,34 +351,48 @@ stats::TukeyHSD(aov(score ~ block + method, data = exp_l))$method |> round(2)
 -   Comparing RCBD, or CRD, Latin square design has two nuisance factors.
 -   Each treatment occurs only once in each row and once in each column.
 -   We assume that three factors (factor of the interest, two nuisance factors) are not interacting with each other.
+    - Row: School; Column: Form
+    - Treatment factor: Lecture - A/B/C/D
+    - Nuisance factors: School - 1/2/3/4 and Form - 1/2/3/4 
+    
+|          | Form 1 | Form 2 | Form 3 | Form 4 |
+|:--------:|:------:|:------:|:------:|:------:|
+| School 1 |   [A]{.red}    |   D    |   C    |   B    |
+| School 2 |   B    |   [A]{.red}    |   D    |   C    |
+| School 3 |   C    |   B    |   [A]{.red}    |   D    |
+| School 4 |   D    |   C    |   B    |   [A]{.red}    |
+
+---
+
+
 -   Within each cell, we have multiple people.
-    -   → A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4
+    -   A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4
 
 |          | Form 1 | Form 2 | Form 3 | Form 4 |
 |:--------:|:------:|:------:|:------:|:------:|
-| School 1 |   A    |   D    |   C    |   B    |
-| School 2 |   B    |   A    |   D    |   C    |
-| School 3 |   C    |   B    |   A    |   D    |
-| School 4 |   D    |   C    |   B    |   A    |
-
+| School 1 |   [A]{.red}    |   D    |   C    |   B    |
+| School 2 |   B    |   [A]{.red}    |   D    |   C    |
+| School 3 |   C    |   B    |   [A]{.red}    |   D    |
+| School 4 |   D    |   C    |   B    |   [A]{.red}    |
 : {.hover .stripped}
 
-# 2. Latin Square Design
+-   The number of rows and columns has to correspond to the number of treatment levels. So, if we have four treatments then we would need to have four rows and four columns in order to create a Latin square. 
 
--   **Benefits of Latin Square Design?**
-    -   **The more we can control for, the more error variance we explain** **More powerful test of the IV of interest**
+::: callout-tip
+- This is just one of many 4×4 squares that you could create. In fact, you can make any size square you want, for any number of treatment
+- that each treatment occurs only once in each row and once in each column.
+:::
 
-Level of arousal
+## 2. Benefits of Latin Square Design?
 
-Error (unexplained variance)
+-   An assumption that we make when using a Latin square design is that the three factors (treatments, and two nuisance factors) do not interact. If this assumption is violated, the Latin Square design error term will be inflated.    
 
-Single IV Level of arousal Error (unexplained variance) Gender
+-   Benefits of Latin Square Design?
+    -   The more we can control for, the more error variance we explain, **More powerful test of the IV of interest**
 
-✓ Adding gender as a nuisance factor explains more variance, thus reducing the amount of error variance.
+    
 
-✓ Adding another nuisance factor is going to explain even more variance
-
-# 3. Replicated Latin Square Design
+## 3. Replicated Latin Square Design
 
 -   **Sometimes, the** ***df*** **for a Latin square are too small, so we want to replicate** **the Latin Square to get more participants.** - In this example, I replicate it 2 times – the design is different across the replications. - A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4 \`\`\`
 
