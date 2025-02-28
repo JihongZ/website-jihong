@@ -308,7 +308,7 @@ button.show-answer:hover {
     color: #333;
     background-color: $soft-color1; /* Fallback if $soft-color1 is not defined */
     padding: 15px 20px;
-    border-left: 4px solid #447099;
+    border-left: 0px solid #447099;
     border-radius: 5px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
     max-width: 100%;
