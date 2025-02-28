@@ -31,10 +31,10 @@ website:
     contents:
       - section: 'Useful Materials'
         contents: 
-          - text: '2024 Fall Research Plan'
+          - text: '2024 Research Plan'
             file: projects/Research_Plan/Timeline-Visualization.qmd
-          - text: 'Curriculum Vitae'
-            file: uploads/Curriculum_Vitae.pdf
+          - text: 'CSS cheatsheet'
+            href: uploads/css3-cheat-sheet.pdf
           - text: 'Latex Symbols'
             file: uploads/latex_symbols.pdf
       - text: "---"      

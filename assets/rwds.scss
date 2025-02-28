@@ -38,13 +38,13 @@
     font-style: normal;
   }
   
-
+//*Reference: https://rpubs.com/drgregmartin/1266676*//
 
 //* Enhanced Navbar Styles */
 .navbar {
   background-color: transparent;
   backdrop-filter: blur(5px);
-  padding-top: 5px;
+  padding-top: 1px;
   padding-bottom: 5px;
 }
 
@@ -125,7 +125,8 @@ $caution: #EE6331;
 
 $body-bg: $soft-color1; // body bg
 $input-group-addon-bg: $darkteal;
-$link-color: $danger;
+$link-color: $darkteal;
+$link-hover-color: $orange;
 $breadcrumb-bg: $soft-color1 ;
 $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
@@ -435,3 +436,40 @@ button.show-answer:hover {
     opacity: 1;
 }
 
+/* Table styling */
+table {
+  width: 100%;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  padding: 0.25em;
+  text-align: left;
+}
+
+td {
+  padding: 0.25em;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Striped tables */
+tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+/* Hover effect */
+tr:hover {
+  border: 1.5px solid $orange;
+}
+
+/* Responsive tables */
+@media screen and (max-width: 600px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

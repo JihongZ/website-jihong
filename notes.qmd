@@ -1,7 +1,7 @@
 ---
 title: ''
 subtitle: ''
-sidebar: false
+sidebar: true
 listing:
   field-display-names:
     title: "Notes"
