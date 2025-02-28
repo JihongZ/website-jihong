@@ -1,0 +1,15 @@
+{
+  "hash": "d046119137ecdb7a7aeb18ef22c83198",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Jihong Zhang's CV\"\nauthor:\n  firstname: Jihong\n  lastname: Zhang\n  address: \"Rämistrasse 101, CH-8092 Zürich, Switzerland, Zürich\"\n  position: \"Research Physicist ・ Professor\"\n  contacts:\n    - icon: fa envelope\n      text: ae@example.com\n      url: \"mailto:ae@example.com\"\n    - icon: assets/icon/bi-house-fill.svg\n      text: example.com\n      url: https://example.com\n    - icon: fa brands orcid\n      text: 0000-0000-0000-0000\n      url: https://orcid.org/0000-0000-0000-0000\n    - icon: fa brands github\n      text: GitHub\n      url: https://github.com/example\n    - icon: fa brands linkedin\n      text: LinkedIn\n      url: https://linkedin.com/in/example\n    - icon: fa brands x-twitter\n      text: twitter\n      url: https://twitter.com/example\nexecute: \n  echo: false\n  eval: true\n  warning: false\n  output: asis\nformat: awesomecv-typst\n---\n\n\n\n## Education\n\n\n\n```{=typst}\n#resume-entry(title: \"Ph.D. in Education\",location: \"Iowa, U.S.\",date: \"2019\",description: \"University of Arkansas\",)\n#resume-entry(title: \"Master of Science\",location: \"Kansas, U.S.\",date: \"2015\",description: \"Fayetteville\",)\n```\n\n\n\n## Publications\n\n\n\n{{< yaml assets/yml/publication.yml >}}\n\n\n\n\n## Work Experience\n\n\n\n{{< yaml assets/yml/work.yml >}}\n\n\n\n\n## Awards\n\n\n\n{{< yaml assets/yml/award.yml >}}\n\n\n\n\n## Skills\n\n\n\n{{< yaml assets/yml/skill.yml >}}\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": null,
+    "postProcess": false
+  }
+}

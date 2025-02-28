@@ -1,0 +1,29 @@
+---
+title: "My document"
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+---
+
+## Introduction
+
+In this lecture, I will show you how to generate quarto document
+
+## `ggplot2` output
+
+@fig-scatterplot-airquality shows the relationship between Ozone with Temp.
+
+```{r}
+#| results: asis
+#| eval: true
+#| warning: false
+#| fig-height: 1.5
+#| fig-cap: "Loess of airquality"
+#| label: fig-scatterplot-airquality
+library(ggplot2)
+ggplot(airquality, aes(Temp, Ozone)) + 
+  geom_point() + 
+  geom_smooth(method = "loess", se = FALSE)
+```

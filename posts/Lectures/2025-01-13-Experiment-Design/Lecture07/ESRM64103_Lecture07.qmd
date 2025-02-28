@@ -1,0 +1,729 @@
+---
+title: "Lecture 07: Block Design"
+subtitle: "Experimental Design in Education"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-02-27"
+sidebar: false
+execute: 
+  eval: true
+  echo: true
+format: 
+  # html: 
+  #   page-layout: full
+  #   toc: true
+  #   toc-depth: 2
+  #   lightbox: true
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503: Lecture 07"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    mermaid:
+      theme: forest
+filters:
+  - output-line-highlight.lua
+bibliography: references.bib
+---
+
+## Overview {.objectives}
+
+-   Go through homework 2
+-   Go through different types of experimental design
+-   Validity
+
+## From week 1...
+
+-   Experimental Design (esp. Group Comparison, Mean Differences)
+    1.  Assumption Check: Independence, Normality, HOV
+    2.  One-way ANOVA: Factor, Outcome
+    3.  Post-hoc test: Unplanned, Planned
+
+## Review of One-Way ANOVA
+
++----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| Step                                   | ANOVA                                                                                                                                |
++========================================+======================================================================================================================================+
+| Alternative Hypothesis                 | $H_1$: groups do not come from the same population/ there is at least one group difference in the population                         |
++----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| Null Hypothesis                        | $H_0$: groups come from the same population/ there are no group differences in the population                                        |
++----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| Distribution of F-stats under the null | -   df numerator ($𝑑𝑓_b$): k - 1                                                                                                     |
+|                                        |                                                                                                                                      |
+|                                        | -   df denominator ($𝑑𝑓_w$): N - k                                                                                                   |
+|                                        |                                                                                                                                      |
+|                                        | -   For the shape to hold, must meet the following assumptions:                                                                      |
+|                                        |                                                                                                                                      |
+|                                        |     1.  Independence of Observations                                                                                                 |
+|                                        |     2.  Normality                                                                                                                    |
+|                                        |     3.  Homogeneity of Variance                                                                                                      |
++----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| Compute F-statistic                    | $F = \frac{SS_b / df_b}{SS_w/df_w} = \frac{MS_b}{MS_w}$                                                                              |
+|                                        |                                                                                                                                      |
+|                                        | `aov()` and `summary()` in R                                                                                                         |
++----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| Make a statistical conclusion          | If F-statistic is greater than the F-critical (or p-value is smaller than alpha), reject the null. Report and interpret effect sizes |
++----------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+
+## In this week
+
+-   **ANOVA is not limited to one independent variable**
+-   **Adding a second IV comes in two forms:**
+    -   **Blocking: want to statistically control for some IV**
+        -   Controlling for a factor that influences the DV, but is not of primary interest to the researcher
+        -   Blocks in education - might include school or class or grade.
+        -   There might be differences among schools, but we might not care to investigate if one particular school has a different result than another particular one. Still, we want to take to these differences into account statistically.
+-   **2. Factorial design: design with more than one IV**
+    -   Two treatment factors that interact. e.g., gender (Male vs. Female) x age (Childhood vs. Youth)
+
+## In this week
+
+-   **We used a one-way ANOVA to compare means of two or more groups**
+    -   Ex. Effect of tutoring on student grades
+    -   One categorical independent variable (three groups: no tutor, once/week, daily)
+    -   One continuous dependent variable (grades)
+-   **What if we want to examine another independent variable?**
+    -   Ex. Type of school setting: Public, private-secular, and private-religious
+    -   That is, we think the effect of tutoring on grades might depend on the school setting, so we want to control for school setting.
+-   **We can use ANOVA with more than one IV in this case**
+    -   Two or more categorical independent variables (factors)
+    -   One continuous dependent variable
+
+## In this week
+
+-   **Offers several advantages over a one-way ANOVA:** **1. Allows for greater generalizability of results** - More realistic (life is complex!)
+    -   Allows for investigation of interactions → through FACTORIAL ANOVA **1. We can ask whether the effect of one variable depends on the level of** **another variable** - Ex. cancer trials; Does the effect of the treatment method depend on stage of cancer? - Economy: requires fewer participants than two one-way designs for the same level of power. **2. Smaller error terms means we have more power**
+
+## In this week
+
+-   **Adding an IV in ANOVA is more powerful than a one-way ANOVA because** **we are able to account for more of the variance by adding additional factors**
+    -   For example, let’s say we are interested in tutoring type on grades, but we already think that school type also affects performance
+
+![](images/clipboard-3940876064.png)
+
+-   Adding school type as an IV explains more variance, thus reducing the amount of error variance
+-   Remember we define error as anything NOT explained by the IVs
+
+## Blocking
+
+-   **Blocking factors** and **nuisance factors** provide the mechanism for explaining and controlling variation among the experimental units from sources that are not of interest and part of the error.
+-   **Block designs help maintain internal validity** , by reducing the possibility that the observed effects are due to a **confounding factor.**
+    -   Confounding factor = a factor which impacts on both IV and DV
+-   While also **maintaining external validity** by allowing the investigator to use less stringent restrictions on the sampling population.
+-   **When we have a single blocking factor: utilize a randomized complete block** **design (RCBD).**
+    -   cf. completely randomized design (CRD) = cares about the randomly assigned treatment
+    -   Randomized completed block design (RCBE) = CRD with the blocking
+-   Today, will see extensions when more than a single blocking factor exists
+    -   Ex. Latin Squares and their generalizations
+-   These designs are efficient in terms of power and reducing the error variation.
+
+## Why Use Blocking - Confounding Variables
+
+-   In designing a study, researchers need to anticipate the factors that could undermine the **validity** of the inferences.
+    -   Validity is defined as “[the approximate truth of an inference]{.redcolor}” (Shadish, Cook, & Campbell, 2002). Validity is a property of the inferences, not of the research design.
+    -   However, design elements can have a profound impact on the inferences we make.
+-   Many threats to validity involve inadequate control over **confounding variables**.
+    -   A confounding variable is an “extra” variable that the researcher did not account for.
+    -   **Confounding variables:** are any other variable that also has an effect on your dependent variable. They are like extra independent variables that are having a hidden effect on your dependent variables.
+        -   They can ruin an experiment and give provide the researcher with misleading results.
+-   Confounding variables that are not controlled for can suggest there is correlation when in fact there is not or even introduce bias, leading the researcher to find an F-statistic that is too low or too high.
+-   For these reasons, it is important to know what a confounding variables is, and how to avoid getting them into your experiment in the first place.
+    -   One approach to dealing with confounding variables is through **blocking**.
+
+## When to use this tool
+
+-   Use ANOVA with Blocking to evaluate the equality of three or more means from dependent/related populations. This test basically performs a one-way ANOVA after accounting for the variability among the 'blocks'. Blocks are groups of similar units or repeated measurements on the same unit. ANOVA with blocking is therefore a multiple-sample application of the paired samples t-test.
+
+-   The test makes the following assumptions:
+
+    -   The data are continuous numeric.
+    -   The units are randomly sampled.
+    -   No interaction between the 'treatments' and 'blocks'.
+    -   The groups are normally distributed.
+    -   The groups have equal variances.
+
+## Blocking Factor and Nuisance Factor
+
+::::: columns
+::: column
+-   **Example: Age and Gender**
+    -   In studies involving human subjects, **we often use gender** **and age as the blocking factors.**
+    -   We partition our subjects by gender and from there into age groups.
+    -   Thus, we have **a block of** **homogeneous subjects** defined by the combination of factors, gender and age.
+    -   Within each block, we then randomly assign to treatment(T) or control(C).
+-   **Example: Age classes and gender** → **The key is that age, gender are not a part of our experimental design.**
+    -   As we saw, we often use gender and age classes as the blocking factors.
+:::
+
+::: column
+![](images/clipboard-3855292435.png)
+:::
+:::::
+
+## Blocking Factor and Nuisance Factor
+
+-   Sometimes, confounding variables are **nuisance factor**[^1]
+
+    -   **Nuisance factor**: A factor that probably has an effect on the outcome, but is not a factor that we are interested in.
+
+    -   E.g., Age, Institution, Sites
+
+-   **Another Example: Institution (size, location, type, etc)**
+
+    -   In medical studies, one blocking factor commonly used is the type of institution.
+        -   Hopefully removes institutionally-related factors such as size of the institution, types of populations served, hospitals versus clinics, etc.
+        -   We expect that these factors would influence the overall results of the experiment.
+        -   We are not manipulating institution – this is what makes it a nuisance factor
+
+-   So, nuisance factor (variables that can impact on DV, but not the interest of)
+
+    -   If the nuisance factor is known and controllable, we can use “**blocking**.” and nuisance factors become blocking factors (manipulate the block factors to make treatment samples homogenous)
+    -   If the nuisance factor is known, but uncontrollable, we considers **ANCOVA**. (gender, class, school)
+    -   If the nuisance factor is unknown and uncontrollable (i.e., lurking variable), we re-do the randomization.
+
+[^1]: PennStat STAT503: https://online.stat.psu.edu/stat503/lesson/4/4.1
+
+## Types of nuisance factors:
+
+![](images/clipboard-2431159556.png)
+
+## Example
+
+-   We are interested in the performance of four lecture method on math scores.
+-   The following math test scores (higher score = better at math) were obtained for three test forms.
+
+::::: columns
+::: {.column width="40%"}
+| Lecture  | Form 1 | Form 2 | Form 3 |
+|----------|--------|--------|--------|
+| Method 1 | 45     | 43     | 51     |
+| Method 2 | 47     | 46     | 52     |
+| Method 3 | 48     | 50     | 55     |
+| Method 4 | 42     | 37     | 49     |
+:::
+
+::: {.column width="60%"}
+-   In this scenario:
+    -   We are interested in lecture method → This is our **IV**
+    -   Test form may have an effect, but we are not interested in it. → Form is the blocking factor
+    -   The outcome is math test score → This is the DV
+    -   Here, all lecture types are applied to all forms
+:::
+:::::
+
+-   this is called a **“complete” block design**. → Let’s look at blocking design variations.
+
+## 1. Randomized Complete Block Design (RCBD)
+
+-   The mean comparison among specific blocks ($\mu_{form1}$, $\mu_{form2}$, $\mu_{form3}$, $\mu_{form4}$) is not of interest
+    -   In a RCBD, the variation between blocks is partitioned out of the MSE, resulting in a smaller MSE for testing hypotheses about the treatments.
+
+$$
+Y_{ij} = \mu + \tau_i + \rho_j + \epsilon_{ij}
+$$
+
+where:
+
+1.  $Y_{ij}$: math scores for Method *i* and Form *j*
+2.  $\mu$: grand mean
+3.  $\tau_i$: Method *i* with *i* = 1, ..., 4
+4.  $\rho_j$: From *j* with *j* = 1, 2, 3
+5.  $\rho_j$ and $\epsilon_{ij}$ are independent random variables such that $\rho_j \sim \mathcal{N}(0, \sigma^2_{\rho})$ and $\epsilon_{ij} \sim \mathcal{N}(0, \sigma^2_{\epsilon})$
+
+------------------------------------------------------------------------
+
+## 1.1 Randomized Complete Block Design (RCBD)
+
+-   When we have a single blocking factor (Form): utilize a [randomized complete block design]{.bluecolor} (RCBD)[^2].
+-   *b* blocks, each with *a* treatment levels
+    -   *a* treatment levels are randomly assigned within each block
+-   In this case, we have 3 blocks ([Form 1]{.red}, [Form 2]{.green}, [Form 3]{.purple}) with each having 4 treatment levels (Method 1 vs. 2 vs. 3 vs. 4).
+
+[^2]: PennStat [STAT502](https://online.stat.psu.edu/stat502/lesson/7/7.3)
+
+| Lecture  |   Form 1   |    Form 2    |    Form 3     |
+|----------|:----------:|:------------:|:-------------:|
+| Method 1 | [45]{.red} | [43]{.green} | [51]{.purple} |
+| Method 2 | [47]{.red} | [46]{.green} | [52]{.purple} |
+| Method 3 | [48]{.red} | [50]{.green} | [55]{.purple} |
+| Method 4 | [42]{.red} | [37]{.green} | [49]{.purple} |
+
+::: {.callout-note collapse="true"}
+-   Numbers in each cell are means
+-   Blocks for each form; within each block, we have each level of the IV
+:::
+
+------------------------------------------------------------------------
+
++------------+--------------+----------------+------------------+------------+
+| Lecture    | Form 1       | Form 2         | Form 3           | Marginal   |
++============+:============:+:==============:+:================:+:==========:+
+| Method 1   | [45]{.red}   | [43]{.green}   | [51]{.purple}    | 46.33      |
++------------+--------------+----------------+------------------+------------+
+| Method 2   | [47]{.red}   | [46]{.green}   | [52]{.purple}    | 48.33      |
++------------+--------------+----------------+------------------+------------+
+| Method 3   | [48]{.red}   | [50]{.green}   | [55]{.purple}    | 51.00      |
++------------+--------------+----------------+------------------+------------+
+| Method 4   | [42]{.red}   | [37]{.green}   | [49]{.purple}    | 42.67      |
++------------+--------------+----------------+------------------+------------+
+| Marginal   | [46.3]{.red} | [44.0]{.green} | [51.75]{.purple} |            |
++------------+--------------+----------------+------------------+------------+
+
+```{r}
+#| code-fold: true
+library(tidyverse)
+exp <- tribble(
+  ~method, ~F1, ~F2, ~F3,
+  1, 45,43,51,
+  2, 47,46,52,
+  3, 48,50,55,
+  4, 42,37,49
+)
+
+exp_l <- exp |> 
+  mutate(method = factor(method, levels = 1:4)) |> 
+  pivot_longer(F1:F3, names_to = "block", values_to = "score")
+summary(aov(score ~ block + method, data = exp_l))
+stats::TukeyHSD(aov(score ~ block + method, data = exp_l))$method |> round(2)
+```
+
+## 2. Latin Square Design
+
+-   Allow for **two blocking factors**.
+    -   Used to simultaneously control (or eliminate) two sources of nuisance variability.
+-   **Latin Square Design** gets its name from the fact that we can write it as a square with Latin letters to correspond to the treatments.
+    -   The treatment factor levels are the Latin letters in the Latin square design.
+    -   The number of rows and columns correspond to the number of treatment levels.
+    -   So, if we have four treatments then we would need to have four rows and four columns in order to create a Latin square.
+
+## 2. Latin Square Design
+
+-   Comparing RCBD, or CRD, Latin square design has two nuisance factors.
+-   Each treatment occurs only once in each row and once in each column.
+-   We assume that three factors (factor of the interest, two nuisance factors) are not interacting with each other.
+-   Within each cell, we have multiple people.
+    -   → A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4
+
+|          | Form 1 | Form 2 | Form 3 | Form 4 |
+|:--------:|:------:|:------:|:------:|:------:|
+| School 1 |   A    |   D    |   C    |   B    |
+| School 2 |   B    |   A    |   D    |   C    |
+| School 3 |   C    |   B    |   A    |   D    |
+| School 4 |   D    |   C    |   B    |   A    |
+
+: {.hover .stripped}
+
+# 2. Latin Square Design
+
+-   **Benefits of Latin Square Design?**
+    -   **The more we can control for, the more error variance we explain** **More powerful test of the IV of interest**
+
+Level of arousal
+
+Error (unexplained variance)
+
+Single IV Level of arousal Error (unexplained variance) Gender
+
+✓ Adding gender as a nuisance factor explains more variance, thus reducing the amount of error variance.
+
+✓ Adding another nuisance factor is going to explain even more variance
+
+# 3. Replicated Latin Square Design
+
+-   **Sometimes, the** ***df*** **for a Latin square are too small, so we want to replicate** **the Latin Square to get more participants.** - In this example, I replicate it 2 times – the design is different across the replications. - A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4 \`\`\`
+
+Rep.#1 Form 1 Form 2 Form 3 Form 4
+
+**School 1** A D C B
+
+**School 2** B A D C
+
+**School 3** C B A D
+
+**School 4** D C B A
+
+```         
+
+Rep.#2 Form 1 Form 2 Form 3 Form 4
+
+School 1 B C D A School 2 C D A B School 3 D A B C School 4 A B C D
+
+# More than two blocking factors? → 4. Greco-Roman Squares
+
+- **When might this occur?**
+    - Maybe we think “day of the week has an impact”...
+    →α=Monday, β=Tuesday, 𝜒=Wednesday, 𝜆=Thursday
+- This is a **“Greco-Roman squares”** design.
+- **Important Considerations about the blocking designs: With Blocking**
+    **Designs, we still randomly assign individuals within each block.**
+
+Form 1 Form 2 Form 3 Form 4 School 1 A α B 𝜆 C β D 𝜒 School 2 B 𝜒 A β D 𝜆 C α School 3 C 𝜆 D α A 𝜒 B β School 4 D β C 𝜒 B α A 𝜆
+
+
+# Blocking: Example
+
+- Let’s look at a simple example:
+- Research question: **What is the effect of time of day of**
+    **tutoring session on midterm grades?**
+- The Primary Investigator (PI) of the study wants to control
+    for tutor, believing some tutors may be better in the
+    subject matter than others. Thus, they design a completely
+    randomized block design.
+- Each tutor works with students in the morning and
+    afternoon.
+       - In this example, student select their favorite tutor, but
+          are then randomly assigned to either a morning (AM)
+          or afternoon (PM) session.
+       - 200 total students: 91 in the morning, 109 in the
+
+
+# Blocking: Example
+
+- IV: Time (𝑎= 2 )
+    ✓ 2 levels: AM and PM
+- Nuisance factor: Tutor (𝑏= 4 )
+    ✓ 4 levels: Booby, Julia, Monique, and Ned
+- DV: Midterm Score
+- Null hypothesis pertaining to the IV of interest:
+𝐻 0 : 𝜇𝐴𝑀 = 𝜇𝑃𝑀→ a=
+- We will also have a null hypothesis pertaining to
+    the blocking factor:
+𝐻 0 : 𝜇𝐵𝑜𝑏𝑏𝑦 =𝜇𝐽𝑢𝑙𝑖𝑎 = 𝜇𝑀𝑜𝑛𝑖𝑞𝑢𝑒 =𝜇𝑁𝑒𝑑 → b=
+- Two nulls = two F_obs, two F_crit, two decisions
+
+
+# Blocking: Example
+
+- IV: Time (𝑎= 2 )
+- Nuisance factor: Tutor (𝑏= 4 )
+- DV: Midterm Score
+- Now:
+    𝑆𝑆𝑇𝑜𝑡𝑎𝑙 =𝑆𝑆𝑀𝑜𝑑𝑒𝑙+𝑆𝑆𝐵𝑙𝑜𝑐𝑘+𝑆𝑆𝐸𝑟𝑟𝑜𝑟
+
+→We can partition the effects into three parts:
+Sum of squares due to treatments (IV = Time),
+Sum of squares due to the blocking factor, and
+Sum of squares due to error.
+
+* We **do not** model an **interaction** with blocked
+designs. (we will talk about it later.)
+
+## Tutor
+
+## Time
+
+
+# Blocking: Example
+
+- IV: Time (𝑎= 2 )
+- Nuisance factor: Tutor (𝑏= 4 )
+- DV: Midterm Score
+- Model: 𝑆𝑆𝑇𝑜𝑡𝑎𝑙 = 𝑆𝑆𝑀𝑜𝑑𝑒𝑙(𝐼𝑉)+𝑆𝑆𝐵𝑙𝑜𝑐𝑘+𝑆𝑆𝐸𝑟𝑟𝑜𝑟
+- ANOVA table:
+```
+
+𝑆𝑜𝑢𝑟𝑐𝑒 𝑆𝑆 𝑑𝑓 𝑀𝑆 𝐹
+
+```         
+```
+
+Model (IV) 𝑆𝑆𝑀𝑜𝑑𝑒𝑙 𝑎− 1 𝑆𝑆𝑀𝑜𝑑𝑒𝑙𝐼𝑉 𝑎− 1
+
+```         
+```
+
+𝑀𝑆𝑀𝑜𝑑𝑒𝑙𝐼𝑉 𝑀𝑆𝐸𝑟𝑟𝑜𝑟
+
+```         
+```
+
+Blocking 𝑆𝑆𝐵𝑙𝑜𝑐𝑘 𝑏− 1 𝑆𝑆𝐵𝑙𝑜𝑐𝑘 𝑏− 1
+
+```         
+```
+
+𝑀𝑆𝐵𝑙𝑜𝑐𝑘 𝑀𝑆𝐸𝑟𝑟𝑜𝑟
+
+```         
+```
+
+Error 𝑆𝑆𝐸𝑟𝑟𝑜𝑟 𝑁−(𝑎+𝑏− 1 )
+
+```         
+```
+
+𝑆𝑆𝐸𝑟𝑟𝑜𝑟 𝑁− (𝑎+𝑏− 1 ) Total 𝑆𝑆𝑇𝑜𝑡𝑎𝑙 𝑁− 1
+
+```         
+
+# Blocking: Example
+
+𝑆𝑆𝑇𝑜𝑡𝑎𝑙= σ𝑖𝑛= 1 𝑦𝑖𝑗−𝑦ത∙∙
+```
+
+2
+
+```         
+- This is the same as before: take each individual score (𝑦𝑖𝑗), subtract the
+    grand mean (𝑦ത∙∙), and square it 𝑦𝑖𝑗−𝑦ത∙∙
+```
+
+2 .
+
+```         
+- Do this for everyone and then sum over all people (σ𝑖𝑛= 1 𝑦𝑖𝑗−𝑦ത∙∙
+```
+
+2 ).
+
+```         
+- However, when calculating 𝑆𝑆𝑀𝑜𝑑𝑒𝑙(𝐼𝑉), 𝑆𝑆𝐵𝑙𝑜𝑐𝑘, 𝑆𝑆𝐸𝑟𝑟𝑜𝑟, we need to compute
+
+“ **marginal means** ”
+→ A **marginal mean** is the mean for one level of the variable, ignoring the other
+variable
+
+
+# Blocking: Example
+
+- A **marginal mean** is the mean for one level of the variable, ignoring the other
+    variable
+```
+
+Tutor AM PM
+
+```         
+**Marginal
+TUTOR
+Mean
+Bobby** 14.96 8.10 11.91
+**Julia** 26.93 7.18 18.58
+**Monique** 28.25 21.03 23.21
+**Ned** 22.70 12.20 16.4
+**Marginal
+TIME Mean** 22.95 13.43 17.76
+```
+
+For example:
+
+```         
+- The AM marginal mean is the average of all
+    students’ midterm scores in the morning,
+    ignoring who they have as a tutor
+       𝑦ത𝐴𝑀∙ = 22. 95
+- The Bobby marginal mean is the average of
+    all students’ midterm scores who had
+    Bobby as a tutor, ignoring time of day
+       𝑦ത∙𝐵𝑜𝑏𝑏𝑦 = 11. 91
+
+
+# Blocking: Example
+
+### 𝑆𝑆𝑇𝑜𝑡𝑎𝑙= ෍
+```
+
+𝑖= 1
+
+```         
+```
+
+𝑛 𝑦𝑖𝑗−𝑦ത∙∙
+
+```         
+```
+
+2 = 15060. 48
+
+```         
+𝑆𝑆𝑀𝑜𝑑𝑒𝑙(𝐼𝑉) =෍
+𝑎= 1
+```
+
+𝑎 𝑛𝑎 𝑦ത𝑎∙−𝑦ത∙∙\^2 = 4489. 02
+
+```         
+→This is similar to how we computed 𝑆𝑆𝑀𝑜𝑑𝑒𝑙 before: marginal group mean
+subtract off the grand mean and square it. Sum over all groups.
+
+𝑆𝑆𝐵𝑙𝑜𝑐𝑘 = ෍
+𝑏= 1
+```
+
+𝑏 𝑛𝑏 𝑦ത∙𝑏−𝑦ത∙∙\^2 = 3239. 43
+
+```         
+→This is similar to how we computed 𝑆𝑆𝑀𝑜𝑑𝑒𝑙 before: marginal group mean
+subtract off the grand mean and square it. Sum over all groups. Technically, the
+blocking factor is just another IV.
+𝑆𝑆𝐸𝑟𝑟𝑜𝑟 = 𝑆𝑆𝑇𝑜𝑡𝑎𝑙− 𝑆𝑆𝑀𝑜𝑑𝑒𝑙𝐼𝑉 +𝑆𝑆𝐵𝑙𝑜𝑐𝑘 = 7332. 03
+
+
+# Blocking: Example
+```
+
+Then, we can fill out the ANOVA table:
+
+```         
+```
+
+Under 𝛼=.05, for “Model”: df_M=1, df_error=195 → F_crit=3.89 (so, significant!) For “Blocking”: df_blc=3, df_error=195 → F_crit=2.65 (so, significant!)
+
+```         
+Source 𝑆𝑆 𝑑𝑓 𝑀𝑆 𝐹
+
+Model 𝑆𝑆=𝑀𝑜𝑑𝑒𝑙 4489. 02 𝑎− 1 = 1
+𝑆𝑆𝑀𝑜𝑑𝑒𝑙
+𝑎− 1 =^4489.^02
+```
+
+𝑀𝑆𝑀𝑜𝑑𝑒𝑙 𝑀𝑆𝐸𝑟𝑟𝑜𝑟 = 119. 39
+
+```         
+Blocking 𝑆𝑆=𝐵𝑙𝑜𝑐𝑘 3239. 43 𝑏− 1 = 3 𝑆𝑆𝐵𝑙𝑜𝑐𝑘
+𝑏− 1
+= 1079. 81
+```
+
+𝑀𝑆𝐵𝑙𝑜𝑐𝑘 𝑀𝑆𝐸𝑟𝑟𝑜𝑟 = 28. 72
+
+```         
+Error 𝑆𝑆=𝐸𝑟𝑟𝑜𝑟 7332. 03 𝑁=− 195 𝑎+𝑏−^1
+```
+
+𝑆𝑆𝐸𝑟𝑟𝑜𝑟 𝑁− (𝑎+𝑏− 1 ) = 37. 60
+
+```         
+Total 𝑆𝑆=𝑇𝑜𝑡𝑎𝑙 15060. 48 𝑁− 1 = 199
+
+
+# Blocking: Example—Write it up!
+
+- A randomized block design was used to test the effect of tutoring time on
+    midterm scores. For each tutor, participants were randomly assigned to either
+    morning (𝑛 = 91 ) or afternoon (𝑛= 109 ) tutoring sessions.
+- The effect of tutoring time was significant (𝐹 1 , 195 = 119. 39 ,𝑝<
+   . 001 ,𝜂^2 𝑇𝑖𝑚𝑒 =. 298 ) with a large effect. Using a Tukey’s test, morning is
+    significantly higher than afternoon sessions (𝑝 <. 05 ).
+- The effect of the blocking factor, tutor, was significant (𝐹 3 , 195 = 28. 72 ,𝑝<
+   . 001 ,𝜂^2 𝑇𝑢𝑡𝑜𝑟 =. 215 ) with a large effect. Using a Tukey’s test, Monique’s students
+    were significantly higher than other students, and Bobby’s students were
+    significantly lower than other students in the midterm scores (𝑝<. 05 ).
+
+
+# Blocking: Example -> 2 Blocking Factors?
+
+- Researchers are interested in comparing the effectiveness of three health
+    promotion programs with nursing students.
+- The researcher has the following research question: Which of the three health
+    promotion programs are most effective at reducing unhealthy coping behaviors?
+       ✓ Unhealthy coping behavior is measured as a composite score from the
+          “Poor Coping Behavior” survey (PCB). High scores on the PCB indicate
+          higher levels of unhealthy coping behaviors. Low scores indicate low levels
+          of unhealthy coping behaviors. PCB scores can range from 0 (no unhealthy
+          behaviors) to 100 (multiple unhealthy behaviors at high frequency and high
+          intensity).
+       ✓ The researcher thinks that the health promotion programs for nursing
+          students may have an effect on academic and well-being outcomes.
+       ✓ However, gender and status (traditional vs. non-traditional student)
+          differences may influence the effectiveness of health promotion programs.
+
+
+# Blocking: Example -> 2 Blocking Factors?
+
+- The researcher has a sample of 200 nursing students from the state of Arkansas.
+    50 students are assigned to each program: Program A, Program B, and Program
+    C. In addition, 50 students are assigned to a control group that receives the
+    status quo educational model.
+```
+
+✓ What is the dependent variable? → PCB SCORES
+
+```         
+```
+
+✓ What is the independent variable of interest? → HEALTH PROGRAM (4 LEVELS)
+
+```         
+```
+
+✓ What is (are) the blocking variable(s), aka the confounding variables, that the researcher might statistically control for? → GENDER, STATUS
+
+```         
+
+# Blocking: Example -> 2 Blocking Factors?
+
+- Descriptive Statistics: group sex status N M S.D. Min. Max.
+```
+
+Ctrl
+
+```         
+```
+
+F N 11 54.00 4.82 46 65 T 21 57.90 4.88 52 70 M N 10 56.50 4.79 48 65 T 8 55.00 3.63 49 59
+
+```         
+```
+
+Trt_A
+
+```         
+```
+
+F N 4 27.25 3.69 23 32 T 18 30.83 5.37 20 41 M N 8 28.75 4.83 22 38 T 20 30.25 4.93 21 37
+
+```         
+```
+
+Trt_B
+
+```         
+```
+
+F N 7 37.00 5.77 31 44 T 28 36.46 4.38 27 45 M N 5 38.80 4.82 34 44 T 10 39.70 6.73 29 52
+
+```         
+```
+
+Trt_C
+
+```         
+```
+
+F N 5 41.00 6.78 32 48 T 24 40.08 5.52 30 55 M N 12 39.17 4.28 33 46 T 9 41.00 6.54 29 49
+
+```         
+```
+
+0
+
+```         
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+70
+```
+
+N T N T N T N T Control Treatment A Treatment B Treatment C
+
+```         
+```
+
+F M \`\`\`

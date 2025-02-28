@@ -226,6 +226,12 @@ head(penguins)
 
 ![](images/clipboard-249611071.png)
 
+-   Math text
+
+    ```{markdown}
+    $\mathcal{N}(\mu, \sigma^2)$
+    ```
+
 # Quarto PDF
 
 ## Example: Quarto PDF
@@ -380,8 +386,6 @@ resume_entry(educ)
 
 5.  Render the file
 
-------------------------------------------------------------------------
-
 # Quarto Website
 
 ## Overview
@@ -460,7 +464,7 @@ See the documentation on [Website Navigation](https://quarto.org/docs/websites/w
 
     -   Check this [YouTube video](https://www.youtube.com/watch?v=nuYNCPRf8Js) - *How to publish a website FOR FREE in under 60 seconds using Quarto*
 
-::: {.discussion .callout-note}
+::: callout-note
 ## Summary
 
 1.  Today, we learnt the basic information of Quarto Document (`.qmd`)
@@ -468,7 +472,7 @@ See the documentation on [Website Navigation](https://quarto.org/docs/websites/w
 3.  We can install Quarto extension to use the template of PDF
 4.  Settings can be manipulated in YAML header of each quarto document
 
-## General Suggestions
+### General Suggestions {.discussion}
 
 1.  Use Quarto document to report you data analysis results.
 2.  Use Quarto document to write notes
