@@ -83,12 +83,25 @@ pubs_count_byyear <- pubs |>
 
 
 total_publication <- paste0("In total, I've published ", nrow(pubs), " papers. ")
-count_in_each_year = "In recent years, I published"
+p(total_publication)
+```
 
-count_in_each_year <- paste0(total_publication, count_in_each_year, " ",
-                            paste(paste0(pubs_count_byyear$n, " papers in ",  pubs_count_byyear$year), collapse = ", "), ".")
-  
-p(count_in_each_year)
+```{r}
+library(dygraphs)
+pubs_count_ts <- pubs_count_byyear |> arrange(year) |> mutate(n_cum = cumsum(n))
+
+## Refer to https://rstudio.github.io/dygraphs/
+dygraph(pubs_count_ts, 
+        xlab = "Year",
+        main = "Jihong: Number Publications by Year") |>
+  dyAxis("y", label = "Number of publications", valueRange = c(0, max(pubs_count_ts$n_cum) + 5)) |> 
+  dySeries("n_cum", label = "Cumulative Number")  |> 
+  dySeries("n", label = "Number")  |> 
+  dyOptions(colors = RColorBrewer::brewer.pal(3, "Set2")) |> 
+  dyOptions(axisLineWidth = 1.5, fillGraph = TRUE, drawPoints = TRUE, pointSize = 3) |> 
+  dyHighlight(highlightCircleSize = 5, 
+              highlightSeriesBackgroundAlpha = 0.4,
+              hideOnMouseOut = FALSE)
 ```
 
 @fig-citation shows the number of citation by year.
