@@ -7,46 +7,8 @@ execute:
   echo: false
 format: 
   html:
-    code-tools: false
+    code-tools: true
     code-fold: false
-include-before-body:
-  text: |
-    <script>
-    var filterCat = function(name) {
-            var x = document.getElementById("badge-"+name);
-            x.classList.toggle("active");
-          
-            document.querySelectorAll(".cat-badge:not(#badge-"+ name + ")").forEach(e=>(e.classList.remove("active")))
-
-            var all_articles = document.getElementsByClassName("ref-entry");
-          
-            if (x.classList.contains("active")) {
-                for(var i = 0; i< all_articles.length;i++) {
-                  all_articles[i].style.display = all_articles[i].classList.contains("is-"+name) ? "block":"none";
-                }
-            } else {
-               for(var i = 0; i< all_articles.length;i++) {
-                  all_articles[i].style.display = "block";
-                } 
-            }
-      }
-      window.onload = function(){
-        const searchParams = new URLSearchParams(window.location.search);
-        if (searchParams.has("filter")) {
-          if (searchParams.get('filter')=="la"){filterCat("la")}
-          if (searchParams.get('filter')=="biblio"){filterCat("biblio")}
-          if (searchParams.get('filter')=="gbl"){filterCat("gbl")}
-          if (searchParams.get('filter')=="eng"){filterCat("eng")}
-          if (searchParams.get('filter')=="ai"){filterCat("ai")}
-  
-        }
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-           return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-      }
-
-    </script>    
 ---
 
 ```{r setup}
@@ -57,8 +19,12 @@ library(dplyr)
 library(stringr)
 ```
 
-```{r}
+```{r compile_data}
 #| include: false
+
+# "MbRDAB4AAAAJ" is my Google scholar id, which can be found in your Google scholar URL address
+# For example, my Google scholar webpage has the URL "https://scholar.google.com/citations?user=MbRDAB4AAAAJ&hl=zh-CN"
+# Text after "user=" is your ID
 pubs <- scholar::get_publications("MbRDAB4AAAAJ", sortby = "year") 
 pubs <- pubs |> 
   mutate(
@@ -73,7 +39,7 @@ pubs <- pubs |>
 
 ```
 
-```{r}
+```{r total_paper}
 ## Dynamically display the histogram of number of publications
 library(htmltools)
 pubs_count_byyear <- pubs |> 
@@ -86,7 +52,7 @@ total_publication <- paste0("In total, I've published ", nrow(pubs), " papers. "
 p(total_publication)
 ```
 
-```{r}
+```{r dynamic_plot}
 library(dygraphs)
 pubs_count_ts <- pubs_count_byyear |> arrange(year) |> mutate(n_cum = cumsum(n))
 
