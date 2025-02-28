@@ -1,0 +1,133 @@
+---
+title: "Publications | Jihong Zhang"
+sidebar: false
+toc: false
+execute: 
+  eval: true
+  echo: false
+format: 
+  html:
+    code-tools: false
+    code-fold: false
+include-before-body:
+  text: |
+    <script>
+    var filterCat = function(name) {
+            var x = document.getElementById("badge-"+name);
+            x.classList.toggle("active");
+          
+            document.querySelectorAll(".cat-badge:not(#badge-"+ name + ")").forEach(e=>(e.classList.remove("active")))
+
+            var all_articles = document.getElementsByClassName("ref-entry");
+          
+            if (x.classList.contains("active")) {
+                for(var i = 0; i< all_articles.length;i++) {
+                  all_articles[i].style.display = all_articles[i].classList.contains("is-"+name) ? "block":"none";
+                }
+            } else {
+               for(var i = 0; i< all_articles.length;i++) {
+                  all_articles[i].style.display = "block";
+                } 
+            }
+      }
+      window.onload = function(){
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.has("filter")) {
+          if (searchParams.get('filter')=="la"){filterCat("la")}
+          if (searchParams.get('filter')=="biblio"){filterCat("biblio")}
+          if (searchParams.get('filter')=="gbl"){filterCat("gbl")}
+          if (searchParams.get('filter')=="eng"){filterCat("eng")}
+          if (searchParams.get('filter')=="ai"){filterCat("ai")}
+  
+        }
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+           return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+      }
+
+    </script>    
+---
+
+
+```{r setup}
+#| message: false
+library(scholar)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+```
+
+
+```{r}
+#| include: false
+# format_publications("MbRDAB4AAAAJ")
+pubs <- scholar::get_publications("MbRDAB4AAAAJ", sortby = "citation") 
+pubs <- pubs |> 
+  mutate(
+    URL = paste0( "[here](", get_article_scholar_url(id = "MbRDAB4AAAAJ", pubid = pubid), ")")
+  )
+pubs <- pubs |> 
+  arrange(desc(year)) |> 
+  select(title:number, year, URL)
+```
+
+```{r}
+library(htmltools)
+pubs_count_byyear <- pubs |> 
+  count(year) |> 
+  arrange(desc(year)) |> 
+  slice_head(n = 5)
+
+
+count_in_each_year = "In recent five years, I published"
+
+count_in_each_year <- paste0(count_in_each_year, " ",
+                            paste(paste0(pubs_count_byyear$n, " papers in ",  pubs_count_byyear$year), collapse = ", "), ".")
+  
+p(count_in_each_year)
+```
+@fig-citation shows the number of citation by year.
+
+## Journal Articles 
+
+::: {.nice-paragraph}
+
+```{r}
+#| echo: false
+#| results: asis
+#| warning: false
+
+# https://github.com/sonsoleslp/sonsoleslp.github.io/blob/main/publications.qmd
+pubs_count_byyear <- pubs_count_byyear |> 
+  mutate(n_cum = cumsum(n))
+
+pubs_formated <- format_publications("MbRDAB4AAAAJ")
+pubs_formated<- str_replace(pubs_formated, "Zhang, J.", "**Zhang, J.**")
+for (y in 1:nrow(pubs_count_byyear)) {
+  print(h3(pubs_count_byyear$year[y]))
+  
+  index_min = ifelse(y == 1, 1, pubs_count_byyear$n_cum[y-1] + 1)
+  index_max = pubs_count_byyear$n_cum[y]
+  for (i in index_min:index_max) {
+    cat("\n\n")
+    print(htmltools::tags$ul(pubs_formated[i]), style="padding-left: 3rem")
+  }
+}
+```
+
+:::
+
+```{r}
+#| label: fig-citation
+#| fig-cap: "Histogram of Citations by Year"
+cit <- get_citation_history('MbRDAB4AAAAJ') # the Google Scholar ID
+ggplot(cit,aes(x=year,y=cites))+
+  geom_bar(stat='identity')+
+  geom_label(aes(label = cites)) +
+  theme_classic()+
+  xlab('Year of citation')+
+  ylab('Google Scholar\n cites')+
+  annotate('text',label=format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"),x=-Inf,y=Inf,vjust=1.5,hjust=-0.05,size=3,colour='gray')
+```
+

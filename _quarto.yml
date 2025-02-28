@@ -93,7 +93,7 @@ website:
         file: teaching.qmd
       - text: "|"
       - text: "<span class='menutext-home' style='font-weight:bold; font-family: Taub Sans;'>Research</span><span class='text-line'></span>"
-        file: research/index.qmd
+        file: research/publications.qmd
       - text: "|"
       - text: "<span class='menutext-blog' style='font-weight:bold; font-family: Taub Sans;'>Presentation</span><span class='text-line'></span>"
         file: presentation.qmd
