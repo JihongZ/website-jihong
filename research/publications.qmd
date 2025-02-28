@@ -80,9 +80,10 @@ pubs_count_byyear <- pubs |>
   slice_head(n = 5)
 
 
+total_publication <- paste0("In total, I've published ", nrow(pubs), " papers. ")
 count_in_each_year = "In recent five years, I published"
 
-count_in_each_year <- paste0(count_in_each_year, " ",
+count_in_each_year <- paste0(total_publication, count_in_each_year, " ",
                             paste(paste0(pubs_count_byyear$n, " papers in ",  pubs_count_byyear$year), collapse = ", "), ".")
   
 p(count_in_each_year)
