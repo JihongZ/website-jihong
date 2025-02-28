@@ -33,12 +33,12 @@ a:link {
 
 /* Dissuss: how to switch animation conditional on light or dark theme */
 /* https://github.com/quarto-dev/quarto-cli/discussions/7713 */
-body.quarto-light .menu-text:hover > .menutext-home {
+body.quarto-light .menu-text:hover > .menutext-teach {
     animation-duration: 400ms;
     animation-name: changecolor-home-light;
     animation-fill-mode: forwards;
 }
-body.quarto-dark .menu-text:hover > .menutext-home {
+body.quarto-dark .menu-text:hover > .menutext-teach {
     animation-duration: 400ms;
     animation-name: changecolor-home-dark;
     animation-fill-mode: forwards;
@@ -51,6 +51,57 @@ body.quarto-dark .menu-text:hover > .menutext-home {
   from {color: #FFFFFF;}
   to {color: #D4006A;}
 }
+
+/* research */
+body.quarto-light .menu-text:hover > .menutext-research {
+  animation-duration: 400ms;
+  animation-name: changecolor-research-light;
+  animation-fill-mode: forwards;
+}
+body.quarto-dark .menu-text:hover > .menutext-research {
+  animation-duration: 400ms;
+  animation-name: changecolor-research-dark;
+  animation-fill-mode: forwards;
+}
+@keyframes changecolor-research-light {
+  from {color: #000000;}
+  to {color: #c19f7f;}
+}
+@keyframes changecolor-research-dark {
+  from {color: #FFFFFF;}
+  to {color: #c19f7f;}
+}
+.menu-text:hover > .text-line-research  {
+  animation-duration: 400ms;
+  animation-name: line-expand;
+  animation-fill-mode: forwards;
+}
+
+/* presentation */
+body.quarto-light .menu-text:hover > .menutext-presentation {
+  animation-duration: 400ms;
+  animation-name: changecolor-presentation-light;
+  animation-fill-mode: forwards;
+}
+body.quarto-dark .menu-text:hover > .menutext-presentation {
+  animation-duration: 400ms;
+  animation-name: changecolor-presentation-dark;
+  animation-fill-mode: forwards;
+}
+@keyframes changecolor-presentation-light {
+  from {color: #000000;}
+  to {color: #9A4665;}
+}
+@keyframes changecolor-presentation-dark {
+  from {color: #FFFFFF;}
+  to {color: #9A4665;}
+}
+.menu-text:hover > .text-line-presentation  {
+  animation-duration: 400ms;
+  animation-name: line-expand;
+  animation-fill-mode: forwards;
+}
+
 
 body.quarto-light .menu-text:hover > .menutext-blog {
   animation-duration: 400ms;
@@ -104,32 +155,6 @@ body.quarto-dark .menu-text:hover > .menutext-db {
 }
 
 
-
-/* Color switching for C.V. */
-body.quarto-light .menu-text:hover > .menutext-cv {
-  animation-duration: 400ms;
-  animation-name: changecolor-cv-light ;
-  animation-fill-mode: forwards;
-}
-body.quarto-dark .menu-text:hover > .menutext-cv {
-  animation-duration: 400ms;
-  animation-name: changecolor-cv-dark ;
-  animation-fill-mode: forwards;
-}
-@keyframes changecolor-cv-light {
-  from {color: #000000;}
-  to {color: #4b74a9;}
-}
-@keyframes changecolor-cv-dark {
-  from {color: #FFF;}
-  to {color: #4b74a9;}
-}
-.menu-text:hover > .text-line-cv {
-  animation-duration: 400ms;
-  animation-name: line-expand;
-  animation-fill-mode: forwards;
-}
-
 /* Color switching for Project */
 body.quarto-light .menu-text:hover > .menutext-pj {
   animation-duration: 400ms;
@@ -143,11 +168,11 @@ body.quarto-dark .menu-text:hover > .menutext-pj {
 }
 @keyframes changecolor-pj-light {
   from {color: #000000;}
-  to {color: #ffd942;}
+  to {color:  #ffbc0b;}
 }
 @keyframes changecolor-pj-dark {
   from {color: #FFF;}
-  to {color: #ffd942;}
+  to {color:	#ffbc0b;}
 }
 .menu-text:hover > .text-line-pj {
   animation-duration: 400ms;

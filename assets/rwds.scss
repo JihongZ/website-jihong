@@ -74,13 +74,6 @@
 }
 
 
-.menu-text {
-  font-family: "Titillium Web", sans-serif;
-  letter-spacing: 1px;
-  font-weight: normal;
-  color: $menutext-bg;
-}
-
 body {
   font-family: "MiSans", sans-serif;
 }
@@ -205,9 +198,15 @@ div.cell-output {
   margin-bottom: -6px;
 }
 
+.menu-text {
+  font-family: "Titillium Web", sans-serif;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: $menutext-bg;
+}
+
 .text-line {
   display: block;
-  background: $primary;
   width: 0%;
   height: 3px;
   margin: auto;
@@ -216,70 +215,32 @@ div.cell-output {
   margin-bottom: -6px;
 }
 
+.text-line-teach {
+  background: #D4006A;
+}
+.text-line-research {
+  background: #c19f7f;
+}
+.text-line-presentation {
+  background: #9A4665;
+}
 .text-line-blog {
-  display: block;
   background: #6636a9;
-  width: 0%;
-  height: 3px;
-  margin: auto;
-  display: table;
-  margin-top: -1px;
-  margin-bottom: -6px;
 }
-
 .text-line-db {
-  display: block;
   background: #6ec742;
-  width: 0%;
-  height: 3px;
-  margin: auto;
-  display: table;
-  margin-top: -1px;
-  margin-bottom: -6px;
 }
-
 .text-line-cv {
-  display: block;
   background: #4b74a9;
-  width: 0%;
-  height: 3px;
-  margin: auto;
-  display: table;
-  margin-top: -1px;
-  margin-bottom: -6px;
 }
-
 .text-line-pj {
-  display: block;
-  background: #ffd942;
-  width: 0%;
-  height: 3px;
-  margin: auto;
-  display: table;
-  margin-top: -1px;
-  margin-bottom: -6px;
+  background:  #ffbc0b;
 }
-
 .text-line-cn {
-  display: block;
   background: #666699;
-  width: 0%;
-  height: 3px;
-  margin: auto;
-  display: table;
-  margin-top: -1px;
-  margin-bottom: -6px;
 }
-
 .text-line-note {
-  display: block;
   background: #e3abdb;
-  width: 0%;
-  height: 3px;
-  margin: auto;
-  display: table;
-  margin-top: -1px;
-  margin-bottom: -6px;
 }
 
 button.show-answer {
@@ -379,7 +340,7 @@ button.show-answer:hover {
 
 /* Styling tab content */
 .panel-tabset .tab-content {
-    padding: 15px;
+    padding: 10px;
     background: $soft-color1;
     border: 0px solid #ddd;
     border-top: none;

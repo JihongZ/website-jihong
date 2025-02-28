@@ -72,7 +72,7 @@ dygraph(pubs_count_ts,
 
 @fig-citation shows the number of citation by year.
 
-## Journal Articles
+## {{< fa pencil >}} Journal Articles 
 
 ::: nice-paragraph
 ```{r}

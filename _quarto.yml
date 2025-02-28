@@ -88,30 +88,19 @@ website:
     title: "<span class='icon-line'></span><b><span style='color:#447099'>Jihong</span></b><span class='icon-line'></span>"
     foreground: "#404041"
     left:
-      - text: "|"
-      - text: "<span class='menutext-home' style='font-weight:bold; font-family: Taub Sans;'>Teaching</span><span class='text-line'></span>"
+      - text: "<span class='menutext-teach'>Lecture</span><span class='text-line text-line-teach'></span>"
         file: teaching.qmd
-      - text: "|"
-      - text: "<span class='menutext-home' style='font-weight:bold; font-family: Taub Sans;'>Research</span><span class='text-line'></span>"
+      - text: "<span class='menutext-research'>Research</span><span class='text-line text-line-research'></span>"
         file: research/publications.qmd
-      - text: "|"
-      - text: "<span class='menutext-blog' style='font-weight:bold; font-family: Taub Sans;'>Presentation</span><span class='text-line'></span>"
+      - text: "<span class='menutext-presentation'>Talk</span><span class='text-line text-line-presentation'></span>"
         file: presentation.qmd
-      - text: "|"
-      - text: "<span class='menutext-blog' style='font-weight:bold; font-family: Taub Sans;'>Blog</span><span class='text-line-blog'></span>"     
-        #icon: 'bi bi-pencil-square'
+      - text: "<span class='menutext-blog'>Blog</span><span class='text-line text-line-blog'></span>"     
         file: posts.qmd 
-      - text: "|"
-      - text: "<span class='menutext-note' style='font-weight:bold; font-family: Taub Sans;'>Note</span><span class='text-line-note'></span>"
-        #icon: 'bi bi-journal-bookmark-fill'
+      - text: "<span class='menutext-note'>Note</span><span class='text-line text-line-note'></span>"
         file: notes.qmd
-      - text: "|"
-      - text: "<span class='menutext-pj' style='font-weight:bold; font-family: Taub Sans;'>Project</span><span class='text-line-pj'></span>"
-        #icon: 'bi bi-clipboard-data'
+      - text: "<span class='menutext-pj'>Project</span><span class='text-line text-line-pj'></span>"
         file: projects.qmd
-      - text: "|"
-      - text: "<span class='menutext-db' style='font-weight:bold; font-family: Taub Sans;'>Dashboard</span><span class='text-line-db'></span>"
-        #icon: "bi bi-speedometer2"
+      - text: "<span class='menutext-db'>Dashboard</span><span class='text-line text-line-db'></span>"
         file: dashboards/template.qmd  
     tools:
       - icon: "bi bi-person-square" # somehow the file path only works in nav. bar, not link in index
@@ -144,7 +133,6 @@ format:
     html-math-method: katex
     lightbox: true # Lightbox Figure
     # code settings
-    # highlight-style: "nord"
     fontsize: 1.1em
     monofont: 'JetBrains Mono'
     reading-time: true
