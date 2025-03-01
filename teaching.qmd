@@ -7,11 +7,12 @@ listing:
     sort: "date desc"
     type: grid
 title-block-banner: false
+format: 
+  html:
+    code-tools: false
 ---
 
-
-::: {.nice-paragraph}
-
+::: nice-paragraph
 ## Courses
 
 1.  **ESRM 64103. Experimental Design in Education**. 3 Hours.
@@ -22,7 +23,6 @@ title-block-banner: false
     -   Builds on the foundation provided in Multivariate and introduces techniques that extend methodological elements of canonical, discriminant, factor analytic, and longitudinal analyses, providing the mathematical and theoretical foundations necessary for these designs. Prerequisite: [ESRM 64503](https://catalog.uark.edu/search/?P=ESRM%2064503 "ESRM 64503") with a grade of C or better. (Typically offered: **Spring Even Years**)
 4.  **ESRM 6990V. ADVANCED SEMINAR: Introduction to R.** 3 Hours
     -   This seminar covers basics of R, data wrangling, data visualization, project version control via git etc. (Typically offered: **Spring**)
-
 :::
 
 ::: {#lectures}

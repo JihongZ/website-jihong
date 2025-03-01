@@ -1,5 +1,5 @@
 ---
-title: "How to set up High Performance Computing"
+title: "Use High Performance Computing UArk"
 subtitle: "AHPCC from University of Arkansas"
 author: Jihong Zhang
 date: 2024-01-14
@@ -13,6 +13,7 @@ format:
     code-line-numbers: false
     toc: true
     toc-depth: 3
+    number-sections: true
 citation:
   type: webpage
   issued: 2024-01-14
@@ -167,14 +168,14 @@ xfun::embed_file("summary.pdf")
 This command will redirect to cloud72 queue, which includes virtual machines and containers, usually single processor, 72 hour limit, 3 nodes.
 :::
 
-| slurm commands         | compatibility commands     | Meaning                            |
+| slurm commands | compatibility commands | Meaning |
 |-------------------|-----------------------|------------------------------|
-| `sbatch`               | `qsub`                     | submit \<job file\>                |
-| `srun`                 | `qsub -I`                  | submit interactive job             |
-| `squeue`               | `qstat`                    | list all queued jobs               |
-| `squeue -u [username]` | `qstat -u [username]`      | list queued jobs for user rfeynman |
-| `scancel`              | `qdel`                     | cancel \<job#\>                    |
-| `sinfo`                | `shownodes -l -n;qstat -q` | node status;list of queues         |
+| `sbatch` | `qsub` | submit \<job file\> |
+| `srun` | `qsub -I` | submit interactive job |
+| `squeue` | `qstat` | list all queued jobs |
+| `squeue -u [username]` | `qstat -u [username]` | list queued jobs for user rfeynman |
+| `scancel` | `qdel` | cancel \<job#\> |
+| `sinfo` | `shownodes -l -n;qstat -q` | node status;list of queues |
 
 ::: callout-note
 ## Note

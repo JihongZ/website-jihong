@@ -1,6 +1,7 @@
 //@import 'https://fonts.googleapis.com/css2?family=Maven+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Nunito:wght@300;400;500&family=JetBrains+Mono';
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 /*-- scss:rules --*/
 @font-face {
@@ -85,6 +86,10 @@ h1, h2, h3 {
   font-weight: normal;
 }
 
+p.subtitle.lead{
+  font-family: "Montserrat", sans-serif;
+}
+
 p { // main font family of post content
   font-family: "MiSans", sans-serif;
   font-weight: 200;
@@ -134,6 +139,17 @@ $breadcrumb-border-radius:  0.30em;
 // https://quarto.org/docs/output-formats/html-themes.html#inline-code
 $code-bg: #e7e7e7; // code block's bg
 
+/* Quarto title block */
+div.quarto-title.column-body {
+  display: block;
+  background: #81acbd;
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+  padding-top: 20px;
+  padding-right: 30px;
+  padding-bottom: 20px;
+  padding-left: 80px;
+}
 /* Source Code  */
 pre.sourceCode.r::before, .language-r::before {
   content:"R";

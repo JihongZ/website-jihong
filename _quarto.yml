@@ -153,6 +153,8 @@ format:
     reference-location: margin
     citation-location: margin
     footnotes-hover: true
+    title-block-banner: "#3e8299" # title banner color value: true/false/css color/location
+    title-block-banner-color: "#f7f9fc" # Text color
     
 editor: visual
 
