@@ -296,19 +296,19 @@ exp_l <- exp |>
 summary(aov(score ~ block + method, data = exp_l))
 ```
 
----
+------------------------------------------------------------------------
 
 ### Proportion of Sum of Square
 
-:::: columns
-::: {.column}
+::::: columns
+::: column
 ```{r}
 aov_fit <- aov(score ~ block + method, data = exp_l)
 summary(aov_fit)
 ```
 :::
 
-::: {.column}
+::: column
 ```{r}
 #| echo: false
 
@@ -319,11 +319,10 @@ names(SS) <- trimws(rownames(x))
 pie(SS, col = c("purple", "green3", "violetred1"), 
     labels = paste0(names(SS), ": ", round(SS / sum(SS) * 100, 2), "%"))
 ```
-
 :::
-::::
+:::::
 
-:::: columns
+::::: columns
 ::: column
 ```{r}
 stats::TukeyHSD(aov_fit)$method |> round(2)
@@ -331,11 +330,11 @@ stats::TukeyHSD(aov_fit)$method |> round(2)
 :::
 
 ::: column
-- After removing the variability of the blocking factor (forms), we observed significant Group Differences using block design in the following group pairs: 
-  -   Method 4 vs. 2; 
-  -   Method 4 vs. 3;
+-   After removing the variability of the blocking factor (forms), we observed significant Group Differences using block design in the following group pairs:
+    -   Method 4 vs. 2;
+    -   Method 4 vs. 3;
 :::
-::::
+:::::
 
 ## 2. Latin Square Design
 
@@ -351,435 +350,282 @@ stats::TukeyHSD(aov_fit)$method |> round(2)
 -   Comparing RCBD, or CRD, Latin square design has two nuisance factors.
 -   Each treatment occurs only once in each row and once in each column.
 -   We assume that three factors (factor of the interest, two nuisance factors) are not interacting with each other.
-    - Row: School; Column: Form
-    - Treatment factor: Lecture - A/B/C/D
-    - Nuisance factors: School - 1/2/3/4 and Form - 1/2/3/4 
-    
-|          | Form 1 | Form 2 | Form 3 | Form 4 |
-|:--------:|:------:|:------:|:------:|:------:|
-| School 1 |   [A]{.red}    |   D    |   C    |   B    |
-| School 2 |   B    |   [A]{.red}    |   D    |   C    |
-| School 3 |   C    |   B    |   [A]{.red}    |   D    |
-| School 4 |   D    |   C    |   B    |   [A]{.red}    |
+    -   Row: School; Column: Form
+    -   Treatment factor: Lecture - A/B/C/D
+    -   Nuisance factors: School - 1/2/3/4 and Form - 1/2/3/4
 
----
+|          |  Form 1   |  Form 2   |  Form 3   |  Form 4   |
+|:--------:|:---------:|:---------:|:---------:|:---------:|
+| School 1 | [A]{.red} |     D     |     C     |     B     |
+| School 2 |     B     | [A]{.red} |     D     |     C     |
+| School 3 |     C     |     B     | [A]{.red} |     D     |
+| School 4 |     D     |     C     |     B     | [A]{.red} |
 
+------------------------------------------------------------------------
 
 -   Within each cell, we have multiple people.
     -   A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4
 
-|          | Form 1 | Form 2 | Form 3 | Form 4 |
-|:--------:|:------:|:------:|:------:|:------:|
-| School 1 |   [A]{.red}    |   D    |   C    |   B    |
-| School 2 |   B    |   [A]{.red}    |   D    |   C    |
-| School 3 |   C    |   B    |   [A]{.red}    |   D    |
-| School 4 |   D    |   C    |   B    |   [A]{.red}    |
+|          |  Form 1   |  Form 2   |  Form 3   |  Form 4   |
+|:--------:|:---------:|:---------:|:---------:|:---------:|
+| School 1 | [A]{.red} |     D     |     C     |     B     |
+| School 2 |     B     | [A]{.red} |     D     |     C     |
+| School 3 |     C     |     B     | [A]{.red} |     D     |
+| School 4 |     D     |     C     |     B     | [A]{.red} |
+
 : {.hover .stripped}
 
--   The number of rows and columns has to correspond to the number of treatment levels. So, if we have four treatments then we would need to have four rows and four columns in order to create a Latin square. 
+-   The number of rows and columns has to correspond to the number of treatment levels. So, if we have four treatments then we would need to have four rows and four columns in order to create a Latin square.
 
 ::: callout-tip
-- This is just one of many 4×4 squares that you could create. In fact, you can make any size square you want, for any number of treatment
-- that each treatment occurs only once in each row and once in each column.
+-   This is just one of many 4×4 squares that you could create. In fact, you can make any size square you want, for any number of treatment
+-   that each treatment occurs only once in each row and once in each column.
 :::
 
 ## 2. Benefits of Latin Square Design?
 
--   An assumption that we make when using a Latin square design is that the three factors (treatments, and two nuisance factors) do not interact. If this assumption is violated, the Latin Square design error term will be inflated.    
+-   An assumption that we make when using a Latin square design is that the three factors (treatments, and two nuisance factors) do not interact. If this assumption is violated, the Latin Square design error term will be inflated.
 
 -   Benefits of Latin Square Design?
+
     -   The more we can control for, the more error variance we explain, **More powerful test of the IV of interest**
 
-    
+::::: columns
+::: column
+Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explain the outcome.
+
+1.  Adding gender as a nuisance factor explains more variance, thus reducing the amount of error variance.
+2.  Adding another nuisance factor is going to explain even more variance
+:::
+
+::: column
+![](images/clipboard-1659003289.png)
+:::
+:::::
 
 ## 3. Replicated Latin Square Design
 
--   **Sometimes, the** ***df*** **for a Latin square are too small, so we want to replicate** **the Latin Square to get more participants.** - In this example, I replicate it 2 times – the design is different across the replications. - A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4 \`\`\`
+-   **Sometimes, the** ***df*** **for a Latin square are too small, so we want to replicate** **the Latin Square to get more participants.**
+    -   In this example, I replicate it 2 times – the design is different across the replications.
+    -   A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4
 
-Rep.#1 Form 1 Form 2 Form 3 Form 4
+| Rep. #1      | Form 1 | Form 2 | Form 3 | Form 4 | Rep. #2      | Form 4 | Form 3 | Form 2 | Form 4 |
+|--------|:------:|:------:|:------:|:------:|--------|:------:|:------:|:------:|:------:|
+| **School 1** |   A    |   D    |   C    |   B    | **School 1** |   B    |   C    |   D    |   A    |
+| **School 2** |   B    |   A    |   D    |   C    | **School 2** |   C    |   D    |   A    |   B    |
+| **School 3** |   C    |   B    |   A    |   D    | **School 3** |   D    |   A    |   B    |   C    |
+| **School 4** |   D    |   C    |   B    |   A    | **School 4** |   A    |   B    |   C    |   D    |
 
-**School 1** A D C B
+: Replicated Latin Square Design
 
-**School 2** B A D C
+## 4. More than two blocking factors?: Greco-Roman Squares
 
-**School 3** C B A D
+-   **When might this occur?**
+    -   Maybe we think “day of the week has an impact”
+    -   → α=Monday, β=Tuesday, 𝜒=Wednesday, 𝜆=Thursday
+-   This is a **“Greco-Roman squares”** design.
+    -   Greco-Roman squares are a type of combinatorial design consisting of two orthogonal Latin squares of the same order, where each cell contains an ordered pair of symbols from two distinct sets.
 
-**School 4** D C B A
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
+|             | Form 1                             | Form 2                             | Form 3                             | Form 4                             |
++=============+====================================+====================================+====================================+====================================+
+| School 1    | A [$\alpha$]{style="color: red"}   | B [$\lambda$]{style="color: blue"} | C [$\beta$]{style="color: purple"} | D [$\chi$]{style="color: orange"}  |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
+| School 2    | B [$\chi$]{style="color: orange"}  | A [$\beta$]{style="color: purple"} | D [$\lambda$]{style="color: blue"} | C [$\alpha$]{style="color: red"}   |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
+| School 3    | C [$\lambda$]{style="color: blue"} | D [$\alpha$]{style="color: red"}   | A [$\chi$]{style="color: orange"}  | B [$\beta$]{style="color: purple"} |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
+| School 4    | D [$\beta$]{style="color: purple"} | C [$\chi$]{style="color: orange"}  | B [$\alpha$]{style="color: red"}   | A [$\lambda$]{style="color: blue"} |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
 
-```         
+-   Important Considerations about the blocking designs: With Blocking Designs, we still randomly assign individuals within each block.
 
-Rep.#2 Form 1 Form 2 Form 3 Form 4
+## Blocking: Example I
 
-School 1 B C D A School 2 C D A B School 3 D A B C School 4 A B C D
+:::::: columns
+::: {.column width="60%"}
+-   Let’s look at a simple example:
+-   Research question: **What is the effect of time of day of** **tutoring session on midterm grades?**
+-   The Primary Investigator (PI) of the study wants to control for tutor, believing some tutors may be better in the subject matter than others. Thus, they design a completely randomized block design.
+-   Each tutor works with students in the morning and afternoon.
+    -   In this example, student select their favorite tutor, but are then randomly assigned to either a morning (AM) or afternoon (PM) session.
+    -   200 total students: 91 in the morning, 109 in the afternoon
+:::
 
-# More than two blocking factors? → 4. Greco-Roman Squares
+:::: {.column width="40%"}
+![](images/clipboard-3708810514.png)
 
-- **When might this occur?**
-    - Maybe we think “day of the week has an impact”...
-    →α=Monday, β=Tuesday, 𝜒=Wednesday, 𝜆=Thursday
-- This is a **“Greco-Roman squares”** design.
-- **Important Considerations about the blocking designs: With Blocking**
-    **Designs, we still randomly assign individuals within each block.**
+::: callout-note
+DV: Midterm Score (in cells)
+:::
+::::
+::::::
 
-Form 1 Form 2 Form 3 Form 4 School 1 A α B 𝜆 C β D 𝜒 School 2 B 𝜒 A β D 𝜆 C α School 3 C 𝜆 D α A 𝜒 B β School 4 D β C 𝜒 B α A 𝜆
+## Blocking: Example II
 
+:::::: columns
+::: {.column width="60%"}
+-   IV: Time (𝑎= 2 )
+    -   [2 levels]{style="color: orange"}: AM and PM
+-   Nuisance factor: Tutor (𝑏= 4 )
+    -   [4 levels]{style="color: purple"}: Booby, Julia, Monique, and Ned
+-   DV: Midterm Score
+-   Null hypothesis pertaining to the IV of interest:
+    -   $𝐻_0 : \mu_{𝐴𝑀} = \mu_{𝑃𝑀} → a= 2$
+-   We will also have a null hypothesis pertaining to the blocking factor:
+    -   $𝐻_0 : 𝜇_{𝐵𝑜𝑏𝑏𝑦} =𝜇_{𝐽𝑢𝑙𝑖𝑎} = 𝜇_{𝑀𝑜𝑛𝑖𝑞𝑢𝑒} =𝜇_{𝑁𝑒𝑑} → b=4$
+-   Two nulls = two values of $F_{obs}$, two values of $F_{crit}$, two decisions
+:::
 
-# Blocking: Example
+:::: {.column width="40%"}
+![](images/clipboard-3708810514.png)
 
-- Let’s look at a simple example:
-- Research question: **What is the effect of time of day of**
-    **tutoring session on midterm grades?**
-- The Primary Investigator (PI) of the study wants to control
-    for tutor, believing some tutors may be better in the
-    subject matter than others. Thus, they design a completely
-    randomized block design.
-- Each tutor works with students in the morning and
-    afternoon.
-       - In this example, student select their favorite tutor, but
-          are then randomly assigned to either a morning (AM)
-          or afternoon (PM) session.
-       - 200 total students: 91 in the morning, 109 in the
+::: callout-note
+DV: Midterm Score (in cells)
+:::
+::::
+::::::
 
+## Blocking: Example III
 
-# Blocking: Example
+::::: columns
+::: {.column width="50%"}
+-   IV: Time (𝑎= 2 )
 
-- IV: Time (𝑎= 2 )
-    ✓ 2 levels: AM and PM
-- Nuisance factor: Tutor (𝑏= 4 )
-    ✓ 4 levels: Booby, Julia, Monique, and Ned
-- DV: Midterm Score
-- Null hypothesis pertaining to the IV of interest:
-𝐻 0 : 𝜇𝐴𝑀 = 𝜇𝑃𝑀→ a=
-- We will also have a null hypothesis pertaining to
-    the blocking factor:
-𝐻 0 : 𝜇𝐵𝑜𝑏𝑏𝑦 =𝜇𝐽𝑢𝑙𝑖𝑎 = 𝜇𝑀𝑜𝑛𝑖𝑞𝑢𝑒 =𝜇𝑁𝑒𝑑 → b=
-- Two nulls = two F_obs, two F_crit, two decisions
+-   Nuisance factor: Tutor (𝑏= 4 )
 
+-   DV: Midterm Score
 
-# Blocking: Example
+-   Now:
 
-- IV: Time (𝑎= 2 )
-- Nuisance factor: Tutor (𝑏= 4 )
-- DV: Midterm Score
-- Now:
-    𝑆𝑆𝑇𝑜𝑡𝑎𝑙 =𝑆𝑆𝑀𝑜𝑑𝑒𝑙+𝑆𝑆𝐵𝑙𝑜𝑐𝑘+𝑆𝑆𝐸𝑟𝑟𝑜𝑟
+    -   $𝑆𝑆_{Total} =\color{red}{𝑆𝑆_{𝑀𝑜𝑑𝑒𝑙}}+\color{purple}{𝑆𝑆_{𝐵𝑙𝑜𝑐𝑘}}+\color{blue}{𝑆𝑆_{𝐸𝑟𝑟𝑜𝑟}}$
 
-→We can partition the effects into three parts:
-Sum of squares due to treatments (IV = Time),
-Sum of squares due to the blocking factor, and
-Sum of squares due to error.
+-   Thus, we can partition the effects into three parts:
 
-* We **do not** model an **interaction** with blocked
-designs. (we will talk about it later.)
+    -   Sum of squares due to [treatments (IV = Time)]{style="color: red"},
 
-## Tutor
+    -   Sum of squares due to the [blocking factor]{style="color: purple"},
 
-## Time
+    -   and Sum of squares due to [error]{style="color: blue"}.
 
+-   We **do not** model an **interaction** with blocked designs. (we will talk about it later.)
+:::
 
-# Blocking: Example
+::: {.column width="50%"}
+![](images/clipboard-624916915.png)
+:::
+:::::
 
-- IV: Time (𝑎= 2 )
-- Nuisance factor: Tutor (𝑏= 4 )
-- DV: Midterm Score
-- Model: 𝑆𝑆𝑇𝑜𝑡𝑎𝑙 = 𝑆𝑆𝑀𝑜𝑑𝑒𝑙(𝐼𝑉)+𝑆𝑆𝐵𝑙𝑜𝑐𝑘+𝑆𝑆𝐸𝑟𝑟𝑜𝑟
-- ANOVA table:
-```
+## Blocking: Example IV
 
-𝑆𝑜𝑢𝑟𝑐𝑒 𝑆𝑆 𝑑𝑓 𝑀𝑆 𝐹
+-   IV: Time (𝑎= 2 )
+-   Nuisance factor: Tutor (𝑏= 4 )
+-   DV: Midterm Score
+-   Model: $𝑆𝑆_{Total} =\color{red}{𝑆𝑆_{𝑀𝑜𝑑𝑒𝑙}}+\color{purple}{𝑆𝑆_{𝐵𝑙𝑜𝑐𝑘}}+\color{blue}{𝑆𝑆_{𝐸𝑟𝑟𝑜𝑟}}$
+-   ANOVA table:
 
-```         
-```
+![](images/clipboard-505786804.png)
 
-Model (IV) 𝑆𝑆𝑀𝑜𝑑𝑒𝑙 𝑎− 1 𝑆𝑆𝑀𝑜𝑑𝑒𝑙𝐼𝑉 𝑎− 1
+## Blocking: Example V
 
-```         
-```
+$$
+SS_{Total}=\sum_{i=1}^{n}(y_{ij}-\bar{y}_{..})^2
+$$
 
-𝑀𝑆𝑀𝑜𝑑𝑒𝑙𝐼𝑉 𝑀𝑆𝐸𝑟𝑟𝑜𝑟
+-   This is the same as before: take each individual score ($y_{ij}$), subtract the grand mean ($\bar{y}$), and square it $(y_{ij}-\bar{y}_{..})^2$
 
-```         
-```
+-   Do this for everyone and then sum over all people $\sum_{i=1}^{n}(y_{ij}-\bar{y}_{..})^2$
 
-Blocking 𝑆𝑆𝐵𝑙𝑜𝑐𝑘 𝑏− 1 𝑆𝑆𝐵𝑙𝑜𝑐𝑘 𝑏− 1
+-   However, when calculating IV: $SS_{Model}$, $SS_{Block}$, $SS_{error}$, we need to compute "**marginal means**"
 
-```         
-```
+    -   A **marginal mean** is the mean for one level of the variable, ignoring the other variable
 
-𝑀𝑆𝐵𝑙𝑜𝑐𝑘 𝑀𝑆𝐸𝑟𝑟𝑜𝑟
+## Blocking: Example VI
 
-```         
-```
+-   A **marginal mean** is the mean for one level of the variable, ignoring the other variable
 
-Error 𝑆𝑆𝐸𝑟𝑟𝑜𝑟 𝑁−(𝑎+𝑏− 1 )
-
-```         
-```
-
-𝑆𝑆𝐸𝑟𝑟𝑜𝑟 𝑁− (𝑎+𝑏− 1 ) Total 𝑆𝑆𝑇𝑜𝑡𝑎𝑙 𝑁− 1
-
-```         
-
-# Blocking: Example
-
-𝑆𝑆𝑇𝑜𝑡𝑎𝑙= σ𝑖𝑛= 1 𝑦𝑖𝑗−𝑦ത∙∙
-```
-
-2
-
-```         
-- This is the same as before: take each individual score (𝑦𝑖𝑗), subtract the
-    grand mean (𝑦ത∙∙), and square it 𝑦𝑖𝑗−𝑦ത∙∙
-```
-
-2 .
-
-```         
-- Do this for everyone and then sum over all people (σ𝑖𝑛= 1 𝑦𝑖𝑗−𝑦ത∙∙
-```
-
-2 ).
-
-```         
-- However, when calculating 𝑆𝑆𝑀𝑜𝑑𝑒𝑙(𝐼𝑉), 𝑆𝑆𝐵𝑙𝑜𝑐𝑘, 𝑆𝑆𝐸𝑟𝑟𝑜𝑟, we need to compute
-
-“ **marginal means** ”
-→ A **marginal mean** is the mean for one level of the variable, ignoring the other
-variable
-
-
-# Blocking: Example
-
-- A **marginal mean** is the mean for one level of the variable, ignoring the other
-    variable
-```
-
-Tutor AM PM
-
-```         
-**Marginal
-TUTOR
-Mean
-Bobby** 14.96 8.10 11.91
-**Julia** 26.93 7.18 18.58
-**Monique** 28.25 21.03 23.21
-**Ned** 22.70 12.20 16.4
-**Marginal
-TIME Mean** 22.95 13.43 17.76
-```
-
+::::: columns
+::: {.column width="50%"}
 For example:
 
-```         
-- The AM marginal mean is the average of all
-    students’ midterm scores in the morning,
-    ignoring who they have as a tutor
-       𝑦ത𝐴𝑀∙ = 22. 95
-- The Bobby marginal mean is the average of
-    all students’ midterm scores who had
-    Bobby as a tutor, ignoring time of day
-       𝑦ത∙𝐵𝑜𝑏𝑏𝑦 = 11. 91
+-   The AM marginal mean is the average of all students’ midterm scores in the morning, ignoring who they have as a tutor $$
+    \bar{y}_{AM.} = 22.95
+    $$
+-   The Bobby marginal mean is the average of all students’ midterm scores who had Bobby as a tutor, ignoring time of day $$
+    \bar{y}_{.Bobby} = 11.91
+    $$
+:::
 
+::: {.column width="50%"}
+![](images/clipboard-560146152.png)
+:::
+:::::
 
-# Blocking: Example
+## Blocking: Example VII
 
-### 𝑆𝑆𝑇𝑜𝑡𝑎𝑙= ෍
-```
+$$
+SS_{Total} = \sum_{i=1}^{n}(y_{ij}-\bar{y}_{..})^2=15060.48
+$$
 
-𝑖= 1
+$$
+SS_{Model(time)} = \sum_{a=1}^{a}n_a(\bar{y}_{a.}-\bar{y}_{..})^2=4489.02
+$$
 
-```         
-```
+-   where $n_a$ is the group size for AM/PM and $\bar{y}_{a.}$ are the marginal means for AM and PM {22.95, 13.43}
 
-𝑛 𝑦𝑖𝑗−𝑦ത∙∙
+-   This is similar to how we computed $𝑆𝑆_{𝑀𝑜𝑑𝑒𝑙}$ before: marginal group mean subtract off the grand mean and square it. Sum over all groups.
 
-```         
-```
+$$
+SS_{Block} = \sum_{b=1}^{b}n_{b}(\bar{y}_{.b}-\bar{y}_{..})^2=3239.43
+$$
 
-2 = 15060. 48
+-   Technically, the blocking factor is just another IV (but we are not interested in or is not within the scope of research question).
 
-```         
-𝑆𝑆𝑀𝑜𝑑𝑒𝑙(𝐼𝑉) =෍
-𝑎= 1
-```
+    -   $𝑆𝑆_{𝐸𝑟𝑟𝑜𝑟} = 𝑆𝑆_{𝑇𝑜𝑡𝑎𝑙}− 𝑆𝑆_{𝑀𝑜𝑑𝑒𝑙} +𝑆𝑆_{𝐵𝑙𝑜𝑐𝑘}$ = 7332. 03
 
-𝑎 𝑛𝑎 𝑦ത𝑎∙−𝑦ത∙∙\^2 = 4489. 02
+## Blocking: Example VIII
 
-```         
-→This is similar to how we computed 𝑆𝑆𝑀𝑜𝑑𝑒𝑙 before: marginal group mean
-subtract off the grand mean and square it. Sum over all groups.
+-   Then, we can fill out the ANOVA table:
 
-𝑆𝑆𝐵𝑙𝑜𝑐𝑘 = ෍
-𝑏= 1
-```
+![](images/clipboard-122981133.png)
 
-𝑏 𝑛𝑏 𝑦ത∙𝑏−𝑦ത∙∙\^2 = 3239. 43
+::: callout-note
+Under $\alpha=.05$, for "Model" factor – Time, we have $df_{Model}$ = 1, $df_{error} = 195$: $F_{crit}=3.89$ so sig.
 
-```         
-→This is similar to how we computed 𝑆𝑆𝑀𝑜𝑑𝑒𝑙 before: marginal group mean
-subtract off the grand mean and square it. Sum over all groups. Technically, the
-blocking factor is just another IV.
-𝑆𝑆𝐸𝑟𝑟𝑜𝑟 = 𝑆𝑆𝑇𝑜𝑡𝑎𝑙− 𝑆𝑆𝑀𝑜𝑑𝑒𝑙𝐼𝑉 +𝑆𝑆𝐵𝑙𝑜𝑐𝑘 = 7332. 03
+Similarly, for "Blocking" - Tutor, we have $df_{block}$ = 3, $df_{error} = 195$: $F_{crit}=2.65$ so sig.
+:::
 
+## Blocking: Example—Write it up!
 
-# Blocking: Example
-```
+-   A randomized block design was used to test the effect of tutoring time on midterm scores. For each tutor, participants were randomly assigned to either morning (𝑛 = 91 ) or afternoon (𝑛= 109 ) tutoring sessions.
+-   The effect of tutoring time was significant $(𝐹(1,195) = 119. 39, 𝑝<. 001 ,\eta^2_{𝑇𝑖𝑚𝑒} =. 298$) with a large effect. Using a Tukey’s test, morning is significantly higher than afternoon sessions (𝑝 \<. 05 ).
+-   The effect of the blocking factor, tutor, was significant ($𝐹(3 , 195) = 28. 72 ,𝑝< . 001 ,\eta^2_{𝑇𝑢𝑡𝑜𝑟} =. 215$) with a large effect. Using a Tukey’s test, Monique’s students were significantly higher than other students, and Bobby’s students were significantly lower than other students in the midterm scores (𝑝\<. 05 ).
 
-Then, we can fill out the ANOVA table:
+# Next Class
 
-```         
-```
+## Example: 2 Blocking Factors?
 
-Under 𝛼=.05, for “Model”: df_M=1, df_error=195 → F_crit=3.89 (so, significant!) For “Blocking”: df_blc=3, df_error=195 → F_crit=2.65 (so, significant!)
+-   Researchers are interested in comparing the effectiveness of three health promotion programs with nursing students.
+-   The researcher has the following research question: [Which of the three health promotion programs are most effective at reducing unhealthy coping behaviors?]{.underline}
+    -   Unhealthy coping behavior is measured as a composite score from the “Poor Coping Behavior” survey (PCB). High scores on the PCB indicate higher levels of unhealthy coping behaviors. Low scores indicate low levels of unhealthy coping behaviors. PCB scores can range from 0 (no unhealthy behaviors) to 100 (multiple unhealthy behaviors at high frequency and high intensity).
+    -   The researcher thinks that the health promotion programs for nursing students may have an effect on academic and well-being outcomes.
+    -   However, gender and status (traditional vs. non-traditional student) differences may influence the effectiveness of health promotion programs.
 
-```         
-Source 𝑆𝑆 𝑑𝑓 𝑀𝑆 𝐹
+## Example: 2 Blocking Factors?
 
-Model 𝑆𝑆=𝑀𝑜𝑑𝑒𝑙 4489. 02 𝑎− 1 = 1
-𝑆𝑆𝑀𝑜𝑑𝑒𝑙
-𝑎− 1 =^4489.^02
-```
+-   The researcher has a sample of 200 nursing students from the state of Arkansas. 50 students are assigned to each program: Program A, Program B, and Program C. In addition, 50 students are assigned to a control group that receives the status quo educational model.
+    -   What is the dependent variable? → PCB SCORES
+    -   What is the independent variable of interest? → HEALTH PROGRAM (4 LEVELS)
+    -   What is (are) the blocking variable(s), aka the confounding variables, that the researcher might statistically control for? → GENDER, STATUS
 
-𝑀𝑆𝑀𝑜𝑑𝑒𝑙 𝑀𝑆𝐸𝑟𝑟𝑜𝑟 = 119. 39
+## Example: 2 Blocking Factors?
 
-```         
-Blocking 𝑆𝑆=𝐵𝑙𝑜𝑐𝑘 3239. 43 𝑏− 1 = 3 𝑆𝑆𝐵𝑙𝑜𝑐𝑘
-𝑏− 1
-= 1079. 81
-```
+::: panel-tabset
+## Visualization
 
-𝑀𝑆𝐵𝑙𝑜𝑐𝑘 𝑀𝑆𝐸𝑟𝑟𝑜𝑟 = 28. 72
+![](images/clipboard-1200507560.png)
 
-```         
-Error 𝑆𝑆=𝐸𝑟𝑟𝑜𝑟 7332. 03 𝑁=− 195 𝑎+𝑏−^1
-```
+## Table
 
-𝑆𝑆𝐸𝑟𝑟𝑜𝑟 𝑁− (𝑎+𝑏− 1 ) = 37. 60
-
-```         
-Total 𝑆𝑆=𝑇𝑜𝑡𝑎𝑙 15060. 48 𝑁− 1 = 199
-
-
-# Blocking: Example—Write it up!
-
-- A randomized block design was used to test the effect of tutoring time on
-    midterm scores. For each tutor, participants were randomly assigned to either
-    morning (𝑛 = 91 ) or afternoon (𝑛= 109 ) tutoring sessions.
-- The effect of tutoring time was significant (𝐹 1 , 195 = 119. 39 ,𝑝<
-   . 001 ,𝜂^2 𝑇𝑖𝑚𝑒 =. 298 ) with a large effect. Using a Tukey’s test, morning is
-    significantly higher than afternoon sessions (𝑝 <. 05 ).
-- The effect of the blocking factor, tutor, was significant (𝐹 3 , 195 = 28. 72 ,𝑝<
-   . 001 ,𝜂^2 𝑇𝑢𝑡𝑜𝑟 =. 215 ) with a large effect. Using a Tukey’s test, Monique’s students
-    were significantly higher than other students, and Bobby’s students were
-    significantly lower than other students in the midterm scores (𝑝<. 05 ).
-
-
-# Blocking: Example -> 2 Blocking Factors?
-
-- Researchers are interested in comparing the effectiveness of three health
-    promotion programs with nursing students.
-- The researcher has the following research question: Which of the three health
-    promotion programs are most effective at reducing unhealthy coping behaviors?
-       ✓ Unhealthy coping behavior is measured as a composite score from the
-          “Poor Coping Behavior” survey (PCB). High scores on the PCB indicate
-          higher levels of unhealthy coping behaviors. Low scores indicate low levels
-          of unhealthy coping behaviors. PCB scores can range from 0 (no unhealthy
-          behaviors) to 100 (multiple unhealthy behaviors at high frequency and high
-          intensity).
-       ✓ The researcher thinks that the health promotion programs for nursing
-          students may have an effect on academic and well-being outcomes.
-       ✓ However, gender and status (traditional vs. non-traditional student)
-          differences may influence the effectiveness of health promotion programs.
-
-
-# Blocking: Example -> 2 Blocking Factors?
-
-- The researcher has a sample of 200 nursing students from the state of Arkansas.
-    50 students are assigned to each program: Program A, Program B, and Program
-    C. In addition, 50 students are assigned to a control group that receives the
-    status quo educational model.
-```
-
-✓ What is the dependent variable? → PCB SCORES
-
-```         
-```
-
-✓ What is the independent variable of interest? → HEALTH PROGRAM (4 LEVELS)
-
-```         
-```
-
-✓ What is (are) the blocking variable(s), aka the confounding variables, that the researcher might statistically control for? → GENDER, STATUS
-
-```         
-
-# Blocking: Example -> 2 Blocking Factors?
-
-- Descriptive Statistics: group sex status N M S.D. Min. Max.
-```
-
-Ctrl
-
-```         
-```
-
-F N 11 54.00 4.82 46 65 T 21 57.90 4.88 52 70 M N 10 56.50 4.79 48 65 T 8 55.00 3.63 49 59
-
-```         
-```
-
-Trt_A
-
-```         
-```
-
-F N 4 27.25 3.69 23 32 T 18 30.83 5.37 20 41 M N 8 28.75 4.83 22 38 T 20 30.25 4.93 21 37
-
-```         
-```
-
-Trt_B
-
-```         
-```
-
-F N 7 37.00 5.77 31 44 T 28 36.46 4.38 27 45 M N 5 38.80 4.82 34 44 T 10 39.70 6.73 29 52
-
-```         
-```
-
-Trt_C
-
-```         
-```
-
-F N 5 41.00 6.78 32 48 T 24 40.08 5.52 30 55 M N 12 39.17 4.28 33 46 T 9 41.00 6.54 29 49
-
-```         
-```
-
-0
-
-```         
-10
-
-20
-
-30
-
-40
-
-50
-
-60
-
-70
-```
-
-N T N T N T N T Control Treatment A Treatment B Treatment C
-
-```         
-```
-
-F M \`\`\`
+![](images/clipboard-2055304403.png)
+:::
