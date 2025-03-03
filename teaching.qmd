@@ -6,15 +6,17 @@ listing:
     contents: posts/Lectures/*/*_syllabus.[Rq]md
     sort: "date desc"
     type: grid
+    max-items: 3
 title-block-banner: false
 format: 
   html:
     code-tools: false
+    toc: false
 ---
 
-::: nice-paragraph
-## Courses
+## Course
 
+::: nice-paragraph
 1.  **ESRM 64103. Experimental Design in Education**. 3 Hours.
     -   Principles of experimental design as applied to educational situations. Special emphasis on analysis of variance techniques used in educational research. Prerequisite: [ESRM 64003](https://catalog.uark.edu/search/?P=ESRM%2064003 "ESRM 64003") with a grade of C or better or an equivalent course with a grade of C or better. (Typically offered: **Spring**)
 2.  **ESRM 64503. [Applied Multivariate Statistics](posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/index.qmd).** 3 Hours.
