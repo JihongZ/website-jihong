@@ -730,6 +730,14 @@ b.  treatment: combination of Diet and Antibiotic; block: Farms.
 :::
 ::::
 
+## Summary
+
+- We learn:
+  1. Block design is a solution when we have confounding effect
+  2. Nuisance factors and treatment factors are very likely to exist in our experiments
+  3. We can use RCBD in which treatments are randomly assigned in each block
+  4. When we have multiple block factors, we can use LSD or Replicated LSD
+  
 # Next Class
 
 ## Example: 2 Blocking Factors?
