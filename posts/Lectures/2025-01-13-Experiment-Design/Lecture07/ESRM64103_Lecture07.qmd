@@ -601,6 +601,31 @@ Similarly, for "Blocking" - Tutor, we have $df_{block}$ = 3, $df_{error} = 195$:
 -   The effect of tutoring time was significant $(𝐹(1,195) = 119. 39, 𝑝<. 001 ,\eta^2_{𝑇𝑖𝑚𝑒} =. 298$) with a large effect. Using a Tukey’s test, morning is significantly higher than afternoon sessions (𝑝 \<. 05 ).
 -   The effect of the blocking factor, tutor, was significant ($𝐹(3 , 195) = 28. 72 ,𝑝< . 001 ,\eta^2_{𝑇𝑢𝑡𝑜𝑟} =. 215$) with a large effect. Using a Tukey’s test, Monique’s students were significantly higher than other students, and Bobby’s students were significantly lower than other students in the midterm scores (𝑝\<. 05 ).
 
+## Exercises
+
+::: discussion
+-   A poultry experiment was run to investigate the effect of diet and
+    antibiotics on egg production. They evaluated 2 diets of interest and 2
+    specific antibiotics that are on the market. The feed and antibiotic
+    were combined and used to fill the feeding trays in barns. They chose 3
+    poultry farms at random and randomly assigned the combinations of diet
+    and antibiotic to 4 barns within each farm. Total egg production by the
+    chickens was recorded after 4 weeks.
+    
+a.  What is the experimental design (hint: think about the randomization process)?
+
+b.  Identify which factors are treatment and block.
+    		
+::: {.callout-note .mohu}
+## Answer
+
+a. RCBD.
+b. treatment: combination of Diet and Antibiotic; block: Farms.
+
+
+:::
+:::
+
 # Next Class
 
 ## Example: 2 Blocking Factors?
