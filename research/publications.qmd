@@ -26,6 +26,7 @@ library(htmltools)
 # "MbRDAB4AAAAJ" is my Google scholar id, which can be found in your Google scholar URL address
 # For example, my Google scholar webpage has the URL "https://scholar.google.com/citations?user=MbRDAB4AAAAJ&hl=zh-CN"
 # Text after "user=" is your ID
+# get_publication_url(id = "MbRDAB4AAAAJ", pub_id = pubs$pubid[2])
 pubs <- scholar::get_publications("MbRDAB4AAAAJ", sortby = "year") 
 pubs <- pubs |> 
   mutate(
