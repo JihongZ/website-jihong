@@ -41,14 +41,6 @@ format:
     -   "Use `ggplot2` to produce several kinds of visualizations (for continuous and/or discrete data)."
     -   "Distinguish which types of visualization are adequate for different types of data and questions."
     -   "Discuss the importance of scales when analysing and/or visualizing data"
--   Keypoints:
-    -   "To build a `ggplot2` graph you need to define: *data*, *aesthetics*, *geometries* (and *scales*)."
-    -   "To change an *aesthetic* of our graph **based on data**, include it **inside `aes()`**."
-    -   "To **manually** change an *aesthetic* regardless of data then it goes **outside `aes()`**."
-    -   "You can overlay multiple geometries in the same graph, and control their aesthetics individually."
-    -   "Adjust scales of your graph using `scale_*` family of functions."
-    -   "You can custommise your graphs using pre-defined themes (e.g. `theme_classic()`) or more finely with the `theme()` function."
-    -   "To save graphs use the `ggsave()` function."
 :::
 
 ```{r}
@@ -91,14 +83,18 @@ p3 <- gapminder2010 |>
 p1 / {p2 | p3}
 ```
 
-## Background
+## Background: Data
 
-We will use data from the [Gapminder Foundation](https://www.gapminder.org/), which gives access to global data as well as many tools to help explore it. In these lessons we’re going to use some of these data to explore some of these data ourselves.
+-   We will use the data from the [Gapminder Foundation](https://www.gapminder.org/), which gives access to global data as well as many tools to help explore it.
 
-We have two files with data relating to socio-economic statistics: world data for 2010 only and the same data for 1960 to 2010 (see the setup page for instructions on how to download the data). In this lesson we will use the 2010 data only, and then use the full dataset in future episodes.
+-   In these lessons we’re going to use some of these data to explore some of these data ourselves.
+
+-   We have two files with data relating to socio-economic statistics: world data for 2010 only and the same data for 1960 to 2010 (see the setup page for instructions on how to download the data). In this lesson we will use the 2010 data only, and then use the full dataset in future episodes.
+
+## List of columns
 
 | Column | Description |
-|-----------------------|:----------------------------|
+|--------------------------------|:---------------------------------------|
 | country | country name |
 | world_region | 6 world regions |
 | year | year that each datapoint refers to |
@@ -121,42 +117,80 @@ As usual when starting an analysis on a new script, let's start by loading the p
 library(tidyverse)
 
 # Read the data, specifying how missing values are encoded
-# gapminder2010 <- read_csv("gapminder2010_socioeconomic.csv",na = "")
 gapminder2010 <- read_csv(here::here(root_path, "gapminder2010_socioeconomic.csv"), na = "")
+
+glimpse(gapminder2010)
+```
+
+::: callout-important
+DO NOTE COPY-AND-PASTE `read_csv()` function. If you saved the data file in the same directory with you R code, use the following code:
+
+```{r}
+#| eval: false
+gapminder2010 <- read_csv("gapminder2010_socioeconomic.csv", na = "")
+```
+:::
+
+## Install and Load `ggplot2` package
+
+-   `ggplot2` package is included in `tidyverse`.
+
+```{r}
+#| eval: false
+library(tidyverse)
+# or
+library(ggplot2)
 ```
 
 ## Building a `ggplot2` graph
 
 To build a `ggplot2` graph you need 3 basic pieces of information:
 
--   A **data.frame** with data to be plotted
--   The variables (columns of `data.frame`) that will be *mapped* to different **aesthetics** of the graph (e.g. axis, colours, shapes, etc.)
--   the **geometry** that will be drawn on the graph (e.g. points, lines, boxplots, violinplots, etc.)
+1.  A **data.frame** with data to be plotted
+2.  The variables (columns of `data.frame`) that will be *mapped* to different **aesthetics** of the graph (e.g. axis, colours, shapes, etc.)
+3.  the **geometry** that will be drawn on the graph (e.g. points, lines, boxplots, violinplots, etc.)
 
 This translates into the following basic syntax:
 
 ``` r
 ggplot(data = <data.frame>, 
-       mapping = aes(x = <column of data.frame>, y = <column of data.frame>)) +
-   geom_<type of geometry>()
+       mapping = aes(x = <column of data.frame>, 
+                     y = <column of data.frame>)) +
+geom_<type of geometry>()
 ```
 
-For our first visualization, let's try to recreate one of the visualizations from [Hans Rosling's talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare). The question we're interested in is: how much separation is there between different world regions in terms of family size and life expectancy? We will explore this by using a [scatterplot](https://www.data-to-viz.com/graph/scatter.html) showing the relationship between `children_per_woman` and `life_expectancy`.
+## First Visualization
 
-Let's do it step-by-step to see how `ggplot2` works. Start by giving data to `ggplot`:
+-   The question[^1] we're interested in is:
+    -   how much separation is there between different world regions in terms of family size and life expectancy?
+
+[^1]: For our first visualization, let's try to recreate one of the visualizations from [Hans Rosling's talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare).
+
+<!-- -->
+
+-   We will explore this by using a [scatterplot](https://www.data-to-viz.com/graph/scatter.html) showing the relationship between `children_per_woman` and `life_expectancy`.
+
+-   Let's do it step-by-step to see how `ggplot2` works.
+
+(1). Start by giving data to `ggplot`:
 
 ```{r}
-ggplot(data = gapminder2010)
+ggplot(data = gapminder2010) # <1>
 ```
+
+1.  We replace `<data.frame>` with the object name of the target data frame
 
 That "worked" (as in, we didn't get an error). But because we didn't give `ggplot()` any variables to be *mapped* to *aesthetic* components of the graph, we just got an empty square.
 
-For **mappping columns to aesthetics**, we use the `aes()` function:
+(2) For **mappping columns to aesthetics**, we use the `aes()` function:
 
 ```{r}
 ggplot(data = gapminder2010, 
-       mapping = aes(x = children_per_woman, y = life_expectancy))
+       mapping = aes(x = children_per_woman, # <2>
+                     y = life_expectancy)) 
 ```
+
+2.  We replaced `<column of the data.frame>` with the unquoted column name
 
 That's better, now we have some axis. Notice how `ggplot()` defines the axis based on the range of data given. But it's still not a very interesting graph, because we didn't tell what it is we want to draw on the graph.
 
@@ -164,20 +198,26 @@ This is done by adding (literally `+`) **geometries** to our graph:
 
 ```{r}
 ggplot(data = gapminder2010, 
-       mapping = aes(x = children_per_woman, y = life_expectancy)) +
-  geom_point()
+       mapping = aes(x = children_per_woman, 
+                     y = life_expectancy)) + #<3>
+  geom_point() # <4>
 ```
 
+3.  `+` add up a new layer onto the old layers
+4.  We replace `geom_<type of geometry>()` with `geom_point()`
+
+::: callout-important
 Notice how `geom_point()` warns you that it had to remove some missing values (if the data is missing for at least one of the variables, then it cannot plot the points).
+:::
 
 :::: discussion
 ## Exercise {.unnumbered}
 
-It would be useful to explore the pattern of missing data in these two variables. The `naniar` package provides a ggplot geometry that allows us to do this, by replacing `NA` values with values 10% lower than the minimum in the variable.
+[Aim]{.redcolor}: It would be useful to explore the pattern of missing data in these two variables. The `naniar` package provides a ggplot geometry that allows us to do this, by replacing `NA` values with values 10% lower than the minimum in the variable.
 
-Try and modify the previous graph, using the `geom_miss_point()` from this package. (hint: don't forget to load the package first using `library()`)
+Try and modify the previous graph, using the `geom_miss_point()` from this package. (hint: don't forget to load the package first using `library(naniar)`)
 
-What can you conclude from this exploration? Are the data missing at random?
+[Questions]{.redcolor}: What can you conclude from this exploration? Are the data missing at random?
 
 ::: {.callout-note collapse="true"}
 ## Answer
@@ -196,28 +236,50 @@ ggplot(data = gapminder2010,
 :::
 ::::
 
-### Changing how geometries look like
+## Changing how geometries look like
 
-We can change how geometries look like in several ways, for example their transparency, colour, size, shape, etc.
+We can change how geometries look like in several ways, for example their transparency, color, size, shape, etc.
 
-To know which *aesthetic* components can be changed in a particular geometry, look at its documentation (e.g. `?geom_point`) and look under the "Aesthetics" section of the help page. For example, the documentation for `?geom_point` says:
+To know which *aesthetic* components can be changed in a particular geometry, look at its documentation (e.g. `?geom_point`) and look under the "Aesthetics" section of the help page.
 
-> geom_point() understands the following aesthetics (required aesthetics are in bold): - **x** - **y** - alpha - colour - fill - group - shape - size - stroke
+-   For example,
 
-For example, we can change the transparency of the points in our scatterplot using `alpha` (`alpha` varies between 0-1 with zero being transparent and 1 being opaque):
+::: {.callout-note collapse="true"}
+## the documentation for `?geom_point` says:
+
+-   geom_point() understands the following aesthetics (required aesthetics are in bold):
+    -   **x**
+    -   **y**
+    -   alpha
+    -   colour
+    -   fill
+    -   group
+    -   shape
+    -   size
+    -   stroke
+:::
+
+For example, we can change the transparency of the points in our scatterplot using `alpha` argument in `geom_point()` (`alpha` varies between 0-1 with zero being transparent and 1 being opaque):
 
 ```{r, warning=FALSE}
 ggplot(data = gapminder2010, 
-       mapping = aes(x = children_per_woman, y = life_expectancy)) +
-  geom_point(alpha = 0.5)
+       mapping = aes(x = children_per_woman, 
+                     y = life_expectancy)) +
+  geom_point(alpha = 0.5) # <4>
 ```
+
+4.  Arguments in `geom_point()` adjusts the characteristics of **points**
 
 Adding transparency to points is useful when data is very packed, as you can then see which areas of the graph are more densely occupied with points.
 
 :::: discussion
 ## Exercise {.unnumbered}
 
-Try changing the *size*, *shape* and *colour* of the points (hint: web search "ggplot2 point shapes" to see how to make a triangle)
+[Aim]{.redcolor}: Try changing the *size*, *shape* and *colour* of the points (hint: web search "ggplot2 point shapes" to see how to make a triangle)
+
+You can find out R colors' name using `colors()` functions. Below is the index for point shapes.
+
+![](images/clipboard-2299570783.png){width="200"}
 
 ::: {.callout-note collapse="true"}
 ## Solution
@@ -230,18 +292,40 @@ ggplot(data = gapminder2010,
 :::
 ::::
 
-### Changing aesthetics based on data
+## Changing aesthetics based on data
 
-In the above exercise we changed the colour of the points by defining it ourselves. However, it would be better if we coloured the points based on a variable of interest.
+In the above exercise we changed the color of the points by defining it ourselves. However, it would be better if we colored the points based on a variable of interest.
 
 For example, to explore our question of how different world regions really are, we want to colour the countries in our graph accordingly.
 
-We can do this by passing this information to the `colour` aesthetic *inside* the `aes()` function:
+We can do this by passing this information to the `color` aesthetic *inside* the `aes()` function:
 
 ```{r, warning=FALSE}
 ggplot(data = gapminder2010, 
-       mapping = aes(x = children_per_woman, y = life_expectancy, colour = world_region)) +
+       mapping = aes(x = children_per_woman, 
+                     y = life_expectancy, 
+                     color = world_region)) + #<5>
   geom_point()
+```
+
+5.  We changed the points' color based on their world regions.
+
+For example, if we look at the points with red color, when `world_region == america`, `geom_point()` function maps the point's color as [red]{style="color: red"} and x-axis as value of `children_per_woman` and y-axis as the value of `life_expectancy` :
+
+```{r}
+#| echo: false
+sliced_points <- gapminder2010 |> filter(world_region == "america") |> 
+  select(children_per_woman, life_expectancy, world_region) |> 
+  mutate(color = "red") |> 
+  head() 
+sliced_points |> kableExtra::kable()
+```
+
+```{r}
+ggplot(sliced_points) + 
+  geom_point(aes(x = children_per_woman, 
+                 y = life_expectancy, 
+                 color = world_region))
 ```
 
 ::: callout-note
