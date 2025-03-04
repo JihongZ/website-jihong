@@ -1,0 +1,11 @@
+site:
+  rebuild: "outdated"
+  pattern: "[.]R?md$"
+
+output:
+  html:
+    sidebar: false
+    meta:
+      css: ["@default"]
+      include_before: "[Home](/) [About](/about.html)"
+      include_after: "&copy; 2024 | [Edit]($input$)"

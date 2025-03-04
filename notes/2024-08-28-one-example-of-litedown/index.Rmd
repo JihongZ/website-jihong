@@ -1,20 +1,37 @@
 ---
-title: "Example of litedown"
+title: "Example of `litedown`"
 author: "Jihong Zhang"
 date: "2024-08-28"
-output:
-  litedown::html_format:
-    options:
-      toc: true
-      number_sections: true
-      embed_resources: false
-    meta:
-      css: ["default", "@heading-anchor"]
-      js: ["@heading-anchor"]
 knit: litedown:::knit
 ---
 
-This post shows case one example of new package – `litedown` from Yihui Xie. Please refer to the [documentation](https://yihui.org/litedown) for more details.
+::: objectives
+## Overview
+
+This post shows case one example of new package – `litedown` from Yihui Xie. Please refer to the Yihui's [documentation](https://yihui.org/litedown) for more details.
+:::
+
+## A minimal example
+
+```` md
+Define the radius as `x`:
+
+```{r}
+x = 1 + 1
+```
+
+When the radius is `{r} x`, the area will be `{r} pi * x^2`.
+````
+
+The above code will be output as:
+
+Define the radius as `x`:
+
+```{r}
+x = 1 + 1
+```
+
+When the radius is `{r} x`, the area will be `{r} pi * x^2`.
 
 ## Including Plots Here
 
