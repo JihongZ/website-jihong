@@ -50,7 +50,7 @@ format:
 
 ## Self Introduction
 
-::: {.columns .column-screen}
+:::::: {.columns .column-screen}
 ::: {.column width="33%"}
 ![University of Kansas (2015-2019)](figures/school_ku.png){fig-align="center" width="73%"}
 :::
@@ -62,7 +62,7 @@ format:
 ::: {.column width="33%"}
 ![Chinese University of Hong Kong (2022-2023)](figures/hongkong_living.jpg){fig-align="center" width="75%"}
 :::
-:::
+::::::
 
 ## My job
 
@@ -256,7 +256,7 @@ format:
 
 ## What is R
 
-::: columns
+:::::: columns
 ::: {.column width="50%"}
 -   **R** is an comprehensive statistical and graphical programming language
 
@@ -267,7 +267,7 @@ format:
     -   Rstudio is a product of posit company and is free to use for personal use
 :::
 
-::: {.column width="50%"}
+:::: {.column width="50%"}
 ::: panel-tabset
 ## Terminal
 
@@ -281,8 +281,8 @@ format:
 
 ![](figures/VsCode.png){fig-align="left" width="100%"}
 :::
-:::
-:::
+::::
+::::::
 
 ## More RStudio
 

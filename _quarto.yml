@@ -124,9 +124,9 @@ format:
       margin-width: 400px # page navigation
       gutter-width: 1.5em
     theme: 
-      light: [Zephyr, assets/rwds.scss, assets/lecture.scss] # https://bootswatch.com/5/minty/_variables.scss
+      light: [assets/rwds.scss, assets/lecture.scss, assets/callout.scss, default] # https://bootswatch.com/5/minty/_variables.scss
       dark: [Cyborg, assets/rwds-dark.scss, assets/lecture.scss]
-    css: [assets/rwds.css, assets/callout.css]
+    css: assets/rwds.css
     comments:
       giscus:
         repo: JihongZ/quarto-academic-jihong
@@ -138,11 +138,10 @@ format:
     lightbox: true # Lightbox Figure
     # code settings
     fontsize: 1.1em
-    monofont: 'JetBrains Mono'
+    monofont: "JetBrains Mono"
     reading-time: true
     code-link: false
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
-    # code-block-border-left: '#df5925'
     code-line-numbers: false
     code-overflow: scroll
     code-tools: true

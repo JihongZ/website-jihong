@@ -35,10 +35,9 @@ format:
     output-file: slides-index.html
 ---
 
-
 ```{=html}
 <form>
-  <fieldset class="callout-important callout">
+  <fieldset class="callout-intro callout">
     <legend data-legend="Overview"></legend> 
     <ul>1.  What is Quarto?</ul>
     <ul>2.  Installation of Quarto</ul>
@@ -48,8 +47,8 @@ format:
 </form>
 ```
 
-
-::: {.callout-intro .callout data-legend="What is Quarto"}
+::: {.callout-note}
+## What is Quarto
 -   An open-source scientific and technical publishing system
 
     -   Author using Jupyter notebooks or with plain text markdown in your favorite editor.
@@ -58,9 +57,6 @@ format:
     -   Share knowledge and insights organization-wide by publishing to Posit Connect, Confluence, or other publishing systems.
     -   Write using Pandoc markdown, including equations, citations, crossrefs, figure panels, callouts, advanced layout, and more.
 :::
-
-
-
 
 ## Hello Quarto
 
@@ -123,7 +119,7 @@ If you would like to follow along with this tutorial in your own environment, fo
 
 -   Each Quarto document (`.qmd`) typically starts with YAML Header
 
--   YAML head contains some setup information (metadata) including `title`, `subtitle`, `author`, `date`, output file format (html, pdf, or slides)
+-   YAML header contains some setup information (metadata), such as `title`, `subtitle`, `author`, `date`, output file format (html, pdf, or slides)
 
 -   An (optional) YAML header demarcated by three dashes (`---`) on either end.
 

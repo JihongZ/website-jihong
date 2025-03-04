@@ -1,13 +1,14 @@
+/*-- scss:defaults --*/
 fieldset {
   font-size: .9em;
   margin: 1em auto;
   box-sizing: border-box;
-  border: 1px solid;
+  border: 1px solid !important;
 }
 
 legend {
-  width: auto;
-  font-size: .9em;
+  width: auto !important;
+  font-size: .9em !important;
   font-weight: bold;
   border-style: groove;
   padding: 2px .5em;
