@@ -1,0 +1,37 @@
+fieldset {
+  font-size: .9em;
+  margin: 1em auto;
+  box-sizing: border-box;
+  border: 1px solid;
+}
+
+legend {
+  width: auto;
+  font-size: .9em;
+  font-weight: bold;
+  border-style: groove;
+  padding: 2px .5em;
+  background: white;
+}
+
+input {
+  margin: 0.4rem;
+}
+
+.callout {
+  legend::before {
+    content: var(--callout-icon);
+  }
+  legend::after {
+    content: attr(data-legend);
+    text-transform: uppercase;
+  }
+  background: var(--callout-background);
+  &, legend { border-color: var(--callout-border); }
+}
+
+.callout-intro {
+  --callout-border: gold;
+  --callout-background: lemonchiffon;
+  --callout-icon: "☀ ";
+}

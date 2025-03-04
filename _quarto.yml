@@ -126,13 +126,14 @@ format:
     theme: 
       light: [Zephyr, assets/rwds.scss, assets/lecture.scss] # https://bootswatch.com/5/minty/_variables.scss
       dark: [Cyborg, assets/rwds-dark.scss, assets/lecture.scss]
-    css: assets/rwds.css
+    css: [assets/rwds.css, assets/callout.css]
     comments:
       giscus:
         repo: JihongZ/quarto-academic-jihong
     include-in-header: 
-      - file: assets/font.html
+      - file: "assets/js/callout.html"
       - assets/add-answer-button.html
+      - assets/font.html
     html-math-method: katex
     lightbox: true # Lightbox Figure
     # code settings
