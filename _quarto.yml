@@ -88,7 +88,7 @@ website:
     title: "<span class='icon-line'></span><b><span style='color:#447099'>Jihong</span></b><span class='icon-line'></span>"
     foreground: "#404041"
     left:
-      - text: "<span class='menutext-teach'>LECTURE</span><span class='text-line text-line-teach'></span>"
+      - text: "<span class='menutext-teach'>TEACHING</span><span class='text-line text-line-teach'></span>"
         file: teaching.qmd
       - text: "<span class='menutext-research'>RESEARCH</span><span class='text-line text-line-research'></span>"
         file: research/publications.qmd

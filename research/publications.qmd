@@ -17,6 +17,7 @@ library(scholar)
 library(ggplot2)
 library(dplyr)
 library(stringr)
+library(htmltools)
 ```
 
 ```{r compile_data}
@@ -28,28 +29,24 @@ library(stringr)
 pubs <- scholar::get_publications("MbRDAB4AAAAJ", sortby = "year") 
 pubs <- pubs |> 
   mutate(
-    URL = paste0( ", [✦ More Details](", get_article_scholar_url(id = "MbRDAB4AAAAJ", pubid = pubid), ")")
+    URL = get_article_scholar_url(id = "MbRDAB4AAAAJ", pubid = pubid)
   ) |> 
   arrange(desc(year)) |> 
   mutate(
-    pubs_formated = paste0(str_replace(format_publications("MbRDAB4AAAAJ"), "Zhang, J.", "**Zhang, J.**"), 
-                           URL)
+    pubs_formated = paste0(str_replace(format_publications("MbRDAB4AAAAJ"), "Zhang, J.", "**Zhang, J.**"))
   ) |> 
-  select(title:number, year, pubs_formated)
-
+  select(title:number, year, pubs_formated, URL)
 ```
 
 ```{r total_paper}
 ## Dynamically display the histogram of number of publications
-library(htmltools)
 pubs_count_byyear <- pubs |> 
   count(year) |> 
   arrange(desc(year)) |> 
   mutate(n_cum = cumsum(n))
 
-
-total_publication <- paste0("In total, I've published ", nrow(pubs), " papers. ")
-p(total_publication)
+# total_publication <- paste0("In total, I've published ", nrow(pubs), " papers. ")
+# p(total_publication)
 ```
 
 ```{r dynamic_plot}
@@ -90,7 +87,7 @@ for (y in 1:nrow(pubs_count_byyear)) {
   index_max = pubs_count_byyear$n_cum[y]
   for (i in index_min:index_max) {
     cat("\n\n")
-    print(htmltools::tags$ul(pubs_formated[i]), style="padding-left: 3rem")
+    print(tags$ul(pubs_formated[i], a(class = "fa-brands fa-google-scholar fa-sm", href = pubs$URL[i], style="color: #74C0FC;")) , style="padding-left: 3rem")
   }
 }
 ```

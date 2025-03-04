@@ -528,7 +528,7 @@ Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explai
     -   In this example, I replicate it 2 times – the design is different across the replications.
     -   A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4
 
-| Rep. #1      | Form 1 | Form 2 | Form 3 | Form 4 | Rep. #2      | Form 4 | Form 3 | Form 2 | Form 4 |
+| Rep. #1      | Form 1 | Form 2 | Form 3 | Form 4 | Rep. #2      | Form 1 | Form 2 | Form 3 | Form 4 |
 |--------|:------:|:------:|:------:|:------:|--------|:------:|:------:|:------:|:------:|
 | **School 1** |   A    |   D    |   C    |   B    | **School 1** |   B    |   C    |   D    |   A    |
 | **School 2** |   B    |   A    |   D    |   C    | **School 2** |   C    |   D    |   A    |   B    |
