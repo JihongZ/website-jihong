@@ -1,13 +1,7 @@
 ---
 title: "Exercise 02: R Objects"
 subtitle: ""
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-08-18"
-sidebar: false
 execute: 
   warning: false
   message: false

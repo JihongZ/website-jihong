@@ -7,7 +7,7 @@ institute: |
   
   University of Arkansas
 date: "2025-08-18"
-sidebar: false
+sidebar: id-lec6990v
 execute: 
   warning: false
   message: false

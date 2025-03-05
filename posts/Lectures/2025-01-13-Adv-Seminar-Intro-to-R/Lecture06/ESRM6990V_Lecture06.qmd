@@ -1,14 +1,8 @@
 ---
 title: "Lecture 06: Date, Time, and Locales"
 subtitle: "`lubridate` package"
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-02-05"
 date-modified: "`r Sys.time()`"
-sidebar: false
 execute: 
   eval: true
   echo: true

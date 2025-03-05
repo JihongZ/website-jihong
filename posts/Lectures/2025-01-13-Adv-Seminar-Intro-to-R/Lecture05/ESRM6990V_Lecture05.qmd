@@ -1,13 +1,7 @@
 ---
 title: "Lecture 05: Data Transformation and Summary"
 subtitle: "Using `dplyr` package"
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-02-05"
-sidebar: false
 execute: 
   eval: true
   echo: true

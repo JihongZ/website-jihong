@@ -7,7 +7,7 @@ categories:
   - Lecture
 draft: false
 draft-mode: unlinked
-sidebar: false
+sidebar: id-lec6990v
 format: 
   html:
     code-tools: true

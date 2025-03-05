@@ -1,13 +1,7 @@
 ---
-title: "Lecture 08: Data Visualization - Layers"
+title: "Lecture 08: Data Visualization: Introduction"
 subtitle: "`ggplot2` package"
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-02-05"
-sidebar: false
 execute: 
   eval: true
   echo: true
@@ -252,13 +246,13 @@ ggplot(data = gapminder2010,
 
     -   `geom_line()` makes a line plot. The group aesthetic determines which observations are connected; see Chapter 4 for more detail. geom_line() connects points from left to right; geom_path() is similar but connects points in the order they appear in the data. Both geom_line() and geom_path() also understand the aesthetic linetype, which maps a categorical variable to solid, dotted and dashed lines.
 
-     -   `geom_point()` produces a scatterplot. geom_point() also understands the shape aesthetic.
+    -   `geom_point()` produces a scatterplot. geom_point() also understands the shape aesthetic.
 
-     -   `geom_polygon()` draws polygons, which are filled paths. Each vertex of the polygon requires a separate row in the data. It is often useful to merge a data frame of polygon coordinates with the data just prior to plotting. Chapter 6 illustrates this concept in more detail for map data.
+    -   `geom_polygon()` draws polygons, which are filled paths. Each vertex of the polygon requires a separate row in the data. It is often useful to merge a data frame of polygon coordinates with the data just prior to plotting. Chapter 6 illustrates this concept in more detail for map data.
 
-     -   `geom_rect()`, `geom_tile()` and `geom_raster()` draw rectangles. `geom_rect()` is parameterised by the four corners of the rectangle, xmin, ymin, xmax and ymax. `geom_tile()` is exactly the same, but parameterised by the center of the rect and its size, x, y, width and height. `geom_raster()` is a fast special case of `geom_tile()` used when all the tiles are the same size. .
+    -   `geom_rect()`, `geom_tile()` and `geom_raster()` draw rectangles. `geom_rect()` is parameterised by the four corners of the rectangle, xmin, ymin, xmax and ymax. `geom_tile()` is exactly the same, but parameterised by the center of the rect and its size, x, y, width and height. `geom_raster()` is a fast special case of `geom_tile()` used when all the tiles are the same size. .
 
-     -   `geom_text()` adds text to a plot. It requires a label aesthetic that provides the text to display, and has a number of parameters (angle, family, fontface, hjust and vjust) that control the appearance of the text.
+    -   `geom_text()` adds text to a plot. It requires a label aesthetic that provides the text to display, and has a number of parameters (angle, family, fontface, hjust and vjust) that control the appearance of the text.
 
 [^3]: [ggplot2: Elegant Graphics for Data Analysis (3e) Chapter 3](https://ggplot2-book.org/individual-geoms)
 
@@ -465,7 +459,6 @@ ggplot(data = gapminder2010,
 ## Multiple Geometries
 
 Often, we may want to overlay several geometries on top of each other. For example, add a [violin plot](https://www.data-to-viz.com/graph/violin.html) together with a boxplot so that we get both representations of the data in a single graph.
-
 
 1.  Let's start by making a violin plot:
 

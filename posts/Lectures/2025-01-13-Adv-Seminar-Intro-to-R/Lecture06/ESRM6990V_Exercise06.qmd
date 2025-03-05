@@ -1,13 +1,7 @@
 ---
 title: "Exercise 06: Date and Time"
 subtitle: ""
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-08-18"
-sidebar: false
 execute: 
   warning: false
   message: false
@@ -47,14 +41,16 @@ mdy_hm("07-13-2024 14:45") # correct
 
 1.  Create a CSV file (or use an inline string) with the following data:
 
-``` {.markdown filename="csv_data.csv"} 
+``` {.markdown filename="csv_data.csv"}
 date, datetime
 01-15-2024, 2024/01/15 14:20:00
 02-28-2023, 2023-02-28 23:59:59
 ```
 
-    -   Read this CSV into R using `read_csv()`.
-    -   Ensure that the `date` column is parsed as a `Date` and the `datetime` column is parsed as a `POSIXct` object.
+```         
+-   Read this CSV into R using `read_csv()`.
+-   Ensure that the `date` column is parsed as a `Date` and the `datetime` column is parsed as a `POSIXct` object.
+```
 
 2.  Modify the import function to parse the `date` column correctly, assuming it follows the `"MM-DD-YYYY"` format.
 

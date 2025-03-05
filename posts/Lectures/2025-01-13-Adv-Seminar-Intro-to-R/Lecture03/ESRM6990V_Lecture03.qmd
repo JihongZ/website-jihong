@@ -1,14 +1,8 @@
 ---
 title: "Lecture 03: R Functions"
 subtitle: "R Function"
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-01-28"
 date-modified: "2024-10-11"
-sidebar: false
 execute: 
   echo: true
   warning: false
