@@ -8,3 +8,4 @@ format:
   html:
     grid:
       sidebar-width: 350px
+    css: [slides.css]  
