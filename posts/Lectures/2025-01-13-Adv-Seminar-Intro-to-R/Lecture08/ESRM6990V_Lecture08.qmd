@@ -767,7 +767,9 @@ Another easy way to save your graphs is by using RStudio's interface. From the "
 
 ## Customising your graphs
 
-Every single element of a ggplot can be modified. This is further covered in a [future episode](%7B%7B%20page.root%20%7D%7D%7B%%20link%20_episodes/10-data_vis_partII.md%20%%7D).
+- Every single element of a ggplot can be modified. This is further covered in a future episode.
+
+- For some simple plot, like the density plot of single variable, you may not need `ggplot2` package. Base R has some built-in plotting function for data visualization. See this [blog](https://intro2r.com/simple-base-r-plots.html) for example.
 
 ------------------------------------------------------------------------
 
