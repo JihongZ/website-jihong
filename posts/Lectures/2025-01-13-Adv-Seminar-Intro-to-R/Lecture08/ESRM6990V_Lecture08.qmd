@@ -210,12 +210,20 @@ ggplot(data = gapminder2010,
 Notice how `geom_point()` warns you that it had to remove some missing values (if the data is missing for at least one of the variables, then it cannot plot the points).
 :::
 
-:::: discussion
+::::: discussion
 ## 8.1. Exercise {.unnumbered}
 
 [Aim]{.redcolor}: It would be useful to explore the pattern of missing data in these two variables. The `naniar` package provides a ggplot geometry that allows us to do this, by replacing `NA` values with values 10% lower than the minimum in the variable.
 
 Try and modify the previous graph, using the `geom_miss_point()` from this package. (hint: don't forget to load the package first using `library(naniar)`)
+
+::: callout-note
+## Trick: Fast Installation of Package
+
+To open a "Install Packages" window below, press {{<kbd mac=Command+Shift+P win=Ctrl+Shift+P >}} and then search "Install" in the dropdown menu.
+
+![](images/clipboard-3351367957.png){fig-align="center" width="250"}
+:::
 
 [Questions]{.redcolor}: What can you conclude from this exploration? Are the data missing at random?
 
@@ -229,16 +237,16 @@ ggplot(data = gapminder2010,
   geom_miss_point()
 ```
 
--   The data do not seem to be missing at random:
+-   The data do not seem to be missing at random (MAR):
     1.  it seems to be the case that when data is missing for one variable it is often also missing for the other.
     2.  And there seem to be more missing data for `children_per_woman` than `life_expectancy`.
     3.  However, we only have 9 cases with missing data, so perhaps we should not make very strong conclusions from this. But it gives us more questions that we could follow up on: are the countries with missing data generaly lacking other statistics? Is it harder to obtain data for fertility than for life expectancy?
 :::
-::::
+:::::
 
-## A list(not full) of geometries in ggplot2
+## A (not full) list of geometries in ggplot2
 
--   Here is a list of geometries[^3]:
+-   Here is a list of some frequently used geometries[^3]:
 
     -   `geom_area()` draws an area plot, which is a line plot filled to the y-axis (filled lines). Multiple groups will be stacked on top of each other.
 
