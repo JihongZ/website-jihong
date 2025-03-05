@@ -30,23 +30,23 @@ format:
 ::: objectives
 ## Overview {.unnumbered}
 
--   Questions:
-    -   "How to build a graph in R?"
-    -   "What types of visualization are suitable for different types of data?"
--   Objectives:
-    -   "Recognize the necessary elements to build a plot using the `ggplot2` package."
-    -   "Define data, aesthetics and geometries for a basic graph."
-    -   "Distinguish when to use or not to use `aes()` to change graph's aesthetics (e.g. colors, shapes)."
-    -   "Overlay multiple geometries on the same graph and define aesthetics separately for each."
-    -   "Adjust and customize scales and labels in the graph."
-    -   "Use `ggplot2` to produce several kinds of visualizations (for continuous and/or discrete data)."
-    -   "Distinguish which types of visualization are adequate for different types of data and questions."
-    -   "Discuss the importance of scales when analysing and/or visualizing data"
+-   **Questions**:
+    1.  "*How to build a graph in R*?"
+    2.  "*What types of visualization are suitable for different types of data?*"
+-   **Objectives**:
+    1.  "Recognize the necessary elements to build a plot using the `ggplot2` package."
+    2.  "Define data, aesthetics and geometries for a basic graph."
+    3.  "Distinguish when to use or not to use `aes()` to change graph's aesthetics (e.g. colors, shapes)."
+    4.  "Overlay multiple geometries on the same graph and define aesthetics separately for each."
+    5.  "Adjust and customize scales and labels in the graph."
+    6.  "Use `ggplot2` to produce several kinds of visualizations (for continuous and/or discrete data)."
+    7.  "Distinguish which types of visualization are adequate for different types of data and questions."
+    8.  "Discuss the importance of scales when analysing and/or visualizing data"
 :::
 
 ```{r}
 #| echo: false
-#| fig-width: 12
+#| fig-height: 8
 library(patchwork)
 library(tidyverse)
 theme_set(theme_grey() + theme(text = element_text(size = 16)))
@@ -90,7 +90,9 @@ p1 / {p2 | p3}
 
 -   In these lessons we’re going to use some of these data to explore some of these data ourselves.
 
--   We have two files with data relating to socio-economic statistics: world data for 2010 only and the same data for 1960 to 2010 (see the setup page for instructions on how to download the data). In this lesson we will use the 2010 data only, and then use the full dataset in future episodes.
+-   There are two files with data relating to socio-economic statistics: world data for 2010 only and the same data for 1960 to 2010 (see the setup page for instructions on how to download the data).
+
+    -   In this lecture, we will use *the 2010 data only*, and then use the full dataset in future episodes.
 
 ## List of columns
 
@@ -124,7 +126,7 @@ glimpse(gapminder2010)
 ```
 
 ::: callout-important
-DO NOTE COPY-AND-PASTE `read_csv()` function. If you saved the data file in the same directory with you R code, use the following code:
+**DO NOTE COPY-AND-PASTE** `read_csv()` function. If you saved the data file in the same directory with you R code, use the following code:
 
 ```{r}
 #| eval: false
@@ -148,10 +150,13 @@ library(ggplot2)
 To build a `ggplot2` graph you need 3 basic pieces of information:
 
 1.  A **data.frame** with data to be plotted
-2.  The variables (columns of `data.frame`) that will be *mapped* to different **aesthetics** of the graph (e.g. axis, colors, shapes, etc.)
+    -   `ggplot(data = ...)`
+2.  The unquoted **variables** name (columns of `data.frame`) that will be *mapped* to different **aesthetics** of the graph (e.g. axis, colors, shapes, etc.)
+    -   `mapping = aes(x = ..., y=..., color=....)`
 3.  the **geometry** that will be drawn on the graph (e.g. points, lines, boxplots, violinplots, etc.)
+    -   `geom_points()` or `geom_path()`
 
-This translates into the following basic syntax:
+This translates into the following generic basic syntax:
 
 ``` r
 ggplot(data = <data.frame>, 
@@ -163,17 +168,14 @@ geom_<type of geometry>()
 ## First Visualization
 
 -   The question[^1] we're interested in is:
-    -   how much separation is there between different world regions in terms of family size and life expectancy?
-
-[^1]: For our first visualization, let's try to recreate one of the visualizations from [Hans Rosling's talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare).
-
-<!-- -->
-
--   We will explore this by using a [scatterplot](https://www.data-to-viz.com/graph/scatter.html) showing the relationship between `children_per_woman` and `life_expectancy`.
-
+    -   **Q1**: How much separation is there between different world regions in terms of *family size and life expectancy?*
+-   Since both family size and life expectancy are continuous, we can explore this by using a [scatterplot](https://www.data-to-viz.com/graph/scatter.html) showing the relationship[^2] between `children_per_woman` and `life_expectancy`.
 -   Let's do it step-by-step to see how `ggplot2` works.
 
-(1). Start by giving data to `ggplot`:
+[^1]: For our first visualization, let's try to recreate one of the visualizations from [Hans Rosling's talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare).
+[^2]: For two categorical variables, which figure is suitable?
+
+\(1\) Start by giving data to `ggplot`:
 
 ```{r}
 ggplot(data = gapminder2010) # <1>
@@ -181,7 +183,7 @@ ggplot(data = gapminder2010) # <1>
 
 1.  We replace `<data.frame>` with the object name of the target data frame
 
-That "worked" (as in, we didn't get an error). But because we didn't give `ggplot()` any variables to be *mapped* to *aesthetic* components of the graph, we just got an empty square.
+That "worked" (as in, we didn't get an error). But because we didn't give `ggplot()` any variables/columns to be mapped to *aesthetic* components of the graph, we just got an empty square or a blank canvas.
 
 (2) For **mappping columns to aesthetics**, we use the `aes()` function:
 
@@ -193,9 +195,11 @@ ggplot(data = gapminder2010,
 
 2.  We replaced `<column of the data.frame>` with the unquoted column name
 
-That's better, now we have some axis. Notice how `ggplot()` defines the axis based on the range of data given. But it's still not a very interesting graph, because we didn't tell what it is we want to draw on the graph.
+That's better, now we have x-axis and y-axis, which correspond to faimily size (*column name*: `children_per_woman`) and life expectancy (*column name*: `life_expectancy`). 
 
-This is done by adding (literally `+`) **geometries** to our graph:
+Notice how `ggplot()` defines the axis based on the range of data given. But it's still not a very interesting graph, because we didn't tell what it is we want to draw on the graph.
+
+This is done by adding (literally `+`) **geometries** to our graph. For example, scatterplot use the "point" to represent data:
 
 ```{r}
 ggplot(data = gapminder2010, 
@@ -239,7 +243,9 @@ ggplot(data = gapminder2010,
 
 ## Changing how geometries look like
 
-We can change how geometries look like in several ways, for example their transparency, color, size, shape, etc.
+We can change more *details* about how geometries look like in several ways, for example their transparency, color, size, shape, etc.
+
+In R, we added more arguments into the `geom_point` function, like `geom_point(color = "red")`
 
 To know which *aesthetic* components can be changed in a particular geometry, look at its documentation (e.g. `?geom_point`) and look under the "Aesthetics" section of the help page.
 
@@ -332,7 +338,7 @@ ggplot(sliced_points) +
 ::: callout-note
 ## Aesthetics: inside or outside `aes()`?
 
--   The previous examples illustrate an important distinction between [aesthetics]{.underline style="color:red"} defined inside or outside of `aes()`:
+-   The previous examples illustrate an important distinction between [[aesthetics]{.underline}]{style="color:red"} defined inside or outside of `aes()`:
 
     -   if you want the *aesthetic* to change **based on the data** it goes **inside `aes()`**
 
@@ -343,18 +349,20 @@ ggplot(gapminder2010) +
                  y = life_expectancy, 
                  color = world_region)) # <1>
 ```
-1. Each world region will has different colors
-    
+
+1.  Each world region will has different colors
+
     -   if you want to **manually specify** how the geometry should look like, it goes **outside `aes()`**
-    
+
 ```{r}
 #| column: margin
 ggplot(gapminder2010) + 
   geom_point(aes(x = children_per_woman, 
                  y = life_expectancy), 
              color = "red") # <2>
-```    
-2. All points will have same color - red
+```
+
+2.  All points will have same color - red
 :::
 
 :::: discussion
@@ -394,7 +402,7 @@ ggplot(data = gapminder2010,
 
 Often, we may want to overlay several geometries on top of each other. For example, add a [violin plot](https://www.data-to-viz.com/graph/violin.html) together with a boxplot so that we get both representations of the data in a single graph.
 
-1. Let's start by making a violin plot:
+1.  Let's start by making a violin plot:
 
 ```{r, warning=FALSE}
 # scale the violins by "width" rather than "area", which is the default
@@ -405,7 +413,7 @@ ggplot(gapminder2010, aes(x = world_region,
 
 > The shape represents the density estimate of the variable: the more data points in a specific range, the larger the violin is for that range.
 
-2. We can flip x-axis and y-axis using `coord_flip()`, meaning "flip Cartesian coordinates"
+2.  We can flip x-axis and y-axis using `coord_flip()`, meaning "flip Cartesian coordinates"
 
 ```{r}
 #| warning: false
@@ -415,8 +423,7 @@ ggplot(gapminder2010, aes(x = world_region,
   coord_flip()
 ```
 
-
-3. To layer an "extra" boxplot on top of it we "add" (with `+`) another geometry to the graph:
+3.  To layer an "extra" boxplot on top of it we "add" (with `+`) another geometry to the graph:
 
 ```{r, warning=FALSE}
 # Make boxplots thinner so the shape of the violins is visible
@@ -435,9 +442,10 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
   geom_violin(scale = "width") +
   coord_flip()
 ```
-1. If we switch the order of "boxplot" and "violin". Boxplot is overlapped by violin plot.
 
-Notice how we've shortened our code by omitting the names of the options `data = gapminder2010` and `mapping = aes(...)` inside `ggplot()`. Because [the data is always the first thing in the first place]{.underline style="color:tomato"} given to `ggplot()` and the mapping is always identified by the function `aes()`, this is often written in the more compact form as we just did.
+1.  If we switch the order of "boxplot" and "violin". Boxplot is overlapped by violin plot.
+
+Notice how we've shortened our code by omitting the names of the options `data = gapminder2010` and `mapping = aes(...)` inside `ggplot()`. Because [[the data is always the first thing in the first place]{.underline}]{style="color:tomato"} given to `ggplot()` and the mapping is always identified by the function `aes()`, this is often written in the more compact form as we just did.
 :::
 
 ## Controlling aesthetics in individual geometries
@@ -457,6 +465,7 @@ ggplot(gapminder2010, aes(x = world_region,
 
 ::: callout-important
 ## What if we want only violin plot to be colored not the boxplot
+
 OK, this is not what we wanted. Both *geometries* (boxplots and violins) got colored.
 
 It turns out that we can control aesthetics individually in each geometry, by puting the `aes()` inside the geometry function itself. Like this:
@@ -467,17 +476,15 @@ ggplot(gapminder2010, aes(x = world_region,
   geom_violin(aes(fill = world_region), scale = "width") + #<2>
   geom_boxplot(width = 0.2)
 ```
-1. Notice that we remove the coloring syntax, `aes(fill = world_region)`, from `ggplot` which applies to all geometries - violine and boxplot
-2. Note that we add another `aes` inside `geom_violin` geometry, which specify violin
 
+1.  Notice that we remove the coloring syntax, `aes(fill = world_region)`, from `ggplot` which applies to all geometries - violine and boxplot
+2.  Note that we add another `aes` inside `geom_violin` geometry, which specify violin
 :::
 
 :::: discussion
-
 ## Exercise {.unnumbered}
 
 -   Modify the graph above by coloring the inside of the boxplots by world region and the inside of the violins in grey color (hint: think about inside or outside `aes` for grey color. The code name for grey color in R is `"grey"`).
-
 
 ::: {.callout-note collapse="true"}
 ## Solution
@@ -566,7 +573,7 @@ We modify scales using the *scale* family of functions. These functions always f
 
 Let's see some examples.
 
----
+------------------------------------------------------------------------
 
 ### Change a numerical axis scale
 
@@ -574,7 +581,7 @@ Taking the graph from the previous exercise we can modify the x and y axis scale
 
 -   `limits =` with a vector with the length as 2 set the lower and upper limits of x or y axis.
 
--   `breaks = ` with `seq(0, 3, by = 1)` sets the x-axis ticks at the points of  `r seq(0, 3, by = 1)`
+-   `breaks =` with `seq(0, 3, by = 1)` sets the x-axis ticks at the points of `r seq(0, 3, by = 1)`
 
 ```{r, warning=FALSE}
 # Emphasise countries with 1-3 children and > 70 years life expectancy
@@ -611,9 +618,9 @@ ggplot(gapminder2010, aes(x = log10(income_per_person))) +
 
 This is also fine, but in this case the x-axis scale would show you the log-transformed values, rather than the original values. (Try running the code yourself to see the difference!)
 
----
+------------------------------------------------------------------------
 
-### Change numerical fill/color scales 
+### Change numerical fill/color scales
 
 Let's get back to our initial scatterplot and color the points by income:
 
@@ -643,7 +650,7 @@ ggplot(data = gapminder2010,
   scale_color_viridis_c(trans = "log10")
 ```
 
----
+------------------------------------------------------------------------
 
 ### Change a discrete axis scale
 
@@ -674,7 +681,7 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
   scale_fill_manual(values = c("tomato", "royalblue"))
 ```
 
----
+------------------------------------------------------------------------
 
 ### Change categorical color/fill scales
 
@@ -764,22 +771,22 @@ Every single element of a ggplot can be modified. This is further covered in a [
 
 ------------------------------------------------------------------------
 
-## Summary 
+## Summary
 
 ::: callout-note
 ## Data Tip: visualizing data
 
-1. Data visualization is one of the fundamental elements of data analysis. It allows you to assess variation within variables and relationships between variables.
+1.  Data visualization is one of the fundamental elements of data analysis. It allows you to assess variation within variables and relationships between variables.
 
-2. Choosing the right type of graph to answer particular questions (or convey a particular message) can be daunting. The [data-to-viz](https://www.data-to-viz.com/) website can be a great place to get inspiration from.
+2.  Choosing the right type of graph to answer particular questions (or convey a particular message) can be daunting. The [data-to-viz](https://www.data-to-viz.com/) website can be a great place to get inspiration from.
 
-3. Here are some common types of graph you may want to do for particular situations: 
+3.  Here are some common types of graph you may want to do for particular situations:
 
-    - Look at variation within a single variable using *histograms* (`geom_histogram()`) or, less commonly (but [quite useful](https://towardsdatascience.com/what-why-and-how-to-read-empirical-cdf-123e2b922480)) *empirical cumulative density function* plots (`stat_ecdf`). 
-    
-    - Look at variation of a variable across categorical groups using *boxplots* (`geom_boxplot()`), *violin plots* (`geom_violin()`) or frequency polygons (`geom_freqpoly()`). 
-    
-    - Look at the relationship between two numeric variables using *scatterplots* (`geom_point()`). 
-    
-    - If your x-axis is ordered (e.g. year) use a line plot (`geom_line()`) to convey the change on your y-variable.
+    -   Look at variation within a single variable using *histograms* (`geom_histogram()`) or, less commonly (but [quite useful](https://towardsdatascience.com/what-why-and-how-to-read-empirical-cdf-123e2b922480)) *empirical cumulative density function* plots (`stat_ecdf`).
+
+    -   Look at variation of a variable across categorical groups using *boxplots* (`geom_boxplot()`), *violin plots* (`geom_violin()`) or frequency polygons (`geom_freqpoly()`).
+
+    -   Look at the relationship between two numeric variables using *scatterplots* (`geom_point()`).
+
+    -   If your x-axis is ordered (e.g. year) use a line plot (`geom_line()`) to convey the change on your y-variable.
 :::

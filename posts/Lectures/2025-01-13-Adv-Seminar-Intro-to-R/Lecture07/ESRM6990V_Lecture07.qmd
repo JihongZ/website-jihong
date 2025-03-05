@@ -47,8 +47,9 @@ format:
 </form>
 ```
 
-::: {.callout-note}
+::: callout-note
 ## What is Quarto
+
 -   An open-source scientific and technical publishing system
 
     -   Author using Jupyter notebooks or with plain text markdown in your favorite editor.
@@ -118,7 +119,7 @@ If you would like to follow along with this tutorial in your own environment, fo
 ## YAML Header
 
 -   Each Quarto document (`.qmd`) typically starts with YAML Header
-
+t
 -   YAML header contains some setup information (metadata), such as `title`, `subtitle`, `author`, `date`, output file format (html, pdf, or slides)
 
 -   An (optional) YAML header demarcated by three dashes (`---`) on either end.
@@ -481,6 +482,10 @@ See the documentation on [Website Navigation](https://quarto.org/docs/websites/w
 1.  Use Quarto document to report you data analysis results.
 2.  Use Quarto document to write notes
 :::
+
+## LLM + Quarto Auto-Generation
+
+{{< video https://www.youtube.com/watch?v=WWbuV43cV9Q&t=322s >}}
 
 ## Other Resources about Quarto
 
