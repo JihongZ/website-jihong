@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
 
 /*-- scss:rules --*/
 @font-face {
@@ -76,7 +77,9 @@
 
 
 body {
-  font-family: "MiSans", sans-serif;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 h1, h2, h3 {
@@ -87,12 +90,13 @@ h1, h2, h3 {
 }
 
 p.subtitle.lead{
-  font-family: "Montserrat", sans-serif;
+  font-family: "Titillium Web", sans-serif;
 }
 
 p { // main font family of post content
-  font-family: "MiSans", sans-serif;
-  font-weight: 200;
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 strong {
