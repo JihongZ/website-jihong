@@ -41,6 +41,7 @@ listing:
     fields: [image, date, title]
     sort: "date desc"
     type: grid
+    max-items: 3
 format:
   html:
     code-fold: false
