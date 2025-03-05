@@ -157,26 +157,31 @@ glimpse(flights)
 
 ------------------------------------------------------------------------
 
+::: callout-important
+## Operators
+-   All following operators will return `TRUE` or `FALSE`:
+    -   Comparison operators: `==`, `!=`, `<`, `<=`, `>`, `>=`.
+    -   Logical operators: `&`, `|`, `!`.
+    -   Inclusion operator: `%in%`, i.e., `3 %in% c(1,2,3)` will return `TRUE`
+
+    ```{r}
+    #| eval: false
+    flights |> filter(month != 1) # Months other than January
+    flights |> filter(month %in% 1:10) # Months other than Nov. and Dec.
+    ```
+:::
+
 ### `filter()`: select cases based on condtions
 
--   Use `|>` (Preferred) or `%>%` to chain multiple operations (shortcut: `ctrl/cmd` + `shift` + `m`).
--   Select flights on January 1st:
-    -   Compare whether month,day equal to 1,1
+-   Use `|>` (Preferred, a vertical line symbol `|` plus a greater symbol `>`) or `%>%` to chain multiple functions/operations (shortcut: {{< kbd mac=Command+Shift+M win=Ctrl+Shift+M >}}).
+-   **Aim**: Select flights on January 1st:
+    -   Compare whether month,day equal to "1" (Januarary) and "1" (1<sup>st</sup> day), respectively
 
-```{r}
-jan1 <- flights |> filter(month == 1, day == 1)
-jan1
-```
+    ```{r}
+    jan1 <- flights |> filter(month == 1, day == 1)
+    jan1
+    ```
 
--   Comparison operators: `==`, `!=`, `<`, `<=`, `>`, `>=`.
--   Logical operators: `&`, `|`, `!`.
--   Include: `%in%`
-
-```{r}
-#| eval: false
-flights |> filter(month != 1) # Months other than January
-flights |> filter(month %in% 1:10) # Months other than Nov. and Dec.
-```
 
 ------------------------------------------------------------------------
 
