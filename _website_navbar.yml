@@ -1,0 +1,34 @@
+website:
+  navbar:
+    collapse-below: md
+    collapse: true
+    tools-collapse: true
+    pinned: true
+    title: "<span class='icon-line'></span><b><span style='color:#447099'>Jihong</span></b><span class='icon-line'></span>"
+    foreground: "#404041"
+    left:
+      - text: "<span class='menutext-teach'>TEACHING</span><span class='text-line text-line-teach'></span>"
+        file: teaching.qmd
+      - text: "<span class='menutext-research'>RESEARCH</span><span class='text-line text-line-research'></span>"
+        file: research/publications.qmd
+      - text: "<span class='menutext-note'>NOTE</span><span class='text-line text-line-note'></span>"
+        file: notes.qmd
+      - text: "<span class='menutext-presentation'>TALK</span><span class='text-line text-line-presentation'></span>"
+        file: presentation.qmd
+      - text: "<span class='menutext-blog'>BLOG</span><span class='text-line text-line-blog'></span>"     
+        file: posts.qmd 
+      - text: Others
+        menu:
+          - text: Project
+            file: projects.qmd
+          - text: "<span class='menutext-db'>Dashboard</span><span class='text-line text-line-db'></span>"
+            file: dashboards/template.qmd  
+    tools:
+      - icon: "bi bi-person-square" # somehow the file path only works in nav. bar, not link in index
+        file: uploads/Curriculum_Vitae.pdf
+      - icon: twitter
+        href: https://x.com/jihongzgamma
+      - icon: github
+        href: https://github.com/JihongZ
+      - icon: 'bi bi-globe-asia-australia'
+        file: postsCN.qmd

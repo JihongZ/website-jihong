@@ -1,0 +1,81 @@
+# MetaData Documentation: https://quarto.org/docs/projects/quarto-projects.html#metadata-includes
+website:
+  sidebar:
+    - id: id-lec6990v # https://github.com/quarto-dev/quarto-cli/discussions/8117
+      style: "docked"
+      contents: 
+        - section: "Lecture"
+          contents:
+            - file: posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture01/ESRM6990V_Lecture01.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Lecture02.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture03/ESRM6990V_Lecture03.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Lecture04.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Lecture05.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Lecture06.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture07/ESRM6990V_Lecture07.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture08/ESRM6990V_Lecture08.qmd      
+        - section: "Exercise"
+          contents:
+            - file: posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Exercise02.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture03/ESRM6990V_Exercise03.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Exercise04.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Exercise05.qmd
+            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Exercise06.qmd
+    - id: id-note
+      style: "docked"
+      logo: "images/jihonglogo.png"
+      search: true
+      collapse-level: 1
+      contents:
+        - section: 'Useful Materials'
+          contents: 
+            - text: '2024 Research Plan'
+              file: projects/Research_Plan/Timeline-Visualization.qmd
+            - text: 'CSS cheatsheet'
+              href: uploads/css3-cheat-sheet.pdf
+            - text: 'Latex Symbols'
+              file: uploads/latex_symbols.pdf
+        - text: "---"    
+        - section: Latent Variable Model
+          contents: 
+            - text: 'Power Analysis'
+              file: posts/2022-04-29-power-analysis-for-sem/index.Rmd
+            - text: "CFA via `lavaan`"
+              file: posts/2017-11-08-sem-homework/index.Rmd
+            - text: "Measurement Invariance"
+              file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
+    - id: id-history
+      contents:
+        - section: ESRM64503 Applied Multivariate Analysis
+          contents: 
+            - text: 'Syllabus'
+              file: posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/index.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/Lecture01.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture02/Lecture02.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture03/Lecture03.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture04/Lecture04.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture05/Lecture05.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture06/Lecture06.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture07/Lecture07.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture08/Lecture08.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture09/Lecture09.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture10/Lecture10.qmd
+            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture11/Lecture11.qmd
+        - text: "---"    
+        - section: ESRM6553 Advanced Multivariate Analysis
+          contents: 
+            - text: 'Syllabus'
+              file: posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Lecture07.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture09/Lecture09.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture10/Lecture10.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Lecture11.qmd
+            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture12/Lecture12.qmd

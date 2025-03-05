@@ -1,7 +1,11 @@
 project:
   type: website
   output-dir: "_site"
-    
+
+metadata-files:
+  - _website_sidebar.yml
+  - _website_navbar.yml
+  
 website:
   search: 
     location: sidebar
@@ -21,121 +25,7 @@ website:
   page-footer: 
     left:
       © {{< now year >}} Jihong Zhang
-  
-  # starting sidebar
-  sidebar:
-    - id: id-lec6990v # https://github.com/quarto-dev/quarto-cli/discussions/8117
-      style: "docked"
-      contents: 
-        - section: "Lecture"
-          contents:
-            - file: posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture01/ESRM6990V_Lecture01.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Lecture02.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture03/ESRM6990V_Lecture03.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Lecture04.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Lecture05.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Lecture06.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture07/ESRM6990V_Lecture07.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture08/ESRM6990V_Lecture08.qmd      
-        - section: "Exercise"
-          contents:
-            - file: posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Exercise02.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture03/ESRM6990V_Exercise03.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Exercise04.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Exercise05.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Exercise06.qmd
-    - id: id-other    
-      style: "floating"
-      logo: "images/jihonglogo.png"
-      search: true
-      collapse-level: 1
-      contents:
-        - section: 'Useful Materials'
-          contents: 
-            - text: '2024 Research Plan'
-              file: projects/Research_Plan/Timeline-Visualization.qmd
-            - text: 'CSS cheatsheet'
-              href: uploads/css3-cheat-sheet.pdf
-            - text: 'Latex Symbols'
-              file: uploads/latex_symbols.pdf
-        - text: "---"    
-        - section: Latent Variable Model
-          contents: 
-            - text: 'Power Analysis'
-              file: posts/2022-04-29-power-analysis-for-sem/index.Rmd
-            - text: "CFA via `lavaan`"
-              file: posts/2017-11-08-sem-homework/index.Rmd
-            - text: "Measurement Invariance"
-              file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
-        - text: "---"      
-        - section: ESRM64503 Applied Multivariate Analysis
-          contents: 
-            - text: 'Syllabus'
-              file: posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/index.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/Lecture01.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture02/Lecture02.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture03/Lecture03.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture04/Lecture04.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture05/Lecture05.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture06/Lecture06.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture07/Lecture07.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture08/Lecture08.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture09/Lecture09.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture10/Lecture10.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture11/Lecture11.qmd
-        - text: "---"    
-        - section: ESRM6553 Advanced Multivariate Analysis
-          contents: 
-            - text: 'Syllabus'
-              file: posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Lecture07.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture09/Lecture09.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture10/Lecture10.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Lecture11.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture12/Lecture12.qmd
-  navbar:
-    collapse-below: md
-    collapse: true
-    tools-collapse: true
-    pinned: true
-    title: "<span class='icon-line'></span><b><span style='color:#447099'>Jihong</span></b><span class='icon-line'></span>"
-    foreground: "#404041"
-    left:
-      - text: "<span class='menutext-teach'>TEACHING</span><span class='text-line text-line-teach'></span>"
-        file: teaching.qmd
-      - text: "<span class='menutext-research'>RESEARCH</span><span class='text-line text-line-research'></span>"
-        file: research/publications.qmd
-      - text: "<span class='menutext-note'>NOTE</span><span class='text-line text-line-note'></span>"
-        file: notes.qmd
-      - text: "<span class='menutext-presentation'>TALK</span><span class='text-line text-line-presentation'></span>"
-        file: presentation.qmd
-      - text: "<span class='menutext-blog'>BLOG</span><span class='text-line text-line-blog'></span>"     
-        file: posts.qmd 
-      - text: Others
-        menu:
-          - text: Project
-            file: projects.qmd
-          - text: "<span class='menutext-db'>Dashboard</span><span class='text-line text-line-db'></span>"
-            file: dashboards/template.qmd  
       
-    tools:
-      - icon: "bi bi-person-square" # somehow the file path only works in nav. bar, not link in index
-        file: uploads/Curriculum_Vitae.pdf
-      - icon: twitter
-        href: https://x.com/jihongzgamma
-      - icon: github
-        href: https://github.com/JihongZ
-      - icon: 'bi bi-globe-asia-australia'
-        file: postsCN.qmd
-    
 format:
   html:
     ## Page layout (see https://quarto.org/docs/output-formats/page-layout.html#html-page-layout)

@@ -1,6 +1,7 @@
 ---
 title: ''
 subtitle: ''
+sidebar: id-history
 listing:
   - id: lectures
     contents: posts/Lectures/*/*_syllabus.[Rq]md
@@ -12,6 +13,8 @@ format:
   html:
     code-tools: false
     toc: false
+    grid:
+      sidebar-width: 350px
 ---
 
 ## Course
