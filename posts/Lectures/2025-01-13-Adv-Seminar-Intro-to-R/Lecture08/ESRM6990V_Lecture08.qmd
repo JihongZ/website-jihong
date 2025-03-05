@@ -173,6 +173,7 @@ geom_<type of geometry>()
 -   Let's do it step-by-step to see how `ggplot2` works.
 
 [^1]: For our first visualization, let's try to recreate one of the visualizations from [Hans Rosling's talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare).
+
 [^2]: For two categorical variables, which figure is suitable?
 
 \(1\) Start by giving data to `ggplot`:
@@ -195,7 +196,7 @@ ggplot(data = gapminder2010,
 
 2.  We replaced `<column of the data.frame>` with the unquoted column name
 
-That's better, now we have x-axis and y-axis, which correspond to faimily size (*column name*: `children_per_woman`) and life expectancy (*column name*: `life_expectancy`). 
+That's better, now we have x-axis and y-axis, which correspond to faimily size (*column name*: `children_per_woman`) and life expectancy (*column name*: `life_expectancy`).
 
 Notice how `ggplot()` defines the axis based on the range of data given. But it's still not a very interesting graph, because we didn't tell what it is we want to draw on the graph.
 
@@ -216,7 +217,7 @@ Notice how `geom_point()` warns you that it had to remove some missing values (i
 :::
 
 :::: discussion
-## Exercise {.unnumbered}
+## 8.1. Exercise {.unnumbered}
 
 [Aim]{.redcolor}: It would be useful to explore the pattern of missing data in these two variables. The `naniar` package provides a ggplot geometry that allows us to do this, by replacing `NA` values with values 10% lower than the minimum in the variable.
 
@@ -240,6 +241,47 @@ ggplot(data = gapminder2010,
     3.  However, we only have 9 cases with missing data, so perhaps we should not make very strong conclusions from this. But it gives us more questions that we could follow up on: are the countries with missing data generaly lacking other statistics? Is it harder to obtain data for fertility than for life expectancy?
 :::
 ::::
+
+## A list(not full) of geometries in ggplot2
+
+-   Here is a list of geometries[^3]:
+
+    -   `geom_area()` draws an area plot, which is a line plot filled to the y-axis (filled lines). Multiple groups will be stacked on top of each other.
+
+    -   `geom_bar(stat = "identity")` makes a bar chart. We need stat = "identity" because the default stat automatically counts values (so is essentially a 1d geom, see Section 5.4). The identity stat leaves the data unchanged. Multiple bars in the same location will be stacked on top of one another.
+
+    -   `geom_line()` makes a line plot. The group aesthetic determines which observations are connected; see Chapter 4 for more detail. geom_line() connects points from left to right; geom_path() is similar but connects points in the order they appear in the data. Both geom_line() and geom_path() also understand the aesthetic linetype, which maps a categorical variable to solid, dotted and dashed lines.
+
+     -   `geom_point()` produces a scatterplot. geom_point() also understands the shape aesthetic.
+
+     -   `geom_polygon()` draws polygons, which are filled paths. Each vertex of the polygon requires a separate row in the data. It is often useful to merge a data frame of polygon coordinates with the data just prior to plotting. Chapter 6 illustrates this concept in more detail for map data.
+
+     -   `geom_rect()`, `geom_tile()` and `geom_raster()` draw rectangles. `geom_rect()` is parameterised by the four corners of the rectangle, xmin, ymin, xmax and ymax. `geom_tile()` is exactly the same, but parameterised by the center of the rect and its size, x, y, width and height. `geom_raster()` is a fast special case of `geom_tile()` used when all the tiles are the same size. .
+
+     -   `geom_text()` adds text to a plot. It requires a label aesthetic that provides the text to display, and has a number of parameters (angle, family, fontface, hjust and vjust) that control the appearance of the text.
+
+[^3]: [ggplot2: Elegant Graphics for Data Analysis (3e) Chapter 3](https://ggplot2-book.org/individual-geoms)
+
+```{r}
+#| code-fold: true
+#| layout-nrow: 4
+df <- data.frame(
+  x = c(3, 1, 5), 
+  y = c(2, 4, 6), 
+  label = c("a","b","c")
+)
+p <- ggplot(df, aes(x, y, label = label)) + 
+  labs(x = NULL, y = NULL) + # Hide axis label
+  theme(plot.title = element_text(size = 15)) # Shrink plot title
+p + geom_point() + ggtitle("geom_point")
+p + geom_text() + ggtitle("geom_text")
+p + geom_bar(stat = "identity") + ggtitle("geom_bar")
+p + geom_tile() + ggtitle("geom_raster")
+p + geom_line() + ggtitle("geom_line")
+p + geom_area() + ggtitle("geom_area")
+p + geom_path() + ggtitle("geom_path")
+p + geom_polygon() + ggtitle("geom_polygon")
+```
 
 ## Changing how geometries look like
 
@@ -280,7 +322,7 @@ ggplot(data = gapminder2010,
 Adding transparency to points is useful when data is very packed, as you can then see which areas of the graph are more densely occupied with points.
 
 :::: discussion
-## Exercise {.unnumbered}
+## 8.2. Exercise {.unnumbered}
 
 [Aim]{.redcolor}: Try changing the *size*, *shape* and *color* of the points (hint: web search "ggplot2 point shapes" to see how to make a triangle)
 
@@ -365,10 +407,32 @@ ggplot(gapminder2010) +
 2.  All points will have same color - red
 :::
 
-:::: discussion
-## Exercise {.unnumbered}
+::::: discussion
+## 8.3. Exercise {.unnumbered}
 
-Make a [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) that shows the distribution of `children_per_woman` (y-axis) for each `world_region` (x-axis). (Hint: using `geom_boxplot()`)
+**Question 1**: What’s gone wrong with this code? Why are the points not blue?
+
+```{r}
+ggplot(data = gapminder2010) +
+  geom_point(mapping = aes(x = children_per_woman, 
+                           y = life_expectancy, 
+                           colour = "blue"))
+```
+
+::: {.callout-note collapse="true"}
+## Solution
+
+The argument `colour = "blue"` is included within the mapping argument, and as such, it is treated as an aesthetic, which is a mapping between a variable and a value. In the expression, `colour = "blue"`, "blue" is interpreted as a categorical variable which only takes a single value "blue". If this is confusing, consider how colour = 1:234 and colour = 1 are interpreted by aes().
+
+```{r}
+ggplot(data = gapminder2010) +
+  geom_point(mapping = aes(x = children_per_woman, 
+                           y = life_expectancy),
+             colour = "blue")
+```
+:::
+
+**Question 2**: Make a [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) that shows the distribution of `children_per_woman` (y-axis) for each `world_region` (x-axis). (Hint: using `geom_boxplot()`)
 
 **Bonus:** Color the inside of the boxplots by `income_groups`.
 
@@ -396,11 +460,12 @@ ggplot(data = gapminder2010,
 
 -   Also, the labels on the x-axis are all overlapping each other. We will see how to solve this later.
 :::
-::::
+:::::
 
 ## Multiple Geometries
 
 Often, we may want to overlay several geometries on top of each other. For example, add a [violin plot](https://www.data-to-viz.com/graph/violin.html) together with a boxplot so that we get both representations of the data in a single graph.
+
 
 1.  Let's start by making a violin plot:
 
@@ -482,7 +547,7 @@ ggplot(gapminder2010, aes(x = world_region,
 :::
 
 :::: discussion
-## Exercise {.unnumbered}
+## 8.4. Exercise {.unnumbered}
 
 -   Modify the graph above by coloring the inside of the boxplots by world region and the inside of the violins in grey color (hint: think about inside or outside `aes` for grey color. The code name for grey color in R is `"grey"`).
 
@@ -708,7 +773,7 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
 You can see all the available palettes [here](https://r4ds.had.co.nz/graphics-for-communication.html#fig:brewer). Note that some palettes only have a limited number of colors and `ggplot` will give a warning if it has fewer colors available than categories in the data.
 
 :::: discussion
-## Exercise {.unnumbered}
+## 8.5. Exercise {.unnumbered}
 
 Modify the following code so that the point size is defined by the population size. The size should be on a log scale (Hint: use the `scale_size_continuous` geometry.).
 
@@ -767,9 +832,9 @@ Another easy way to save your graphs is by using RStudio's interface. From the "
 
 ## Customising your graphs
 
-- Every single element of a ggplot can be modified. This is further covered in a future episode.
+-   Every single element of a ggplot can be modified. This is further covered in a future episode.
 
-- For some simple plot, like the density plot of single variable, you may not need `ggplot2` package. Base R has some built-in plotting function for data visualization. See this [blog](https://intro2r.com/simple-base-r-plots.html) for example.
+-   For some simple plot, like the density plot of single variable, you may not need `ggplot2` package. Base R has some built-in plotting function for data visualization. See this [blog](https://intro2r.com/simple-base-r-plots.html) for example.
 
 ------------------------------------------------------------------------
 

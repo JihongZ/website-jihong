@@ -1,5 +1,5 @@
 ---
-title: "Lecture 05: Text Data Analysis and Data Summary"
+title: "Lecture 05: Data Transformation and Summary"
 subtitle: "Using `dplyr` package"
 author: "Jihong Zhang*, Ph.D"
 institute: | 

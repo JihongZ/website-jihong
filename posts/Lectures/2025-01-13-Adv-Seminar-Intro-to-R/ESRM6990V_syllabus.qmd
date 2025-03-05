@@ -96,10 +96,11 @@ No prior programming experience is required, but basic statistical knowledge and
 
 1.  **ITDS**: [Introduction to Data Science Part I - Data Wrangling and Visualization with R](https://rafalab.dfci.harvard.edu/dsbook-part-1/) by *Rafael A. Irizarry*
 2.  **R4DS**: [R for Data Science (2e)](https://r4ds.hadley.nz/) - Visualize, Model, Transform, Tidy and Import Data by *Hadley Wickham* & *Garret Grolemund*
-3.  [Advanced R](https://adv-r.hadley.nz/index.html) by *Hadley Wickham*
-4.  [Yet Again: R + Data Science](https://yards.albert-rapp.de/) by *Albert Rapp*
-5.  [Happy Git and GitHub for the useR](https://happygitwithr.com/) by [*Jennifer Bryan*](https://github.com/jennybc/happy-git-with-r)
-6.  [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/) by *Roger D. Peng*
+3.  [**Tidyverse Learn**](https://www.tidyverse.org/learn/)
+4.  [Advanced R](https://adv-r.hadley.nz/index.html) by *Hadley Wickham*
+5.  [Yet Again: R + Data Science](https://yards.albert-rapp.de/) by *Albert Rapp*
+6.  [Happy Git and GitHub for the useR](https://happygitwithr.com/) by [*Jennifer Bryan*](https://github.com/jennybc/happy-git-with-r)
+7.  [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/) by *Roger D. Peng*
 
 ## R Community
 
@@ -351,7 +352,7 @@ Following materials are only allowed for previewing for students registered in E
 |        |                  | [Exercise 4: Data Import and Data Tidying](Lecture04/ESRM6990V_Exercise04.qmd)                                                        |           |                                                                                                                                                                            | 3.  [03-sales.csv](Lecture04/data/03-sales.csv)                              |
 |        |                  |                                                                                                                                       |           |                                                                                                                                                                            | 4.  [students.csv](Lecture04/data/students.csv)                              |
 +--------+------------------+---------------------------------------------------------------------------------------------------------------------------------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------+
-| 5      | 02/13            | [Lecture 5: Text Data Analysis and Data Summary](Lecture05/ESRM6990V_Lecture05.qmd)                                                   | dplyr     | R4DS [CH3: Data transformation](https://r4ds.hadley.nz/data-transform)                                                                                                     | [example_paper.pdf](Lecture05/example_paper.pdf)                             |
+| 5      | 02/13            | [Lecture 5: Data Transformation and Summary](Lecture05/ESRM6990V_Lecture05.qmd)                                                       | dplyr     | R4DS [CH3: Data transformation](https://r4ds.hadley.nz/data-transform)                                                                                                     | [example_paper.pdf](Lecture05/example_paper.pdf)                             |
 |        |                  |                                                                                                                                       |           |                                                                                                                                                                            |                                                                              |
 |        |                  | [Exercise 5: Text Data Analysis and Data Summary](Lecture05/ESRM6990V_Exercise05.qmd)                                                 |           |                                                                                                                                                                            |                                                                              |
 +--------+------------------+---------------------------------------------------------------------------------------------------------------------------------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------+
