@@ -13,6 +13,8 @@ toc: true
 format:
   html:
     number-sections: true
+  typst: 
+    df-print: tibble
 ---
 
 ::: objectives
@@ -32,9 +34,6 @@ knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       fig.align = "default", 
                       eval = TRUE)
-
-library(gt)
-suppressMessages(library(tidyverse))
 ```
 
 ## Component 
@@ -45,11 +44,18 @@ The typical gt table starts with converting a data frame into a gt object. The `
 
 ## Example: sp500 data
 
-- A `gt` object can be directly output and rendered into HTML.
+As always, we install and load `gt` and `tidyverse` packages.
 
 ```{r}
+#| message: false
+#| warning: false
 library(gt)
+library(tidyverse)
+```
 
+- `gt()` function can convert data.frame into `gt` object. A `gt` object can be directly output and rendered into HTML.
+
+```{r}
 # Define the start and end dates for the data range
 start_date <- "2010-06-07"
 end_date <- "2010-06-14"
