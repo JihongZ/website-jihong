@@ -4,7 +4,7 @@ subtitle: "Learn harder, Play harder"
 comments: false
 toc: false
 sidebar: false
-image: "images/profile-2.JPG"
+image: "images/profile-3.jpg"
 about:
   id: hero-heading
   template: trestles
