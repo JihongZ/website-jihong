@@ -7,7 +7,6 @@ execute:
   echo: true
   warning: false
   message: false
-output-location: default
 code-annotations: below
 format: 
   html:
@@ -17,9 +16,15 @@ format:
     number-offset: 0
     fig.width: 10
     fig-align: center
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false  
+    tbl-colwidths: auto
+    output-file: slides-index.html
 ---
-
-------------------------------------------------------------------------
 
 ::: objectives
 ## Overview {.unnumbered}
@@ -170,7 +175,9 @@ geom_<type of geometry>()
 
 [^2]: For two categorical variables, which figure is suitable?
 
-\(1\) Start by giving data to `ggplot`:
+---
+
+- 1. Start by giving data to `ggplot`:
 
 ```{r}
 ggplot(data = gapminder2010) # <1>
@@ -180,21 +187,25 @@ ggplot(data = gapminder2010) # <1>
 
 That "worked" (as in, we didn't get an error). But because we didn't give `ggplot()` any variables/columns to be mapped to *aesthetic* components of the graph, we just got an empty square or a blank canvas.
 
-(2) For **mappping columns to aesthetics**, we use the `aes()` function:
+---
 
+- 2. For **mappping columns to aesthetics**, we use the `aes()` function:
 ```{r}
 ggplot(data = gapminder2010, 
        mapping = aes(x = children_per_woman, # <2>
                      y = life_expectancy)) 
 ```
-
 2.  We replaced `<column of the data.frame>` with the unquoted column name
+
+
 
 That's better, now we have x-axis and y-axis, which correspond to faimily size (*column name*: `children_per_woman`) and life expectancy (*column name*: `life_expectancy`).
 
 Notice how `ggplot()` defines the axis based on the range of data given. But it's still not a very interesting graph, because we didn't tell what it is we want to draw on the graph.
 
-This is done by adding (literally `+`) **geometries** to our graph. For example, scatterplot use the "point" to represent data:
+---
+
+- 3. This is done by adding (literally `+`) **geometries** to our graph. For example, scatterplot use the "point" to represent data:
 
 ```{r}
 ggplot(data = gapminder2010, 
@@ -210,25 +221,29 @@ ggplot(data = gapminder2010,
 Notice how `geom_point()` warns you that it had to remove some missing values (if the data is missing for at least one of the variables, then it cannot plot the points).
 :::
 
-::::: discussion
-## 8.1. Exercise {.unnumbered}
+---
+
+## Exercise-01: geometry of missingness
+
+::::: {.panel-tabset}
+## Exercise
 
 [Aim]{.redcolor}: It would be useful to explore the pattern of missing data in these two variables. The `naniar` package provides a ggplot geometry that allows us to do this, by replacing `NA` values with values 10% lower than the minimum in the variable.
 
 Try and modify the previous graph, using the `geom_miss_point()` from this package. (hint: don't forget to load the package first using `library(naniar)`)
 
-::: callout-note
+[Questions]{.redcolor}: What can you conclude from this exploration? Are the data missing at random?
+
 ## Trick: Fast Installation of Package
 
 To open a "Install Packages" window below, press {{<kbd mac=Command+Shift+P win=Ctrl+Shift+P >}} and then search "Install" in the dropdown menu.
 
 ![](images/clipboard-3351367957.png){fig-align="center" width="250"}
-:::
 
-[Questions]{.redcolor}: What can you conclude from this exploration? Are the data missing at random?
 
-::: {.callout-note collapse="true"}
-## Answer
+
+
+## Solution
 
 ```{r}
 library(naniar) # load the naniar package; this should be placed on top of the script
@@ -241,7 +256,6 @@ ggplot(data = gapminder2010,
     1.  it seems to be the case that when data is missing for one variable it is often also missing for the other.
     2.  And there seem to be more missing data for `children_per_woman` than `life_expectancy`.
     3.  However, we only have 9 cases with missing data, so perhaps we should not make very strong conclusions from this. But it gives us more questions that we could follow up on: are the countries with missing data generaly lacking other statistics? Is it harder to obtain data for fertility than for life expectancy?
-:::
 :::::
 
 ## A (not full) list of geometries in ggplot2
@@ -285,7 +299,7 @@ p + geom_path() + ggtitle("geom_path")
 p + geom_polygon() + ggtitle("geom_polygon")
 ```
 
-## Changing how geometries look like
+## Aesthetics: Changing how geometries look like
 
 We can change more *details* about how geometries look like in several ways, for example their transparency, color, size, shape, etc.
 
@@ -310,7 +324,9 @@ To know which *aesthetic* components can be changed in a particular geometry, lo
     -   stroke
 :::
 
-For example, we can change the transparency of the points in our scatterplot using `alpha` argument in `geom_point()` (`alpha` varies between 0-1 with zero being transparent and 1 being opaque):
+---
+
+- For example, we can change the transparency of the points in our scatterplot using `alpha` argument in `geom_point()` (`alpha` varies between 0-1 with zero being transparent and 1 being opaque):
 
 ```{r, warning=FALSE}
 ggplot(data = gapminder2010, 
@@ -323,8 +339,12 @@ ggplot(data = gapminder2010,
 
 Adding transparency to points is useful when data is very packed, as you can then see which areas of the graph are more densely occupied with points.
 
-:::: discussion
-## 8.2. Exercise {.unnumbered}
+---
+
+## Exercise-02
+
+:::: {.panel-tabset}
+## Exercise
 
 [Aim]{.redcolor}: Try changing the *size*, *shape* and *color* of the points (hint: web search "ggplot2 point shapes" to see how to make a triangle)
 
@@ -332,7 +352,6 @@ You can find out R colors' name using `colors()` functions. Below is the index f
 
 ![](images/clipboard-2299570783.png){width="200"}
 
-::: {.callout-note collapse="true"}
 ## Solution
 
 ```{r, warning=FALSE}
@@ -340,7 +359,6 @@ ggplot(data = gapminder2010,
        mapping = aes(x = children_per_woman, y = life_expectancy)) +
   geom_point(size = 3, shape = 6, color = "brown")
 ```
-:::
 ::::
 
 ## Changing aesthetics based on data
@@ -358,6 +376,8 @@ ggplot(data = gapminder2010,
                      color = world_region)) + #<5>
   geom_point()
 ```
+
+---
 
 5.  We changed the points' color based on their world regions.
 
@@ -378,6 +398,8 @@ ggplot(sliced_points) +
                  y = life_expectancy, 
                  color = world_region))
 ```
+
+---
 
 ::: callout-note
 ## Aesthetics: inside or outside `aes()`?
@@ -409,8 +431,12 @@ ggplot(gapminder2010) +
 2.  All points will have same color - red
 :::
 
-::::: discussion
-## 8.3. Exercise {.unnumbered}
+---
+
+## Exercise-03
+::::: {.panel-tabset}
+
+## Exercise-03-Q1
 
 **Question 1**: What’s gone wrong with this code? Why are the points not blue?
 
@@ -421,8 +447,7 @@ ggplot(data = gapminder2010) +
                            colour = "blue"))
 ```
 
-::: {.callout-note collapse="true"}
-## Solution
+## Solution-03-Q1
 
 The argument `colour = "blue"` is included within the mapping argument, and as such, it is treated as an aesthetic, which is a mapping between a variable and a value. In the expression, `colour = "blue"`, "blue" is interpreted as a categorical variable which only takes a single value "blue". If this is confusing, consider how colour = 1:234 and colour = 1 are interpreted by aes().
 
@@ -432,14 +457,14 @@ ggplot(data = gapminder2010) +
                            y = life_expectancy),
              colour = "blue")
 ```
-:::
+
+## Exercise-03-Q2
 
 **Question 2**: Make a [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) that shows the distribution of `children_per_woman` (y-axis) for each `world_region` (x-axis). (Hint: using `geom_boxplot()`)
 
 **Bonus:** Color the inside of the boxplots by `income_groups`.
 
-::: {.callout-note collapse="true"}
-## Solution
+## Solution-03-Q2
 
 ```{r, warning=FALSE}
 ggplot(data = gapminder2010,
@@ -461,7 +486,6 @@ ggplot(data = gapminder2010,
 -   Some groups have too few observations (possibly only 1) and so we get odd boxplots with only a line representing the median, because there isn't enough variation in the data to have distinct quartiles.
 
 -   Also, the labels on the x-axis are all overlapping each other. We will see how to solve this later.
-:::
 :::::
 
 ## Multiple Geometries
@@ -479,6 +503,8 @@ ggplot(gapminder2010, aes(x = world_region,
 
 > The shape represents the density estimate of the variable: the more data points in a specific range, the larger the violin is for that range.
 
+---
+
 2.  We can flip x-axis and y-axis using `coord_flip()`, meaning "flip Cartesian coordinates"
 
 ```{r}
@@ -489,6 +515,8 @@ ggplot(gapminder2010, aes(x = world_region,
   coord_flip()
 ```
 
+---
+
 3.  To layer an "extra" boxplot on top of it we "add" (with `+`) another geometry to the graph:
 
 ```{r, warning=FALSE}
@@ -498,6 +526,8 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
   geom_boxplot(width = 0.2) +
   coord_flip()
 ```
+
+---
 
 ::: callout-note
 The order in which you add the geometries defines the order they are "drawn" on the graph. For example, try swapping their order and see what happens.
@@ -529,6 +559,8 @@ ggplot(gapminder2010, aes(x = world_region,
   geom_boxplot(width = 0.2)
 ```
 
+---
+
 ::: callout-important
 ## What if we want only violin plot to be colored not the boxplot
 
@@ -547,12 +579,15 @@ ggplot(gapminder2010, aes(x = world_region,
 2.  Note that we add another `aes` inside `geom_violin` geometry, which specify violin
 :::
 
-:::: discussion
-## 8.4. Exercise {.unnumbered}
+---
+
+## Exercise-04
+
+:::: {.panel-tabset}
+## Exercise
 
 -   Modify the graph above by coloring the inside of the boxplots by world region and the inside of the violins in grey color (hint: think about inside or outside `aes` for grey color. The code name for grey color in R is `"grey"`).
 
-::: {.callout-note collapse="true"}
 ## Solution
 
 Because we want to define the fill color of the violin "manually" it goes *outside* `aes()`. Whereas for the violin we want the fill to depend on a column of data, so it goes inside `aes()`.
@@ -564,7 +599,6 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
 ```
 
 Although this graph looks appealing, the color is redundant with the x-axis labels. So, the same information is being shown with multiple *aesthetics*. This is not necessarily incorrect, but we should generally [avoid too much gratuitous use of color in graphs](https://serialmentor.com/dataviz/color-pitfalls.html). At the very least we should remove the legend from this graph.
-:::
 ::::
 
 ## Facets
@@ -585,7 +619,10 @@ Both geometries allow to to specify faceting variables specified with `vars()`. 
 -   `facet_wrap(facets = vars(facet_variable))`
 -   `facet_grid(rows = vars(row_variable), cols = vars(col_variable))`.
 
-For example, if we want to visualize the scatterplot above split by `income_groups`:
+
+---
+
+- For example, if we want to visualize the scatterplot above split by `income_groups`:
 
 ```{r, warning=FALSE}
 ggplot(gapminder2010, 
@@ -596,7 +633,9 @@ ggplot(gapminder2010,
   facet_wrap(facets = vars(income_groups))
 ```
 
-If instead we want a *matrix* of facets to display `income_groups` and `economic_organisation`, then we use `facet_grid()`:
+---
+
+- If instead we want a *matrix* of facets to display `income_groups` and `economic_organisation`, then we use `facet_grid()`:
 
 ```{r, warning=FALSE}
 ggplot(gapminder2010, 
@@ -608,7 +647,9 @@ ggplot(gapminder2010,
              cols = vars(is_oecd))
 ```
 
-Finally, with `facet_grid()`, you can organise the panels just by rows or just by columns. Try running this code yourself:
+---
+
+- Finally, with `facet_grid()`, you can organise the panels just by rows or just by columns. Try running this code yourself:
 
 ```{r}
 #| column: margin
@@ -658,12 +699,16 @@ ggplot(gapminder2010,
   scale_y_continuous(limits = c(70, 85))
 ```
 
+---
+
 You can also apply transformations to the data. For example, consider the distribution of income across countries, represented using a [histogram](https://www.data-to-viz.com/graph/histogram.html):
 
 ```{r}
 ggplot(gapminder2010, aes(x = income_per_person)) +
   geom_histogram()
 ```
+
+---
 
 We can see that this distribution is [highly skewed](https://en.wikipedia.org/wiki/Skewness), with some countries having very large values, while others having very low values. One common data transformation to solve this issue is to log-transform our values. We can do this within the scale function:
 
@@ -673,11 +718,13 @@ ggplot(gapminder2010, aes(x = income_per_person)) +
   scale_x_continuous(trans = "log10")
 ```
 
+---
+
 Notice how the interval between the x-axis values is not constant anymore, we go from \$1000 to \$10,000 and then to \$100,000. That's because our data is now plotted on a log-scale.
 
 You could transform the data directly in the variable given to x:
 
-```{r, eval=FALSE}
+```{r}
 ggplot(gapminder2010, aes(x = log10(income_per_person))) +
   geom_histogram()
 ```
@@ -698,6 +745,8 @@ ggplot(data = gapminder2010,
 
 Because `income_per_person` is a continuous variable, *ggplot* created a *gradient* color scale.
 
+---
+
 We can change the default using `scale_color_gradient()`, defining two colors for the lowest and highest values (and we can also log-transform the data like before):
 
 ```{r, warning=FALSE}
@@ -706,6 +755,8 @@ ggplot(data = gapminder2010,
   geom_point(aes(color = income_per_person)) +
   scale_color_gradient(low = "steelblue", high = "brown", trans = "log10")
 ```
+
+---
 
 For continuous color scales we can use the [*viridis* palette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html), which has been developed to be color-blind friendly and perceptually better:
 
@@ -729,6 +780,8 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
   geom_boxplot(aes(fill = is_oecd)) +
   scale_x_discrete(limits = c("europe_central_asia", "america"))
 ```
+
+---
 
 You can manually change specific group's color using `scale_fill_manual(values = ...)` in which `...` should follow the same order of the grouping factor.
 
@@ -761,6 +814,8 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
                                "FALSE" = "green3"))
 ```
 
+---
+
 For color/fill scales there's a very convenient variant of the `scale` function ("brewer") that has some pre-defined palettes, including color-blind friendly ones:
 
 ```{r, warning=FALSE}
@@ -773,8 +828,12 @@ ggplot(gapminder2010, aes(x = world_region, y = children_per_woman)) +
 
 You can see all the available palettes [here](https://r4ds.had.co.nz/graphics-for-communication.html#fig:brewer). Note that some palettes only have a limited number of colors and `ggplot` will give a warning if it has fewer colors available than categories in the data.
 
-:::: discussion
-## 8.5. Exercise {.unnumbered}
+---
+
+## Exercise-05
+
+:::: {.panel-tabset}
+## Exercise
 
 Modify the following code so that the point size is defined by the population size. The size should be on a log scale (Hint: use the `scale_size_continuous` geometry.).
 
@@ -785,7 +844,6 @@ ggplot(data = gapminder2010,
   scale_color_brewer(palette = "Dark2")
 ```
 
-::: {.callout-note collapse="true"}
 ## Solution
 
 To make points change by size, we add the *size* aesthetic within the `aes()` function:
@@ -806,7 +864,6 @@ ggplot(data = gapminder2010,
   scale_color_brewer(palette = "Dark2") +
   scale_size_continuous(trans = "log10")
 ```
-:::
 ::::
 
 ## Saving graphs
