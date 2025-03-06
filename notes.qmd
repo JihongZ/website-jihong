@@ -18,4 +18,6 @@ format:
     toc: false
     code-tools: false
     title-block-banner: false
+    grid:
+      sidebar-width: 550px
 ---

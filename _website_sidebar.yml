@@ -3,6 +3,7 @@ website:
   sidebar:
     - id: id-lec6990v # https://github.com/quarto-dev/quarto-cli/discussions/8117
       style: "docked"
+      collapse-level: 0
       contents: 
         - section: "Lecture"
           contents:
@@ -26,7 +27,7 @@ website:
       style: "docked"
       logo: "images/jihonglogo.png"
       search: true
-      collapse-level: 1
+      collapse-level: 2
       contents:
         - section: 'Useful Materials'
           contents: 
@@ -46,8 +47,11 @@ website:
             - text: "Measurement Invariance"
               file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
     - id: id-history
+      collapse-level: 1
+      search: false
       contents:
-        - section: ESRM64503 Applied Multivariate Analysis
+        - text: <h3>Previous course</h3>
+        - section: Applied MVA (Spring2024:ESRM64503)
           contents: 
             - text: 'Syllabus'
               file: posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/index.qmd
@@ -63,7 +67,7 @@ website:
             - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture10/Lecture10.qmd
             - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture11/Lecture11.qmd
         - text: "---"    
-        - section: ESRM6553 Advanced Multivariate Analysis
+        - section: Advanced MVA (Fall2024:ESRM6553)
           contents: 
             - text: 'Syllabus'
               file: posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd

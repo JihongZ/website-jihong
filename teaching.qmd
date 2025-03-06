@@ -1,23 +1,23 @@
 ---
-title: ''
+title: 'Course'
 subtitle: ''
-sidebar: id-history
 listing:
   - id: lectures
-    contents: posts/Lectures/*/*_syllabus.[Rq]md
+    contents: posts/Lectures/2025*/*_syllabus.[Rq]md
     sort: "date desc"
     type: grid
-    max-items: 3
 title-block-banner: false
+sidebar: id-history
 format: 
   html:
     code-tools: false
     toc: false
     grid:
-      sidebar-width: 350px
+      sidebar-width: 400px
 ---
 
-## Course
+::: {#lectures}
+:::
 
 ::: nice-paragraph
 1.  **ESRM 64103. [Experimental Design in Education](posts/Lectures/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd)**. 3 Hours.
@@ -28,7 +28,4 @@ format:
     -   Builds on the foundation provided in Multivariate and introduces techniques that extend methodological elements of canonical, discriminant, factor analytic, and longitudinal analyses, providing the mathematical and theoretical foundations necessary for these designs. Prerequisite: [ESRM 64503](https://catalog.uark.edu/search/?P=ESRM%2064503 "ESRM 64503") with a grade of C or better. (Typically offered: **Spring Even Years**)
 4.  **ESRM 6990V. [Advanced Seminar: Introduction to R](posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd).** 3 Hours
     -   This seminar covers basics of R, data wrangling, data visualization, project version control via git etc. (Typically offered: **Spring**)
-:::
-
-::: {#lectures}
 :::
