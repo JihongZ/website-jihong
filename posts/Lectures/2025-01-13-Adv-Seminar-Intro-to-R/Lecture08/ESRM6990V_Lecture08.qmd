@@ -84,6 +84,15 @@ p1 / {p2 | p3}
 ```
 
 
+## Most powerful tool for visualization of static graph
+
+- `ggplot2` may be the most powerful tool for data visualization tools in the data science.
+
+- A lot of python users are jealous about R community can use `ggplot2`. See one comment on reddit r/datascience.
+
+
+<blockquote class="reddit-embed-bq" data-embed-height="220"><a href="https://www.reddit.com/r/datascience/comments/hib1hd/comment/fwfizy0/">Comment</a><br> by<a href="https://www.reddit.com/user/datasliceYT/">u/datasliceYT</a> from discussion<a href="https://www.reddit.com/r/datascience/comments/hib1hd/5_ways_to_make_your_r_graphs_look_beautiful_using/"></a><br> in<a href="https://www.reddit.com/r/datascience/">datascience</a></blockquote><script async="" src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>
+
 ## A Motivating Example
 
 {{< video https://www.youtube.com/watch?v=qnw1xDnt_Ec width="100%" height="100%" >}}
