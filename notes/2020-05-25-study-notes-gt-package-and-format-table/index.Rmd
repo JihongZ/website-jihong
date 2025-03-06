@@ -1,0 +1,355 @@
+---
+title: "Study Notes: `gt` package"
+date: '2020-05-25'
+date-modified: "`{r} Sys.Date()`"
+slug: study-notes-gt-package-and-format-table
+draft: false
+categories:
+  - R
+  - gt
+tags:
+  - Tutor
+toc: true
+format:
+  html:
+    number-sections: true
+---
+
+::: objectives
+## Overview {.unnumbered}
+This post is inspired by themockup's [blog](https://themockup.blog/posts/2020-05-16-gt-a-grammer-of-tables/) and RStudio's documentation of `gt` package^[You can find the documentation [here](https://gt.rstudio.com/).].
+:::
+
+> "We can construct a wide variety of useful tables with a cohesive set of table parts. These include the table header, the  stub, the column labels and spanner column labels, the table body, and the table footer."
+> 
+> `r htmltools::p(align="right", "--- The gt philosophy")`
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE,
+                      fig.align = "default", 
+                      eval = TRUE)
+
+library(gt)
+suppressMessages(library(tidyverse))
+```
+
+## Component 
+
+![The Parts of a gt Table](https://gt.rstudio.com/reference/figures/gt_parts_of_a_table.svg){#fig-component}
+
+The typical gt table starts with converting a data frame into a gt object. The `gt` object is then modified by adding various components to it. The components include the table header, the stub, the column labels and spanner column labels, the table body, and the table footer.
+
+## Example: sp500 data
+
+- A `gt` object can be directly output and rendered into HTML.
+
+```{r}
+library(gt)
+
+# Define the start and end dates for the data range
+start_date <- "2010-06-07"
+end_date <- "2010-06-14"
+
+# Create a gt table based on preprocessed
+# `sp500` table data
+sp500_gt <- sp500 |>
+  dplyr::filter(date >= start_date & date <= end_date) |>
+  dplyr::select(-adj_close) |>
+  gt() 
+
+sp500_gt
+```
+### `tab_header`: title and subtitle
+
+- The `gt` object can be further modified by adding components to it, for example `tab_header` adds Table Headers (including title and subtitle).
+    - For narratives like *title* or *subtitle*, you can also use markdown format with the `md` function.
+
+```{r}
+sp500_gt |> 
+  tab_header(
+    title = "S&P 500",
+    subtitle = "June 7-14, 2010"
+  )
+```
+::: callout-note
+Note that if your Quarto HTML has CSS style, the markdown format in `gt` object may not work as expected. Like the following title will be **bold** but with underline (my CSS style).
+:::
+
+```{r}
+sp500_gt |> 
+  tab_header(
+    title = md("**S&P 500**"),
+    subtitle = md("*June 7-14*, 2010")
+  )
+```
+### `fmt_<column_type>`: format columns
+
+- `fmt_<column_type>` functions can be used to format the columns of the table. 
+    - For example, `fmt_currency` can be used to format the `close` column as currency.
+    - `fmt_date` can be used to format the `date` column as date.
+    - `fmt_number` can be used to format the `volume` column as a number. 
+
+```{r}
+sp500_gt |> 
+  tab_header(
+    title = "S&P 500",
+    subtitle = "June 7-14, 2010"
+  ) |> 
+  fmt_currency(
+    columns = vars(c(open, high, low, close)),
+    currency = "USD"
+  ) |> 
+  fmt_date(
+    columns = vars(date),
+    date_style = "wday_month_day_year"
+  ) |>
+  fmt_number(
+    columns = vars(volume),
+    suffixing = TRUE
+  )
+```
+### `tab_source_note`: source note
+
+- `tab_source_note` can be used to add a source note to the table underneath the table.
+
+```{r}
+sp500_gt |> 
+  tab_header(
+    title = "S&P 500",
+    subtitle = "June 7-14, 2010"
+  ) |> 
+  tab_source_note(
+    source_note = "Data from Yahoo Finance"
+  )
+```
+### `tab_footnote`: footnotes
+
+Beside the markdown format, Quarto HTML also accepts HTML code using `htmltools::p` function. But it may only apply to HTML not PDF. As @fig-component shows, footnotes are located at the bottom of the table but at the top of *source notes*.
+
+::: callout-note
+## `cells_*()`: target cells in the table
+
+We were able to supply the reference locations in the table by using the cells_body() helper function and supplying the necessary targeting through the columns and rows arguments. Other cells_*() functions have similar interfaces and they allow us to target cells in different parts of the table.
+:::
+
+```{r}
+sp500_gt |> 
+  tab_header(
+    title = "S&P 500",
+    subtitle = "June 7-14, 2010"
+  ) |> 
+  tab_source_note(
+    source_note = htmltools::p(align="right", "Data from Yahoo Finance")
+  ) |> 
+  tab_footnote(
+    footnote = "All values are in USD.",
+    locations = cells_body(
+      columns = vars(open),
+      rows = date == "2010-06-14"
+    )
+  )
+```
+### `tab_row_group`: row groups
+
+-   We can make a new row group with each tab_row_group() call. 
+-   The inputs are row group names in the label argument, and row references in the rows argument.
+-   key arguments:
+    -   `label`: the name of the row group.
+    -   `rows`: the logical vector that specifies which rows belong to the group.
+
+::: callout-note
+Note that the sequence of adding `tab_row_group` will affect the order of the row groups in the final table. *Lastest added group will be on the top.*
+:::
+
+```{r}
+sp500_gt |> 
+  tab_header(
+    title = "S&P 500",
+    subtitle = "June 7-14, 2010"
+  ) |> 
+  tab_row_group(
+    label = "Last three days",
+    rows = date %in% c("2010-06-10", "2010-06-11", "2010-06-14")
+  ) |> 
+  tab_row_group(
+    label = "First three days",
+    rows = date %in% c("2010-06-07", "2010-06-08", "2010-06-09")
+  ) 
+```
+
+### `tab_spanner`: column groups and spann column labels
+
+- key arguments:
+    - `label`: the name of the column group.
+    - `columns`: the columns that belong to the group.
+
+```{r}
+sp500_gt |> 
+  tab_header(
+    title = "S&P 500",
+    subtitle = "June 7-14, 2010"
+  ) |> 
+  tab_spanner(
+    label = "Price",
+    columns = vars(open, high, low, close)
+  ) |> 
+  tab_spanner(
+    label = "Volume",
+    columns = vars(volume)
+  )
+```
+### `summary_rows`: summary rows
+
+- `summary_rows` can be used to add summary rows to the table by `group`.
+  -  if you want to have grant summary statistics, use `grand_summary_rows` instead.
+  
+- key arguments:
+    - `fns`: a list of functions to apply to the columns.
+    - `columns`: the columns to which the functions are applied.
+
+::: callout-note
+Note that the `fmt` argument is used to format the summary values with a list. There are multiple formatting functions for numeric variables available in the gt package:
+
+- `fmt_number(cols = vars(...), decimals = 2)`: format numbers with a specified number of 2 decimal places.
+
+- `fmt_scientific(cols = vars(...), decimals = 3)`: format numbers in scientific notation with a specified number of 3 decimal places.
+
+:::
+
+```{r}
+sp500_gt |> 
+  tab_header(
+    title = "S&P 500",
+    subtitle = "June 7-14, 2010"
+  ) |> 
+  grand_summary_rows(
+    fns = list(
+      "Mean" = ~ mean(., na.rm =TRUE),
+      "SD" = ~ sd(., na.rm =TRUE)
+    ),
+    columns = vars(open, high, low, close, volume),
+    fmt = list(
+      ~ fmt_scientific(data = .,
+                       columns = vars(volume), 
+                       decimals = 3),
+      ~ fmt_number(data = ., 
+                   columns = vars(open, high, low, close), 
+                   decimals = 2)
+    )  
+  )
+```
+
+
+### `cols_xxx()`: manupulate columns' positions
+
+- Functions:
+    - `cols_move_to_start()`: move columns to the start of the table.
+    - `cols_move_to_end()`: move columns to the end of the table.
+    - `cols_hide()`: hide columns.
+ 
+## Styling of the table
+
+A basic `gt` table can be created as so
+
+```{r}
+data("iris")
+glimpse(iris)
+```
+
+You can add row names (`rowname_col` argument) and add group names (`groupname_col` argument) into the table:
+
+```{r}
+iris_gt <- iris |> 
+  arrange(desc(Sepal.Length)) |> # 6 types of iris with largest sepal length
+  mutate(Rank = 1:nrow(iris)) |> 
+  slice_head(n = 3, by = Species) |> # select top 3 Sepal length of each species
+  gt(groupname_col = "Species", rowname_col = "Rank")
+iris_gt
+```
+
+### `tab_style`: change style of cells
+
+- `tab_style(data, style, locations)` allows you to change the style (`style`) of cells (`locations`) in the table.
+
+::: callout-note
+## Style functions for `style` argument
+-   the background color of the cell (`cell_fill()`: color)
+-   the cell's text color, font, and size (`cell_text()`: color, font, size)
+-   the text style (`cell_text()`: style), enabling the use of italics or oblique text.
+-   the text weight (`cell_text()`: weight), allowing the use of thin to bold text (the degree of choice is greater with variable fonts)
+-   the alignment and indentation of text (`cell_text()`: align and indent)
+-   the cell borders (`cell_borders()`)
+
+```{r}
+iris_gt_colored <- iris_gt |> 
+  tab_style( # style for virginica
+    style = list(
+      cell_fill(color = "lightblue"),
+      cell_text(weight = "bold")
+    ),
+    locations = cells_body(
+        columns = colnames(iris),
+        rows = Species == "virginica")
+  ) |> 
+  tab_style( # style for versicolor
+    style = list(
+      cell_fill(color = "royalblue"),
+      cell_text(color = "red", weight = "bold")
+    ),
+    locations = cells_body(
+        columns = colnames(iris),
+        rows = Species == "versicolor")
+  )
+iris_gt_colored
+```
+:::
+
+- Next, the boarder could be added into the table:
+
+```{r}
+iris_gt_colored |> 
+  tab_style( # tab_style to change style of cells, 
+    # cells_borders provides the formatting
+    # locations tells it where add black borders to all column labels
+    style = cell_borders(
+        sides = "left",
+        color = "black",
+        weight = px(1.2)
+    ),
+    locations = cells_body(columns = colnames(iris))
+  ) |> 
+  # Add botton line below the column names
+  tab_style(
+    style = cell_borders(
+        sides = "bottom",
+        color = "black",
+        weight = px(3)
+    ),
+    locations = cells_column_labels(columns = gt::everything())
+  )
+```
+### `tab_options`: table output options
+
+- `tab_options` allows you to change the output options of the table. There are multiple options available:
+
+1. `table.font.names=` allows you to change the font of the table.
+    
+```{r}
+iris_gt_colored |> 
+  tab_options(
+    table.font.names = c("Tenor Sans")
+  )
+```
+
+2. `table.width=` allows you to change the width of the table.
+    
+```{r}
+iris_gt_colored |> 
+  tab_options(table.width = px(700))
+```
+    
+    
