@@ -258,9 +258,29 @@ code span.er {
 
 strong {
   color: $red;
+  text-decoration: $green dashed underline 3px;
+  text-decoration-skip-ink: none;
 }
 
 /*-- stripped table --*/
+.reveal table {
+  border: 1px solid $stone;
+  width: 100%;
+  td:hover {background-color: #ebcb8b;} /* Hover color */
+  th {
+    text-align: center;
+    background-color: #04AA6D;
+    color: white;
+    border-bottom: 1px solid #ddd;
+  }
+  td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+ 
+
 .table-striped {
   > thead > tr > th {
     background-color: $stone;

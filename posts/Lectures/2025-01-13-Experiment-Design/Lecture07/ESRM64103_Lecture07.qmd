@@ -118,35 +118,41 @@ bibliography: references.bib
 ## In this week
 
 -   Offers several advantages over a one-way ANOVA:
-    1. [Allows for greater generalizability of results:]{.redcolor}  
-      -   More realistic (life is complex!)
-      -   Allows for investigation of interactions → through FACTORIAL ANOVA 
-    
-    2. [We can ask whether the effect of one variable depends on the level of another variable]{.redcolor} 
-      -   Ex. cancer trials; Does the effect of the treatment method depend on stage of cancer? 
-      -   Economy: requires fewer participants than two one-way designs for the same level of power. 
-    
----
+
+    1.  [Allows for greater generalizability of results:]{.redcolor}\
+
+    -   More realistic (life is complex!)
+    -   Allows for investigation of interactions → through FACTORIAL ANOVA
+
+    2.  [We can ask whether the effect of one variable depends on the level of another variable]{.redcolor}
+
+    -   Ex. cancer trials; Does the effect of the treatment method depend on stage of cancer?
+    -   Economy: requires fewer participants than two one-way designs for the same level of power.
+
+------------------------------------------------------------------------
 
 -   Offers several advantages over a one-way ANOVA:
-    3. [Smaller error terms means we have more power]{.redcolor}
-      -   For the one-way ANOVA, We are able to account for more of the variance by adding additional factors
-      -   For example, let’s say we are interested in tutoring type on grades, but we already include school type also affects performance
 
-:::: columns
-::: {.column}
+    3.  [Smaller error terms means we have more power]{.redcolor}
+
+    -   For the one-way ANOVA, We are able to account for more of the variance by adding additional factors
+    -   For example, let’s say we are interested in tutoring type on grades, but we already include school type also affects performance
+
+::::: columns
+::: column
 ![](images/clipboard-3940876064.png)
 :::
 
 ::: {.column .callout-note}
 ## Suggestion
+
 Assume that we include tutoring type as the ID. However, we do not include school type at first:
 
-1.   Adding school type as an IV explains more variance, thus reducing the amount of error variance
-2.   Remember we define error as anything NOT explained by the IVs
-3.   Even though "school" may be not of research interest, there are still have some statistical benefits.
+1.  Adding school type as an IV explains more variance, thus reducing the amount of error variance
+2.  Remember we define error as anything NOT explained by the IVs
+3.  Even though "school" may be not of research interest, there are still have some statistical benefits.
 :::
-::::
+:::::
 
 ## Blocking factors or Nuisance factors
 
@@ -154,7 +160,7 @@ Assume that we include tutoring type as the ID. However, we do not include schoo
     -   **Nuisance factors**
     -   **Blocking factors**: A special type of nuisance factors
     -   **Confounding factors**
-    -   Other terminology: 
+    -   Other terminology:
         -   experimental unit: the target being applied treatment to
         -   replicates: experimental unit may be measured multiple times.
 -   **Blocking factors** and **nuisance factors** provide the mechanism for explaining and controlling variation among the experimental units from sources that are not of interest and part of the error.
@@ -186,60 +192,56 @@ Assume that we include tutoring type as the ID. However, we do not include schoo
 
 ## Example of Confounding Variable
 
--  Consider a study examining the relationship between [class size]{.redcolor} and [student achievement]{.redcolor}. 
-    -   If researchers find that smaller class sizes are associated with higher achievement, they might conclude that reducing class size improves learning. However, [teacher quality]{.bluecolor} could be a confounding variable. 
+-   Consider a study examining the relationship between [class size]{.redcolor} and [student achievement]{.redcolor}.
+    -   If researchers find that smaller class sizes are associated with higher achievement, they might conclude that reducing class size improves learning. However, [teacher quality]{.bluecolor} could be a confounding variable.
     -   If smaller classes tend to have more experienced or highly qualified teachers, the observed effect on student achievement might be due to teacher quality rather than class size itself.
 
 ## Example of Confounding Variable
 
-::: {.callout-note}
+:::::: callout-note
 ## Suggestion
-When designing an experiment to study the effect of **class size on student achievement** while addressing the confounding variable of **teacher quality**, researchers should consider the following strategies:  
 
-:::: columns
-::: {.column}
-1. **Random Assignment**:  
-   - Randomly assign students to different class sizes to ensure that teacher quality is evenly distributed across groups. 
+When designing an experiment to study the effect of **class size on student achievement** while addressing the confounding variable of **teacher quality**, researchers should consider the following strategies:
 
-2. **Matching or Blocking**:  
-   - Match teachers based on experience, qualifications, or effectiveness before assigning them to different class sizes. Alternatively, use **blocking** to ensure that teachers of similar quality are present in both small and large class groups.  
-
-3. **Control for Teacher Quality in Statistical Analysis**:  
-   - Measure relevant teacher characteristics (e.g., years of experience, certification level, student evaluation scores) and include them as **covariates** in a regression or ANCOVA model.  
+::::: columns
+::: column
+1.  **Random Assignment**:
+    -   Randomly assign students to different class sizes to ensure that teacher quality is evenly distributed across groups.
+2.  **Matching or Blocking**:
+    -   Match teachers based on experience, qualifications, or effectiveness before assigning them to different class sizes. Alternatively, use **blocking** to ensure that teachers of similar quality are present in both small and large class groups.
+3.  **Control for Teacher Quality in Statistical Analysis**:
+    -   Measure relevant teacher characteristics (e.g., years of experience, certification level, student evaluation scores) and include them as **covariates** in a regression or ANCOVA model.\
 :::
 
-::: {.column}
-4. **Within-Teacher Design**:  
-   - Have the same teacher instruct both small and large classes (e.g., different sections of the same course). This controls for individual teacher differences and isolates the effect of class size.  
-
-5. **Longitudinal Study Design**:  
-   - Track students over multiple years, controlling for previous achievement levels and teacher effects, to better isolate the impact of class size on student learning.  
-
-6. **Replication in Multiple Contexts**:  
-   - Conduct the study across different schools and regions to ensure that findings are not driven by unobserved local factors, such as school funding or administrative policies.  
+::: column
+4.  **Within-Teacher Design**:
+    -   Have the same teacher instruct both small and large classes (e.g., different sections of the same course). This controls for individual teacher differences and isolates the effect of class size.
+5.  **Longitudinal Study Design**:
+    -   Track students over multiple years, controlling for previous achievement levels and teacher effects, to better isolate the impact of class size on student learning.
+6.  **Replication in Multiple Contexts**:
+    -   Conduct the study across different schools and regions to ensure that findings are not driven by unobserved local factors, such as school funding or administrative policies.\
 :::
-
-:::: 
-:::
+:::::
+::::::
 
 ## Blocking: When to use this tool
 
-:::: columns
-::: {.column}
--   Use ANOVA with Blocking to evaluate the equality of three or more means from dependent/related populations. 
+::::: columns
+::: column
+-   Use ANOVA with Blocking to evaluate the equality of three or more means from dependent/related populations.
 
 -   This test basically performs a one-way ANOVA after accounting for the variability among the 'blocks'. Blocks are groups of similar units or repeated measurements on the same unit. ANOVA with blocking is therefore a multiple-sample application of the paired samples t-test.
 :::
 
-::: {.column}
+::: column
 -   The test makes [the following assumptions]{.redcolor}:
-    1.   The data are continuous numeric.
-    2.   The units are randomly sampled.
-    3.   No interaction between the 'treatments' and 'blocks'.
-    4.   The groups are normally distributed.
-    5.   The groups have equal variances.
-:::    
-::::
+    1.  The data are continuous numeric.
+    2.  The units are randomly sampled.
+    3.  No interaction between the 'treatments' and 'blocks'.
+    4.  The groups are normally distributed.
+    5.  The groups have equal variances.
+:::
+:::::
 
 ## Blocking Factor and Nuisance Factor
 
@@ -262,6 +264,7 @@ When designing an experiment to study the effect of **class size on student achi
 ## Blocking Factor and Nuisance Factor
 
 -   Sometimes, confounding variables are **nuisance factor**[^1]
+
     -   **Nuisance**: a person, thing, or circumstance causing inconvenience or annoyance.
     -   **Nuisance factor**: A factor that probably has an effect on the outcome, but is not a factor that we are interested in. Without considering nuisance factors will cause inaccuracy of the estimation of effects.
         -   E.g., Age, Institution, Sites
@@ -279,9 +282,9 @@ When designing an experiment to study the effect of **class size on student achi
 
 -   So, nuisance factor:
 
-    1.   If the nuisance factor is known and controllable, we can use “**blocking**.” and nuisance factors become blocking factors (manipulate the block factors to make treatment samples homogenous)
-    2.   If the nuisance factor is known, but uncontrollable, we considers **ANCOVA**. (gender, class, school)
-    3.   If the nuisance factor is unknown and uncontrollable (i.e., lurking variable), we re-do the **randomization**.
+    1.  If the nuisance factor is known and controllable, we can use “**blocking**.” and nuisance factors become blocking factors (manipulate the block factors to make treatment samples homogenous)
+    2.  If the nuisance factor is known, but uncontrollable, we considers **ANCOVA**. (gender, class, school)
+    3.  If the nuisance factor is unknown and uncontrollable (i.e., lurking variable), we re-do the **randomization**.
 
 ![](images/clipboard-2431159556.png)
 
@@ -313,6 +316,7 @@ When designing an experiment to study the effect of **class size on student achi
 -   this design setting is called a **“complete” block design** (CBD). → We will look at blocking design variations.
 
 ## 1.1. Complete Block Design (CBD) vs. Randomized CBD (RCBD)
+
 ### Complete Block Design (CBD)
 
 In a complete block design (CBD), experimental units are grouped into blocks based on a variable that may influence the response variable. Each block contains all treatment conditions, and the treatments are not randomly assigned within blocks; instead, they follow a systematic allocation.
@@ -324,7 +328,7 @@ In a complete block design (CBD), experimental units are grouped into blocks bas
 
 However, without random assignment of methods within each form, the design might introduce bias if external factors (e.g., instructor differences) influence the results.
 
----
+------------------------------------------------------------------------
 
 ### Randomized Complete Block Design (RCBD)
 
@@ -334,7 +338,7 @@ In a randomized complete block design (RCBD), the blocking factor is still used,
     -   Forms still act as blocks.
     -   **Instead of assigning methods in a predetermined order, the four methods are randomly assigned within each form.**
     -   This ensures that any systematic influence of form characteristics is minimized and does not confound treatment effects.
-    
+
 ## 1.2 Randomized Complete Block Design (RCBD)
 
 -   The mean comparison among specific blocks ($\mu_{form1}$, $\mu_{form2}$, $\mu_{form3}$, $\mu_{form4}$) is not of interest
@@ -363,7 +367,7 @@ where:
 
 [^2]: PennStat [STAT502](https://online.stat.psu.edu/stat502/lesson/7/7.3)
 
-:::: columns
+:::::: columns
 ::: {.column width="40%"}
 | Lecture  |   Form 1   |    Form 2    |    Form 3     |
 |----------|:----------:|:------------:|:-------------:|
@@ -372,30 +376,25 @@ where:
 | Method 3 | [48]{.red} | [50]{.green} | [55]{.purple} |
 | Method 4 | [42]{.red} | [37]{.green} | [49]{.purple} |
 :::
-::: {.column width="60%"}
+
+:::: {.column width="60%"}
 ::: {.callout-note collapse="true"}
 -   Numbers in each cell are means
 -   Within each block, we have designed a more homogenous set of experimental units on which to test math scores.
 -   Variability **between** blocks can be large, since we will remove this source of variability, whereas variability **within** a block should be relatively small. In general, a block is a specific level of the nuisance factor.
 :::
-:::
 ::::
+::::::
 
 ------------------------------------------------------------------------
 
-+------------+--------------+----------------+------------------+------------+
-| Lecture    | Form 1       | Form 2         | Form 3           | Marginal   |
-+============+:============:+:==============:+:================:+:==========:+
-| Method 1   | [45]{.red}   | [43]{.green}   | [51]{.purple}    | 46.33      |
-+------------+--------------+----------------+------------------+------------+
-| Method 2   | [47]{.red}   | [46]{.green}   | [52]{.purple}    | 48.33      |
-+------------+--------------+----------------+------------------+------------+
-| Method 3   | [48]{.red}   | [50]{.green}   | [55]{.purple}    | 51.00      |
-+------------+--------------+----------------+------------------+------------+
-| Method 4   | [42]{.red}   | [37]{.green}   | [49]{.purple}    | 42.67      |
-+------------+--------------+----------------+------------------+------------+
-| Marginal   | [46.3]{.red} | [44.0]{.green} | [51.75]{.purple} |            |
-+------------+--------------+----------------+------------------+------------+
+| Lecture  |    Form 1    |     Form 2     |      Form 3      | Marginal |
+|----------|:------------:|:--------------:|:----------------:|:--------:|
+| Method 1 |  [45]{.red}  |  [43]{.green}  |  [51]{.purple}   |  46.33   |
+| Method 2 |  [47]{.red}  |  [46]{.green}  |  [52]{.purple}   |  48.33   |
+| Method 3 |  [48]{.red}  |  [50]{.green}  |  [55]{.purple}   |  51.00   |
+| Method 4 |  [42]{.red}  |  [37]{.green}  |  [49]{.purple}   |  42.67   |
+| Marginal | [46.3]{.red} | [44.0]{.green} | [51.75]{.purple} |          |
 
 ```{r}
 #| code-fold: true
@@ -529,7 +528,7 @@ Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explai
     -   A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4
 
 | Rep. #1      | Form 1 | Form 2 | Form 3 | Form 4 | Rep. #2      | Form 1 | Form 2 | Form 3 | Form 4 |
-|--------|:------:|:------:|:------:|:------:|--------|:------:|:------:|:------:|:------:|
+|--------------|:------:|:------:|:------:|:------:|--------------|:------:|:------:|:------:|:------:|
 | **School 1** |   A    |   D    |   C    |   B    | **School 1** |   B    |   C    |   D    |   A    |
 | **School 2** |   B    |   A    |   D    |   C    | **School 2** |   C    |   D    |   A    |   B    |
 | **School 3** |   C    |   B    |   A    |   D    | **School 3** |   D    |   A    |   B    |   C    |
@@ -545,12 +544,12 @@ Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explai
 -   This is a **“Greco-Roman squares”** design.
     -   Greco-Roman squares are a type of combinatorial design consisting of two orthogonal Latin squares of the same order, where each cell contains an ordered pair of symbols from two distinct sets.
 
-|             | Form 1                             | Form 2                             | Form 3                             | Form 4                             |
-|--------|:------:|:------:|:------:|:------:|
-| School 1    | A [$\alpha$]{style="color: red"}   | B [$\lambda$]{style="color: blue"} | C [$\beta$]{style="color: purple"} | D [$\chi$]{style="color: orange"}  |
-| School 2    | B [$\chi$]{style="color: orange"}  | A [$\beta$]{style="color: purple"} | D [$\lambda$]{style="color: blue"} | C [$\alpha$]{style="color: red"}   |
-| School 3    | C [$\lambda$]{style="color: blue"} | D [$\alpha$]{style="color: red"}   | A [$\chi$]{style="color: orange"}  | B [$\beta$]{style="color: purple"} |
-| School 4    | D [$\beta$]{style="color: purple"} | C [$\chi$]{style="color: orange"}  | B [$\alpha$]{style="color: red"}   | A [$\lambda$]{style="color: blue"} |
+|   | Form 1 | Form 2 | Form 3 | Form 4 |
+|----|:--:|:--:|:--:|:--:|
+| School 1 | A [$\alpha$]{style="color: red"} | B [$\lambda$]{style="color: blue"} | C [$\beta$]{style="color: purple"} | D [$\chi$]{style="color: orange"} |
+| School 2 | B [$\chi$]{style="color: orange"} | A [$\beta$]{style="color: purple"} | D [$\lambda$]{style="color: blue"} | C [$\alpha$]{style="color: red"} |
+| School 3 | C [$\lambda$]{style="color: blue"} | D [$\alpha$]{style="color: red"} | A [$\chi$]{style="color: orange"} | B [$\beta$]{style="color: purple"} |
+| School 4 | D [$\beta$]{style="color: purple"} | C [$\chi$]{style="color: orange"} | B [$\alpha$]{style="color: red"} | A [$\lambda$]{style="color: blue"} |
 
 -   Important Considerations about the blocking designs: With Blocking Designs, we still randomly assign individuals within each block.
 
@@ -732,12 +731,12 @@ b.  treatment: combination of Diet and Antibiotic; block: Farms.
 
 ## Summary
 
-- We learn:
-  1. Block design is a solution when we have confounding effect
-  2. Nuisance factors and treatment factors are very likely to exist in our experiments
-  3. We can use RCBD in which treatments are randomly assigned in each block
-  4. When we have multiple block factors, we can use LSD or Replicated LSD
-  
+-   We learn:
+    1.  Block design is a solution when we have confounding effect
+    2.  Nuisance factors and treatment factors are very likely to exist in our experiments
+    3.  We can use RCBD in which treatments are randomly assigned in each block
+    4.  When we have multiple block factors, we can use LSD or Replicated LSD
+
 # Next Class
 
 ## Example: 2 Blocking Factors?
