@@ -5,11 +5,12 @@ comments: false
 toc: false
 sidebar: false
 image: "images/profile-3.jpg"
+title-block-banner: false
 about:
   id: hero-heading
   template: trestles
   image-shape: round
-  image-width: 14em
+  image-width: 15em
   links:
     - icon: bi-person-lines-fill
       text: C.V.
@@ -26,22 +27,6 @@ about:
     - icon: bi-bookmark-heart-fill
       text: ORCID
       href: https://orcid.org/0000-0003-2820-3734
-listing:
-  - id: posts
-    contents: posts/*/*.[Rq]md
-    type: grid
-    fields: [image, date, reading-time, title]
-    sort: "date desc"
-    sort-ui: false
-    filter-ui: false
-    page-size: 3
-    feed: true
-  - id: lectures
-    contents: posts/Lectures/*/*_syllabus.[Rq]md
-    fields: [image, date, title]
-    sort: "date desc"
-    type: grid
-    max-items: 3
 format:
   html:
     code-fold: false
@@ -56,47 +41,8 @@ I currently hold the position of tenure-track Assistant Professor of Educational
 Previously, I served as a postdoctoral fellow at the Chinese University of Hong Kong ([CUHK](https://www.cuhk.edu.hk)) in the department of Social Work. My academic journey in psychometrics starts with a doctoral training with [Dr. Jonathan Templin](https://jonathantemplin.com/) in the Educational Measurement and Statistics (EMS) program at the University of Iowa.
 
 My primary research focuses on empirical and methodological studies on psychological/psychometric network modeling, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric modeling. My expertise lies in the application of advanced statistical modeling in the fields of psychology and education.
+
+[LEARN MORE ABOUT ME →](about.qmd)
 :::
 
-::: {.panel-tabset align="left"}
-## Experience
 
--   University of Arkansas \| **Assistant Professor** \| [Jan 2024 - Current]{style="color:darkgrey;"}
--   The Chinese University of Hong Kong \| **Postdoctoral Fellow** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
--   Stanford Research Institute (SRI) \| **Associate Researcher (Intern)** \| [June 2021 - Jan 2022]{style="color:darkgrey;"}
-
-<a href="./uploads/Curriculum_Vitae.pdf"><button type="button" class="btn btn-primary float-end btn-sm">See C.V.</button></a>
-
-## Education
-
--   **Ph.D.** \| Educational Measurement & Statistics \| University of Iowa \| [2019 - 2022]{style="color:darkgrey;"}
--   **M.S.** \| Educational Psychology \| University of Kansas \| [2015 - 2019]{style="color:darkgrey;"}
--   **B.S.** \| Applied Psychology \| Soochow University \| [2009 - 2013]{#date style="color:darkgrey;"}
--   **B.S.** \| Law \| Soochow University \| [2011 - 2013]{style="color:darkgrey;"}
-
-## Interests
-
--   AI in Educational Measurement and Psychometrics
--   Bayesian Psychometric Modeling
--   Psychometric network and Latent variable modeling
--   Machine Learning and data mining in Education
--   Diagnostic Classification Models
-:::
-
-::: separator
-[Teaching & Research]{.next-section}
-:::
-
-::::: {.panel-tabset align="left"}
-## Teaching
-
-::: {#lectures}
-:::
-
-## Recent Posts
-
-::: {#posts}
-:::
-
-<a href="./posts.qmd"><button type="button" class="btn btn-primary float-end btn-sm">See all</button></a>
-:::::

@@ -1,0 +1,15 @@
+{
+  "hash": "fe52e8de2be5dd0e5805afcf9790c59b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"\"\nauthor: \"\"\nnavbar: false\ntitle-block-banner: false\nfilters:\n  - tachyons\nformat:\n  html:\n    page-layout: full\n    code-tools: false\n    comments: false\n---\n\n```{=html}\n<article data-name=\"article-full-bleed-background\">\n  <div class=\"cf\" style=\"background:url('IMG_2263.jpg') no-repeat center center fixed; background-size: cover;\">\n    <div class=\"fl pa3 pa4-ns bg-white black-70 measure-narrow f3 times\">\n      <header class=\"bb b--black-70 pv4\">\n        <h3 class=\"f2 fw7 ttu tracked lh-title mt0 mb3 avenir\">Prasat Suor Prat</h3>\n        <h4 class=\"f3 fw4 i lh-title mt0\">Siem Reap, Cambodia</h4>\n      </header>\n      <section class=\"pt5 pb4\">\n        <p class=\"times lh-copy measure f4 mt0\">\n          Prasat Suor Prat (Khmer: ប្រាសាទសួព្រ័ត) is a series of twelve towers spanne\n          north to south lining the eastern side of royal square in Angkor Thom,\n          near the town of Siem Reap, Cambodia. The towers are made from rugged\n          laterite and sandstone. The towers are located right in front of\n          Terrace of the Elephants and Terrace of the Leper King, flanking the\n          start of the road leading east to the Victory Gate, on either side of\n          which they are symmetrically arranged. Their function remains unknown.\n        </p>\n      </section>\n    </div>\n  </div>\n</article>\n\n```",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

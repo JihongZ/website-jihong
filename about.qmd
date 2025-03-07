@@ -1,0 +1,71 @@
+---
+title: ""
+listing:
+  - id: posts
+    contents: posts/*/*.[Rq]md
+    type: grid
+    fields: [image, date, reading-time, title]
+    sort: "date desc"
+    sort-ui: false
+    filter-ui: false
+    page-size: 3
+    feed: true
+  - id: lectures
+    contents: posts/Lectures/*/*_syllabus.[Rq]md
+    fields: [image, date, title]
+    sort: "date desc"
+    type: grid
+    max-items: 3
+format: 
+  html:
+    code-tools: false
+    comments: false
+    toc: false
+---
+
+::: separator
+[Experience]{.next-section}
+:::
+
+
+::: {.panel-tabset align="left"}
+## Experience
+
+-   University of Arkansas \| **Assistant Professor** \| [Jan 2024 - Current]{style="color:darkgrey;"}
+-   The Chinese University of Hong Kong \| **Postdoctoral Fellow** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
+-   Stanford Research Institute (SRI) \| **Associate Researcher (Intern)** \| [June 2021 - Jan 2022]{style="color:darkgrey;"}
+
+<a href="./uploads/Curriculum_Vitae.pdf"><button type="button" class="btn btn-primary float-end btn-sm">See C.V.</button></a>
+
+## Education
+
+-   **Ph.D.** \| Educational Measurement & Statistics \| University of Iowa \| [2019 - 2022]{style="color:darkgrey;"}
+-   **M.S.** \| Educational Psychology \| University of Kansas \| [2015 - 2019]{style="color:darkgrey;"}
+-   **B.S.** \| Applied Psychology \| Soochow University \| [2009 - 2013]{#date style="color:darkgrey;"}
+-   **B.S.** \| Law \| Soochow University \| [2011 - 2013]{style="color:darkgrey;"}
+
+## Interests
+
+-   AI in Educational Measurement and Psychometrics
+-   Bayesian Psychometric Modeling
+-   Psychometric network and Latent variable modeling
+-   Machine Learning and data mining in Education
+-   Diagnostic Classification Models
+:::
+
+
+::: separator
+[Teaching & Research]{.next-section}
+:::
+
+## Teaching
+
+::: {#lectures}
+:::
+
+## Recent Posts
+
+::: {#posts}
+:::
+
+<a href="./posts.qmd"><button type="button" class="btn btn-primary float-end btn-sm">See all</button></a>
