@@ -21,7 +21,7 @@ $lightwhite: #c0c0c0;
 $gray: #64605f;
 $navbar-bg: rgb(34, 34, 34);
 $menutext-bg: #FFFFFF;
-$code-bg: rgb(34, 34, 34); // for in-line code background
+$code-bg: #404041; // for in-line code background
 $pre-bg: $darkteal;
 $code-block-bg: #475c6c; // code block's bg
 $body-bg: rgb(34, 34, 34);
@@ -76,7 +76,7 @@ $primary:   $green !default;
 .nice-paragraph {
     font-size: 0.9rem;
     line-height: 1.6;
-    color: white;
+    color:  #FAF9F6;
     background-color: #404041; /* Fallback if $soft-color1 is not defined */
     padding: 15px 20px;
     border-left: 0px solid #447099;
@@ -88,3 +88,19 @@ $primary:   $green !default;
     position: relative;
     overflow: hidden;
 }
+
+pre.sourceCode.r::before, 
+pre.sourceCode.yaml::before, 
+pre.sourceCode.markdown::before, 
+pre.sourceCode.bash::before, 
+div.cell-output::before {
+  background-color: #666699;
+} 
+
+pre.sourceCode.r, 
+pre.sourceCode.yaml, 
+pre.sourceCode.markdown, 
+pre.sourceCode.bash, 
+div.cell-output {
+  background-color: $body-bg;
+}  
