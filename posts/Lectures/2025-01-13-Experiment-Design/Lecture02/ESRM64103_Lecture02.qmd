@@ -7,7 +7,7 @@ institute: |
   
   University of Arkansas
 date: "2025-08-18"
-sidebar: false
+
 execute: 
   eval: true
   echo: true

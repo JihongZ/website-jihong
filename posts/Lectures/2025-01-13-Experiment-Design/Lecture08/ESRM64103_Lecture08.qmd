@@ -1,0 +1,8 @@
+---
+title: "Lecture 08: Block Design (2)"
+subtitle: "Experimental Design in Education"
+date: "2025-02-27"
+execute: 
+  eval: true
+  echo: true
+---

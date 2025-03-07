@@ -8,7 +8,6 @@ categories:
   - Lecture
 draft: false
 draft-mode: unlinked
-sidebar: false
 format: 
   html:
     code-tools: true
@@ -179,7 +178,7 @@ Following materials are only allowed for previewing for students registered in E
 +---------+---------+----------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------+
 | Week    | Date    | Topic                                                                | HW                                                                                                                                           |
 +:========+:========+:=====================================================================+:=============================================================================================================================================+
-| 1       | 01/13   | [Lec1: Welcome to ESRM 64103](Lecture01/ESRM6990V_Lecture01.qmd)     | [ESRM64103: EDIC Assignment Demo](https://forms.office.com/r/v5QU6KMgXc)                                                                     |
+| 1       | 01/13   | [Lec1: Welcome to ESRM 64103](Lecture01/ESRM64103_Lecture01.qmd)     | [ESRM64103: EDIC Assignment Demo](https://forms.office.com/r/v5QU6KMgXc)                                                                     |
 |         |         |                                                                      |                                                                                                                                              |
 |         |         | [Example01 - MakeFriendsWithR.qmd](Lecture01/MakeFriendsWithR.qmd)   |                                                                                                                                              |
 |         |         |                                                                      |                                                                                                                                              |

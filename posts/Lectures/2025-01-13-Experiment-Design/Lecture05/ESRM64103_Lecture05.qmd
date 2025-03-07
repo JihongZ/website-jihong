@@ -7,30 +7,11 @@ institute: |
   
   University of Arkansas
 date: "2025-02-17"
-sidebar: false
 execute: 
   eval: true
   echo: true
-format: 
-  # html: 
-  #   page-layout: full
-  #   toc: true
-  #   toc-depth: 2
-  #   lightbox: true
-  uark-revealjs:
-    chalkboard: true
-    embed-resources: false
-    code-fold: false
-    number-sections: true
-    number-depth: 1
-    footer: "ESRM 64503: Lecture 05"
-    slide-number: c/t
-    tbl-colwidths: auto
-    scrollable: true
-    mermaid:
-      theme: forest
-filters:
-  - output-line-highlight.lua
+  message: false
+  warning: false
 ---
 
 [Class Outline]{.redcolor .bigger}
@@ -46,16 +27,18 @@ filters:
 
 -   Pre-defined:
 
-    -   Unlike post-hoc tests, planned contrasts are determined **before** looking at the data, meaning the researcher has a specific [hypothesis about which groups to compare]{.underline .bigger}.
+    -   Unlike post-hoc tests, planned contrasts are determined **before** looking at the data, meaning the researcher has a specific [[hypothesis about which groups to compare]{.underline}]{.bigger}.
     -   **Definition**: Planned contrasts are hypothesis-driven comparisons made before data collection.
 
 -   Weights assigned:
 
     -   To perform a planned contrast, each group is assigned a numerical "weight" which reflects its role in the comparison, with the [weights usually summing to zero]{.underline}.
-    
+
     $$
-    \text{unscaled_group_differences} = weights * means
+    D = weights * means
     $$
+
+    -   **D**: unscalled group differences given coding scheme
 
 ## Example of Planned Contrasts
 
@@ -86,15 +69,15 @@ filters:
 -   **Complex Comparison:** Combines means of multiple groups.
     -   Example: $H_0: \frac{(\mu_1 + \mu_2)}{2} = \mu_3$
     -   Example: $H_0: \frac{(\mu_1 + \mu_2 + \mu_3)}{3} = \frac{(\mu_4 + \mu_5)}{2}$
-    
+
 ::: callout-note
-We should not test all possible combinations of groups. Instead, justify your comparison plan before performing statistic analysis. 
+We should not test all possible combinations of groups. Instead, justify your comparison plan before performing statistic analysis.
 :::
 
 ## Today's focus: Complex Comparisons
 
 -   We perform ominous test in last lecture, which gives us simple contrasts
-    -  which provides all pairwise group comparisons (simple contrasts) 
+    -   which provides all pairwise group comparisons (simple contrasts)
 -   Today we focus more on **complex contrasts**.
     -   **Helmert** contrast: Compares each mean to the mean of subsequent groups.
     -   **Sum (Deviation)** contrast: each group compared to grand mean
@@ -117,7 +100,7 @@ We should not test all possible combinations of groups. Instead, justify your co
 
 -   Orthogonal contrasts follows a series of group comparisons that does not overlap variances.
 
-## Orthogonal contrasts from variances: no redundency 
+## Orthogonal contrasts from variances: no redundency
 
 [Hermert contrast for example]{.redcolor}
 
@@ -146,20 +129,15 @@ digraph VarianceDiagram {
 
 ## Example of Orthogonal Contrasts
 
-:::: columns
-
+::::: columns
 ::: {.column width="50%"}
-
--   Contrast 1: g3 vs. (g1, g2)
-![](image/g3vsg12.jpg){width="90%"}
+-   Contrast 1: g3 vs. (g1, g2) ![](image/g3vsg12.jpg){width="90%"}
 :::
 
 ::: {.column width="50%"}
-
--   Contrast 2: g1 vs. g2
-![](image/g1vsg2.jpg){width="90%"}
+-   Contrast 2: g1 vs. g2 ![](image/g1vsg2.jpg){width="90%"}
 :::
-::::
+:::::
 
 ## Orthogonal Planned Contrasts
 
@@ -233,7 +211,7 @@ summary_tbl <- dt |>
 kable(summary_tbl)
 ```
 
-- HOV Assumption: Levene's Test
+-   HOV Assumption: Levene's Test
 
 ```{r}
 aov_fit <- aov(score ~ group, data = dt)
@@ -246,7 +224,7 @@ Even though assumption checkings did not pass using original categorical levels,
 
 ### Complex Contrast Matrix
 
-- There are multiple "canned" contrasts: Helmert, Sum (Effective Coding), Treatment
+-   There are multiple "canned" contrasts: Helmert, Sum (Effective Coding), Treatment
 
 [For example, Helmert Four contrasts:]{.redcolor}
 
@@ -267,7 +245,7 @@ summary_ctras_tbl <- cbind(summary_tbl, cH)
 kable(summary_ctras_tbl)
 ```
 
----
+------------------------------------------------------------------------
 
 [Orthogonal contrast matrix]{.redcolor}
 
@@ -280,15 +258,14 @@ crossprod(cH) # diagonal -- columns are orthogonal
 summary(aov(score ~ group, dt))
 ```
 
-
 ## Planed Contrasts and Coding Schema
 
-- The relationship between planned contrasts in ANOVA and coding in regression lies in how categorical variables are represented and interpreted in statistical models.
+-   The relationship between planned contrasts in ANOVA and coding in regression lies in how categorical variables are represented and interpreted in statistical models.
 
-- Both approaches aim to test specific hypotheses about group differences, but their implementation varies based on the framework
-  - ANOVA focuses on partitioning variance, 
-  - while regression interprets categorical predictors through coding schemes.
+-   Both approaches aim to test specific hypotheses about group differences, but their implementation varies based on the framework
 
+    -   ANOVA focuses on partitioning variance,
+    -   while regression interprets categorical predictors through coding schemes.
 
 ## ANOVA: t-value formula for Defined Contrast Matrix
 
@@ -341,14 +318,12 @@ summary(fit_helmert)$coefficients |> round(3)
 attributes(C(dt$group, treatment, 4))$contrasts
 ```
 
-
 ```{r}
 #| output-location: column
 
 ## sum contrast matrix 
 attributes(C(dt$group, sum, 4))$contrasts
 ```
-
 
 ```{r}
 #| output-location: column
@@ -365,23 +340,23 @@ crossprod(attributes(C(dt$group, treatment, 4))$contrasts)
 ### Treatment Contrasts
 
 ::::: columns
-::: {.column width="50%}
-- For treatment contrasts, four dummy variables are created to compared:
+::: {.column width="\"50%"}
+-   For treatment contrasts, four dummy variables are created to compared:
 
-  - G1 (ref) vs. G2
-  - G1 (ref) vs. G3
-  - G1 (ref) vs. G4
-  - G1 (ref) vs. G5
+    -   G1 (ref) vs. G2
+    -   G1 (ref) vs. G3
+    -   G1 (ref) vs. G4
+    -   G1 (ref) vs. G5
 :::
 
-::: {.column width="50%}
-- `Intercept`: G1's mean
-- `group2`: G2 vs. G1
-- `group3`: G3 vs. G1
-- `group4`: G4 vs. G1
-- `group5`: G5 vs. G1
-:::  
-::::: 
+::: {.column width="\"50%"}
+-   `Intercept`: G1's mean
+-   `group2`: G2 vs. G1
+-   `group3`: G3 vs. G1
+-   `group4`: G4 vs. G1
+-   `group5`: G5 vs. G1
+:::
+:::::
 
 ```{r}
 #| output-location: column
@@ -425,7 +400,6 @@ summary(fit2)$coefficients
 mean(dt$score) # (Intercept) grand mean
 ```
 
-
 ```{r}
 #| output-location: column
 tibble(
@@ -434,37 +408,37 @@ tibble(
 )
 ```
 
-
 ## Effect Coding (Deviation Coding)
 
-- In modern statistics, Regression-style coding is statistically equivalent as ANOVA-style contrast matrix. 
-  - Equivalent to ANOVA-style contrasts. ([we will use this in R to reproduce ANOVA-style contrast matrix]{.redcolor})
-- Compares each level to the grand mean.
+-   In modern statistics, Regression-style coding is statistically equivalent as ANOVA-style contrast matrix.
+    -   Equivalent to ANOVA-style contrasts. ([we will use this in R to reproduce ANOVA-style contrast matrix]{.redcolor})
+-   Compares each level to the grand mean.
 
 ::: callout-note
 Effect coding is a method of encoding categorical variables in regression models, similar to dummy coding, but with a different interpretation of the resulting coefficients. It is particularly useful when researchers want to compare each level of a categorical variable to the overall mean rather than to a specific reference category.
 :::
 
----
+------------------------------------------------------------------------
 
 ### **1. Definition and Representation**
+
 In effect coding, categorical variables are transformed into numerical variables, typically using values of -1, 0, and 1. The key difference from dummy coding is that the reference category is represented by -1 instead of 0, and the coefficients indicate deviations from the grand mean.
 
 For a categorical variable with `k` levels, effect coding requires `k-1` coded variables. If we have a categorical variable X with three levels: $A, B, C$, the effect coding scheme could be:
 
-| Category | $X_1$ | $X_2$ |
-|----------|--------|--------|
-| A        | 1      | 0      |
-| B        | 0      | 1      |
-| C (reference) | -1     | -1     |
+| Category      | $X_1$ | $X_2$ |
+|---------------|-------|-------|
+| A             | 1     | 0     |
+| B             | 0     | 1     |
+| C (reference) | -1    | -1    |
 
 The last category ($C$) is the reference group, coded as -1 for all indicator variables.
 
----
+------------------------------------------------------------------------
 
 ### **2. Interpretation of Coefficients**
 
-:::: columns
+::::: columns
 ::: {.column width="40%"}
 When effect coding is used in a regression model:
 
@@ -472,11 +446,10 @@ $$
 Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon
 $$
 
-- $X_1$ and $X_2$ are coded varaibles. They have no much meaning, but their coefficients are **important** 
-- $\beta_0$ represents the **grand mean** of $Y$ across all categories.
-- $\beta_1$ and $\beta_2$ represent the **deviation** of categories $A$ and $B$ from the grand mean.
-- The reference group ($C$) does not have a separate coefficient; instead, its deviation can be inferred as $-(\beta_1 + \beta_2)$.
-
+-   $X_1$ and $X_2$ are coded varaibles. They have no much meaning, but their coefficients are **important**
+-   $\beta_0$ represents the **grand mean** of $Y$ across all categories.
+-   $\beta_1$ and $\beta_2$ represent the **deviation** of categories $A$ and $B$ from the grand mean.
+-   The reference group ($C$) does not have a separate coefficient; instead, its deviation can be inferred as $-(\beta_1 + \beta_2)$.
 :::
 
 ::: {.column width="60%"}
@@ -511,37 +484,36 @@ ggplot() +
   theme(text = element_text(size = 20))
 ```
 :::
-::::
+:::::
 
-
-
----
+------------------------------------------------------------------------
 
 ### **3. Comparison to Dummy Coding**
 
-- **Dummy Coding**: Compares each category to a **specific reference category** (e.g., comparing A and B to C).
+-   **Dummy Coding**: Compares each category to a **specific reference category** (e.g., comparing A and B to C).
 
-| Category | $X_1$ | $X_2$ |
-|----------|--------|--------|
-| A        | 1      | 0      |
-| B        | 0      | 1      |
+| Category      | $X_1$ | $X_2$ |
+|---------------|-------|-------|
+| A             | 1     | 0     |
+| B             | 0     | 1     |
 | C (reference) | 0     | 0     |
 
-- **Effect Coding**: Compares each category to the **grand mean** rather than a single reference category.
+-   **Effect Coding**: Compares each category to the **grand mean** rather than a single reference category.
 
----
+------------------------------------------------------------------------
 
 ### **4. Use Cases**
 
 Effect coding is beneficial when:
 
-- There is no natural baseline category, and comparisons to the **overall mean** are more meaningful.
-- Researchers want to maintain **sum-to-zero constraints** for categorical variables in linear models.
-- In ANOVA-style analyses, where main effects and interaction effects are tested under an equal-weight assumption.
+-   There is no natural baseline category, and comparisons to the **overall mean** are more meaningful.
+-   Researchers want to maintain **sum-to-zero constraints** for categorical variables in linear models.
+-   In ANOVA-style analyses, where main effects and interaction effects are tested under an equal-weight assumption.
 
----
+------------------------------------------------------------------------
 
 ### **5. Implementation in R**
+
 Effect coding can be set in R using the `contr.sum` function:
 
 ```{r}
@@ -551,10 +523,6 @@ contrasts(X) <- contr.sum(3) # set up effect coding in R
 model <- lm(Y ~ X, data = mydata) # use linear regression to mimic ANOVA-style results
 summary(model)
 ```
-
-
-
-
 
 ## Self-defined Contrast
 
@@ -700,7 +668,8 @@ attach(coef_tbl)
 round(sqrt(`t value`^2 / (`t value`^2 + 135)), 3)
 detach(coef_tbl)
 ```
-- Shows a small to moderate positive relationship between g1 with g5.
+
+-   Shows a small to moderate positive relationship between g1 with g5.
 
 ## Cohen’s d and Hedges’ g
 
@@ -714,9 +683,8 @@ detach(coef_tbl)
 
 ![](images/clipboard-1482285190.png)
 
-- For our example: there is a significant effect of academic program on growth mindset scores (F(4,135)=4.47).
-- Academic program explains 11.69% of variance in growth mindset scores. This is a
-large medium to large effect ($\eta^1$ = 0.1169).
+-   For our example: there is a significant effect of academic program on growth mindset scores (F(4,135)=4.47).
+-   Academic program explains 11.69% of variance in growth mindset scores. This is a large medium to large effect ($\eta^1$ = 0.1169).
 
 ## Summary
 

@@ -333,7 +333,7 @@ There is not uniform agreement about the choices of prior distributions for item
 
 ## Prior Density Function Plots
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 Prior distribution for item intercepts, factor loadings
 
@@ -378,7 +378,7 @@ data.frame(
   theme(text = element_text(size = 25))
 ```
 :::
-:::
+:::::
 
 ## R's Data List Object
 

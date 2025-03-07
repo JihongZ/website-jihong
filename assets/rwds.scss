@@ -84,6 +84,8 @@ body {
   font-style: normal;
 }
 
+h1, h2 {text-transform: capitalize;}
+
 h1, h2, h3 {
   font-family: "Titillium Web", sans-serif;
   letter-spacing: 1.6px;
@@ -167,27 +169,28 @@ div.quarto-title.column-body {
 
 /* Source Code  */
 pre.sourceCode.r::before, .language-r::before {
-  content:"ℝ";
+  content:"❆ ℝ";
 }
 pre.sourceCode.yaml::before {
-  content:"YAML"
+  content:"♦ YAML"
 }
 pre.sourceCode.bash::before {
-  content:"฿ASH"
+  content:"♣ BASH"
 }
 pre.sourceCode.markdown::before {
-  content:"MD"
+  content:"♤ Markdown"
 }
 
 pre.sourceCode.r::before, 
 pre.sourceCode.yaml::before, 
 pre.sourceCode.markdown::before, 
 pre.sourceCode.bash::before {
+  font-family: 'Source Code Pro', monospace;
+  font-weight: bold;
+  font-size: var(--bs-body-font-size);
   background-color: #f2eff6;
   display: block;  /* Avoid extra spacing */
-  font-size: var(--bs-body-font-size);
-  padding: 3px 5px;
-  font-family: 'Taub Sans', monospace;
+  padding: 5px 5px;
 }
 
 pre.sourceCode.r, 
@@ -196,9 +199,23 @@ pre.sourceCode.markdown,
 pre.sourceCode.bash {
   background: #f8f8f8;
   border-radius: 4px;
+  padding: 0em; // Remove spacing around ::before content
+}
+pre.sourceCode.bash {
+  border: solid 1px $gray;
+  border-left: solid 5px $gray;
+}
+pre.sourceCode.r {
   border: solid 1px $caution;
   border-left: solid 5px $caution;
-  padding: 0em; // Remove spacing around ::before content
+}
+pre.sourceCode.markdown {
+  border: solid 1px $green;
+  border-left: solid 5px $green;
+}
+pre.sourceCode.yaml {
+  border: solid 1px $indigo;
+  border-left: solid 5px $indigo;
 }
 
 /* output color for R chunck */
@@ -350,42 +367,37 @@ button.show-answer:hover {
     padding: 15px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
 }
-
 /* Styling the tab navigation */
 .panel-tabset .nav-tabs {
     border-bottom: 2px solid #447099;
-    display: flex;
+    padding-left: 0px;
 }
-
 .panel-tabset .nav-tabs .nav-item {
     list-style: none;
 }
-
 .panel-tabset .nav-tabs .nav-link {
-    font-family: "Titillium Web", sans-serif;
-    font-size: 0.9rem;
-    font-weight: bold;
-    padding: 10px 15px;
+    font-family: "Red Hat Text", sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
     background: transparent;
     border-radius: 5px 5px 0 0;
     transition: all 0.3s ease;
 }
 
 .panel-tabset .nav-tabs .nav-link:hover {
-    font-family: "Titillium Web", sans-serif;
-    background: $soft-color1;
-    color: #365e7d;
+    background: #9A4665;
+    color: $soft-color1;
 }
 
 .panel-tabset .nav-tabs .nav-link.active {
     background: #447099;
     color: $soft-color1;
-    border-bottom: 2px solid #365e7d;
+    //border-bottom: 2px solid #365e7d;
 }
 
 /* Styling tab content */
 .panel-tabset .tab-content {
-    padding: 10px;
+    padding: 5px;
     background: $soft-color1;
     border: 0px solid #ddd;
     border-top: none;
@@ -394,12 +406,7 @@ button.show-answer:hover {
 
 /* Styling lists inside the tab */
 .panel-tabset ul {
-    padding-left: 20px;
-}
-
-.panel-tabset li {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
+    padding-left: 15px;
 }
 
 /* Separator Container */

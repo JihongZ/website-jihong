@@ -23,6 +23,28 @@ website:
             - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Exercise04.qmd
             - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Exercise05.qmd
             - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Exercise06.qmd
+    - id: id-lec64103 # https://github.com/quarto-dev/quarto-cli/discussions/8117
+      style: "docked"
+      collapse-level: 0
+      contents: 
+        - text: <h3>ESRM64103</h3>
+        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆"
+        - section: "Lecture"
+          contents:
+            - file: posts/Lectures/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture01/ESRM64103_Lecture01.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture02/ESRM64103_Lecture02.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture03/ESRM64103_Lecture03.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture04/ESRM64103_Lecture04.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture05/ESRM64103_Lecture05.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture06/ESRM64103_Lecture06.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture07/ESRM64103_Lecture07.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture08/ESRM64103_Lecture08.qmd      
+        - section: "Exercise"
+          contents:
+            - file: posts/Lectures/2025-01-13-Experiment-Design/Lecture01/MakeFriendsWithR.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture02/ESRM64103_HW1_QA.qmd
+            - posts/Lectures/2025-01-13-Experiment-Design/Lecture05/HW2_Answer.qmd
     - id: id-note
       style: "docked"
       search: true

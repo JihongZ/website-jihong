@@ -1,23 +1,10 @@
 ---
-title: "Homework 2"
+title: "Homework 3"
 subtitle: "Experimental Design in Education"
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-02-10"
-sidebar: false
 execute: 
   eval: false
   echo: true
-format: 
-  html: 
-    page-layout: full
-    toc: false
-    lightbox: true
-filters:
-  - output-line-highlight.lua
 ---
 
 ## Homework 2: One-Way ANOVA Analysis

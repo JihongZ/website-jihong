@@ -7,7 +7,7 @@ institute: |
   
   University of Arkansas
 date: "2025-01-13"
-sidebar: false
+
 format: 
   #html: 
   #  page-layout: full

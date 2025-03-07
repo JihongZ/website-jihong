@@ -1,40 +1,14 @@
 ---
-title: "Lecture 07: Block Design"
+title: "Lecture 07: Block Design (1)"
 subtitle: "Experimental Design in Education"
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-02-27"
-sidebar: false
 execute: 
   eval: true
   echo: true
-format: 
-  # html: 
-  #   page-layout: full
-  #   toc: true
-  #   toc-depth: 2
-  #   lightbox: true
-  uark-revealjs:
-    chalkboard: true
-    embed-resources: false
-    code-fold: false
-    number-sections: true
-    number-depth: 1
-    footer: "ESRM 64503: Lecture 07"
-    slide-number: c/t
-    tbl-colwidths: auto
-    scrollable: true
-    mermaid:
-      theme: forest
-filters:
-  - output-line-highlight.lua
-bibliography: references.bib
 ---
 
-## Overview {.objectives}
+::: {.objectives}
+## Overview {.unnumbered}
 
 -   Go through different types of experimental design
 -   Block Design
@@ -44,6 +18,7 @@ bibliography: references.bib
     -   Randomized complete block design
     -   Latin square design (LSD)
     -   Replicated latin square design
+:::
 
 ## From week 1...
 
@@ -388,13 +363,19 @@ where:
 
 ------------------------------------------------------------------------
 
-| Lecture  |    Form 1    |     Form 2     |      Form 3      | Marginal |
-|----------|:------------:|:--------------:|:----------------:|:--------:|
-| Method 1 |  [45]{.red}  |  [43]{.green}  |  [51]{.purple}   |  46.33   |
-| Method 2 |  [47]{.red}  |  [46]{.green}  |  [52]{.purple}   |  48.33   |
-| Method 3 |  [48]{.red}  |  [50]{.green}  |  [55]{.purple}   |  51.00   |
-| Method 4 |  [42]{.red}  |  [37]{.green}  |  [49]{.purple}   |  42.67   |
-| Marginal | [46.3]{.red} | [44.0]{.green} | [51.75]{.purple} |          |
++------------+--------------+----------------+------------------+------------+
+| Lecture    | Form 1       | Form 2         | Form 3           | Marginal   |
++============+:============:+:==============:+:================:+:==========:+
+| Method 1   | [45]{.red}   | [43]{.green}   | [51]{.purple}    | 46.33      |
++------------+--------------+----------------+------------------+------------+
+| Method 2   | [47]{.red}   | [46]{.green}   | [52]{.purple}    | 48.33      |
++------------+--------------+----------------+------------------+------------+
+| Method 3   | [48]{.red}   | [50]{.green}   | [55]{.purple}    | 51.00      |
++------------+--------------+----------------+------------------+------------+
+| Method 4   | [42]{.red}   | [37]{.green}   | [49]{.purple}    | 42.67      |
++------------+--------------+----------------+------------------+------------+
+| Marginal   | [46.3]{.red} | [44.0]{.green} | [51.75]{.purple} |            |
++------------+--------------+----------------+------------------+------------+
 
 ```{r}
 #| code-fold: true
@@ -528,7 +509,7 @@ Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explai
     -   A=Lecture Type 1, B=Lecture Type 2, C=Lecture Type 3, D=Lecture Type 4
 
 | Rep. #1      | Form 1 | Form 2 | Form 3 | Form 4 | Rep. #2      | Form 1 | Form 2 | Form 3 | Form 4 |
-|--------------|:------:|:------:|:------:|:------:|--------------|:------:|:------:|:------:|:------:|
+|--------|:------:|:------:|:------:|:------:|--------|:------:|:------:|:------:|:------:|
 | **School 1** |   A    |   D    |   C    |   B    | **School 1** |   B    |   C    |   D    |   A    |
 | **School 2** |   B    |   A    |   D    |   C    | **School 2** |   C    |   D    |   A    |   B    |
 | **School 3** |   C    |   B    |   A    |   D    | **School 3** |   D    |   A    |   B    |   C    |
@@ -544,12 +525,17 @@ Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explai
 -   This is a **“Greco-Roman squares”** design.
     -   Greco-Roman squares are a type of combinatorial design consisting of two orthogonal Latin squares of the same order, where each cell contains an ordered pair of symbols from two distinct sets.
 
-|   | Form 1 | Form 2 | Form 3 | Form 4 |
-|----|:--:|:--:|:--:|:--:|
-| School 1 | A [$\alpha$]{style="color: red"} | B [$\lambda$]{style="color: blue"} | C [$\beta$]{style="color: purple"} | D [$\chi$]{style="color: orange"} |
-| School 2 | B [$\chi$]{style="color: orange"} | A [$\beta$]{style="color: purple"} | D [$\lambda$]{style="color: blue"} | C [$\alpha$]{style="color: red"} |
-| School 3 | C [$\lambda$]{style="color: blue"} | D [$\alpha$]{style="color: red"} | A [$\chi$]{style="color: orange"} | B [$\beta$]{style="color: purple"} |
-| School 4 | D [$\beta$]{style="color: purple"} | C [$\chi$]{style="color: orange"} | B [$\alpha$]{style="color: red"} | A [$\lambda$]{style="color: blue"} |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
+|             | Form 1                             | Form 2                             | Form 3                             | Form 4                             |
++=============+:==================================:+:==================================:+:==================================:+:==================================:+
+| School 1    | A [$\alpha$]{style="color: red"}   | B [$\lambda$]{style="color: blue"} | C [$\beta$]{style="color: purple"} | D [$\chi$]{style="color: orange"}  |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
+| School 2    | B [$\chi$]{style="color: orange"}  | A [$\beta$]{style="color: purple"} | D [$\lambda$]{style="color: blue"} | C [$\alpha$]{style="color: red"}   |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
+| School 3    | C [$\lambda$]{style="color: blue"} | D [$\alpha$]{style="color: red"}   | A [$\chi$]{style="color: orange"}  | B [$\beta$]{style="color: purple"} |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
+| School 4    | D [$\beta$]{style="color: purple"} | C [$\chi$]{style="color: orange"}  | B [$\alpha$]{style="color: red"}   | A [$\lambda$]{style="color: blue"} |
++-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
 
 -   Important Considerations about the blocking designs: With Blocking Designs, we still randomly assign individuals within each block.
 

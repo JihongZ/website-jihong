@@ -1,6 +1,6 @@
 ---
 title: "ESRM64103: Student Grades"
-sidebar: false
+
 execute: 
   echo: false
 format: 
