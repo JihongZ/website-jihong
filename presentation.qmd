@@ -13,6 +13,10 @@ listing:
   table-hover: true
   date-format: "iso"
 title-block-banner: false
+format:
+  html:
+    comments: false
+    code-tools: false
 ---
 
 ## Presentation

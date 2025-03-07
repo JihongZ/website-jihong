@@ -18,6 +18,7 @@ format:
     toc: false
     code-tools: false
     title-block-banner: false
+    comments: false
     grid:
       sidebar-width: 400px
 ---
