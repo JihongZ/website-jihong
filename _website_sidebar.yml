@@ -25,10 +25,11 @@ website:
             - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Exercise06.qmd
     - id: id-note
       style: "docked"
-      logo: "images/jihonglogo.png"
       search: true
       collapse-level: 2
       contents:
+        - text: <h3>RESOURCE</h3>
+        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆"
         - section: 'Useful Materials'
           contents: 
             - text: '2024 Research Plan'

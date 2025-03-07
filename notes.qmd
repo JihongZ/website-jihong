@@ -19,5 +19,5 @@ format:
     code-tools: false
     title-block-banner: false
     grid:
-      sidebar-width: 550px
+      sidebar-width: 400px
 ---
