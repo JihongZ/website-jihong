@@ -1,8 +1,88 @@
 ---
 title: "Lecture 08: Block Design (2)"
 subtitle: "Experimental Design in Education"
-date: "2025-02-27"
+date: "2025-03-07"
 execute: 
   eval: true
   echo: true
+  warning: false
+  message: false
 ---
+
+::: objectives
+## Overview {.unnumbered}
+
+1.  Review Block Design
+2.  Randomized Block Design with R Programming[^1]
+3.  Completely Randomized Block Design with R Programming[^2]
+:::
+
+[^1]: Please check [here](https://www.geeksforgeeks.org/randomized-block-design-with-r-programming/) for the original post
+[^2]: Please check [here](https://www.geeksforgeeks.org/completely-randomized-design-with-r-programming/?ref=ml_lbp) for the original post
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(gt)
+```
+
+## Experiment 1
+
+- **Background**: Testing new fertilizers in different types of crops. Crops are divided into 3 different types (blocks). These blocks are again divided into 3 fertilizers that are used on those crops. The figure for this is as follows:
+
+![](https://media.geeksforgeeks.org/wp-content/uploads/20201014082316/RCBDexample.PNG)
+
+```{r}
+corn <- factor(rep(c("corn", "rice", "wheat"), each = 3)) 
+fert <- factor(rep(c("f1", "f2", "nf"), times = 3)) 
+corn
+fert
+```
+---
+
+```{r}
+y <- c(6, 5, 6, 
+       4, 4.2, 5, 
+       5, 4.4, 5.5) 
+
+# y is the months the crops were healthy 
+results <- data.frame(y, corn, fert) 
+gt(results)
+```
+
+---
+
+```{r}
+fit <- aov(y ~ fert+corn, data = results)				 
+summary(fit)
+```
+
+- **Explanation:** The value of *Mean Sq* shows is blocking really necessary for the experiment. Here *Mean Sq for residuals* `0.1078 << 0.7011`, thus blocking is necessary will give precise values for the experiment. Though this method is a little debatable yet useful. The significance value of every experiment is given by the person taking the experiment. Here lets consider significance has 5% i.e 0.05. The Pr(>F) value is `0.0553>0.05`. Thus the hypothesis is accepted for the crops experiment. Let’s consider one more experiment.
+
+## Experiment 2
+
+- **Background:** Comparing the performances of students (male and female) blocks in different environments (at home and at college). To represent this experiment in the figure will be as follows:
+
+![](https://media.geeksforgeeks.org/wp-content/uploads/20201015122147/RCBDexample2.PNG)
+
+- Where *AC*: At College, *AH*: At Home
+
+```{r}
+stud <- factor(rep(c("male", "female"), each = 2)) 
+perf <- factor(rep(c("ah", "ac" ), times = 2)) 
+perf
+```
+
+```{r}
+y <- c(5.5, 5, 
+	4, 6.2) 
+
+# y is the hours students 
+# studied in specific places 
+results <- data.frame(y, stud, perf) 
+
+fit <- aov(y ~ perf+stud, data = results)				 
+summary(fit)
+```
+
+- **Explanation**: The value of Mean Sq is `0.7225<<1.8225`,i.e, here blocking wasn’t necessary. And as Pr value is  0.642 > 0.05 (5% significance) and the hypothesis is accepted - there is no sufficient evidence suggesting females and males have significant differences in performance.
