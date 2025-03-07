@@ -1,40 +1,17 @@
-// @import 'https://fonts.googleapis.com/css2?family=Maven+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Nunito:wght@300;400;500&family=JetBrains+Mono:ital@0;1';
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
-
 /*-- scss:rules --*/
-@font-face {
-    font-family: 'Taub Sans';
-    src: local('Taub Sans Regular'), local('Taub-Sans-Regular'),
-         url('./fonts/TaubSans-Regular/TaubSans-Regular.woff2') format('woff2'),
-         url('./fonts/TaubSans-Regular/TaubSans-Regular.woff') format('woff'),
-         url('./fonts/TaubSans-Regular/TaubSans-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-@font-face {
-    font-family: 'Palatino';
-    src: local('Palatino'), local('Palatino'),
-         url('./fonts/Palatino/Palatino.woff') format('woff'),
-         url('./fonts/Palatino/Palatino.ttf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-  }
-
 .menu-text {
-  font-family: "Jost", sans-serif;
+  font-family: "Red Hat Text", sans-serif;
   letter-spacing: 1px;
   font-weight: normal;
   color: $menutext-bg;
 }
 h1, h2, h3 {
-  //color: #333333; 
-  //font-family: "Ysabeau Office", sans-serif;
-  font-family: "Palatino", sans-serif;
+  font-family: "Titillium Web", sans-serif;
   letter-spacing: 1.8px;
   font-weight: normal;
 }
 p { // main font family of post content
-  font-family: 'Jost', sans-serif;
+  font-family: 'Tenor Sans', sans-serif;
   font-weight: normal;
 }
 
@@ -47,6 +24,7 @@ $menutext-bg: #FFFFFF;
 $code-bg: rgb(34, 34, 34); // for in-line code background
 $pre-bg: $darkteal;
 $code-block-bg: #475c6c; // code block's bg
+$body-bg: rgb(34, 34, 34);
 
 .cell-output {
   background-color: $navbar-bg;
