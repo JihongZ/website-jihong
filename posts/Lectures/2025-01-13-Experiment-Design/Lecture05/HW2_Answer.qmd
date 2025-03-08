@@ -7,21 +7,22 @@ institute: |
   
   University of Arkansas
 date: "2025-02-05"
-
 execute: 
   warning: false
   message: false
 format: 
   html: 
     page-layout: full
-    number-offset: 1
+    number-offset: 2
     toc: false
     toc-depth: 2
     lightbox: true
     code-fold: show
+  uark-revealjs:
+    output-file: slides-index-2.html
 ---
 
-## Explain the differences between simple, complex, orthogonal, and non-orthogonal contrasts in ANOVA. Why is it important to consider these distinctions when designing a study?
+### Explain the differences between simple, complex, orthogonal, and non-orthogonal contrasts in ANOVA. Why is it important to consider these distinctions when designing a study?
 
 -   **Simple contrasts** compare one group to another, such as comparing a treatment group to a control group.\
 -   **Complex contrasts** involve comparisons between multiple groups, such as comparing the average of two treatment groups to a control group.\
@@ -32,7 +33,7 @@ Considering these distinctions is crucial in study design because they affect st
 
 ------------------------------------------------------------------------
 
-## How do contrast coding schemes (e.g., Helmert, sum, treatment coding) affect the interpretation of ANOVA results? Provide an example illustrating how different coding schemes influence parameter estimates.
+### How do contrast coding schemes (e.g., Helmert, sum, treatment coding) affect the interpretation of ANOVA results? Provide an example illustrating how different coding schemes influence parameter estimates.
 
 Contrast coding schemes determine how categorical variables are represented in regression-based ANOVA models, affecting coefficient interpretation:
 
@@ -44,7 +45,7 @@ Contrast coding schemes determine how categorical variables are represented in r
 
 ------------------------------------------------------------------------
 
-## In a study comparing multiple treatment groups, a researcher decides to test specific hypotheses using planned contrasts instead of post-hoc comparisons. Discuss the advantages and limitations of this approach and how it impacts Type I error control.
+### In a study comparing multiple treatment groups, a researcher decides to test specific hypotheses using planned contrasts instead of post-hoc comparisons. Discuss the advantages and limitations of this approach and how it impacts Type I error control.
 
 **Advantages:**\
 - Planned contrasts are hypothesis-driven, increasing statistical power compared to post-hoc comparisons, which test all possible differences.\
