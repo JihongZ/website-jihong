@@ -19,6 +19,8 @@ website:
         file: posts.qmd 
       - text: MORE
         menu:
+          - text: To-Do
+            file: todolist/todo.qmd
           - text: Project
             file: projects.qmd
           - text: "<span class='menutext-db'>Dashboard</span><span class='text-line text-line-db'></span>"

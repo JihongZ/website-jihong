@@ -1,0 +1,14 @@
+---
+title: "To-do List | Jihong Zhang"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-03-07"
+format: html
+---
+
+- [ ] Write a blog post about the community detection in psychometric network analysis.
+- [ ] Finish the data analysis of network analysis of physical activity.
+- [ ] Run the whole simulation of Large Language Model + Interview Data.
