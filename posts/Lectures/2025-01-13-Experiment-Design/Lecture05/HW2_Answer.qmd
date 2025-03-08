@@ -10,6 +10,8 @@ date: "2025-02-05"
 execute:
   warning: false
   message: false
+metadata-files: 
+  - "_metadata.yml"  
 ---
 
 ### Explain the differences between simple, complex, orthogonal, and non-orthogonal contrasts in ANOVA. Why is it important to consider these distinctions when designing a study?
