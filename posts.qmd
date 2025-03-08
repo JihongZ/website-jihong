@@ -1,5 +1,5 @@
 ---
-title: 'Blog'
+title: 'Blog | Jihong'
 subtitle: ''
 sidebar: false
 listing:
@@ -15,7 +15,6 @@ listing:
 format: 
   html:
     code-tools: false
-    title-block-banner: false
 ---
 
 ::: {#posts}

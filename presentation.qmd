@@ -1,5 +1,5 @@
 ---
-title: ''
+title: 'Presentation | Jihong Zhang'
 subtitle: ''
 sidebar: false
 listing:
@@ -12,14 +12,13 @@ listing:
   table-striped: true
   table-hover: true
   date-format: "iso"
-title-block-banner: false
+  filter-ui: false
+  sort-ui: false
 format:
   html:
     comments: false
     code-tools: false
 ---
-
-## Presentation
 
 ::: {#lectures}
 :::

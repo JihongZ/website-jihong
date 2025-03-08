@@ -1,0 +1,45 @@
+---
+title: "Communities in Psychometric Networks?"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-03-07"
+draft: false
+bibliography: references.bib
+csl: apa.csl
+citation:
+  type: webpage
+  issued: 2025-03-07
+format: 
+  html:
+    code-tools: false
+    code-line-numbers: false
+    toc-depth: 2
+    toc-expand: true
+---
+
+::: objectives
+## Overview
+
+A friend of mine talk to me: in her recent research, a network without community defined has different estimation with the one with community define. A [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) talks about community detection in psychometric network analysis.
+
+1.  What is "node community"?
+2.  How to identify communities?
+:::
+
+## Big Problem in the network
+
+As said in Eiko's post [@friedTutorialHowIdentify2016] and I cited here – authors sometimes *over-interpret* the network visualization of their data that some meaningful modules exist. This over-interpretation may have Type I error (mistakenly cluster nodes with acutally weak connections in a community) or Type II error (fail to cluster nodes with strong connection into a community). In other words, researchers found that relying on visual inspection of network structure can not obtain reliable conclusion about which nodes should be clustered together and which ones should not be clustered, especially in a complicated network structure (say \> 20 nodes).
+
+Identification of node clusters is not a new topic, which is typically called "*Community Detection*" in graph theory [@fortunatoCommunityDetectionGraphs2010]. This problem arises due to a phenomenon called "Community Structure"[@girvanCommunityStructureSocial2002] or "Clustering" was found in varied types of networks. This community structure has two characteristics:
+
+1.  Heterogeneity of node degree: nodes with high degree (more neighbors/ high betweenness) coexist with nodes with low degree.
+2.  Heterogeneity of edge strength: high concentrations of edges with certain "group" of nodes even though those "groups" are visual inspected.
+
+Given this community structure, *Community* (or called clusters or modules) is defined as **groups of nodes which probably share common properties and / or play similar roles within the graph** [@fortunatoCommunityDetectionGraphs2010]. This is actually a very broad definition which does not answer what are "common properties" and "similar roles" in a network graph. The reason of this vagueness is because of variety of network in different areas.
+
+For example, within a social network with each person as node and social relationship between two people as edge, social communities could be *family*, *company*, or any other social groups. In this case, "common properties" of social community may be emotional pattern due to the family education, behavioral pattern under company policy. In protein-protein interaction networks, communities are likely to group proteins having the same specific function within the cell. In the graph of the World Wide Web they may correspond to groups of web pages dealing with the same or related topics.
+
+Back to community in psychological research. Symtom community may group disorders with comorbidity, which refers to simultaneous presence of two or more psychological symptoms in a same individual within a time frame (co-occurring, concurrent). The symptom community is also known as *psychopathological syndromes* [@goekoopNetworkViewPsychiatric2014].

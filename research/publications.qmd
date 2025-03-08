@@ -9,6 +9,7 @@ format:
   html:
     code-tools: true
     code-fold: false
+    comments: false
 ---
 
 ```{r setup}

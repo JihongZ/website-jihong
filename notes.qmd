@@ -1,5 +1,5 @@
 ---
-title: 'Note'
+title: 'Note | Jihong Zhang'
 subtitle: ''
 sidebar: id-note
 listing:
@@ -17,7 +17,6 @@ format:
   html:
     toc: false
     code-tools: false
-    title-block-banner: false
     comments: false
     grid:
       sidebar-width: 400px
