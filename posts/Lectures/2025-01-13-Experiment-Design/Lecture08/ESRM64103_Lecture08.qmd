@@ -8,6 +8,30 @@ execute:
   echo: true
   warning: false
   message: false
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    output-file: slides-index.html
+    mermaid:
+      theme: forest    
 ---
 
 ::: objectives
@@ -26,6 +50,23 @@ execute:
 library(tidyverse)
 library(gt)
 ```
+
+## Features of RCBD
+
+::: discussion
+Think about our example of the effects of teaching methods (M1, M2, M3, M4) and measurement forms (F1, F2, F3, F4) to math performance.
+:::
+
+1.  In a **randomized complete block design (RCBD)**, each block size is the same and is equal to the number of treatments (i.e. factor levels or factor level combinations).
+    -   For those who using saming form (same block), they will be randomly assigned to 4 teaching methods.
+2.  Each treatment will be randomly assigned to exactly one experimental unit (students) within every block.
+3.  The assignments of treatment levels (teaching methods) to the experimental units (students) have to be done within each block separately.
+
+## Random Effects of RCBD 
+
+1.  It is important to mention that blocks are usually (but not always) treated as random effects as they typically represent the population of all possible blocks.
+2.  In other words, the mean comparison among specific blocks is not of interest.
+3.  However, the variation between blocks must be incorporated into the model.
 
 ## Experiment 1
 

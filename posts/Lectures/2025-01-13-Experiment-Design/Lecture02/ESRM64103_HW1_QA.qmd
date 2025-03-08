@@ -1,13 +1,7 @@
 ---
 title: "ESRM64103 HW1 QA"
 subtitle: "Experimental design in Education"
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-02-05"
-
 execute: 
   warning: false
   message: false

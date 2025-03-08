@@ -1,6 +1,5 @@
 ---
 title: "Example 01: Make Friends with R"
-
 format: 
   html:
     toc: true

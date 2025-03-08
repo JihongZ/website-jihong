@@ -7,25 +7,30 @@ institute: |
   
   University of Arkansas
 date: "2025-01-13"
-
 format: 
-  #html: 
-  #  page-layout: full
-  #  toc: true
-  #  toc-depth: 2
-  #  lightbox: true
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
   uark-revealjs:
     chalkboard: true
     embed-resources: false
-    code-fold: true
+    code-fold: false
     number-sections: true
     number-depth: 1
-    footer: "ESRM 64503: Lecture01"
+    footer: "ESRM 64503"
     slide-number: c/t
     tbl-colwidths: auto
-    output-file: slides-index.html
     scrollable: true
-#jupyter: python3
+    output-file: slides-index.html
+    mermaid:
+      theme: forest  
 ---
 
 # Overview

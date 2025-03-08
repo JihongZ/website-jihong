@@ -5,6 +5,17 @@ date: "2025-02-10"
 execute: 
   eval: false
   echo: true
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
 ---
 
 ## Homework 2: One-Way ANOVA Analysis

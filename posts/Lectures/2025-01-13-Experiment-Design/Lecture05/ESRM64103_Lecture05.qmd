@@ -1,11 +1,6 @@
 ---
 title: "Lecture 05: ANOVA Comparisons and Contrasts"
 subtitle: "Experimental Design in Education"
-author: "Jihong Zhang*, Ph.D"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-02-17"
 execute: 
   eval: true
@@ -13,6 +8,16 @@ execute:
   message: false
   warning: false
 format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
   uark-revealjs:
     chalkboard: true
     embed-resources: false

@@ -3,28 +3,4 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
-sidebar: id-lec64103  
-format: 
-  html:
-    code-tools: true
-    code-line-numbers: false
-    code-fold: false
-    number-offset: 1
-    fig.width: 10
-    fig-align: center
-    message: false
-    grid:
-      sidebar-width: 350px
-  uark-revealjs:
-    chalkboard: true
-    embed-resources: false
-    code-fold: false
-    number-sections: true
-    number-depth: 1
-    footer: "ESRM 64503"
-    slide-number: c/t
-    tbl-colwidths: auto
-    scrollable: true
-    output-file: slides-index.html
-    mermaid:
-      theme: forest  
+sidebar: id-lec64103

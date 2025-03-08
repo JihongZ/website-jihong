@@ -5,9 +5,33 @@ date: "2025-02-27"
 execute: 
   eval: true
   echo: true
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    output-file: slides-index.html
+    mermaid:
+      theme: forest  
 ---
 
-::: {.objectives}
+::: objectives
 ## Overview {.unnumbered}
 
 -   Go through different types of experimental design
