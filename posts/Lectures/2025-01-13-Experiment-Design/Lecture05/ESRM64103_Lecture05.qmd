@@ -12,14 +12,30 @@ execute:
   echo: true
   message: false
   warning: false
+format: 
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    output-file: slides-index.html
+    mermaid:
+      theme: forest  
 ---
 
+::: objectives
 [Class Outline]{.redcolor .bigger}
 
 -   Planned Contrast
 -   Example: Group Comparison - STEM vs. Non-STEM Groups
     -   ANOVA-style t-statistics and Regression-style Coding Schema in R
 -   Effect sizes.
+:::
 
 # Planned Contrasts
 

@@ -7,19 +7,9 @@ institute: |
   
   University of Arkansas
 date: "2025-02-05"
-execute: 
+execute:
   warning: false
   message: false
-format: 
-  html: 
-    page-layout: full
-    number-offset: 2
-    toc: false
-    toc-depth: 2
-    lightbox: true
-    code-fold: show
-  uark-revealjs:
-    output-file: slides-index-2.html
 ---
 
 ### Explain the differences between simple, complex, orthogonal, and non-orthogonal contrasts in ANOVA. Why is it important to consider these distinctions when designing a study?
