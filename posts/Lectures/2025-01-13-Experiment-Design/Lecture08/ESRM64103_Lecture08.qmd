@@ -13,6 +13,7 @@ format:
     code-tools: true
     code-line-numbers: false
     code-fold: false
+    code-summary: "Click to see R code"
     number-offset: 1
     fig.width: 10
     fig-align: center
@@ -68,6 +69,33 @@ Think about our example of the effects of teaching methods (M1, M2, M3, M4) and 
 2.  In other words, the mean comparison among specific blocks is not of interest.
 3.  However, the variation between blocks must be incorporated into the model.
 
+## Exercises
+
+:::: discussion
+-   A poultry experiment was run to investigate the effect of **diet** and **antibiotics** on egg production. They evaluated 2 diets of interest and 2 specific antibiotics that are on the market. The feed and antibiotic were combined and used to fill the feeding trays in barns. They chose 3 poultry farms at random and randomly assigned the combinations of diet and antibiotic to 4 barns within each farm. Total egg production by the chickens was recorded after 4 weeks.
+    1.  What is the experimental design (hint: think about the randomization process)?
+    2.  Identify which factors are treatment and block.
+
+::: {.callout-note .mohu}
+## Answer
+
+a.  RCBD.
+b.  treatment: combination of Diet and Antibiotic; block: Farms.
+:::
+::::
+
+## Other Aspects of the RCBD 
+
+-   The RCBD utilizes an *additive model* – one in which there is *no interaction* between treatments and blocks. The error term in a randomized complete block model reflects how the treatment effect varies from one block to another.
+
+-   Both the treatments and blocks can be considered as *random effects* rather than fixed effects, if the levels were selected at random from a population of possible treatments or blocks. We consider this case later, but it does not change the test for a treatment effect.
+
+-   What are the consequences of not blocking if we should have? Generally the **unexplained error** in the model will be larger, and therefore the test of the treatment effect less powerful.
+
+-   How to determine the sample size in the RCBD? 
+
+    -   The [Operating Characteristic (OC) curve](https://online.stat.psu.edu/stat503/lesson/3/3.2#paragraph--298) approach can be used to determine the number of blocks to run. The number of blocks, *b*, represents the number of replications (they are exchangable from the point of researchers' view). The power calculations that we looked at before would be the same, except that we use b rather than n, and we use the estimate of error, $\sigma^2$, that reflects the improved precision based on having used blocks in our experiment. So, the major benefit or power comes not from the number of replications but from the error variance which is much smaller because you removed the effects due to block.
+
 ## Example 1: Tutoring session
 
 :::::: columns
@@ -105,7 +133,7 @@ DV: Midterm Score (in cells)
 -   We will also have a null hypothesis pertaining to the blocking factor:
     -   $H_0:\mu_{Bobby} = \mu_{Julia} = \mu_{Monique} =\mu_{Ned} → b=4$
     
--   Two nulls = two values of $F_{obs}$, two values of $F_{crit}$, two decisions
+-   Two Nulls = two values of $F_{obs}$, two values of $F_{crit}$, two decisions
 :::
 
 :::: {.column width="40%"}
@@ -246,22 +274,158 @@ Similarly, for "Blocking" - Tutor, we have $df_{block}$ = 3, $df_{error} = 195$:
 -   The effect of tutoring time was significant $(𝐹(1,195) = 119. 39, 𝑝<. 001 ,\eta^2_{𝑇𝑖𝑚𝑒} =. 298$) with a large effect. Using a Tukey’s test, morning is significantly higher than afternoon sessions (𝑝 \<. 05 ).
 -   The effect of the blocking factor, tutor, was significant ($𝐹(3 , 195) = 28. 72 ,𝑝< . 001 ,\eta^2_{𝑇𝑢𝑡𝑜𝑟} =. 215$) with a large effect. Using a Tukey’s test, Monique’s students were significantly higher than other students, and Bobby’s students were significantly lower than other students in the midterm scores (𝑝\<. 05 ).
 
-## Exercises
+## Example 2: Hardness Reading[^exp2]
 
-:::: discussion
--   A poultry experiment was run to investigate the effect of **diet** and **antibiotics** on egg production. They evaluated 2 diets of interest and 2 specific antibiotics that are on the market. The feed and antibiotic were combined and used to fill the feeding trays in barns. They chose 3 poultry farms at random and randomly assigned the combinations of diet and antibiotic to 4 barns within each farm. Total egg production by the chickens was recorded after 4 weeks.
-    1.  What is the experimental design (hint: think about the randomization process)?
-    2.  Identify which factors are treatment and block.
+[^exp2]: Please check the original post here: [STAT 503](https://online.stat.psu.edu/stat503/lesson/4/4.1)
 
-::: {.callout-note .mohu}
-## Answer
+- In this example we wish to determine whether 4 different tips (the treatment factor) produce different (mean) hardness readings on a Rockwell hardness tester. 
+    -   The **treatment factor** is the design of the tip for the machine that determines the hardness of metal. The tip is one component of the testing machine.
 
-a.  RCBD.
-b.  treatment: combination of Diet and Antibiotic; block: Farms.
+::: callout-note
+## The Rockwell hardness test
+**The Rockwell hardness test** is a hardness test based on indentation hardness of a material. The Rockwell test measures the depth of penetration of an indenter under a large load (major load) compared to the penetration made by a preload (minor load).
+:::
+
+- To conduct this experiment we assign the tips to an experimental unit; that is, to a **test specimen** (called a coupon), which is a piece of metal on which the tip is tested.
+    -   The **blocking factor** is the block of test specimens. The test specimens are blocks of metal that are similar in hardness. The test specimens are used to block the variation in hardness of the metal from the variation in the tips.
+
+------------------------------------------------------------------------
+
+### Example 2: Block Design - CRD
+
+- If the structure were a completely randomized experiment (CRD) that we discussed in lecture 7, we would assign the tips to a random piece of metal for each test. In this case, the test specimens would be considered a source of nuisance variability. 
+
+```{r}
+#| code-fold: true
+set.seed(1234)
+data.frame(
+  Metal = paste0("Metal", 1:8),
+  Tip = rep(c("Tip1", "Tip2", "Tip3", "Tip4"), each = 2),
+  Hardness = sample(seq(9, 10, by =.1), 8)
+) |> 
+  kableExtra::kable()
+```
+
+------------------------------------------------------------------------
+
+### Example 2: Block Design - RCBD
+
+- If we conduct this as a blocked experiment, we would assign all four tips to the same test specimen, randomly assigned to be tested on a different location on the specimen. Since each treatment occurs once in each block, the number of test specimens is the number of replicates.
+
+- Back to the hardness testing example, the experimenter may very well want to *test the tips* (treatment) across *specimens* (block) of various hardness levels. This shows the importance of blocking. To conduct this experiment as a RCBD, we assign all 4 tips to each specimen.
+
+    -  In this experiment, each specimen is called a “block”; thus, we have designed a more homogenous set of experimental units on which to test the tips.
+    
+
+------------------------------------------------------------------------
+
+### Example 2: Block Design Table - RCBD
+
+:::: columns
+::: column
+-   Suppose that we use b = 4 blocks as shown in the table below:
+
+-   We are primarily interested in testing the equality of treatment means, but now we have the ability to remove the variability associated with the nuisance factor (the blocks) through the grouping of the experimental units prior to having assigned the treatments.
+:::
+
+::: column
+```{r}
+#| code-fold: true
+tribble(
+  ~`1`, 	~`2`, 	~`3`, 	~`4`,
+  "Tip 3", 	"Tip 3", 	"Tip 2",	"Tip 1",
+  "Tip 1", 	"Tip 4", 	"Tip 1",	"Tip 4",
+  "Tip 4", 	"Tip 2", 	"Tip 3",	"Tip 3",
+  "Tip 2", 	"Tip 1", 	"Tip 4",	"Tip 3"
+) |> 
+  gt() |> 
+  tab_header(
+    title = "The Hardness Testing Experiment",
+    subtitle = "Randomized Complete Block Design"
+  ) |> 
+  tab_spanner(
+    label = "Test Coupon (Block)",
+    columns = everything()
+  ) |> 
+  tab_options(
+    table.width = px(500),
+    table.font.size = px(20)
+  )
+```
 :::
 ::::
 
-## Experiment 2: Plan Fertilizer[^3]
+
+
+
+
+::: callout-important
+Notice the two-way structure of the experiment. Here we have four blocks and within each of these blocks is a random assignment of the tips within each block.
+:::
+
+------------------------------------------------------------------------
+
+### Example 2: ANOVA Results (1)
+
+-   Remember, the hardness of specimens (coupons) is tested with 4 different tips.
+
+```{r}
+#| code-fold: true
+library(here)
+dat <- read.csv(here::here("posts/Lectures/2025-01-13-Experiment-Design/Lecture08", "tip_hardness.csv"))
+kableExtra::kable(dat)
+```
+
+------------------------------------------------------------------------
+
+### Example 2: ANOVA Results (2)
+
+-   Here is the output from R `aov()`. We can see four levels of the Tip and four levels for Coupon:
+
+```{r}
+#| code-fold: true
+dat$Tip <- factor(dat$Tip)
+dat$Coupon <- factor(dat$Coupon)
+fit_exp2 <- aov(Hardness ~ Tip + Coupon, data = dat)
+```
+
+::: callout-note
+-   The Analysis of Variance table shows three degrees of freedom for Tip three for Coupon, and the residual (error) degrees of freedom is nine. 
+
+-   The ratio of mean squares of treatment over error gives us an F ratio that is equal to 14.44 which is highly significant since it is greater than the .001 percentile of the F distribution with three and nine degrees of freedom.
+
+-   Our 2-way analysis also provides a test for the block factor, Coupon. The ANOVA shows that this factor is also significant with an F-test = 30.94. So, there is a large amount of variation in hardness between the pieces of metal. 
+
+-   This is why we used specimen (or coupon) as our blocking factor. We expected in advance that it would account for a large amount of variation. By including block in the model and in the analysis, we removed this large portion of the variation, such that the residual error is quite small. By including a block factor in the model, the error variance is reduced, and the test on treatments is more powerful.
+:::
+
+### Example 2: ANOVA Results (3)
+
+-   The test on the block factor is typically not of interest except to confirm that you used a good blocking factor. The results are summarized by the table of means given below.
+
+```{r}
+#| code-fold: true
+cbind(
+dat |> 
+  group_by(Tip) |>
+  summarize(
+    N_Tip = n(),
+    Hardness_Tip = mean(Hardness))
+,
+dat |> 
+  group_by(Coupon) |>
+  summarize(
+    N_Coupon = n(),
+    Hardness_Coupon = mean(Hardness)) 
+) |> 
+  kableExtra::kable()
+```
+
+
+
+
+
+## Experiment 3: Plan Fertilizer[^3]
 
 [^3]: Please check the original post here: [STAT 502 Analysis of Variance and Design of Experiments](https://online.stat.psu.edu/stat502/lesson/7/7.3)
 
@@ -370,7 +534,7 @@ Comparing the two ANOVA tables, we see that the MSE in RCBD has decreased consid
 :::
 ::::::
 
-## Experiment 2
+## Experiment 3: Planet Fertilizer
 
 -   **Background**: Testing new fertilizers in different types of crops.
 -   **Design**: Crops are divided into 3 different types (blocks). These blocks are again divided into 3 fertilizers (F1, F2, and NF) that are used on those crops. The figure of study design can be visualized as follows:
@@ -386,6 +550,8 @@ fert
 
 ------------------------------------------------------------------------
 
+### Experiment 3: Data
+
 ```{r}
 y <- c(6, 5, 6, 
        4, 4.2, 5, 
@@ -393,19 +559,26 @@ y <- c(6, 5, 6,
 
 # y is the months the crops were healthy 
 results <- data.frame(y, corn, fert) 
-gt(results)
+kableExtra::kable(results)
 ```
 
 ------------------------------------------------------------------------
+
+### Experiment 3: ANOVA Results
 
 ```{r}
 fit <- aov(y ~ fert+corn, data = results)				 
 summary(fit)
 ```
 
--   **Explanation:** The value of *Mean Sq* shows is blocking really necessary for the experiment. Here *Mean Sq for residuals* `0.1078 << 0.7011`, thus blocking is necessary will give precise values for the experiment. Though this method is a little debatable yet useful. The significance value of every experiment is given by the person taking the experiment. Here lets consider significance has 5% i.e 0.05. The Pr(\>F) value is `0.0553>0.05`. Thus the hypothesis is accepted for the crops experiment. Let’s consider one more experiment.
+::: discussion
+## Interpretation {.unnumbered}
 
-## Experiment 2
+The value of *Mean Sq* shows is blocking really necessary for the experiment. Here *Mean Sq for residuals* `0.1078 << 0.7011`, thus blocking is necessary will give precise values for the experiment. Though this method is a little debatable yet useful. The significance value of every experiment is given by the person taking the experiment. Here lets consider significance has 5% i.e 0.05. The Pr(\>F) value is `0.0553>0.05`. Thus the hypothesis is accepted for the crops experiment. Let’s consider one more experiment.
+:::
+
+
+## Experiment 4: Performance of Students
 
 -   **Background:** Comparing the performances of students (male and female) blocks in different environments (at home and at college). To represent this experiment in the figure will be as follows:
 
@@ -433,26 +606,32 @@ summary(fit)
 
 -   **Explanation**: The value of Mean Sq is `0.7225<<1.8225`,i.e, here blocking wasn’t necessary. And as Pr value is 0.642 \> 0.05 (5% significance) and the hypothesis is accepted - there is no sufficient evidence suggesting females and males have significant differences in performance.
 
-## Example: 3 Blocking Factors?
+## Effectiveness of Health Promotion Programs
 
+::: discussion
+## Background {.unnumbered}
 -   Researchers are interested in comparing the effectiveness of three health promotion programs with nursing students.
--   The researcher has the following research question: [Which of the three health promotion programs are most effective at reducing unhealthy coping behaviors?]{.underline}
-    -   Unhealthy coping behavior is measured as a composite score from the “Poor Coping Behavior” survey (PCB). High scores on the PCB indicate higher levels of unhealthy coping behaviors. Low scores indicate low levels of unhealthy coping behaviors. PCB scores can range from 0 (no unhealthy behaviors) to 100 (multiple unhealthy behaviors at high frequency and high intensity).
-    -   The researcher thinks that the health promotion programs for nursing students may have an effect on academic and well-being outcomes.
-    -   However, gender and status (traditional vs. non-traditional student) differences may influence the effectiveness of health promotion programs.
+-   The researcher has the following research question: *Which of the three health promotion programs are most effective at reducing unhealthy coping behaviors?*
+    1.   Unhealthy coping behavior is measured as a composite score from the “Poor Coping Behavior” survey (PCB). High scores on the PCB indicate higher levels of unhealthy coping behaviors. Low scores indicate low levels of unhealthy coping behaviors. PCB scores can range from 0 (no unhealthy behaviors) to 100 (multiple unhealthy behaviors at high frequency and high intensity).
+    2.   The researcher thinks that the health promotion programs for nursing students may have an effect on academic and well-being outcomes.
+    3.   However, gender and status (traditional vs. non-traditional student) differences may influence the effectiveness of health promotion programs.
+:::
 
 ------------------------------------------------------------------------
 
-### Example 3: Blocking Factors?
+### Blocking Factors?
 
 -   The researcher has a sample of 200 nursing students from the state of Arkansas. 50 students are assigned to each program: Program A, Program B, and Program C. In addition, 50 students are assigned to a control group that receives the status quo educational model.
-    -   What is the dependent variable? → PCB SCORES
-    -   What is the independent variable of interest? → HEALTH PROGRAM (4 LEVELS)
-    -   What is (are) the blocking variable(s), aka the confounding variables, that the researcher might statistically control for? → GENDER, STATUS
 
-------------------------------------------------------------------------
+```{r}
+data.frame(
+  Health_Program = c("Program A", "Program B", "Program C", "Control"),
+  N = c(50, 50, 50, 50)
+) |> kableExtra::kable()
+```
 
-### Example 3: Blocking Factors?
+
+### Blocking Factors?
 
 ::: panel-tabset
 ## Visualization
@@ -463,3 +642,14 @@ summary(fit)
 
 ![](images/clipboard-2055304403.png)
 :::
+    
+
+------------------------------------------------------------------------
+
+### Factors
+
+1.   What is the dependent variable? → [PCB SCORES]{.mohu}
+2.   What is the independent variable of interest? → [HEALTH PROGRAM (4 LEVELS)]{.mohu}
+3.   What is (are) the confounding variables, that the researcher might statistically control for? → [`GENDER`, `STATUS`]{.mohu}
+4.   What is (are) the blocking factors? →  [`Schools`, `Classes`]{.mohu}
+
