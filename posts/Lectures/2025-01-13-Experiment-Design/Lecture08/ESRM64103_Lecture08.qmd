@@ -142,14 +142,14 @@ where:
 -  Can partition $\mathrm{SS}_{\mathrm{T}}=\sum \sum\left(y_{i j}-\bar{y}_{. .}\right)^{2}$ into:
 
 $$
-\mathrm{SS}_{\mathrm{T}}= b \sum\left(\bar{y}_{i .}-\bar{y}_{. .}\right)^{2}+a \sum\left(\bar{y}_{. j}-\bar{y}_{. .}\right)^{2}+\sum \sum\left(y_{i j}-\bar{y}_{i .}-\bar{y}_{. j}+\bar{y}_{. .}\right)^{2}
+\mathrm{SS}_{\mathrm{T}}= n_b \sum\left(\bar{y}_{i .}-\bar{y}_{. .}\right)^{2}+ n_a \sum\left(\bar{y}_{. j}-\bar{y}_{. .}\right)^{2}+\sum \sum\left(y_{i j}-\bar{y}_{i .}-\bar{y}_{. j}+\bar{y}_{. .}\right)^{2}
 $$
 
--   $\mathrm{SS}_{\mathrm{treatment}}= b \sum\left(\bar{y}_{i .}-\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = a -1$
+-   $\mathrm{SS}_{\mathrm{treatment}}= n_b \sum\left(\bar{y}_{i .}-\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = a -1$
 
--   $\mathrm{SS}_{\mathrm{block}}= a \sum\left(\bar{y}_{. j}-\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = b -1$
+-   $\mathrm{SS}_{\mathrm{block}}= n_a \sum\left(\bar{y}_{. j}-\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = b -1$
   
--   $\mathrm{SS}_{\mathrm{Residual}}= \sum \sum\left(y_{i j}-\bar{y}_{i .}-\bar{y}_{. j}+\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = (a-1)(b -1)$
+-   $\mathrm{SS}_{\mathrm{Residual}}= \sum \sum\left(y_{i j}-\bar{y}_{i .}-\bar{y}_{. j}+\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = (n_a-1)(n_b -1)$
 
 $$
 \mathrm{SS}_{\mathrm{T}} = \mathrm{SS}_{\mathrm{treatment}} + \mathrm{SS}_{\mathrm{block}} + \mathrm{SS}_{\mathrm{Residual}}
@@ -159,12 +159,15 @@ $$
 
 ## A littble bit more statistics
 
+-   Assume treatment factor has $n_a$ levels and blocking factor has $n_b$ levels:
+
 $$
 SS_{Total}
 = \sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2-(\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}y_{ij})^2/N 
 $$
 
 -   *Mean of "sum of square" of marginal sums* minus the mean of "square of sum"
+    -   Marginal Sums of treatment: $y_{i.}$
 
 $$
 SS_{Treatment}
@@ -172,6 +175,7 @@ SS_{Treatment}
 $$
 
 - *Mean of "sum of square" of marginal sums* minus the mean of "square of sum"
+    -   Marginal Sums of block: $y_{.j}$
 
 $$
 SS_{Block}
@@ -618,9 +622,9 @@ dat |>
 
 
 
-## Example: Plant Fertilizer[^3]
+## Example: Plant Fertilizer[^plant]
 
-[^3]: Please check the original post here: [STAT 502 Analysis of Variance and Design of Experiments](https://online.stat.psu.edu/stat502/lesson/7/7.3)
+[^plant]: Please check the original post here: [STAT 502 Analysis of Variance and Design of Experiments](https://online.stat.psu.edu/stat502/lesson/7/7.3)
 
 ::::: columns
 ::: column
@@ -719,14 +723,16 @@ summary(fit_cbd)
 ```
 :::
 
-::: discussion
+## Interpretation
+
+::: callout-important
 ## Interpretation {.unnumbered}
 
 Comparing the two ANOVA tables, we see that the MSE in RCBD has decreased considerably in comparison to the CRD. This reduction in MSE can be viewed as the partition in SSE for the CRD (61.033) into SSBlock (53.32) + SSE (7.715). The potential reduction in SSE by blocking is offset to some degree by losing degrees of freedom for the blocks. But more often than not, is worth it in terms of the improvement in the calculated *F*-statistic. In our example, we observe that the *F*-statistic for the treatment has increased considerably for RCBD in comparison to CRD. It is reasonable to assume that the result from the RCBD is more valid than that from the CRD as the MSE value obtained after accounting for the block to block variability is a more accurate representation of the random error variance.
 :::
 ::::::
 
-## Example 4: Performance of Students
+## Example: Performance of Students at varied environment
 
 -   **Background:** Comparing the performances of students (male and female) blocks in different environments (at home and at college). To represent this experiment in the figure will be as follows:
 
@@ -754,10 +760,10 @@ summary(fit)
 
 -   **Explanation**: The value of Mean Sq is `0.7225<<1.8225`,i.e, here blocking wasn’t necessary. And as Pr value is 0.642 \> 0.05 (5% significance) and the hypothesis is accepted - there is no sufficient evidence suggesting females and males have significant differences in performance.
 
-## Effectiveness of Health Promotion Programs
+# Blocking factor or not?
 
 ::: discussion
-## Background {.unnumbered}
+## Effectiveness of Health Promotion Programs {.unnumbered}
 -   Researchers are interested in comparing the effectiveness of three health promotion programs with nursing students.
 -   The researcher has the following research question: *Which of the three health promotion programs are most effective at reducing unhealthy coping behaviors?*
     1.   Unhealthy coping behavior is measured as a composite score from the “Poor Coping Behavior” survey (PCB). High scores on the PCB indicate higher levels of unhealthy coping behaviors. Low scores indicate low levels of unhealthy coping behaviors. PCB scores can range from 0 (no unhealthy behaviors) to 100 (multiple unhealthy behaviors at high frequency and high intensity).
@@ -778,6 +784,7 @@ data.frame(
 ) |> kableExtra::kable()
 ```
 
+------------------------------------------------------------------------
 
 ### Blocking Factors?
 
