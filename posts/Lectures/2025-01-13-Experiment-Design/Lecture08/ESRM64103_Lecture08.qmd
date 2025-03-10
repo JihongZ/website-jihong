@@ -38,20 +38,41 @@ format:
 ::: objectives
 ## Overview {.unnumbered}
 
-1.  Review Block Design
-2.  Randomized Block Design with R Programming[^1]
-3.  Completely Randomized Block Design with R Programming[^2]
+1.  Review Last week's Lecture
+2.  Review Block Design
+3.  Randomized Complete Block Design with R Programming[^1]
 :::
-
-[^1]: Please check [here](https://www.geeksforgeeks.org/randomized-block-design-with-r-programming/) for the original post
-
-[^2]: Please check [here](https://www.geeksforgeeks.org/completely-randomized-design-with-r-programming/?ref=ml_lbp) for the original post
 
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(gt)
 ```
 
+## In last week (1)
+
+1. We reviewed different types of randomized experiment design:
+    -   Block Design: Complete block design (CBD) vs. Randomized Complete Block Design (RCBD)
+        -   Difference: [A "complete block design" simply refers to an experimental design where every treatment is applied to every block, while a "randomized complete block design" takes that same concept and adds the element of randomly assigning treatments within each block]{.mohu}
+    -   Block Design with more block factors: Latin square design, Repeated LSD, Greco-Roman Squares
+        -   **Benefit**: [(1) Account for more explained variances and leads to lower residual variances; (2) Make the effect size of treatment more accurate;]{.mohu}
+        -   **Limitation**: [require block factors to have same number of levels.]{.mohu}
+        
+## In last week (2)
+
+2. We discussed about why we need Block design compared to using simple treatment-control design.
+    -   [Potential confounding effects that can become nuisance factors]{.mohu}
+    -   [Heterogeneity of samples (variability across gender, schools, age groups)]{.mohu}
+    -   [Greater generalization of results]{.mohu}
+
+3.  Assumptions of Blocking 
+    -   [Continuous outcome]{.mohu}
+    -   [Experimental units are randomly sampled]{.mohu}
+    -   [No interactions between treatment factor(s) and blocking factor(s)]{.mohu}
+    -   [Each block group's outcome is normally distributed]{.mohu}
+    -   [Each block group has "equal" or "close" variances in outcome]{.mohu}
+    
+
+    
 ## Features of RCBD
 
 ::: discussion
@@ -59,14 +80,14 @@ Think about our example of the effects of teaching methods (M1, M2, M3, M4) and 
 :::
 
 1.  In a **randomized complete block design (RCBD)**, each block size is the same and is equal to the number of treatments (i.e. factor levels or factor level combinations).
-    -   For those who using saming form (same block), they will be randomly assigned to 4 teaching methods.
+    -   For those who using measurement form (same block), they will be randomly assigned to 4 teaching methods.
 2.  Each treatment will be randomly assigned to exactly one experimental unit (students) within every block.
 3.  The assignments of treatment levels (teaching methods) to the experimental units (students) have to be done within each block separately.
 
 ## Random Effects of RCBD
 
-1.  It is important to mention that blocks are usually (but not always) treated as random effects as they typically represent the population of all possible blocks.
-2.  In other words, the mean comparison among specific blocks is not of interest.
+1.  It is important to mention that blocks are usually ($U_{\rho_j}$, but not always) treated as random effects as they typically represent the population of all possible blocks.
+2.  In other words, the mean comparison among specific blocks is not of interest. The variability could be large or small depending on your context.
 3.  However, the variation between blocks must be incorporated into the model.
 
 ## Exercises
@@ -79,14 +100,17 @@ Think about our example of the effects of teaching methods (M1, M2, M3, M4) and 
 ::: {.callout-note .mohu}
 ## Answer
 
-a.  RCBD.
-b.  treatment: combination of Diet and Antibiotic; block: Farms.
+a.  [RCBD.]{.mohu}
+b.  [treatment: combination of Diet and Antibiotic; block: Farms.]{.mohu}
 :::
 ::::
 
+
+
 ## Other Aspects of the RCBD 
 
--   The RCBD utilizes an *additive model* – one in which there is *no interaction* between treatments and blocks. The error term in a randomized complete block model reflects how the treatment effect varies from one block to another.
+-   The RCBD utilizes an *additive model* (two-way ANOVA without interaction) 
+    -  one in which there is *no interaction* between treatments and blocks. The error term in a randomized complete block model reflects how the treatment effect varies from one block to another.
 
 -   Both the treatments and blocks can be considered as *random effects* rather than fixed effects, if the levels were selected at random from a population of possible treatments or blocks. We consider this case later, but it does not change the test for a treatment effect.
 
@@ -96,7 +120,169 @@ b.  treatment: combination of Diet and Antibiotic; block: Farms.
 
     -   The [Operating Characteristic (OC) curve](https://online.stat.psu.edu/stat503/lesson/3/3.2#paragraph--298) approach can be used to determine the number of blocks to run. The number of blocks, *b*, represents the number of replications (they are exchangable from the point of researchers' view). The power calculations that we looked at before would be the same, except that we use b rather than n, and we use the estimate of error, $\sigma^2$, that reflects the improved precision based on having used blocks in our experiment. So, the major benefit or power comes not from the number of replications but from the error variance which is much smaller because you removed the effects due to block.
 
-## Example 1: Tutoring session
+## Statistical form of RCBD
+
+-   The mean comparison among specific blocks ($\mu_{form1}$, $\mu_{form2}$, $\mu_{form3}$, $\mu_{form4}$) is not of interest
+    -   In a RCBD, the variation between blocks is partitioned out of the MSE, resulting in a smaller MSE for testing hypotheses about the treatments.
+
+$$
+Y_{ij} = \mu + \tau_i + \rho_j + \epsilon_{ij}
+$$
+
+where:
+
+1.  $Y_{ij}$: math scores for Method *i* and Form *j*
+2.  $\mu$: grand mean
+3.  $\tau_i$: Method *i* with *i* = 1, ..., 4
+4.  $\rho_j$: From *j* with *j* = 1, 2, 3
+5.  $\rho_j$ and $\epsilon_{ij}$ are independent random variables such that $\rho_j \sim \mathcal{N}(0, \sigma^2_{\rho})$ and $\epsilon_{ij} \sim \mathcal{N}(0, \sigma^2_{\epsilon})$    
+
+## A little bit statistics [^purdue]
+
+-  Can partition $\mathrm{SS}_{\mathrm{T}}=\sum \sum\left(y_{i j}-\bar{y}_{. .}\right)^{2}$ into:
+
+$$
+\mathrm{SS}_{\mathrm{T}}= b \sum\left(\bar{y}_{i .}-\bar{y}_{. .}\right)^{2}+a \sum\left(\bar{y}_{. j}-\bar{y}_{. .}\right)^{2}+\sum \sum\left(y_{i j}-\bar{y}_{i .}-\bar{y}_{. j}+\bar{y}_{. .}\right)^{2}
+$$
+
+-   $\mathrm{SS}_{\mathrm{treatment}}= b \sum\left(\bar{y}_{i .}-\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = a -1$
+
+-   $\mathrm{SS}_{\mathrm{block}}= a \sum\left(\bar{y}_{. j}-\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = b -1$
+  
+-   $\mathrm{SS}_{\mathrm{Residual}}= \sum \sum\left(y_{i j}-\bar{y}_{i .}-\bar{y}_{. j}+\bar{y}_{. .}\right)^{2}$ with $\mathrm{df} = (a-1)(b -1)$
+
+$$
+\mathrm{SS}_{\mathrm{T}} = \mathrm{SS}_{\mathrm{treatment}} + \mathrm{SS}_{\mathrm{block}} + \mathrm{SS}_{\mathrm{Residual}}
+$$
+
+[^purdue]: Original post can be found [here](https://www.stat.purdue.edu/~xbw/courses/stat514/notes/lec6.blockdesign.pdf)
+
+## A littble bit more statistics
+
+$$
+SS_{Total}
+= \sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2-(\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}y_{ij})^2/N 
+$$
+
+-   *Mean of "sum of square" of marginal sums* minus the mean of "square of sum"
+
+$$
+SS_{Treatment}
+= \frac{1}{n_b}\sum{(y_{i.})}^2  -(\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}y_{ij})^2/N 
+$$
+
+- *Mean of "sum of square" of marginal sums* minus the mean of "square of sum"
+
+$$
+SS_{Block}
+= \frac{1}{n_a}\sum{(y_{.j})}^2  -(\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}y_{ij})^2/N 
+$$
+
+## Example: Performance of detergents
+
+
+::: callout-important
+## Background
+An experiment was designed to study the performance of four different detergents in
+cleaning clothes. The following “cleanness” readings (higher=cleaner) were obtained with
+specially designed equipment for three different types of common stains. Is there a
+difference between the detergents?
+:::
+
+```{r}
+#| code-fold: true
+library(tidyverse)
+detergents <- tribble(
+  ~Detergent, ~Stain1, ~Stain2, ~Stain3,
+  1, 45, 43, 51,
+  2, 47, 46, 52,
+  3, 48, 50, 55,
+  4, 42, 37, 49
+)
+kableExtra::kable(detergents) 
+```
+
+- Marginal Sums of treatment: $y_{i.}$; R code:  `rowSums(detergents[, 2:4])`
+
+- Marginal Sums of Stain: $y_{.j}$; R code:  `colSums(detergents[, 2:4])`
+
+---
+
+## Example: Total Sum of Square
+
+1. *Sum of square* of all values: $(\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}y_{ij})^2$ = `{r} sum((detergents[, 2:4])^2) |> as.character()`
+2. *Square of sum* of all values per level: $\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2$ = `{r} ((sum(detergents[, 2:4]))^2/12)  |> as.character()`
+3. **Total Sum of Squares**: $SS_{Total}$ = `{r} (sum((detergents[, 2:4])^2) - (sum(detergents[, 2:4]))^2 / 12 )|>  as.character()`
+
+
+```{r}
+#| code-fold: false
+sum((detergents[, 2:4])^2) - (sum(detergents[, 2:4]))^2 / 12
+```
+
+## Example: Sum of squares for Detergent
+
+```{r}
+treatment_marginal_Sums = rowSums(detergents[, 2:4])
+grand_mean <- mean(unlist(detergents[, 2:4]))
+## Method 1
+3 * sum((treatment_marginal_Sums/3 - grand_mean)^2)
+## Method 2
+sum(treatment_marginal_Sums^2) / 3 - (sum(detergents[, 2:4]))^2 / 12
+```
+1. *Sum of square* per level:  $\frac{1}{n_b}\sum{(y_{i.})}^2$ = `{r} (sum(treatment_marginal_Sums^2) / 3) |> as.character()`
+2. *Square of sum* of all values: $\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2$ = `{r} (sum(detergents[, 2:4]))^2 |> as.character()`
+3. **Sum of Squares for treatment**: $SS_{treatment}$ = `{r} (sum(treatment_marginal_Sums^2) / 3 - (sum(detergents[, 2:4]))^2 / 12) |>  as.character()`
+
+## Example: Sum of squares for block
+
+```{r}
+block_marginal_Sums = colSums(detergents[, 2:4])
+## Method 1
+4 * sum((block_marginal_Sums/4 - grand_mean)^2)
+## Method 2
+(1 / 4) * sum(block_marginal_Sums^2) - (sum(detergents[, 2:4]))^2 / 12
+```
+1. *Sum of square* per level:  $\frac{1}{n_b}\sum{(y_{i.})}^2$ = `{r} ((1 / 4) * sum(block_marginal_Sums^2)) |> as.character()`
+2. *Square of sum* of all values: $\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2$ = `{r} ((sum(detergents[, 2:4]))^2 / 12)^2 |> as.character()`
+3. **Sum of Squares for treatment**: $SS_{treatment}$ = `{r} ((1 / 4) * sum(block_marginal_Sums^2) - (sum(detergents[, 2:4]))^2 / 12) |>  as.character()`
+
+
+## F-statistics
+
+$$
+F = \frac{SS_{\mathrm{treatment}}/n_a}{SS_\mathrm{residual}/ ((n_a-1)*(n_b-1))}
+$$
+
+```{r}
+SS_total <- sum((detergents[, 2:4])^2) - (sum(detergents[, 2:4]))^2 / 12
+SS_treatment <- 3 * sum((treatment_marginal_Sums/3 - grand_mean)^2)
+SS_block <- 4 * sum((block_marginal_Sums/4 - grand_mean)^2)
+SS_residual = SS_total - SS_treatment - SS_block
+SS_residual
+```
+
+```{r}
+F_stat = (SS_treatment / (4-1)) / (SS_residual / ((4-1)*(3-1)))
+F_stat
+```
+
+
+---
+
+## R Code for Sum of Squares
+```{r}
+detergents_aov <- detergents |> 
+  pivot_longer(starts_with("Stain"), names_to = "Stain") |>
+  mutate(Detergent = factor(Detergent, levels = 1:4))
+
+fit <- aov(value ~ Detergent+Stain, data= detergents_aov)
+summary(fit)
+```
+
+
+
+## Example: Tutoring session
 
 :::::: columns
 ::: {.column width="60%"}
@@ -119,7 +305,7 @@ DV: Midterm Score (in cells)
 
 ------------------------------------------------------------------------
 
-### Example 1: Variables and Null Hypothesis
+### Example: Variables and Null Hypothesis
 
 :::::: columns
 ::: {.column width="60%"}
@@ -147,7 +333,7 @@ DV: Midterm Score (in cells)
 
 ------------------------------------------------------------------------
 
-### Example 1: Sum of Squares 
+### Example: Sum of Squares 
 
 ::::: columns
 ::: {.column width="70%"}
@@ -179,7 +365,7 @@ DV: Midterm Score (in cells)
 
 ------------------------------------------------------------------------
 
-### Example 1: Mean of Squares and F-statistics
+### Example: Mean of Squares and F-statistics
 
 -   IV: Time (𝑎= 2 )
 -   Nuisance factor: Tutor (𝑏= 4 )
@@ -191,13 +377,20 @@ DV: Midterm Score (in cells)
 
 ------------------------------------------------------------------------
 
-### Example 1: Sum of Square Formula
+### Example: Sum of Square Formula
 
 $$
 SS_{Total}=\sum_{i=1}^{n}(y_{ij}-\bar{y}_{..})^2
 $$
 
--   This is the same as before: take each individual score ($y_{ij}$), subtract the grand mean ($\bar{y}$), and square it $(y_{ij}-\bar{y}_{..})^2$
+-   This is the same as before: take each individual score ($y_{ij}$), subtract the grand mean ($\bar{y}_{..}$), and square it $(y_{ij}-\bar{y}_{..})^2$
+
+```{r}
+scores <- c(9.1, 9.3, 9.4, 9.5) # four individuals' scores
+mean(scores) # grand mean
+sum((scores - mean(scores))^2) # sum of squares of total indivisuals
+```
+    
 
 -   Do this for everyone and then sum over all people $\sum_{i=1}^{n}(y_{ij}-\bar{y}_{..})^2$
 
@@ -207,7 +400,7 @@ $$
 
 ------------------------------------------------------------------------
 
-### Example 1: Marginal Means
+### Example: Marginal Means
 
 -   A **marginal mean** is the mean for one level of the variable, ignoring the other variable
 
@@ -230,7 +423,7 @@ For example:
 
 ------------------------------------------------------------------------
 
-### Example 1: SS for Total and Model
+### Example: SS for Total and Model
 
 $$
 SS_{Total} = \sum_{i=1}^{n}(y_{ij}-\bar{y}_{..})^2=15060.48
@@ -254,7 +447,7 @@ $$
 
 ------------------------------------------------------------------------
 
-### Example 1: Details of ANOVA Table
+### Example: Details of ANOVA Table
 
 -   Then, we can fill out the ANOVA table:
 
@@ -274,7 +467,7 @@ Similarly, for "Blocking" - Tutor, we have $df_{block}$ = 3, $df_{error} = 195$:
 -   The effect of tutoring time was significant $(𝐹(1,195) = 119. 39, 𝑝<. 001 ,\eta^2_{𝑇𝑖𝑚𝑒} =. 298$) with a large effect. Using a Tukey’s test, morning is significantly higher than afternoon sessions (𝑝 \<. 05 ).
 -   The effect of the blocking factor, tutor, was significant ($𝐹(3 , 195) = 28. 72 ,𝑝< . 001 ,\eta^2_{𝑇𝑢𝑡𝑜𝑟} =. 215$) with a large effect. Using a Tukey’s test, Monique’s students were significantly higher than other students, and Bobby’s students were significantly lower than other students in the midterm scores (𝑝\<. 05 ).
 
-## Example 2: Hardness Reading[^exp2]
+## Example: Hardness Reading[^exp2]
 
 [^exp2]: Please check the original post here: [STAT 503](https://online.stat.psu.edu/stat503/lesson/4/4.1)
 
@@ -291,7 +484,7 @@ Similarly, for "Blocking" - Tutor, we have $df_{block}$ = 3, $df_{error} = 195$:
 
 ------------------------------------------------------------------------
 
-### Example 2: Block Design - CRD
+### Example: Block Design - CRD
 
 - If the structure were a completely randomized experiment (CRD) that we discussed in lecture 7, we would assign the tips to a random piece of metal for each test. In this case, the test specimens would be considered a source of nuisance variability. 
 
@@ -308,7 +501,7 @@ data.frame(
 
 ------------------------------------------------------------------------
 
-### Example 2: Block Design - RCBD
+### Example: Block Design - RCBD
 
 - If we conduct this as a blocked experiment, we would assign all four tips to the same test specimen, randomly assigned to be tested on a different location on the specimen. Since each treatment occurs once in each block, the number of test specimens is the number of replicates.
 
@@ -319,7 +512,7 @@ data.frame(
 
 ------------------------------------------------------------------------
 
-### Example 2: Block Design Table - RCBD
+### Example: Block Design Table - RCBD
 
 :::: columns
 ::: column
@@ -365,7 +558,7 @@ Notice the two-way structure of the experiment. Here we have four blocks and wit
 
 ------------------------------------------------------------------------
 
-### Example 2: ANOVA Results (1)
+### Example: ANOVA Results (1)
 
 -   Remember, the hardness of specimens (coupons) is tested with 4 different tips.
 
@@ -378,7 +571,7 @@ kableExtra::kable(dat)
 
 ------------------------------------------------------------------------
 
-### Example 2: ANOVA Results (2)
+### Example: ANOVA Results (2)
 
 -   Here is the output from R `aov()`. We can see four levels of the Tip and four levels for Coupon:
 
@@ -399,7 +592,7 @@ fit_exp2 <- aov(Hardness ~ Tip + Coupon, data = dat)
 -   This is why we used specimen (or coupon) as our blocking factor. We expected in advance that it would account for a large amount of variation. By including block in the model and in the analysis, we removed this large portion of the variation, such that the residual error is quite small. By including a block factor in the model, the error variance is reduced, and the test on treatments is more powerful.
 :::
 
-### Example 2: ANOVA Results (3)
+### Example: ANOVA Results (3)
 
 -   The test on the block factor is typically not of interest except to confirm that you used a good blocking factor. The results are summarized by the table of means given below.
 
@@ -425,7 +618,7 @@ dat |>
 
 
 
-## Experiment 3: Plan Fertilizer[^3]
+## Example: Plant Fertilizer[^3]
 
 [^3]: Please check the original post here: [STAT 502 Analysis of Variance and Design of Experiments](https://online.stat.psu.edu/stat502/lesson/7/7.3)
 
@@ -488,7 +681,6 @@ dat <- tribble(
 "Block6", "F3", 31
 )
 dat$Plant <- 1:nrow(dat)
-# write.csv(dat, "exp1_data.csv")
 ```
 
 ```{r}
@@ -534,51 +726,7 @@ Comparing the two ANOVA tables, we see that the MSE in RCBD has decreased consid
 :::
 ::::::
 
-## Experiment 3: Planet Fertilizer
-
--   **Background**: Testing new fertilizers in different types of crops.
--   **Design**: Crops are divided into 3 different types (blocks). These blocks are again divided into 3 fertilizers (F1, F2, and NF) that are used on those crops. The figure of study design can be visualized as follows:
-
-![](https://media.geeksforgeeks.org/wp-content/uploads/20201014082316/RCBDexample.PNG)
-
-```{r}
-corn <- factor(rep(c("corn", "rice", "wheat"), each = 3)) 
-fert <- factor(rep(c("f1", "f2", "nf"), times = 3)) 
-corn
-fert
-```
-
-------------------------------------------------------------------------
-
-### Experiment 3: Data
-
-```{r}
-y <- c(6, 5, 6, 
-       4, 4.2, 5, 
-       5, 4.4, 5.5) 
-
-# y is the months the crops were healthy 
-results <- data.frame(y, corn, fert) 
-kableExtra::kable(results)
-```
-
-------------------------------------------------------------------------
-
-### Experiment 3: ANOVA Results
-
-```{r}
-fit <- aov(y ~ fert+corn, data = results)				 
-summary(fit)
-```
-
-::: discussion
-## Interpretation {.unnumbered}
-
-The value of *Mean Sq* shows is blocking really necessary for the experiment. Here *Mean Sq for residuals* `0.1078 << 0.7011`, thus blocking is necessary will give precise values for the experiment. Though this method is a little debatable yet useful. The significance value of every experiment is given by the person taking the experiment. Here lets consider significance has 5% i.e 0.05. The Pr(\>F) value is `0.0553>0.05`. Thus the hypothesis is accepted for the crops experiment. Let’s consider one more experiment.
-:::
-
-
-## Experiment 4: Performance of Students
+## Example 4: Performance of Students
 
 -   **Background:** Comparing the performances of students (male and female) blocks in different environments (at home and at college). To represent this experiment in the figure will be as follows:
 

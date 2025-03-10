@@ -338,7 +338,7 @@ In a randomized complete block design (RCBD), the blocking factor is still used,
     -   **Instead of assigning methods in a predetermined order, the four methods are randomly assigned within each form.**
     -   This ensures that any systematic influence of form characteristics is minimized and does not confound treatment effects.
 
-## 1.2 Randomized Complete Block Design (RCBD)
+## Randomized Complete Block Design (RCBD)
 
 -   The mean comparison among specific blocks ($\mu_{form1}$, $\mu_{form2}$, $\mu_{form3}$, $\mu_{form4}$) is not of interest
     -   In a RCBD, the variation between blocks is partitioned out of the MSE, resulting in a smaller MSE for testing hypotheses about the treatments.
