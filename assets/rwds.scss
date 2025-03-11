@@ -5,6 +5,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
+// Quarto Bootstrap variables and rules:
+// Bootstrap variables: https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/html/bootstrap/_bootstrap-variables.scss
+// Bootstrap rules: https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/html/bootstrap/_bootstrap-rules.scss
+
 /*-- scss:rules --*/
 @font-face {
     font-family: 'MiSans';
@@ -41,9 +45,8 @@
     font-weight: normal;
     font-style: normal;
   }
-  
-//*Reference: https://rpubs.com/drgregmartin/1266676*//
 
+//*Reference: https://rpubs.com/drgregmartin/1266676*//
 //* Enhanced Navbar Styles */
 .navbar {
   background-color: transparent;
@@ -52,7 +55,13 @@
   padding-bottom: 5px;
 }
 
-.navbar > .container, .navbar > .container-fluid, .navbar > .container-sm, .navbar > .container-md, .navbar > .container-lg, .navbar > .container-xl, .navbar > .container-xxl {
+.navbar > .container, 
+.navbar > .container-fluid, 
+.navbar > .container-sm, 
+.navbar > .container-md, 
+.navbar > .container-lg, 
+.navbar > .container-xl, 
+.navbar > .container-xxl {
   padding-left: 10vw;  
   padding-right: 10vw;  
 }
@@ -62,14 +71,12 @@
     .navbar {
         padding: 10px;
     }
-
     .navbar > .container, 
     .navbar > .container-fluid {
         padding-left: 5vw;
         padding-right: 5vw;
         flex-direction: column;
     }
-
     .navbar-nav {
         flex-direction: column;
         gap: 10px;
@@ -77,27 +84,52 @@
     }
 }
 
+/*-- scss:uses --*/
+// colors
+$blue: #447099;
+$orange: #EE6331;
+$green: #72994E;
+$red: #9A4665;
+$indigo: #9A4665;
+$cyan: #419599;
+$teal: #419599;
+$pink:  #e3abdb;
+$freeze-purple: #e5eaf5;
 
-body {
-  font-family: "Tenor Sans", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
+$soft-color1: #FAF9F6;
+$dark-sage-green: #98A08D;
+$darkteal: #008080;
+$lightwhite: #c0c0c0;
+$gray: #64605f;
+
+$primary: $blue !default;
+$warning: #EE6331;
+$info: #419599;
+$success: #72994E;
+$danger: #9A4665;
+$caution: #EE6331;
+
+$body-bg: $soft-color1; // body background color
+$code-bg: #e7e7e7; // code block's bg
+$body-color: #404041;
+$headings-color: #404041;
+$menutext-bg: #000000;
+$input-group-addon-bg: $darkteal;
+$link-color: $darkteal;
+$link-hover-color: $orange;
+$breadcrumb-divider-color: $orange;
+$breadcrumb-border-radius:  0.30em;
+
 
 h1, h2 {text-transform: capitalize;}
 
-h1, h2, h3 {
-  font-family: "Titillium Web", sans-serif;
+h1, h2, h3, .callout-title-container {
+  font-family: "Taub Sans", sans-serif;
   letter-spacing: 1.6px;
-  letter-spacing: 0.8px;
   font-weight: normal;
 }
 
-p.subtitle.lead{
-  font-family: "Titillium Web", sans-serif;
-}
-
-p { // main font family of post content
+body, p, li { // main font family of post content
   font-family: "Tenor Sans", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -111,50 +143,14 @@ p > em, li > em {
 strong {
   font-family: "Source Sans 3", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 700;
-  text-decoration: grey underline double;
+  font-weight: bold;
+  text-decoration: #404041 underline dashed;
   text-decoration-skip-ink: none;
 }
 
-/*-- scss:uses --*/
-// colors
-$body-color: #404041;
-$headings-color: #447099;
-$blue: #447099;
-$orange: #EE6331;
-$green: #72994E;
-$red: #9A4665;
-$indigo: #9A4665;
-$cyan: #419599;
-$teal: #419599;
-$pink:  #e3abdb;
 
-// $freeze-purple:  #e5eaf5; // code block's bg
-$soft-color1: #FAF9F6;
-$dark-sage-green: #98A08D;
-$darkteal: #008080;
-$lightwhite: #c0c0c0;
-$gray: #64605f;
-$menutext-bg: #000000;
-
-$primary: $blue !default;
-$warning: #EE6331;
-$info: #419599;
-$success: #72994E;
-$danger: #9A4665;
-$caution: #EE6331;
-
-$body-bg: $soft-color1; // body bg
-$input-group-addon-bg: $darkteal;
-$link-color: $darkteal;
-$link-hover-color: $orange;
-// $breadcrumb-bg: $soft-color1 ;
-$breadcrumb-divider-color: $orange;
-$breadcrumb-border-radius:  0.30em;
 
 // https://quarto.org/docs/output-formats/html-themes.html#inline-code
-$code-bg: #e7e7e7; // code block's bg
-
 /* Quarto title block */
 div.quarto-title.column-body {
   display: block;
@@ -489,6 +485,7 @@ button.show-answer:hover {
 
 /* Table styling */
 table {
+  font-family: "Titillium Web", sans-serif;
   width: 100%;
   margin-bottom: 1em;
   border-radius: 5px;
