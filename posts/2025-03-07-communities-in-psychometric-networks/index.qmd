@@ -12,26 +12,90 @@ csl: apa.csl
 citation:
   type: webpage
   issued: 2025-03-07
+execute: 
+  warning: false
+  message: false  
 format: 
   html:
     code-tools: false
     code-line-numbers: false
     toc-depth: 2
     toc-expand: true
+    code-fold: true
+    code-summary: "Click this to see R code"
 ---
 
 ::: objectives
-## Overview
+## Overview {.unnumbered}
 
-A friend of mine talk to me: in her recent research, a network without community defined has different estimation with the one with community define. A [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) talks about community detection in psychometric network analysis.
+A friend of mine talk to me: in her recent research, a network without community defined has different estimation with the one with community define. In this blog, I try to dive a little deeper into community issues in network analysis. 
+
+A [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) talks about community detection in psychometric network analysis.
 
 1.  What is "node community"?
-2.  How to identify communities?
+2.  Why we need communities of nodes in network analysis?
+3.  How to identify communities?
 :::
+
+```{r plot, cache=TRUE}
+#| fig-height: 7
+#| fig-width: 10
+library("psychonetrics")
+# Load bfi data from psych package:
+library("psychTools")
+data(bfi)
+
+# Also load dplyr for the pipe operator:
+library("dplyr")
+
+# Let's take the agreeableness items, and gender:
+ConsData <- bfi %>% 
+  select(A1:A5, gender) %>% 
+  na.omit # Let's remove missingness (otherwise use Estimator = "FIML)
+
+# Define variables:
+vars <- names(ConsData)[1:5]
+
+# Saturated estimation:
+mod_saturated <- ggm(ConsData, vars = vars)
+
+# Run the model:
+mod_saturated <- mod_saturated %>% runmodel
+
+# We can look at the parameters:
+# mod_saturated %>% parameters
+
+# Labels:
+labels <- c(
+  "indifferent to the feelings of others",
+  "inquire about others' well-being",
+  "comfort others",
+  "love children",
+  "make people feel at ease")
+# We can also fit an empty network:
+mod0 <- ggm(ConsData, vars = vars, omega = "zero")
+
+# Run the model:
+mod0 <- mod0 %>% runmodel
+
+# We can look at the modification indices:
+# mod0 %>% MIs
+
+# To automatically add along modification indices, we can use stepup:
+mod1 <- mod0 %>% stepup
+
+# Let's also prune all non-significant edges to finish:
+mod1 <- mod1 %>% prune  
+qgraph::qgraph(getmatrix(mod1, "omega"),
+               layout="spring",
+               groups = labels,
+               title = "Big 5 agreeableness")
+```
+
 
 ## Big Problem in the network
 
-As said in Eiko's post [@friedTutorialHowIdentify2016] and I cited here – authors sometimes *over-interpret* the network visualization of their data that some meaningful modules exist. This over-interpretation may have Type I error (mistakenly cluster nodes with acutally weak connections in a community) or Type II error (fail to cluster nodes with strong connection into a community). In other words, researchers found that relying on visual inspection of network structure can not obtain reliable conclusion about which nodes should be clustered together and which ones should not be clustered, especially in a complicated network structure (say \> 20 nodes).
+[A]{.bigger}s said in Eiko's post [@friedTutorialHowIdentify2016] and I cited here – authors sometimes *over-interpret* the network visualization of their data that some meaningful modules exist. This over-interpretation may have Type I error (mistakenly cluster nodes with acutally weak connections in a community) or Type II error (fail to cluster nodes with strong connection into a community). In other words, researchers found that relying on visual inspection of network structure can not obtain reliable conclusion about which nodes should be clustered together and which ones should not be clustered, especially in a complicated network structure (say \> 20 nodes).
 
 Identification of node clusters is not a new topic, which is typically called "*Community Detection*" in graph theory [@fortunatoCommunityDetectionGraphs2010]. This problem arises due to a phenomenon called "Community Structure"[@girvanCommunityStructureSocial2002] or "Clustering" was found in varied types of networks. This community structure has two characteristics:
 
@@ -42,4 +106,4 @@ Given this community structure, *Community* (or called clusters or modules) is d
 
 For example, within a social network with each person as node and social relationship between two people as edge, social communities could be *family*, *company*, or any other social groups. In this case, "common properties" of social community may be emotional pattern due to the family education, behavioral pattern under company policy. In protein-protein interaction networks, communities are likely to group proteins having the same specific function within the cell. In the graph of the World Wide Web they may correspond to groups of web pages dealing with the same or related topics.
 
-Back to community in psychological research. Symtom community may group disorders with comorbidity, which refers to simultaneous presence of two or more psychological symptoms in a same individual within a time frame (co-occurring, concurrent). The symptom community is also known as *psychopathological syndromes* [@goekoopNetworkViewPsychiatric2014].
+[B]{.bigger}ack to community in psychological research. Symtom community may group disorders with comorbidity, which refers to simultaneous presence of two or more psychological symptoms in a same individual within a time frame (co-occurring, concurrent). The symptom community is also known as *psychopathological syndromes* [@goekoopNetworkViewPsychiatric2014].

@@ -130,7 +130,7 @@ h1, h2, h3, .callout-title-container {
   font-weight: normal;
 }
 
-body, p, li { // main font family of post content
+body, p, li, a { // main font family of post content
   font-family: "Tenor Sans", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -174,6 +174,11 @@ div.quarto-title.column-body {
   padding-right: 30px;
   padding-bottom: 20px;
   padding-left: 80px;
+}
+
+div.quarto-post a {
+  color: #002642;
+  text-decoration: none;
 }
 
 /* Source Code  */
@@ -533,4 +538,8 @@ tr:hover {
     display: block;
     overflow-x: auto;
   }
+}
+
+.bigger {
+  font-size: 2.5em;
 }
