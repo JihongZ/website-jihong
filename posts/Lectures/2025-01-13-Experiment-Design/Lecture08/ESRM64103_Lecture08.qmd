@@ -723,11 +723,11 @@ summary(fit_cbd)
 ```
 :::
 
-## Interpretation
+---
+
+### Interpretation
 
 ::: callout-important
-## Interpretation {.unnumbered}
-
 Comparing the two ANOVA tables, we see that the MSE in RCBD has decreased considerably in comparison to the CRD. This reduction in MSE can be viewed as the partition in SSE for the CRD (61.033) into SSBlock (53.32) + SSE (7.715). The potential reduction in SSE by blocking is offset to some degree by losing degrees of freedom for the blocks. But more often than not, is worth it in terms of the improvement in the calculated *F*-statistic. In our example, we observe that the *F*-statistic for the treatment has increased considerably for RCBD in comparison to CRD. It is reasonable to assume that the result from the RCBD is more valid than that from the CRD as the MSE value obtained after accounting for the block to block variability is a more accurate representation of the random error variance.
 :::
 ::::::
