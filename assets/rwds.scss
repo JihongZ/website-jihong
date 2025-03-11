@@ -110,7 +110,8 @@ $danger: #9A4665;
 $caution: #EE6331;
 
 $body-bg: $soft-color1; // body background color
-$code-bg: #e7e7e7; // code block's bg
+$code-bg: #eef1e0; // code block's bg
+$code-color: var(--bs-code-color);
 $body-color: #404041;
 $headings-color: #404041;
 $menutext-bg: #000000;
@@ -148,7 +149,19 @@ strong {
   text-decoration-skip-ink: none;
 }
 
+p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
+  border: 1px solid #b9c680;
+  color: #404041;
+}
 
+p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
+  background-color: #eef1e0;
+  padding: .2em;
+}
+
+code {
+  font-size: 0.875em;
+}
 
 // https://quarto.org/docs/output-formats/html-themes.html#inline-code
 /* Quarto title block */

@@ -1,6 +1,6 @@
 ---
 title: "Jihong Zhang, Ph.D."
-subtitle: "Learn harder, Play harder"
+subtitle: "learn() ➮ play()"
 comments: false
 toc: false
 sidebar: false
@@ -34,7 +34,7 @@ format:
 ---
 
 ::: {#hero-heading .nice-paragraph}
-**「About Me」**
+「About Me」
 
 I currently hold the position of tenure-track Assistant Professor of Educational Statistics and Research Methods ([ESRM](https://esrm.uark.edu/directory/uid/jzhang/name/Jihong+Zhang/)) at the department of Counseling, Leadership, and Research Methods (CLRM), University of Arkansas, Fayetteville, U.S.A.
 

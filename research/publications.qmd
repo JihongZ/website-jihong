@@ -10,6 +10,7 @@ format:
     code-tools: true
     code-fold: false
     comments: false
+freeze: false    
 ---
 
 ```{r setup}
@@ -80,10 +81,10 @@ dygraph(pubs_count_ts,
 #| warning: false
 
 # https://github.com/sonsoleslp/sonsoleslp.github.io/blob/main/publications.qmd
-
+leading_year_icon = " ⁑ "
 pubs_formated <- pubs$pubs_formated
 for (y in 1:nrow(pubs_count_byyear)) {
-  print(h3(pubs_count_byyear$year[y]))
+  print(h3(paste0(leading_year_icon, pubs_count_byyear$year[y], leading_year_icon), style="color: #72994E"))
   
   index_min = ifelse(y == 1, 1, pubs_count_byyear$n_cum[y-1] + 1)
   index_max = pubs_count_byyear$n_cum[y]
