@@ -28,7 +28,7 @@ format:
 ::: objectives
 ## Overview {.unnumbered}
 
-A friend of mine talk to me: in her recent research, a network without community defined has different estimation with the one with community define. In this blog, I try to dive a little deeper into community issues in network analysis. 
+A friend of mine talk to me: in her recent research, a network without community defined has different estimation with the one with community define. In this blog, I try to dive a little deeper into community issues in network analysis.
 
 A [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) talks about community detection in psychometric network analysis.
 
@@ -91,7 +91,6 @@ qgraph::qgraph(getmatrix(mod1, "omega"),
                groups = labels,
                title = "Big 5 agreeableness")
 ```
-
 
 ## Big Problem in the network
 

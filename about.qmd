@@ -24,9 +24,8 @@ format:
 ---
 
 ::: separator
-[Experience]{.next-section}
+[Experience]{.next-section} & Education
 :::
-
 
 ::: {.panel-tabset align="left"}
 ## Experience
@@ -39,10 +38,10 @@ format:
 
 ## Education
 
--   **Ph.D.** \| Educational Measurement & Statistics \| University of Iowa \| [2019 - 2022]{style="color:darkgrey;"}
--   **M.S.** \| Educational Psychology \| University of Kansas \| [2015 - 2019]{style="color:darkgrey;"}
--   **B.S.** \| Applied Psychology \| Soochow University \| [2009 - 2013]{#date style="color:darkgrey;"}
--   **B.S.** \| Law \| Soochow University \| [2011 - 2013]{style="color:darkgrey;"}
+-   **Ph.D.** \| Educational Measurement & Statistics \| **University of Iowa** \| Jan [2019 - Dec 2022]{style="color:darkgrey;"}
+-   **M.S.** \| Educational Psychology & Research \| **University of Kansas** \| Aug [2015 - Dec 2019]{style="color:darkgrey;"}
+-   **B.S.** \| Applied Psychology \| **Soochow University** \| Aug [2009 - Dec 2013]{#date style="color:darkgrey;"}
+-   **B.S.** \| Law \| **Soochow University** \| [2011 - 2013]{style="color:darkgrey;"}
 
 ## Interests
 
@@ -52,7 +51,6 @@ format:
 -   Machine Learning and data mining in Education
 -   Diagnostic Classification Models
 :::
-
 
 ::: separator
 [Teaching & Research]{.next-section}
