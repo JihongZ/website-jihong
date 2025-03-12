@@ -1,5 +1,5 @@
 ---
-title: "Lecture 09: Visualizing numerical data"
+title: "Lecture 09: Visualizing Numerical Data"
 subtitle: "`ggplot2` package"
 date: "2025-02-05"
 execute: 
@@ -23,7 +23,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 09: Numeric Variable"
+    footer: "ESRM 64503"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html  
@@ -53,7 +53,7 @@ loans_full_schema <- loans_full_schema %>%
 
 ## Data: Lending Club
 
-:::: columns
+::::: columns
 ::: column
 -   Thousands of loans made through the Lending Club, which is a platform that allows individuals to lend to other individuals
 
@@ -67,7 +67,7 @@ loans_full_schema <- loans_full_schema %>%
 knitr::include_graphics("images/lending-club.png")
 ```
 :::
-::::
+:::::
 
 ## Take a peek at data
 
@@ -87,18 +87,16 @@ glimpse(loans)
 
 ## Selected variables
 
-
-| variable |  type      |description |
-|--------------|---------------|------------------------------------|
-| `loan_amount` | numerical, continuous    | Amount of the loan received, in US dollars |
-| `interest_rate` | numerical, continuous    | Interest rate on the loan, in an annual percentage |
-| `term` | numerical, discrete      | The length of the loan, which is always set as a whole number of months |
-| `grade` | categorical, ordinal     | Loan grade, which takes a values A through G and represents the quality of the loan and its likelihood of being repaid |
+| variable | type | description |
+|-----------------|-----------------|--------------------------------------|
+| `loan_amount` | numerical, continuous | Amount of the loan received, in US dollars |
+| `interest_rate` | numerical, continuous | Interest rate on the loan, in an annual percentage |
+| `term` | numerical, discrete | The length of the loan, which is always set as a whole number of months |
+| `grade` | categorical, ordinal | Loan grade, which takes a values A through G and represents the quality of the loan and its likelihood of being repaid |
 | `state` | categorical, not ordinal | US state where the borrower resides |
-| `annual_income` | numerical, continuous    | Borrower’s annual income, including any second income, in US dollars |
+| `annual_income` | numerical, continuous | Borrower’s annual income, including any second income, in US dollars |
 | `homeownership` | categorical, not ordinal | Indicates whether the person owns, owns but has a mortgage, or rents |
-| `debt_to_income` | numerical, continuous    | Debt-to-income ratio |
-
+| `debt_to_income` | numerical, continuous | Debt-to-income ratio |
 
 # Visualizing numerical data
 
@@ -114,6 +112,10 @@ glimpse(loans)
 # Histogram
 
 ## Histogram
+
+```{r}
+summary(loans$loan_amount)
+```
 
 ```{r message = TRUE, out.width = "50%"}
 ggplot(loans, aes(x = loan_amount)) +
@@ -145,7 +147,7 @@ ggplot(loans, aes(x = loan_amount)) +
 ```
 :::
 
-## Customizing histograms
+## Customizing labels of histograms
 
 ::: panel-tabset
 ## Plot
@@ -158,12 +160,14 @@ ggplot(loans, aes(x = loan_amount)) +
 ```{r hist-custom, fig.show = "hide", warning = FALSE}
 ggplot(loans, aes(x = loan_amount)) +
   geom_histogram(binwidth = 5000) +
-  labs( #<<
-    x = "Loan amount ($)", #<<
-    y = "Frequency", #<<
-    title = "Amounts of Lending Club loans" #<<
-  ) #<<
+  labs( #<1>
+    x = "Loan amount ($)", 
+    y = "Frequency", 
+    title = "Amounts of Lending Club loans" 
+  ) 
 ```
+
+1.  `labs()` can modify axis, legend, and plot labels
 :::
 
 ## Fill with a categorical variable
@@ -187,8 +191,9 @@ ggplot(loans, aes(x = loan_amount,
     title = "Amounts of Lending Club loans"
   )
 ```
-1. Add `homeownership` to fill with certain category
-2. Add `alpha=` argument to set up transparency for the figure
+
+1.  Add `homeownership` to fill with certain category
+2.  Add `alpha=` argument to set up transparency for the figure
 :::
 
 ## Facet with a categorical variable
@@ -210,6 +215,49 @@ ggplot(loans, aes(x = loan_amount, fill = homeownership)) +
     title = "Amounts of Lending Club loans"
   ) +
   facet_wrap(~ homeownership, nrow = 3) #<<
+```
+:::
+
+## Color of bar borders
+
+::: panel-tabset
+## Plot
+
+```{r ref.label = "hist-color", echo = FALSE, warning = FALSE}
+```
+
+## Code
+
+```{r hist-color, fig.show = "hide", warning = FALSE}
+ggplot(loans, aes(x = loan_amount, fill = homeownership)) + 
+  geom_histogram(binwidth = 5000, color = "white") +
+  labs(
+    x = "Loan amount ($)",
+    y = "Frequency",
+    title = "Amounts of Lending Club loans"
+  ) +
+  facet_wrap(~ homeownership, nrow = 3) #<<
+```
+:::
+
+## Position of Histogram Bars
+
+::: panel-tabset
+## Plot
+
+```{r ref.label = "hist-dodge", echo = FALSE, warning = FALSE}
+```
+
+## Code
+
+```{r hist-dodge, fig.show = "hide", warning = FALSE}
+ggplot(loans, aes(x = loan_amount, fill = homeownership)) + 
+  geom_histogram(binwidth = 5000, position = position_dodge()) +
+  labs(
+    x = "Loan amount ($)",
+    y = "Frequency",
+    title = "Amounts of Lending Club loans"
+  ) 
 ```
 :::
 
@@ -380,7 +428,107 @@ ggplot(loans %>% filter(debt_to_income < 100),
   geom_hex()
 ```
 
+
+# Categorical Variable
+
+## Bar plot
+
+```{r}
+ggplot(loans, aes(x = homeownership)) +
+  geom_bar()
+```
+
+
+## Segmented bar plot
+
+```{r}
+ggplot(loans, aes(x = homeownership, 
+                  fill = grade)) + #<<
+  geom_bar()
+```
+
+## Segmented bar plot
+
+```{r}
+ggplot(loans, aes(x = homeownership, fill = grade)) +
+  geom_bar(position = "fill") #<<
+```
+
+---
+
+::: callout-note
+## Question
+Which bar plot is a more useful representation for visualizing the relationship between homeownership and grade?
+:::
+
+::: columns
+::: column
+```{r echo=FALSE, out.width = "100%"}
+ggplot(loans, aes(x = homeownership, fill = grade)) +
+  geom_bar()
+```
+:::
+
+::: column
+```{r echo=FALSE, out.width = "100%"}
+ggplot(loans, aes(x = homeownership, fill = grade)) +
+  geom_bar(position = "fill")
+```
+:::
+:::
+
+
+## Customizing bar plots
+
+::: panel-tabset
+
+## Plot
+```{r ref.label = "bar-custom", echo = FALSE, warning = FALSE}
+```
+
+## Code
+```{r bar-custom, fig.show = "hide", warning = FALSE}
+ggplot(loans, aes(y = homeownership, #<<
+                  fill = grade)) +
+  geom_bar(position = "fill") +
+  labs( #<<
+    x = "Proportion", #<<
+    y = "Homeownership", #<<
+    fill = "Grade", #<<
+    title = "Grades of Lending Club loans", #<<
+    subtitle = "and homeownership of lendee" #<<
+  ) #<<
+```
+:::
+
+# Relationships between numerical and categorical variables
+
+
+## Already talked about...
+
+- Colouring and faceting histograms and density plots
+- Side-by-side box plots
+
+
+## Violin plots
+
+```{r warning = FALSE}
+ggplot(loans, aes(x = homeownership, y = loan_amount)) +
+  geom_violin()
+```
+
+
+## Ridge plots
+
+```{r warning = FALSE}
+library(ggridges)
+ggplot(loans, aes(x = loan_amount, y = grade, fill = grade, color = grade)) + 
+  geom_density_ridges(alpha = 0.5)
+```
+
+
 ## Resource
 
 1.  [DataScienceBox's GitHub](https://github.com/tidyverse/datascience-box/tree/main/course-materials/_slides/u2-d03-viz-num)
 2.  [datasciencebox.org](https://datasciencebox.org/)
+
