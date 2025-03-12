@@ -49,7 +49,6 @@ loans_full_schema <- loans_full_schema %>%
 -   **Numerical variables** can be classified as **continuous** or **discrete** based on whether or not the variable can take on an infinite number of values or only non-negative whole numbers, respectively.
 -   If the variable is **categorical**, we can determine if it is **ordinal** based on whether or not the levels have a natural ordering.
 
-
 ## Data: Lending Club
 
 ::::: columns
@@ -87,7 +86,7 @@ glimpse(loans)
 ## Selected variables
 
 | variable | type | description |
-|-----------------|-----------------|--------------------------------------|
+|------------------|------------------|-------------------------------------|
 | `loan_amount` | numerical, continuous | Amount of the loan received, in US dollars |
 | `interest_rate` | numerical, continuous | Interest rate on the loan, in an annual percentage |
 | `term` | numerical, discrete | The length of the loan, which is always set as a whole number of months |
@@ -345,8 +344,7 @@ ggplot(loans, aes(x = loan_amount,
 
 -   Boxplot visualises five summary statistics (the median, two hinges and two whiskers), and all "outlying" points individually.
     -   The lower and upper **hinges** correspond to the first and third quartiles (the 25th and 75th percentiles).
-    -   The **whiskers** extend from the hinge to the smallest and largest value no further than 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance between the first and third quartiles).
-
+    -   The **whiskers** extend from the hinge to the smallest and largest value no further than 1.5 \* IQR from the hinge (where IQR is the inter-quartile range, or distance between the first and third quartiles).
 
 ```{r}
 ggplot(loans, aes(x = interest_rate)) +
@@ -432,7 +430,6 @@ ggplot(loans %>% filter(debt_to_income < 100),
   geom_hex()
 ```
 
-
 # Visualize Categorical Variable
 
 ## Bar plot
@@ -441,7 +438,6 @@ ggplot(loans %>% filter(debt_to_income < 100),
 ggplot(loans, aes(x = homeownership)) +
   geom_bar()
 ```
-
 
 ## Segmented bar plot
 
@@ -458,14 +454,15 @@ ggplot(loans, aes(x = homeownership, fill = grade)) +
   geom_bar(position = "fill") #<<
 ```
 
----
+------------------------------------------------------------------------
 
 ::: callout-note
 ## Question
+
 Which bar plot is a more useful representation for visualizing the relationship between homeownership and grade?
 :::
 
-::: columns
+::::: columns
 ::: column
 ```{r echo=FALSE, out.width = "100%"}
 ggplot(loans, aes(x = homeownership, fill = grade)) +
@@ -479,18 +476,18 @@ ggplot(loans, aes(x = homeownership, fill = grade)) +
   geom_bar(position = "fill")
 ```
 :::
-:::
-
+:::::
 
 ## Customizing bar plots
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label = "bar-custom", echo = FALSE, warning = FALSE, out.width="100%"}
 ```
 
 ## Code
+
 ```{r bar-custom, fig.show = "hide", warning = FALSE}
 ggplot(loans, aes(y = homeownership, #<<
                   fill = grade)) +
@@ -507,12 +504,10 @@ ggplot(loans, aes(y = homeownership, #<<
 
 # Relationships between numerical and categorical variables
 
-
 ## Already talked about...
 
-- Colouring and faceting histograms and density plots
-- Side-by-side box plots
-
+-   Colouring and faceting histograms and density plots
+-   Side-by-side box plots
 
 ## Violin plots
 
@@ -520,7 +515,6 @@ ggplot(loans, aes(y = homeownership, #<<
 ggplot(loans, aes(x = homeownership, y = loan_amount)) +
   geom_violin()
 ```
-
 
 ## Ridge plots
 
@@ -532,15 +526,15 @@ ggplot(loans, aes(x = loan_amount, y = grade, fill = grade, color = grade)) +
 
 # Designing effective visualizations
 
-
 ## Keep it simple
 
-::: columns
+::::: columns
 ::: column
 ```{r pie-3d, echo = FALSE, out.width="100%"}
 knitr::include_graphics("images/pie-3d.jpg")
 ```
 :::
+
 ::: column
 ```{r pie-to-bar, echo = FALSE, out.width="100%"}
 d <- tribble(
@@ -558,12 +552,11 @@ ggplot(d, aes(x = fct_reorder(category, value), y = value)) +
   labs(x = "", y = "")
 ```
 :::
-:::
+:::::
 
+## Use color to draw attention
 
-## Use	color	to	draw	attention
-
-::: columns
+::::: columns
 ::: column
 ```{r echo = FALSE, out.width="100%"}
 d %>%
@@ -587,8 +580,7 @@ ggplot(d, aes(x = fct_reorder(category, value), y = value, fill = category)) +
   theme(legend.position = "none")
 ```
 :::
-:::
-
+:::::
 
 ## Tell a story
 
@@ -598,29 +590,27 @@ knitr::include_graphics("images/time-series-story.png")
 
 > Credit: Angela Zoss and Eric Monson, Duke DVS
 
+# Principles for effective visualizations
 
-# Principles	for	effective	visualizations
+## Principles for effective visualizations
 
-## Principles	for	effective	visualizations
-
-- Order matters
-- Put long categories on the y-axis
-- Keep	scales consistent
-- Select meaningful colors
-- Use meaningful and nonredundant labels
-
+-   Order matters
+-   Put long categories on the y-axis
+-   Keep scales consistent
+-   Select meaningful colors
+-   Use meaningful and nonredundant labels
 
 ## Data
 
 In September 2019, YouGov survey asked 1,639 GB adults the following question:
 
-::: columns
+::::: columns
 ::: column
 > In hindsight, do you think Britain was right/wrong to vote to leave EU?
 >
->- Right to leave  
->- Wrong to leave  
->- Don't know
+> -   Right to leave\
+> -   Wrong to leave\
+> -   Don't know
 :::
 
 ::: column
@@ -642,37 +632,38 @@ ggplot(brexit, aes(x = opinion)) +
   geom_bar()
 ```
 :::
-:::
+:::::
 
 Source: [YouGov Survey Results](https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/x0msmggx08/YouGov%20-%20Brexit%20and%202019%20election.pdf), retrieved Oct 7, 2019
 
-
 # Order matters
-
 
 ## Alphabetical order is rarely ideal
 
 ::: panel-tabset
 ## Plot
+
 ```{r ref.label="default-opinion", echo = FALSE}
 ```
 
 ## Code
+
 ```{r default-opinion, fig.show = "hide"}
 ggplot(brexit, aes(x = opinion)) +
   geom_bar()
 ```
 :::
 
-
 ## Order by frequency
 
 ::: panel-tabset
 ## Plot
+
 ```{r ref.label="infreq", echo = FALSE}
 ```
 
 ## Code
+
 `fct_infreq`: Reorder factors' levels by frequency
 
 ```{r infreq, fig.show = "hide"}
@@ -685,12 +676,12 @@ ggplot(brexit, aes(x = fct_infreq(opinion))) + #<<
 
 ::: panel-tabset
 ## Plot
+
 ```{r ref.label="labels", echo = FALSE}
 ```
 
-
-
 ## Code
+
 ```{r labels, fig.show = "hide"}
 ggplot(brexit, aes(x = opinion)) +
   geom_bar() +
@@ -701,32 +692,30 @@ ggplot(brexit, aes(x = opinion)) +
 ```
 :::
 
-
 ## Alphabetical order is rarely ideal
 
 ::: panel-tabset
 ## Plot
-```{r ref.label="region-default", echo = FALSE}
+
+```{r ref.label="region-default", echo = FALSE, out.width="100%"}
 ```
 
 ## Code
+
 ```{r region-default, fig.show = "hide"}
 ggplot(brexit, aes(x = region)) +
   geom_bar()
 ```
 :::
 
-
-
 ## Use inherent level order
 
 ::: panel-tabset
-
 ## Relevel
 
 `fct_relevel`: Reorder factor levels using a custom order
 
-```{r relevel, fig.show = "hide"}
+```{r relevel, fig.show = "hide", out.width="100%"}
 brexit <- brexit %>%
   mutate(
     region = fct_relevel( #<<
@@ -737,22 +726,21 @@ brexit <- brexit %>%
 ```
 
 ## Plot
+
 ```{r echo=FALSE}
 ggplot(brexit, aes(x = region)) +
   geom_bar()
 ```
 :::
 
-
 ## Clean up labels
 
 ::: panel-tabset
-
 ## Recode
 
 `fct_recode`: Change factor levels by hand
 
-```{r recode, fig.show = "hide"}
+```{r recode, fig.show = "hide", out.width="100%"}
 brexit <- brexit %>%
   mutate(
     region = fct_recode( #<<
@@ -766,44 +754,43 @@ brexit <- brexit %>%
   )
 ```
 
-
 ## Plot
+
 ```{r recode-plot, echo=FALSE}
 ggplot(brexit, aes(x = region)) +
   geom_bar()
 ```
 :::
 
-
 # Put long categories on the y-axis
-
 
 ## Long categories can be hard to read
 
-```{r ref.label="recode-plot", echo = FALSE}
+```{r ref.label="recode-plot", echo = FALSE, out.width="100%"}
 ```
-
 
 ## Move them to the y-axis
 
 ::: panel-tabset
 ## Plot
-```{r ref.label="flip", echo = FALSE}
+
+```{r ref.label="flip", echo = FALSE, out.width="100%"}
 ```
 
 ## Code
+
 ```{r flip, fig.show = "hide"}
 ggplot(brexit, aes(y = region)) + #<<
   geom_bar()
 ```
 :::
 
-
 ## And reverse the order of levels
 
 ::: panel-tabset
 ## Plot
-```{r ref.label="rev", echo = FALSE}
+
+```{r ref.label="rev", echo = FALSE, out.width="100%"}
 ```
 
 ## Code
@@ -819,13 +806,15 @@ ggplot(brexit, aes(y = fct_rev(region))) + #<<
 ## Clean up labels
 
 ::: panel-tabset
-
 ## Plot
-```{r ref.label="labels-again", echo = FALSE}
+
+```{r ref.label="labels-again", echo = FALSE, out.width="100%"}
 ```
-]
+
+\]
 
 ## Code
+
 ```{r labels-again, fig.show = "hide"}
 ggplot(brexit, aes(y = fct_rev(region))) +
   geom_bar() +
@@ -836,18 +825,15 @@ ggplot(brexit, aes(y = fct_rev(region))) +
 ```
 :::
 
-
 # Pick a purpose
-
 
 ## Segmented bar plots can be hard to read
 
 ::: panel-tabset
-
 ## Plot
-```{r ref.label="segment", echo = FALSE}
-```
 
+```{r ref.label="segment", echo = FALSE, out.width="100%"}
+```
 
 ## Code
 
@@ -860,11 +846,10 @@ ggplot(brexit, aes(y = region, fill = opinion)) + #<<
 ## Use facets
 
 ::: panel-tabset
-
 ## Plot
-```{r ref.label="facet", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
-```
 
+```{r ref.label="facet", echo = FALSE, fig.asp = 0.45, out.width = "100%"}
+```
 
 ## Code
 
@@ -875,7 +860,6 @@ ggplot(brexit, aes(y = opinion, fill = region)) +
 ```
 :::
 
-
 ## Avoid redundancy?
 
 ```{r echo = FALSE, fig.asp = 0.45, out.width = "90%"}
@@ -884,15 +868,13 @@ ggplot(brexit, aes(y = opinion)) +
   facet_wrap(~region, nrow = 1)
 ```
 
-
 ## Redundancy can help tell a story
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="facet-fill", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
-
 
 ## Code
 
@@ -906,11 +888,10 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 ## Be selective with redundancy
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="hide-legend", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
-
 
 ## Code
 
@@ -922,15 +903,13 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 ```
 :::
 
-
 ## Use informative labels
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="informative-label", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
-
 
 ## Code
 
@@ -946,15 +925,13 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 ```
 :::
 
-
 ## A bit more info
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="more-info", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
-
 
 ## Code
 
@@ -972,15 +949,13 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 ```
 :::
 
-
 ## Let's do better
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="short-link", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
-
 
 ## Code
 
@@ -1001,11 +976,10 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 ## Fix up facet labels
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="label-wrap", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
-
 
 ## Code
 
@@ -1026,24 +1000,20 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 ```
 :::
 
-
 # Select meaningful colors
-
 
 ## Rainbow colors not always the right choice
 
 ```{r ref.label="label-wrap", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
 
-
 ## Manually choose colors when needed
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="red-green", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
-
 
 ## Code
 
@@ -1064,7 +1034,6 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 ```
 :::
 
-
 ## Choosing better colors
 
 [Source: colorbrewer2.org](https://colorbrewer2.org/)
@@ -1073,15 +1042,13 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 knitr::include_graphics("images/color-brewer.png")
 ```
 
-
 ## Use better colors
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="color-brewer", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
-
 
 ## Code
 
@@ -1102,16 +1069,16 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 ```
 :::
 
-
 ## Select theme
 
 ::: panel-tabset
-
 ## Plot
+
 ```{r ref.label="theme", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
 
 ## Code
+
 ```{r theme, fig.show = "hide"}
 ggplot(brexit, aes(y = opinion, fill = opinion)) +
   geom_bar() +
@@ -1132,4 +1099,4 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 
 1.  [DataScienceBox's GitHub](https://github.com/tidyverse/datascience-box/tree/main/course-materials/_slides/u2-d03-viz-num)
 2.  [datasciencebox.org](https://datasciencebox.org/)
-
+3.  [Using ggplot2 in packages](https://ggplot2.tidyverse.org/articles/ggplot2-in-packages.html#best-practices-for-common-tasks)
