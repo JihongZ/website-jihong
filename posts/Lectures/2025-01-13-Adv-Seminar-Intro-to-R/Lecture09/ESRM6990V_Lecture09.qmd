@@ -27,6 +27,8 @@ format:
     tbl-colwidths: auto
     output-file: slides-index.html
     out.width: "100%"
+filters: 
+  - webr
 ---
 
 ```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
@@ -35,6 +37,31 @@ library(openintro)
 loans_full_schema <- loans_full_schema %>%
   mutate(grade = factor(grade, ordered = TRUE))
 ```
+
+# Interactive editor
+
+Interactive code sections look like this. Make changes in the text box and click on the green “Run Code” button to see the results. Sometimes there will be a tab with a hint or solution.
+
+
+-   Run selected code:
+    -   macOS: ⌘ + ↩︎/Return
+    -   Windows/Linux: Ctrl + ↩︎/Enter
+-   To run the entire code cell, you can simply click the “Run code” button, or use the keyboard shortcut:
+    -   Shift + ↩︎
+
+If you’re curious how this works, each interactive code section uses [the amazing {quarto-webr} package](https://quarto-webr.thecoatlessprofessor.com/) to run R directly in your browser.
+
+::: callout-caution
+## Set Up
+
+```{webr-r}
+library(openintro)
+library(tidyverse)
+loans <- loans_full_schema %>%
+  select(loan_amount, interest_rate, term, grade, 
+         state, annual_income, homeownership, debt_to_income)
+```
+:::
 
 # Overview
 
@@ -75,6 +102,7 @@ knitr::include_graphics("images/lending-club.png")
 
 ```{r output.lines=18}
 library(openintro)
+library(tidyverse)
 glimpse(loans_full_schema)
 ```
 
@@ -90,7 +118,7 @@ glimpse(loans)
 ## Selected variables
 
 | variable | type | description |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `loan_amount` | numerical, continuous | Amount of the loan received, in US dollars |
 | `interest_rate` | numerical, continuous | Interest rate on the loan, in an annual percentage |
 | `term` | numerical, discrete | The length of the loan, which is always set as a whole number of months |
@@ -124,6 +152,18 @@ ggplot(loans, aes(x = loan_amount)) +
   geom_histogram()
 ```
 
+--- 
+
+::: callout-caution
+## Your turn
+
+Create a histogram for the `interest_rate` variable.
+
+```{webr-r}
+ggplot(loans)
+```
+:::
+
 ## Histograms and binwidth
 
 ::: panel-tabset
@@ -148,6 +188,31 @@ ggplot(loans, aes(x = loan_amount)) +
   geom_histogram(binwidth = 20000)
 ```
 :::
+
+
+---
+
+::: {.callout-caution}
+## Your turn
+:::: panel-tabset
+## Interactive Code
+
+Visualized the histogram and `interest_rate` and modify the binwidth to $\frac{1}{10}$ of the range of of the `interest_rate` variable.
+
+```{webr-r}
+ggplot(loans) +
+  geom_histogram(aes(x = interest_rate))
+```
+
+## Solution
+```{r}
+ggplot(loans) +
+  geom_histogram(aes(x = interest_rate), 
+                 binwidth = diff(range(loans$interest_rate))/20)
+```
+::::
+:::
+
 
 ## Customizing labels of histograms
 
