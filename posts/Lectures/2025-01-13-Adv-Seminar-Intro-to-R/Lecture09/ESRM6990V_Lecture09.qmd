@@ -90,7 +90,7 @@ glimpse(loans)
 ## Selected variables
 
 | variable | type | description |
-|------------------|------------------|------------------------------------|
+|----|----|----|
 | `loan_amount` | numerical, continuous | Amount of the loan received, in US dollars |
 | `interest_rate` | numerical, continuous | Interest rate on the loan, in an annual percentage |
 | `term` | numerical, discrete | The length of the loan, which is always set as a whole number of months |

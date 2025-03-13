@@ -85,11 +85,9 @@ iris = np.array(iris)
 
 Visual model is one of the most appealing feature for Quarto but I am far from a expert in that. It looks like a visual model version of markdown editor (so called WYSIWYM editing, What you see is What you mean) but slightly different. The shortcut of switching between source and visual model is `Cmd` + `Shift` + `F4` (Thanks to Yihui's [JS](https://yihui.org/en/2023/02/key-buttons/) for pretty keyboard styling).
 
-::: callout-note {#keyborad}
-## Keyboard Shortcut 
+::: callout-note {#keyborad} \## Keyboard Shortcut
 
-You can use Shortcodes [keyboard shortcuts](https://quarto.org/docs/authoring/markdown-basics.html#keyboard-shortcuts) to display keyboard keys. For example, insert `{{{< kbd K >}}}` into Quarto documents displays {{< kbd K >}}. `{{{< kbd Shift-Ctrl-P >}}}` display {{< kbd Shift-Ctrl-P >}} after rendering.
-:::
+You can use Shortcodes [keyboard shortcuts](https://quarto.org/docs/authoring/markdown-basics.html#keyboard-shortcuts) to display keyboard keys. For example, insert `{{{< kbd K >}}}` into Quarto documents displays {{< kbd K >}}. `{{{< kbd Shift-Ctrl-P >}}}` display {{< kbd Shift-Ctrl-P >}} after rendering. :::
 
 I list some most frequently used keyboard for visual mode editing:
 
@@ -245,16 +243,15 @@ For more details of bootstrap collapse component, please refer to the [official 
 
 ## Dropdown Menu
 
+::: {.dropdown}
+[Dropdown button]{.btn .btn-secondary .dropdown-toggle type="button" data-bs-toggle="dropdown" aria-expanded="false"}
 
-:::: {.dropdown}
-  [Dropdown button]{.btn .btn-secondary .dropdown-toggle type="button" data-bs-toggle="dropdown" aria-expanded="false"}
-
-:::: {.dropdown-menu}
+::: dropdown-menu
 -   [Action]{.dropdown-item}
 -   [Another action]{.dropdown-item}
 -   [Something else here]{.dropdown-item}
-::::
-::::
+:::
+:::
 
 ```{=html}
 <div class="dropdown">
@@ -268,7 +265,7 @@ For more details of bootstrap collapse component, please refer to the [official 
 </div>
 ```
 
-```` html
+``` html
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     Table of Contents
@@ -278,5 +275,4 @@ For more details of bootstrap collapse component, please refer to the [official 
     <li><a class="dropdown-item" href="#keyborad">Keyboard Shortcut</a></li>
   </ul>
 </div>
-````
-
+```
