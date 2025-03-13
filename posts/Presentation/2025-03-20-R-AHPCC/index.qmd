@@ -1,0 +1,32 @@
+---
+title: "RSTUDIO & HIGH PERFORMANCE COMPUTING WORKSHOP"
+format: html
+author: [Nicole Bonge*, Jihong Zhang]
+date: "2025-03-20"
+---
+
+::: objectives
+## Topic Covered {.unnumbered}
+- Parallelization in R
+- Using RStudio with Arkansas High Performance Computing Center (APHCC)
+- Submitting and managing jobs with SLURM scripts
+:::
+
+::: callout-note
+## Information
+- **Location**: GRAD 342
+- **Time**: 5:00 - 6:00PM, March 20, 2025
+
+[Add to Google Calendar](https://calendar.google.com/calendar/r/eventedit?text=AHPCC+RStudio+Workshop&dates=20250320T170000CDT/20250320T180000CDT&details=&location=GRAD+342){.btn .btn-primary}
+:::
+
+::: callout-caution
+### Prerequisite
+- **AHPCC Account**: Click [here](https://hpc.uark.edu/hpc-support/user-account-requests/index.php) for requesting an account on the AHPCC clusters. 
+- **Basic R kownledge**
+:::
+
+
+```{=html}
+<embed src="Flyer-v2.pdf" width="900px" height="1200px" />
+```
