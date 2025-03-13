@@ -42,7 +42,6 @@ loans_full_schema <- loans_full_schema %>%
 
 Interactive code sections look like this. Make changes in the text box and click on the green “Run Code” button to see the results. Sometimes there will be a tab with a hint or solution.
 
-
 -   Run selected code:
     -   macOS: ⌘ + ↩︎/Return
     -   Windows/Linux: Ctrl + ↩︎/Enter
@@ -152,7 +151,7 @@ ggplot(loans, aes(x = loan_amount)) +
   geom_histogram()
 ```
 
---- 
+------------------------------------------------------------------------
 
 ::: callout-caution
 ## Your turn
@@ -189,12 +188,12 @@ ggplot(loans, aes(x = loan_amount)) +
 ```
 :::
 
+------------------------------------------------------------------------
 
----
-
-::: {.callout-caution}
+:::: callout-caution
 ## Your turn
-:::: panel-tabset
+
+::: panel-tabset
 ## Interactive Code
 
 Visualized the histogram and `interest_rate` and modify the binwidth to $\frac{1}{10}$ of the range of of the `interest_rate` variable.
@@ -205,14 +204,14 @@ ggplot(loans) +
 ```
 
 ## Solution
+
 ```{r}
 ggplot(loans) +
   geom_histogram(aes(x = interest_rate), 
                  binwidth = diff(range(loans$interest_rate))/20)
 ```
-::::
 :::
-
+::::
 
 ## Customizing labels of histograms
 
@@ -234,8 +233,34 @@ ggplot(loans, aes(x = loan_amount)) +
   ) 
 ```
 
-1.  `labs()` can modify axis, legend, and plot labels
+1.  `labs()` can modify axis, legend, and plot labels. You can also use `xlab` and `ylab` to modify labels for x and y axis, respectively.
 :::
+
+------------------------------------------------------------------------
+
+:::: callout-caution
+## Your turn
+
+::: panel-tabset
+## Interactive Code
+
+Change x-axis label to 'Interest Rate (%)'.
+
+```{webr-r}
+ggplot(loans) +
+  geom_histogram(aes(x = interest_rate))
+```
+
+## Solution
+
+```{r}
+ggplot(loans) +
+  geom_histogram(aes(x = interest_rate)) +
+  xlab("Interest Rate (%)")
+```
+:::
+::::
+
 
 ## Fill with a categorical variable
 
@@ -262,6 +287,29 @@ ggplot(loans, aes(x = loan_amount,
 1.  Add `homeownership` to fill with certain category
 2.  Add `alpha=` argument to set up transparency for the figure
 :::
+
+:::: callout-caution
+## Your turn
+
+::: panel-tabset
+## Interactive Code
+
+Use `grade` to highlight histograms with different grades. Set up the the transparency level to 80%.
+
+```{webr-r}
+ggplot(loans) +
+  geom_histogram(aes(x = interest_rate))
+```
+
+## Solution
+
+```{r}
+ggplot(loans) +
+  geom_histogram(aes(x = interest_rate, fill = grade), alpha = 0.8) +
+  xlab("Interest Rate (%)")
+```
+:::
+::::
 
 ## Facet with a categorical variable
 
