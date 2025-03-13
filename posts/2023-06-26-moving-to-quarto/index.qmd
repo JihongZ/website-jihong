@@ -2,30 +2,27 @@
 title: "Moving My Website to Quarto"
 author: "Jihong Zhang"
 date: "06/25/2023"
+date-modified: "`{r} Sys.Date()`"
 draft: false
 categories:
   - quarto
 format:
   html:
     toc: true
+    toc-expand: 2 # expand to level 2
     code-fold: false # hide code by default
-    html-math-method: katex
-    code-block-bg: true
+    code-overflow: wrap
 ---
 
-> Since June 25, 2023, I start to move my website from hugo/rmarkdown/blogdown/wowchemy to quarto website. It is difficult to explain why I spend so much time on that. Perhaps because some reasons same as other bloggers:
->
-> \(1\) Quarto is the next generation of rmarkdown.
->
-> \(2\) Quarto is independent with R or Rstudio.
->
-> \(3\) Quarto has a clean file tree for website building.
->
-> \(4\) Quarto has cleaner command than hugo (i.e., \`quarto publish netlify\` for publishing website etc.).
->
-> This blog serves as a note how I customize quarto website bit by bit. It will not be a comprehensive tutorial (much online resources exists) but contain be some tricks.
+::: objectives
+## Overview {.unnumbered}
 
-## Useful links
+Since June 25, 2023, I start to move my website from hugo/rmarkdown/blogdown/wowchemy to quarto website. It is difficult to explain why I spend so much time on that. Perhaps because some reasons same as other bloggers: 1. Quarto is the next generation of rmarkdown. 2. Quarto is independent with R or Rstudio. 3. Quarto has a clean file tree for website building. 4. Quarto has cleaner command than hugo (i.e., `quarto publish netlify` for publishing website etc.).
+
+This blog serves as a note how I customize quarto website bit by bit. It will not be a comprehensive tutorial (much online resources exists) but contain be some tricks.
+:::
+
+## Useful links {#useful-links}
 
 1.  Quarto official documentation is always the best place to starts with.
 
@@ -42,6 +39,10 @@ format:
 4.  Frank Harrel's blog: R workflow.
 
     [![](FrankHarrel.png){width="320" height="200"}](https://www.fharrell.com/post/rflow/)
+
+5.  Silvia Canelón's blog: Hello Quarto: Porting my Website from Hugo Apéro
+
+    [![](Silvia.png){width="320" height="200"}](https://silviacanelon.com/blog/2023-09-29-hello-quarto/)
 
 ## Tricks of Quarto
 
@@ -84,6 +85,12 @@ iris = np.array(iris)
 
 Visual model is one of the most appealing feature for Quarto but I am far from a expert in that. It looks like a visual model version of markdown editor (so called WYSIWYM editing, What you see is What you mean) but slightly different. The shortcut of switching between source and visual model is `Cmd` + `Shift` + `F4` (Thanks to Yihui's [JS](https://yihui.org/en/2023/02/key-buttons/) for pretty keyboard styling).
 
+::: callout-note {#keyborad}
+## Keyboard Shortcut 
+
+You can use Shortcodes [keyboard shortcuts](https://quarto.org/docs/authoring/markdown-basics.html#keyboard-shortcuts) to display keyboard keys. For example, insert `{{{< kbd K >}}}` into Quarto documents displays {{< kbd K >}}. `{{{< kbd Shift-Ctrl-P >}}}` display {{< kbd Shift-Ctrl-P >}} after rendering.
+:::
+
 I list some most frequently used keyboard for visual mode editing:
 
 (a) Insert Hyperlink: `Cmd` + <kbd>K</kbd>
@@ -106,7 +113,11 @@ Please also refer to the [official document](https://quarto.org/docs/visual-edit
 
 Last but not least, perhaps just type `/` in rstudio is a better choice as it will pop up a list of elements to choose.
 
-### giscus comments box theme toggle (not work any more for Quarto 1.5.23)
+### giscus comments box theme toggle
+
+::: callout-important
+not work any more for Quarto 1.5.23
+:::
 
 giscus comments box needs some tweaks to switch light/dark based on the toggle switcher of quarto. Please find [Ella's post](https://ellakaye.co.uk/posts/2022-12-11_welcome-quarto/#giscus-comments-box-lightdark-toggle) and [Ella's giscus issue discussion](https://github.com/giscus/giscus/issues/336#issuecomment-1214401296) and [original Javascript](https://github.com/giscus/giscus/issues/336#issuecomment-1214366281).
 
@@ -167,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <div class="giscus">
 ```
 
-```{yaml, filename="_metadata.yml"}
+``` yaml
 include-in-header: giscus-mode-toggle.html
 include-after-body: div-giscus.html
 ```
@@ -177,9 +188,95 @@ include-after-body: div-giscus.html
 
 Remember comment out giscus setting in \_quarto.yml
 
-```{yaml, filename="_quarto.yml"}
+``` yaml
 #comments:
 #  giscus:
 #    repo: JihongZ/quarto-academic-jihong
 ```
 :::
+
+## Collapsing Button
+
+There is no direct way to display a collapsing button in quarto. I found a way to do that by using bootstrap collapse component. The following code is a simple example of a collapsing button. The button is linked to a collapse component with the id `collapseExample`. When the button is clicked, the collapse component is shown or hidden.
+
+For more details of bootstrap collapse component, please refer to the [official documentation](https://getbootstrap.com/docs/5.3/components/collapse/).
+
+[Link with href]{.btn .btn-primary role="button" title="Here's a tooltip" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"}
+
+:::: {#collapseExample .collapse}
+::: {.card .card-body}
+{{< lipsum 1 >}}
+:::
+::::
+
+``` {.markdown filename="example.qmd"}
+[Link with href]{.btn .btn-primary role="button" title="Here's a tooltip" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"}
+
+:::: {#collapseExample .collapse}
+::: {.card .card-body}
+{{< lipsum 1 >}}
+:::
+::::
+```
+
+### Horizontal Collapsing
+
+``` markdown
+[Button with horizontal collapse]{.btn .btn-primary type="button" title="Here's a tooltip" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" href="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"}
+
+::::: {style="min-height: 120px;"}
+:::: {#collapseWidthExample .collapse .collapse-horizontal}
+::: {.card .card-body style="width: 500px;"}
+{{< lipsum 1 >}}
+:::
+::::
+:::::
+```
+
+[Button with horizontal collapse]{.btn .btn-primary type="button" title="Here's a tooltip" data-bs-toggle="collapse" href="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample"}
+
+::::: {style="min-height: 120px;"}
+:::: {#collapseWidthExample .collapse .collapse-horizontal}
+::: {.card .card-body style="width: 500px;"}
+{{< lipsum 1 >}}
+:::
+::::
+:::::
+
+## Dropdown Menu
+
+
+:::: {.dropdown}
+  [Dropdown button]{.btn .btn-secondary .dropdown-toggle type="button" data-bs-toggle="dropdown" aria-expanded="false"}
+
+:::: {.dropdown-menu}
+-   [Action]{.dropdown-item}
+-   [Another action]{.dropdown-item}
+-   [Something else here]{.dropdown-item}
+::::
+::::
+
+```{=html}
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Table of Contents
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#useful-links">Useful Link</a></li>
+    <li><a class="dropdown-item" href="#keyborad">Keyboard Shortcut</a></li>
+  </ul>
+</div>
+```
+
+```` html
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Table of Contents
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#useful-links">Useful Link</a></li>
+    <li><a class="dropdown-item" href="#keyborad">Keyboard Shortcut</a></li>
+  </ul>
+</div>
+````
+

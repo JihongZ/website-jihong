@@ -36,8 +36,11 @@ loans_full_schema <- loans_full_schema %>%
   mutate(grade = factor(grade, ordered = TRUE))
 ```
 
-# Terminology
+# Overview
 
+## Terminology
+
+::: panel-tabset
 ## Number of variables involved
 
 -   Univariate data analysis - distribution of single variable
@@ -48,6 +51,7 @@ loans_full_schema <- loans_full_schema %>%
 
 -   **Numerical variables** can be classified as **continuous** or **discrete** based on whether or not the variable can take on an infinite number of values or only non-negative whole numbers, respectively.
 -   If the variable is **categorical**, we can determine if it is **ordinal** based on whether or not the levels have a natural ordering.
+:::
 
 ## Data: Lending Club
 
@@ -86,7 +90,7 @@ glimpse(loans)
 ## Selected variables
 
 | variable | type | description |
-|------------------|------------------|-------------------------------------|
+|------------------|------------------|------------------------------------|
 | `loan_amount` | numerical, continuous | Amount of the loan received, in US dollars |
 | `interest_rate` | numerical, continuous | Interest rate on the loan, in an annual percentage |
 | `term` | numerical, discrete | The length of the loan, which is always set as a whole number of months |
@@ -1003,6 +1007,8 @@ ggplot(brexit, aes(y = opinion, fill = opinion)) +
 # Select meaningful colors
 
 ## Rainbow colors not always the right choice
+
+[Nicola Rennie's Blog: Working with colours in R](https://nrennie.rbind.io/blog/colours-in-r/)
 
 ```{r ref.label="label-wrap", echo = FALSE, fig.asp = 0.45, out.width = "90%"}
 ```
