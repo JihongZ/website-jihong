@@ -1,6 +1,6 @@
 ---
 title: "Communities in Psychometric Networks?"
-author: "Jihong Zhang*, Ph.D"
+author: "Jihong Zhang"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
   
@@ -30,7 +30,7 @@ format:
 
 A friend of mine talk to me: in her recent research, a network without community defined has different estimation with the one with community define. In this blog, I try to dive a little deeper into community issues in network analysis.
 
-A [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) talks about community detection in psychometric network analysis.
+This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) aims to talk about varied aspects of *community detection* in psychometric network analysis, including the following questions:
 
 1.  What is "node community"?
 2.  Why we need communities of nodes in network analysis?
@@ -105,4 +105,6 @@ Given this community structure, *Community* (or called clusters or modules) is d
 
 For example, within a social network with each person as node and social relationship between two people as edge, social communities could be *family*, *company*, or any other social groups. In this case, "common properties" of social community may be emotional pattern due to the family education, behavioral pattern under company policy. In protein-protein interaction networks, communities are likely to group proteins having the same specific function within the cell. In the graph of the World Wide Web they may correspond to groups of web pages dealing with the same or related topics.
 
-[B]{.bigger}ack to community in psychological research. Symtom community may group disorders with comorbidity, which refers to simultaneous presence of two or more psychological symptoms in a same individual within a time frame (co-occurring, concurrent). The symptom community is also known as *psychopathological syndromes* [@goekoopNetworkViewPsychiatric2014].
+[B]{.bigger}ack to the community conceptualization in psychological research, especially psychiatry, the community is associated with *syndromes* or *comorbidity*. According to [Wikipedia](https://en.wikipedia.org/wiki/Syndrome), a syndrome is a set of medical signs and symptoms which are correlated with each other and often associated with a particular disease or disorder. Some psychological syndromes may present comorbidity of symptoms, which refers to simultaneous presence of two or more psychological symptoms in a same individual within a time frame (co-occurring, concurrent). In a earlier paper of @borsboomStructureDSM2002, Borsboom took the example of DSM-IV network and claimed that "commodity appears to be, at least partially and in particular for mood, anxiety, and substance abuse disorders, encoded in the structure of the diagnostic criteria themselves" [@borsboomStructureDSM2002], but he did not link the "commodity" of a cluster of highly-connected symptoms to the statistical concept "community" in network graph. It is until the paper of @cramerComorbidityNetworkPerspective2010, the symptom community as a local connectivity was considered as *syndromes*, while symptoms clusters are interconnected by individual symptoms ("bridge symptoms") that form the boundaries between the various basic syndromes of psychiatric disorders [@goekoopNetworkViewPsychiatric2014]. @goekoopNetworkViewPsychiatric2014 also emphasized that the presence of bridge symptoms that connects symptom clusters (communities / syndromes) plays a key role that can be identified as potential targes for treatment.
+
+## Network Community Detection
