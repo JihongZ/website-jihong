@@ -74,3 +74,6 @@ editor: visual
 
 execute: 
   freeze: true
+
+filters: 
+  - webr
