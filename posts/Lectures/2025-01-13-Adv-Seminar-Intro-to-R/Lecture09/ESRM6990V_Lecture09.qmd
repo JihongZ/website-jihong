@@ -196,7 +196,7 @@ ggplot(loans, aes(x = loan_amount)) +
 ::: panel-tabset
 ## Interactive Code
 
-Visualized the histogram and `interest_rate` and modify the binwidth to $\frac{1}{10}$ of the range of of the `interest_rate` variable.
+Visualized the histogram and `interest_rate` and modify the binwidth to $\frac{1}{20}$ of the range of of the `interest_rate` variable.
 
 ```{webr-r}
 ggplot(loans) +
