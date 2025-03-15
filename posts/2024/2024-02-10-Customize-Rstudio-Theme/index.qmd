@@ -4,6 +4,7 @@ author: Jihong Zhang
 date: 2024-02-10
 execute:
   eval: true
+image: newthemess.png  
 categories: 
   - Tutorial
   - Theme

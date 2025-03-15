@@ -1,6 +1,7 @@
 ---
 title: My New Shiny App Cut Score Consistency
 author: Jihong Zhang
+description: "A Shiny App to Visualize CutScore Consistency"
 date: '2018-03-10'
 categories:
   - R
@@ -12,7 +13,6 @@ format:
     code-summary: ' R Code'
     number-sections: false
 ---
-
 
 ```{r}
 #| results: asis
