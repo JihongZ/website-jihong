@@ -4,34 +4,42 @@ subtitle: ''
 sidebar: false
 listing:
   - id: posts_2025
+    template: assets/ejs/article-lists.ejs
     contents: "posts/2025/**/*.[Rq]md"
     sort: "date desc"
     categories: true
   - id: posts_2024
+    template: assets/ejs/article-lists.ejs
     contents: "posts/2024/**/*.[Rq]md"
     sort: "date desc"
     categories: true
   - id: posts_2023
+    template: assets/ejs/article-lists.ejs
     contents: "posts/2023/**/*.[Rq]md"
     sort: "date desc"
     categories: true  
   - id: posts_2022
+    template: assets/ejs/article-lists.ejs
     contents: "posts/2022/**/*.[Rq]md"
     sort: "date desc"
     categories: true  
   - id: posts_2021
+    template: assets/ejs/article-lists.ejs
     contents: "posts/2021/**/*.[Rq]md"
     sort: "date desc"
     categories: true    
   - id: posts_2019
+    template: assets/ejs/article-lists.ejs
     contents: "posts/2019/**/*.[Rq]md"
     sort: "date desc"
     categories: true    
   - id: posts_2018
+    template: assets/ejs/article-lists.ejs
     contents: "posts/2018/**/*.[Rq]md"
     sort: "date desc"
     categories: true    
   - id: posts_2017
+    template: assets/ejs/article-lists.ejs
     contents: "posts/2017/**/*.[Rq]md"
     sort: "date desc"
     categories: true    

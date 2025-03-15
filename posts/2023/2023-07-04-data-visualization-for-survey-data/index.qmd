@@ -62,11 +62,11 @@ mean
 ::: callout-note
 ## Note
 
-|             |                                                                                                                               |
-|-------------|-----------------------------------------------------------|
-| `variables` | Formula or data frame specifying the variables measured in the survey. If `NULL`, the `data` argument is used.                |
-| `ids`       | Formula or data frame specifying cluster ids from largest level to smallest level, `~0` or `~1` is a formula for no clusters. |
-| `probs`     | Formula or data frame specifying cluster sampling probabilities                                                               |
+|  |  |
+|----------------|--------------------------------------------------------|
+| `variables` | Formula or data frame specifying the variables measured in the survey. If `NULL`, the `data` argument is used. |
+| `ids` | Formula or data frame specifying cluster ids from largest level to smallest level, `~0` or `~1` is a formula for no clusters. |
+| `probs` | Formula or data frame specifying cluster sampling probabilities |
 :::
 
 Please replace `mydata`, `weight`, and `variable` with your actual data frame, weight column, and the variable you're interested in, respectively.
@@ -109,7 +109,7 @@ mykbl <- function(x, ...){
 ```
 
 ```{r}
-datList <- readRDS(here::here("posts/2023-07-04-data-visualization-for-survey-data/Example_Data.RDS"))
+datList <- read.csv("DataT4.csv")
 str(datList)
 ```
 
