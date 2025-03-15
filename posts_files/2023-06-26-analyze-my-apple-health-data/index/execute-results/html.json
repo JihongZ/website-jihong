@@ -1,0 +1,15 @@
+{
+  "hash": "71ec27d619f8c6a4bb25a33294d5fa66",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Analyze Apple Health data\"\nauthor: \"Jihong Zhang\"\ndescription: \"\"\ndate: \"2023-06-26\"\ncategories: []\ndraft: true\n---\n\n\n> Inspire by these two blogs: [new one](https://www.rostrum.blog/2023/06/11/apple-health-redux/) and [old one](https://www.rostrum.blog/2021/03/23/xml-health/#warm-up), I ignited my interests in analyzing my Apple Health data again! I have [tried it out before](../2021-07-06-health-care-data-analysis-with-apple-watch/index.en.Rmd), but in that post, I stopped with printing a table of my health data. This time I want to do more data visualization.\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load('xml2', \n               'patchwork' # for easy plot layouts\n               )\n```\n:::\n\n::: {.cell}\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

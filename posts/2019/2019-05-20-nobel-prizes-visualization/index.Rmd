@@ -1,0 +1,146 @@
+---
+title: Which Country own the most Liberty Nobel Prizes? France? Ireland?
+authors: "Jihong Zhang"
+date: '2019-05-20'
+categories:
+  - visualization
+  - blog
+  - ggplot2
+---
+
+> It is of my interest to use `ggplot` package to visualize some fun data. In this post, I tried to play with a Nobel Prizes Data including countries, prize year, each prize. The goal is to plot a cumulative traceplot of Liberty Nobel Prizes for top 10 countries.
+
+# Load Packages
+
+`tidyverse` package include some very useful tools such as `ggplot2`, `tidyr` and `dplyr`.
+
+```{r message=FALSE, warning=FALSE,  paged.print=FALSE}
+library(tidyverse)
+library(LaCroixColoR)
+library(ggthemes)
+library(ggimage)
+```
+
+`ggimage` package was used to add country flags to ggplot layer. `LaCroixColoR` package used for selecting different colors.
+
+# Data
+
+Import the data.
+
+```{r}
+nobel_winners <- read_csv("data_2019-05-14.csv",
+                          col_types = "dccccdccDccccccDcc")
+str(nobel_winners)
+unique(nobel_winners$category)
+```
+
+`tribble` function allows to create a table by columns. `~country` will generate a new columns.
+
+```{r}
+df_countrycode <-
+  tribble(~country, ~code, 
+          "United States of America", "US",
+          "Germany", "DE",
+          "United Kingdom", "GB",
+          "France", "FR",
+          "Japan", "JP",
+          "Netherlands", "NL",
+          "Sweden", "SE",
+          "Russia", "RU",
+          "Canada", "CA",
+          "Austria", "AT",
+          "Spain", "ES",
+          "Denmark", "DK",
+          "Ireland", "IE",
+          "Italy", "IT"
+          )
+```
+
+# Tables
+
+`pull()` function is similar to use `[]` to return the value of one column.
+
+```{r}
+countries <- 
+  nobel_winners %>% 
+  filter(category == "Literature") %>% 
+  count(birth_country, sort = T) %>% 
+  head(n = 10) %>% # Top 10 countries
+  pull(birth_country)
+```
+
+Adding some columns such as the total number of Liberty Prizes (`n_prize`), the first year of prize, the last year and the cumulative prizes.
+
+```{r}
+nobel_countries <- 
+  nobel_winners %>% 
+  filter(birth_country %in% countries, category == "Literature") %>% 
+  select(prize_year, birth_country) %>% 
+  arrange(prize_year) %>% 
+  group_by(birth_country) %>% 
+  mutate(n_prize = n(),
+         first_prize = min(prize_year),
+         last_prize = max(prize_year),
+         cum = row_number()
+  ) %>% 
+  ungroup()
+nobel_countries
+```
+
+```{r}
+nobel_countries <- 
+  nobel_countries %>% 
+  filter(cum == 1) %>% 
+  mutate(cum = 0) %>% 
+  bind_rows(nobel_countries) %>% 
+  arrange(prize_year, cum) %>% 
+  mutate(birth_country = fct_reorder(birth_country, n_prize, .desc = TRUE))
+nobel_countries
+```
+
+```{r}
+first_last_nobel <- 
+  nobel_countries %>% 
+  select(birth_country, n_prize, first_prize, last_prize) %>% 
+  mutate(birth_country = as.character(birth_country)) %>% 
+  distinct() %>% 
+  left_join(df_countrycode, by=c("birth_country" = "country"))
+first_last_nobel
+```
+
+# Plot
+
+```{r}
+pp1 <- ggplot(nobel_countries) +
+  aes(x = prize_year, y = cum, group = birth_country) +
+  geom_line(aes(color = birth_country)) +
+  geom_point(data = first_last_nobel, y = 0,
+             aes(x = first_prize, color =birth_country)) +
+  geom_flag(data = first_last_nobel, size = 0.03, asp= 2,
+            aes(x= last_prize, y = n_prize, image = code)) +
+  scale_color_manual(values = lacroix_palette("PassionFruit", n = 10, type = "continuous")) +
+  scale_y_continuous(limits = c(NA, 12), breaks = c(0,3,6,9,12)) +
+  labs(title = "Number of Liberty Nobel Prizes by Countries",
+       color = NULL,
+       caption = "Source: The Nobel Prize\n@_abichat for #TidyTuesday") +
+  theme_wsj(color = "gray") +
+  theme(legend.position = "bottom",
+        plot.caption = element_text(size = 10, family = "Georgia"),
+        plot.title = element_text(size = 18, family = "Andale Mono"),
+        legend.text =  element_text(family = "Georgia")
+        )
+
+pp1
+# ggsave("~/图片/plot_2019-05-14.png", width = 29, height = 21, units = "cm", dpi = "retina")
+
+```
+
+# Animation
+
+Finally, let's use `gganimate` package to add some animation.
+
+```{r, cache=TRUE}
+library(gganimate)
+pp1 +
+  transition_reveal(prize_year)
+```

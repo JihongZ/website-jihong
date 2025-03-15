@@ -3,23 +3,57 @@ title: 'Blog | Jihong'
 subtitle: ''
 sidebar: false
 listing:
-  - id: blog-lists
-    # template: assets/ejs/article-lists.ejs
-    contents: posts/*/*.[Rq]md
-    sort:
-      - "date desc"
-      - "title desc"
-    type: default
-    categories: numbered
-    fields: [date, image, title, description, categories, author, reading-time]
-    sort-ui: false
-    filter-ui: false
+  - id: posts_2025
+    contents: "posts/2025/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true
+  - id: posts_2024
+    contents: "posts/2024/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true
+  - id: posts_2023
+    contents: "posts/2023/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true  
+  - id: posts_2022
+    contents: "posts/2022/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true  
+  - id: posts_2021
+    contents: "posts/2021/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true    
+  - id: posts_2019
+    contents: "posts/2019/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true    
+  - id: posts_2018
+    contents: "posts/2018/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true    
+  - id: posts_2017
+    contents: "posts/2017/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true    
+freeze: false    
+toc-title: Year
+toc-location: right
+date-format: "MMMM D, YYYY"
+page-layout: full
 format: 
   html:
     code-tools: false
     comments: false
 ---
 
-::: {#blog-lists}
-:::
+
+
+```{r}
+#| results: asis
+#| echo: false
+post_folders <- as.numeric(list.files("posts")[grepl(list.files("posts"), pattern = "20")])
+post_folders <- sort(post_folders, decreasing = TRUE)
+post_text <- glue::glue("## {post_folders}\n\n:::{{#posts_{post_folders}}}\n:::  \n\n")
+post_text
+```
 
