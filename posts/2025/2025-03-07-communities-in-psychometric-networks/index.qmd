@@ -116,10 +116,10 @@ For example, within a social network with each person as node and social relatio
 
 ## Community Detection Algorithm
 
-There are many previous studies comparing different community detection [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm in the framework of latent factor analysis. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results. 
+There are many previous studies comparing different community detection [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm in the framework of latent factor analysis. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
 | Algorithm | Feature | Citation |
-|--------------|-----------------------------|-----------------------------|
+|----|----|----|
 | Walktrap | random walks | @ponsComputingCommunitiesLarge2006 |
 | Infomap | random walks | @rosvallMapsRandomWalks2008 |
 | Fast-greedy | hierarchical clustering; modularity-based | @clausetFindingCommunityStructure2004 |
@@ -130,13 +130,14 @@ There are many previous studies comparing different community detection [@yangCo
 | Edge Betweenness | non-parametric | @girvanCommunityStructureSocial2002 |
 | Triangulated Maximally Filtered Graph (TMFG) | score based | @massaraNetworkFilteringBig2017 |
 | Parallel Analysis | EFA |  |
-: Different types of community detection algorithm {#tbl-algorithm tbl-colwidths="[35,40,25]"}
 
-@tbl-algorithm shows the list of community detection algorithms and their features. In the framework of psychometric assessment (< 50 nodes, balanced item number per factor), the best-performing algorithms are GLASSO with unidimentional adjustment, Louvian, Fast-greedy, Walktrap, and parallel analysis. The evaluation criteria include: 
+: Different types of community detection algorithm {#tbl-algorithm tbl-colwidths="\[35,40,25\]"}
 
-1. The percentage of correct number of factors (PC)
-2. Mean absolute error (MAE; the average absolute deviation away from the correct number of factors) 
-3. Mean bias error (MBE; the average deviation away from the correct number of factors)
+@tbl-algorithm shows the list of community detection algorithms and their features. In the framework of psychometric assessment (\< 50 nodes, balanced item number per factor), the best-performing algorithms are GLASSO with unidimentional adjustment, Louvian, Fast-greedy, Walktrap, and parallel analysis. The evaluation criteria include:
+
+1.  The percentage of correct number of factors (PC)
+2.  Mean absolute error (MAE; the average absolute deviation away from the correct number of factors)
+3.  Mean bias error (MBE; the average deviation away from the correct number of factors)
 
 Assume $N$ is the total number of simulated sample date sets (Replication), $K$ is the population number of factors/communities, and $\hat{K}$ is the estimated number of factors/communities. $\mathbb{I}(\cdot)$ is the indicator function so that $\mathbb{I}(\hat{K}, K) = 1$ if $\hat{K} = K$ and $\mathbb{I}(\hat{K}, K) = 0$ otherwise. The three evaluation criteria are defined as:
 
@@ -171,4 +172,3 @@ cal_mbe <- function(K, K_hat) {
   return(mbe)
 }
 ```
-

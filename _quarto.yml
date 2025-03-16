@@ -80,5 +80,7 @@ editor: visual
 execute: 
   freeze: true
 
+csl: assets/apa.csl
+
 filters: 
   - webr
