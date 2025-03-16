@@ -175,7 +175,6 @@ div.quarto-title.column-body {
     font-size: 1.7rem;
   }
   display: block;
-  //background-color: $soft-color1;
   border: 1px solid $gray;
   backdrop-filter: blur(5px);
   border-radius: 50px;
@@ -512,7 +511,8 @@ button.show-answer:hover {
 
 /* Table styling */
 table {
-  font-family: "Titillium Web", sans-serif;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
   width: 100%;
   margin-bottom: 1em;
   border-radius: 5px;
