@@ -72,8 +72,8 @@ format:
     reference-location: margin
     citation-location: margin
     footnotes-hover: true
-    title-block-banner: "#3e8299" # title banner color value: true/false/css color/location
-    title-block-banner-color: "#f7f9fc" # Text color
+    title-block-banner: "#EFEFEC" 
+    title-block-banner-color: "#403E3E"  # Foreground Color: https://quarto.org/docs/authoring/title-blocks.html#foreground-color
     
 editor: visual
 
