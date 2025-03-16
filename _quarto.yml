@@ -42,7 +42,7 @@ format:
         - assets/callout.scss
         - default # https://bootswatch.com/5/minty/_variables.scss
       dark: [Cyborg, assets/rwds-dark.scss, assets/lecture.scss]
-    css: assets/rwds.css
+    css: [assets/rwds.css, _extensions/nareal/tachyons/css/tachyons.min.css]
     comments:
       giscus:
         repo: JihongZ/quarto-academic-jihong

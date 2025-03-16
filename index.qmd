@@ -1,6 +1,6 @@
 ---
-title: "Jihong Zhang, Ph.D."
-subtitle: "learn() ➮ play()"
+title: <span class="mt2 mb0 baskerville i fw1 f1">Jihong Zhang</span>
+subtitle: <span class="mt2 mb0 f6 fw4 baskerville ttu tracked">"learn() ➮ play()"</span>
 comments: false
 toc: false
 sidebar: false
@@ -34,7 +34,7 @@ format:
 ---
 
 ::: {#hero-heading .nice-paragraph}
-「About Me」
+[About Me]{.mt2 .mb0 .baskerville .i .fw6 .f4}
 
 I currently hold the position of tenure-track Assistant Professor of Educational Statistics and Research Methods ([ESRM](https://esrm.uark.edu/directory/uid/jzhang/name/Jihong+Zhang/)) at the department of Counseling, Leadership, and Research Methods (CLRM), University of Arkansas, Fayetteville, U.S.A.
 
