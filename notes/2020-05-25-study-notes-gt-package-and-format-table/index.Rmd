@@ -13,19 +13,19 @@ toc: true
 format:
   html:
     number-sections: true
-  typst: 
-    df-print: tibble
 ---
 
 ::: objectives
 ## Overview {.unnumbered}
-This post is inspired by themockup's [blog](https://themockup.blog/posts/2020-05-16-gt-a-grammer-of-tables/) and RStudio's documentation of `gt` package^[You can find the documentation [here](https://gt.rstudio.com/).].
+
+This post is inspired by themockup's [blog](https://themockup.blog/posts/2020-05-16-gt-a-grammer-of-tables/) and RStudio's documentation of `gt` package[^1].
 :::
 
-> "We can construct a wide variety of useful tables with a cohesive set of table parts. These include the table header, the  stub, the column labels and spanner column labels, the table body, and the table footer."
-> 
-> `r htmltools::p(align="right", "--- The gt philosophy")`
+[^1]: You can find the documentation [here](https://gt.rstudio.com/).
 
+> "We can construct a wide variety of useful tables with a cohesive set of table parts. These include the table header, the stub, the column labels and spanner column labels, the table body, and the table footer."
+>
+> `r htmltools::p(align="right", "--- The gt philosophy")`
 
 ```{r setup, include=FALSE}
 
@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
 ```
 
-## Component 
+## Component
 
 ![The Parts of a gt Table](https://gt.rstudio.com/reference/figures/gt_parts_of_a_table.svg){#fig-component}
 
@@ -53,7 +53,7 @@ library(gt)
 library(tidyverse)
 ```
 
-- `gt()` function can convert data.frame into `gt` object. A `gt` object can be directly output and rendered into HTML.
+-   `gt()` function can convert data.frame into `gt` object. A `gt` object can be directly output and rendered into HTML.
 
 ```{r}
 # Define the start and end dates for the data range
@@ -69,10 +69,11 @@ sp500_gt <- sp500 |>
 
 sp500_gt
 ```
+
 ### `tab_header`: title and subtitle
 
-- The `gt` object can be further modified by adding components to it, for example `tab_header` adds Table Headers (including title and subtitle).
-    - For narratives like *title* or *subtitle*, you can also use markdown format with the `md` function.
+-   The `gt` object can be further modified by adding components to it, for example `tab_header` adds Table Headers (including title and subtitle).
+    -   For narratives like *title* or *subtitle*, you can also use markdown format with the `md` function.
 
 ```{r}
 sp500_gt |> 
@@ -81,6 +82,7 @@ sp500_gt |>
     subtitle = "June 7-14, 2010"
   )
 ```
+
 ::: callout-note
 Note that if your Quarto HTML has CSS style, the markdown format in `gt` object may not work as expected. Like the following title will be **bold** but with underline (my CSS style).
 :::
@@ -92,12 +94,13 @@ sp500_gt |>
     subtitle = md("*June 7-14*, 2010")
   )
 ```
+
 ### `fmt_<column_type>`: format columns
 
-- `fmt_<column_type>` functions can be used to format the columns of the table. 
-    - For example, `fmt_currency` can be used to format the `close` column as currency.
-    - `fmt_date` can be used to format the `date` column as date.
-    - `fmt_number` can be used to format the `volume` column as a number. 
+-   `fmt_<column_type>` functions can be used to format the columns of the table.
+    -   For example, `fmt_currency` can be used to format the `close` column as currency.
+    -   `fmt_date` can be used to format the `date` column as date.
+    -   `fmt_number` can be used to format the `volume` column as a number.
 
 ```{r}
 sp500_gt |> 
@@ -118,9 +121,10 @@ sp500_gt |>
     suffixing = TRUE
   )
 ```
+
 ### `tab_source_note`: source note
 
-- `tab_source_note` can be used to add a source note to the table underneath the table.
+-   `tab_source_note` can be used to add a source note to the table underneath the table.
 
 ```{r}
 sp500_gt |> 
@@ -132,6 +136,7 @@ sp500_gt |>
     source_note = "Data from Yahoo Finance"
   )
 ```
+
 ### `tab_footnote`: footnotes
 
 Beside the markdown format, Quarto HTML also accepts HTML code using `htmltools::p` function. But it may only apply to HTML not PDF. As @fig-component shows, footnotes are located at the bottom of the table but at the top of *source notes*.
@@ -139,7 +144,7 @@ Beside the markdown format, Quarto HTML also accepts HTML code using `htmltools:
 ::: callout-note
 ## `cells_*()`: target cells in the table
 
-We were able to supply the reference locations in the table by using the cells_body() helper function and supplying the necessary targeting through the columns and rows arguments. Other cells_*() functions have similar interfaces and they allow us to target cells in different parts of the table.
+We were able to supply the reference locations in the table by using the cells_body() helper function and supplying the necessary targeting through the columns and rows arguments. Other cells\_\*() functions have similar interfaces and they allow us to target cells in different parts of the table.
 :::
 
 ```{r}
@@ -159,9 +164,10 @@ sp500_gt |>
     )
   )
 ```
+
 ### `tab_row_group`: row groups
 
--   We can make a new row group with each tab_row_group() call. 
+-   We can make a new row group with each tab_row_group() call.
 -   The inputs are row group names in the label argument, and row references in the rows argument.
 -   key arguments:
     -   `label`: the name of the row group.
@@ -189,9 +195,9 @@ sp500_gt |>
 
 ### `tab_spanner`: column groups and spann column labels
 
-- key arguments:
-    - `label`: the name of the column group.
-    - `columns`: the columns that belong to the group.
+-   key arguments:
+    -   `label`: the name of the column group.
+    -   `columns`: the columns that belong to the group.
 
 ```{r}
 sp500_gt |> 
@@ -208,22 +214,21 @@ sp500_gt |>
     columns = vars(volume)
   )
 ```
+
 ### `summary_rows`: summary rows
 
-- `summary_rows` can be used to add summary rows to the table by `group`.
-  -  if you want to have grant summary statistics, use `grand_summary_rows` instead.
-  
-- key arguments:
-    - `fns`: a list of functions to apply to the columns.
-    - `columns`: the columns to which the functions are applied.
+-   `summary_rows` can be used to add summary rows to the table by `group`.
+    -   if you want to have grant summary statistics, use `grand_summary_rows` instead.
+-   key arguments:
+    -   `fns`: a list of functions to apply to the columns.
+    -   `columns`: the columns to which the functions are applied.
 
 ::: callout-note
 Note that the `fmt` argument is used to format the summary values with a list. There are multiple formatting functions for numeric variables available in the gt package:
 
-- `fmt_number(cols = vars(...), decimals = 2)`: format numbers with a specified number of 2 decimal places.
+-   `fmt_number(cols = vars(...), decimals = 2)`: format numbers with a specified number of 2 decimal places.
 
-- `fmt_scientific(cols = vars(...), decimals = 3)`: format numbers in scientific notation with a specified number of 3 decimal places.
-
+-   `fmt_scientific(cols = vars(...), decimals = 3)`: format numbers in scientific notation with a specified number of 3 decimal places.
 :::
 
 ```{r}
@@ -249,14 +254,13 @@ sp500_gt |>
   )
 ```
 
-
 ### `cols_xxx()`: manupulate columns' positions
 
-- Functions:
-    - `cols_move_to_start()`: move columns to the start of the table.
-    - `cols_move_to_end()`: move columns to the end of the table.
-    - `cols_hide()`: hide columns.
- 
+-   Functions:
+    -   `cols_move_to_start()`: move columns to the start of the table.
+    -   `cols_move_to_end()`: move columns to the end of the table.
+    -   `cols_hide()`: hide columns.
+
 ## Styling of the table
 
 A basic `gt` table can be created as so
@@ -279,10 +283,11 @@ iris_gt
 
 ### `tab_style`: change style of cells
 
-- `tab_style(data, style, locations)` allows you to change the style (`style`) of cells (`locations`) in the table.
+-   `tab_style(data, style, locations)` allows you to change the style (`style`) of cells (`locations`) in the table.
 
 ::: callout-note
 ## Style functions for `style` argument
+
 -   the background color of the cell (`cell_fill()`: color)
 -   the cell's text color, font, and size (`cell_text()`: color, font, size)
 -   the text style (`cell_text()`: style), enabling the use of italics or oblique text.
@@ -314,7 +319,7 @@ iris_gt_colored
 ```
 :::
 
-- Next, the boarder could be added into the table:
+-   Next, the boarder could be added into the table:
 
 ```{r}
 iris_gt_colored |> 
@@ -338,12 +343,13 @@ iris_gt_colored |>
     locations = cells_column_labels(columns = gt::everything())
   )
 ```
+
 ### `tab_options`: table output options
 
-- `tab_options` allows you to change the output options of the table. There are multiple options available:
+-   `tab_options` allows you to change the output options of the table. There are multiple options available:
 
-1. `table.font.names=` allows you to change the font of the table.
-    
+1.  `table.font.names=` allows you to change the font of the table.
+
 ```{r}
 iris_gt_colored |> 
   tab_options(
@@ -351,11 +357,9 @@ iris_gt_colored |>
   )
 ```
 
-2. `table.width=` allows you to change the width of the table.
-    
+2.  `table.width=` allows you to change the width of the table.
+
 ```{r}
 iris_gt_colored |> 
   tab_options(table.width = px(700))
 ```
-    
-    
