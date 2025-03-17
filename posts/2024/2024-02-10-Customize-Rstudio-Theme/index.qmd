@@ -1,5 +1,5 @@
 ---
-title: "Customize Zotero abd Visual Mode of Rstudio"
+title: "Customize Zotero and Visual Mode of Rstudio"
 author: Jihong Zhang
 date: 2024-02-10
 execute:

@@ -2,18 +2,19 @@
 <!-- Raw EJS default:https://raw.githubusercontent.com/quarto-dev/quarto-cli/refs/heads/main/src/resources/projects/website/listing/item-default.ejs.md -->
 
 ```{=html}
+
 <div class="list blog">
     <% for (const post of items) { %>
     <div class="blog-entry" <%= metadataAttrs(post) %>>
         
-        
+        <!-- Date-formate can be modified in posts.qmd YAML. See more details: https://quarto.org/docs/reference/dates.html -->
         <div class="metadata">          
             <p class="date listing-date"><%= post.date %></p>
         </div>
         
         <% if (post.image) { %>
         <div class="w-50-ns thumbnail">
-            <img src="<%= post.image %>" alt="<%= post.title %> class="thumbnail-image card-img"" title="<%= post.title %>" />
+            <img src="<%= post.image %>" alt="<%= post.title %> class="thumbnail-image o-80 card-img"" title="<%= post.title %>" />
         </div>
         <% } %>
         

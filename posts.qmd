@@ -46,7 +46,7 @@ listing:
 freeze: false    
 toc-title: Year
 toc-location: right
-date-format: "MMMM D, YYYY"
+date-format: "MMM DD"
 page-layout: full
 format: 
   html:

@@ -65,7 +65,7 @@ mean
 ## Note
 
 |  |  |
-|-------------------|-----------------------------------------------------|
+|----|----|
 | `variables` | Formula or data frame specifying the variables measured in the survey. If `NULL`, the `data` argument is used. |
 | `ids` | Formula or data frame specifying cluster ids from largest level to smallest level, `~0` or `~1` is a formula for no clusters. |
 | `probs` | Formula or data frame specifying cluster sampling probabilities |
