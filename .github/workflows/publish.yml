@@ -47,6 +47,7 @@ jobs:
             any::scholar
             any::dygraphs
             any::htmltools
+            any::plotly
       # Render the Quarto file
       - name: "Render working directory"
         uses: quarto-dev/quarto-actions/render@v2
