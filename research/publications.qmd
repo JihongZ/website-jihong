@@ -61,8 +61,11 @@ pubs_count_ts <- pubs_count_byyear |> arrange(year) |> mutate(n_cum = cumsum(n))
 
 ## Refer to https://rstudio.github.io/dygraphs/
 plot_ly(data = pubs_count_ts) |> 
-  add_trace(x=~year, y=~n, mode = "lines+markers", color = I("maroon"), name = "Current Number") |> 
-  add_trace(x=~year, y=~n_cum, mode = "lines+markers", color = I("darkseagreen"), name = "Cumulative Number") |> 
+  add_bars(x=~year, y=~n, color = I("grey"), name = "") |> 
+  add_trace(x=~year, y=~n,type = "scatter", 
+            mode = "lines+markers", color = I("maroon"), name = "Current Number") |> 
+  add_trace(x=~year, y=~n_cum, type = "scatter",
+            mode = "lines+markers", color = I("darkseagreen"), name = "Cumulative Number") |> 
   layout(
     paper_bgcolor = "#FAF9F6",
     plot_bgcolor='#FAF9F6',
