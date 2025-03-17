@@ -45,7 +45,6 @@ jobs:
             any::rmarkdown
             any::xml2
             any::scholar
-            any::dygraphs
             any::htmltools
             any::plotly
       # Render the Quarto file
