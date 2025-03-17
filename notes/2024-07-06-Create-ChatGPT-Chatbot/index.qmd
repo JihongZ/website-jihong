@@ -1,6 +1,6 @@
 ---
 title: "Create a ChatGPT chatbot for personal website"
-author: 'Jihong Zhang'
+
 subtitle: "Using FlowiseAI"
 date: 'April 15 2024'
 categories:

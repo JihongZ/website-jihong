@@ -1,6 +1,6 @@
 ---
 title: 'Tips about Git and Github'
-author: 'Jihong Zhang'
+
 date: 'Mar 10 2024'
 categories:
   - Git

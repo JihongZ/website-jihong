@@ -19,5 +19,5 @@ format:
     code-tools: false
     comments: false
     grid:
-      sidebar-width: 400px
+      sidebar-width: 300px
 ---

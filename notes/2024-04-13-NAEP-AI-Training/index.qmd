@@ -1,6 +1,6 @@
 ---
 title: 'Large-Scale Assessments using EdSurvey R Package'
-author: 'Jihong Zhang'
+
 subtitle: 'AERA 2024 Workshop by AIR'
 date: 'April 13 2024'
 categories:

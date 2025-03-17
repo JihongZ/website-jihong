@@ -1,6 +1,6 @@
 ---
 title: "Note: Javascript for R"
-author: "Jihong Zhang"
+author: Jihong Zhang <a href="https://orcid.org/0000-0003-2820-3734"><img src="/images/ORCID-iD_icon_24x24.png" alt=""/></a>
 title-block-banner: false
 date: "2025-03-16"
 date-modified: "`{r} Sys.Date()`"
@@ -23,17 +23,13 @@ bibliography: references.bib
 ::: objectives
 ## Overview {.unnumbered}
 
-This is a reading note for the book \{[Javascript for R](https://book.javascript-for-r.com/widgets-intro-intro)\}.
+This is a reading note for the book {[Javascript for R](https://book.javascript-for-r.com/widgets-intro-intro)}.
 :::
 
 ## Relevant resources
 
-1. [htmltools](https://github.com/rstudio/htmltools) package 
-    -   [Chapter 2: Manipulate HTML tags from R with {htmltools} ](https://unleash-shiny.rinterface.com/htmltools-overview) in Outstanding User Interfaces with Shiny
-    
-
-
-
+1.  [htmltools](https://github.com/rstudio/htmltools) package
+    -   [Chapter 2: Manipulate HTML tags from R with {htmltools}](https://unleash-shiny.rinterface.com/htmltools-overview) in Outstanding User Interfaces with Shiny
 
 ## Chapter 3: Introduction to Widgets
 
@@ -167,11 +163,8 @@ There is only one function in the playground package, `play()`, which is the con
 play(message = "This is a widget!")
 ```
 
-
 ```{r, file="./playground/R/play.R"}
 #| eval: false
 #| code-summary: "Click to see the source code of play.R"
 #| code-fold: true
 ```
-
-

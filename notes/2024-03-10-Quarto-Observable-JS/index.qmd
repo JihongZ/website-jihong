@@ -1,6 +1,6 @@
 ---
 title: 'Observable JS in Quarto document'
-author: 'Jihong Zhang'
+
 date: 'Mar 10 2024'
 categories:
   - OJS

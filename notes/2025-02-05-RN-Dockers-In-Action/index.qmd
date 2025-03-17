@@ -2,7 +2,7 @@
 title: "Note: Docker in Action, Second Edition"
 subtitle: ""
 description: ''
-author: 'Jihong Zhang'
+
 date: '2025-05-02'
 sidebar: false
 categories:

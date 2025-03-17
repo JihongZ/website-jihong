@@ -1,6 +1,6 @@
 ---
 title: 'How to use Julia in Quarto'
-author: 'Jihong Zhang'
+
 date: 'Mar 15 2024'
 categories:
   - Julia
@@ -42,7 +42,7 @@ Second, when you create the new quarto document, make sure the `yaml` header con
 
 ``` yaml
 title: 'How to use Julia in Quarto'
-author: 'Jihong Zhang'
+
 date: 'Mar 10 2024'
 categories:
   - Julia

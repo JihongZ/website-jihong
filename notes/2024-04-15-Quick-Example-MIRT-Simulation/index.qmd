@@ -1,6 +1,6 @@
 ---
 title: "Simulate response patterns under the framework of IRT"
-author: 'Jihong Zhang'
+
 subtitle: "Using mirt package"
 date: 'April 15 2024'
 categories:

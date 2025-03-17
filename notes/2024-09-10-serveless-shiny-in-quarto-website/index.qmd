@@ -2,7 +2,7 @@
 title: "Serveless Shiny App on Quarto Website"
 subtitle: "Deploying a serverless Shiny application for R within Quarto"
 description: 'Creating a Serverless R Shiny App using Quarto with R Shinylive ("Include" method)'
-author: 'Jihong Zhang'
+
 date: 'Sep 10 2024'
 sidebar: false
 categories:

@@ -24,8 +24,7 @@ about:
     - icon: github
       text: Github
       href: https://github.com/JihongZ
-    - icon: bi-bookmark-heart-fill
-      text: ORCID
+    - text: <img src="images/ORCID-iD_icon_vector.svg" width="16" height="16" /> ORCID
       href: https://orcid.org/0000-0003-2820-3734
 format:
   html:

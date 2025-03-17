@@ -1,6 +1,6 @@
 ---
 title: 'How to use BGGM to Estimate Bayesian Gaussian Graphical Models'
-author: 'Jihong Zhang'
+
 subtitle: 'Bayesian version of GGM allows multiple Bayesian techniques to be used in psychological network.'
 date: 'Mar 5 2024'
 categories:

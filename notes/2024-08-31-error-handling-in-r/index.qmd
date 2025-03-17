@@ -2,7 +2,7 @@
 title: "Error Handling in R"
 subtitle: "How to handling error of simulation study and functions in R"
 description: "Error handling is important for simulation study"
-author: 'Jihong Zhang'
+
 date: 'August 31 2024'
 sidebar: false
 categories:

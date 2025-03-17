@@ -1,7 +1,7 @@
 ---
 title: "Note: Model fits in confirmatory network analysis of PanelVAR modeling"
 subtitle: "Reading Note of Moving from exploratory to confirmatory network analysis: An evaluation of SEM fit indices and cutoff values in network psychometrics"
-author: 'Jihong Zhang'
+
 date: 'April 15 2024'
 categories:
   - Quarto

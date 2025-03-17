@@ -1,6 +1,6 @@
 # options apply to all posts in this folder
 
 # freeze computational output
-author: "Jihong Zhang"
+author: Jihong Zhang <a href="https://orcid.org/0000-0003-2820-3734"><img src="/images/ORCID-iD_icon_24x24.png" alt=""/></a>
 number-sections: true
 number-depth: 3

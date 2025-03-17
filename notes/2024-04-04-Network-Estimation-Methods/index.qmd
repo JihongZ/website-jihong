@@ -1,6 +1,6 @@
 ---
 title: 'How to choose network analysis estimation for application research'
-author: 'Jihong Zhang'
+
 subtitle: 'Compare multiple R packages for psychological network analysis'
 date: 'April 4 2024'
 categories:
