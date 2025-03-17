@@ -1,15 +1,24 @@
 <!-- https://github.com/andrewheiss/ath-quarto/blob/main/html/blog/listing.ejs -->
+<!-- Raw EJS default:https://raw.githubusercontent.com/quarto-dev/quarto-cli/refs/heads/main/src/resources/projects/website/listing/item-default.ejs.md -->
 
 ```{=html}
 <div class="list blog">
     <% for (const post of items) { %>
     <div class="blog-entry" <%= metadataAttrs(post) %>>
+        
+        
         <div class="metadata">          
             <p class="date listing-date"><%= post.date %></p>
         </div>
+        
+        <% if (post.image) { %>
+        <div class="w-50-ns thumbnail">
+            <img src="<%= post.image %>" alt="<%= post.title %> class="thumbnail-image card-img"" title="<%= post.title %>" />
+        </div>
+        <% } %>
+        
         <div class="body">
-            <p class="title listing-title"><a href="<%- post.path %>"><%= post.title %></a></p>
-
+            <p class="listing-title f3 fw1 baskerville mt0"><a href="<%- post.path %>"><%= post.title %></a></p>
             <% if (post.categories) { %>
             <div class="post-categories listing-categories">
                 <% for (const category of post.categories) { %>
@@ -19,18 +28,15 @@
                 <% } %>
             </div>
             <% } %>
-
-            <p class="description listing-description"><%= post.description %></p>
+            <p class="f6 f5-l lh-copy listing-description"><%= post.description %></p>
             
             <% if (post.doi) { %>
-            <p class="post-doi"><img src="/files/doi.svg" class="doi-icon img-fluid" alt="DOI"/> <a href="https://doi.org/<%= post.doi %>" target="_blank" rel="noopener noreferrer"><%= post.doi %></a></p>
+            <p class="post-doi"><img src="/files/doi.svg" class="doi-icon img-fluid" alt="DOI"/> 
+            <a href="https://doi.org/<%= post.doi %>" target="_blank" rel="noopener noreferrer"><%= post.doi %></a>
+            </p>
             <% } %>
         </div>
-        <% if (post.image) { %>
-        <div class="thumbnail">
-            <img src="<%= post.image %>" alt="<%= post.title %> class="thumbnail-image card-img"" title="<%= post.title %>" />
-        </div>
-        <% } %>
+        
     </div>
     <% } %>
 </div>

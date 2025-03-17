@@ -1,13 +1,14 @@
 ---
-title: "Customize font family of visual mode in Rstudio and in Zotero"
+title: "Customize Zotero abd Visual Mode of Rstudio"
 author: Jihong Zhang
 date: 2024-02-10
 execute:
   eval: true
 image: newthemess.png  
 categories: 
-  - Tutorial
-  - Theme
+  - Zotero
+  - Quarto
+  - Rstudio
 format:
   html:
     code-fold: true

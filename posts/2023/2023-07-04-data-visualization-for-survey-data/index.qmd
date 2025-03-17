@@ -1,14 +1,14 @@
 ---
-title: "Data visualization for survey data"
-author: "Jihong Zhang"
+title: "Data Visualization Using `survey` Package: Survey Data"
 description: "Many tutorials online are about general data visualization. This post aims to showcase some tricks for survey data"
 date: "2023-07-04"
 draft: false
 categories: 
-  - blog
+  - survey
   - ggplot2
+image: index_files/figure-html/plot-1.png
 execute: 
-  eval: false
+  eval: true
 format:
   html:
     toc: true
@@ -18,9 +18,11 @@ format:
     number-offset: 1
 ---
 
-## Question
+::: objective
+## Overview {.unnumbered}
 
 I am looking for R package than can analyze big data of survey.
+:::
 
 ## R package - survey
 
@@ -63,7 +65,7 @@ mean
 ## Note
 
 |  |  |
-|----------------|--------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | `variables` | Formula or data frame specifying the variables measured in the survey. If `NULL`, the `data` argument is used. |
 | `ids` | Formula or data frame specifying cluster ids from largest level to smallest level, `~0` or `~1` is a formula for no clusters. |
 | `probs` | Formula or data frame specifying cluster sampling probabilities |
@@ -105,12 +107,16 @@ softcolors = c("#B4464B", "#F3DCD4", "#ECC9C7",
                "#D9E3DA", "#D1CFC0", "#C2C2B4")
 mykbl <- function(x, ...){
   kbl(x, digits = 2, ...) |> kable_styling(bootstrap_options = c("striped", "condensed")) }
-
 ```
 
 ```{r}
-datList <- read.csv("DataT4.csv")
-str(datList)
+dataDemo <- read.csv("~/Documents/Projects/website-jihong/posts/2023/2023-07-04-data-visualization-for-survey-data/DataDemo.csv")
+dataT4 <- read.csv("~/Documents/Projects/website-jihong/posts/2023/2023-07-04-data-visualization-for-survey-data/DataT4.csv")
+datList <- cbind(dataDemo, dataT4)
+datList <- datList |> 
+  select(colnames(dataDemo), starts_with("EDEQS") & ends_with("T1")) |> 
+  select(-EDEQS_T1)
+glimpse(datList)
 ```
 
 ### Descriptive statistics
@@ -118,14 +124,13 @@ str(datList)
 We can use multiple R tools for descriptive statistics. `bruceR` is one of them.
 
 ```{r}
-description <- datList$description
-bruceR::Freq(dplyr::select(description, gender:birthplace), 
-             varname = "gender")
+datList |> 
+  bruceR::Freq(varname = "Sex")
 ```
 
 ```{r}
 #| include: true
-freqTblVars = c("gender", "race", "birthplace")
+freqTblVars = c("Sex", "Ethnicity_baseline", "Origin_baseline")
 freqTable <- function(tbl, var) {
   tbl |> as.data.frame() |> 
     tibble::rownames_to_column("Levels") |> 
@@ -133,7 +138,7 @@ freqTable <- function(tbl, var) {
 }
 freqTableComb = NULL
 for (var in freqTblVars) {
-  tbl = bruceR::Freq(dplyr::select(description, gender:birthplace), varname = var)
+  tbl = bruceR::Freq(datList, varname = var)
   freqTableComb = rbind(freqTableComb, freqTable(tbl = tbl, var = var))
   freqTableComb <- freqTableComb |> 
     relocate("Variable")
@@ -148,12 +153,15 @@ Or we can use `survey` package for descriptive analysis
 
 ```{r}
 library(survey)
+Measuremnt <- datList |> 
+  select(starts_with("EDEQS")) |> 
+  mutate(across(everything(), as.numeric))
 dexample = svydesign(ids = ~1,
-                     data = datList$measurement)
+                     data = Measuremnt)
 summary(dexample)
 
 ## summay statistics for all measurement indicators
-vars <- colnames(datList$measurement)
+vars <- colnames(Measuremnt)
 svymean(make.formula(vars), design = dexample, na.rm = TRUE)
 svytotal(make.formula(vars), design = dexample, na.rm = TRUE)
 ```
@@ -161,7 +169,7 @@ svytotal(make.formula(vars), design = dexample, na.rm = TRUE)
 ### Stacked barplot for survey data responses
 
 ```{r}
-survey = datList$measurement
+survey = Measuremnt
 survey <- survey |> 
   mutate(ID = 1:nrow(survey)) |> 
   mutate(across(starts_with("EDEQS"), \(x) factor(x, levels = 0:3))) |> 
@@ -169,21 +177,24 @@ survey <- survey |>
   group_by(items) |> 
   dplyr::count(values) |> 
   dplyr::mutate(perc = n/sum(n) * 100)
+```
 
-p = ggplot(survey) +
-  geom_col(aes(y = factor(items, levels = paste0("EDEQS", 1:12)),
+```{r plot, cache=TRUE}
+#| fig-height: 7
+#| fig-width: 10
+
+ggplot(survey) +
+  geom_col(aes(y = factor(items, levels = paste0("EDEQS", 12:1, "_T1")),
                x = perc,
                fill = values), 
            position = position_stack(reverse = TRUE)) +
-  labs(y = "", x = "Proportion (%)", title = "N and proportion of responses for items")
-
-p = p + geom_text(aes(y = factor(items, levels = paste0("EDEQS", 1:12)),
+  labs(y = "", x = "Proportion (%)", title = "N and proportion of responses for items") + 
+  geom_text(aes(y = factor(items, levels = paste0("EDEQS", 12:1, "_T1")),
                   x = perc, group = items,
                   label = ifelse(n >= 50, paste0(n, "(", round(perc, 1), "%)"), "")), 
               size = 3, color = "white",
-              position = position_stack(reverse = TRUE, vjust = 0.5))
-p = p + scale_fill_manual(values = mycolors)
-p
+              position = position_stack(reverse = TRUE, vjust = 0.5)) +
+  scale_fill_manual(values = mycolors)
 ```
 
 We can clearly identify item 7 has highest proportion of level 0, and needed to be theoretically justified.

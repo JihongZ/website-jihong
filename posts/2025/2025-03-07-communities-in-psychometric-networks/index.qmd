@@ -1,6 +1,5 @@
 ---
 title: "Communities in Psychometric Networks?"
-author: "Jihong Zhang"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
   
@@ -8,7 +7,6 @@ institute: |
 date: "2025-03-07"
 draft: false
 bibliography: references.bib
-csl: apa.csl
 image: index_files/figure-html/plot-1.png
 tbl-cap-location: top
 categories:
