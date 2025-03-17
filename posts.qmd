@@ -48,6 +48,9 @@ toc-title: Year
 toc-location: right
 date-format: "MMM DD"
 page-layout: full
+execute: 
+  warning: false
+  message: false
 format: 
   html:
     code-tools: false
@@ -55,10 +58,33 @@ format:
 ---
 
 ```{r}
-#| results: asis
 #| echo: false
+#| fig-height: 3
+library(plotly)
 post_folders <- as.numeric(list.files("posts")[grepl(list.files("posts"), pattern = "20")])
 post_folders <- sort(post_folders, decreasing = TRUE)
+## Find the relative path
+path_post <- paste0("posts/", post_folders)
+## Check out how many posts in each folder by year
+freq_post <- data.frame(
+  year = post_folders,
+  number_post = sapply(path_post, \(x) length(list.files(x)))
+)
+plot_ly(x =~year, y=~number_post, data = freq_post) |> 
+  add_lines(color=I("turquoise")) |> 
+  add_markers() |> 
+  add_bars(color = I("tan")) |> 
+  layout(
+    paper_bgcolor = "#FAF9F6",
+    plot_bgcolor='#FAF9F6',
+    title = "Number of Posts by Year",
+    xaxis = list(title = ""), 
+    yaxis = list(title = ""))
+```
+
+```{r}
+#| results: asis
+#| echo: false
 post_text <- glue::glue("## {post_folders}\n\n:::{{#posts_{post_folders}}}\n:::  \n\n")
 post_text
 ```
