@@ -301,7 +301,13 @@ interaction.plot(cancer_data$Stage, cancer_data$Treatment, cancer_data$Survival,
 ## Interpretation of the Results
 
 ::: callout-note
-Below is an R script demonstrating a **factorial design** for a **cancer trial** where the goal is to examine whether the effect of a **treatment method** depends on the **stage of cancer** (i.e., testing for an interaction effect). The script includes data simulation, factorial ANOVA, and interpretation.  
+### Interpretation of Results
+
+-   If the main effect of Tutoring is significant, then grades differ across tutoring conditions, regardless of school type.
+
+-   If the main effect of School Type is significant, then grades differ across school types, regardless of tutoring.
+
+-   If the interaction effect (Tutoring × School) is significant, then the impact of tutoring depends on school type, suggesting that different tutoring programs work better in different school settings.  
 :::
 
 ## Advantages of Factorial Design II
@@ -459,9 +465,9 @@ Interaction
         $H_0$: $\mu_{\mathrm{public}}=\mu_{\mathrm{private-religious}}=\mu_{\mathrm{private-secular}}$
 :::
 
-## Visualization of Two-Way ANOVA
+## Visualization of Two-Way ANOVA (No Interaction)
 
-- The statistical form for no-interaction
+- The main-effect-only no-interaction statistical form 
 
 $$
 \mathrm{Grade} = \beta_0 + \beta_1 \mathrm{Toturing_{Once}} + \beta_2 \mathrm{Toturing_{Daily}} \\ + \beta_3 \mathrm{SchoolType_{PvtS}} + \beta_4 \mathrm{SchoolType_{PvtR}}
@@ -534,9 +540,16 @@ data <- data.frame(
 ```
 
 - Main effect of Tutoring Programs
-  - Collapsing across Factor B
-  - Ignoring the difference levels of Factors
-  - Averaging DV regarding Factor A across the levels of Factor B
+  - Collapsing across School Type
+  - Ignoring the difference levels of School Type
+  - Averaging DV regarding Tutoring Programs across the levels of School Type
+  
+- Main effect of School Type
+  - Collapsing across Tutoring Program
+  - Ignoring the difference levels of Tutoring Program
+  - Averaging DV regarding School Type across the levels of Tutoring Programs 
+
+---
 
 ::: panel-tabset
 ### R Plot  
