@@ -562,8 +562,8 @@ total_summary <- tutoring_summary |>
 
 # Plot main effect of tutoring
 ggplot(total_summary, aes(x = School)) +
-  geom_point(aes(y = Mean_Grade_byTutor, color = Tutoring)) +
-  geom_hline(aes(yintercept = Mean_Grade_byTutor, color = Tutoring)) +
+  geom_point(aes(y = Mean_Grade_byTutor, color = Tutoring), size = 5) +
+  geom_hline(aes(yintercept = Mean_Grade_byTutor, color = Tutoring), linewidth = 1.3) +
   scale_y_continuous(limits = c(70, 90), breaks = seq(70, 90, 5)) +
   labs(title = "Main Effect of Tutoring on Student Grades",
        x = "School Types",
@@ -614,7 +614,7 @@ total_summary <- tutoring_summary |>
 ```{webr-r}
 ggplot(total_summary, aes(x = Tutoring)) +
   geom_point(aes(y = Mean_Grade_bySchool, color = School)) +
-  geom_hline(aes(yintercept = Mean_Grade_bySchool, color = School)) +
+  geom_hline(aes(yintercept = Mean_Grade_bySchool, color = School), linewidth = 1.3) +
   scale_y_continuous(limits = c(70, 90), breaks = seq(70, 90, 5)) +
   labs(title = "Main Effect of School Type on Student Grades",
        x = "Tutoring Type",
@@ -625,6 +625,9 @@ ggplot(total_summary, aes(x = Tutoring)) +
 :::
 
 ## Combined Visualization
+
+::: panel-tabset
+### R Plot
 ```{webr-r}
 fit <- lm(Grades ~ Tutoring + School, data = data)
 Line_No_Tutor <- c(fit$coefficients[1], fit$coefficients[1] + c(fit$coefficients[4], fit$coefficients[5]))
@@ -638,9 +641,9 @@ combined_vis_data <- data.frame(
   Line_Daily
 )
 ggplot(data = combined_vis_data, aes(x = School_Levels)) +
-  geom_path(aes(y = as.numeric(Line_No_Tutor)), group = 1, color = "red") +
-  geom_path(aes(y = as.numeric(Line_Once_A_Week)), group = 1, color = "green") +
-  geom_path(aes(y = as.numeric(Line_Daily)), group = 1, color = "blue") +
+  geom_path(aes(y = as.numeric(Line_No_Tutor)), group = 1, color = "red", linewidth = 1.4) +
+  geom_path(aes(y = as.numeric(Line_Once_A_Week)), group = 1, color = "green", linewidth = 1.4) +
+  geom_path(aes(y = as.numeric(Line_Daily)), group = 1, color = "blue", linewidth = 1.4) +
   geom_point(aes(y = as.numeric(Line_No_Tutor))) +
   geom_point(aes(y = as.numeric(Line_Once_A_Week))) +
   geom_point(aes(y = as.numeric(Line_Daily)))  +
@@ -651,6 +654,11 @@ ggplot(data = combined_vis_data, aes(x = School_Levels)) +
   theme(legend.position = "none") 
 ```
 
+### In the graph
+-  There is the LARGE effect of Factor [Tutoring]{.mohu} and very small effect of [School Type]{.mohu}:
+    -  Effect of Factor [Tutoring]{.mohu}: the LARGE vertical distance
+    -  Effect of Factor [School Type]{.mohu}: the very small horizontal distance
+:::
 
 ## Summary
 1. Overview of factorial design
