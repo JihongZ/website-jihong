@@ -14,5 +14,3 @@ format:
       sidebar-width: 350px
       body-width: 800px
       margin-width: 350px
-sidebar: 
-  style: docked

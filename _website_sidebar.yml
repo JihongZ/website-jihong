@@ -1,6 +1,7 @@
 # MetaData Documentation: https://quarto.org/docs/projects/quarto-projects.html#metadata-includes
 website:
   sidebar:
+    style: docked
     - id: id-lec6990v # https://github.com/quarto-dev/quarto-cli/discussions/8117
       style: "docked"
       collapse-level: 0
