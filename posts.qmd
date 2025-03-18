@@ -1,7 +1,6 @@
 ---
 title: 'Blog | Jihong'
 subtitle: ''
-sidebar: false
 listing:
   - id: posts_2025
     template: assets/ejs/article-lists.ejs
@@ -45,7 +44,7 @@ listing:
     categories: true    
 freeze: false    
 toc-title: Year
-toc-location: right
+toc-location: left
 date-format: "MMM DD"
 page-layout: full
 execute: 

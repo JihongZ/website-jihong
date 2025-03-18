@@ -28,6 +28,8 @@ website:
       
 format:
   html:
+    grid:
+        body-width: 900px
     csl: assets/apa.csl
     theme: 
       light: 
