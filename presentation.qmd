@@ -6,7 +6,7 @@ listing:
   categories: true
   field-display-names:
     author: "Presenter"
-  contents: posts/Presentation/*/*.[Rq]md
+  contents: presentation/**/*.[Rq]md
   sort: "date desc"
   type: table
   table-striped: true
