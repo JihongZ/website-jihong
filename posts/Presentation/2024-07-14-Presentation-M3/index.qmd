@@ -45,7 +45,7 @@ format:
 
 ## Question 1: Can Eating disorder be considered as a network?
 
-::: columns
+::::: columns
 ::: {.column width="40%"}
 ![](figures/structure.jpg){.preview-image width="100%"}
 :::
@@ -59,7 +59,7 @@ format:
 
 -   Empirical studies considered these three consitute a "ecosystem" (Ambwani et al., 2014). ER and interpersonal function exibit reciprocal effects on ED maintance.
 :::
-:::
+:::::
 
 **However, the dynamics of eating disorders has not been well investigated.**
 
@@ -191,7 +191,7 @@ We have **22** nodes in further network analysis.
 
 ## Group differences - Temporal Network
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ![Boys' temporal network](figures/boys_temporal_MG.jpg){width="100%"}
 :::
@@ -199,11 +199,11 @@ We have **22** nodes in further network analysis.
 ::: {.column width="50%"}
 ![Girls' temporal network](figures/girls_temporal_MG.jpg){width="100%"}
 :::
-:::
+:::::
 
 ## Summary: Group differences - Temporal Network
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ### Boys
 
@@ -223,11 +223,11 @@ We have **22** nodes in further network analysis.
 4.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **OutStrength**
 5.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **bridge strength**
 :::
-:::
+:::::
 
 ## Accuracy test: Node Strength Difference
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 ![](figures/Node_Strength_Table.png){fig-align="center"}
 :::
@@ -238,11 +238,11 @@ We have **22** nodes in further network analysis.
 1.  *Long periods without eating* (EDE-WE) and *Food preoccupation* (EDE-FP) have significant gender differences in node Outstrength
 2.  *Weight/shape control by vomiting or taking laxatives* (EDE-VT) have significant gender differences in node InStrength
 :::
-:::
+:::::
 
 ## Accuracy test: Bridge Strength Difference
 
-::: columns
+::::: columns
 ::: {.column width="60%"}
 ![](figures/Bridge_Strength_Table.png){fig-align="center"}
 :::
@@ -255,7 +255,7 @@ We have **22** nodes in further network analysis.
 
 **Target nodes for intervention on comorbidity.**
 :::
-:::
+:::::
 
 ## Discussion: Group Commonality
 
