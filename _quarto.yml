@@ -55,7 +55,6 @@ format:
     lightbox: true # Lightbox Figure
     # code settings
     fontsize: 1.1em
-    monofont: "JetBrains Mono"
     reading-time: true
     code-link: false
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/

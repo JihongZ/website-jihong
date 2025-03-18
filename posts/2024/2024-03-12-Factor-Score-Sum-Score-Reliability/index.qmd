@@ -1,6 +1,5 @@
 ---
 title: 'Sum Score, Factor Score, and Reliability'
-author: 'Jihong Zhang'
 date: 'Mar 12 2024'
 image: "Sim_FactorScore_NetworkScore_Correlation.png"
 categories:

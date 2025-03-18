@@ -1,7 +1,7 @@
-StanHeaders
-rstan
-cmdstanr
 psychonetrics
 psychTools
 dplyr
 igraph
+foreach
+iterators
+doParallel

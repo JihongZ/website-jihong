@@ -52,9 +52,9 @@ data(bfi)
 library("dplyr")
 
 # Let's take the agreeableness items, and gender:
-ConsData <- bfi %>% 
-  select(A1:A5, gender) %>% 
-  na.omit # Let's remove missingness (otherwise use Estimator = "FIML)
+ConsData <- bfi |> 
+  select(A1:A5, gender) |> 
+  na.omit() # Let's remove missingness (otherwise use Estimator = "FIML)
 
 # Define variables:
 vars <- names(ConsData)[1:5]
@@ -63,10 +63,7 @@ vars <- names(ConsData)[1:5]
 mod_saturated <- ggm(ConsData, vars = vars)
 
 # Run the model:
-mod_saturated <- mod_saturated %>% runmodel
-
-# We can look at the parameters:
-# mod_saturated %>% parameters
+mod_saturated <- mod_saturated |> runmodel()
 
 # Labels:
 labels <- c(
@@ -79,16 +76,13 @@ labels <- c(
 mod0 <- ggm(ConsData, vars = vars, omega = "zero")
 
 # Run the model:
-mod0 <- mod0 %>% runmodel
-
-# We can look at the modification indices:
-# mod0 %>% MIs
+mod0 <- mod0 |> runmodel()
 
 # To automatically add along modification indices, we can use stepup:
-mod1 <- mod0 %>% stepup
+mod1 <- mod0 |> stepup()
 
 # Let's also prune all non-significant edges to finish:
-mod1 <- mod1 %>% prune
+mod1 <- mod1 |> prune()
 
 qgraph::qgraph(getmatrix(mod1, "omega"),
                layout="spring",
@@ -182,44 +176,61 @@ For evaluation criteria, the standardized deviation (SD) for two methods was use
 #| message: false
 #| code-fold: false
 #| code-summary: "Community Detection for Bootstrapping Resampled Samples"
-Data <- bfi %>% 
-  select(A1:A5, C1:C5, E1:E5, N1:N5, O1:O5) %>% 
-  na.omit # Let's remove missingness (otherwise use Estimator = "FIML)
+library(igraph) # For community detection
+library(foreach) # For parallel computing
+library(doParallel) # For core registration
 
-library(igraph)
+# Load bfi data from psych package:
+Data <- bfi |> 
+  select(A1:A5, C1:C5, E1:E5, N1:N5, O1:O5) |> 
+  na.omit()
 
-ten_perc_N = floor(nrow(Data) / 10)
-K_wt = rep(NA, 100) # placeholder of N of community of Walktrap
-K_fg = rep(NA, 100) # placeholder of N of community of Fast-greedy
+ten_perc_N = floor(nrow(Data) / 10) # Number of cases for 10% sample size
+N_replications <- 100 # Number of bootstrapping resampling
 
-for (i in 1:100) {
-  
+# Function to get the number of communities by fast-greedy and walktrap
+get_resampling_community_n <- \(dat, i, size) {
   set.seed(1234 + i)
-  sampled_cases <- Data[sample(x = 1:nrow(Data), size = ten_perc_N), ]
-  
+  sampled_cases <- dat[sample(x = 1:nrow(dat), size = size), ]
   # Define variables:
-  vars <- names(Data)
+  vars <- names(dat)
   
   # Saturated estimation:
-  mod_sparsed <- ggm(sampled_cases, vars = vars) %>% runmodel %>% stepup %>% prune
+  mod_sparsed <- ggm(sampled_cases, vars = vars) |> runmodel()  |>  stepup() |>  prune()
   
   ## Get edge weights
   omega_mat <- getmatrix(mod_sparsed, "omega")
   
   ## Convert to igraph object from adjcent matrix
-  ggm_igraph <- graph_from_adjacency_matrix(adjmatrix = abs(omega_mat), weighted = TRUE, mode = "undirected")
+  ggm_igraph <- graph_from_adjacency_matrix(adjmatrix = abs(omega_mat), 
+                                            weighted = TRUE, 
+                                            mode = "undirected")
   
   ## Apply Walktrap / Fast Greedy Community Detection Algoritm 
   ggm_wt <- cluster_walktrap(ggm_igraph)
   ggm_fg <- cluster_fast_greedy(ggm_igraph)
   
   ## Get number of detected communities 
-  K_wt[i] = length(ggm_wt)
-  K_fg[i] = length(ggm_fg)
+  return(
+    c(K_wt = length(ggm_wt), 
+      K_fg = length(ggm_fg),
+      size = size, 
+      seed = (1234 + i))
+  )
 }
+
+cl <- makePSOCKcluster(detectCores() - 1)
+registerDoParallel(cl)
+res <- foreach(i = 1:N_replications, 
+               .packages = c("psychonetrics", "igraph"),
+               .combine = "rbind") %dopar% 
+  get_resampling_community_n(dat = Data, i = i, size = ten_perc_N)
+stopCluster(cl)
 ```
 
 ```{r}
+K_wt <- res[,1]
+K_fg <- res[,2]
 report <- data.frame(
   Algorithm = c("Walktrap", "Fast-Greedy"),
   PC = sapply(list(K_wt, K_fg), \(x) cal_pc(x, rep(5, length(x))) ),
@@ -243,5 +254,59 @@ kableExtra::kable(summary_tbl)
 ::: callout-note
 ## Interpretation
 
-Overall, the fast-greedy method performs better than the walktrap method given its higher value of PC and lower absolute values of MAE and MBE across 100 bootrapping resampling itearations with the $\frac{1}{10}$ sample size. The fast-greedy is also more stable than the walktrap given smaller variability ($\mathrm{SD_{FG}}=.65$; $\mathrm{SD_{WT}}=1.13$).
+Overall, the fast-greedy method performs better than the walktrap method given its higher value of PC and lower absolute values of MAE and MBE across 100 bootstrapping re-sampling iterations with the $\frac{1}{10}$ sample size. The fast-greedy is also more stable than the walktrap given smaller variability ($\mathrm{SD_{FG}}=.65$; $\mathrm{SD_{WT}}=1.13$).
 :::
+
+### Sample Size Effect on Community Detection
+
+We can further examine the effect of sample size on the community detection. The sample sizes are 100, 200, 500, 1000, and 2000. The bootstrapping resampling method with 100 replications is used for variability in each condition.
+
+```{r exp1_n, cache=TRUE}
+#| warning: false
+#| code-fold: show
+cl <- makePSOCKcluster(detectCores() - 1)
+registerDoParallel(cl)
+res_byN <- foreach(N = c(100, 200, 500, 1000, 2000), 
+        .packages = c("psychonetrics", "igraph"),
+        .combine = "rbind") %:%
+  foreach(i = 1:N_replications, .combine = "rbind") %dopar%
+  get_resampling_community_n(dat = Data, i = i, size = N)
+stopCluster(cl)
+```
+
+```{r}
+#| label: fig-comm-detect-n
+#| fig-cap: "Community Detection by Sample Size"
+
+library(tidyverse)
+res_byN_tbl <- as.data.frame(res_byN) 
+
+res_byN_smy <- res_byN_tbl |> 
+  group_by(size) |> 
+  summarise(
+    wt_mean = mean(K_wt),
+    fg_mean = mean(K_fg),
+    wt_sd = sd(K_wt),
+    fg_sd = sd(K_fg)
+  )
+
+library(ggplot2)
+library(tidyr)
+res_byN_smy |> 
+  tidyr::pivot_longer(cols = -size, names_to = "Algorithm", values_to = "K") |>
+  tidyr::separate(Algorithm, into = c("Algorithm", "Stat"), sep = "_") |> 
+  tidyr::pivot_wider(names_from = Stat, values_from = K) |> 
+  ggplot(aes(x = size, color = Algorithm, group = Algorithm)) +
+  geom_path(aes(y = mean), linewidth = 1.5) +
+  geom_point(aes(y = mean), size = 3) +
+  geom_errorbar(aes(ymin = mean - 1.96*sd, ymax = mean + 1.96*sd), 
+                width = 70, linewidth = 1.1, alpha = .7) +
+  labs(title = "Community Detection by Sample Size",
+       x = "Sample Size",
+       y = "Number of Communities") +
+  scale_color_manual(values = c("royalblue", "tomato"), labels = c("Fast-Greedy", "Walktrap")) +
+  scale_x_continuous(breaks = c(100, 200, 500, 1000, 2000)) +
+  theme_minimal()
+```
+
+As shown in @fig-comm-detect-n, for both methods, as sample size gets larger, the number of communities detected by both methods tends to align with the theoretical number of communities, $K = 5$. From N = 100 to N = 200 has strong increase in the accuracy of the number of communities detected, while from N = 200 to N = 500 has moderate improvement in the number of communities detected. After N = 500, the number of communities detected is stable.
