@@ -9,22 +9,22 @@ website:
       contents: 
         - section: "Lecture"
           contents:
-            - file: posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture01/ESRM6990V_Lecture01.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Lecture02.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture03/ESRM6990V_Lecture03.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Lecture04.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Lecture05.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Lecture06.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture07/ESRM6990V_Lecture07.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture08/ESRM6990V_Lecture08.qmd      
+            - file: teaching/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture01/ESRM6990V_Lecture01.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Lecture02.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture03/ESRM6990V_Lecture03.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Lecture04.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Lecture05.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Lecture06.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture07/ESRM6990V_Lecture07.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture08/ESRM6990V_Lecture08.qmd      
         - section: "Exercise"
           contents:
-            - file: posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Exercise02.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture03/ESRM6990V_Exercise03.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Exercise04.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Exercise05.qmd
-            - posts/Lectures/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Exercise06.qmd
+            - file: teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Exercise02.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture03/ESRM6990V_Exercise03.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture04/ESRM6990V_Exercise04.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Exercise05.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Exercise06.qmd
     - id: id-lec64103 # https://github.com/quarto-dev/quarto-cli/discussions/8117
       style: "docked"
       collapse-level: 0
@@ -33,20 +33,20 @@ website:
         - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆"
         - section: "Lecture"
           contents:
-            - file: posts/Lectures/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture01/ESRM64103_Lecture01.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture02/ESRM64103_Lecture02.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture03/ESRM64103_Lecture03.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture04/ESRM64103_Lecture04.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture05/ESRM64103_Lecture05.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture06/ESRM64103_Lecture06.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture07/ESRM64103_Lecture07.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture08/ESRM64103_Lecture08.qmd      
+            - file: teaching/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture01/ESRM64103_Lecture01.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture02/ESRM64103_Lecture02.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture03/ESRM64103_Lecture03.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture04/ESRM64103_Lecture04.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture05/ESRM64103_Lecture05.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture06/ESRM64103_Lecture06.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture07/ESRM64103_Lecture07.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture08/ESRM64103_Lecture08.qmd      
         - section: "Exercise"
           contents:
-            - file: posts/Lectures/2025-01-13-Experiment-Design/Lecture01/MakeFriendsWithR.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture02/ESRM64103_HW1_QA.qmd
-            - posts/Lectures/2025-01-13-Experiment-Design/Lecture05/HW2_Answer.qmd
+            - file: teaching/2025-01-13-Experiment-Design/Lecture01/MakeFriendsWithR.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture02/ESRM64103_HW1_QA.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture05/HW2_Answer.qmd
     - id: id-note
       style: "docked"
       search: true
@@ -80,32 +80,32 @@ website:
         - section: "ESRM64503: Applied MVA (Spring2024)"
           contents: 
             - text: 'Syllabus'
-              file: posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/index.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/Lecture01.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture02/Lecture02.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture03/Lecture03.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture04/Lecture04.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture05/Lecture05.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture06/Lecture06.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture07/Lecture07.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture08/Lecture08.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture09/Lecture09.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture10/Lecture10.qmd
-            - posts/Lectures/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture11/Lecture11.qmd
+              file: teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/Lecture01.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture02/Lecture02.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture03/Lecture03.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture04/Lecture04.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture05/Lecture05.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture06/Lecture06.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture07/Lecture07.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture08/Lecture08.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture09/Lecture09.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture10/Lecture10.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture11/Lecture11.qmd
         - text: "---"    
         - section: "ESRM6553: Advanced MVA (Fall2024)"
           contents: 
             - text: 'Syllabus'
-              file: posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/index.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Lecture07.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture09/Lecture09.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture10/Lecture10.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Lecture11.qmd
-            - posts/Lectures/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture12/Lecture12.qmd
+              file: teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture04/Lecture04.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture05/Lecture05.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture06/Lecture06.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Lecture07.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture09/Lecture09.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture10/Lecture10.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Lecture11.qmd
+            - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture12/Lecture12.qmd

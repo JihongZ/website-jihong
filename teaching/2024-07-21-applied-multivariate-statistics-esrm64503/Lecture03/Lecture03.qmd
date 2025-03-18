@@ -1,0 +1,727 @@
+---
+title: "Lecture 03: Simple, Marginal, and Interaction Effects"
+subtitle: "More about general linear model"
+author: "Jihong Zhang*, Ph.D"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2024-09-09"
+sidebar: false
+execute: 
+  echo: true
+  warning: false
+output-location: column
+format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503: Lecture 03 - Simple, Marginal, and Interaction Effects"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+---
+
+## Presentation Outline
+
+1.  Homework 1 has been posted online
+
+2.  Centering and Coding Predictors
+
+3.  Interpreting Parameters in the Model for the Means
+
+4.  Main Effects Within Interactions
+
+5.  GLM Example 1: "Regression" vs. "ANOVA"
+
+## Today's Plan
+
+1.  Unit 1: Review dummy coding and centering + A short **In-Class quiz**
+2.  Unit 2: Illustrate the GLM with interaction using on example
+3.  Unit 3: Practice R code + Q&A
+
+# Unit 1: Dummy Coding and Centering
+
+## Today's Example:
+
+-   Study examining effect of [new instruction method]{.underline} (**New**: 0=Old, 1=New) on [test performance]{.underline} (**Test**: % correct) in college [freshmen vs. senior]{.underline} (**Senior**: 0=Freshman, 1=Senior). "New by Senior" leads to 4 groups with n = 25 per group (**Group:** 1= Ctl, 2=T1, 3=T2, 4=T4).
+
+$$
+\text{Test}_p =\beta_0+\beta_1T1_p + \beta_2T2_p + \beta_3T3_p+ e_p
+$$ {#eq-1}
+
+$$
+\text{Test}_p =\beta_0+\beta_1\text{Senior}_p+\beta_2\text{New}_p+ \beta_3 \text{Senior}_p\text{New}_p+ e_p
+$$ {#eq-2}
+
+Note that @eq-1 (single group variable model) and @eq-2 (group interaction model) are equivalent models with exactly same sets of parameters.
+
+```{r}
+#| code-fold: true
+#| output-location: default
+library(ESRM64503)
+library(tidyverse)
+library(kableExtra)
+library(gt)
+data("dataTestExperiment")
+dataTestExperiment |> 
+  group_by(Senior, New) |> 
+  summarise(
+    Mean = mean(Test),
+    SD = sd(Test),
+    SE = sd(Test) / sqrt(25)
+  ) |> 
+  mutate(
+    Statistics = paste0(signif(Mean, 4), "(", round(SD, 2), ")", "[", round(SE, 2), "]")
+  ) |> 
+  dplyr::select(-c(Mean, SD, SE)) |> 
+  mutate(
+    Senior = factor(Senior, levels = 0:1, labels = c("Freshmen", "Senior")),
+    New = factor(New, levels = 0:1, labels = c("Old", "New")),
+         ) |> 
+  pivot_wider(names_from = Senior, values_from = Statistics) |> 
+  kable()
+```
+
+::: callout-note
+Test Mean (SD), \[SE = $\frac{SD}{\sqrt{n}}$\]
+:::
+
+## The Two Sides of a Model
+
+$$
+\mathbf{\text{Test}_p =\color{tomato}{\beta_0+ \beta_1T1_p +\beta_2T2_p + \beta_3T3_p}+ \color{turquoise}{e_p}}
+$$
+
+$$
+\mathbf{\text{Test}_p =\color{tomato}{\beta_0+\beta_1\text{Senior}_p+\beta_2\text{New}_p+ \beta_3 \text{Senior}_p\text{New}_p}+ \color{turquoise}{e_p}}
+$$
+
+-   [[Model for the Means (Predicted Values)]{.underline}]{style="color: tomato; font-weight: bold;"}
+
+    -   Each person's expected (predicted) outcome is a function of his/her values on x and z (and their interaction), each measured once person
+
+    -   **Estimated parameters are called fixed effects** (here, $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$); although they have a sampling distribution, they are not random variables
+
+    -   The number of fixed effects will show up in formulas as ***k*** (so ***k = 4*** here)
+
+-   [[Model for the Variance]{.underline}]{style="color: turquoise; font-weight: bold;"}
+
+    -   $e_p \sim N(0, \sigma^2_e) \rightarrow$ ONE residual (unexplained) deviation
+    -   $e_p$ has a mean of 0 with some estimated constant variance $\sigma^2_e$, is normally distributed, is unrelated across people
+    -   Estimated parameter is the residual variance only (in the model above)
+
+## General Form of Two Models
+
+-   [Model for the Means (Predicted Values): The Best Guess of Estimates]{style="color: tomato; font-weight: bold"}
+
+    $$
+    \boldsymbol{\beta} = \begin{bmatrix}{\beta_0,\\ \beta_1,\\ ...,\\\beta_K}\end{bmatrix}
+    $$
+
+-   [Model for the Variance: Stability of Estimates]{style="color: violet; font-weight:bold"}
+
+    1.  **Variance-Covariance Matrix of Regression Coefficients** (Diagnoal: variances of betas (squared standard errors of betas); Nondiagnoal: residual covariances between betas)
+
+$\mathbf{\Sigma_{\boldsymbol{\beta}}}$ =
+
+\begin{bmatrix}
+
+\color{tomato}{Var(\beta_1)} & Cov(\beta_1,\beta_2) & Cov(\beta_1,\beta_3), \cdots & \cdots & Cov(\beta_1, \beta_K) \\
+Cov(\beta_2, \beta_1)& \color{tomato}{Var(\beta_2)}&  Cov(\beta_2,\beta_3), \cdots & \cdots & Cov(\beta_2, \beta_K) \\
+\dots & \dots & \dots & \dots & \dots \\
+\dots & \dots & \dots & \dots & \dots \\
+Cov(\beta_K, \beta_1) &  Cov(\beta_K, \beta_2)&  Cov(\beta_K,\beta_3)& \cdots & \color{tomato}{Var(\beta_K)}
+
+\end{bmatrix}
+
+2.  Residual variances $\mathbf{\sigma^2_e}$
+
+## Representing the Effects of Predictor Variables
+
+-   From now on, we will think carefully about how the predictor variables enter into the [model for the means]{style="color: red;"} rather than the scales of predictors
+
+-   Why don't people always care about **the scale of predictors (centering)**:
+
+    1.  Does NOT affect the amount of outcome variance account for ($R^2$)
+
+    2.  Does NOT affect the outcomes values predicted by the model for the means (so long as the same predictor fixed effects are included)
+
+-   Why should this matter to us?
+
+    1.  Because the **Intercept = expected outcome value when X = 0**
+
+    2.  Can end up with nonsense values for intercept if X = isn't in the data
+
+    3.  We will almost always need to deliberately **adjust the scale of the predictor variables** so that they have 0 values that could be observed in our data
+
+    4.  Is much bigger deal in models with random effects (MLM) or GLM once interactions are included
+
+## Adjusting the Scale of Predictor Variables
+
+-   For **continuous** (quantitative) predictors, we will make the intercept interpretable by centering:
+
+    -   **Centering** = subtract as constant from each person's variable value so that the 0 value falls within the range of the new centered predictor variable
+
+    -   Typical $\rightarrow$ Center around predictor's mean: $X_1^\prime = X_1 - \bar{X_1}$
+
+    -   Better $\rightarrow$ Center around meaningful constant C: $X_1^\prime = X_1 - C$
+
+```{r}
+#| results: hold
+x <- rnorm(100, mean = 1, sd = 1)
+x_c <- x - mean(x)
+mean(x)
+mean(x_c)
+```
+
+------------------------------------------------------------------------
+
+-   For **categorical** (grouping) predictors, [**either we or the program**]{.underline} will make the intercept interpretable by **creating a reference group:**
+
+    -   Reference group is given a 0 value on all predictor variable created from the original group variable, such that the intercept is the expected outcome for that reference group specifically
+
+    -   Accomplished via "dummy coding" or "reference group coding"
+
+-   For **categorical** predictors with **more than two groups**
+
+    -   We need to dummy coded the group variable using `factor()` in R
+    -   For example, I dummy coded `group` variable with group 1 [as the reference]{style="color:red"}
+
+```{r}
+#| results: hold
+dataTestExperiment$Group <- factor(dataTestExperiment$Group, 
+                                   levels = 1:4, 
+                                   labels = c("Ctl", "T1", "T2", "T3"))
+mod_e0 <- lm(Test ~ Group, data = dataTestExperiment)
+summary(mod_e0)$coefficients |> kable(digits = 3) 
+```
+
+------------------------------------------------------------------------
+
+-   Variable `Group`: \# dummy variables = \# group -1
+
+    -   Dummy variables with four levels - {Control, Treatment1, Treatment2, Treatment3}:
+
+        -   d1 = *GroupT1* ([0, 1, 0, 0]{style="color: tomato;"}) $\rightarrow$ $\beta_1$ = difference between Treatment1 vs. Control
+
+        -   d2 = *GroupT2* ([0, 0, 1, 0]{style="color: tomato"}) $\rightarrow$ $\beta_2$ = difference between Treatment2 vs. Control
+
+        -   d3 = *GroupT3* ([0, 0, 0, 1]{style="color: tomato"}) $\rightarrow$ $\beta_3$ = difference between Treatment3 vs. Control
+
+```{r}
+#| output-location: default
+model.matrix(mod_e0) |> cbind(dataTestExperiment) |> show_table(font_size = 33)
+```
+
+------------------------------------------------------------------------
+
+-   Other examples of things people do to categorical predictors:
+
+    -   "**Contrast/effect coding**" $\rightarrow$ Gender: -0.5 = Man, 0.5 = Women
+
+        -   **Effect**: Man vs. Average \| Women vs. Average
+
+    -   Test other contrasts among multiple groups
+
+        -   Four-group variable: Control, Treatment1, Treatment2, Treatment3
+
+        -   **Effect**: contrast1 = {-1, .33, .33, .34}
+
+        -   Control vs. Any Treatment?
+
+## Categorical Predictors: Main Effects and Group Means
+
+-   **The single group model:**
+
+-   $$
+    \hat Y_p = \beta_0+\beta_1\text{GroupT1}_p+\beta_2\text{GroupT2}_p + \beta_3\text{GroupT3}_p
+    $$
+
+    -   d1 = *GroupT1* ([0, 1, 0, 0]{style="color: tomato;"}) $\rightarrow$ $\beta_1$ = mean difference between Treatment1 vs. Control
+    -   d2 = *GroupT2* ([0, 0, 1, 0]{style="color: tomato"}) $\rightarrow$ $\beta_2$ = mean difference between Treatment2 vs. Control
+    -   d3 = *GroupT3* ([0, 0, 0, 1]{style="color: tomato"}) $\rightarrow$ $\beta_3$ = mean difference between Treatment3 vs. Control
+
+-   How does the model give us **all possible group difference**?
+
+| Control Mean | Treatment 1 Mean  | Treatment 2 Mean  | Treatment 3 Mean  |
+|:------------:|:-----------------:|:-----------------:|:-----------------:|
+|  $\beta_0$   | $\beta_0+\beta_1$ | $\beta_0+\beta_2$ | $\beta_0+\beta_3$ |
+
+-   The model (coefficients with dummy coding) directly provides 3 differences (control vs. each treatment), and indirectly provides another 3 differences (differences between treatments)
+
+## Group differences from Dummy Codes
+
+Set $J = 4$ as number of groups:
+
+The total number of group differences is $J * (J-1) / 2 = 4*3/2 = 6$
+
+| Control Mean | Treatment 1 Mean  | Treatment 2 Mean  | Treatment 3 Mean  |
+|:------------:|:-----------------:|:-----------------:|:-----------------:|
+|  $\beta_0$   | $\beta_0+\beta_1$ | $\beta_0+\beta_2$ | $\beta_0+\beta_3$ |
+
+-   All group differences
+
+|   | Alt Group | Ref Group | Difference |
+|------------------|-----------------:|:------------------|:------------------|
+| Control vs. T1 | $(\beta_0+\beta_1)$ | \- $\beta_0$ | = $\beta_1$ |
+| Control vs. T2 | $(\beta_0+\beta_2)$ | \- $\beta_0$ | = $\beta_2$ |
+| Control vs. T3 | $(\beta_0+\beta_3)$ | \- $\beta_0$ | = $\beta_3$ |
+| T1 vs. T2 | $(\beta_0+\beta_2)$ | \-$(\beta_0+\beta_1)$ | = $\beta_2-\beta_1$ |
+| T1 vs. T3 | $(\beta_0+\beta_3)$ | \-$(\beta_0+\beta_1)$ | = $\beta_3-\beta_1$ |
+| T2 vs. T3 | $(\beta_0+\beta_3)$ | \-$(\beta_0+\beta_2)$ | = $\beta_3 - \beta_2$ |
+
+## R Code: Estimating All Group Differences in R
+
+```{r}
+#| results: hide
+#| output-location: default
+library(multcomp) # install.packages("multcomp")
+mod_e0 <- lm(Test ~ Group, data = dataTestExperiment)
+summary(mod_e0)
+```
+
+```{r}
+#| output-location: default
+contrast_model_matrix = matrix(c(
+  0,  1, 0, 0,  # Control vs. T1
+  0,  0, 1, 0,  # Control vs. T2
+  0,  0, 0, 1,  # Control vs. T3
+  0, -1, 1, 0,  # T1 vs. T2
+  0, -1, 0, 1,  # T1 vs. T3
+  0,  0,-1, 1   # T2 vs. T3
+), nrow = 6, byrow = T)
+rownames(contrast_model_matrix) <- c( "Control vs. T1", "Control vs. T2", "Control vs. T3", "T1 vs. T2", "T1 vs. T3", "T2 vs. T3" ) 
+contrast_value <- glht(mod_e0, linfct = contrast_model_matrix)
+summary(contrast_value)
+```
+
+## What the intercept should mean to you
+
+-   **The model for the means** will describe what happens to the predicted outcome Y "as X increases" or "as Z increases" and so forth
+
+-   But you wont what Y is actually supposed to be unless you know where the predictor variables are starting from!
+
+-   Therefor, the intercept is the "YOU ARE HERE" sign in the map of your data... so it should be somewhere in the map\*!
+
+```{r}
+#| echo: false
+#| fig-align: center
+TestGroup <- dataTestExperiment |> 
+  group_by(Group) |> 
+  summarise(GroupMean = mean(Test))
+ggplot(dataTestExperiment) +
+  geom_point(aes(y = Test, x = Group, col = Group)) +
+  geom_point(aes(y = GroupMean, x = Group, col = Group), 
+             data = TestGroup, size = 4) +
+  geom_label(aes(x = "Ctl", y = 80.20, label = "You are here"), nudge_x = .3, nudge_y = 1) +
+  theme_bw() +
+  theme(text = element_text(size = 33))
+```
+
+# Main Effects Within Interactions
+
+## Why Interaction Effect
+
+::::: columns
+::: {.column width="50%"}
+![](figures/paper_sample1.png){fig-align="center"}
+:::
+
+::: {.column width="50%"}
+![](figures/paper_sample2.png){fig-align="center"}
+:::
+:::::
+
+**Interaction (Moderation) effect allows researchers to investigating more complex situations - The effect of A on C is adjusted by B.**
+
+## Interaction Effects
+
+-   **Interaction = Moderation**: the effect of a predictor depends on the value of the interacting predictor
+
+    -   Either predictor can be "the moderator" (interpretive distinction only)
+
+-   Interaction can always be evaluated for any combination of categorical and continuous predictors, although
+
+    1.  In “**ANOVA**”: By default, all possible interactions are estimated
+
+        -   Software does this for you; oddly enough, nonsignificant interactions usually still are kept in the model (even if only significant interactions are interpreted)
+
+    2.  In “**ANCOVA**”: Continuous predictors (“covariates”) do not get to be part of interaction ➡️ make the “homogeneity of regression” assumption
+
+        -   There is no reason to assume this – it is a testable hypothesis!
+
+    3.  In “**Regression**”: No default – effects of predictors are as you specify them
+
+        -   Requires most thought, but gets annoying because in regression programs you usually have to manually create the interaction as an observed variable:
+
+        -   e.g., XZ_interaction = centered_X \* centered_Z
+
+## Simple / Conditional Main Effects in GLM with Interactions
+
+::: {.callout-note style="font-size: 1.5em;"}
+Main effects of predictors within interactions should remain in the model regardless of whether or not they are significant
+:::
+
+😶: $Y_p = \beta_0 + \beta_1 X_1 X_2$
+
+😄: $Y_p = \beta_0 + \beta_1X_1+\beta_2X_2+\beta_3 X_1 X_2$
+
+-   **Reason**: the role of two-way interaction is to adjust its main effects
+
+-   **However**, the original idea of a "main effect" **no longer applied** ... each main effect is **conditional** on the interacting predictor as 0 ($X_1X_2=0$)
+
+-   [Conditional Main Effect = What it is + What modified it]{style="color: tomato; font-weight: bold"}
+
+    [Simple Main Effect = The modified value of main effect]{style="color: violet; font-weight: bold"}
+
+-   **"Conditional" main effect is a general form of "Simple" main effect**:
+
+    -   $\beta_1$ is the "**simple**" main effect of X1 when X2 = 0
+
+        -   $\beta_1 + \beta_3 X_2$ is the "**conditional**" main effect of X1 depending on X2 values
+
+    -   $\beta_2$ is the "**simple**" main effect of X2 when X1 = 0
+
+        -   $\beta_2 + \beta_3 X_1$ is the "**conditional**" main effect of X2 depending on X1 values
+
+## Model-Implied Simple Main Effects
+
+To quickly compute **simple main effects**:
+
+::: {.callout-tip style="font-size: 1.6em;"}
+The trick is keeping track of [what 0 means]{style="color: tomato"} for every interacting predictor, which depends on the way each predictor is being represented, as determined by you, or by the software without you!
+:::
+
+$\text{GPA}_p = 30 + 1\times \text{Motiv}_p +2 \times\text{Exam}_p+ 0.5 \times \text{Motiv}\times \text{Exam}_p$
+
+-   GPA scores of anyone can be predicted by academic motivation, final exam scores, and their interaction by this model
+
+-   Conditional Main Effect of *Motiv* : $(1 + 0.5\times \text{Exam})$
+
+    -   Simple main effect = 1 if *Exam* = 0; = 1.5 if *Exam* = 1; = 3 if *Exam* = 4
+
+-   Conditional Main Effect of *Exam* : $(2 + 0.5\times \text{Motiv})$
+
+    -   Simple main effect = 2 if *Motiv* = 0; = 3 if *Motiv* = 2; = 4 if *Motiv* = 4
+
+## Interpretation
+
+$$
+\begin{aligned}
+\text{GPA}_p = \beta_0 + \beta_1\times \text{Motiv}_p + \beta_2 \times\text{Exam}_p+ \beta_3 \times \text{Motiv}_p \times \text{Exam}_p
+\\= 30 + 1\times \text{Motiv}_p +2 \times\text{Exam}_p+ 0.5 \times \text{Motiv}_p \times \text{Exam}_p
+\end{aligned}
+$$
+
+-   $\beta_0$: Expected GPA when motivation is 0 and exam score is 0
+
+-   $\beta_1$: Increase in GPA per unit motivation when exam score is 0
+
+-   $\beta_2$: Increase in GPA per unit exam score when motivation is 0
+
+-   $\beta_3$: Two ways of interpretation
+
+    -   **Motivation is moderator**: Increase in effect of exam scores per unit motivation
+
+        -   One unit of motivation leads to the effect of exam score $2 \rightarrow 2.5$
+
+    -   **Exam Score is moderator**: Increase in effect of motivation per unit exam score
+
+        -   One unit of exam score leads to the effect of motivation $1 \rightarrow 1.5$
+
+::: {.callout-note style="font-size: 1.6em;"}
+If interaction effect is significant, we typically report that motivation significantly moderates the effect of exam score on GPA
+:::
+
+## Why centering matters
+
+When we **centered Exam Score** with 3 as centering point, then **intercept and the main effect** of motivation will change:
+
+$$
+\begin{align}
+\text{GPA}_p = \color{tomato}{30} + \color{tomato}{1}\times \text{Motiv}_p +2 \times\text{Exam}_p+ 0.5 \times \text{Motiv}\times \text{Exam}_p
+\\= \color{tomato}{\beta_0^\prime} + \color{tomato}{\beta_1\prime} \times \text{Motiv}_p + \beta_2 \times (\text{Exam}_p-3)+ \beta_3 \times \text{Motiv}\times (\text{Exam}_p-3)
+\\= \color{red}{36} + \color{red}{2.5}\times \text{Motiv}_p +2 \times (\text{Exam}_p-3) + 0.5 \times \text{Motiv}\times (\text{Exam}_p-3)
+\end{align}
+$$
+
+-   **Trick of new coefficients**: Predicted value stay the same
+
+    -   Expected GPA score is [30 + 1\*0 + 2\*3 + 0.5\*0 = 36]{style="color: red"} when Motiv = 0 and Exam = 3
+
+    -   Expected conditional main effect of Motiv is [1 + 0.5\*3 = 2.5]{style="color: red"} when Exam = 3
+
+-   **Reason**: $\beta_0$ and $\beta_1$ are conditional on exam score while $\beta_2$ and $\beta_3$ are unconditional on exam score
+
+## Example: Main Effect for continuous centered predictors
+
+-   **Conditional** main effect for `Motiv` depending on value of `Exam`:
+
+    -   $(1 + 0.5\times\text{Exam})$ or $[2.5 + 0.5 \times(\text{Exam}-3)]$
+
+    -   **"Simple" main effect** is 1 when Exam = 0; 2.5 when Exam = 3
+
+    -   Assume centering point of Exam is **T**, we can get **the general form** of simple main effect of Motivation as:
+
+    -   $f(\beta_1,\beta_3,\text{Exam})= (\beta_1 + \beta_3*T) + \beta_3*(\text{Exam} - T) = \beta_1^{new}+\beta_3*\text{Exam}_C$
+
+    -   where new **conditional main effect** $\beta_1^{new} = \beta_1+\beta_3*T$
+
+-   Similarly, we can get the general form of conditional main effect of `Exam` as
+
+    -   $f(\beta_2,\beta_3,\text{Motiv})= (\beta_2 + \beta_3*T) + \beta_3*(\text{Motiv} - T)$
+
+    -   where new **conditional main effect** $\beta_2^{new} = \beta_2 + \beta_3 * T$
+
+## Quiz
+
+```{=html}
+<iframe width="100%" height="800px" src="https://forms.office.com/r/WubsScScRz?embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>
+```
+
+## Testing the Significance of Model-Implied Fixed Effects
+
+-   We now know how to calculate any conditional main effect:
+
+    -   Effect of interest ("**conditional" main effect**) = what it is + what modifies it
+
+    -   Output Effect (**"simple" main effect**) = what it is + what modifies it is 0
+
+-   But if we want to test whether that new effect is $\neq 0$, we also need its standard error (SE needed to get **Wald test T-value ➡️*p*-value**)
+
+-   Even if the conditional main effect is not *directly* given by the model, its estimate and SE are still *implied* by the model
+
+------------------------------------------------------------------------
+
+-   3 options to get the new conditional main effect estimates and SE
+
+    -   **Method 1: Ask the software to give it to you** using your original model
+
+        -   e.g., `glht` function in R package `multicomp`, `ESTIMATE` in SAS, `TEST` in SPSS, `NEW` in Mplus
+
+    -   **Model 2: Re-center your predictors** to the interacting value of interest (e.g., make Exam = 3 the new 0 for $\text{Exam}_C$) and re-estimate your model; repeat as needed for each value of interest
+
+    -   **Method 3: Hand calculations** (what the program is doing for you in option #1)
+
+------------------------------------------------------------------------
+
+-   Method 3 for example: Effect of Motiv = $\beta_1 + \beta_3 * \text{Exam}$
+
+    -   We have following formula to calculate the **sampling error variance** of "conditional" main effect as
+
+    -   $$
+        \mathbf{SE_{\beta_1^{New}}^2 = Var(\beta_1) + Var(\beta_3) * Exam  + 2Cov(\beta_1, \beta_3)*Exam} 
+        $$
+
+        -   Values come from "asymptotic (sampling) covariance matrix"
+
+        -   Variance of a sum of terms always includes covariance among them
+
+        -   Here, this is because what each main effect estimate could be is related to what the other main effect estimates could be
+
+        -   Note that if a main effect is unconditional, its $SE^2 = Var(\beta)$ only
+
+# Unit 2: GLM Example 1
+
+## GLM via Dummy-Coding in "Regression"
+
+```{r}
+#| output-location: default
+# Model 1: 2 X 2 predictors with 0/1 coding
+model1 <- lm(Test ~ Senior + New + Senior * New, data = dataTestExperiment)
+# Alternative
+formular_mod1 <- as.formula("Test ~ Senior + New + Senior * New")
+model1 <- lm(formular_mod1, data = dataTestExperiment)
+summary(model1)
+```
+
+```{r}
+#| output-location: default
+anova(model1)
+```
+
+::: callout-note
+These ANOVA table is displaying **marginal tests** (F-test) for the main effects. Marginal tests are for the main effect only and are not conditional on any interacting variables.
+:::
+
+## Getting Group Means as a Contrast
+
+We can get group means of test scores with Senior/Freshman by New/Old combination
+
+`glht()` requests predicted outcomes from model for the means:
+
+$$
+\mathbf{\hat{Test} =\beta_0+\beta_1Senior+\beta_2New+\beta_3SeniorNew}
+$$
+
+-   Freshmen-Old: $\mathbf{\hat{Test_1}=\beta_0*1+\beta_1*0+\beta_2*0 +\beta_3*0}$
+
+-   Freshmen-New: $\mathbf{\hat{Test_2}=\beta_0*1+\beta_1*0+\beta_2*1 +\beta_3*0}$
+
+-   Senior-Old: $\mathbf{\hat{Test_3}=\beta_0*1+\beta_1*1+\beta_2*0 +\beta_3*0}$
+
+-   Senior-New: $\mathbf{\hat{Test_4}=\beta_0*1+\beta_1*1+\beta_2*1 +\beta_3*1}$
+
+```{r}
+#| output-location: default
+contrast_model1_matrix = matrix(c(
+  1, 0, 0, 0,  # Freshman-Old
+  1, 0, 1, 0,  # Freshman-New
+  1, 1, 0, 0,  # Senior-Old
+  1, 1, 1, 1   # Senior-New
+), nrow = 4, byrow = T)
+rownames(contrast_model1_matrix) <- c( "Freshman-Old", "Freshman-New", "Senior-Old", "Senior-New") 
+means_model1 <- glht(model1, linfct = contrast_model1_matrix)
+summary(means_model1)
+```
+
+## Standard Errors of Group Means
+
+-   **Freshman-Old group** mean's standard error:
+
+$$
+\mathbf{SE^2(\hat{Test_1}) = \mathbf{SE^2(\beta_0)} = Var(\beta_0)}
+$$
+
+-   **Freshman-New group** mean's standard error:
+
+$$
+\mathbf{SE^2(\hat{Test_2}) = \mathbf{SE^2(\beta_0+\beta_2)} = Var(\beta_0) + Var(\beta_2) + 2Cov(\beta_0,\beta_2)}
+$$
+
+-   **Senior-Old group** mean's standard error:
+
+    $$
+    \mathbf{SE^2(\hat{Test}_3)} = \mathbf{SE^2(\beta_0+\beta_1)} = ??? 
+    $$
+
+-   **Senior-New group** mean's standard error:
+
+    $$
+    \mathbf{SE^2(\hat{Test}_4)} = \mathbf{SE^2(\beta_0+\beta_1+\beta_2+\beta_3)} = ??? = \sum(\Sigma_\beta) 
+    $$
+
+```{r}
+#| output-location: default
+vcov(model1)# Variance-covariance of betas
+# Standard error of freshman-old group: SE(beta_0)
+Var_Test_1 <- Var_beta_0 <- vcov(model1)[1,1]
+(SE_Test_1 <- sqrt(Var_Test_1))
+# Standard error of freshman-new group: SE(beta_0+beta_1)
+Var_beta_0 <- vcov(model1)[1,1]
+Var_beta_2 <- vcov(model1)[3,3]
+Cov_beta_0_2 <- vcov(model1)[1,3]
+Var_Test_2 <- Var_beta_0 + Var_beta_2 + 2*Cov_beta_0_2
+(SE_Test_2 <- sqrt(Var_Test_2))
+```
+
+::: callout-caution
+## Your Homework 1 - Question 1
+
+Copy and paste your R syntax abd output that calculates the **Senior-Old**'s standard errors of means (use the data and model we use in class). For example, our class syntax for Freshman-New is like:
+
+> \# R syntax
+>
+> library(ESRM64503)\
+> library(tidyverse)\
+> model1 \<- lm(Test \~ Senior + New + Senior \* New, data = dataTestExperiment)\
+> data("dataTestExperiment")\
+> Var_beta_0 \<- vcov(model1)\[1,1\]\
+> Var_beta_2 \<- vcov(model1)\[3,3\]\
+> Cov_beta_0_2 \<- vcov(model1)\[1,3\]\
+> Var_Test_2 \<- Var_beta_0 + Var_beta_2 + 2\*Cov_beta_0_2\
+> (SE_Test_2 \<- sqrt(Var_Test_2)) \
+> \
+> \# R Output\
+> \[1\] 0.5364078
+:::
+
+## Standard errors of Main Effects
+
+We can use `glht()` to automatically calculate conditional main effects and their standard errors. Or, we can manually calculate them using `vcov(model)` function, which represents the variance-covariance matrix of main effects.
+
+### Method 1: glht method
+
+```{r}
+#| output-location: default
+effect_model1_matrix = matrix(c(
+  0, 1, 0, 0,  # Senior vs. Freshmen | Old
+  0, 1, 0, 1,  # Senior vs. Freshmen | New
+  0, 0, 1, 0,  # New vs. Old | Freshmen
+  0, 0, 1, 1   # New vs. Old | Senior
+), nrow = 4, byrow = T)
+rownames(effect_model1_matrix) <- c( "beta_Senior_New0", # Conditional Main Effect of Senior given New = 0
+                                     "beta_Senior_New1", # Conditional Main Effect of Senior given New = 1
+                                     "beta_New_Senior0", # Conditional Main Effect of New given Senior = 0
+                                     "beta_New_Senior1") # Conditional Main Effect of New given Senior = 1
+effect_model1 <- glht(model1, linfct = effect_model1_matrix)
+summary(effect_model1)
+```
+
+------------------------------------------------------------------------
+
+### Method 2: vcov method
+
+**Example: Conditional main effect** **of Senior** $\mathbf{\beta_1^{Senior}}$ (Senior vs. Freshmen) when using the new method (**New = 1**)
+
+-   $$
+    \mathbf{\beta_1^{Senior} = \beta_1+\beta_3*New}
+    $$
+
+\begin{align}
+\mathbf{SE^2(\beta_1^{Senior})} &= \mathbf{SE^2(\beta_1+\beta_3*New)} \\
+&= \mathbf{Var(\beta_1) + Var(\beta_3) * New^2  + 2Cov(\beta_1, \beta_3)*New} \\
+&= \mathbf{Var(\beta_1) + Var(\beta_3)  + 2Cov(\beta_1, \beta_3)} 
+\end{align}
+
+```{r}
+#| output-location: default
+
+## conditional main effect of senior when new
+fixed_effects <- summary(model1)$coefficients
+fixed_effects
+beta_1 <- fixed_effects[2, 1]
+beta_3 <- fixed_effects[4, 1]
+(beta_1_new <- beta_1+beta_3) # conditional main effect of Senior when New = 1
+
+vcov(model1) # Variance-covariance of betas
+Var_beta_1 = vcov(model1)[2,2] # squared SE of beta1
+Var_beta_3 = vcov(model1)[4,4] # squared SE of beta3
+Cov_beta_1_3 = vcov(model1)[4,2] # residual covariance of beta1 and beta3
+Var_beta_1_new <- Var_beta_1 + Var_beta_3 * 1 + 2 * Cov_beta_1_3 * 1
+(SE_beta_1_new <- sqrt(Var_beta_1_new))
+```
+
+::: callout-caution
+## Your Homework 1 - Question 2
+
+Copy and paste your R syntax and output that calculates **the standard error of conditional main effect** of *New* (New vs. Old) when *Senior* = 1. For example, standard error of conditional main effect of *Senior* when *New* = 1 is like:
+
+> \# R syntax
+>
+> library(ESRM64503)\
+> library(tidyverse)\
+> model1 \<- lm(Test \~ Senior + New + Senior \* New, data = dataTestExperiment)\
+> data("dataTestExperiment")\
+> Var_beta_1 = vcov(model1)\[2,2\]\
+> Var_beta_3 = vcov(model1)\[4,4\]\
+> Cov_beta_1_3 = vcov(model1)\[4,2\]\
+> Var_beta_1_new \<- Var_beta_1 + Var_beta_3 \* 1 + 2 \* Cov_beta_1_3 \* 1\
+> (SE_beta_1_new \<- sqrt(Var_beta_1_new)) \
+> \
+> \# R output\
+> \[1\] 0.7585952
+:::
+
+# Unit 3: R practice and Q&A

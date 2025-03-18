@@ -14,7 +14,7 @@ website:
       - text: "<span class='menutext-note'>NOTE</span><span class='text-line text-line-note'></span>"
         file: notes.qmd
       - text: "<span class='menutext-presentation'>TALK</span><span class='text-line text-line-presentation'></span>"
-        file: presentation/presentation.qmd
+        file: presentation.qmd
       - text: "<span class='menutext-blog'>BLOG</span><span class='text-line text-line-blog'></span>"     
         file: posts.qmd 
       - text: MORE

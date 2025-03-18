@@ -1,0 +1,877 @@
+---
+title: "Lecture 11"
+subtitle: "Multidimensionality and Missing Data"
+author: "Jihong Zhang"
+institute: "Educational Statistics and Research Methods"
+title-slide-attributes:
+  data-background-image: ../Images/title_image.png
+  data-background-size: contain
+execute: 
+  echo: false
+  eval: false
+format: 
+  revealjs:
+    logo: ../Images/UA_Logo_Horizontal.png
+    incremental: false  # choose "false "if want to show all together
+    transition: slide
+    background-transition: fade
+    theme: [simple, ../pp.scss]
+    footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>
+    scrollable: true
+    slide-number: true
+    chalkboard: true
+    number-sections: false
+    code-line-numbers: true
+    code-annotations: below
+    code-copy: true
+    code-summary: ''
+    highlight-style: arrow
+    view: 'scroll' # Activate the scroll view
+    scrollProgress: true # Force the scrollbar to remain visible
+    mermaid:
+      theme: neutral
+#bibliography: references.bib
+---
+
+## Previous Class
+
+1.  Show how to estimate unidimensional latent variable models with polytomous data
+    -   Also know as [Polytomous]{.underline} I[tem response theory]{.underline} (IRT) or [Item factor analysis]{.underline} (IFA)
+2.  Distributions appropriate for polytomous (discrete; data with lower/upper limits)
+
+## Today's Lecture Objectives
+
+1.  Course evaluation
+2.  How to model multidimensional factor structures
+3.  How to estimate models with missing data
+
+## Course evaluation
+
+The course evaluation will be open on April 23 and end on May 3. It is important for me. Please make sure fill out the survey.
+
+## Example Data: Conspiracy Theories
+
+-   Today's example is from a bootstrap resample of 177 undergraduate students at a large state university in the Midwest.
+-   The survey was a measure of 10 questions about their beliefs in various conspiracy theories that were being passed around the internet in the early 2010s
+-   All item responses were on a 5-point Likert scale with:
+    1.  Strong Disagree
+    2.  Disagree
+    3.  Neither Agree nor Disagree
+    4.  Agree
+    5.  Strongly Agree
+-   The purpose of this survey was to study individual beliefs regarding conspiracies.
+-   Our purpose in using this instrument is to provide a context that we all may find relevant as many of these conspiracies are still prevalent.
+
+# Multidimensionality
+
+## More than one Latent Variable - Latent Parameter Space
+
+We need to create latent variables by specifying which items measure which latent variables in an analysis model
+
+-   This procedure Called different names by different fields:
+
+    -   Alignment (education measurement)
+
+    -   Factor pattern matrix (factor analysis)
+
+    -   Q-matrix (Question matrix; diagnostic models and multidimensional IRT)
+
+## From Q-matrix to Model
+
+The alignment provides a specification of which latent variables are measured by which items
+
+-   Sometimes we say items "load onto" factors
+
+The math definition of either of these terms is simply whether or not a latent variable appears as a predictor for an item
+
+-   For instance, item one appears to measure nongovernment conspiracies, meaning its alignment (row vector of the Q-matrix)
+
+    ``` r
+             Gov NonGov 
+    item1     0      1 
+    ```
+
+## From Q-matrix to Model (Cont.)
+
+The model for the first item is then built with only the factors measured by the item as being present:
+
+$$
+\newcommand{\bmatrix}[1]{\begin{bmatrix}#1\end{bmatrix}}
+\newcommand{\bb}[1]{\boldsymbol{#1}}
+\newcommand{\green}[1]{\color{green}{#1}}
+\newcommand{\red}[1]{\color{red}{#1}}
+f(E(Y_{p1}|\bb{\theta_p})=\mu_1 + \bb{0}*\lambda_{11}\theta_{p1} +\bb{1}*\lambda_{21}\theta_{p2} \\=\mu_1 + \lambda_{21}\theta_{p2} 
+$$
+
+Where:
+
+-   $\mu_1$ is the item intercept
+
+-   $\lambda_{\bf{1}1}$ is the factor loading for item 1 (the first subscript) loaded on factor 1 (the second subscript)
+
+-   $\theta_{p1}$ is the value of the latent variable for person *p* and factor 1
+
+The second factor is not included in the model for the item
+
+## More Q-matrix
+
+If item 1 is only measured by `NonGov`, we can map item responses to factor loadings and theta via Q-matrix
+
+$$
+\begin{align}
+f(E(Y_{p1}|\boldsymbol{\theta_p})
+&=\mu_1+q_{11}(\lambda_{11}\theta_{p1})+q_{12}(\lambda_{12}\theta_{p2})\\
+&= \mu_1 + \boldsymbol{\theta_p\text{diag}(q)\lambda_1}\\
+&= \mu_1 + [\theta_{p1}\ \ \theta_{p2}]\begin{bmatrix}0\ \ 0\\0\ \ 1\end{bmatrix}\begin{bmatrix}\lambda_{11}\\\lambda_{12}\end{bmatrix}\\
+&= \mu_1 + [\theta_{p1}\ \ \theta_{p2}]\begin{bmatrix}0\\\lambda_{12}\end{bmatrix}\\
+&= \mu_1 + \lambda_{12}\theta_{p2}
+\end{align} 
+$$
+
+Where:
+
+-   $\boldsymbol\lambda_1$ = $\begin{bmatrix}\lambda_{11}\\\lambda_{12}\end{bmatrix}$ contains all possible factor loadings for item 1 (size 2 $\times$ 1)
+
+-   $\boldsymbol\theta_p=[\theta_{p1}\ \ \theta_{p2}]$ contains the factor scores for person *p*
+
+-   $\text{diag}(\boldsymbol q_i)=\boldsymbol q_i \begin{bmatrix}1\ 0 \\0\ 1 \end{bmatrix}=[0\ \ 1]\begin{bmatrix}1\ 0 \\0\ 1 \end{bmatrix}=\begin{bmatrix}0\ \ 0 \\0\ \ 1 \end{bmatrix}$ is a diagonal matrix of ones times the vector of Q-matrix entries for item 1.
+
+## Q-matrix for Conspiracy Data
+
+``` r
+        Gov NonGov
+item1    0      1(q12)
+item2    1(q21) 0
+item3    0      1(q32)
+item4    0      1(q42)
+item5    1(q51) 0
+item6    0      1(q61)
+item7    1(q71) 0
+item8    1(q81) 0
+item9    1(q91) 0
+item10   0      1(q10,1)
+```
+
+Given the Q-matrix each item has its own model using the alignment specifications.
+
+$$
+f(E(Y_{p1}|\boldsymbol{\theta}_p))=\mu_1+\lambda_{12}\theta_{p2}\\
+f(E(Y_{p\red2}|\boldsymbol{\theta}_p))=\mu_1+\lambda_{\red{2}1}\theta_{p\red1}\\
+\cdots\\
+f(E(Y_{p\red{10}}|\bb{\theta}_p))=\mu_1+\lambda_{\red{10,}\green1}\theta_{p\red{10}}\\
+$$
+
+## Multidimensional Graded Response Model
+
+GRM is one of the most popular model for ordered categorical response
+
+$$
+P(Y_{ic}|\theta) = 1 - P^*(Y_{i1}|\theta) \ \ \text{if}\ c=1\\
+P(Y_{ic}|\theta) = P^*(Y_{i,c-1}|\theta)-P^*(Y_{i,c}|\theta) \ \ \text{if}\ 1<c<C_i\\
+P(Y_{ic}|\theta) = P^*(Y_{i,C-1}|\theta) \ \ \text{if}\ c=C_i\\
+$$where probability of response larger than $c$:
+
+$$
+P^*(Y_{i,c}|\theta) = P(Y_{i,c}>c|\theta)=\frac{\text{exp}(\red{\mu_{ic}+\lambda_{ij}\theta_{pj}})}
+{1+\text{exp}(\red{\mu_{ic}+\lambda_{ij}\theta_{pj}})}
+$$
+
+With:
+
+-   *j* denotes which factor the item loads on
+-   $C_i-1$ has ordered intercept intercepts[^1]: $\mu_1 > \mu_2 > \cdots > \mu_{C_i-1}$
+-   In `Stan`, we model item thresholds (difficulty) $\tau_{c}$ =$\mu_c$, so that $\tau_1<\tau_2<\cdots<\tau_{C_i-1}$
+
+[^1]: For example, for 5-category items, there are 4 item intercepts.
+
+## Stan Parameter Block
+
+```{stan, output.var='display'}
+#| echo: true
+parameters {
+  array[nObs] vector[nFactors] theta;       // the latent variables (one for each person)
+  array[nItems] ordered[maxCategory-1] thr; // the item thresholds (one for each item category minus one)
+  vector[nLoadings] lambda;                 // the factor loadings/item discriminations (one for each item)
+  cholesky_factor_corr[nFactors] thetaCorrL;
+}
+```
+
+Note:
+
+1.  `theta` is a array (for the MVN prior)
+2.  `thr` is the same as the unidimensional model
+3.  `lambda` is the vector of all factor loadings to be estimated (needs `nLoadings`)
+4.  `thetaCorrL` is of type `chelesky_factor_corr`, a built in type that identifies this as lower diagonal of a Cholesky-factorized correlation matrix
+
+## Stan Transformed Data Block
+
+```{stan, output.var='display'}
+#| echo: true
+transformed data{
+  int<lower=0> nLoadings = 0;                               // number of loadings in model
+  
+  for (factor in 1:nFactors){
+    nLoadings = nLoadings + sum(Qmatrix[1:nItems, factor]); // Total number of loadings to be estimated
+  }
+
+  array[nLoadings, 2] int loadingLocation;                  // the row/column positions of each loading
+  int loadingNum=1;
+  
+  for (item in 1:nItems){
+    for (factor in 1:nFactors){
+      if (Qmatrix[item, factor] == 1){
+        loadingLocation[loadingNum, 1] = item;
+        loadingLocation[loadingNum, 2] = factor;
+        loadingNum = loadingNum + 1;
+      }
+    }
+  }
+}
+```
+
+Note:
+
+1.  The `transformed data {}` block runs prior to the Markov Chain;
+    -   We use it to create variables that will stay constant throughout the chain
+2.  Here, we count the number of loadings in the Q-matrix `nLoadings`
+    -   We then process the Q-matrix to tell `Stan` the row and column position of each loading in `loadingMatrix` used in the `model {}` block
+3.  This syntax works for any Q-matrix (but only has main effects in the model)
+
+## Stan Transformed Parameters Block
+
+```{stan, output.var='display'}
+#| echo: true
+transformed parameters{
+  matrix[nItems, nFactors] lambdaMatrix = rep_matrix(0.0, nItems, nFactors);
+  matrix[nObs, nFactors] thetaMatrix;
+  
+  // build matrix for lambdas to multiply theta matrix
+  for (loading in 1:nLoadings){
+    lambdaMatrix[loadingLocation[loading,1], loadingLocation[loading,2]] = lambda[loading];
+  }
+  
+  for (factor in 1:nFactors){
+    thetaMatrix[,factor] = to_vector(theta[,factor]);
+  }
+  
+}
+```
+
+Note:
+
+1.  The `transformed parameters {}` block runs prior to each iteration of the Markov chain
+    -   This means it affects the estimation of each type of parameters
+2.  We use it to create:
+    -   `thetaMatrix` (converting `theta` from an array to a matrix)
+    -   `lambdaMatrix` (puts the loadings and zeros from the Q-matrix into correct position)
+        -   `lambdaMatrix` initialized at zero so we just have to add the loadings in the correct position
+
+## Stan Model Block - Factor Scores
+
+```{stan, output.var='display'}
+#| echo: true
+#| code-line-numbers: 1,3-4,8
+model {
+  lambda ~ multi_normal(meanLambda, covLambda); 
+  thetaCorrL ~ lkj_corr_cholesky(1.0);
+  theta ~ multi_normal_cholesky(meanTheta, thetaCorrL);    
+  
+  for (item in 1:nItems){
+    thr[item] ~ multi_normal(meanThr[item], covThr[item]);            
+    Y[item] ~ ordered_logistic(thetaMatrix*lambdaMatrix[item,1:nFactors]', thr[item]);
+  }
+}
+```
+
+-   `thetaMatrix` is a matrix of latent variables for each person with $N \times J$. Generated by MVN with factor mean and factor covaraince
+
+    $$
+    \bb{\Theta} \sim \text{MVM}(\bb\mu_\Theta, \Sigma_\Theta)
+    $$
+
+```{stan, output.var='display'}
+#| echo: true
+transformed parameters{
+  matrix[nObs, nFactors] thetaMatrix;
+  for (factor in 1:nFactors){
+      thetaMatrix[,factor] = to_vector(theta[,factor]);
+  }
+}
+```
+
+We need to convert `theta` from array to a matrix in `transformed parameters` block.
+
+## Stan Model Block - Factor Loadings
+
+From `Q` matrix to loading location matrix `Loc`
+
+$$
+Q= \bmatrix{
+ 0\      1\\ 
+ 1\      0\\
+ 0\      1\\
+ 0\      1\\
+ 1\      0\\
+ 0\      1\\
+ 1\      0\\
+ 1\      0\\
+ 1\      0\\
+ 1\      1\\
+}
+\text{Loc} = \bmatrix{
+1\ \ 2\\
+2\ \ 1\\
+3\ \ 2\\
+4\ \ 2\\
+5\ \ 1\\
+6\ \ 2\\
+7\ \ 1\\
+8\ \ 1\\
+9\ \ 1\\
+10\ 1\\
+10\ 2\\
+}
+$$
+
+$$
+\bb\Lambda_{[\text{Loc}[j, 1], \text{Loc[j,2]}]}=\lambda_{jk} \\
+\bb\Lambda= \bmatrix{
+ 0\      .3\\ 
+ .5\      0\\
+ 0\      .5\\
+ 0\      .3\\
+ .7\      0\\
+ 0\      .5\\
+ .2\      0\\
+ .7\      0\\
+ .8\      0\\
+ .3\      .2\\
+}
+$$
+
+Where $j$ denotes the index of lambda.
+
+```{stan, output.var='display'}
+#| echo: true
+#| code-line-numbers: 1-2,8
+model {
+  lambda ~ multi_normal(meanLambda, covLambda); 
+  thetaCorrL ~ lkj_corr_cholesky(1.0);
+  theta ~ multi_normal_cholesky(meanTheta, thetaCorrL);    
+  
+  for (item in 1:nItems){
+    thr[item] ~ multi_normal(meanThr[item], covThr[item]);            
+    Y[item] ~ ordered_logistic(thetaMatrix*lambdaMatrix[item,1:nFactors]', thr[item]);
+  }
+}
+```
+
+```{stan, output.var='display'}
+#| echo: true
+transformed data{
+  int<lower=0> nLoadings = 0;                   // number of loadings in model
+  for (factor in 1:nFactors){
+    nLoadings = nLoadings + sum(Qmatrix[1:nItems, factor]);
+  }
+  array[nLoadings, 2] int loadingLocation;      // the row/column positions of each loading
+  int loadingNum=1;
+  for (item in 1:nItems){
+    for (factor in 1:nFactors){
+      if (Qmatrix[item, factor] == 1){
+        loadingLocation[loadingNum, 1] = item;
+        loadingLocation[loadingNum, 2] = factor;
+        loadingNum = loadingNum + 1;
+      }
+    }
+  }
+}
+```
+
+-   Create a location matrix for factor loadings `loadingLocation` with first column as item index and second column as factor index;
+
+```{stan, output.var='display'}
+#| echo: true
+transformed parameters{
+  matrix[nItems, nFactors] lambdaMatrix = rep_matrix(0.0, nItems, nFactors);
+  for (loading in 1:nLoadings){
+    lambdaMatrix[loadingLocation[loading,1], loadingLocation[loading,2]] = lambda[loading];
+  }
+}
+```
+
+-   `lambdaMatrix` puts the proposed loadings and zeros from the Q-matrix into correct position
+
+## Stan Data Block
+
+```{stan, output.var='display'}
+#| echo: true
+data {
+  
+  // data specifications  =============================================================
+  int<lower=0> nObs;                            // number of observations
+  int<lower=0> nItems;                          // number of items
+  int<lower=0> maxCategory;       // number of categories for each item
+  
+  // input data  =============================================================
+  array[nItems, nObs] int<lower=1, upper=5>  Y; // item responses in an array
+
+  // loading specifications  =============================================================
+  int<lower=1> nFactors;                                       // number of loadings in the model
+  array[nItems, nFactors] int<lower=0, upper=1> Qmatrix;
+  
+  // prior specifications =============================================================
+  array[nItems] vector[maxCategory-1] meanThr;                // prior mean vector for intercept parameters
+  array[nItems] matrix[maxCategory-1, maxCategory-1] covThr;  // prior covariance matrix for intercept parameters
+  
+  vector[nItems] meanLambda;         // prior mean vector for discrimination parameters
+  matrix[nItems, nItems] covLambda;  // prior covariance matrix for discrimination parameters
+  
+  vector[nFactors] meanTheta;
+}
+```
+
+Note:
+
+1.  Changes from unidimensional model:
+    -   `meanTheta`: Factor means (hyperparameters) are added (but we will set these to zero)
+    -   `nFactors`: Number of latent variables (needed for Q-matrix)
+    -   `Qmatrix`: Q-matrix for model
+
+## Stan Generated Quantities Block
+
+```{stan, output.var='display'}
+#| echo: true
+generated quantities{ 
+  array[nItems] vector[maxCategory-1] mu;
+  corr_matrix[nFactors] thetaCorr;
+   
+  for (item in 1:nItems){
+    mu[item] = -1*thr[item];
+  }
+  
+  
+  thetaCorr = multiply_lower_tri_self_transpose(thetaCorrL);
+  
+}
+```
+
+Note:
+
+-   Converts thresholds to intercepts `mu`
+
+-   Creates `thetaCorr` by multiplying Cholesky-factor lower triangle with upper triangle
+
+    -   We will only use the parameters of `thetaCorr` when looking at model output
+
+## Estimation in Stan
+
+We run `Stan` the same way we have previously:
+
+```{r}
+#| eval: true
+#| echo: false
+library(here)
+library(cmdstanr)
+current_dir <- "posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Code"
+save_dir <- "/Users/jihong/Library/CloudStorage/OneDrive-Personal/2024 Spring/ESRM6553 - Advanced Multivariate Modeling/Lecture11"
+modelOrderedLogit_samples <- readRDS(here(save_dir, "modelOrderedLogit_samples.RDS"))
+```
+
+```{r}
+#| eval: false
+#| echo: true
+modelOrderedLogit_samples = modelOrderedLogit_stan$sample(
+  data = modelOrderedLogit_data,
+  seed = 191120221,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 2000,
+  iter_sampling = 2000,
+  init = function() list(lambda=rnorm(nItems, mean=5, sd=1))
+)
+```
+
+Note:
+
+-   Smaller chain (model takes a lot longer to run)
+-   Still need to keep loadings positive initially
+
+## Analysis Results
+
+```{r}
+#| eval: true
+#| echo: true
+# checking convergence
+max(modelOrderedLogit_samples$summary(.cores = 6)$rhat, na.rm = TRUE)
+
+# item parameter results
+print(modelOrderedLogit_samples$summary(variables = c("lambda", "mu", "thetaCorr"), .cores = 6) ,n=Inf)
+```
+
+## Results: Factor Loadings
+
+```{r}
+#| eval: true
+#| echo: true
+#| code-fold: true
+Lambda_postmean <- modelOrderedLogit_samples$summary(variables = "lambda", .cores = 5)$mean
+Q = matrix(c(
+0, 1,
+1, 0,
+0, 1,
+0, 1,
+1, 0,
+0, 1,
+1, 0,
+1, 0,
+1, 0,
+0, 1), ncol=2, byrow = T)
+Lambda_mat <- Q
+i = 0
+for (r in 1:nrow(Q)) {
+  for (c in 1:ncol(Q)) {
+    if (Q[r, c]) {
+      i = i + 1
+      Lambda_mat[r, c] <- Lambda_postmean[i]
+    }
+  }
+}
+colnames(Lambda_mat) <- c("F1", "F2")
+rownames(Lambda_mat) <- paste0("Item", 1:10)
+Lambda_mat
+```
+
+## Results: Factor Correlation
+
+```{r}
+#| eval: true
+#| echo: false
+# correlation posterior distribution
+library(bayesplot)
+mcmc_trace(modelOrderedLogit_samples$draws(variables = "thetaCorr[1,2]"))
+```
+
+------------------------------------------------------------------------
+
+```{r}
+#| eval: true
+#| echo: false
+mcmc_dens(modelOrderedLogit_samples$draws(variables = "thetaCorr[1,2]"))
+```
+
+## More visualization: EAP Theta Estimates
+
+Plots of draws from person 1
+
+```{r}
+#| eval: true
+#| echo: false
+# example theta posterior distributions
+thetas = modelOrderedLogit_samples$summary(variables = c("theta"), .cores = 6)
+mcmc_pairs(x = modelOrderedLogit_samples$draws(variables = c("theta[1,1]", "theta[1,2]")))
+```
+
+------------------------------------------------------------------------
+
+Relationships of sample EAP of Factor 1 and Factor 2
+
+```{r}
+#| eval: true
+#| echo: false
+plot(x = thetas$mean[1:177], y = thetas$mean[178:354], xlab="Theta 1", ylab="Theta 2")
+```
+
+## Wrapping Up
+
+1.  Stan makes multidimensional latent variable models fairly easy to implement
+    -   LKJ priors allows for scale identification for standardized factors
+    -   Can use the code mentioned above to model any type of Q-matrix
+2.  But...
+    -   Estimation is relatively slower because latent variable correlation takes more time to converge.
+
+# Missing Data
+
+## Dealing with Missing Data in Stan
+
+If you ever attempted to analyze missing data in `Stan`, you likely received an error message:
+
+`Error: Variable 'Y' has NA values.`
+
+That is because, by default, `Stan` does not model missing data
+
+-   Instead, we have to get `Stan` to work with the data we have (the values that are not missing)
+
+-   That does not mean remove cases where any observed variables are missing
+
+## Example Missing Data
+
+To make things a bit easier, I'm only turning one value into missing data (the first person's response to the first item)
+
+```{r}
+#| eval: true
+#| echo: false
+# Import data ===============================================================================
+current_dir <- "teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture11/Code"
+save_dir <- "/Users/jihong/Library/CloudStorage/OneDrive-Personal/2024 Spring/ESRM6553 - Advanced Multivariate Modeling/Lecture11"
+conspiracyData = read.csv(here("teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture07/Code", "conspiracies.csv"))
+```
+
+```{r}
+#| eval: true
+#| echo: true
+
+conspiracyItems = conspiracyData[,1:10]
+conspiracyItems[1, 1] = NA
+```
+
+Note that all code will work with as missing as you have
+
+-   Observed variables do have to have some values that are not missing
+
+## Stan Syntax: Multidimensional Model
+
+We will use the previous syntax with graded response modeling.
+
+The Q-matrix this time will be a single column vector (one dimension)
+
+```{r}
+#| eval: true
+#| echo: true
+Qmatrix = matrix(data = 1, nrow = ncol(conspiracyItems), ncol = 1)
+
+Qmatrix
+```
+
+## Stan Model Block for Missing Values
+
+```{stan, output.var='display'}
+#| echo: true
+model {
+  
+  lambda ~ multi_normal(meanLambda, covLambda); 
+  thetaCorrL ~ lkj_corr_cholesky(1.0);
+  theta ~ multi_normal_cholesky(meanTheta, thetaCorrL);    
+  
+  
+  for (item in 1:nItems){
+    thr[item] ~ multi_normal(meanThr[item], covThr[item]);            
+    Y[item, observed[item, 1:nObserved[item]]] ~ ordered_logistic(thetaMatrix[observed[item, 1:nObserved[item]],]*lambdaMatrix[item,1:nFactors]', thr[item]);
+  }
+  
+  
+}
+```
+
+Notes:
+
+-   Big change is in `Y`:
+
+    -   Previous: `Y[item]`
+
+    -   Now: `Y[item, observed[item,1:nObserveed[item]]]`
+
+        -   The part after the comma is a list of who provided responses to the item (input in the data block)
+
+-   Mirroring this is a change to `thetaMatrix[observed[item, 1:nObserved[item]],]`
+
+    -   Keeps only the latent variables for the persons who provide responses
+
+## Stan Data Block
+
+```{stan, output.var = 'display'}
+#| echo: true
+data {
+  
+  // data specifications  =============================================================
+  int<lower=0> nObs;                            // number of observations
+  int<lower=0> nItems;                          // number of items
+  int<lower=0> maxCategory;       // number of categories for each item
+  array[nItems] int nObserved;
+  array[nItems, nObs] array[nItems] int observed;
+  
+  // input data  =============================================================
+  array[nItems, nObs] int<lower=-1, upper=5>  Y; // item responses in an array
+
+  // loading specifications  =============================================================
+  int<lower=1> nFactors;                                       // number of loadings in the model
+  array[nItems, nFactors] int<lower=0, upper=1> Qmatrix;
+  
+  // prior specifications =============================================================
+  array[nItems] vector[maxCategory-1] meanThr;                // prior mean vector for intercept parameters
+  array[nItems] matrix[maxCategory-1, maxCategory-1] covThr;  // prior covariance matrix for intercept parameters
+  
+  vector[nItems] meanLambda;         // prior mean vector for discrimination parameters
+  matrix[nItems, nItems] covLambda;  // prior covariance matrix for discrimination parameters
+  
+  vector[nFactors] meanTheta;
+}
+```
+
+## Data Block Notes
+
+1.  Two new arrays added:
+    -   `array[nItems] int Observed` : The number of observations with non-missing data for each item
+    -   `array[nItems, nObs] array[nItems] int observed` : A listing of which observations have non-missing data for each item
+        -   Here, the size of the array is equal to the size of the data matrix
+        -   If there were no missing data at all, the listing of observations with non-missing data would equal this size
+2.  Stan uses these arrays to only model data that are not missing
+    -   The values of observed serve to select only cases in Y that are not missing
+
+## Building Non-Missing Data Arrays
+
+To build these arrays, we can use a loop in R:
+
+```{r}
+#| eval: true
+#| echo: true
+observed = matrix(data = -1, nrow = nrow(conspiracyItems), ncol = ncol(conspiracyItems))
+nObserved = NULL
+for (variable in 1:ncol(conspiracyItems)){
+  nObserved = c(nObserved, length(which(!is.na(conspiracyItems[, variable]))))
+  observed[1:nObserved[variable], variable] = which(!is.na(conspiracyItems[, variable]))
+}
+```
+
+For the item that has the first case missing, this gives:
+
+```{r}
+#| echo: true
+#| eval: true
+nObserved[1]
+observed[,1] # row as person, column as number of observation of this item
+```
+
+The item has 176 observed responses and one missing
+
+-   Entries 1 through 176 of `observed[,1]` list who has non-missing data
+
+-   The 177th entry of `observed[,1]` is -1 (but won't be used in Stan)
+
+## Array Indexing
+
+We can use the values of `observed[,1]` to have Stan only select the corresponding data points that are non-missing
+
+To demonstrate, in R, here is all of the data for the first item
+
+```{r}
+#| eval: true
+#| echo: true
+conspiracyItems[,1]
+```
+
+And here, we select the non-missing using the index values in `observed` :
+
+```{r}
+#| eval: true
+#| echo: true
+observed[1:nObserved[1], 1]
+conspiracyItems[observed[1:nObserved, 1], 1]
+```
+
+The values of `observed[1:nObserved,1]` leads to only using the non-missing data
+
+## Change Missing NA to Nonsense Values
+
+Finally, we must ensure all data into Stan have no NA values
+
+-   Dr. Templin's recommendation: Change all NA values to something that cannot be modeled
+
+    -   Picking `-1` here: it cannot be used with `ordered_logit()` likelihood
+
+-   This ensures that Stan won't model the data by accident
+
+    -   But, we must remember this if we are using the data in other steps like PPMC
+
+```{r}
+#| echo: true
+#| eval: false
+# Fill in NA values in Y
+Y = conspiracyItems
+for (variable in 1:ncol(conspiracyItems)){
+  Y[which(is.na(Y[,variable])),variable] = -1
+}
+```
+
+## Running Stan
+
+With our missing values denotes, we can run Stan as we have previously
+
+```{r}
+#| echo: true
+#| eval: false
+modelOrderedLogit_data = list(
+  nObs = nObs,
+  nItems = nItems,
+  maxCategory = maxCategory,
+  nObserved = nObserved,
+  observed = t(observed),
+  Y = t(Y), 
+  nFactors = ncol(Qmatrix),
+  Qmatrix = Qmatrix,
+  meanThr = thrMeanMatrix,
+  covThr = thrCovArray,
+  meanLambda = lambdaMeanVecHP,
+  covLambda = lambdaCovarianceMatrixHP,
+  meanTheta = thetaMean
+)
+
+
+modelOrderedLogit_samples = modelOrderedLogit_stan$sample(
+  data = modelOrderedLogit_data,
+  seed = 191120221,
+  chains = 4,
+  parallel_chains = 4,
+  iter_warmup = 2000,
+  iter_sampling = 2000,
+  init = function() list(lambda=rnorm(nItems, mean=5, sd=1))
+)
+```
+
+## Data Analysis Results
+
+```{r}
+#| eval: true
+#| echo: false
+modelOrderedLogitNoMiss_samples <- readRDS(here(save_dir, "modelOrderedLogitNoMiss_samples.RDS"))
+```
+
+```{r}
+#| eval: true
+#| echo: true
+# checking convergence
+max(modelOrderedLogitNoMiss_samples$summary(.cores = 6)$rhat, na.rm = TRUE)
+# item parameter results
+print(modelOrderedLogitNoMiss_samples$summary(variables = c("lambda", "mu"), .cores = 6) ,n=Inf)
+```
+
+## Factor Loadings Comparison
+
+```{r}
+#| eval: true
+#| echo: true
+#| code-fold: true
+LambdaNomissing_postmean <- modelOrderedLogitNoMiss_samples$summary(variables = "lambda", .cores = 5)$mean
+
+matrix(LambdaNomissing_postmean, ncol = 1)
+Lambda_mat
+```
+
+## Wrapping Up
+
+Today, we showed how to skip over missing data in Stan
+
+-   Slight modification needed to syntax
+
+-   Assumes missing at random
+
+Of note, we could (but didn't) also build models for missing data in Stan
+
+-   Using the transformed parameters block
+
+Finally, Stan's missing data methods are quite different from JAGS
+
+-   JAGS imputes any missing data at each step of a Markov chain using Gibbs sampling.
+
+## Resources
+
+-   [Dr. Templin's slide](https://jonathantemplin.github.io/Bayesian-Psychometric-Modeling-Course-Fall2022/lectures/lecture04e/04e_Modeling_Multidimensional_Latent_Variables#/from-q-matrix-to-model-1)

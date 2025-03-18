@@ -3,7 +3,7 @@ title: 'Teaching | Jihong Zhang'
 subtitle: ''
 listing:
   - id: lectures
-    contents: posts/Lectures/2025*/*_syllabus.[Rq]md
+    contents: teaching/2025*/*_syllabus.[Rq]md
     sort: "date desc"
     type: grid
 sidebar: id-history

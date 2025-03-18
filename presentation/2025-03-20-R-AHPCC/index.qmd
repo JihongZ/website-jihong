@@ -1,5 +1,6 @@
 ---
-title: "RSTUDIO & HIGH PERFORMANCE COMPUTING WORKSHOP"
+title: "Rstudio & High Performance Computing Workshop"
+description: "University of Arkansas"
 format: html
 author: [Nicole Bonge*, Jihong Zhang]
 date: "2025-03-20"

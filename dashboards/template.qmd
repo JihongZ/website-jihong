@@ -3,9 +3,6 @@ title: "MMM 2023 Archive"
 author: "Jihong Zhang"
 format: 
   dashboard:
-    theme: 
-      light: yeti
-      dark: materia
     orientation: columns
 ---
 
