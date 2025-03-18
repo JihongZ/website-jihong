@@ -1,5 +1,5 @@
 ---
-title: "Communities in Psychometric Networks?"
+title: "Psychometric Networks: Community = Clustering?"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
   
