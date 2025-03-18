@@ -280,7 +280,7 @@ kable(cor_cov_mat, digits = 3)
 
 -   Two formulas for the variance (about the same when $N$ is larger):
 
-    ::: columns
+    ::::: columns
     ::: {.column width="50%"}
     $$
     S^2_Y= \frac{\Sigma_{p=1}^{N}(Y_p-\bar Y)}{N-1}
@@ -291,7 +291,7 @@ kable(cor_cov_mat, digits = 3)
     $$
     S^2_Y= \frac{\Sigma_{p=1}^{N}(Y_p-\bar Y)}{N}$$ {#eq-biased-var}
     :::
-    :::
+    :::::
 
 -   @eq-unbiased-var: **Unbiased** or "sample"
 
@@ -473,7 +473,7 @@ $$
 
     -   **Human words**: "Unscaled (Unstandardized)" Correlation
 
-    ::: columns
+    ::::: columns
     ::: {.column width="50%"}
     $$
     S^2_{Y_1, Y_2}= \frac{\sum_{p=1}^{N}(Y_{1p}-\bar Y_1)(Y_{2p}-\bar Y_2)}{N-1}
@@ -484,7 +484,7 @@ $$
     $$
     S^2_{Y_1, Y_2}= \frac{\sum_{p=1}^{N}(Y_{1p}-\bar Y_1)(Y_{2p}-\bar Y_2)}{N}$$
     :::
-    :::
+    :::::
 
 -   **Variance is a special Covariance so that the variable covary with itself**
 
@@ -592,7 +592,7 @@ $$
 
 ## Example: All models
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 -   Model 1
 
@@ -628,7 +628,7 @@ $$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p$$
 
 $$\hat{\text{Weight}_p}=\beta_0+\beta_1\text{HeightC}_p+\beta_2\text{Female}_p \\ + \beta_3\text{HeigthCxFemale}_p$$
 :::
-:::
+:::::
 
 ## Model 1: Empty Model
 
@@ -1019,7 +1019,7 @@ ggplot(dataSexHeightWeight, aes(x = heightC, y = weightLB, color = female)) +
 
 ------------------------------------------------------------------------
 
-::: columns
+::::: columns
 ::: {.column width="20%"}
 <iframe src="https://giphy.com/embed/b8RfbQFaOs1rO10ren" width="480" height="398" style frameBorder="0" class="giphy-embed" allowFullScreen>
 
@@ -1046,7 +1046,7 @@ data.frame(
   theme(text = element_text(size = 20))
 ```
 :::
-:::
+:::::
 
 ------------------------------------------------------------------------
 

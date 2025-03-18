@@ -7,7 +7,6 @@ execute:
   warning: false
 output-location: default
 code-annotations: below
-highlight-style: "nord"
 format: 
   html:
     code-tools: true

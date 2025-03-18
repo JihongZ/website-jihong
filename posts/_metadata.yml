@@ -13,6 +13,6 @@ format:
     page-layout: article
     grid:
       sidebar-width: 350px
-      body-width: 800px
+      body-width: 900px
       margin-width: 350px
       

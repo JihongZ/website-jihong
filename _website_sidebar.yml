@@ -3,8 +3,6 @@ website:
   sidebar:
     - id: id-blog
       style: floating
-      grid:
-        body-width: 900px
     - id: id-lec6990v # https://github.com/quarto-dev/quarto-cli/discussions/8117
       style: floating
       collapse-level: 0
@@ -20,6 +18,8 @@ website:
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Lecture06.qmd
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture07/ESRM6990V_Lecture07.qmd
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture08/ESRM6990V_Lecture08.qmd      
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture09/ESRM6990V_Lecture09.qmd      
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture12/ESRM6990V_Lecture12.qmd      
         - section: "Exercise"
           contents:
             - file: teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Exercise02.qmd
@@ -44,6 +44,7 @@ website:
             - teaching/2025-01-13-Experiment-Design/Lecture06/ESRM64103_Lecture06.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture07/ESRM64103_Lecture07.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture08/ESRM64103_Lecture08.qmd      
+            - teaching/2025-01-13-Experiment-Design/Lecture09/ESRM64103_Lecture09.qmd      
         - section: "Exercise"
           contents:
             - file: teaching/2025-01-13-Experiment-Design/Lecture01/MakeFriendsWithR.qmd

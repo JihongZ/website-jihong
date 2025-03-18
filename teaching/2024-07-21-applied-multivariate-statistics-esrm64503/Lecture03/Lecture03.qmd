@@ -273,7 +273,7 @@ The total number of group differences is $J * (J-1) / 2 = 4*3/2 = 6$
 -   All group differences
 
 |   | Alt Group | Ref Group | Difference |
-|------------------|-----------------:|:------------------|:------------------|
+|------------------|-----------------:|:-----------------|:-----------------|
 | Control vs. T1 | $(\beta_0+\beta_1)$ | \- $\beta_0$ | = $\beta_1$ |
 | Control vs. T2 | $(\beta_0+\beta_2)$ | \- $\beta_0$ | = $\beta_2$ |
 | Control vs. T3 | $(\beta_0+\beta_3)$ | \- $\beta_0$ | = $\beta_3$ |
@@ -330,20 +330,6 @@ ggplot(dataTestExperiment) +
 ```
 
 # Main Effects Within Interactions
-
-## Why Interaction Effect
-
-::::: columns
-::: {.column width="50%"}
-![](figures/paper_sample1.png){fig-align="center"}
-:::
-
-::: {.column width="50%"}
-![](figures/paper_sample2.png){fig-align="center"}
-:::
-:::::
-
-**Interaction (Moderation) effect allows researchers to investigating more complex situations - The effect of A on C is adjusted by B.**
 
 ## Interaction Effects
 

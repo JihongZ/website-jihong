@@ -1,7 +1,9 @@
 ---
 title: "Publications | Jihong Zhang"
 sidebar: false
-toc: false
+toc: true
+toc-location: left
+toc-depth: 3
 execute: 
   eval: true
   echo: false
@@ -77,29 +79,36 @@ plot_ly(data = pubs_count_ts) |>
 
 @fig-citation shows the number of citation by year.
 
+
+
 ## {{< fa pencil >}} Journal Articles
 
-::: nice-paragraph
 ```{r}
 #| echo: false
 #| results: asis
 #| warning: false
 
 # https://github.com/sonsoleslp/sonsoleslp.github.io/blob/main/publications.qmd
-leading_year_icon = " ⁑ "
+leading_year_icon = ""
 pubs_formated <- pubs$pubs_formated
 for (y in 1:nrow(pubs_count_byyear)) {
-  print(h3(paste0(leading_year_icon, pubs_count_byyear$year[y], leading_year_icon), style="color: #72994E"))
+  year_tag <- paste0(leading_year_icon, pubs_count_byyear$year[y], leading_year_icon)
+  print(tags$section(id = year_tag, class = "level3",
+                     h3(year_tag, style="color: #72994E", 
+                        class = "anchored", `data-anchor-id` = year_tag)))
   
   index_min = ifelse(y == 1, 1, pubs_count_byyear$n_cum[y-1] + 1)
   index_max = pubs_count_byyear$n_cum[y]
   for (i in index_min:index_max) {
     cat("\n\n")
-    print(tags$ul(pubs_formated[i], a(class = "fa-brands fa-google-scholar fa-sm", href = pubs$URL[i], style="color: #74C0FC;")) , style="padding-left: 3rem")
+    print(tags$ul(pubs_formated[i], 
+                  a(class = "fa-brands fa-google-scholar fa-sm", 
+                    href = pubs$URL[i], style="color: #74C0FC;")) , 
+          style="padding-left: 3rem")
   }
 }
 ```
-:::
+
 
 ## Citations
 

@@ -29,7 +29,9 @@ website:
 format:
   html:
     grid:
-        body-width: 900px
+      sidebar-width: 350px
+      body-width: 900px
+      margin-width: 350px
     csl: assets/apa.csl
     theme: 
       light: 
