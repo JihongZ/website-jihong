@@ -29,12 +29,6 @@ website:
 format:
   html:
     csl: assets/apa.csl
-    ## Page layout (see https://quarto.org/docs/output-formats/page-layout.html#html-page-layout)
-    grid:
-      sidebar-width: 200px
-      body-width: 1000px
-      margin-width: 400px # page navigation
-      gutter-width: 1.5em
     theme: 
       light: 
         - assets/rwds.scss

@@ -4,3 +4,15 @@
 author: Jihong Zhang <a href="https://orcid.org/0000-0003-2820-3734"><img src="/images/ORCID-iD_icon_24x24.png" alt=""/></a>
 number-sections: true
 number-depth: 3
+format:
+  html:
+    toc-depth: 3
+    toc-expand: true
+    toc-location: left
+    page-layout: article
+    grid:
+      sidebar-width: 350px
+      body-width: 800px
+      margin-width: 350px
+sidebar: 
+  style: docked

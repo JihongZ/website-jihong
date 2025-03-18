@@ -22,8 +22,6 @@ format:
   html:
     code-tools: false
     code-line-numbers: false
-    toc-depth: 2
-    toc-expand: true
     code-fold: true
     code-summary: "Click this to see R code"
 ---
