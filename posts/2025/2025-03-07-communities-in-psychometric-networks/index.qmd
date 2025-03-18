@@ -99,7 +99,7 @@ qgraph::qgraph(getmatrix(mod1, "omega"),
 
 ## Big Problem in the network
 
-[A]{.bigger}s said in Eiko's post [@friedTutorialHowIdentify2016] and I cited here – authors sometimes *over-interpret* the network visualization of their data that some meaningful modules exist. This over-interpretation may have Type I error (mistakenly cluster nodes with acutally weak connections in a community) or Type II error (fail to cluster nodes with strong connection into a community). In other words, researchers found that relying on visual inspection of network structure can not obtain reliable conclusion about which nodes should be clustered together and which ones should not be clustered, especially in a complicated network structure (say \> 20 nodes).
+[A]{.bigger}s said in Eiko's post [@friedTutorialHowIdentify2016] and I cited here – authors sometimes *over-interpret* the network visualization of their data that some meaningful modules exist. This over-interpretation may have Type I error (mistakenly cluster nodes with actually weak connections in a community) or Type II error (fail to cluster nodes with strong connection into a community). In other words, researchers found that relying on visual inspection of network structure can not obtain reliable conclusion about which nodes should be clustered together and which ones should not be clustered, especially in a complicated network structure (say \> 20 nodes).
 
 Identification of node clusters is not a new topic, which is typically called "*Community Detection*" in graph theory [@fortunatoCommunityDetectionGraphs2010]. This problem arises due to a phenomenon called "Community Structure"[@girvanCommunityStructureSocial2002] or "Clustering" was found in varied types of networks. This community structure has two characteristics:
 
@@ -117,7 +117,7 @@ For example, within a social network with each person as node and social relatio
 There are many previous studies comparing different community detection [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm in the framework of latent factor analysis. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
 | Algorithm | Feature | Citation |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Walktrap | random walks | @ponsComputingCommunitiesLarge2006 |
 | Infomap | random walks | @rosvallMapsRandomWalks2008 |
 | Fast-greedy | hierarchical clustering; modularity-based | @clausetFindingCommunityStructure2004 |
@@ -170,3 +170,78 @@ cal_mbe <- function(K, K_hat) {
   return(mbe)
 }
 ```
+
+## Example: Accuracy and Stability for Fast Greedy and Walktrap
+
+For illustration, we can examine the differences in accuracy and stability between the fast-greedy method and the walktrap method due to the sampling error. The sample data is the Big-five questionnaire dataset (N=2800). The bootstrapping resampling method with 100 replications and 10% total sample size is used for the analysis.
+
+For evaluation criteria, the standardized deviation (SD) for two methods was used to examine the stability; PC, MAE, MBE for two methods were used to examine the accuracy.
+
+```{r exp1, cache=TRUE}
+#| warning: false
+#| message: false
+#| code-fold: false
+#| code-summary: "Community Detection for Bootstrapping Resampled Samples"
+Data <- bfi %>% 
+  select(A1:A5, C1:C5, E1:E5, N1:N5, O1:O5) %>% 
+  na.omit # Let's remove missingness (otherwise use Estimator = "FIML)
+
+library(igraph)
+
+ten_perc_N = floor(nrow(Data) / 10)
+K_wt = rep(NA, 100) # placeholder of N of community of Walktrap
+K_fg = rep(NA, 100) # placeholder of N of community of Fast-greedy
+
+for (i in 1:100) {
+  
+  set.seed(1234 + i)
+  sampled_cases <- Data[sample(x = 1:nrow(Data), size = ten_perc_N), ]
+  
+  # Define variables:
+  vars <- names(Data)
+  
+  # Saturated estimation:
+  mod_sparsed <- ggm(sampled_cases, vars = vars) %>% runmodel %>% stepup %>% prune
+  
+  ## Get edge weights
+  omega_mat <- getmatrix(mod_sparsed, "omega")
+  
+  ## Convert to igraph object from adjcent matrix
+  ggm_igraph <- graph_from_adjacency_matrix(adjmatrix = abs(omega_mat), weighted = TRUE, mode = "undirected")
+  
+  ## Apply Walktrap / Fast Greedy Community Detection Algoritm 
+  ggm_wt <- cluster_walktrap(ggm_igraph)
+  ggm_fg <- cluster_fast_greedy(ggm_igraph)
+  
+  ## Get number of detected communities 
+  K_wt[i] = length(ggm_wt)
+  K_fg[i] = length(ggm_fg)
+}
+```
+
+```{r}
+report <- data.frame(
+  Algorithm = c("Walktrap", "Fast-Greedy"),
+  PC = sapply(list(K_wt, K_fg), \(x) cal_pc(x, rep(5, length(x))) ),
+  MAE = sapply(list(K_wt, K_fg), \(x) cal_mae(x, rep(5, length(x))) ),
+  MBE = sapply(list(K_wt, K_fg), \(x) cal_mbe(x, rep(5, length(x))) )
+)
+kableExtra::kable(report)
+```
+
+```{r}
+summary_tbl <- data.frame(
+  Algorithm = c("Walktrap", "Fast-Greedy"),
+  Min = sapply(list(K_wt, K_fg), min),
+  Max = sapply(list(K_wt, K_fg), max),
+  Mean = sapply(list(K_wt, K_fg), mean),
+  SD = sapply(list(K_wt, K_fg), sd)
+)
+kableExtra::kable(summary_tbl)
+```
+
+::: callout-note
+## Interpretation
+
+Overall, the fast-greedy method performs better than the walktrap method given its higher value of PC and lower absolute values of MAE and MBE across 100 bootrapping resampling itearations with the $\frac{1}{10}$ sample size. The fast-greedy is also more stable than the walktrap given smaller variability ($\mathrm{SD_{FG}}=.65$; $\mathrm{SD_{WT}}=1.13$).
+:::
