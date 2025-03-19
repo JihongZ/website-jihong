@@ -1,0 +1,90 @@
+---
+title: |
+  Summary \ 
+  of \ 
+  Accomplishments
+date: "2025-03-18"  
+author: "Jihong Zhang"
+from-details: |
+  Jihong Zhang \ 
+  Assistant Professor \
+  Educational Statistics and Research Methods\
+format: 
+  html: default
+  fireletter-typst: default
+---
+
+To whom it may concern,
+
+# Research (70%)
+
+My research focuses on developing better ways to analyze data in education, psychology, and health sciences. I create statistical methods to improve how we measure learning, mental health, and other complex behaviors. I also build computer software to make these methods easier to use for researchers and professionals.
+
+I improve statistical models that help researchers better understand student learning and psychological traits. My work on Bayesian diagnostic classification (Zhang, Templin, & Liang, 2024) enhances how we assess student learning profiles, making evaluations more reliable. I also explore psychological network modeling (Zhang & Liang, 2024) as an alternative to traditional scoring methods, providing clearer insights into dynamics among psychological traits. These improvements make assessments more accurate and useful in real-world research.
+
+Beyond developing new methods, I apply these techniques to address important challenges in psychology and education. My study on the psychological network analysis of adolescent eating disorders (Zhang et al., 2024) highlights key links between emotional regulation and social interactions, helping inform early intervention efforts. Additionally, my collaborative work on test reliability (Jiang et al., 2024) ensures that educational assessments are fair and precise. By bridging theory and practice, my research improves how we measure and understand human behavior.
+
+To make these statistical tools more accessible, I have also developed user-friendly software. My developed software, **shinyDegSEM** (Zhang & Jiang, 2024), helps researchers analyze gene expression data using network and structural equation modeling. This tool allows users to explore complex data relationships without requiring advanced programming skills, making sophisticated analysis more widely available.
+
+## Publication
+
+-   9 published journal articles (see the [full list](https://jihongzhang.org/research/publications.html#2024) online)
+
+    -   4 first-authored articles (3 peer-reviewed, 1 pre-print)
+
+-   5 under-reviewed articles (online first; revised)
+
+-   3 academic presentations (see the list [here](https://jihongzhang.org/presentation.html%22))
+
+-   1 software program (ShinyDegSEM, see [GitHub](https://github.com/JihongZ/shinyDegSEM%22) page)
+
+-   Journal List:
+
+    -   Methodological
+        -   Journal of Educational Measurement
+        -   Behavior Research Methods
+        -   Machine Learning, Natural Language Processing, and Psychometrics\
+        -   PsyArXiv Preprints
+    -   Empirical
+        -   Journal of Affective Disorders (IF is 4.8)
+        -   International Journal of Eating Disorders (IF is 3.5, with a 5-year IF of 4.0.)
+        -   Assessment (IF is 3.5)
+        -   Journal of Clinical Psychology (IF is 2.5)
+        -   Frontiers in Education (IF is 2.1)
+
+::: callout-tip
+Journals in the mathematical sciences have relatively low IF, see the reason [here](%22https://academia.stackexchange.com/questions/206329/why-do-statistics-journals-generally-have-low-impact-factors-long-publication-t%22).
+:::
+
+## Grant
+
+-   1 funded grant
+    -   2024 WE CARE Team Up Grant: Mapping the Dynamics of Physical Literacy (Co-PI)
+-   2 submitted grants
+    -   Spencer Foundation Small Research Grants program (PI, \$35,329)
+    -   NSF: Methodology, Measurement, and Statistics program (PI, \$468,178)
+
+# Teaching (20%)
+
+I have designed my statistics courses to be interactive, flexible, and accessible, ensuring that students engage deeply with the material. Each session includes carefully selected readings and guided reflection questions. To enhance accessibility, I use the R package **{Quarto}** to create dynamic, HTML-based lecture slides and exercise that can be viewed online, downloaded as PDFs, or navigated interactively. This multi-format approach supports diverse learning styles and encourages active participation in complex statistical topics.
+
+-   Course
+    -   ESRM 6553: Advanced Multivariate Analysis (see [Interactive Website](%22https://jihongzhang.org/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus.html%22))
+    -   ESRM 64503: Applied Multivariate Analysis (see [Interactive Website](%22https://jihongzhang.org/teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus.html%22))
+
+![Screenshot of one interactive exercise (see website [here](%22https://jihongzhang.org/teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture09/ESRM6990V_Lecture09.html#histograms-and-binwidth%22))](exercise.png)
+
+-   Advising
+    -   3 Doctoral Dissertation Committee (Member)
+    -   2 Directed Individual/Independent Study (Advisor; Mentor)
+    -   1 Master Thesis Committee (Member)
+
+# Service (10%)
+
+-   University
+    -   2 College level
+        -   Rstudio & High-Performance Workshop (Co-Host, see more [details](%22https://jihongzhang.org/presentation/2025-03-20-R-AHPCC/index.html%22))
+        -   Lightening Presentation (Presenter, see more [details](%22https://jihongzhang.org/presentation/2024-10-23-Lighting-Presentation/index.html#/title-slide%22))
+-   External
+    -   AERA Cognition and Assessment SIG (Nominated Secretary)
+    -   AERA/NCME Conference and Journal ad hoc reviewers

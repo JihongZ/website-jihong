@@ -71,7 +71,7 @@ plot_ly(data = pubs_count_ts) |>
   layout(
     paper_bgcolor = "#FAF9F6",
     plot_bgcolor='#FAF9F6',
-    title = "Jihong: Number Publications by Year",
+    title = "Jihong: Number of Publications by Year",
     xaxis = list(title = ""),
     yaxis = list(title = "Number of publications")
   )
