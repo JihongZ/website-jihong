@@ -31,6 +31,8 @@ format:
     code-fold: false
     code-tools: false
     css: _extensions/nareal/tachyons/css/tachyons.min.css
+    grid:
+      body-width: 1000px
 ---
 
 ::: {#hero-heading .nice-paragraph}

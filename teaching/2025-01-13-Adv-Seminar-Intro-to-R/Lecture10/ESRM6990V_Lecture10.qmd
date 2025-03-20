@@ -1,0 +1,323 @@
+---
+title: "Lecture 10: Interactive Visualization of Data"
+subtitle: "`plotly` package"
+date: "2025-03-19"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+output-location: default
+code-annotations: below
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 0
+    fig-align: center
+  uark-revealjs:
+    scrollable: true
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: false
+    footer: "ESRM 64503"
+    slide-number: c/t
+    tbl-colwidths: auto
+    output-file: slides-index.html
+    out.width: "100%"
+filters: 
+  - webr
+---
+
+::: objectives
+## Overview
+
+- Introduction to Plotly
+- Advanced Plot Types
+- Customization Techniques
+- Interactivity Features
+- Integration with Other Tools
+- Performance Optimization
+:::
+
+## Introduction to Plotly
+
+1.  Plotly is an open-source JavaScript library that enables the creation of interactive, publication-quality plots in R. It supports various chart types, including line plots, scatter plots, bar charts, histograms, and more. Interactive plots enhance data exploration and presentation by allowing users to engage directly with visualizations.
+
+2. The `plotly` package is built on top of the `htmlwidgets` framework, which allows R users to create interactive web-based visualizations using JavaScript libraries.
+
+### plotly package
+
+-   This lecture includes example code from [Chapter 2 - Overview](https://plotly-r.com/overview) in [Book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/), which has more details about `plotly` package.
+
+-   The tutorial "[Introduction to Plotly](https://rpubs.com/eshel_s/plotlytutorial)" by Susan Eshelman offers a foundational overview of creating interactive plots using the Plotly package in R.
+
+### Basic Information
+
+`plotly` R package is powered by the Javascript libray *plotly.js*. A `plotly` object is intialized with a `plot_ly()` function.
+
+```{r}
+library(plotly)
+library(ggplot2)
+head(diamonds)
+```
+
+::: callout-note
+-  Within below code block, `plot_ly()` tries to find a sensible geometric representation of that information for
+
+-   Note that column name is formated with `~Name` in `plot_ly()`, which is different from `ggplot2` package `Name` or `vars(Name)`.
+:::
+
+```{r}
+#| layout-ncol: 1
+#| fig-cap:
+#|   - "Plot 1"
+#|   - "Plot 2"
+#|   - "Plot 3"
+plot_ly(diamonds, x=~cut)
+plot_ly(diamonds, x=~cut, y=~clarity, colors="Accent")
+plot_ly(diamonds, x=~cut, color=~clarity, colors="Accent")
+```
+
+-   To specify the color directly, use `I()` function to declar the color value as "asis".
+
+```{r}
+plot_ly(diamonds, x=~cut, 
+        color=I("tomato"), 
+        stroke=I("royalblue"), 
+        span = I(3)) |> 
+layout(title = "Histogram with I() function")
+```
+
+
+### Translate ggplot2 to plotly
+
+In @fig-plotly-1, `ggplotly()` can translate a `ggplot2` object into a plotly object.
+
+```{r}
+#| label: fig-plotly-1
+p <- ggplot(diamonds, aes(x=log(carat), y=log(price))) + 
+  geom_hex(bins = 100)
+ggplotly(p)
+```
+
+### `add_` as layers and `|>` as connection
+
+Plotly implements geoms in a similar fashion as ggplot2, functions that start in add\_ add a layer to the plot (e.g.: add_lines, add_bars), making it easy to combine series into a single chart, as in @fig-plotly-2.
+
+```{r}
+#| label: fig-plotly-2
+#| fig-cap: "Plotly with add_ and |> as connection"
+plot_ly(mtcars, x=~disp) |> 
+  add_markers(y=~mpg, text = rownames(mtcars)) |> 
+  add_lines(y=~fitted(loess(mpg ~ disp)))
+```
+
+
+## Advanced Plot Types
+
+### 3D Scatter and Surface Plots
+
+Visualizing three-dimensional data can provide deeper insights into complex datasets.
+
+```{r}
+library(plotly)
+
+# Sample data
+x <- rnorm(100)
+y <- rnorm(100)
+z <- rnorm(100)
+
+# 3D Scatter Plot
+fig <- plot_ly(x = ~x, y = ~y, z = ~z, type = 'scatter3d', mode = 'markers')
+fig
+```
+
+### Heatmaps and Contour Plots
+
+Heatmaps and contour plots are effective for representing data density and gradients.
+
+```{r}
+# Sample data
+z <- matrix(rnorm(100), nrow = 10)
+
+# Heatmap
+heatmap <- plot_ly(z = ~z, type = 'heatmap')
+heatmap
+```
+
+## Customization Techniques
+
+### Theming and Templates
+
+Utilizing pre-defined themes and creating custom templates ensures consistent styling across multiple plots.
+
+```{r}
+# Sample data
+x <- c('A', 'B', 'C')
+y <- c(10, 15, 13)
+
+# Manually setting dark theme colors
+fig <- plot_ly(x = ~x, y = ~y, type = 'bar', 
+               marker = list(color = 'lightblue')) |>
+  layout(title = list(text = 'Custom Themed Bar Chart', 
+                      font = list(color = 'white')),
+         plot_bgcolor = 'black',
+         paper_bgcolor = 'black',
+         font = list(color = 'white'))
+
+fig
+```
+
+### Annotations and Shapes
+
+Adding informative annotations and geometric shapes can highlight significant data points or regions.
+
+```{r}
+# Sample data
+x <- c(1, 2, 3, 4)
+y <- c(10, 11, 12, 13)
+
+# Line Plot with Annotation
+fig <- plot_ly(x = ~x, y = ~y, type = 'scatter', mode = 'lines') |>
+  layout(title = 'Annotated Line Plot',
+         annotations = list(
+           x = 2, y = 11, text = "Important Point", showarrow = TRUE
+         ))
+fig
+```
+
+## Interactivity Features
+
+### Hover and Click Events
+
+Interactive features such as hover and click events can display additional information or trigger specific actions upon user interaction.
+
+```{r}
+# Sample data
+x <- c('A', 'B', 'C')
+y <- c(10, 15, 13)
+
+# Bar Chart with Hover Info
+fig <- plot_ly(x = ~x, y = ~y, type = 'bar', text = ~paste('Value: ', y),
+               hoverinfo = 'text')
+fig
+```
+
+### Sliders and Dropdowns
+
+Incorporating interactive controls like sliders and dropdowns allows users to dynamically filter or modify the data displayed.
+
+```{r}
+
+
+# Sample data
+x <- c(1, 2, 3, 4, 5)
+y1 <- c(1, 3, 5, 7, 9)
+y2 <- c(2, 4, 6, 8, 10)
+
+# Line Plot with Dropdown
+fig <- plot_ly() |>
+  add_trace(x = ~x, y = ~y1, type = 'scatter', mode = 'lines', name = 'Line 1') |>
+  add_trace(x = ~x, y = ~y2, type = 'scatter', mode = 'lines', name = 'Line 2') |>
+  layout(
+    title = 'Line Plot with Dropdown',
+    updatemenus = list(
+      list(
+        y = 0.8,
+        buttons = list(
+          list(method = "restyle",
+               args = list("visible", list(TRUE, FALSE)),
+               label = "Line 1"),
+          list(method = "restyle",
+               args = list("visible", list(FALSE, TRUE)),
+               label = "Line 2"),
+          list(method = "restyle",
+               args = list("visible", list(TRUE, TRUE)),
+               label = "Both")
+        )
+      )
+    )
+  )
+fig
+```
+
+## Integration with Other Tools
+
+### Shiny Applications
+
+Integrating Plotly plots within Shiny apps enables the development of interactive web applications.
+
+```{r}
+#| eval: false
+library(shiny)
+
+
+ui <- fluidPage(
+  plotlyOutput("plot")
+)
+
+server <- function(input, output) {
+  output$plot <- renderPlotly({
+    plot_ly(x = ~rnorm(100), type = 'histogram')
+  })
+}
+
+shinyApp(ui, server)
+```
+
+### R Markdown
+
+Embedding interactive plots in R Markdown documents facilitates dynamic reporting.
+
+```yaml
+---
+title: "Interactive Plot in R Markdown"
+output: html_document
+---
+```
+
+```{r plotly_example, echo=FALSE}
+plot_ly(x = ~rnorm(100), type = 'histogram')
+```
+
+
+## Performance Optimization
+
+### Efficient Data Handling
+
+Managing large datasets effectively ensures responsive and efficient plotting.
+
+```{r}
+
+
+# Sample large data
+x <- rnorm(1e6)
+
+# Histogram with Binning
+fig <- plot_ly(x = ~x, type = 'histogram', nbinsx = 100)
+fig
+```
+
+### Reducing Render Time
+
+Optimizing plot rendering times can be achieved by simplifying complex visuals or using appropriate data sampling techniques.
+
+```{r}
+
+
+# Sample data
+x <- rnorm(10000)
+y <- rnorm(10000)
+
+# Scatter Plot with Reduced Marker Size
+fig <- plot_ly(x = ~x, y = ~y, type = 'scatter', mode = 'markers',
+               marker = list(size = 2))
+fig
+```
+
+## Conclusion
+
+Incorporating advanced features of Plotly into your data visualization workflow can significantly enhance the interactivity and 

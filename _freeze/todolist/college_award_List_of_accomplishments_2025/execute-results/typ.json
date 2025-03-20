@@ -1,0 +1,15 @@
+{
+  "hash": "5a038f396b24fc52898a0afac60d23bd",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"List of Accomplishments in Scholarship, Teaching, and Service\"\nauthor: \"Jihong Zhang, Assistant Professor\"\ndate: \"2025 Mar 18\"\naffliation: \"Educational Statistics and Research Methods\"\nformat: PrettyTypst-typst\n---\n\n\n\n## Research\n\n-   \n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": null,
+    "postProcess": false
+  }
+}

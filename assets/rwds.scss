@@ -99,13 +99,22 @@ $teal: #419599;
 $pink:  #e3abdb;
 $freeze-purple: #e5eaf5;
 
+// 青花瓷主题
+$shen-qing: #212A54; // 深青色
+$qian-qing: #234C73; // 浅青色
+$cui-qing: #263E47; // 翠青色
+$dan-qing: #F2F8FF; // 淡青色
+$hutao-hong: #793328; // 胡桃红
+$dan-feng: #FFF8F0; // 淡粉色
+$tao-you: #C0BAB6; // 陶釉色
+
 $soft-color1: #FAF9F6;
 $dark-sage-green: #98A08D;
 $darkteal: #008080;
 $lightwhite: #c0c0c0;
 $gray: #64605f;
 
-$primary: $blue !default;
+$primary: $shen-qing !default;
 $warning: #EE6331;
 $info: #419599;
 $success: #72994E;
@@ -131,6 +140,9 @@ h1, h2, h3, .callout-title-container {
   letter-spacing: 1.6px;
   font-weight: normal;
 }
+
+// Add shadow to images
+img { box-shadow: 4px 4px 8px 0px rgba( 0, 0, 0, 0.2 );}
 
 body, p, li, a { // main font family of post content
   font-family: "Tenor Sans", sans-serif;
@@ -187,7 +199,7 @@ div.quarto-title.column-body {
 }
 
 div.quarto-post a {
-  color: #002642;
+  color: $shen-qing;
   text-decoration: none;
 }
 
@@ -212,60 +224,56 @@ pre.sourceCode.bash::before {
   font-family: 'Source Code Pro', monospace;
   font-weight: bold;
   font-size: var(--bs-body-font-size);
-  background-color: #f2eff6;
+  background-color: $dan-qing;
+  color: $shen-qing;
   display: block;  /* Avoid extra spacing */
-  padding: 5px 5px;
+  padding: 1px 1px;
 }
 
 pre.sourceCode.r, 
 pre.sourceCode.yaml, 
 pre.sourceCode.markdown, 
 pre.sourceCode.bash {
-  background: #f8f8f8;
+  font-size: var(--bs-body-font-size);
   border-radius: 4px;
-  padding: 0em; // Remove spacing around ::before content
+  padding: 1px 1px; // Remove spacing around ::before content
 }
 pre.sourceCode.bash {
-  border: solid 1px $gray;
-  border-left: solid 5px $gray;
+  border-left: solid 3px $gray;
 }
 pre.sourceCode.r {
-  border: solid 1px $caution;
-  border-left: solid 5px $caution;
+  border-left: solid 3px $qian-qing;
 }
 pre.sourceCode.markdown {
-  border: solid 1px $green;
-  border-left: solid 5px $green;
+  border-left: solid 3px $green;
 }
 pre.sourceCode.yaml {
-  border: solid 1px $indigo;
-  border-left: solid 5px $indigo;
+  border-left: solid 3px $indigo;
 }
 
 /* output color for R chunck */
 div.cell-output::before {
-  content:"Output";
-  background-color: #f2eff6;
+  content:"⩥ OUT";
+  font-size: var(--bs-body-font-size);
+  background-color: $hutao-hong;
+  color: $dan-qing;
   display: block;
   font-weight: bold;
-  padding: 3px 5px;
-  font-family: 'Taub Sans', monospace;
+  padding: 1px 1px;
+  font-family: 'MiSans';
 }
 div.cell-output {
-  background: #f8f8f8;
+  background: $dan-feng;
   border-radius: 4px;
-  border: solid 1px #360084;
-    border-left-width: 1px;
-    border-left-style: solid;
-    border-left-color: rgb(54, 0, 132);
-  border-left: solid 5px #360084;
+  border-left: solid 3px $hutao-hong;
+  font-family: 'Source Code Pro', monospace;
 }
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
 
 .icon-line {
   display: block;
-  background: #2e4963;
+  background: $shen-qing;
   width: 100%;
   height: 3px;
   margin: auto;
