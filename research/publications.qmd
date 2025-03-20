@@ -9,7 +9,7 @@ execute:
   echo: false
 format: 
   html:
-    code-tools: true
+    code-tools: false
     code-fold: false
     comments: false
 freeze: false    
