@@ -11,7 +11,7 @@ listing:
     page-size: 3
     feed: true
   - id: lectures
-    contents: posts/Lectures/*/*_syllabus.[Rq]md
+    contents: teaching/**/*_syllabus.[Rq]md
     fields: [image, date, title]
     sort: "date desc"
     type: grid
