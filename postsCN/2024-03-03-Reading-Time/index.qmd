@@ -1,7 +1,7 @@
 ---
 title: "闲散时光"
 subtitle: ""
-author: 旅客
+author: 学徒
 date: "Mar 3 2024" 
 date-modified: "Mar 3 2024"
 categories:

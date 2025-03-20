@@ -1,10 +1,11 @@
 ---
 title: 那些在R中进行并行计算的坑
-author: R package build
+author: "学徒"
 date: '2022-06-18'
 slug: ke-of-parallel-processing-in-R
 categories:
-  - blog
+  - R语言
+  - 并行运算
 tags:
   - Clustering
   - Parallel
@@ -15,12 +16,21 @@ featured: no
 toc: true
 ---
 
+::: callout-important
+## 2025-02-58 更新
+关于HPC集群的使用方法，请参考[这篇文章](../../notes/2024-01-14-how-to-use-uark-hpc/index.qmd)。
+
+关于如何在阿里云部署Shiny App，请参考[这篇文章](../2021-07-05-shiny-app-on-ali-cloud/index.qmd)。
+:::
+
 ```{r, echo=FALSE}
 options(blogdown.protect.math = FALSE)
 ```
 
+::: objectives
+## 前情提要
 最近在疯狂做模拟数据分析，需要大量在R中进行并行运算。在这过程中被R无情的虐的体无完肤，所以整理一下踩过的坑，希望能帮助到有相同困难的盆友。
-
+:::
 ## `doParallel`与`foreach`
 
 这两个包一般合并在一起使用，可以实现类似与`for`循环这样的结构。总的来说，`foreach`包还是非常有效率和简洁的。并行计算的模板是`foreach(args) %dopar% {expression}`。

@@ -27,7 +27,7 @@ website:
             file: dashboards/template.qmd  
     tools:
       - icon: 'bi bi-globe-asia-australia'
-        file: postsCN.qmd
+        file: postsCN/postsCN.qmd
 #      - icon: "bi bi-person-square"
 #        file: uploads/Curriculum_Vitae.pdf
 #      - icon: twitter

@@ -29,7 +29,7 @@ format:
 ::: objectives
 ## Overview {.unnumbered}
 
-A friend of mine recently asked me one question about network community: in her recent research, a network without community defined has different estimation with the one with community define. In this blog, I try to dive a little deeper into community issues in network analysis.
+A friend of mine recently asked me one question about network community: in her recent research, a network without community defined has different estimation with the one with community define. Why this happens? In this blog, I try to dive a little deeper into community issues in psychometric network analysis.
 
 This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) aims to talk about varied aspects of *community detection* in psychometric network analysis, including the following questions:
 
@@ -104,7 +104,18 @@ For example, within a social network of one person, one individual is considered
 
 [B]{.bigger}ack to the community conceptualization in psychological area, especially psychiatry, the community is usually associated with *syndromes* or *comorbidity*. According to [Wikipedia](https://en.wikipedia.org/wiki/Syndrome), a syndrome is a set of medical signs and symptoms which are correlated with each other and often associated with a particular disease or disorder. Some psychological syndromes may present comorbidity of symptoms, which refers to simultaneous presence of two or more psychological symptoms in a same individual within a time frame (co-occurring, concurrent). In a earlier paper of @borsboomStructureDSM2002, Borsboom took the DSM-IV ([Diagnostic and Statistical Manual of Mental Disorders](https://en.wikipedia.org/wiki/Diagnostic_and_Statistical_Manual_of_Mental_Disorders)) as example and argued that "... Commodity appears to be, at least partially and in particular for mood, anxiety, and substance abuse disorders, encoded in the structure of the diagnostic criteria themselves" [@borsboomStructureDSM2002], but he did not link the "commodity" of a cluster of highly-connected symptoms to the statistical concept "community" in network graph. It is until the paper of @cramerComorbidityNetworkPerspective2010, the symptom community as a local connectivity was considered as *syndromes*, while symptoms clusters are interconnected by individual symptoms ("bridge symptoms") that form the boundaries between the various basic syndromes of psychiatric disorders [@goekoopNetworkViewPsychiatric2014]. @goekoopNetworkViewPsychiatric2014 also emphasized that the presence of bridge symptoms that connects symptom clusters (communities / syndromes) plays a key role that can be identified as potential targets for treatment.
 
-## Community Detection Algorithm
+## Identify Community
+
+There are two ways of defining communities in psychometric network: the exploratory method and the confirmatory method. The exploratory method has a long root in the graphical theory (e.g., exploratory graphical analysis). Exploratory graphical analysis (EGA) makes use of community detection algorithm to detect potential communities in a complex network structure.
+
+In psychometric literature, however, confirmatory network analysis has become more and more popular [@du]. Although the value of exploratory research remains indisputable, the field of psychology is facing an increasing demand for theory- and hypothesis-testing research, which serves to confirm, refute, or refine existing theories [@du; @fried2020]. For example, many "communities" should correspond to theoretical constructs in psychology or education settings. That is, psychopathology syndrome mentioned above must have one precise definition in DSM-V for the clinician references, so relevant indicators (nodes) then should be grouped into one community prior to the network analysis. The network modeling with pre-defined communities is called confirmatory network analysis. As said by @hevey2018, I cited here, "... much of the research in psychological networks has been based on exploratory data analyses to generate networks; there is a need to progress towards confirmatory network modelling wherein hypotheses about network structure are formally tested."
+
+@fried2020 mentioned three challenges in psychology research which support that the confirmatory method preferred than the exploratory one:
+
+1.  The statistical and theoretical models are conflated without concrete evidence of the existence of psychological constructs.
+2.  
+
+### Community Detection Algorithm
 
 Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
@@ -121,7 +132,7 @@ Numerous prior studies have compared different community detection methods in va
 | Triangulated Maximally Filtered Graph (TMFG) | score based | @massaraNetworkFilteringBig2017 |
 | Parallel Analysis | EFA |  |
 
-: Different types of community detection algorithm {#tbl-algorithm tbl-colwidths="\[35,40,25\]"}
+: Different types of community detection algorithms {#tbl-algorithm tbl-colwidths="\[35,40,25\]"}
 
 @tbl-algorithm shows the list of community detection algorithms and their features. In the framework of psychometric assessment (\< 50 nodes, balanced item number per factor), the best-performing algorithms are GLASSO with unidimentional adjustment, Louvian, Fast-greedy, Walktrap, and parallel analysis. The evaluation criteria include:
 

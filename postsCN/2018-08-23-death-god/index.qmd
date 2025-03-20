@@ -1,6 +1,6 @@
 ---
 title: "阎罗大王"
-author: 旅客
+author: 学徒
 date: '2018-08-23'
 categories:
   - 闲谈

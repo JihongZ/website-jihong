@@ -1,6 +1,7 @@
 ---
 title: "Rstudio & High Performance Computing Workshop"
 description: "University of Arkansas"
+toc: false
 format: html
 author: [Nicole Bonge*, Jihong Zhang]
 date: "2025-03-20"
@@ -19,12 +20,15 @@ date: "2025-03-20"
 
 -   **Location**: GRAD 342
 -   **Time**: 5:00 - 6:00PM, March 20, 2025
+-   **Materials**: [Nicole's Online Handout](https://nbonge.quarto.pub/r-in-ahpc/)
 
 [Add to Google Calendar](https://calendar.google.com/calendar/r/eventedit?text=AHPCC+RStudio+Workshop&dates=20250320T170000CDT/20250320T180000CDT&details=&location=GRAD+342){.btn .btn-primary}
 :::
 
 ::: callout-caution
 ### Prerequisite
+
+To follow up the tutorial, it is recommended to have:
 
 -   **AHPCC Account**: Click [here](https://hpc.uark.edu/hpc-support/user-account-requests/index.php) for requesting an account on the AHPCC clusters.
 -   **Basic R kownledge**

@@ -1,11 +1,11 @@
 ---
 title: "家庭存储服务器（NAS）构建日志"
 subtitle: ""
-author: 旅客
+author: 学徒
 date: "Jul 23 2024" 
 date-modified: "Jul 23 2024"
 categories:
-  - 日常
+  - NAS
 format: 
   html:
     code-tools: true
@@ -14,6 +14,12 @@ citation:
   type: webpage
   issued: 2024-03-3
 ---
+
+::: callout-important
+## 2025-03-20 更新
+
+已放弃。
+:::
 
 ## 个人需要
 

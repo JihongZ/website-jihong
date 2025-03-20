@@ -1,0 +1,13 @@
+---
+title: '博客｜杂然'
+subtitle: "天地有正气，杂然赋流形。"
+listing:
+  contents: ./**/*.[Rq]md
+  categories: cloud
+  sort: "date desc"
+  fields: [date, title, author]
+page-layout: full
+execute: 
+  warning: false
+  message: false
+---

@@ -1,10 +1,12 @@
 ---
-title: 【使用心得】如何在阿里云部署Shiny App
-author: Jihong Zhang
+title: 如何在阿里云部署Shiny App
+author: 学徒
 date: '2021-07-05'
 slug: Shiny app on Ali Cloud
 categories:
-  - blog
+  - Shiny
+  - R语言
+  - 云计算
 tags:
   - Shiny
 subtitle: ''
