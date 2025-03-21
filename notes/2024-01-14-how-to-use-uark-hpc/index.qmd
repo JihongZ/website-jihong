@@ -436,16 +436,20 @@ The workflow for this job task is like this:
 
 ### Overall Procedure
 
-First of all, we need to create a `masterJob.R` file[^1] with two main aims: (1) to create multiple bash job files with each corresponds to run one or multiple analysis models; (2) to submit the data analysis job to the computing server. In `masterJob.R`, there may exist nested "[*for loop*]{.underline}" with datasets/design factors as iterators.
+First of all, we need to create a master job file, `masterJob.R` file[^1], for two purposes: 
 
-[^1]: which could be replaced as bash file if you are more familiar with bash language
+1. to create multiple bash job files with each corresponds to run one or multiple analysis models; 
 
-For example, below is an example `masterJob.R` file. Iterator `i` represents the index of data set.
+2. to submit the data analysis job to the computing server. In `masterJob.R`, there may exist nested "[*for loop*]{.underline}" with datasets/design factors as iterators.
+
+[^1]: which could be replaced as bash file `.sh` or a python code `.py` if you prefer these two languages.
+
+The content of `masterJob.R` depends on a template job file `.sh`, your execution files (e.g., `.r`), data sets (e.g., `.csv`). For example, below is an example `masterJob.R` file. Iterator `i` represents the index of data set.
 
 ```{r filename="masterjob_All.R"}
 #| eval: false
 #| code-fold: false
-#| code-line-numbers: true
+
 library(tidyverse)
 root_path = "~/Downloads/JZ/" # change to folder in your HPC
 for (i in 1:10) {
@@ -487,7 +491,7 @@ Alternatively, we can set up the masterJob file to run one model only:
 ```{r filename="masterJob_AlignsedSV_asym100.R"}
 #| eval: false
 #| code-fold: false
-#| code-line-numbers: true
+
 library(tidyverse)
 root_path = "~/Downloads/JZ/"
 for (i in 1:10) {
@@ -526,7 +530,7 @@ Part I of this modeling file is to read in two arguments of `Rscript` specified 
 ```{r, filename="Analysis_ModelA_AlignedSV_sym1000.R"}
 #| code-fold: false
 #| eval: false
-#| code-line-numbers: true
+
 #########################################
 ###### Part I 
 #########################################
