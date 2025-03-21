@@ -1,0 +1,12 @@
+{
+  "hash": "64771cf9266a50424fad131e4e6072da",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Note: Docker in Action, Second Edition\"\nsubtitle: \"\"\ndescription: ''\nauthor: 'Jihong Zhang'\ndate: '2025-05-02'\nsidebar: false\ncategories:\n  - Docker\nexecute: \n  eval: false\n  echo: true\n  warning: false\n  error: true\nformat: \n  html: \n    code-fold: false\n    code-summary: 'Click to see the code'\n    number-sections: true\n---\n\n\n# Chapter 1 - Welcome to Docker\n\n> “Docker is a tool that makes adopting software packaging, distribution, and utilization best practices cheap and sensible defaults.”\n\nDocker provides an expressive language that can:\n\n-   inject environment-specific configuration\n-   control access to system resources\n-   built-in package management, tooling, and distribution infrastructure\n\n## What is docker?\n\nDocker was lanced in March 2013. It is an open-source Linux software for building, shipping, and running programs.\n\n\n```{bash}\ndocker run dockerinaction/hello_world\n```\n\n\n`docker run` command tells Docker to trigger the sequence. In the command, `dockerinaction/hello_world` is a Docker *image*.\n\nDocker runs *containers.* Containers are running inside virtual machines for Mac, Windows, and other OS.\n\nDocker uses Linux *namespaces* and *cgroups*.\n\nFollowing command can display information about the basic syntax.\n\n```bash\ndocker help\n```\n\nFor specific command,\n\n```bash\ndocker help cp\n```\n\nshow how to copy files from a location inside a container to a location on the host machine.\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

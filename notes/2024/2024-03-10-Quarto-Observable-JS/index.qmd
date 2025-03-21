@@ -18,10 +18,28 @@ format:
 ## Overview
 The documents regarding how to use Observable Javascript in Quarto is extremely lacking. Two main sources for this topic are [quarto.org](https://quarto.org/docs/interactive/ojs/) and [quarto dashboard](https://quarto.org/docs/dashboards/interactivity/observable.html).
 
-Because ojs cannot be executed by clicking on "Run" button in Rstudio, instead, you can only see the result in the rendering step. Thus, it is always recommended to use  [observable notebook](https://observablehq.com) to build ojs and copy-paste into Quarto document.
+Because ojs cells cannot be executed by simply clicking on "Run" button in Rstudio, instead, you can only see the result in the rendering step. Thus, it is always recommended to use  [observable notebook](https://observablehq.com) to build ojs and copy-paste into Quarto document.
 
-The note reproduces the example shown in quarto.org and displays some issues and their solutions I encountered.
+Interesting, the starting place for observablejs is their github page - [observablehq/stdlib](https://github.com/observablehq/stdlib), which include standard libraries for observablejs.
+
+For data visualization lovers, `Inputs` ([Quarto doc](https://quarto.org/docs/interactive/ojs/libraries.html#inputs); [OJS GitHub doc](https://github.com/observablehq/inputs#inputs)) and `Plot` ([Quarto doc](https://quarto.org/docs/interactive/ojs/libraries.html#plot)) are the two most important libraries in OJS. 
 :::
+
+## Inputs Library
+
+`Inputs.button(content, options)`
+
+```{ojs}
+Inputs.button("Confirm", {label: "Click me!"})
+```
+
+```{ojs}
+Inputs.button([
+  ["Increment", (value) => value + 1],
+  ["Decrement", (value) => value - 1],
+  ["Reset", () => 0]
+], {label: "Counter", value: 0})
+```
 
 ## OJS 101
 
@@ -73,7 +91,7 @@ myNumber
 
 ### Objects
 
-In OJS, **objects** are similar to named vectors in R, following the format `({key1: value1; key2:value2})`. Do not forget the parathesis to make OJS object work in Quarto.
+In OJS, **objects** are similar to named vectors in R, following the format `({key1: value1; key2:value2})`. Do not forget the parenthesis to make OJS object work in Quarto.
 
 ```{ojs}
 myObject = ({name:"Paul", age:25})
@@ -82,7 +100,7 @@ myObject.name
 
 ### Arrays
 
-Arrays in OJS is similar to list (data.frame) in R and tuples in Python. It is defined with braces `[]`. Note that same to python, the index of first element in OJS is 0.
+Arrays in OJS is similar to list (data.frame) in R and tuple in Python. It is defined with braces `[]`. Note that same to python, the index of first element in OJS is 0.
 
 ```{ojs}
 myArray1 = [1, 2, 3]

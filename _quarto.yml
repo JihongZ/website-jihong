@@ -40,7 +40,7 @@ format:
         - assets/article-lists.scss
         - assets/lecture.scss
         - assets/callout.scss
-        - default # https://bootswatch.com/5/minty/_variables.scss
+        - cerulean # https://bootswatch.com/5/minty/_variables.scss
       dark: [Cyborg, assets/rwds-dark.scss, assets/lecture.scss]
     css: assets/rwds.css
     comments:

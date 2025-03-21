@@ -1,0 +1,15 @@
+{
+  "hash": "e637fd9523e390ec2d56a33c2c31c0f5",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Serveless Shiny App on Quarto Website\"\nsubtitle: \"Deploying a serverless Shiny application for R within Quarto\"\ndescription: 'Creating a Serverless R Shiny App using Quarto with R Shinylive (\"Include\" method)'\nauthor: 'Jihong Zhang'\ndate: 'Sep 10 2024'\nsidebar: false\ncategories:\n  - R\n  - Shiny\n  - Quarto\nexecute: \n  eval: false\n  echo: true\n  warning: false\n  error: true\nformat: \n  html: \n    code-fold: false\n    code-summary: 'Click to see the code'\n    number-sections: false\nbibliography: references.bib\n---\n\n\n\n## Guide\n\n1.  [Github Repo](https://github.com/coatless-quarto/r-shinylive-demo)\n2.  [Youtube video](https://www.youtube.com/watch?v=6y2FnAugP8E)\n\nInstall `shinylive` package:\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"shinylive\")\n```\n:::\n\n\n\nWithin the target directory, add the shinylive extension.\n\n\n\n::: {.cell}\n\n```{.bash .cell-code}\nquarto create project default\nquarto add quarto-ext/shinylive\n```\n:::\n\n\n\n## R-shiny-demo\n\n[R-shiny-demo](r-shinylive-demo/r-shinylive-demo.qmd)\n\n\n\n{{< embed r-shinylive-demo/r-shinylive-demo.qmd >}}\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
