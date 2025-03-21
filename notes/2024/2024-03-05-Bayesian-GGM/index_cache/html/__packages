@@ -1,0 +1,16 @@
+StanHeaders
+rstan
+cmdstanr
+BGGM
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+lubridate
+psychonetrics
+pbv

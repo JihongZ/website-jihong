@@ -3,21 +3,65 @@ title: 'Note | Jihong Zhang'
 subtitle: ''
 sidebar: id-note
 listing:
-  contents: notes/*/*.[Rq]md
-  sort: "date desc"
-  type: table
-  table-striped: true
-  table-hover: true
-  categories: numbered
-  fields: [date, title, description, categories, reading-time]
-  filter-ui: false
-  sort-ui: false
-  date-format: "iso"
+  - id: notes_2025
+    template: assets/ejs/article-lists.ejs
+    contents: "notes/2025/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true
+  - id: notes_2024
+    template: assets/ejs/article-lists.ejs
+    contents: "notes/2024/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true
+  - id: notes_2020
+    template: assets/ejs/article-lists.ejs
+    contents: "notes/2020/**/*.[Rq]md"
+    sort: "date desc"
+    categories: true  
+freeze: false    
+toc-title: Year
+toc-location: left
+date-format: "MMM DD"
+page-layout: full
+execute: 
+  warning: false
+  message: false
 format: 
   html:
-    toc: false
     code-tools: false
     comments: false
     grid:
       sidebar-width: 300px
 ---
+
+```{r}
+#| echo: false
+#| fig-height: 3
+library(plotly)
+note_folders <- as.numeric(list.files("notes")[grepl(list.files("notes"), pattern = "20")])
+note_folders <- sort(note_folders, decreasing = TRUE)
+## Find the relative path
+path_note <- paste0("notes/", note_folders)
+## Check out how many notes in each folder by year
+freq_note <- data.frame(
+  year = note_folders,
+  number_note = sapply(path_note, \(x) length(list.files(x)))
+)
+plot_ly(x =~year, y=~number_note, data = freq_note) |> 
+  add_lines(color=I("turquoise")) |> 
+  add_markers() |> 
+  add_bars(color = I("violetred")) |> 
+  layout(
+    paper_bgcolor = "#FAF9F6",
+    plot_bgcolor='#FAF9F6',
+    title = "Number of Notes by Year",
+    xaxis = list(title = ""), 
+    yaxis = list(title = ""))
+```
+
+```{r}
+#| results: asis
+#| echo: false
+note_text <- glue::glue("## {note_folders}\n\n:::{{#notes_{note_folders}}}\n:::  \n\n")
+note_text
+```

@@ -29,9 +29,9 @@ format:
 ::: objectives
 ## Overview {.unnumbered}
 
-A friend of mine recently asked me one question about network community: in her recent research, a network without community defined has different estimation with the one with community define. Why this happens? In this blog, I try to dive a little deeper into community issues in psychometric network analysis.
+A friend of mine recently asked me one question about network community: in her recent research, a network without community defined has different estimation with the one with community define. Why this happens? In this blog, I try to dive a little deeper into community issues in psychometric network analysis. You can find my previous post on the estimation methods of network analysis - [How To Choose Network Analysis Estimation For Application Research](../../../notes/2024/2024-04-04-Network-Estimation-Methods/index.qmd).
 
-This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) aims to talk about varied aspects of *community detection* in psychometric network analysis, including the following questions:
+This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) instead aims to talk about varied aspects of *community detection* in psychometric network analysis, including the following questions:
 
 1.  What is "node community"?
 2.  Why we need communities of nodes in network analysis?

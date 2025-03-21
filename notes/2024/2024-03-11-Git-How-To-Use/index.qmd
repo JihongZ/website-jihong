@@ -1,0 +1,167 @@
+---
+title: 'Tips about Git and Github'
+
+date: 'Mar 10 2024'
+categories:
+  - Git
+  - Github
+execute: 
+  echo: fenced
+  eval: false
+format: 
+  html: 
+    code-summary: 'Code'
+    code-fold: false
+    code-line-numbers: true
+---
+
+## Changes are ahead of the remote but I want to discard those changes locally.
+
+This happens when I want to pull the remote repo to local but I have some random changes at local. Those random changes should be discarded but using `git pull` makes those changes ahead. Thus, I have to restore to previous commit to align with previous commit.
+
+In following code, I type `git reset` and `tab` key which will list all recent commits. `f17c6d9` is the commit I'm gonna go.
+
+-   `git reset f17c6d9` can reset HEAD to the target comit in history, which make local changes as **unstaged changes**
+
+-   To discard unstaged changes, use `git restore .`
+
+``` bash
+➜  website-jihong git:(main) git reset            
+FETCH_HEAD     HEAD           ORIG_HEAD      main           office         origin/main    origin/office
+d636b58  -- [HEAD]    add lecture08 (7 minutes ago)
+66dde99  -- [HEAD^]   add lecture08 (9 minutes ago)
+f17c6d9  -- [HEAD^^]  adjust sidebar to include previous posts (66 minutes ago)
+1211a8e  -- [HEAD~3]  add one new note (14 hours ago)
+e4e27b7  -- [HEAD~4]  revide sidebar to include lec08 in quarto.yml (2 days ago)
+e479890  -- [HEAD~5]  finish lecture08 (2 days ago)
+5f19afd  -- [HEAD~6]  add updates to lecture 08 (2 days ago)
+5b90ec6  -- [HEAD~7]  Merge remote-tracking branch 'origin/main' (3 days ago)
+d7a9508  -- [HEAD~8]  local changes (3 days ago)
+fb69016  -- [fb69016] update lecture08 (4 days ago)
+c4f4e29  -- [HEAD~9]  add .rdb in .gitignore (6 days ago)
+8feff97  -- [HEAD~10] revise BGGM note (6 days ago)
+8b98ac9  -- [HEAD~11] add note of BGGM (6 days ago)
+119c64d  -- [HEAD~12] add video link for lecture 4 and 7 (6 days ago)
+8417f4a  -- [HEAD~13] revise Lecture07.qmd (7 days ago)
+1537f56  -- [HEAD~14] add lecture07 slide11 (7 days ago)
+b0bd066  -- [HEAD~15] add keymap doc for iTerm2 (7 days ago)
+ff6c8c7  -- [HEAD~16] change color bg and left border (8 days ago)
+af18b92  -- [HEAD~17] adjust link and other elements bg-color (8 days ago)
+3370b97  -- [HEAD~18] revert back to original giscus setting (8 days ago)
+➜  website-jihong git:(main) git reset f17c6d9
+Unstaged changes after reset:
+M       posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture08/Lecture08.qmd
+➜  website-jihong git:(main) ✗ git restore .    
+➜  website-jihong git:(main) 
+```
+
+For the future pull while ignore local changes, see this stackoverflow [post](https://stackoverflow.com/questions/4157189/how-to-git-pull-while-ignoring-local-changes). There are two methods:
+
+-   Method I:
+
+    -   This even works when local changes have already been staged and comitted.
+
+``` bash
+## (1) First fetch all changes:
+$ git fetch --all
+## (2) Then reset the main:
+$ git reset --hard origin/main
+## (3) Pull/update:
+$ git pull
+```
+
+-   Method II:
+
+    -   Use this when you feel like your local changes still useful and **DO NOT** want to throw them away. This keeps the local changes hidden, but after pulling the remote to local, you pop local changes up afterwards.
+
+``` bash
+$ git stash
+$ git pull
+$ git stash pop
+```
+
+## Local files changed again after I've already git commit
+
+I committed the changes but I change my mind and revise more files. In this case, I do not want to duplicate the commit then complicates my commit history. In this case, I can use `--amend` to append the new changes to the local changes committed without changing the message.
+
+``` bash
+$ git add the_left_out_file
+# The --no-edit flag allows to make an amendment to the commit without changing the commit message.
+$ git commit --amend --no-edit
+```
+
+::: callout-warning
+## Warning
+
+You should never amend public commits that you already pushed to a public repository, because amend is actually removing the last commit from the history and creating a new commit with the combined changes from that commit and new added when amending.
+:::
+
+Previous code works only when I did not push changes yet, if I already pushed, I can do reset.
+
+``` bash
+➜  website-jihong git:(main) git reset f17c6d9
+FETCH_HEAD     HEAD           ORIG_HEAD      main           office         origin/main    origin/office
+3605a71  -- [HEAD]    add tips about git note (7 minutes ago)
+12ceecd  -- [HEAD^]   add tips about git note (8 minutes ago)
+f17c6d9  -- [HEAD^^]  adjust sidebar to include previous posts (2 hours ago)
+...
+3370b97  -- [HEAD~18] revert back to original giscus setting (8 days ago)
+➜  website-jihong git:(main) ✗ git reset 12ceecd       
+Unstaged changes after reset:
+M       notes/2024-03-11-Git-How-To-Use/index.qmd
+D       notes/2024-03-11-Git-How-To-Use/index.quarto_ipynb
+➜  website-jihong git:(main) ✗ git add .
+```
+
+Because your local commits are different from the remote, note that you should add `-f` argument to force the remote discards the conflicts.
+
+``` bash
+➜  website-jihong git:(main) git push                                          
+To github.com:JihongZ/website-jihong.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'github.com:JihongZ/website-jihong.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+➜  website-jihong git:(main) git push -f origin main                                             
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (7/7), 1.22 KiB | 1.22 MiB/s, done.
+Total 7 (delta 4), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (4/4), completed with 4 local objects.
+To github.com:JihongZ/website-jihong.git
+ + 3605a71...07ff463 main -> main (forced update)
+```
+
+## Remove Large file From Commit History
+
+When I mistakenly push the commits with large files in history, I may have trouble push normal size files in the future. The solution is to delete those files in history.
+
+``` bash
+➜  04_Diagnostic_Classification_Network git:(main) git push --force
+Enumerating objects: 83, done.
+Counting objects: 100% (83/83), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (43/43), done.
+Writing objects: 100% (58/58), 35.25 MiB | 5.74 MiB/s, done.
+Total 58 (delta 29), reused 42 (delta 13), pack-reused 0
+remote: Resolving deltas: 100% (29/29), completed with 15 local objects.
+remote: error: Trace: 979757256e42be3adf07c546870c55ff7e5e6c7e99b12768f6bfdd169b9319dd
+remote: error: See https://gh.io/lfs for more information.
+remote: error: File Results_3D.rds is 148.09 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+To github.com:JihongZ/04_Diagnostic_Classification_Network.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'github.com:JihongZ/04_Diagnostic_Classification_Network.git'
+```
+
+``` bash
+git filter-branch --index-filter 'git rm -r --cached --ignore-unmatch Results_3D.rds' HEAD
+```
+
+This will delete everything in the history of that file. The problem is that the file is present in the history.
+
+This command changes the hashes of your commits which can be a real problem, especially on shared repositories. It should not be performed without understanding the consequences.

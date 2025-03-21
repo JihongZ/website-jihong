@@ -1,0 +1,170 @@
+---
+title: "Note: Javascript for R"
+author: Jihong Zhang <a href="https://orcid.org/0000-0003-2820-3734"><img src="/images/ORCID-iD_icon_24x24.png" alt=""/></a>
+title-block-banner: false
+date: "2025-03-16"
+date-modified: "`{r} Sys.Date()`"
+categories:
+  - Boot
+  - Javascript
+execute: 
+  message: false
+  warning: false  
+fig-cap-location: top  
+format:
+  html:
+    page-layout: full
+    code-tools: false
+    comments: false
+    number-sections: true
+bibliography: references.bib
+---
+
+::: objectives
+## Overview {.unnumbered}
+
+This is a reading note for the book {[Javascript for R](https://book.javascript-for-r.com/widgets-intro-intro)}.
+:::
+
+## Relevant resources
+
+1.  [htmltools](https://github.com/rstudio/htmltools) package
+    -   [Chapter 2: Manipulate HTML tags from R with {htmltools}](https://unleash-shiny.rinterface.com/htmltools-overview) in Outstanding User Interfaces with Shiny
+
+## Chapter 3: Introduction to Widgets
+
+> The `htmlwidgets` package originates from the rCharts package [@vaidyanathanRamnathvRCharts2025] in 2012 by Ramnath Vaidyanathan. It brought together a plethora of data visualisation JavaScript libraries, datamaps, highcharts, morris.js, and many more. Though no longer maintained rCharts ultimately paved the way towards a framework for interactive visualisations in R: two years later, in 2014, Ramnath and other prominent R users start working on htmlwidgets.
+
+### plotly package
+
+-   This section also includes [Chapter 2 - Overview](https://plotly-r.com/overview) in [Book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/), which has more details about `plotly` package.
+
+::: callout-note
+### Basic Information
+
+`plotly` R package is powered by the Javascript libray *plotly.js*. A `plotly` object is intialized with a `plot_ly()` function.
+
+```{r}
+library(plotly)
+library(ggplot2)
+head(diamonds)
+```
+
+-   `plot_ly()` tries to find a sensible geometric representation of that information for
+
+-   Note that column name is formated with `~Name` in `plot_ly()`, which is different from `ggplot2` package `Name` or `vars(Name)`.
+
+```{r}
+#| layout-ncol: 1
+#| fig-cap:
+#|   - "Plot 1"
+#|   - "Plot 2"
+#|   - "Plot 3"
+plot_ly(diamonds, x=~cut)
+plot_ly(diamonds, x=~cut, y=~clarity, colors="Accent")
+plot_ly(diamonds, x=~cut, color=~clarity, colors="Accent")
+```
+
+-   To specify the color directly, use `I()` function to declar the color value as "asis".
+
+```{r}
+plot_ly(diamonds, x=~cut, 
+        color=I("tomato"), 
+        stroke=I("royalblue"), 
+        span = I(3)) |> 
+layout(title = "Histogram with I() function")
+```
+:::
+
+::: callout-note
+### Translate ggplot2 to plotly
+
+In @fig-plotly-1, `ggplotly()` can translate a `ggplot2` object into a plotly object.
+
+```{r}
+#| label: fig-plotly-1
+p <- ggplot(diamonds, aes(x=log(carat), y=log(price))) + 
+  geom_hex(bins = 100)
+ggplotly(p)
+```
+:::
+
+::: callout-note
+### `add_` as layers and `|>` as connection
+
+Plotly implements geoms in a similar fashion as ggplot2, functions that start in add\_ add a layer to the plot (e.g.: add_lines, add_bars), making it easy to combine series into a single chart, as in @fig-plotly-2.
+
+```{r}
+#| label: fig-plotly-2
+#| fig-cap: "Plotly with add_ and |> as connection"
+plot_ly(mtcars, x=~disp) |> 
+  add_markers(y=~mpg, text = rownames(mtcars)) |> 
+  add_lines(y=~fitted(loess(mpg ~ disp)))
+```
+:::
+
+### crosstalk package
+
+-   `crosstalk` package enable multiple html widgets to communicate.
+    -   `bscols` function put the visualization and table side-by-side
+-   Not all html widgets support `crosstalk` package. You can check out the list of compatible HTML widgets [here](https://rstudio.github.io/crosstalk/widgets.html).
+
+::: callout-note
+### Share Data between HTML widgets
+
+You can select cases in HTML tables and the selection will be reflected in the plot.
+
+```{r}
+library(DT)
+library(crosstalk)
+
+
+sd <- SharedData$new(iris[, c("Sepal.Length", "Sepal.Width")])
+
+crosstalk::bscols(
+  device = "lg",
+  datatable(sd, width = "100%"),
+  plot_ly(sd, x=~Sepal.Length, y=~Sepal.Width)
+)
+```
+:::
+
+## Chapter 5: Create a widget
+
+This function puts together the minimalistic structure necessary to implement an htmlwidget and opens `play.R`, `play.js`, and `play.yaml` in the RStudio IDE or the default text editor.
+
+```{r}
+#| eval: false
+usethis::create_package("playground")
+htmlwidgets::scaffoldWidget("play")
+#>Created boilerplate for widget constructor R/play.R
+#>Created boilerplate for widget dependencies at inst/htmlwidgets/play.yaml
+#>Created boilerplate for widget javascript bindings at inst/htmlwidgets/play.js
+```
+
+Here's the directory structure for the project `playground`:
+
+```{r}
+fs::dir_tree("playground")
+```
+
+Then, use `document()` ({{< kbd cmd+shift+D >}}) and `load_all()` ({{< kbd cmd+shift+L >}}) to document and load the package.
+
+```{r}
+#| eval: false
+devtools::document()
+devtools::load_all()
+```
+
+There is only one function in the playground package, `play()`, which is the constructor function for the widget. It takes a message as input and returns the message to HTML output.
+
+```{r}
+#| eval: false
+play(message = "This is a widget!")
+```
+
+```{r, file="./playground/R/play.R"}
+#| eval: false
+#| code-summary: "Click to see the source code of play.R"
+#| code-fold: true
+```

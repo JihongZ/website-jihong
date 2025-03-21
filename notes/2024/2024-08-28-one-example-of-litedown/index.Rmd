@@ -1,0 +1,55 @@
+---
+title: "Example of `litedown`"
+author: "Jihong Zhang"
+date: "2024-08-28"
+knit: litedown:::knit
+---
+
+::: objectives
+## Overview
+
+This post shows case one example of new package – `litedown` from Yihui Xie. Please refer to the Yihui's [documentation](https://yihui.org/litedown) for more details.
+:::
+
+## A minimal example
+
+```` md
+Define the radius as `x`:
+
+```{r}
+x = 1 + 1
+```
+
+When the radius is `{r} x`, the area will be `{r} pi * x^2`.
+````
+
+The above code will be output as:
+
+Define the radius as `x`:
+
+```{r}
+x = 1 + 1
+```
+
+When the radius is `{r} x`, the area will be `{r} pi * x^2`.
+
+## Including Plots Here
+
+You can also embed plots now, for example:
+
+```{r pressure, echo=TRUE}
+plot(pressure)
+library(tidyverse)
+```
+
+```` md
+Below is not a code chunk but verbatim content
+inside a fenced code block (with four backticks).
+
+```{r}
+1 + 1
+```
+
+Inline code expressions like `{r} 1+1` are not
+parsed, either.
+````

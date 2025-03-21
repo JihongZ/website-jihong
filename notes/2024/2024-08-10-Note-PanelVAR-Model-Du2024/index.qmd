@@ -1,0 +1,24 @@
+---
+title: "Note: Model fits in confirmatory network analysis of PanelVAR modeling"
+subtitle: "Reading Note of Moving from exploratory to confirmatory network analysis: An evaluation of SEM fit indices and cutoff values in network psychometrics"
+
+date: 'April 15 2024'
+categories:
+  - Quarto
+  - CFA
+execute: 
+  eval: true
+  echo: true
+  warning: false
+format: 
+  html: 
+    code-fold: false
+    code-summary: 'Click to see the code'
+    number-sections: true
+---
+
+## Identification of *PanelVAR* model
+
+Assume there are $n_i$ items measured by $n_t$ times, then there are $n_v = n_t \times n_i$. For example, if 3 items are measures by 3 times, there will be 9 measures. Following figure shows the example of $n_t =2$ and $n_i = 3$. In total, there are 24 parameters and 6 \* (6+1) / 2 + 6 = 27 observations.
+
+![](figures/ThreeItemDiagram.png){width="671"}
