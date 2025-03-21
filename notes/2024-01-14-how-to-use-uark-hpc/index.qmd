@@ -7,6 +7,7 @@ categories:
   - Tutorial
   - AHPCC
   - HPC
+  - Parallelization
 format: 
   html: 
     code-annotations: hover
@@ -114,67 +115,7 @@ scp -r src [username]@hpc-portal2.hpc.uark.edu:/home/username/
 scp -r [username]@hpc-portal2.hpc.uark.edu:/home/username/src ./
 ```
 
-## Jobs submission
-
-### Workflow
-
-There are multiple steps to submit the R file to cluster to run.
-
-1.  We need to determine the computing nodes we want to use. Please refer to this [link](#0) for detailed information about HPC equipment. A general '*job submit*' command is like this:
-
-``` bash
-sbatch -q q06h32c -l walltime=1:00 -l nodes=1:ppn=32 example.sh
-```
-
-::: {.callout-note appearance="simple"}
-## Note
-
-The `sbatch` command (a slurm command) aims to submit a job that is saved to the job file `example.sh` or `example.slurm`. The command above submitted the job to the q06h32c queue with a wall-time of 1 minute requesting all 32 cores on 1 node.
-:::
-
-2.  We want to create a job file with `.sh` or `.slurm` extension to automatically run the job submission commands aforementioned. Here's a simple example of a job file `example.sh` that can tell HPC **how** to run your R code (`#SBATCH` represents all parameters we feed to job submission):
-
-``` bash
-#!/bin/bash
-#SBATCH --job-name=mpi
-#SBATCH --output=zzz.slurm
-#SBATCH --partition comp06
-#SBATCH --nodes=2
-#SBATCH --tasks-per-node=32
-#SBATCH --time=6:00:00
-module load gcc/11.2.1 mkl/19.0.5 R/4.2.2
-# module load gcc/11.2.1 intel/21.2.0 mkl/21.3.0 R/4.3.0
-
-Rscript HelloWorld/example.R
-```
-
-::: {.callout-note appearance="simple"}
-**R relevant modules**
-
-Where <mark>Line 8</mark> loaded all required modules:
-
--   `gcc` and `mkl` are required for R package installation (Note: To the date, `gcc/11.2.1` is the latest version of `gcc` than can compile the `cmdstanr` successfully). Please see [here](https://hpcwiki.uark.edu/doku.php?id=r) for more details.
-
--   `Rscript` is the bash command to execute R file on HPC. `HelloWorld/example.R` is the path of your R script.
-
--   Anything behind the `#SBATCH` are options for the SLURM scheduler. Please see following summary or view [it](https://slurm.schedmd.com/pdfs/summary.pdf) online:
-:::
-
-```{r, echo=FALSE}
-xfun::embed_file("summary.pdf")
-```
-
-3.  We may want to use R interactively to test your R code is running well. Use the following bash command to start a brand new R in terminal:
-
-```bash 
-srun -N1 -n1 -c1 -p cloud72 -q cloud -t 2:00:00 --pty /bin/bash
-```
-
-::: {.callout-note appearance="simple"}
-## Note
-
-This command will redirect to cloud72 queue, which includes virtual machines and containers, usually single processor, 72 hour limit, 3 nodes.
-:::
+## Frequent-use SLURM Commands
 
 | slurm commands | compatibility commands | Meaning |
 |-------------------|-----------------------|------------------------------|
@@ -191,24 +132,82 @@ This command will redirect to cloud72 queue, which includes virtual machines and
 For slurm, please use the commands in the 1st column. Then you should be able to start R in an interactive job and install required packages. If you load `R/4.2.2` module, those packages installed via an interactive job will be stored at `$HOME$/R/x86_64-pc-linux-gnu/4.2/`. See [here](https://hpcwiki.uark.edu/doku.php?id=pinnacle_usage) for more details about interactive job.
 :::
 
-4.  **T**he whole workflow of job submission is as follows:
 
-``` bash
-$ cat exampleJob.sh
-#!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --tasks-per-node=2
-#SBATCH --job-name=Exp0
-module purge
-module load os/el7 gcc/9.3.1 mkl/19.0.5 R/4.2.2
-cd $SLURM_SUBMIT_DIR
-Rscript example.R
-$ rm slurm-334001.out
-$ sbatch exampleJob.sh
-Submitted batch job 334002
-$ ls
-exampleJob.sh  example.R  gene_up.txt  MS_entrez_id_alldata.txt  slurm-334002.out
-```
+## Jobs submission
+
+### Workflow
+
+There are multiple steps to submit the R file to cluster to run.
+
+1.  Before we submit the job file, we need to determine the computing nodes we want to use. Please refer to this [link](#0) for detailed information about HPC equipment. A general '*job submit*' command is like this:
+
+    ``` bash
+    sbatch -q q06h32c -l walltime=1:00 -l nodes=1:ppn=32 example.sh
+    ```
+
+    ::: {.callout-note appearance="simple"}
+## Note
+The `sbatch` command (a slurm command) aims to submit a job that is saved to the job file `example.sh` or `example.slurm`. The command above submitted the job to the q06h32c queue with a wall-time of 1 minute requesting all 32 cores on 1 node.
+    :::
+
+2.  Then, we need to create a job file with `.sh` or `.slurm` extension to automatically run the job submission commands on the HPC. 
+
+    Here's a simple example of a job file `example.sh` that can tell HPC **how** to run your R code (`#SBATCH` represents all parameters we feed to job submission):
+
+    ``` bash
+    #!/bin/bash
+    #SBATCH --job-name=mpi
+    #SBATCH --output=zzz.slurm
+    #SBATCH --partition comp06
+    #SBATCH --nodes=2
+    #SBATCH --tasks-per-node=32
+    #SBATCH --time=6:00:00
+    module load gcc/11.2.1 mkl/19.0.5 R/4.2.2
+    # module load gcc/11.2.1 intel/21.2.0 mkl/21.3.0 R/4.3.0
+
+    Rscript HelloWorld/example.R
+    ```
+
+    ::::{.callout-note collapse="true"}
+    ## Click to Learn Which Modules Needed for R Language
+    -   Where <mark>Line 8</mark> loaded all required modules:
+        -   `gcc` and `mkl` are required for R package installation (Note: To the date, `gcc/11.2.1` is the latest version of `gcc` than can compile the `cmdstanr` successfully). Please see [here](https://hpcwiki.uark.edu/doku.php?id=r) for more details.
+        -   `Rscript` is the bash command to execute R file on HPC. `HelloWorld/example.R` is the path of your R script.
+        -   Anything behind the `#SBATCH` are options for the SLURM scheduler. Please see following summary or view [it](https://slurm.schedmd.com/pdfs/summary.pdf) online.
+    
+    ::::
+
+3.  **Last but not least**, we may want to use R interactively to test your R code is running well. Use the following bash command to start a new R session in terminal:
+
+    ::: {.callout-note}
+    ## New Interactive Node for Testing
+    ```bash 
+    srun -N1 -n1 -c1 -p cloud72 -q cloud -t 2:00:00 --pty /bin/bash
+    ```
+    
+    This command will redirect to `cloud72` queue, which includes virtual machines and containers, usually single processor, 72 hour limit, 3 nodes.
+    :::
+
+4.  To show the whole picture, the whole workflow of one job submission is as follows. `$` represents the bash command line.
+
+    ``` bash
+    $ cat exampleJob.sh
+    #!/bin/bash
+    #SBATCH --nodes=1
+    #SBATCH --tasks-per-node=2
+    #SBATCH --job-name=Exp0
+    module purge
+    module load os/el7 gcc/9.3.1 mkl/19.0.5 R/4.2.2
+    cd $SLURM_SUBMIT_DIR
+    Rscript example.R
+    $ rm slurm-334001.out
+    $ sbatch exampleJob.sh
+    Submitted batch job 334002
+    $ ls
+    exampleJob.sh  example.R  gene_up.txt  MS_entrez_id_alldata.txt  slurm-334002.out
+    ```
+
+
 
 ### Multiple Job Submission for R
 
