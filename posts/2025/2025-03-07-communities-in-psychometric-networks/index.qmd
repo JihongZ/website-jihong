@@ -27,6 +27,7 @@ format:
     code-summary: "Click this to see R code"
 ---
 
+
 ::: objectives
 ## Overview {.unnumbered}
 
@@ -40,8 +41,9 @@ This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-net
 4.  How to identify those communities given a network?
 :::
 
+::: macwindow
 ```{r plot, cache=TRUE}
-#| fig-height: 4
+#| fig-height: 7
 #| fig-width: 10
 library("psychonetrics")
 # Load bfi data from psych package:
@@ -88,8 +90,15 @@ qgraph::qgraph(getmatrix(mod1, "omega"),
                layout="spring",
                groups = labels,
                title = "Big 5 agreeableness",
-               theme = "Borkulo")
+               theme = "Borkulo",
+               bg = rgb(red = 145, # same to .macwindow class in lecture.scss
+                        green = 203, 
+                        blue = 215, 
+                        alpha = .2196078431, 
+                        maxColorValue = 255),
+               transparency = TRUE)
 ```
+:::
 
 ## Big Problem in the network
 
@@ -123,7 +132,10 @@ In psychometric literature, however, confirmatory network analysis has become mo
 
 Theories are those tools can explain, predict, control phenomena. They are also in one point between strong to weak given to what degree they can explain, predict, and control phenomena. Typically, theorectical model is related to the date generation process—how data is generated, which is unknown in prior. We can link theory to data by using statistical modeling that impose assumptions on the data. However, the statistical models themselves can not be used to measure how strong or weak the theory is.
 
-![Relationships among theory, statistical model, and data](theory_model.png){fig-align="center"}
+::: macwindow
+Relationships among theory, statistical model, and data
+![](theory_model.png){fig-align="center"}
+:::
 
 ### Community Detection Algorithm
 
