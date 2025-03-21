@@ -22,7 +22,7 @@ citation:
 
 ::: callout-important
 ## 2025-03-20 Update
-My student Nicole recently had a excellent workshop on how to use HPC interactively at UArk. Please refer to her website  [here](https://nbonge.quarto.pub/r-in-ahpc/).
+My student Nicole recently hosted a excellent workshop on how to use HPC interactively at UArk. Please refer to her website  [here](https://nbonge.quarto.pub/r-in-ahpc/).
 :::
 
 ::: objectives
