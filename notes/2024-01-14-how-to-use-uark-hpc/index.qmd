@@ -19,11 +19,17 @@ citation:
   issued: 2024-01-14
 ---
 
-## General Information
+::: callout-important
+## 2025-03-20 Update
+My student Nicole recently had a excellent workshop on how to use HPC interactively at UArk. Please refer to her website  [here](https://nbonge.quarto.pub/r-in-ahpc/).
+:::
 
+::: objectives
+## General Information {.unnumbered}
 Arkansas High Performance Computing Center (AHPCC, [official website](https://hpc.uark.edu/)) is available for research and instructional use to faculty and students of any Arkansas university and their research collaborators. There is no charge for use of our computing resources.
 
 To use the HPC, an AHPCC account must be requested through [Internal Account Request Form](http://hpc.uark.edu/hpc-support/user-account-requests/internal.php). Please see [here](https://dartproject.org/hpc/) for more information about AHPPC inventory.
+:::
 
 ## Connect to HPC
 
