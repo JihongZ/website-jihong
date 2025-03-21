@@ -11,13 +11,190 @@ format:
     code-summary: 'Code'
     code-fold: false
     code-line-numbers: false
+    number-sections: true
 ---
 
+::: objectives
+## Overview
 The documents regarding how to use Observable Javascript in Quarto is extremely lacking. Two main sources for this topic are [quarto.org](https://quarto.org/docs/interactive/ojs/) and [quarto dashboard](https://quarto.org/docs/dashboards/interactivity/observable.html).
 
-The note reproduces the example shown in quarto.org and displays some issues and their solutions I encountered.
+Because ojs cannot be executed by clicking on "Run" button in Rstudio, instead, you can only see the result in the rendering step. Thus, it is always recommended to use  [observable notebook](https://observablehq.com) to build ojs and copy-paste into Quarto document.
 
-## Example
+The note reproduces the example shown in quarto.org and displays some issues and their solutions I encountered.
+:::
+
+## OJS 101
+
+This section is based on the hands-on tutorial in official observable js website - [Learn Just Enough JavaScript: Introduction](https://observablehq.com/@observablehq/learn-javascript-introduction).
+
+### Variables
+
+```{ojs}
+myVariable = "Javascript is cool!"
+myVariable
+```
+
+```{ojs}
+myNumber = 25
+myNumber
+```
+
++-------------+------------------------------------------------------+--------------------------+
+| Type        | Description                                          | Example                  |
++:============+:=====================================================+=========================:+
+| Number      | A numeric value                                      | ```                      |
+|             |                                                      | 5.1                      |
+|             |                                                      | ```                      |
++-------------+------------------------------------------------------+--------------------------+
+| Boolean     | A true or false value                                | ```                      |
+|             |                                                      | true                     |
+|             |                                                      | ```                      |
++-------------+------------------------------------------------------+--------------------------+
+| String      | A set of characters in single or double quotes       | ```                      |
+|             |                                                      | "hello"                  |
+|             |                                                      | ```                      |
++-------------+------------------------------------------------------+--------------------------+
+| Null        | A value represent the intentional absence of a value | ```                      |
+|             |                                                      | null                     |
+|             |                                                      | ```                      |
++-------------+------------------------------------------------------+--------------------------+
+| Array       | A collection of elements                             | ```                      |
+|             |                                                      | [1, 2, 3]                |
+|             |                                                      | ```                      |
++-------------+------------------------------------------------------+--------------------------+
+| Object      | An element with key-value pairs                      | ```                      |
+|             |                                                      | {weight:165, height: 66} |
+|             |                                                      | ```                      |
++-------------+------------------------------------------------------+--------------------------+
+| Date        | A special object for representing dates              | ```                      |
+|             |                                                      | new Date("2021-01-22")   |
+|             |                                                      | ```                      |
++-------------+------------------------------------------------------+--------------------------+
+
+### Objects
+
+In OJS, **objects** are similar to named vectors in R, following the format `({key1: value1; key2:value2})`. Do not forget the parathesis to make OJS object work in Quarto.
+
+```{ojs}
+myObject = ({name:"Paul", age:25})
+myObject.name
+```
+
+### Arrays
+
+Arrays in OJS is similar to list (data.frame) in R and tuples in Python. It is defined with braces `[]`. Note that same to python, the index of first element in OJS is 0.
+
+```{ojs}
+myArray1 = [1, 2, 3]
+myArray1[2] // the third element
+```
+
+
+```{ojs}
+myArray2 = [[1, 2], [3, 4]]
+myArray2[1][1] 
+```
+
+
+```{ojs}
+myArray3 = [1, 'cat', ({name: "ketty"})]
+myArray3[2]
+```
+
+
+```{ojs}
+myArray3[2].name
+```
+
+### Functions
+
+```{ojs}
+function add(x, y) {
+  return x + y
+}
+add(1, 3)
+```
+
+### Conditions
+
+Using a double equal sign == is a logical test to see if two values are the same. In JavaScript, we have different types of values, like numerical values or strings. If you use a triple equal sign ===, you not only check if the values are the same, but you check if the value types are the same.
+
+```{ojs}
+1 == 1 // true
+1 == '1' // true
+1 === '1' // false
+```
+
+### Loops
+
+For loop follows the format `for (let i = ${starting}; ${end condition}, i ++)`. Note that `let` is neccessary in `let string=''` to define a constant variable.
+
+```{ojs}
+{
+  let string=''
+  for (let i = 0; i <=5; i ++){
+    string += i
+  }
+  return string
+}
+```
+
+Given a array, we can loop through the array.
+
+```{ojs}
+myValues = [1, 20, 13, 4, 55, 6]
+```
+
+
+```{ojs}
+{
+  let largestNumber = 0; // Declare a variable for the largest number
+  for(let i = 0; i < myValues.length - 1; i++) { // Loop through all the values in my array
+    if(myValues[i] > largestNumber) { // Check if the value in the array is larger that the largestNumber
+      largestNumber = myValues[i] // If so, assign the value as the new largest number
+    }
+  }
+  return largestNumber
+}
+```
+
+You can also use the helper function in D3.js.
+
+```{ojs}
+d3.max(myValues)
+```
+
+One example of repeating animation using `while` loops.
+
+```{ojs}
+{
+  const width = 300;
+  const height = 100;
+  const r = 30;
+  
+  const svg = d3.create('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  const circle = svg.append('circle')
+    .attr('r', r)
+    .attr('cy', height / 2)
+    .attr('cx', r);
+
+  let cx = 30;
+  while(true) { // Loop goes on forever
+    yield svg.node();
+    await Promises.delay(2000); // This causes the loop to "wait" 2000 milliseconds
+    cx == r ? cx = width - r : cx = r;
+    circle.transition()
+      .duration(1500)
+      .attr('cx', cx);
+
+  }
+}
+```
+
+## Example 1: Palmer Penguins
 
 Currently, OJS doesn't work interactively with RStudio (see the [github discussion](https://github.com/quarto-dev/quarto-cli/issues/1242#issuecomment-1169863641)). As the [document](https://quarto.org/docs/interactive/ojs/#example) shows, the example based on Allison Horst's [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/).
 
@@ -26,9 +203,8 @@ Currently, OJS doesn't work interactively with RStudio (see the [github discussi
 #| output: false
 library(palmerpenguins)
 library(here)
-root_dir <- "/Users/jihong/Documents/Projects/website-jihong"
 data(penguins)
-write.csv(penguins, file = here(root_dir, "notes", "2024",'2024-03-10-Quarto-Observable-JS', 'palmer-penguins.csv'))
+write.csv(penguins, file = here("notes", "2024",'2024-03-10-Quarto-Observable-JS', 'palmer-penguins.csv'))
 ```
 
 ```{ojs}

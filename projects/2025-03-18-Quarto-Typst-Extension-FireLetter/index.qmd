@@ -1,8 +1,6 @@
 ---
 title: |
-  Summary \ 
-  of \ 
-  Accomplishments
+  Summary of Accomplishments
 date: "2025-03-18"  
 author: "Jihong Zhang"
 from-details: |
@@ -11,7 +9,6 @@ from-details: |
   Educational Statistics and Research Methods\
 format: 
   html: default
-  fireletter-typst: default
 ---
 
 To whom it may concern,
