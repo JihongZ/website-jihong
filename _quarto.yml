@@ -33,6 +33,7 @@ format:
       body-width: 900px
       margin-width: 350px
     csl: assets/apa.csl
+    code-copy: true
     theme: 
       light: 
         - assets/rwds.scss

@@ -141,8 +141,6 @@ h1, h2, h3, .callout-title-container {
   font-weight: normal;
 }
 
-
-
 body, p, li, a { // main font family of post content
   font-family: "Tenor Sans", sans-serif;
   font-weight: 400;
@@ -229,6 +227,10 @@ pre.sourceCode.bash::before {
   padding: 1px 1px;
 }
 
+button.code-copy-button {
+    margin: 0px 0px;
+}
+  
 pre.sourceCode.r, 
 pre.sourceCode.yaml, 
 pre.sourceCode.markdown, 
