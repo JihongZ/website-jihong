@@ -39,7 +39,7 @@ This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-net
 :::
 
 ```{r plot, cache=TRUE}
-#| fig-height: 7
+#| fig-height: 4
 #| fig-width: 10
 library("psychonetrics")
 # Load bfi data from psych package:
@@ -95,8 +95,10 @@ qgraph::qgraph(getmatrix(mod1, "omega"),
 
 Identification of node clusters is not a new topic, which is typically called "*Community Detection*" in graph theory [@fortunatoCommunityDetectionGraphs2010]. This problem arises due to a phenomenon called "Community Structure"[@girvanCommunityStructureSocial2002] or "Clustering" was found in varied types of networks. This community structure has two characteristics:
 
-1.  Heterogeneity of node degree: nodes with high degree (more neighbors/ high betweenness) coexist with nodes with low degree.
-2.  Heterogeneity of edge strength: high concentrations of edges with certain "group" of nodes even though those "groups" are visual inspected.
+::: rmdnote
+1.  **Heterogeneity of node degree**: nodes with high degree (more neighbors/ high betweenness) coexist with nodes with low degree.
+2.  **Heterogeneity of edge strength**: high concentrations of edges with certain "group" of nodes even though those "groups" are visual inspected.
+:::
 
 Given this community structure, *Community* (or called clusters or modules) is defined as **groups of nodes which probably share common properties and / or play similar roles within the graph** [@fortunatoCommunityDetectionGraphs2010]. This is actually a very broad definition which does not answer what are "common properties" and "similar roles" in a network graph. The reason of this vagueness is because of variety of network in different areas.
 
@@ -110,17 +112,23 @@ There are two ways of defining communities in psychometric network: the explorat
 
 In psychometric literature, however, confirmatory network analysis has become more and more popular [@du]. Although the value of exploratory research remains indisputable, the field of psychology is facing an increasing demand for theory- and hypothesis-testing research, which serves to confirm, refute, or refine existing theories [@du; @fried2020]. For example, many "communities" should correspond to theoretical constructs in psychology or education settings. That is, psychopathology syndrome mentioned above must have one precise definition in DSM-V for the clinician references, so relevant indicators (nodes) then should be grouped into one community prior to the network analysis. The network modeling with pre-defined communities is called confirmatory network analysis. As said by @hevey2018, I cited here, "... much of the research in psychological networks has been based on exploratory data analyses to generate networks; there is a need to progress towards confirmatory network modelling wherein hypotheses about network structure are formally tested."
 
-@fried2020 mentioned three challenges in psychology research which support that the confirmatory method preferred than the exploratory one:
+@fried2020 mentioned some challenges in psychology research and argued that the core issues—latent theories, weak theories, and conflating theoretical and statistical models—are common and harmful, facilitate invalid inferences, and stand in the way of theory failure and reform.
 
+::: rmdwarning
 1.  The statistical and theoretical models are conflated without concrete evidence of the existence of psychological constructs.
-2.  
+2.  Unclear theoretical grounds and unclear what the theory actually explains/predicts.
+:::
+
+Theories are those tools can explain, predict, control phenomena. They are also in one point between strong to weak given to what degree they can explain, predict, and control phenomena. Typically, theorectical model is related to the date generation process—how data is generated, which is unknown in prior. We can link theory to data by using statistical modeling that impose assumptions on the data. However, the statistical models themselves can not be used to measure how strong or weak the theory is.
+
+![Relationships among theory, statistical model, and data](theory_model.png){fig-align="center"}
 
 ### Community Detection Algorithm
 
 Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
 | Algorithm | Feature | Citation |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Walktrap | random walks | @ponsComputingCommunitiesLarge2006 |
 | Infomap | random walks | @rosvallMapsRandomWalks2008 |
 | Fast-greedy | hierarchical clustering; modularity-based | @clausetFindingCommunityStructure2004 |
