@@ -17,6 +17,7 @@ format:
     code-tools: false
     comments: false
     number-sections: true
+    fig-align: center
 bibliography: references.bib
 ---
 
@@ -26,7 +27,14 @@ bibliography: references.bib
 This is a reading note for the following books
 
 1.  {[Javascript for R](https://book.javascript-for-r.com/widgets-intro-intro)}.
-2.  {[Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com)} by Carson Sievert
+2.  {[Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com)} by Carson Sievert.
+
+```{r}
+#| code-fold: true
+library(memer) # devtools::install_github("sctyner/memer")
+meme_get("DistractedBf") %>% 
+  meme_text_distbf("Javascript", "data scientists", "ggplot2")
+```
 :::
 
 ## Relevant resources

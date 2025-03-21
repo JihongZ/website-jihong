@@ -1,4 +1,7 @@
 ---
+execute: 
+  warning: false
+  message: false
 format: html
 ---
 
@@ -70,9 +73,35 @@ plot_ly(mtcars, x=~disp) |>
 
 - Use `plotly_json()` to see the JSON representation of the plotly object.
 
+- Use `jasonlite` to quickly check jason elements. Check out the [package information](https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html).
+
 ```{r}
-#| eval: false
+library(jsonlite)
+library(tidyverse)
 p <- plot_ly(diamonds, x = ~cut, color = ~clarity, colors = "Accent")
-plotly_json(p, FALSE)
+p_jason <- plotly_json(p, FALSE, pretty = TRUE) |> 
+  fromJSON() 
+colnames(p_jason$data)
 ```
+#### Work directly with plotly.js
+
+`add_trace(type = "scatter", mode = "xxx")` function allows you to work directly with plotly.js. This function is a low-level interface to plotly.js, compared to other functions like `add_markers`.
+
+```{r}
+set.seed(99)
+plot_ly() |> 
+ add_trace(
+   type = "scatter",
+   mode = "markers+lines+text",
+   x = 4:6, 
+   y = 4:6,
+   text = replicate(3, praise::praise("You are ${adjective}! 🙌")),
+   textposition = "right",
+   hoverinfo = "text",
+   textfont = list(family = "MiSans", size = 16)
+ ) |> 
+ layout(xaxis = list(range = c(3, 8)))
+```
+
+
 

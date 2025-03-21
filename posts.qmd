@@ -58,7 +58,7 @@ format:
 
 ```{r}
 #| echo: false
-#| fig-height: 3
+#| fig-height: 4
 library(plotly)
 post_folders <- as.numeric(list.files("posts")[grepl(list.files("posts"), pattern = "20")])
 post_folders <- sort(post_folders, decreasing = TRUE)
@@ -69,16 +69,25 @@ freq_post <- data.frame(
   year = post_folders,
   number_post = sapply(path_post, \(x) length(list.files(x)))
 )
-plot_ly(x =~year, y=~number_post, data = freq_post) |> 
-  add_lines(color=I("turquoise")) |> 
-  add_markers() |> 
-  add_bars(color = I("tan")) |> 
+
+## font setting
+t <- list(
+  family = "MiSans",
+  size = 14,
+  color = '#404041')
+plot_ly(x =~year, y=~number_post, data = freq_post, 
+        showlegend = FALSE) |> 
+  add_lines(color=I("tan")) |> 
+  add_bars(color = I("tan"), opacity = .3) |> 
+  add_markers(color=I("tan")) |> 
+  add_text(y=~number_post+.5, text=~number_post) |> 
   layout(
     paper_bgcolor = "#FAF9F6",
     plot_bgcolor='#FAF9F6',
-    title = "Number of Posts by Year",
-    xaxis = list(title = ""), 
-    yaxis = list(title = ""))
+    title = "",
+    xaxis = list(title = "Number of Posts by Year"), 
+    yaxis = list(title = ""),
+    font = t)
 ```
 
 ```{r}

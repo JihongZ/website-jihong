@@ -1,0 +1,15 @@
+{
+  "hash": "080a8e93e1d95f0faaf11682df914972",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Visuliaztion of Item Information Curves In R\nauthor: Jihong\ndate: '2019-01-10'\nslug: visuliaztion-of-item-information-curves-in-r\ncategories:\n  - blog\ntags:\n  - R\n  - ggplot2\n---\n\n\n\n\n![Item Information Curve](information_curve.png)\n\nThis blog is to show a new way to display item information curves using `ggridges` package. The ridge plot could show the IIF plots very clear when you have a large number of items.\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(item_information_all %>% filter(item %in% 17:22)) +\n  aes(x = factor, y = item, height = info, \n      group = item, color = as.factor(item), \n      fill = as.factor(item)) +\n  ggridges::geom_ridgeline(alpha = 0.75) +\n  ggtitle(\"Peer Social Capital: Information Functions\")  +\n  theme_ridges()\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

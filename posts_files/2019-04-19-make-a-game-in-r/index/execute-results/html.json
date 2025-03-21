@@ -1,0 +1,15 @@
+{
+  "hash": "252d9fe2679e7b957351afc76802ea89",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Make a Game in R\nauthor: jihong\ndate: '2019-04-19'\nslug: make-a-game-in-r\ncategories:\n  - blog\ntags:\n  - Blog\nauthors: []\n---\n\n\n> Recently I found a interesting R package call nessy which allows you to create a simple game driven by shiny. Thus. I tried a little bit about this package. Making a interactive app in R is promising in the files like teaching, presentation and visualization.\n\nFinally, I created the following shiny app:\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(nessy)\nlibrary(shinyjs)\n\njscode <- \"shinyjs.closeWindow = function() { window.close(); }\"\nui <- cartridge(\n  title = \"{Memorize the Names!}\",\n  subtitle = \"Do you have some names to memorize in few minutes? Try this game!\",\n  container_with_title(\n    title = \"Names you want to memorize (i.e. Jonathan, Lesa)\"\n  ),\n  container_with_title(\n    title = \"Add a Name\",\n    text_input(id = \"name1\", label = \"Name\", placeholder = \"Jonathan Templin\"),\n    text_input(id = \"key\", label = \"Keys\", placeholder = \"Iowa/DCM\"),\n    htmlOutput(\"namelist\"),\n    button_primary(id = \"add\", \"Add\")\n  ),\n  button_success(id = \"play\", \"Play the Game\"),\n  useShinyjs(),\n  extendShinyjs(text = jscode, functions = c(\"closeWindow\")),\n  button_error(id = \"close\", \"Close Window\"),\n  \n  # Game pages\n  uiOutput(\"gamepage\")\n)\n\n\nserver <- function(input, output, session) {\n  names <- reactiveValues(\n    oldnames = \"\",\n    allnames = NULL,\n    allkeys = NULL\n  )\n  \n  observeEvent(input$add, {\n    names$oldnames = paste(names$oldnames, \"<br>\", input$name1, \"  <==>  \", input$key)\n    names$allnames = c(names$allnames, input$name1)\n    names$allkeys = c(names$allkeys, input$key)\n    output$namelist <- renderText(names$oldnames)\n  })\n  \n  observeEvent(input$play, {\n    selectedkey <- sample(names$allkeys, 1)\n    selectedname <- names$allnames[names$allkeys == selectedkey]\n    output$gamepage <- renderUI({\n      container_with_title(\n        paste(\"Key:\", selectedkey),\n        text_input(id = \"guessname\", label = \"Guess a Name\", placeholder = \"Jonathan\")\n      )\n    })\n  })\n\n\n  observeEvent(input$close, {\n    js$closeWindow()\n    stopApp()\n  })\n  \n}\n\nshiny::shinyApp(ui, server)\n```\n:::\n\n\nThe game is like this:\n\n<iframe width=\"900\" height=\"900\" scrolling=\"no\" frameborder=\"no\" src=\"https://jihongz.shinyapps.io/Game_with_R/\">\n\n</iframe>\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -47,16 +47,22 @@ freq_note <- data.frame(
   year = note_folders,
   number_note = sapply(path_note, \(x) length(list.files(x)))
 )
-plot_ly(x =~year, y=~number_note, data = freq_note) |> 
-  add_lines(color=I("turquoise")) |> 
-  add_markers() |> 
-  add_bars(color = I("violetred")) |> 
+
+t <- list(
+  family = "MiSans",
+  size = 14,
+  color = '#404041')
+plot_ly(x =~year, y=~number_note, data = freq_note, showlegend = FALSE) |> 
+  add_bars(color = I("turquoise4"), opacity = .3) |> 
+  add_lines(color=I("turquoise4")) |> 
+  add_markers(color=I("turquoise4")) |> 
   layout(
     paper_bgcolor = "#FAF9F6",
     plot_bgcolor='#FAF9F6',
-    title = "Number of Notes by Year",
-    xaxis = list(title = ""), 
-    yaxis = list(title = ""))
+    title = "",
+    xaxis = list(title = "Number of Notes by Year"), 
+    yaxis = list(title = ""),
+    font = t)
 ```
 
 ```{r}
