@@ -1,0 +1,78 @@
+---
+format: html
+---
+
+### plotly package
+
+-   This section also includes [Chapter 2 - Overview](https://plotly-r.com/overview) in [Book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/), which has more details about `plotly` package.
+
+#### Basic Information
+
+`plotly` R package is powered by the Javascript library *plotly.js*. A `plotly` object is initialized with a `plot_ly()` function.
+
+```{r}
+library(plotly)
+library(ggplot2)
+head(diamonds)
+```
+
+-   `plot_ly()` tries to find a sensible geometric representation of that information for
+
+-   Note that column name is formatted with `~Name` in `plot_ly()`, which is different from `ggplot2` package `Name` or `vars(Name)`.
+
+```{r}
+#| layout-ncol: 1
+#| fig-cap:
+#|   - "Plot 1"
+#|   - "Plot 2"
+#|   - "Plot 3"
+plot_ly(diamonds, x=~cut)
+plot_ly(diamonds, x=~cut, y=~clarity, colors="Accent")
+plot_ly(diamonds, x=~cut, color=~clarity, colors="Accent")
+```
+
+-   To specify the color directly, use `I()` function to declar the color value as "asis".
+
+```{r}
+plot_ly(diamonds, x=~cut, 
+        color=I("tomato"), 
+        stroke=I("royalblue"), 
+        span = I(3)) |> 
+layout(title = "Histogram with I() function")
+```
+
+#### Translate ggplot2 to plotly
+
+In @fig-plotly-1, `ggplotly()` can translate a `ggplot2` object into a plotly object.
+
+```{r}
+#| label: fig-plotly-1
+p <- ggplot(diamonds, aes(x=log(carat), y=log(price))) + 
+  geom_hex(bins = 100)
+ggplotly(p)
+```
+
+#### `add_` as layers and `|>` as connection
+
+Plotly implements geoms in a similar fashion as ggplot2, functions that start in add\_ add a layer to the plot (e.g.: add_lines, add_bars), making it easy to combine series into a single chart, as in @fig-plotly-2.
+
+```{r}
+#| label: fig-plotly-2
+#| fig-cap: "Plotly with add_ and |> as connection"
+plot_ly(mtcars, x=~disp) |> 
+  add_markers(y=~mpg, text = rownames(mtcars)) |> 
+  add_lines(y=~fitted(loess(mpg ~ disp)))
+```
+
+#### Data in plotly.js
+
+![A diagram of what happens when you print a plotly graph](https://plotly-r.com/images/printing.svg)
+
+- Use `plotly_json()` to see the JSON representation of the plotly object.
+
+```{r}
+#| eval: false
+p <- plot_ly(diamonds, x = ~cut, color = ~clarity, colors = "Accent")
+plotly_json(p, FALSE)
+```
+

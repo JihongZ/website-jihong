@@ -27,6 +27,7 @@ For data visualization lovers, `Inputs` ([Quarto doc](https://quarto.org/docs/in
 
 ## Inputs Library
 
+### Button
 `Inputs.button(content, options)`
 
 ```{ojs}
@@ -39,6 +40,19 @@ Inputs.button([
   ["Decrement", (value) => value - 1],
   ["Reset", () => 0]
 ], {label: "Counter", value: 0})
+```
+
+Example of progress bar
+
+```{ojs}
+clicks = view(Inputs.button("Click me"));
+```
+
+### Checkbox
+
+```{ojs}
+Inputs.checkbox(["Torgersen", "Biscoe", "Dream"], 
+                {value: ["Torgersen", "Biscoe"], label: "Islands:"})
 ```
 
 ## OJS 101

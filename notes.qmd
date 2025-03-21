@@ -5,17 +5,17 @@ sidebar: id-note
 listing:
   - id: notes_2025
     template: assets/ejs/article-lists.ejs
-    contents: "notes/2025/**/*.[Rq]md"
+    contents: "notes/2025/*/*.[Rq]md"
     sort: "date desc"
     categories: true
   - id: notes_2024
     template: assets/ejs/article-lists.ejs
-    contents: "notes/2024/**/*.[Rq]md"
+    contents: "notes/2024/*/*.[Rq]md"
     sort: "date desc"
     categories: true
   - id: notes_2020
     template: assets/ejs/article-lists.ejs
-    contents: "notes/2020/**/*.[Rq]md"
+    contents: "notes/2020/*/*.[Rq]md"
     sort: "date desc"
     categories: true  
 freeze: false    

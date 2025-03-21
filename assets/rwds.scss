@@ -144,10 +144,14 @@ h1, h2, h3, .callout-title-container {
 // Add shadow to images
 // img { box-shadow: 4px 4px 8px 0px rgba( 0, 0, 0, 0.2 );}
 
-body, p, li, a { // main font family of post content
+body, p, li, a{ // main font family of post content
   font-family: "Tenor Sans", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+
+label {
+  font-family: "Jost", sans-serif;
 }
 
 p > em, li > em {
@@ -217,6 +221,10 @@ pre.sourceCode.markdown::before {
   content:"♤ Markdown"
 }
 
+button.code-copy-button {
+  margin: 0px;
+}
+
 pre.sourceCode.r::before, 
 pre.sourceCode.yaml::before, 
 pre.sourceCode.markdown::before, 
@@ -258,9 +266,8 @@ div.cell-output::before {
   background-color: $hutao-hong;
   color: $dan-qing;
   display: block;
-  font-weight: bold;
   padding: 1px 1px;
-  font-family: 'MiSans';
+  font-family: 'Source Code Pro', monospace;
 }
 div.cell-output {
   background: $dan-feng;
