@@ -15,25 +15,17 @@ format:
     code-fold: true
 ---
 
-用[黑桐谷歌【最终幻想7重制版】视频攻略](https://www.bilibili.com/video/BV1iK411L7G5/?vd_source=84566f3ffd99685e26f9d41b7c8dff53)为例。在Inspect中找到视频选集的对应element---`div.title`。这还不够具体，
-
 ```{r}
 library(rvest)
 library(stringr)
-
-# 查看合集: 黑桐谷歌【最终幻想7重制版】视频攻略 
-url = "https://www.bilibili.com/video/BV1iK411L7G5"
-html <- read_html(url);
-html_extract <- html_elements(html, css = "div.simple-base-item > div.title > div.title-txt")
-html_extract |> 
-  html_text2() 
 ```
 
-## 豆瓣剧集
+## 剧集汇总
 
 从豆瓣网抓取凡人修仙传的简介和每一季的集数。先找到第一到第六以及特别篇的豆瓣网址。
 
 ```{r scrap, cache=TRUE}
+#| code-summary: "豆瓣网剧集网址"
 # 第一季《凡人修仙传：风起天南》
 douban_url <- "https://movie.douban.com/subject/"
 url_s1 = "34925294/" # 第一季《凡人修仙传：风起天南》
@@ -156,7 +148,7 @@ baima_ep_info <- baima_titles |>
 ```
 
 ```{r}
-## 利维坦视频抓取
+#| code-summary: "利维坦视频抓取"
 lwt_html1 <- read_html("https://www.bilibili.com/video/BV1wS4y1X7xb")
 lwt_html2 <- read_html("https://www.bilibili.com/video/BV1xeXHYyERT")
 lwt_titles <- sapply(list(lwt_html1, lwt_html2), \(x)
@@ -189,6 +181,7 @@ lwt_ep_info <- lwt_titles |>
 
 
 ```{r}
+#| code-summary: "利维坦视频整理"
 get_season <- function(x) {
   ifelse(is.na(x), x,
        season_start_end_ep$season[(x >= season_start_end_ep$ep_start) & (x <= season_start_end_ep$ep_end)])
@@ -221,9 +214,9 @@ season_info_all <- data.frame(
   mutate(ep_info_all = str_replace_all(ep_info_all, "NA", "") )
 ```
 
-## 豆瓣简介
+## 分集简介
 
-用Markdown来罗列简介
+每集简介是抓取利维坦和白马侯子的视频标题整理而成。
 
 ::: macwindow
 ```{r}
@@ -242,7 +235,7 @@ show_info_fanren
 ```
 :::
 
-## Resource
+## 其他资源
 
 1.  My previous Bilibili Danmu extraction project ([Github](https://github.com/JihongZ/Danmu_Cloud_mobile/blob/master/bilibili_api.R))
 2.  Previous Blog: [Web Scraping Academia Institute's Grant Fundings using R](https://jihongzhang.org/posts/2022/2022-05-12-web-scrapping-grant-fundings-in-r/index.html)
