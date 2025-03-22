@@ -2,7 +2,7 @@
 title: ""
 listing:
   - id: posts
-    contents: posts/*/*.[Rq]md
+    contents: posts/**/*.[Rq]md
     type: grid
     fields: [image, date, reading-time, title]
     sort: "date desc"
@@ -24,7 +24,7 @@ format:
 ---
 
 ::: separator
-[Experience]{.next-section} & Education
+[Experience]{.next-section}
 :::
 
 ::: {.panel-tabset align="left"}

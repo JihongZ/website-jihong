@@ -42,17 +42,17 @@ This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-net
 :::
 
 ::: macwindow
-```{r plot, cache=TRUE}
+```{r plot}
 #| fig-height: 7
 #| fig-width: 10
-library("psychonetrics")
+library(psychonetrics)
 # Load bfi data from psych package:
-library("psychTools")
-data(bfi)
-
+library(psychTools)
 # Also load dplyr for the pipe operator:
-library("dplyr")
+library(dplyr)
 
+
+data(bfi)
 # Let's take the agreeableness items, and gender:
 ConsData <- bfi |> 
   select(A1:A5, gender) |> 
@@ -202,10 +202,11 @@ For illustration, we can examine the differences in accuracy and stability betwe
 
 For evaluation criteria, the standardized deviation (SD) for two methods was used to examine the stability; PC, MAE, MBE for two methods were used to examine the accuracy.
 
+::: macwindow
 ```{r exp1, cache=TRUE}
 #| warning: false
 #| message: false
-#| code-fold: false
+#| code-fold: true
 #| code-summary: "Community Detection for Bootstrapping Resampled Samples"
 library(igraph) # For community detection
 library(foreach) # For parallel computing
@@ -281,20 +282,24 @@ summary_tbl <- data.frame(
 )
 kableExtra::kable(summary_tbl)
 ```
+:::
+
+
 
 ::: callout-note
-## Interpretation
-
+### Interpretation
 Overall, the fast-greedy method performs better than the walktrap method given its higher value of PC and lower absolute values of MAE and MBE across 100 bootstrapping re-sampling iterations with the $\frac{1}{10}$ sample size. The fast-greedy is also more stable than the walktrap given smaller variability ($\mathrm{SD_{FG}}=.65$; $\mathrm{SD_{WT}}=1.13$).
 :::
+
 
 ### Sample Size Effect on Community Detection
 
 We can further examine the effect of sample size on the community detection. The sample sizes are 100, 200, 500, 1000, and 2000. The bootstrapping resampling method with 100 replications is used for variability in each condition.
 
+::: macwindow
 ```{r exp1_n, cache=TRUE}
 #| warning: false
-#| code-fold: show
+#| code-summary: "Community Detection by Sample Size: MCMC"
 cl <- makePSOCKcluster(detectCores() - 1)
 registerDoParallel(cl)
 res_byN <- foreach(N = c(100, 200, 500, 1000, 2000), 
@@ -308,6 +313,8 @@ stopCluster(cl)
 ```{r}
 #| label: fig-comm-detect-n
 #| fig-cap: "Community Detection by Sample Size"
+#| fig-cap-location: top
+#| code-summary: "Community Detection by Sample Size: Visualization"
 
 library(tidyverse)
 res_byN_tbl <- as.data.frame(res_byN) 
@@ -339,5 +346,6 @@ res_byN_smy |>
   scale_x_continuous(breaks = c(100, 200, 500, 1000, 2000)) +
   theme_minimal()
 ```
+:::
 
 As shown in @fig-comm-detect-n, for both methods, as sample size gets larger, the number of communities detected by both methods tends to align with the theoretical number of communities, $K = 5$. From N = 100 to N = 200 has strong increase in the accuracy of the number of communities detected, while from N = 200 to N = 500 has moderate improvement in the number of communities detected. After N = 500, the number of communities detected is stable.
