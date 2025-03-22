@@ -112,6 +112,7 @@ fanren <- tbl <- tribble(
 fanren$`剧集` <- cumulative_ep_col
 kableExtra::kable(fanren)
 ```
+
 ## 豆瓣简介
 
 用Markdown来罗列简介
