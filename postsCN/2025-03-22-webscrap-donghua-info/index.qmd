@@ -86,6 +86,7 @@ for (i in seq(url_all)) {
 ```
 
 ```{r}
+#| code-summary: "分季剧集整理"
 cumulative_ep <- all_ep
 for (i in 1:length(all_ep)) {
   if (i == 1) {
@@ -95,9 +96,17 @@ for (i in 1:length(all_ep)) {
   }
 }
 cumulative_ep_col <- sapply(cumulative_ep, \(x) paste0(min(x), "-", max(x)))
+
+## 每一季的起始和结束集数
+season_start_end_ep <- data.frame(
+  season = seq_along(cumulative_ep),
+  ep_start = sapply(cumulative_ep, min),
+  ep_end = sapply(cumulative_ep, max)
+)
 ```
 
 ```{r}
+#| code-summary: "分季剧集汇总"
 library(tidyverse)
 fanren <- tbl <- tribble(
   ~系列, ~首播,
@@ -113,6 +122,53 @@ fanren$`剧集` <- cumulative_ep_col
 kableExtra::kable(fanren)
 ```
 
+```{r}
+#| code-summary: "白马侯子的解析视频标题抓取"
+library(tidyverse)
+## 白马侯子的解析视频
+baima_html <- read_html("https://www.bilibili.com/video/BV1jPX4Y6Euz")
+baima_titles <- baima_extract <- html_elements(baima_html, css = "div.simple-base-item > div.title > div.title-txt") |> 
+  html_text2() 
+
+ep_num <- as.numeric(str_replace(str_extract(baima_titles, "\\d+集"), "集", ""))
+ep_num <- ifelse(ep_num > 200, NA, ep_num)
+ep_num_title <- ifelse(is.na(ep_num), "综合点评", paste0("第", ep_num, "集简介"))
+
+baima_ep_info <- baima_titles |> 
+  str_replace_all("解析|解读|逐帧", "") |> 
+  str_replace_all("《", "") |> 
+  str_replace_all("》", "") |> 
+  str_replace_all("【", "") |> 
+  str_replace_all("】", "") |> 
+  str_replace_all("凡人修仙传", "") |> 
+  str_replace_all("第", "") |> 
+  str_replace_all("\\d+集", "") |> 
+  str_replace_all("\\d+-", "") |> 
+  str_replace_all("\\d+/", "") |> 
+  str_replace_all("（）", "") |> 
+  str_replace_all("\\+", "") |> 
+  str_replace_all("逻辑梳理", "") |> 
+  str_replace_all(" ", "")
+
+
+season_num <- sapply(ep_num, \(x) 
+       ifelse(is.na(x), x,
+       season_start_end_ep$season[(x >= season_start_end_ep$ep_start) & (x <= season_start_end_ep$ep_end)]))
+
+## 将白马侯子的视频简介按季整理成数据框
+season_info_all <- data.frame(
+  ep_num,
+  ep_info = paste0(ep_num_title, "：", baima_ep_info),
+  season_num = factor(season_num, levels = 1:length(url_all) )
+) |>
+  complete(season_num) |> #填充空白的季
+  dplyr::filter(!is.na(season_num)) |> 
+  arrange(ep_num) |> 
+  group_by( season_num) |>
+  summarise(ep_info_all = paste0("-  ", ep_info, collapse = "\n\n")) |> 
+  mutate(ep_info_all = ifelse(ep_info_all == "-  NA", "", ep_info_all) )
+```
+
 ## 豆瓣简介
 
 用Markdown来罗列简介
@@ -123,8 +179,12 @@ kableExtra::kable(fanren)
 
 n_ep_per_s <- sapply(cumulative_ep, length)
 show_info_fanren <- glue::glue("### {fanren$系列}（共{n_ep_per_s}集）\n\n 
-                               **首播：{fanren$首播}** \n\n
-                               {all_info}  \n\n")
+                               **首播：{fanren$`首播`}** \n\n
+                               **剧集：{fanren$`剧集`}** \n\n
+                               {all_info}  \n\n
+                               {season_info_all$ep_info_all} \n\n"
+                               )
+
 show_info_fanren
 
 ```
