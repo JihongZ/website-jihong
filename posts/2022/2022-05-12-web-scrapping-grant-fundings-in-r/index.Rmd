@@ -8,7 +8,9 @@ execute:
   eval: false
 categories:
   - blog
-  - Web Scrapping
+  - Scrapping
+  - rvest
+  - XML
 tags: []
 subtitle: ''
 summary: ''

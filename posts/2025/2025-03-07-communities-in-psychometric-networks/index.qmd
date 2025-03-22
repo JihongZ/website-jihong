@@ -27,7 +27,6 @@ format:
     code-summary: "Click this to see R code"
 ---
 
-
 ::: objectives
 ## Overview {.unnumbered}
 
@@ -35,7 +34,7 @@ A friend of mine recently asked me one question about network community: in her 
 
 This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) instead aims to talk about varied aspects of *community detection* in psychometric network analysis, including the following questions:
 
-1.  What is "node community"? 
+1.  What is "node community"?
 2.  Why we need communities of nodes in network analysis?
 3.  How communities are generated in the network?
 4.  How to identify those communities given a network?
@@ -133,8 +132,7 @@ In psychometric literature, however, confirmatory network analysis has become mo
 Theories are those tools can explain, predict, control phenomena. They are also in one point between strong to weak given to what degree they can explain, predict, and control phenomena. Typically, theorectical model is related to the date generation process—how data is generated, which is unknown in prior. We can link theory to data by using statistical modeling that impose assumptions on the data. However, the statistical models themselves can not be used to measure how strong or weak the theory is.
 
 ::: macwindow
-Relationships among theory, statistical model, and data
-![](theory_model.png){fig-align="center"}
+Relationships among theory, statistical model, and data ![](theory_model.png){fig-align="center"}
 :::
 
 ### Community Detection Algorithm
@@ -142,7 +140,7 @@ Relationships among theory, statistical model, and data
 Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
 | Algorithm | Feature | Citation |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Walktrap | random walks | @ponsComputingCommunitiesLarge2006 |
 | Infomap | random walks | @rosvallMapsRandomWalks2008 |
 | Fast-greedy | hierarchical clustering; modularity-based | @clausetFindingCommunityStructure2004 |
@@ -284,13 +282,11 @@ kableExtra::kable(summary_tbl)
 ```
 :::
 
-
-
 ::: callout-note
 ### Interpretation
+
 Overall, the fast-greedy method performs better than the walktrap method given its higher value of PC and lower absolute values of MAE and MBE across 100 bootstrapping re-sampling iterations with the $\frac{1}{10}$ sample size. The fast-greedy is also more stable than the walktrap given smaller variability ($\mathrm{SD_{FG}}=.65$; $\mathrm{SD_{WT}}=1.13$).
 :::
-
 
 ### Sample Size Effect on Community Detection
 

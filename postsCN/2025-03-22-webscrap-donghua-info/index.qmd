@@ -1,0 +1,135 @@
+---
+title: "使用R网页抓取：凡人修仙传剧集"
+author: "学徒"
+date: "2025-03-22"
+draft: false
+categories: 
+  - R
+  - rvest
+execute: 
+  warning: false
+  message: false
+format: 
+  html:
+    code-tools: false
+    code-fold: true
+---
+
+用[黑桐谷歌【最终幻想7重制版】视频攻略](https://www.bilibili.com/video/BV1iK411L7G5/?vd_source=84566f3ffd99685e26f9d41b7c8dff53)为例。在Inspect中找到视频选集的对应element---`div.title`。这还不够具体，
+
+```{r}
+library(rvest)
+library(stringr)
+
+# 查看合集: 黑桐谷歌【最终幻想7重制版】视频攻略 
+url = "https://www.bilibili.com/video/BV1iK411L7G5"
+html <- read_html(url);
+html_extract <- html_elements(html, css = "div.simple-base-item > div.title > div.title-txt")
+html_extract |> 
+  html_text2() 
+```
+
+## 豆瓣剧集
+
+从豆瓣网抓取凡人修仙传的简介和每一季的集数。先找到第一到第六以及特别篇的豆瓣网址。
+
+```{r scrap, cache=TRUE}
+# 第一季《凡人修仙传：风起天南》
+douban_url <- "https://movie.douban.com/subject/"
+url_s1 = "34925294/" # 第一季《凡人修仙传：风起天南》
+url_s1_2 = "35259437/" # 特别篇《燕家堡之战》          
+url_s2 = "35640039/" # 第二季《凡人修仙传：魔道争锋》
+url_s3 = "35882624/" # 第三季《凡人修仙传：再别天南》
+url_s4 = "36017435/" # 第四季《凡人修仙传：初入星海》
+url_s5 = "36139980/" # 第五季《凡人修仙传：星海飞驰》
+url_s6 = "36923479/" # 第六季《凡人修仙传：外海风云》
+url_all <- c(url_s1, url_s1_2, url_s2, url_s3, url_s4, url_s5, url_s6)
+
+read_html_fanren <- function(douban_url = "https://movie.douban.com/subject/",
+                             url) {
+  html <- read_html(paste0(douban_url, url))
+  return(html)
+}
+
+
+## 简介
+get_info <- function(html) {
+  html_info <- html_elements(html, css = "div.article > div.related-info")
+  info <- html_info |>  
+    html_text2() |> 
+    str_replace_all("\n", "") |> 
+    str_replace_all(" ", "")
+  return(info)
+}
+## 集数
+get_ep <- function(html) {
+  html_ep <- html_elements(html, css = "div.article > div.episode_list")
+  remove_na <- \(x) {x[x != ""]} 
+  ep <- html_ep |> 
+    html_text2() |> 
+    str_split("集", simplify = FALSE) |> 
+    unlist() |> 
+    remove_na() |> 
+    as.numeric()
+  return(ep)
+}
+
+
+all_ep <- list(NA)
+length(all_ep) <- length(url_all)
+all_info <- rep(NA, length(url_all))
+for (i in seq(url_all)) {
+  html <- read_html_fanren(url = url_all[i]) 
+  all_ep[[i]] =  get_ep(html)
+  all_info[i] =  get_info(html)
+}
+```
+
+```{r}
+cumulative_ep <- all_ep
+for (i in 1:length(all_ep)) {
+  if (i == 1) {
+    cumulative_ep[[i]] = as.numeric(all_ep[[i]])
+  }else{
+    cumulative_ep[[i]] = as.numeric(all_ep[[i]]) + max(as.numeric(cumulative_ep[[i-1]]))
+  }
+}
+cumulative_ep_col <- sapply(cumulative_ep, \(x) paste0(min(x), "-", max(x)))
+```
+
+```{r}
+library(tidyverse)
+fanren <- tbl <- tribble(
+  ~系列, ~首播,
+"第一季《凡人修仙传：风起天南》", "2020-07-25",
+"特别篇《凡人修仙传: 燕家堡之战》", "2021-01-31",
+"第二季《凡人修仙传：魔道争锋》", "2021-11-14",
+"第三季《凡人修仙传：再别天南》", "2022-04-24",
+"第四季《凡人修仙传：初入星海》", "2022-07-31",
+"第五季《凡人修仙传：星海飞驰》", "2023-07-30",
+"第六季《凡人修仙传：外海风云》", "2025-01-18"
+)
+fanren$`剧集` <- cumulative_ep_col
+kableExtra::kable(fanren)
+```
+## 豆瓣简介
+
+用Markdown来罗列简介
+
+::: macwindow
+```{r}
+#| results: asis
+
+n_ep_per_s <- sapply(cumulative_ep, length)
+show_info_fanren <- glue::glue("### {fanren$系列}（共{n_ep_per_s}集）\n\n 
+                               **首播：{fanren$首播}** \n\n
+                               {all_info}  \n\n")
+show_info_fanren
+
+```
+:::
+
+## Resource
+
+1.  My previous Bilibili Danmu extraction project ([Github](https://github.com/JihongZ/Danmu_Cloud_mobile/blob/master/bilibili_api.R))
+2.  Previous Blog: [Web Scraping Academia Institute's Grant Fundings using R](https://jihongzhang.org/posts/2022/2022-05-12-web-scrapping-grant-fundings-in-r/index.html)
