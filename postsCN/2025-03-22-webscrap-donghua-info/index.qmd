@@ -127,7 +127,7 @@ kableExtra::kable(fanren)
 library(tidyverse)
 ## 白马侯子的解析视频
 baima_html <- read_html("https://www.bilibili.com/video/BV1jPX4Y6Euz")
-baima_titles <- baima_extract <- html_elements(baima_html, css = "div.simple-base-item > div.title > div.title-txt") |> 
+baima_titles <- html_elements(baima_html, css = "div.simple-base-item > div.title > div.title-txt") |> 
   html_text2() 
 
 ep_num <- as.numeric(str_replace(str_extract(baima_titles, "\\d+集"), "集", ""))
@@ -145,28 +145,80 @@ baima_ep_info <- baima_titles |>
   str_replace_all("\\d+集", "") |> 
   str_replace_all("\\d+-", "") |> 
   str_replace_all("\\d+/", "") |> 
+  str_replace_all("\\d+$", "") |> 
   str_replace_all("（）", "") |> 
   str_replace_all("\\+", "") |> 
   str_replace_all("逻辑梳理", "") |> 
   str_replace_all(" ", "")
 
 
-season_num <- sapply(ep_num, \(x) 
-       ifelse(is.na(x), x,
-       season_start_end_ep$season[(x >= season_start_end_ep$ep_start) & (x <= season_start_end_ep$ep_end)]))
+
+```
+
+```{r}
+## 利维坦视频抓取
+lwt_html1 <- read_html("https://www.bilibili.com/video/BV1wS4y1X7xb")
+lwt_html2 <- read_html("https://www.bilibili.com/video/BV1xeXHYyERT")
+lwt_titles <- sapply(list(lwt_html1, lwt_html2), \(x)
+                      html_elements(x, css = "div.simple-base-item > div.title > div.title-txt") |> 
+                        html_text2(), simplify = TRUE) 
+lwt_titles <- unlist(lwt_titles)
+
+## 抓取剧集
+lwt_ep_num <- as.numeric(str_replace(str_extract(lwt_titles, "\\d+集|\\d+逐"), "集|逐", ""))
+lwt_ep_num_title <- ifelse(is.na(ep_num), "综合点评", paste0("第", ep_num, "集简介"))
+
+## 利维坦视频简介清理
+lwt_ep_info <- lwt_titles |> 
+  str_replace_all("解析|解读|逐帧", "") |> 
+  str_replace_all("《", "") |> 
+  str_replace_all("》", "") |> 
+  str_replace_all("【", "") |> 
+  str_replace_all("】", "") |> 
+  str_replace_all("凡人修仙传", "") |> 
+  str_replace_all("第", "") |> 
+  str_replace_all("\\d+集", "") |> 
+  str_replace_all("\\d+-", "") |> 
+  str_replace_all("\\d+/", "") |> 
+  str_replace_all("\\d+$", "") |> 
+  str_replace_all("（）", "") |> 
+  str_replace_all("\\+", "") |> 
+  str_replace_all("逻辑梳理", "") |> 
+  str_replace_all(" ", "")
+```
+
+
+```{r}
+get_season <- function(x) {
+  ifelse(is.na(x), x,
+       season_start_end_ep$season[(x >= season_start_end_ep$ep_start) & (x <= season_start_end_ep$ep_end)])
+}
 
 ## 将白马侯子的视频简介按季整理成数据框
 season_info_all <- data.frame(
-  ep_num,
-  ep_info = paste0(ep_num_title, "：", baima_ep_info),
-  season_num = factor(season_num, levels = 1:length(url_all) )
-) |>
+  lwt_ep_num,
+  lwt_ep_info = lwt_ep_info ## 利维坦
+) |> 
+  full_join(
+    data.frame(
+      ep_num,
+      ep_info = baima_ep_info), # 白马侯子
+    by = c("lwt_ep_num" = "ep_num")
+  ) |> 
+  mutate(ep_info_all = paste(lwt_ep_info, ep_info)) |>
+  mutate(ep_info_all = ifelse(is.na(lwt_ep_num), "综合点评", paste0("第**", lwt_ep_num, "**集简介:", ep_info_all)) ) |>
+  rowwise() |>
+  mutate(
+    season_num = get_season(lwt_ep_num)
+  ) |> 
+  ungroup() |> 
+  mutate(season_num = factor(season_num, levels = 1:length(url_all))) |>
   complete(season_num) |> #填充空白的季
-  dplyr::filter(!is.na(season_num)) |> 
-  arrange(ep_num) |> 
+  filter(!is.na(season_num)) |> 
   group_by( season_num) |>
-  summarise(ep_info_all = paste0("-  ", ep_info, collapse = "\n\n")) |> 
-  mutate(ep_info_all = ifelse(ep_info_all == "-  NA", "", ep_info_all) )
+  summarise(ep_info_all = paste0("-  ", ep_info_all, collapse = "\n\n")) |> 
+  mutate(ep_info_all = ifelse(ep_info_all == "-  NA", "", ep_info_all) ) |> 
+  mutate(ep_info_all = str_replace_all(ep_info_all, "NA", "") )
 ```
 
 ## 豆瓣简介
