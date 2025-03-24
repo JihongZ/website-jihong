@@ -6,3 +6,5 @@
 .DS_Store
 /_site/
 /.quarto/
+/notes_files/
+/site_libs/
