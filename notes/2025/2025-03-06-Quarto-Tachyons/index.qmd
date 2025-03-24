@@ -1,6 +1,10 @@
 ---
 title: "`htmltools`: Play with Tachyons"
 date: "2025-03-13"
+categories:
+  - htmltools
+  - htmlwidgets
+  - tachyons
 filters:
   - tachyons
 format:

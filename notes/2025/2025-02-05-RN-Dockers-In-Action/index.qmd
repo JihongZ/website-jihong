@@ -3,7 +3,7 @@ title: "Note: Docker in Action, Second Edition"
 subtitle: ""
 description: ''
 
-date: '2025-05-02'
+date: '2025-03-02'
 sidebar: false
 categories:
   - Docker

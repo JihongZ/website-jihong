@@ -5,33 +5,50 @@ title-block-banner: false
 date: "2025-03-16"
 date-modified: "`{r} Sys.Date()`"
 categories:
-  - Boot
+  - htmltools
+  - htmlwidgets
   - Javascript
 execute: 
   message: false
   warning: false  
 fig-cap-location: top  
-format:
-  html:
-    page-layout: full
-    code-tools: false
-    comments: false
-    number-sections: true
-    fig-align: center
+toc-depth: 3
+toc-expand: true
+toc-location: left
+number-sections: true
+page-layout: full
+code-tools: false
+comments: false
+fig-align: center
+format: html
 bibliography: references.bib
 ---
 
 ::: objectives
 ## Overview {.unnumbered}
 
-This is a reading note for the following books
+The interactive web app development in R requires multiple relevant skillsets: HTML, CSS, Javascript, R, and Shiny etc. This is a reading note covering the following books:
 
-1.  {[Javascript for R](https://book.javascript-for-r.com/widgets-intro-intro)}.
-2.  {[Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com)} by Carson Sievert.
+1.  {[Javascript for R](https://book.javascript-for-r.com/widgets-intro-intro)} (JFR) by John Coene (2021-04-19).
+2.  {[Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com)} (IVRPS) by Carson Sievert (2019-12-19).
+3.  {[Outstanding User Interfaces with Shiny](https://unleash-shiny.rinterface.com/)} (OUIS) by David Granjon (2022-03-14).
+    -   Understand how Shiny deals with the classic web development standards and what are the main differences.
+    -   Manipulate **HTML tags** from R to create custom layouts.
+    -   Harness the power of **CSS and JavaScript** to quickly design apps standing out from the pack.
+    -   Discover the steps to import and convert existing web frameworks like Bootstrap 4 and Framework7.
+    -   Learn how Shiny internally deals with inputs.
+    -   Learn more about less-documented Shiny mechanisms (websockets, sessions, …).
 
 ```{r}
 #| code-fold: true
-library(memer) # devtools::install_github("sctyner/memer")
+
+if (!require("memer")) {
+  devtools::install_github("sctyner/memer") 
+  library(memer)
+}else{
+  library(memer) # devtools::install_github("sctyner/memer") 
+}
+
 meme_get("DistractedBf") %>% 
   meme_text_distbf("Javascript", "data scientists", "ggplot2")
 ```
@@ -42,7 +59,7 @@ meme_get("DistractedBf") %>%
 1.  [htmltools](https://github.com/rstudio/htmltools) package
     -   [Chapter 2: Manipulate HTML tags from R with {htmltools}](https://unleash-shiny.rinterface.com/htmltools-overview) in Outstanding User Interfaces with Shiny
 
-## Chapter 3: Introduction to Widgets
+## JFR Chapter 3: Introduction to Widgets
 
 > The `htmlwidgets` package originates from the rCharts package [@vaidyanathanRamnathvRCharts2025] in 2012 by Ramnath Vaidyanathan. It brought together a plethora of data visualisation JavaScript libraries, datamaps, highcharts, morris.js, and many more. Though no longer maintained rCharts ultimately paved the way towards a framework for interactive visualisations in R: two years later, in 2014, Ramnath and other prominent R users start working on htmlwidgets.
 
@@ -74,7 +91,7 @@ crosstalk::bscols(
 ```
 :::
 
-## Chapter 5: Create a widget
+## JFR Chapter 5: Create a widget
 
 This function puts together the minimalistic structure necessary to implement an htmlwidget and opens `play.R`, `play.js`, and `play.yaml` in the RStudio IDE or the default text editor.
 
