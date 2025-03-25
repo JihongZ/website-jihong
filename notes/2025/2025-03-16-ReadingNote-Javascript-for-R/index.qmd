@@ -94,6 +94,12 @@ Method 2: One example of embeded cell is like this:
 </iframe>
 :::
 
+The Observable Framework offers another option to deploy your javascript+R dashboard. See here for detailed [code](https://observablehq.com/framework/getting-started#next-steps) for the get started of local development. Following is the toy example I created (Github [link](https://github.com/JihongZ/hello-framework)).
+
+::: {.column-screen}
+<iframe width="100%" height="1000" frameborder="0"  src="https://jihongz.observablehq.cloud/hello-framework" title="Hello World Observable Framework"></iframe>
+:::
+
 ## JFR Chapter 3: Introduction to Widgets
 
 > The `htmlwidgets` package originates from the rCharts package [@vaidyanathanRamnathvRCharts2025] in 2012 by Ramnath Vaidyanathan. It brought together a plethora of data visualisation JavaScript libraries, datamaps, highcharts, morris.js, and many more. Though no longer maintained rCharts ultimately paved the way towards a framework for interactive visualisations in R: two years later, in 2014, Ramnath and other prominent R users start working on htmlwidgets.
