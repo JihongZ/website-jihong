@@ -105,3 +105,27 @@ div.macwindow {
   box-shadow: 4px 4px 8px 0px rgba( 0, 0, 0, 0.2 );
 }
 
+div.maccaution {
+  padding: 1em;
+  margin: 1em 0;
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: 15px 1.5em;
+  min-height: 120px;
+  color: #1a162dcc;
+  background-color: color-mix(in srgb, #EE6331, white 90%);
+  border-top: 20pt solid #eab0c41a;
+  border-radius: 10px;
+  max-width: 100%;
+  line-height: 1.75em;
+  font-size: 0.85em;
+  letter-spacing: 1pt;
+  margin-bottom: 1.5em;
+  box-shadow: 4px 4px 8px 0px rgba( 0, 0, 0, 0.2 );
+}
+
+div.maccaution::before {
+  content: "! Caution";
+  color: #EE6331;
+  font-weight: bold;
+}

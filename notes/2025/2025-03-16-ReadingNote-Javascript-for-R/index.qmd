@@ -64,9 +64,13 @@ meme_get("DistractedBf") %>%
 There are two ways to take advantage of Observable Javascript in Quarto:
 
 1.  Write OJS code in `{ojs}` cells in the Quarto document (see more [details](https://quarto.org/docs/interactive/ojs/)).
-2.  Write code using ObservableHQ notebook and share embeded output
+2.  Write code using ObservableHQ notebook and share embedded output
 
-Either way has pros and cons: First method can make use of various R packages for data sciences (i.e., `tidyverse`) if you are R users, it also has seamlessly embedded into `.qmd` file. However, `{ojs}` cells do not have autocompletion nor allow you to execute cells without rendering the whole documents. Second method can write OJS code and execute lively but you have to use Javascript library for data analysis (i.e., [Aquero](https://idl.uw.edu/arquero/api/)). A mixing method is performing data analysis in R and save it to CSV locally or into cloud (e.g., Google), then using file attachment for reading data in the ObservableHQ.
+::: maccaution
+Either way has pros and cons: First method can make use of various R packages for data sciences (i.e., `tidyverse`) if you are R users, it also has seamlessly embedded into `.qmd` file. However, `{ojs}` cells do not have autocompletion nor allow you to execute cells without rendering the whole Quarto markdown document. Second method, on the other hand, allows you to write syntax-highlighted OJS code with autocompletion and execute the cells lively, but you have to use Javascript libraries to do data analysis (i.e., [Aquero](https://idl.uw.edu/arquero/api/)).
+
+**A mixing method** combing the goods of both methods is performing the data analysis in R, export it to CSV locally or into the cloud (e.g., Google), then using the file attachment function for reading data in the ObservableHQ. Alternatively, if you are not mentally attached to Quarto markdown, the Observable [Framework](https://observablehq.com/framework/getting-started) is another option of standalone data visualization project.
+:::
 
 ```{ojs}
 //| code-summary: "Method 1: {ojs} cell"
