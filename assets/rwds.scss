@@ -263,17 +263,18 @@ pre.sourceCode.yaml {
 div.cell-output::before {
   content:"⩥ OUT";
   font-size: var(--bs-body-font-size);
-  background-color: $hutao-hong;
-  color: $dan-qing;
+  background-color: $freeze-purple;
+  color: $tao-you;
   display: block;
-  padding: 1px 1px;
+  padding: 1px 1px 1px;
   font-family: 'Source Code Pro', monospace;
 }
 div.cell-output {
-  background: $dan-feng;
-  border-radius: 4px;
+  background-color: $freeze-purple;
+  border-radius: 8px;
   border-left: solid 3px $hutao-hong;
   font-family: 'Source Code Pro', monospace;
+  box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1), 0 6px 20px 0 rgba(0,0,0,0.1);
 }
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/

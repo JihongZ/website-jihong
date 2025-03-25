@@ -64,7 +64,7 @@ meme_get("DistractedBf") %>%
 There are two ways to take advantage of Observable Javascript in Quarto:
 
 1.  Write OJS code in `{ojs}` cells in the Quarto document (see more [details](https://quarto.org/docs/interactive/ojs/)).
-2.  Write code using ObservableHQ notebook and share embeded output 
+2.  Write code using ObservableHQ notebook and share embeded output
 
 Either way has pros and cons: First method can make use of various R packages for data sciences (i.e., `tidyverse`) if you are R users, it also has seamlessly embedded into `.qmd` file. However, `{ojs}` cells do not have autocompletion nor allow you to execute cells without rendering the whole documents. Second method can write OJS code and execute lively but you have to use Javascript library for data analysis (i.e., [Aquero](https://idl.uw.edu/arquero/api/)). A mixing method is performing data analysis in R and save it to CSV locally or into cloud (e.g., Google), then using file attachment for reading data in the ObservableHQ.
 
@@ -80,13 +80,14 @@ Plot.rectY({length: 100000},
 
 Since ObservableHQ is likely long-term maintained, I prefer the second method.
 
-To embed [ObservableHQ](https://observablehq.com/) notebook cells into Quarto, make sure your ObservableHQ notebook is public, then take the following steps in ObservableHQ: $\vdots$ > `Export` > `Embed Cells`.
+To embed [ObservableHQ](https://observablehq.com/) notebook cells into Quarto, make sure your ObservableHQ notebook is public, then take the following steps in ObservableHQ: $\vdots$ \> `Export` \> `Embed Cells`.
 
 ::: macwindow
 Method 2: One example of embeded cell is like this:
 
-<iframe width="100%" height="369" frameborder="0"
-  src="https://observablehq.com/embed/c03db5cde95f513e?cells=chart"></iframe>
+<iframe width="100%" height="369" frameborder="0" src="https://observablehq.com/embed/c03db5cde95f513e?cells=chart">
+
+</iframe>
 :::
 
 ## JFR Chapter 3: Introduction to Widgets
