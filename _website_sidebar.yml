@@ -3,6 +3,14 @@ website:
   sidebar:
     - id: id-blog
       style: floating
+    - id: id-javascript-in-R
+      style: docked
+      collapse-level: 0
+      contents:
+        - text: <h3>Contents</h3>
+        - file: notes/2025/2025-03-16-ReadingNote-Javascript-for-R/index.qmd
+        - notes/2025/2025-03-16-ReadingNote-Javascript-for-R/package_info/plotly.qmd
+        - notes/2025/2025-03-16-ReadingNote-Javascript-for-R/package_info/DiagrammeR.qmd
     - id: id-lec6990v # https://github.com/quarto-dev/quarto-cli/discussions/8117
       style: floating
       collapse-level: 0

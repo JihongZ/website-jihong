@@ -1,17 +1,30 @@
 ---
+title: "plotly package"
+author: Jihong Zhang
+date: "2025-03-16"
+date-modified: "`{r} Sys.Date()`"
+categories:
+  - htmltools
+  - htmlwidgets
+  - Javascript
 execute: 
   warning: false
   message: false
+fig-cap-location: top  
+toc-depth: 3
+toc-expand: true
+toc-location: right
+sidebar: id-javascript-in-R  
 format: html
 ---
 
-### IVRPS: plotly package
+# IVRPS: plotly package
 
 -   This section also includes [Chapter 2 - Overview](https://plotly-r.com/overview) in [Book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/), which has more details about `plotly` package.
 
----
+------------------------------------------------------------------------
 
-#### IVRPS Chapter 2: Basic Information
+## IVRPS Chapter 2: Basic Information
 
 `plotly` R package is powered by the Javascript library *plotly.js*. A `plotly` object is initialized with a `plot_ly()` function.
 
@@ -46,7 +59,7 @@ plot_ly(diamonds, x=~cut,
 layout(title = "Histogram with I() function")
 ```
 
-##### Translate ggplot2 to plotly
+### Translate ggplot2 to plotly
 
 In @fig-plotly-1, `ggplotly()` can translate a `ggplot2` object into a plotly object.
 
@@ -57,7 +70,7 @@ p <- ggplot(diamonds, aes(x=log(carat), y=log(price))) +
 ggplotly(p)
 ```
 
-##### `add_` as layers and `|>` as connection
+### `add_` as layers and `|>` as connection
 
 Plotly implements geoms in a similar fashion as ggplot2, functions that start in add\_ add a layer to the plot (e.g.: add_lines, add_bars), making it easy to combine series into a single chart, as in @fig-plotly-2.
 
@@ -69,7 +82,7 @@ plot_ly(mtcars, x=~disp) |>
   add_lines(y=~fitted(loess(mpg ~ disp)))
 ```
 
-##### Data in plotly.js
+### Data in plotly.js
 
 ![A diagram of what happens when you print a plotly graph](https://plotly-r.com/images/printing.svg)
 
@@ -86,7 +99,7 @@ p_jason <- plotly_json(p, FALSE, pretty = TRUE) |>
 colnames(p_jason$data)
 ```
 
-##### Work directly with plotly.js
+### Work directly with plotly.js
 
 `add_trace(type = "scatter", mode = "xxx")` function allows you to work directly with plotly.js. This function is a low-level interface to plotly.js, compared to other functions like `add_markers`.
 
@@ -106,18 +119,18 @@ plot_ly() |>
  layout(xaxis = list(range = c(3, 8)))
 ```
 
----
+------------------------------------------------------------------------
 
-#### IVRPS Chapter 3: Scattered Trace
+## IVRPS Chapter 3: Scattered Trace
 
 The trace is general layer in plot.js, which can be specified with a type. The trace layer with type scatter is for drawing geometries like points, lines, text, and polygons.
 
 ::: callout-note
 ### Key difference between `add_lines` and `add_paths`
 
--   `add_lines` ensures lines are drawn according to the ordering of x, which is desirable for a time series plotting. The figure below starts with the lowest value of x ---`1967-07-01` | `12.6`. 
+-   `add_lines` ensures lines are drawn according to the ordering of x, which is desirable for a time series plotting. The figure below starts with the lowest value of x ---`1967-07-01` \| `12.6`.
 
--   `add_paths` draws lines in the order of the data frame (row ordering). As shown in figure below, points starts with the point in the first row---`2005-07-01` | `2.2`--- then `2005-08-01` | `2.7`.
+-   `add_paths` draws lines in the order of the data frame (row ordering). As shown in figure below, points starts with the point in the first row---`2005-07-01` \| `2.2`--- then `2005-08-01` \| `2.7`.
 
 -   If x is sorted from lowest to highest, `add_paths` with be equivalent to `add_lines`.
 
@@ -159,10 +172,9 @@ economics |>
   plot_ly(x=~date, y=~psavert, color = I("tomato")) |> 
   add_paths()
 ```
-
 :::
 
-#### Group data into sub-gemometry
+### Group data into sub-gemometry
 
 -   Some attributes include color, alpha, symbol, stroke, span, size, linetype.
 
@@ -175,9 +187,9 @@ plot_ly(econ, x=~mnth, y=~uempmed) |>
   add_lines(color=~ordered(yr), colors="Accent")
 ```
 
-Scatter traces can be specified with a mode of `markers` (`add_markers` with a numeric x and y axis). This results in scatterplot. 
+Scatter traces can be specified with a mode of `markers` (`add_markers` with a numeric x and y axis). This results in scatterplot.
 
-1. Use `alpha` to adjust the transparancy of scatter points. It can combat with overplotting (points with exactly same x and y values). A location with more points shows less transparent. 
+1.  Use `alpha` to adjust the transparancy of scatter points. It can combat with overplotting (points with exactly same x and y values). A location with more points shows less transparent.
 
 ```{r}
 subplot(
@@ -211,6 +223,7 @@ rownames(RColorBrewer::brewer.pal.info)
 
 ::: callout-note
 ## Differences between `color` and `stroke`
+
 The `color` argument is meant to control the ‘fill-color’ of a geometric object, whereas `stroke` is meant to control the ‘outline-color’ of a geometric object.
 
 ```{r}
@@ -222,12 +235,11 @@ subplot(
     add_markers(color=I("black"), stroke=~cyl, showlegend = FALSE) 
 )
 ```
-
 :::
 
-4.    Use `symbol` argument to map data values to different shape.
+4.  Use `symbol` argument to map data values to different shape.
 
-  - Use `symbols` to specify certain visual values: "circle", "diamond" etc.
+-   Use `symbols` to specify certain visual values: "circle", "diamond" etc.
 
 ```{r}
 p <- plot_ly(mpg, x=~cty, y=~hwy, alpha = .3) 
@@ -240,7 +252,7 @@ subplot(
 )
 ```
 
-5.    Use `span` to control width of the stroke (outline).
+5.  Use `span` to control width of the stroke (outline).
 
 ```{r}
 subplot(
@@ -251,10 +263,10 @@ subplot(
 )
 ```
 
-6. Use `size` to control the area of markers.
+6.  Use `size` to control the area of markers.
 
-  - Use `sizes` to control the min and max values of size in pixles.
-  
+-   Use `sizes` to control the min and max values of size in pixles.
+
 ```{r}
 p <- plot_ly(mpg, x=~cty, y=~hwy, alpha = .3)
 
@@ -264,7 +276,7 @@ subplot(
 )
 ```
 
-7. Use `linetype` to control line types
+7.  Use `linetype` to control line types
 
 ```{r}
 econ <- economics |> 
@@ -274,4 +286,3 @@ econ <- economics |>
 plot_ly(data = econ, x=~mnth, y=~uempmed, linetype =~factor(yr), size = I(3)) |> 
   add_lines()
 ```
-

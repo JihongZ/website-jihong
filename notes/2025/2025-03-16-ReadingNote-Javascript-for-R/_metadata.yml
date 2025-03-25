@@ -1,0 +1,17 @@
+execute: 
+  warning: false
+  message: false
+categories:
+  - htmltools
+  - htmlwidgets
+  - Javascript
+fig-cap-location: top  
+toc-depth: 3
+toc-expand: true
+toc-location: right
+sidebar: id-javascript-in-R
+number-sections: true
+page-layout: full
+code-tools: false
+comments: false
+fig-align: center

@@ -1,0 +1,34 @@
+---
+format: html
+---
+
+## JFR Chapter 3: Introduction to Widgets
+
+> The `htmlwidgets` package originates from the rCharts package [@vaidyanathanRamnathvRCharts2025] in 2012 by Ramnath Vaidyanathan. It brought together a plethora of data visualisation JavaScript libraries, datamaps, highcharts, morris.js, and many more. Though no longer maintained rCharts ultimately paved the way towards a framework for interactive visualisations in R: two years later, in 2014, Ramnath and other prominent R users start working on htmlwidgets.
+
+### crosstalk package
+
+-   `crosstalk` package enable multiple html widgets to communicate.
+    -   `bscols` function put the visualization and table side-by-side
+-   Not all html widgets support `crosstalk` package. You can check out the list of compatible HTML widgets [here](https://rstudio.github.io/crosstalk/widgets.html).
+
+::: callout-note
+### Share Data between HTML widgets
+
+You can select cases in HTML tables and the selection will be reflected in the plot.
+
+```{r}
+library(DT)
+library(crosstalk)
+library(plotly)
+
+
+sd <- SharedData$new(iris[, c("Sepal.Length", "Sepal.Width")])
+
+crosstalk::bscols(
+  device = "lg",
+  datatable(sd, width = "100%"),
+  plot_ly(sd, x=~Sepal.Length, y=~Sepal.Width)
+)
+```
+:::

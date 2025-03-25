@@ -4,22 +4,9 @@ author: Jihong Zhang <a href="https://orcid.org/0000-0003-2820-3734"><img src="/
 title-block-banner: false
 date: "2025-03-16"
 date-modified: "`{r} Sys.Date()`"
-categories:
-  - htmltools
-  - htmlwidgets
-  - Javascript
 execute: 
   message: false
   warning: false  
-fig-cap-location: top  
-toc-depth: 3
-toc-expand: true
-toc-location: left
-number-sections: true
-page-layout: full
-code-tools: false
-comments: false
-fig-align: center
 format: html
 bibliography: references.bib
 ---
@@ -49,6 +36,7 @@ if (!require("memer")) {
   library(memer) # devtools::install_github("sctyner/memer") 
 }
 
+library(plotly)
 meme_get("DistractedBf") %>% 
   meme_text_distbf("Javascript", "data scientists", "ggplot2")
 ```
@@ -56,7 +44,8 @@ meme_get("DistractedBf") %>%
 
 ## Relevant resources
 
-1.  [htmltools](https://github.com/rstudio/htmltools) package
+1.  [htmlwidgets gallery](https://gallery.htmlwidgets.org/)
+2.  [htmltools](https://github.com/rstudio/htmltools) package
     -   [Chapter 2: Manipulate HTML tags from R with {htmltools}](https://unleash-shiny.rinterface.com/htmltools-overview) in Outstanding User Interfaces with Shiny
 
 ## ObservableHQ with Quarto
@@ -100,74 +89,6 @@ The Observable Framework offers another option to deploy your javascript+R dashb
 <iframe width="100%" height="1000" frameborder="0"  src="https://jihongz.observablehq.cloud/hello-framework" title="Hello World Observable Framework"></iframe>
 :::
 
-## JFR Chapter 3: Introduction to Widgets
+{{< include JFR_Chapter3/JFR_Chapter3.qmd >}}
 
-> The `htmlwidgets` package originates from the rCharts package [@vaidyanathanRamnathvRCharts2025] in 2012 by Ramnath Vaidyanathan. It brought together a plethora of data visualisation JavaScript libraries, datamaps, highcharts, morris.js, and many more. Though no longer maintained rCharts ultimately paved the way towards a framework for interactive visualisations in R: two years later, in 2014, Ramnath and other prominent R users start working on htmlwidgets.
-
-{{< include package_info/plotly.qmd >}}
-
-### crosstalk package
-
--   `crosstalk` package enable multiple html widgets to communicate.
-    -   `bscols` function put the visualization and table side-by-side
--   Not all html widgets support `crosstalk` package. You can check out the list of compatible HTML widgets [here](https://rstudio.github.io/crosstalk/widgets.html).
-
-::: callout-note
-### Share Data between HTML widgets
-
-You can select cases in HTML tables and the selection will be reflected in the plot.
-
-```{r}
-library(DT)
-library(crosstalk)
-
-
-sd <- SharedData$new(iris[, c("Sepal.Length", "Sepal.Width")])
-
-crosstalk::bscols(
-  device = "lg",
-  datatable(sd, width = "100%"),
-  plot_ly(sd, x=~Sepal.Length, y=~Sepal.Width)
-)
-```
-:::
-
-## JFR Chapter 5: Create a widget
-
-This function puts together the minimalistic structure necessary to implement an htmlwidget and opens `play.R`, `play.js`, and `play.yaml` in the RStudio IDE or the default text editor.
-
-```{r}
-#| eval: false
-usethis::create_package("playground")
-htmlwidgets::scaffoldWidget("play")
-#>Created boilerplate for widget constructor R/play.R
-#>Created boilerplate for widget dependencies at inst/htmlwidgets/play.yaml
-#>Created boilerplate for widget javascript bindings at inst/htmlwidgets/play.js
-```
-
-Here's the directory structure for the project `playground`:
-
-```{r}
-fs::dir_tree("playground")
-```
-
-Then, use `document()` ({{< kbd cmd+shift+D >}}) and `load_all()` ({{< kbd cmd+shift+L >}}) to document and load the package.
-
-```{r}
-#| eval: false
-devtools::document()
-devtools::load_all()
-```
-
-There is only one function in the playground package, `play()`, which is the constructor function for the widget. It takes a message as input and returns the message to HTML output.
-
-```{r}
-#| eval: false
-play(message = "This is a widget!")
-```
-
-```{r, file="./playground/R/play.R"}
-#| eval: false
-#| code-summary: "Click to see the source code of play.R"
-#| code-fold: true
-```
+{{< include JFR_Chapter5/JFR_Chapter5.qmd >}}

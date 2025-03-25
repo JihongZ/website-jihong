@@ -1,0 +1,56 @@
+---
+format: html
+---
+
+## JFR Chapter 5: Create a widget
+
+This function puts together the minimalistic structure necessary to implement an htmlwidget and opens `play.R`, `play.js`, and `play.yaml` in the RStudio IDE or the default text editor.
+
+```{r}
+#| eval: false
+usethis::create_package("playground")
+htmlwidgets::scaffoldWidget("play")
+#>Created boilerplate for widget constructor R/play.R
+#>Created boilerplate for widget dependencies at inst/htmlwidgets/play.yaml
+#>Created boilerplate for widget javascript bindings at inst/htmlwidgets/play.js
+```
+
+Here's the directory structure for the project `playground`:
+
+```{r}
+#| eval: false
+fs::dir_tree("JFR_Chapter5/playground")
+├── DESCRIPTION
+├── NAMESPACE
+├── R
+│   └── play.R
+├── inst
+│   └── htmlwidgets
+│       ├── play.js
+│       └── play.yaml
+├── man
+│   ├── play-shiny.Rd
+│   └── play.Rd
+└── playground.Rproj
+```
+
+Then, use `document()` ({{< kbd cmd+shift+D >}}) and `load_all()` ({{< kbd cmd+shift+L >}}) to document and load the package.
+
+```{r}
+#| eval: false
+devtools::document()
+devtools::load_all()
+```
+
+There is only one function in the playground package, `play()`, which is the constructor function for the widget. It takes a message as input and returns the message to HTML output.
+
+```{r}
+#| eval: false
+play(message = "This is a widget!")
+```
+
+```{r, file="JFR_Chapter5/playground/R/play.R"}
+#| eval: false
+#| code-summary: "Click to see the source code of `play.R`"
+#| code-fold: true
+```

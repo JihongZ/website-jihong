@@ -1,0 +1,66 @@
+---
+title: "DiagrammeR package"
+author: Jihong Zhang
+date: "2025-03-24"
+fig-cap-location: top  
+execute: 
+  eval: true
+format: html
+keep-md: true
+---
+
+::: objectives
+## Overview {.unnumbered}
+
+- This section is based on the official [documentation](https://rich-iannone.github.io/DiagrammeR/) of `DiagrammeR`.
+- This html widget is developed by Richard Iannone. 
+- The DiagrammeR package allows create, modify, analyze, and visualize **network graph** diagrams
+:::
+
+## Installation
+
+```{r}
+#| eval: false
+devtools::install_github("rich-iannone/DiagrammeR")
+```
+
+or 
+
+```{r}
+#| eval: false
+install.packages("DiagrammeR")
+```
+
+## Start from scratch
+
+Use `create_graph` to start with a empty graph object and use `add_node()` and `add_edge` functions to add nodes and edges, respectively.
+
+```{r}
+library(DiagrammeR)
+
+create_graph() |> 
+  add_node() |> 
+  add_node() |> 
+  add_edge(from = 1, to = 2) |> 
+  render_graph(layout = "nicely")
+```
+
+## aesthetic for node and edge
+
+Use `node_aes()` inside `add_node` and `edge_aes()` inside `add_edge` to specify aesthetic attributes.
+
+```{r}
+#| echo: false
+library(tidyverse)
+
+tribble(
+  ~`Aesthetic`, ~Attributes,
+  "Node", "color", 
+  "", "fillcolor", 
+  "", "fontcolor", 
+  "Edge", "color", 
+  "", "arrowhead", 
+  "", "tooltip"
+) |> 
+  kableExtra::kable()
+```
