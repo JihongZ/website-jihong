@@ -1,0 +1,995 @@
+---
+title: "Lecture 10: Two-way ANOVA II"
+subtitle: "Experimental Design in Education"
+date: "2025-03-07"
+date-modified: "`{r} Sys.Date()`"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    code-summary: "Click to see R code"
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    output-file: slides-index.html
+    mermaid:
+      theme: forest    
+---
+
+::: objectives
+## Overview of Lecture 09 & Lecture 10 {.unnumbered}
+
+1.  The rest of the semester
+2.  Advantage of Factorial Design
+3.  Two-way ANOVA:
+    -   Steps for conducting Two-way ANOVA
+    -   Hypothesis testing
+    -   Assumptions for two-way ANOVA
+    -   Visualization
+    -   Difference between one-way and two-way ANOVA
+
+**Question**: How about the research scenario when more than two independent variables?
+:::
+
+## Steps for conducting two-way ANOVA
+
+-   **Similar to one-way ANOVA**:
+    1.  Set the null hypothesis and the alternative hypothesis → Research question?
+    2.  Find the critical value of test statistics (i.e., F-critical) based on alpha and df
+    3.  Calculate the observed value of test statistics (i.e., F-observed) based on the information about the collected data (i.e., the sample)
+    4.  Make the statistical conclusion → either reject or retain the null hypothesis
+    5.  State the research conclusion regarding the research question
+
+## Hypothesis testing for two-way ANOVA (I)
+
+-   For two-way ANOVA, there are three distinct hypothesis tests :
+    -   Main effect of Factor A
+    -   Main effect of Factor B
+    -   Interaction of A and B
+
+::: callout-note
+### Definition
+
+F-test
+
+:   Three separate F-tests are conducted for each!
+
+Main effect
+
+:   Occurs when there is a difference between levels for one factor
+
+Interaction
+
+:   Occurs when the effect of one factor on the DV depends on the particular level of the other factor
+
+:   Said another way, when the difference in one factor is moderated by the other
+
+:   Said a third way, if the difference between levels of one factor is different, depending on the other factor
+:::
+
+## Hypothesis testing for two-way ANOVA (II)
+
+::: callout-important
+## Example
+
+**Background**: A researcher is investigating how study method (Factor A: Lecture vs. Interactive) and test format (Factor B: Multiple-Choice vs. Open-Ended) affect student performance (dependent variable: test scores). The study involves randomly assigning students to one of the two study methods and then assessing their performance on one of the two test formats.
+
+-   **Main Effect of Study Method (Factor A):**
+    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students who used the Lecture method and those who used the Interactive method.
+    -   [H1:]{style="color:tomato; font-weight:bold"} There is a significant difference in test scores between the two study methods.
+-   **Main Effect of Test Format (Factor B):**
+    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students taking a Multiple-Choice test and those taking an Open-Ended test.
+    -   [H1:]{style="color:tomato; font-weight:bold"} There is a significant difference in test scores between the two test formats.
+-   **Interaction Effect (Study Method × Test Format):**
+    -   [H0:]{style="color:royalblue; font-weight:bold"} The effect of study method on test scores is the same regardless of test format.
+    -   [H1:]{style="color:tomato; font-weight:bold"} The effect of study method on test scores depends on the test format (i.e., there is an interaction).
+:::
+
+## Hypothesis testing for two-way ANOVA (III)
+
+1.  Hypothesis test for the main effect with more than 2 levels
+    -   Mean differences among levels of one factor:
+
+        i)  Differences are tested for statistical significance
+        ii) Each factor is evaluated independently of the other factor(s) in the study
+
+    -   Factor A’s Main effect: “Controlling Factor B, are there differences in the DV across Factor A?”
+
+        $H_0$: $\mu_{A_1}=\mu_{A_2}=\cdots=\mu_{A_k}$
+
+        $H_1$: At least one $\mu_{A_i}$ is different from the control group in Factor A
+
+    -   Factor B’s Main effect : “Controlling Factor A, are there differences in the DV across Factor B?”
+
+        $H_0$: $\mu_{B_1}=\mu_{B_2}=\cdots=\mu_{B_k}$
+
+        $H_1$: At least one $\mu_{B_i}$ is different from the control group in Factor A
+
+::: callout-caution
+**Question**: what dose "controlling" mean in “Controlling Factor A, ..."?
+
+**Answer**: ["Controlling" means the decrease of error variances by incorporating the effects of factor A on outcome?]{.mohu}
+:::
+
+## Hypothesis testing for two-way ANOVA (IV)
+
+::: callout-note
+### Example: Tutoring Program and Types of Schools on Grades
+
+-   IVs:
+    1.  Tutoring Programs: (1) No tutor; (2) Once a week; (3) Daily
+    2.  Types of schools: (1) Public (2) Private-secular (3) Private-religious
+-   **Research purpose**: to examine the effect of tutoring program (no tutor, once a week, and daily) AND types of school (e.g., public, private-secular, and private-religious) on the students’ grades
+-   **Question**: What are the null and alternative hypotheses for the main effects in the example?:
+    -   Factor A’s Main effect: “[Controlling school types, are there differences in the students’ grade across three tutoring programs?]{.mohu}”
+
+        $H_0$: $\mu_{\mathrm{no\ tutor}}=\mu_{\mathrm{once\ a\ week}}=\mu_{\mathrm{daily}}$
+
+    -   Factor B’s Main effect : “[Controlling tutoring programs, are there differences in the students’ grades across three school types?]{.mohu}”
+
+        $H_0$: $\mu_{\mathrm{public}}=\mu_{\mathrm{private-religious}}=\mu_{\mathrm{private-secular}}$
+:::
+
+## Visualization of Two-Way ANOVA (No Interaction)
+
+-   The main-effect-only no-interaction statistical form
+
+$$
+\mathrm{Grade} = \beta_0 + \beta_1 \mathrm{Toturing_{Once}} + \beta_2 \mathrm{Toturing_{Daily}} \\ + \beta_3 \mathrm{SchoolType_{PvtS}} + \beta_4 \mathrm{SchoolType_{PvtR}}
+$$
+
+```{webr-r}
+#| context: setup
+library(tidyverse)
+# Set seed for reproducibility
+set.seed(123)
+
+# Define sample size per group
+n <- 30  
+
+# Define factor levels
+tutoring <- rep(c("No Tutor", "Once a Week", "Daily"), each = 3 * n)
+school <- rep(c("Public", "Private-Secular", "Private-Religious"), times = n * 3)
+
+# Simulate student grades with assumed effects
+grades <- c(
+  rnorm(n, mean = 75, sd = 5),  # No tutor, Public
+  rnorm(n, mean = 78, sd = 5),  # No tutor, Private-Secular
+  rnorm(n, mean = 76, sd = 5),  # No tutor, Private-Religious
+  rnorm(n, mean = 80, sd = 5),  # Once a week, Public
+  rnorm(n, mean = 83, sd = 5),  # Once a week, Private-Secular
+  rnorm(n, mean = 81, sd = 5),  # Once a week, Private-Religious
+  rnorm(n, mean = 85, sd = 5),  # Daily, Public
+  rnorm(n, mean = 88, sd = 5),  # Daily, Private-Secular
+  rnorm(n, mean = 86, sd = 5)   # Daily, Private-Religious
+)
+# Create a dataframe
+data <- data.frame(
+  Tutoring = factor(tutoring, levels = c("No Tutor", "Once a Week", "Daily")),
+  School = factor(school, levels = c("Public", "Private-Secular", "Private-Religious")),
+  Grades = grades
+)
+```
+
+```{r}
+#| include: false
+library(tidyverse)
+# Set seed for reproducibility
+set.seed(123)
+
+# Define sample size per group
+n <- 30  
+
+# Define factor levels
+tutoring <- rep(c("No Tutor", "Once a Week", "Daily"), each = 3 * n)
+school <- rep(c("Public", "Private-Secular", "Private-Religious"), times = n * 3)
+
+# Simulate student grades with assumed effects
+grades <- c(
+  rnorm(n, mean = 75, sd = 5),  # No tutor, Public
+  rnorm(n, mean = 78, sd = 5),  # No tutor, Private-Secular
+  rnorm(n, mean = 76, sd = 5),  # No tutor, Private-Religious
+  rnorm(n, mean = 80, sd = 5),  # Once a week, Public
+  rnorm(n, mean = 83, sd = 5),  # Once a week, Private-Secular
+  rnorm(n, mean = 81, sd = 5),  # Once a week, Private-Religious
+  rnorm(n, mean = 85, sd = 5),  # Daily, Public
+  rnorm(n, mean = 88, sd = 5),  # Daily, Private-Secular
+  rnorm(n, mean = 86, sd = 5)   # Daily, Private-Religious
+)
+# Create a dataframe
+data <- data.frame(
+  Tutoring = factor(tutoring, levels = c("No Tutor", "Once a Week", "Daily")),
+  School = factor(school, levels = c("Public", "Private-Secular", "Private-Religious")),
+  Grades = grades
+)
+```
+
+-   Main effect of Tutoring Programs
+    -   Collapsing across School Type
+    -   Ignoring the difference levels of School Type
+    -   Averaging DV regarding Tutoring Programs across the levels of School Type
+-   Main effect of School Type
+    -   Collapsing across Tutoring Program
+    -   Ignoring the difference levels of Tutoring Program
+    -   Averaging DV regarding School Type across the levels of Tutoring Programs
+
+------------------------------------------------------------------------
+
+::: panel-tabset
+### R Plot
+
+```{r}
+#| code-fold: true
+# Compute mean and standard error for each tutoring group
+tutoring_summary <- data |>
+  group_by(Tutoring) |>
+  summarise(
+    Mean_Grade_byTutor = mean(Grades),
+    School = factor(c("Public","Private-Secular", "Private-Religious"), 
+                    levels = c("Public","Private-Secular", "Private-Religious"))
+  ) 
+
+school_summary <- data |>
+  group_by(School) |>
+  summarise(
+    Mean_Grade_bySchool = mean(Grades)
+  ) 
+
+total_summary <- tutoring_summary |> 
+  left_join(school_summary, by = "School")
+
+# Plot main effect of tutoring
+ggplot(total_summary, aes(x = School)) +
+  geom_point(aes(y = Mean_Grade_byTutor, color = Tutoring), size = 5) +
+  geom_hline(aes(yintercept = Mean_Grade_byTutor, color = Tutoring), linewidth = 1.3) +
+  scale_y_continuous(limits = c(70, 90), breaks = seq(70, 90, 5)) +
+  labs(title = "Main Effect of Tutoring on Student Grades",
+       x = "School Types",
+       y = "Mean Grade") +
+  theme_minimal() +
+  theme(legend.position = "none")  # Remove legend for cleaner visualization
+```
+
+### Summary Statistics
+
+```{r}
+distinct(tutoring_summary[, c("Tutoring", "Mean_Grade_byTutor")])
+```
+
+### Interpretation of the Plot
+
+-   The x-axis represents three school types.
+-   The y-axis represents the mean student grades for the different tutoring programs: No Tutor, Once a Week, and Daily.
+-   If the main effect of tutoring is significant, we expect to see noticeable differences in mean grades across tutoring conditions.
+:::
+
+## You turn: Main Effect of School Type
+
+::: panel-tabset
+### Marginal Means for each tutoring / school type group
+
+```{webr-r}
+School_Levels <- c("Public","Private-Secular", "Private-Religious")
+tutoring_summary <- data |>
+  group_by(Tutoring) |>
+  summarise(
+    Mean_Grade_byTutor = mean(Grades),
+    School = factor(School_Levels, 
+                    levels = School_Levels)
+  ) 
+
+school_summary <- data |>
+  group_by(School) |>
+  summarise(
+    Mean_Grade_bySchool = mean(Grades)
+  ) 
+
+total_summary <- tutoring_summary |> 
+  left_join(school_summary, by = "School")
+```
+
+### Plot main effect of School Type
+
+```{webr-r}
+ggplot(total_summary, aes(x = Tutoring)) +
+  geom_point(aes(y = Mean_Grade_bySchool, color = School)) +
+  geom_hline(aes(yintercept = Mean_Grade_bySchool, color = School), linewidth = 1.3) +
+  scale_y_continuous(limits = c(70, 90), breaks = seq(70, 90, 5)) +
+  labs(title = "Main Effect of School Type on Student Grades",
+       x = "Tutoring Type",
+       y = "Mean Grade") +
+  theme_minimal() +
+  theme(legend.position = "none")  # Remove legend for cleaner visualization
+```
+:::
+
+## Combined Visualization
+
+::: panel-tabset
+### R Plot
+
+```{webr-r}
+fit <- lm(Grades ~ Tutoring + School, data = data)
+Line_No_Tutor <- c(fit$coefficients[1], fit$coefficients[1] + c(fit$coefficients[4], fit$coefficients[5]))
+Line_Once_A_Week <- Line_No_Tutor + fit$coefficients[2]
+Line_Daily <- Line_No_Tutor + fit$coefficients[3]
+School_Levels <- c("Public","Private-Secular", "Private-Religious")
+combined_vis_data <- data.frame(
+  School_Levels,
+  Line_No_Tutor,
+  Line_Once_A_Week,
+  Line_Daily
+)
+ggplot(data = combined_vis_data, aes(x = School_Levels)) +
+  geom_path(aes(y = as.numeric(Line_No_Tutor)), group = 1, color = "red", linewidth = 1.4) +
+  geom_path(aes(y = as.numeric(Line_Once_A_Week)), group = 1, color = "green", linewidth = 1.4) +
+  geom_path(aes(y = as.numeric(Line_Daily)), group = 1, color = "blue", linewidth = 1.4) +
+  geom_point(aes(y = as.numeric(Line_No_Tutor))) +
+  geom_point(aes(y = as.numeric(Line_Once_A_Week))) +
+  geom_point(aes(y = as.numeric(Line_Daily)))  +
+  labs(title = "Main Effect of Tutoring and School Type on Student Grades",
+       x = "Tutoring Type",
+       y = "Mean Grade") +
+  theme_minimal() +
+  theme(legend.position = "none") 
+```
+
+### In the graph
+
+-   There is the LARGE effect of Factor [Tutoring]{.mohu} and very small effect of [School Type]{.mohu}:
+    -   Effect of Factor [Tutoring]{.mohu}: the LARGE vertical distance
+    -   Effect of Factor [School Type]{.mohu}: the very small horizontal distance
+:::
+
+## Two-Way ANOVA with Interaction
+
+::::: columns
+::: column
+![](images/clipboard-3633655973.png)
+:::
+
+::: column
+In the graph:
+
+-   There is the **LARGE** effect of Factor A and very small effect of Factor B:
+-   Effect of Factor A: the LARGE distance between two green stars
+-   Effect of Factor B: the very small distance between two red stars
+
+In the graph, there is an intersection between two lines → This is an interaction effect between two factors!
+
+-   The level of Factor B depends upon the level of Factor A – B1 is higher than B2 for A1, but lower for A2 – B2 is lower than B1 for A1, but higher for A2
+:::
+:::::
+
+## F-statistics for Two-Way ANOVA
+
+![](images/clipboard-1962342945.png)
+
+## F-statistics for Two-Way ANOVA: R code
+
+::: panel-tabset
+### R Code
+
+```{webr-r}
+summary(aov(Grades ~ Tutoring + School + Tutoring:School, data = data))
+# or summary(aov(Grades ~ Tutoring*School, data = data))
+```
+
+### Interpretation
+
+| Source | df | MS | F |
+|------------------|------------------|------------------|------------------|
+| Main Effect of Tutoring | 2 | $2120.1 = 4240 / 2$ | 89.065\*\*\* |
+| Main Effect of School | 2 | $10.8 = 22 / 2$ | 0.636 |
+| Interaction Effect of School x Tutoring | 4 | $46.5 = 186 / 4$ | 0.102 |
+| Residual | 261 | $23.8 = 6213 / 261$ | --- |
+:::
+
+## F-statistics for Two-Way ANOVA: Degree of Freedom
+
+-   IVs:
+    1.  Tutoring Programs: (1) No tutor; (2) Once a week; (3) Daily
+    2.  Types of schools: (1) Public (2) Private-secular (3) Private-religious
+-   Degree of freedom (DF):
+    -   $df_{tutoring}$ = (Number of levels of Tutoring) - 1 = 3 - 1 = 2
+    -   $df_{school}$ = (Number of levels of School) - 1 = 3 - 1 = 2
+    -   $df_{interaction}$ = $df_{tutoring} \times df_{school}$ = $2 \times 2$ = 4
+    -   $df_{total}$ = 270 - 1 = 269
+    -   $df_{residual}$ = $df_{total}-df_{tutoring}-df_{school} - df_{interaction}$ = 269 - 2 - 2 - 4= 261
+
+::: callout-note
+### Calculation of p-values
+
+Based on DF and observed F statistics, we can locate observed F-statistic onto the F-distribution can calculate the p-values.
+:::
+
+## F-statistics for Two-Way ANOVA: SS and DF
+
+Why residual DF is calculated by subtracting the total DFs with effects' DFs?
+
+Because DF is linked to SS.
+
+| Source | SS | df |
+|----|----|----|
+| Main Effect of Tutoring | 4240 | 2 |
+| Main Effect of School | 22 | 2 |
+| Interaction Effect of School x Tutoring | 186 | 4 |
+| Residual | 6213 | 261 |
+| Total | 4240 + 22 + 186 + 6213 | 2 + 2 + 4 + 261 |
+
+```{r}
+#| results: hold
+sum((data$Grades - mean(data$Grades))^2)
+nrow(data) - 1 # nrow() calculate the number of rows / observations
+```
+
+```{r}
+#| results: hold
+4240 + 22 + 186 + 6213
+2 + 2 + 4 + 261
+```
+
+## Difference between one-way and two-way ANOVA
+
+::::: columns
+::: column
+### One-way ANOVA {.unnumbered}
+
+Total = Between + Within
+:::
+
+::: column
+### Two-way ANOVA {.unnumbered}
+
+Total = FactorA + FactorB + A\*B + Residual
+:::
+:::::
+
+::: rmdnote
+*Within* in one-way ANOVA and *Residual* in two-way ANOVA have same meaning, both of which are unexplained part of DV by the model.
+:::
+
+-   In Factor ANOVA Design, the overall between-group variability is divided up into variance terms for each unique source of the factors.
+
+| Source | 2 IVs | 3 IVs | 4 IVs |
+|------------------|------------------|------------------|------------------|
+| Main effect | A, B | A, B, C | A, B, C, D |
+| Interaction effect | AB | AB, BC, AC, ABC | AB, AC, AD, BC, BD, CD, ABC, ABD, BCD, ACD, ABCD |
+
+::: macwindow
+**Calculate the number of interaction effects** $$
+\mathrm{N_{interaction}} = \sum_{j=2}^J C_J^j
+$$
+
+```{r}
+##Number of interaction for 4 IVs
+choose(4, 2) + choose(4, 3) + choose(4, 4)
+```
+:::
+
+## F-statistics for Two-way ANOVA: F values
+
+-   F-observed values:
+
+    -   Main effect of factor A: $F_A = \frac{MS_A}{MS_E}$
+        -   $F_{tutoring} = \frac{MS_{tutoring}}{MS_{residual}} = \frac{2120.1}{23.8} = 89.065$
+    -   Main effect of factor B: $F_B = \frac{MS_B}{MS_E}$
+        -   $F_{School} = \frac{MS_{School}}{MS_{residual}} = \frac{10.8}{23.8} = 0.453$
+    -   Interaction effect of AxB: $F_{AB} = \frac{MS_{AB}}{MS_E}$
+        -   $F_{SxT} = \frac{MS_{SxT}}{MS_{residual}} = \frac{46.5}{23.8} = 1.953$
+
+------------------------------------------------------------------------
+
+A new samples with N = 300: Tutoring still has three levels, School types only have two levels: Public vs. Private.
+
+Based on the SS provide below, calculate F values for three effects.
+
+```{webr-r}
+#| context: "setup"
+# Set seed for reproducibility
+set.seed(1234)
+
+# Define sample size per group
+n <- 50  
+
+# Define factor levels
+tutoring <- rep(c("No Tutor", "Once a Week", "Daily"), each = 2*n)
+school <- rep(c("Public", "Private", 
+                "Public", "Private", 
+                "Public", "Private"), times = n)
+
+# Simulate student grades with assumed effects
+grades <- c(
+  rnorm(n, mean = 75, sd = 3),  # No tutor, Public
+  rnorm(n, mean = 78, sd = 3),  # No tutor, Private
+  rnorm(n, mean = 80, sd = 3),  # Once a week, Public
+  rnorm(n, mean = 83, sd = 3),  # Once a week, Private
+  rnorm(n, mean = 85, sd = 3),  # Daily, Public
+  rnorm(n, mean = 88, sd = 3)  # Daily, Private
+)
+
+# Create a dataframe
+data2 <- data.frame(
+  Tutoring = factor(tutoring, levels = c("No Tutor", "Once a Week", "Daily")),
+  School = factor(school, levels = c("Public", "Private")),
+  Grades = grades
+)
+
+fit <- aov(Grades ~ Tutoring*School, data2)
+fit_summary <- summary(fit)
+```
+
+```{webr-r}
+#| context: "output"
+fit_summary[[1]][2]
+```
+
+::: panel-tabset
+### You turn
+
+```{webr-r}
+# calculate the F-values give sum of squares
+ 
+df_tutoring = ______ # degree of freedom for tutoring
+df_school = ______ # degree of freedom for school
+df_ts = ______ # degree of freedom for interaction effects
+df_res = ______ # degree of freedom for residuals
+F_Tutoring = ( __ / df_tutoring ) / (__ / df_res)
+F_school = (__ / df_school) / (__ / df_res)
+F_ts = ( __ / df_ts)  / (__ / df_res) 
+F_Tutoring
+F_school
+F_ts
+```
+
+### Result
+
+```{webr-r}
+#| read-only: true
+
+df_res = 300 - 1 - 2 - 1 - 2
+F_Tutoring = ( 5978.8 / 2) / (3571.1 / df_res)
+F_school = (5.2 / 1) / (3571.1 / df_res)
+F_ts = ( 3.6 / 2)  / (3571.1 / df_res) 
+F_Tutoring
+F_school
+F_ts
+
+fit_summary
+```
+:::
+
+## F-statistics for Two-way ANOVA: Sum of squres
+
+::::: columns
+::: column
+![](images/clipboard-3610072829.png)
+:::
+
+::: column
+![](images/clipboard-4236975850.png)
+:::
+:::::
+
+## Interpretation
+
+| Source          | Df  | Sum Sq | Mean Sq | F value | P              |
+|-----------------|-----|--------|---------|---------|----------------|
+| Tutoring        | 2   | 4240   | 2120.1  | 89.065  | \<2e-16 \*\*\* |
+| School          | 2   | 22     | 10.8    | 0.453   | 0.636          |
+| Tutoring:School | 4   | 186    | 46.5    | 1.953   | 0.102          |
+| Residuals       | 261 | 6213   | 23.8    |         |                |
+
+::: panel-tabset
+### Main Effect A
+
+-   Main Effect A: Ignoring type of school, are there differences in grades across type of tutoring?
+    -   Under alpha=.05 level, because F-observed (F_observed=89.065) exceeds the critical value (p \< .001), we reject the null that all means are equal across tutoring type (ignoring the effect of school type).
+    -   There is a significant main effect of tutoring type on grade.
+
+### Main Effect B
+
+-   Main Effect B: Ignoring tutoring type, are there differences in grades across type of school?
+    -   Under alpha=.05 level, because F-observed (F_observed=95.40) exceeds the critical value (p = .453), we retain (or fail to reject) the null hypothesis that all means are equal across school type (ignoring the effect of tutoring type).
+    -   There is no evidence suggesting a significant main effect of school type on grade.
+
+### Interaction Effect AB
+
+-   Interaction Effect: Does the effect of tutoring type on grades depend on the type of school?
+    -   Under alpha=.05 level, because F-observed (F_observed=2.21) does not exceed the critical value (p = 0.102), we fail to reject the null that the effect of Factor A depends on Factor B.
+    -   There is not a significant interaction between tutoring type and school type on grades.
+:::
+
+## Assumptions for conductiong 2-way ANOVA
+
+-   In order to compare our sample to the null distribution, we need to make sure we are meeting some assumptions for each CELL:
+    1.  Variance of DV in each cell is about equal. → Homogeneity of variance\
+    2.  DV is normally distributed within each cell. → Normality
+    3.  Observations are independent. → Independency
+-   **Robustness** of assumption violations:
+    1.  Violations of independence assumption: bad news! → Not robust to this!
+    2.  Having a large N and equal cell sizes protects you against violations of the normality assumption → Rough suggestion: have at least 15 participants per cell → If you don’t have large N or equal groups, check cell normality 2 ways: (1) skew/kurtosis values, (2) histograms
+    3.  Use Levene’s test to check homogeneity of cell variance assumption → If can’t assume equal variances, use Welch or Brown-Forsyth. → However, F is somewhat robust to violations of HOV as long as within-cell standard deviations are approximately equal.
+
+## Two-way ANOVA: R Calculation
+
+::: panel-tabset
+### Background
+
+This research study is an adaptation of Gueguen (2012) described in Andy Field’s text. Specifically, the researchers hypothesized that **people with tattoos and piercings were more likely to engage in riskier behavior than those without tattoos and piercings**. In addition, the researcher wondered whether this difference varied, depending on whether a person was male or female.
+
+Question: How many IVs? How many levels for each.
+
+Answer: [2 IVs: (1) Whether or not having Tattos and Piercings (2) Male of Female. DV: Frequency of risk behaviors]{.mohu}
+
+### Data screening
+![](images/clipboard-655219567.png)
+
+:::
+
+## Data input in R
+
+Either you can import a CSV file, or manually import the data points (for small samples).
+
+```{r}
+tatto_piercing = rep(c(TRUE, FALSE), each = 8)
+gender = rep(c("Male", "Female", "Male", "Female"), each = 4)
+outcome = c(5.4, 6.7, 1.8, 6.1, 5.9, 4.6, 2.7, 3.8,
+            2.6, 5.8, 1.5, 2.1, .6, .7, .7, 1.8)
+
+dat <- data.frame(
+  tatto_piercing = tatto_piercing,
+  gender = gender,
+  outcome = outcome
+)
+dat
+```
+
+---
+
+### Your turn
+
+Import the following data set into R manually.
+
+```{r}
+#| echo: false
+set.seed(1234)
+Tutor = c("Bobby", "Julia", "Monique", "Ned")
+Time = c("AM", "PM")
+dat_ex1 <- expand.grid(Tutor, Time) |> 
+  as.data.frame() |> 
+  rename(Tutor = Var1, Time = Var2) |> 
+  mutate(Grade = sample(10:20, 8))
+dat_ex1 |> 
+  pivot_wider(values_from = Grade, names_from = Time) |> 
+  kableExtra::kable()
+```
+Hint: 
+
+```{r}
+#| results: hold
+rep(c("A", "B"), 2)
+rep(c("A", "B"), each = 2)
+```
+
+::: panel-tabset
+
+### Exercise
+```{webr-r}
+# Manually import the data in R
+
+Tutor = rep(______)
+Time = rep(______)
+Grade = c(_______)
+
+dat_ex1 <- data.frame(
+  Tutor = Tutor,
+  Time = Time, 
+  Grade = Grade
+)
+```
+### Answer
+
+```{r}
+Tutor = rep(c("Bobby", "Julia", "Monique", "Ned"), 2)
+Time = rep(c("AM", "PM"), each = 4)
+Grade = c(19, 15, 14, 13, 16, 10, 18, 11)
+
+dat_ex11 <- data.frame(
+  Tutor = Tutor,
+  Time = Time, 
+  Grade = Grade
+)
+dat_ex11
+```
+
+
+:::
+
+## Step 2: Sum of Squares of main effects
+
+$$
+SS_A = \sum n_a (M_{Aa} - M_T)^2
+$$
+
+- $M_{Aa}$ marginal mean of main effect A at each level
+- $n_a$: sample size for factor A at each level
+- $M_T$: grand mean of outcome
+
+```{r}
+#| include: false
+summary(aov(data = dat, formula = outcome ~ gender * tatto_piercing))
+```
+
+```{r}
+M_A_table <-  dat |> 
+  group_by(tatto_piercing) |>  
+  summarise(
+    N = n(),
+    Mean = mean(outcome)
+  ) 
+M_T = mean(dat$outcome)
+M_A_table
+```
+
+```{r}
+M_A_table$N[1] * (M_A_table$Mean[1] - M_T)^2 + 
+  M_A_table$N[2] * (M_A_table$Mean[2] - M_T)^2
+```
+or 
+
+```{r}
+sum(M_A_table$N * (M_A_table$Mean - M_T)^2)
+```
+
+---
+
+### Your turn: Sum of squares of Gender
+
+```{webr-r}
+#| context: setup
+tatto_piercing = rep(c(TRUE, FALSE), each = 8)
+gender = rep(c("Male", "Female", "Male", "Female"), each = 4)
+outcome = c(5.4, 6.7, 1.8, 6.1, 5.9, 4.6, 2.7, 3.8,
+            2.6, 5.8, 1.5, 2.1, .6, .7, .7, 1.8)
+
+dat <- data.frame(
+  tatto_piercing = tatto_piercing,
+  gender = gender,
+  outcome = outcome
+)
+dat
+```
+
+`dat` object has already been loaded into R. Please, calculate the gender's sum of squares:
+
+```{webr-r}
+M_B_table <-  dat |> 
+  group_by(____) |>  
+  summarise(
+    N = n(),
+    Mean = mean(___)
+  ) 
+M_T = mean(____)
+M_B_table
+
+___[1] * (____[1] - ___)^2 + 
+  ___[2] * (____[2] - ____)^2
+```
+
+## Step 3: Sum of Squares of Interaction Effect
+
+$$
+SS_{AB} = (\sum n_{ab} (M_{AaBb} - M_T)^2) - SS_A - SS_B
+$$
+
+![](images/clipboard-3610072829.png)
+
+```{r}
+cell_means <- dat |> 
+  group_by(tatto_piercing, gender) |> 
+  summarise(
+    N = n(),
+    Mean = mean(outcome)
+  )
+cell_means
+```
+
+---
+
+### Your turn
+
+```{webr-r}
+#| context: setup
+cell_means <- dat |> 
+  group_by(tatto_piercing, gender) |> 
+  summarise(
+    N = n(),
+    Mean = mean(outcome)
+  )
+```
+
+::: panel-tabset
+### Exercise
+```{webr-r}
+SS_gender <- 7.84
+SS_TP <- 28.09
+M_T <- 3.3
+sum(____ * (____ - ___)^2) - ____ - ____
+```
+
+### Answer
+
+```{webr-r}
+SS_gender <- 7.84
+SS_TP <- 28.09
+M_T <- 3.3
+sum(cell_means$N * (cell_means$Mean - M_T)^2) - SS_gender - SS_TP
+```
+
+:::
+
+## Step 4: Degree of freedom and F-statistics
+
+::: panel-tabset
+### Your turn
+
+```{webr-r}
+#| context: setup
+
+SS_gender <- 7.84
+SS_TP <- 28.09
+M_T <- 3.3
+SS_GxTP <- sum(cell_means$N * (cell_means$Mean - M_T)^2) - SS_gender - SS_TP
+SS_total <- sum((dat$outcome - mean(dat$outcome))^2)
+SS_residual = SS_total - SS_gender - SS_TP - SS_GxTP
+```
+
+```{webr-r}
+## Calculate total sum of square and residual SS
+SS_total <- sum((dat$outcome - mean(dat$outcome))^2)
+SS_residual = SS_total - SS_gender - SS_TP - SS_GxTP
+
+df_gender = ___
+df_TP = ___
+df_GxTP = __*__
+df_residual = __ - __ - __ - __ - ___
+F_gender = (___ / df_gender) / (SS_residual / df_residual)
+F_TP = (___ / df_TP) / (SS_residual / df_residual)
+F_GxTP = (___ / df_GxTP) / (SS_residual / df_residual)
+```
+
+
+### Answer
+```{webr-r}
+#                       Df Sum Sq Mean Sq F value Pr(>F)   
+# gender                 1   7.84   7.840   2.942  0.112   
+# tatto_piercing         1  28.09  28.090  10.540  0.007 **
+# gender:tatto_piercing  1   1.69   1.690   0.634  0.441   
+# Residuals             12  31.98   2.665                  
+
+
+df_gender = 1
+df_TP = 1
+df_GxTP = 1*1
+df_residual = 16 - 1 - 1 - 1 - 1*1 
+F_gender = (SS_gender / df_gender) / (SS_residual / df_residual)
+F_TP = (SS_TP / df_TP) / (SS_residual / df_residual)
+F_GxTP = (SS_GxTP / df_GxTP) / (SS_residual / df_residual)
+```
+
+:::
+
+## Interpretation
+
+```
+#                       Df Sum Sq Mean Sq F value Pr(>F)   
+# gender                 1   7.84   7.840   2.942  0.112   
+# tatto_piercing         1  28.09  28.090  10.540  0.007 **
+# gender:tatto_piercing  1   1.69   1.690   0.634  0.441   
+# Residuals             12  31.98   2.665   
+```
+
+-   Main Effect of Tattoo-Piercing: Reject the null → Ignoring the gender, there is a significant main effect of tattoo on risky behavior.
+
+-   Main Effect of Gender: Retain the null → Ignoring the tattoo, there is NO significant main effect of gender on risky behavior.
+
+-  Interaction: Retain the null → Under alpha=.05 level, because F-observed (F=0.63) does not exceed the critical value (F=4.75), we fail to reject the null that the effect of Factor A depends on Factor B. → “There is NO significant interaction between gender and tattoo on risky behavior.”
+
+
+## Other extensions about 2-way ANOVA: I
+
+- Type I? Type II? Type III?
+    - Effect sums of squares (SSA, SSB, SSAB) are a decomposition of the total sum of squared deviations from the overall mean (SST).
+    - How the SST is decomposed depends on characteristics of the data as well as the hypotheses of interest to the researcher.
+    
+- Type I sums of squares (SS) are based on a sequential decomposition.
+    - For example, if your ANOVA model statement is “MODEL Y = A B A\*B”, then, the sum of squares are considered in effect order A, B, A*B, with each effect adjusted for all preceding effects in the model.
+    - Thus, any variance that is shared between the various effects will be sub-summed by the variable entered earlier.
+
+Pros:
+
+1. Nice property: balanced or not, SS for all the effects add up to the total SS, a complete decomposition of the predicted sums of squares for the whole model. This is not generally true for any other type of sums of squares.
+
+2. Preferable when some factors (such as nesting) should be taken out before other factors. For example, with unequal number of male and female, factor "gender" should precede "subject" in an unbalanced design.
+
+Cons:
+1. Order matters!
+2. Not appropriate for factorial designs, but might be ok for Blocking designs.
+
+
+## Other extensions about 2-way ANOVA: II
+
+-   With Type II SS, each main effect is considered as though it were added after the other main effects but before the interaction.
+    - Any interaction effects are calculated based on a model already containing the main effects.
+    - Any variance that is shared between A and B is not considered part of A or B.
+    - Thus, interaction variance that is shared with A or with B will be counted as part of the main effect, and not as part of the interaction effect.
+
+Pros:
+
+1. appropriate for model building, and natural choice for regression
+2. most powerful when there is no interaction
+3. invariant to the order in which effects are entered into the model
+
+Cons:
+
+1. For factorial designs with unequal cell samples, Type II sums of squares test hypotheses that are complex functions of the cell ns that ordinarily are not meaningful.
+2. Not appropriate for factorial designs.
+
+
+## Other extensions about 2-way ANOVA: III
+-   Type III SS considers all effects as though they are added last.
+    - Any shared variance ends up not being counted in any of the effects.
+    - In ANOVA, when the data are balanced (equal cell sizes) and the factors are orthogonal and all three types of sums of squares are identical.
+    - Orthogonal, or independent, indicates that there is no variance shared across the various effects, and the separate sums of squares can be added to obtain the model sums of squares.
+
+Pros:
+
+Not sample size dependent: effect estimates are not a function of the frequency of observations in any group (i.e., for unbalanced data, where we have unequal numbers of observations in each group).
+
+Cons:
+
+Not appropriate for designs with missing cells: for ANOVA designs with missing cells, Type III sums of squares generally do not test hypotheses about least squares means, but instead test hypotheses that are complex functions of the patterns of missing cells in higher-order containing interactions and that are ordinarily not meaningful.
+
+::: rmdnote
+In general, for the factorial design, we usually report Type III SS, unless you have missing cells in your model.
+:::
+
+
+## Final discussion
+
+In this example,
+
+  - The interaction effect shows several issues:
+    -   Violation of independency assumption
+    -   Violation of normality assumption in the condition of “Male” and “Tattoo=Yes”
+    
+  - We can guess/think about one possibility that it might be cause by several reasons. (e.g., too small sample sizes, not randomized assignments of the samples, not a significant interaction effect, etc.)
+    -  From the two-way ANOVA results, we found that the interaction effect is not significant.
+
+  - Thus, in this case, it is more reasonable to conduct 
+    1. one-way ANOVA for “Group” variable, and 
+    2. one-way ANOVA for “Gender” variable, separately.
+    - For each of one-way ANOVAs, we should check the assumptions, conduct
+one-way ANOVA, and post-hoc test separately as well.
+
+## Fin

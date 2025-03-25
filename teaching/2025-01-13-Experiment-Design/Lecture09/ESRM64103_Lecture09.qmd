@@ -52,7 +52,7 @@ format:
 
 ## Previous lectures
 
-:::::: columns
+::::: columns
 ::: {.callout-note .column width="40%"}
 -   In experimental design, when we are interested in comparing the means of dependent variable among several groups:
 
@@ -73,7 +73,7 @@ format:
 
 **One-way ANOVA:**. A scientist is testing the effectiveness of three different drug treatments on blood pressure reduction. Three groups of patients receive different treatments, and a one-way ANOVA is used to determine if there are significant differences in blood pressure reduction among the three groups.
 :::
-::::::
+:::::
 
 ## Block Design Review: IV and Extraneous Factor
 
@@ -248,11 +248,11 @@ Note. “A (number of IVs)=way (type of design) ANOVA” → Number of IVs- the 
     3.  It requires fewer participants than two 1-way treatment designs for the same level of statistical power.
         -   Smaller error terms means more statistical power!
 
----
+------------------------------------------------------------------------
 
 ### Example: Cancer Trials
 
-- Below is an R script demonstrating a factorial design for a cancer trial where the goal is to examine whether the effect of a **treatment method** depends on the **stage of cancer** (i.e., testing for an interaction effect).
+-   Below is an R script demonstrating a factorial design for a cancer trial where the goal is to examine whether the effect of a **treatment method** depends on the **stage of cancer** (i.e., testing for an interaction effect).
 
 ```{webr-r}
 #| context: setup
@@ -298,6 +298,7 @@ interaction.plot(cancer_data$Stage, cancer_data$Treatment, cancer_data$Survival,
                  main = "Interaction Between Treatment and Cancer Stage",
                  xlab = "Cancer Stage", ylab = "Mean Survival Rate")
 ```
+
 ## Interpretation of the Results
 
 ::: callout-note
@@ -307,15 +308,16 @@ interaction.plot(cancer_data$Stage, cancer_data$Treatment, cancer_data$Survival,
 
 -   If the main effect of School Type is significant, then grades differ across school types, regardless of tutoring.
 
--   If the interaction effect (Tutoring × School) is significant, then the impact of tutoring depends on school type, suggesting that different tutoring programs work better in different school settings.  
+-   If the interaction effect (Tutoring × School) is significant, then the impact of tutoring depends on school type, suggesting that different tutoring programs work better in different school settings.\
 :::
 
 ## Advantages of Factorial Design II
 
-1. First advantage of Factorial Design is reducing the error variance so that we can have higher power to examine group differences.
+1.  First advantage of Factorial Design is reducing the error variance so that we can have higher power to examine group differences.
 
 ::: callout-important
 ### Example: the effect of level of arousal on math performance
+
 -   Let’s say we are interested in testing the effect of level of arousal (e.g., anxiety) on math performance, but we already think that gender is associated with performance.
     -   Adding gender as an IV explains more variance, thus, reducing the amount of error variance of DV.
     -   **Note.** We define error as anything NOT related to (explained by) the IVs.\
@@ -325,46 +327,45 @@ interaction.plot(cancer_data$Stage, cancer_data$Treatment, cancer_data$Survival,
 
 ## Advantages of Factorial Design III
 
-1. One key advantage of factorial design is that it allows us to consider more complicated scenarios by including multiple factors in a single experiment. This means we can analyze not only the main effects of each factor but also their interactions, providing deeper insights into real-world complexities.
+1.  One key advantage of factorial design is that it allows us to consider more complicated scenarios by including multiple factors in a single experiment. This means we can analyze not only the main effects of each factor but also their interactions, providing deeper insights into real-world complexities.
 
 ::: callout-note
 ### Cancer Trial Example: Expanding the Factorial Design
 
-- In the previous example, we considered a 2×2 factorial design with two factors:
+-   In the previous example, we considered a 2×2 factorial design with two factors:
 
     -   Treatment Method (Standard vs. New)
     -   Cancer Stage (Early vs. Advanced)
 
-- However, real-world cancer treatments involve more than two factors. For instance, we might also want to consider:
-    -  Dosage Level (Low vs. High)
-    -  Patient Age Group (Young vs. Elderly)
+-   However, real-world cancer treatments involve more than two factors. For instance, we might also want to consider:
 
-- By extending the factorial design to a 2×2×2×2 factorial structure, we can investigate more complex research questions, such as:
+    -   Dosage Level (Low vs. High)
+    -   Patient Age Group (Young vs. Elderly)
 
-    1.   Does the effectiveness of a treatment vary not only by cancer stage but also by dosage level?
-    2.   Do younger and older patients respond differently to a specific combination of treatment and dosage?
-    3.   Is there a three-way interaction, where the best treatment strategy depends on a combination of treatment type, cancer stage, and dosage level?
+-   By extending the factorial design to a 2×2×2×2 factorial structure, we can investigate more complex research questions, such as:
+
+    1.  Does the effectiveness of a treatment vary not only by cancer stage but also by dosage level?
+    2.  Do younger and older patients respond differently to a specific combination of treatment and dosage?
+    3.  Is there a three-way interaction, where the best treatment strategy depends on a combination of treatment type, cancer stage, and dosage level?
 :::
 
----
+------------------------------------------------------------------------
 
 ### Cancer Trial Example: Why is this important
 
 ::: callout-important
 ### Why Is This Important?
-- **Better Understanding of Individual Differences:**
+
+-   **Better Understanding of Individual Differences:**
     -   A one-factor design (e.g., comparing only treatment types) would ignore how different patient groups respond differently to the same treatment.
     -   By incorporating multiple factors, we can identify which subgroups benefit most from a specific intervention.
-
--  **More Realistic Clinical Applications:**
+-   **More Realistic Clinical Applications:**
     -   In real-world medicine, treatment effectiveness depends on multiple interacting factors.
     -   A factorial design helps us replicate complex clinical settings more accurately than a simple one-factor experiment.
-
--  **Efficient Use of Resources:**
+-   **Efficient Use of Resources:**
     -   Instead of conducting multiple separate studies to test each factor independently, factorial design allows us to study all factors simultaneously in a single experiment.
     -   This reduces costs and increases statistical power by leveraging shared data across conditions.
 :::
-
 
 ## Steps for conducting two-way ANOVA
 
@@ -384,6 +385,7 @@ interaction.plot(cancer_data$Stage, cancer_data$Treatment, cancer_data$Survival,
 
 ::: callout-note
 ### Definition
+
 F-test
 
 :   Three separate F-tests are conducted for each!
@@ -451,9 +453,8 @@ Interaction
 ## Example: Tutoring Program and Types of Schools on Grades
 
 -   IVs:
-    1. Tutoring Programs: (1) No tutor; (2) Once a week; (3) Daily
-    2. Types of schools: (1) Public (2) Private-secular (3) Private-religious
-
+    1.  Tutoring Programs: (1) No tutor; (2) Once a week; (3) Daily
+    2.  Types of schools: (1) Public (2) Private-secular (3) Private-religious
 -   **Research purpose**: to examine the effect of tutoring program (no tutor, once a week, and daily) AND types of school (e.g., public, private-secular, and private-religious) on the students’ grades
 -   **Question**: What are the null and alternative hypotheses for the main effects in the example?:
     -   Factor A’s Main effect: “[Controlling school types, are there differences in the students’ grade across three tutoring programs?]{.mohu}”
@@ -467,7 +468,7 @@ Interaction
 
 ## Visualization of Two-Way ANOVA (No Interaction)
 
-- The main-effect-only no-interaction statistical form 
+-   The main-effect-only no-interaction statistical form
 
 $$
 \mathrm{Grade} = \beta_0 + \beta_1 \mathrm{Toturing_{Once}} + \beta_2 \mathrm{Toturing_{Daily}} \\ + \beta_3 \mathrm{SchoolType_{PvtS}} + \beta_4 \mathrm{SchoolType_{PvtR}}
@@ -539,20 +540,20 @@ data <- data.frame(
 )
 ```
 
-- Main effect of Tutoring Programs
-  - Collapsing across School Type
-  - Ignoring the difference levels of School Type
-  - Averaging DV regarding Tutoring Programs across the levels of School Type
-  
-- Main effect of School Type
-  - Collapsing across Tutoring Program
-  - Ignoring the difference levels of Tutoring Program
-  - Averaging DV regarding School Type across the levels of Tutoring Programs 
+-   Main effect of Tutoring Programs
+    -   Collapsing across School Type
+    -   Ignoring the difference levels of School Type
+    -   Averaging DV regarding Tutoring Programs across the levels of School Type
+-   Main effect of School Type
+    -   Collapsing across Tutoring Program
+    -   Ignoring the difference levels of Tutoring Program
+    -   Averaging DV regarding School Type across the levels of Tutoring Programs
 
----
+------------------------------------------------------------------------
 
 ::: panel-tabset
-### R Plot  
+### R Plot
+
 ```{r}
 #| code-fold: true
 # Compute mean and standard error for each tutoring group
@@ -591,18 +592,18 @@ ggplot(total_summary, aes(x = School)) +
 distinct(tutoring_summary[, c("Tutoring", "Mean_Grade_byTutor")])
 ```
 
-
 ### Interpretation of the Plot
-  -   The x-axis represents three school types.
-  -   The y-axis represents the mean student grades for the different tutoring programs: No Tutor, Once a Week, and Daily.
-  -   If the main effect of tutoring is significant, we expect to see noticeable differences in mean grades across tutoring conditions.
-:::
 
+-   The x-axis represents three school types.
+-   The y-axis represents the mean student grades for the different tutoring programs: No Tutor, Once a Week, and Daily.
+-   If the main effect of tutoring is significant, we expect to see noticeable differences in mean grades across tutoring conditions.
+:::
 
 ## You turn: Main Effect of School Type
 
 ::: panel-tabset
 ### Marginal Means for each tutoring / school type group
+
 ```{webr-r}
 School_Levels <- c("Public","Private-Secular", "Private-Religious")
 tutoring_summary <- data |>
@@ -624,6 +625,7 @@ total_summary <- tutoring_summary |>
 ```
 
 ### Plot main effect of School Type
+
 ```{webr-r}
 ggplot(total_summary, aes(x = Tutoring)) +
   geom_point(aes(y = Mean_Grade_bySchool, color = School)) +
@@ -641,6 +643,7 @@ ggplot(total_summary, aes(x = Tutoring)) +
 
 ::: panel-tabset
 ### R Plot
+
 ```{webr-r}
 fit <- lm(Grades ~ Tutoring + School, data = data)
 Line_No_Tutor <- c(fit$coefficients[1], fit$coefficients[1] + c(fit$coefficients[4], fit$coefficients[5]))
@@ -668,23 +671,23 @@ ggplot(data = combined_vis_data, aes(x = School_Levels)) +
 ```
 
 ### In the graph
--  There is the LARGE effect of Factor [Tutoring]{.mohu} and very small effect of [School Type]{.mohu}:
-    -  Effect of Factor [Tutoring]{.mohu}: the LARGE vertical distance
-    -  Effect of Factor [School Type]{.mohu}: the very small horizontal distance
+
+-   There is the LARGE effect of Factor [Tutoring]{.mohu} and very small effect of [School Type]{.mohu}:
+    -   Effect of Factor [Tutoring]{.mohu}: the LARGE vertical distance
+    -   Effect of Factor [School Type]{.mohu}: the very small horizontal distance
 :::
 
 ## Summary
-1. Overview of factorial design
+
+1.  Overview of factorial design
     -   **Independent / between-subject** (today's focus)
     -   Dependent / within-subject
     -   Mixed design
-
 2.  Advantages of factor design
-    - Reduction of residuals and higher statistical power
-    - Consider more complicated scenarios and answer more complex research questions
-    - Better understanding group differences depending on other characteristics
-    - Save research resources
-    
+    -   Reduction of residuals and higher statistical power
+    -   Consider more complicated scenarios and answer more complex research questions
+    -   Better understanding group differences depending on other characteristics
+    -   Save research resources
 3.  Key components of Two-way ANOVA
-    - **Main Effects of Single Factors** (today's focus)
-    - Interaction Effects
+    -   **Main Effects of Single Factors** (today's focus)
+    -   Interaction Effects
