@@ -122,6 +122,8 @@ $danger: #9A4665;
 $caution: #EE6331;
 
 $body-bg: $soft-color1; // body background color
+// $sidebar-bg: $dan-feng;
+// $sidebar-hl: $hutao-hong;
 $code-bg: #eef1e0; // code block's bg
 $code-color: var(--bs-code-color);
 $body-color: #404041;
@@ -306,6 +308,7 @@ div.cell-output {
 .sidebar-navigation .sidebar-item-text .menu-text {
   font-family: "Tenor Sans", sans-serif;
   font-size: 0.8rem;
+  color: $primary;
 }
 
 .text-line {

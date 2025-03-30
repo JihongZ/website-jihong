@@ -13,14 +13,27 @@ execute:
 fig-cap-location: top  
 toc-depth: 3
 toc-expand: true
-toc-location: right
+toc-location: left
 sidebar: id-javascript-in-R  
 format: html
 ---
 
-# IVRPS: plotly package
+# plotly package
 
 -   This section also includes [Chapter 2 - Overview](https://plotly-r.com/overview) in [Book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/), which has more details about `plotly` package.
+
+## Color Schema
+
+```{r}
+shen_qing = "#212A54" # 深青色
+qian_qing = "#234C73" # 浅青色
+cui_qing = "#263E47" # 翠青色
+dan_qing = "#F2F8FF" # 淡青色
+hutao_hong = "#793328" # 胡桃红
+dan_feng = "#FFF8F0" # 淡粉色
+tao_you = "#C0BAB6" # 陶釉色
+```
+
 
 ------------------------------------------------------------------------
 
@@ -125,8 +138,7 @@ plot_ly() |>
 
 The trace is general layer in plot.js, which can be specified with a type. The trace layer with type scatter is for drawing geometries like points, lines, text, and polygons.
 
-::: callout-note
-### Key difference between `add_lines` and `add_paths`
+### `add_lines` and `add_paths`
 
 -   `add_lines` ensures lines are drawn according to the ordering of x, which is desirable for a time series plotting. The figure below starts with the lowest value of x ---`1967-07-01` \| `12.6`.
 
@@ -172,9 +184,8 @@ economics |>
   plot_ly(x=~date, y=~psavert, color = I("tomato")) |> 
   add_paths()
 ```
-:::
 
-### Group data into sub-gemometry
+### Attributes: Group data into sub-gemometry
 
 -   Some attributes include color, alpha, symbol, stroke, span, size, linetype.
 
@@ -221,8 +232,7 @@ subplot(
 rownames(RColorBrewer::brewer.pal.info)
 ```
 
-::: callout-note
-## Differences between `color` and `stroke`
+### `color=` and `stroke=`
 
 The `color` argument is meant to control the ‘fill-color’ of a geometric object, whereas `stroke` is meant to control the ‘outline-color’ of a geometric object.
 
@@ -235,7 +245,6 @@ subplot(
     add_markers(color=I("black"), stroke=~cyl, showlegend = FALSE) 
 )
 ```
-:::
 
 4.  Use `symbol` argument to map data values to different shape.
 
@@ -286,3 +295,66 @@ econ <- economics |>
 plot_ly(data = econ, x=~mnth, y=~uempmed, linetype =~factor(yr), size = I(3)) |> 
   add_lines()
 ```
+
+
+## IVRPS Chapter 5: Bars and Histogram
+
+### `add_bars()` and `add_histogram()`
+
+Use `add_bars()` and `add_histogram()` to wrap the bar plot and the histogram plot. The bar plots requires the height information of bars (`x` and `y`), while the histogram requires only `x` variables.
+
+::: rmdnote
+If the count is calculated in R (using `count()` for categorical data and `hist(plot=FALSE)` for continous data), `add_bars` is faster than `add_histogram` in terms of page load time.
+:::
+
+```{r}
+subplot(
+  plot_ly(data = diamonds, x=~price) |> add_histogram(name="Histogram", color=I(shen_qing)),
+  plot_ly(data = diamonds, x=~price, y=~carat) |> add_bars(name="Bar", color=I(hutao_hong))
+)
+```
+
+### Multiple subplots: `lapply` + `subplot`
+
+In following code, `group_split()` is similar to `base::split()`.
+
+`one_plot` function allows to plot a histogram with x-axis as "price". `add_annotations()` adds names of subplots on the top.
+
+```{r}
+library(tidyverse)
+
+one_plot <- function(d) {
+  plot_ly(d, x = ~price) %>%
+    add_annotations(
+      ~unique(clarity), x = 0.5, y = 1, 
+      xref = "paper", yref = "paper", showarrow = FALSE
+    )
+}
+
+diamonds |> 
+  group_split(clarity) |> 
+  lapply(one_plot) |> 
+  subplot(nrows = 2, shareX = TRUE, titleX = FALSE) |> 
+  hide_legend()
+```
+
+### `layout(barmode = "stack")`: stacked barplot
+
+```{r}
+subplot(
+  plot_ly(diamonds, x=~cut, color=~clarity) |> 
+    add_histogram() |> 
+    layout(barmode="stack") |> 
+    hide_guides(),
+  
+  diamonds |> 
+    group_by(cut, clarity) |> 
+    count() |> 
+    group_by(cut) |> 
+    mutate(prop = n / sum(n)) |> 
+    plot_ly(x=~cut, color=~clarity, y=~prop) |> 
+    add_bars() |> 
+    layout(barmode="stack") 
+)
+```
+
