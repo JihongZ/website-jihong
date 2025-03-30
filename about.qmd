@@ -23,6 +23,8 @@ format:
     toc: false
 ---
 
+
+
 ::: separator
 [Experience]{.next-section}
 :::
@@ -51,6 +53,24 @@ format:
 -   Machine Learning and data mining in Education
 -   Diagnostic Classification Models
 :::
+
+::: separator
+[News]{.next-section}
+:::
+
+
+::: macwindow
+
+-   2025-03-30: New journal paper accepted by [Behavioral Sciences]{.underline}: *Comparing Frequentist and Bayesian Methods for Factorial Invariance with Latent Distribution Heterogeneity*, Authors: Xinya Liang \*, Ji Li, Mauricio Garnier-Villarreal, Jihong Zhang
+
+-   2025-03-27: New journal paper published (online first) by [Learning and Individual Differences]{.underline}:*Math anxiety is associated with skipping problems and less help-seeking behavior after error commission*, 
+
+-   2025-02-28: I have been elected to serve as Secretary/Treasurer (3-year term begins in 2025) of the Cognition and Assessment SIG (SIG #167) of the American Educational Research Association (AERA). My term will begin at the conclusion of the 2025 AERA Annual Meeting.
+
+:::
+
+
+
 
 ::: separator
 [Teaching & Research]{.next-section}

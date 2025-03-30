@@ -358,3 +358,43 @@ subplot(
 )
 ```
 
+## IVRPS Chapter 8: 3D Charts
+
+### Add `z` attribute to create 3D
+
+By default, with z-axis added, `plot_ly` will use the scatter plot. Use `add_markers()` to specify 3D scatter plot.
+
+```{r}
+p_3d <- plot_ly(data = mpg, x=~cty, y=~hwy, z=~cyl, color=~cyl) |> 
+  add_markers(alpha = .4, stroke = I("black"))
+p_3d
+```
+
+### `layout(scene)`: set up axis for 3D chart
+
+Below plot set up titles for x/y/z-axis inside `scene`. Use R list object to specify multiple attributes in `layout`.
+
+```{r}
+p_3d |> 
+  layout(
+    scene = list(
+      xaxis = list(title = "MPG city"),
+      yaxis = list(title = "MPG highway"),
+      zaxis = list(title = "Number of cylinders")
+    )
+  )
+```
+
+### `add_surface()`: 3d surface
+
+For 3D surface, z-axis is a continuous surface (a matrix) with the same ordering with x and y. plot.js will automatically interpolate the gaps among points to create the surface.
+
+For example, `datasets::volcano` is a matrix with 87 rows and 61 columns, with rows corresponding to grid lines running east to west and columns to south to north. So the height of volcano will be the z-axis.
+
+```{r}
+x <- seq_len(nrow(volcano)) + 100
+y <- seq_len(ncol(volcano)) + 500
+
+plot_ly() |> add_surface(x=~x, y=~y, z=~volcano)
+```
+
