@@ -398,3 +398,29 @@ y <- seq_len(ncol(volcano)) + 500
 plot_ly() |> add_surface(x=~x, y=~y, z=~volcano)
 ```
 
+## IVRPS Chapter 10: Share HTML to others
+
+###  `savehtml()` and `saveWidget()` to save contents
+
+`htmlwidgets::saveWidget()` will save self-contained html files (including all html/css dependencies) by default. It will has larger file size but others can directly open and review it. You can save dependency into separated folder by specifying  `selfcontained = F`. By doing that, it will be equivalent to `htmltools::savehtml()`. For example, see the following example code:
+
+```{r}
+#| eval: false
+library(htmlwidgets)
+p <- plot_ly(x = rnorm(100))
+saveWidget(p, "p1.html", selfcontained = F, libdir = "lib")
+saveWidget(p, "p2.html", selfcontained = F, libdir = "lib")
+```
+
+Then, to embed a external html file into Quarto or Bookdown, use `htmltools::tags$iframe`
+
+```{r}
+#| eval: false
+htmltools::tags$iframe(
+  src = "p1.html", 
+  scrolling = "no", 
+  seamless = "seamless",
+  frameBorder = "0"
+)
+```
+

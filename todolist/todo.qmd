@@ -11,4 +11,5 @@ format: html
 
 -   [ ] Write a blog post about the community detection in psychometric network analysis.
 -   [ ] Finish the data analysis of network analysis of physical activity.
+-   [ ] Review Ji's code of rank factor scores.
 -   [ ] Run the whole simulation of Large Language Model + Interview Data.

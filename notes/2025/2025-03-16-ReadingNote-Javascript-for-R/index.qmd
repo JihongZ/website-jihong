@@ -48,9 +48,9 @@ meme_get("DistractedBf") %>%
 2.  [htmltools](https://github.com/rstudio/htmltools) package
     -   [Chapter 2: Manipulate HTML tags from R with {htmltools}](https://unleash-shiny.rinterface.com/htmltools-overview) in Outstanding User Interfaces with Shiny
 
-## ObservableHQ with Quarto
+## Observable JS
 
-There are two ways to take advantage of Observable Javascript in Quarto:
+There are two ways to publish Observable Javascript with Quarto:
 
 1.  Write OJS code in `{ojs}` cells in the Quarto document (see more [details](https://quarto.org/docs/interactive/ojs/)).
 2.  Write code using ObservableHQ notebook and share embedded output
@@ -73,20 +73,47 @@ Plot.rectY({length: 100000},
 
 Since ObservableHQ is likely long-term maintained, I prefer the second method.
 
-To embed [ObservableHQ](https://observablehq.com/) notebook cells into Quarto, make sure your ObservableHQ notebook is public, then take the following steps in ObservableHQ: $\vdots$ \> `Export` \> `Embed Cells`.
+To embed [ObservableHQ](https://observablehq.com/) notebook cells into Quarto, make sure your ObservableHQ notebook is public, then take the following steps in ObservableHQ to have access to a sharable url of one cell: 
+
+[&#8942;]{.redcolor} \> `Export` \> `Embed Cells`.
 
 ::: macwindow
-Method 2: One example of embeded cell is like this:
+Method 2: One example of embedded cell is like the following, note that you may need to upgrade to the Pro version to remove attribution banner.
 
-<iframe width="100%" height="369" frameborder="0" src="https://observablehq.com/embed/c03db5cde95f513e?cells=chart">
-
-</iframe>
+```{r}
+htmltools::tags$iframe(
+  src = "https://observablehq.com/embed/c03db5cde95f513e?cells=chart", 
+  scrolling = "no", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="100%", 
+  height="369"
+)
+```
 :::
 
-The Observable Framework offers another option to deploy your javascript+R dashboard. See here for detailed [code](https://observablehq.com/framework/getting-started#next-steps) for the get started of local development. Following is the toy example I created (Github [link](https://github.com/JihongZ/hello-framework)).
+::: macwindow
 
-::: {.column-screen}
-<iframe width="100%" height="1000" frameborder="0"  src="https://jihongz.observablehq.cloud/hello-framework" title="Hello World Observable Framework"></iframe>
+**Dashboard with javascript**
+
+If you prefer construct the dashboard with javascript locally and use your perfered language (such as R and Python) for data analysis, the Observable Framework offers another option to deploy your javascript+R dashboard. See here for detailed [code](https://observablehq.com/framework/getting-started#next-steps) for "get started of local development". Following is the toy example I created (Github [link](https://github.com/JihongZ/hello-framework)).
+
+```{r}
+htmltools::tags$iframe(
+  src="https://jihongz.observablehq.cloud/hello-framework",
+  scrolling = "no", 
+  seamless = "seamless",
+  frameborder="0",
+  width="100%", 
+  height="1000",
+  title="Hello World Observable Framework"
+)
+```
+
+
+<!-- ::: {.column-screen} -->
+<!-- <iframe width="100%" height="1000" frameborder="0"   title="Hello World Observable Framework"></iframe> -->
+<!-- ::: -->
 :::
 
 {{< include JFR_Chapter3/JFR_Chapter3.qmd >}}
