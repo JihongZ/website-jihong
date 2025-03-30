@@ -41,11 +41,11 @@ format:
 1.  The rest of the semester
 2.  Advantage of Factorial Design
 3.  Two-way ANOVA:
-    -   Steps for conducting Two-way ANOVA
+    -   Steps for conducting 2-way ANOVA
     -   Hypothesis testing
-    -   Assumptions for two-way ANOVA
+    -   Assumptions for 2-way ANOVA
     -   Visualization
-    -   Difference between one-way and two-way ANOVA
+    -   Difference between 1-way and 2-way ANOVA
 
 **Question**: How about the research scenario when more than two independent variables?
 :::
@@ -135,7 +135,7 @@ Interaction
 ::: callout-note
 ### Example: Tutoring Program and Types of Schools on Grades
 
--   IVs:
+-   **IVs**:
     1.  Tutoring Programs: (1) No tutor; (2) Once a week; (3) Daily
     2.  Types of schools: (1) Public (2) Private-secular (3) Private-religious
 -   **Research purpose**: to examine the effect of tutoring program (no tutor, once a week, and daily) AND types of school (e.g., public, private-secular, and private-religious) on the students’ grades
@@ -151,7 +151,7 @@ Interaction
 
 ## Visualization of Two-Way ANOVA (No Interaction)
 
--   The main-effect-only no-interaction statistical form
+-   The main-effect only ANOVA with no interaction has a following statistical form:
 
 $$
 \mathrm{Grade} = \beta_0 + \beta_1 \mathrm{Toturing_{Once}} + \beta_2 \mathrm{Toturing_{Daily}} \\ + \beta_3 \mathrm{SchoolType_{PvtS}} + \beta_4 \mathrm{SchoolType_{PvtR}}
@@ -237,6 +237,8 @@ data <- data.frame(
 ::: panel-tabset
 ### R Plot
 
+Ignoring the effect of school types, we can tell the main effect of tutor programs on students' grades (Daily tutoring has the highest grade, followed by *once a week*).
+
 ```{r}
 #| code-fold: true
 # Compute mean and standard error for each tutoring group
@@ -265,8 +267,7 @@ ggplot(total_summary, aes(x = School)) +
   labs(title = "Main Effect of Tutoring on Student Grades",
        x = "School Types",
        y = "Mean Grade") +
-  theme_minimal() +
-  theme(legend.position = "none")  # Remove legend for cleaner visualization
+  theme_minimal() 
 ```
 
 ### Summary Statistics
@@ -642,8 +643,8 @@ Question: How many IVs? How many levels for each.
 Answer: [2 IVs: (1) Whether or not having Tattos and Piercings (2) Male of Female. DV: Frequency of risk behaviors]{.mohu}
 
 ### Data screening
-![](images/clipboard-655219567.png)
 
+![](images/clipboard-655219567.png)
 :::
 
 ## Data input in R
@@ -664,7 +665,7 @@ dat <- data.frame(
 dat
 ```
 
----
+------------------------------------------------------------------------
 
 ### Your turn
 
@@ -683,7 +684,8 @@ dat_ex1 |>
   pivot_wider(values_from = Grade, names_from = Time) |> 
   kableExtra::kable()
 ```
-Hint: 
+
+Hint:
 
 ```{r}
 #| results: hold
@@ -692,8 +694,8 @@ rep(c("A", "B"), each = 2)
 ```
 
 ::: panel-tabset
-
 ### Exercise
+
 ```{webr-r}
 # Manually import the data in R
 
@@ -707,6 +709,7 @@ dat_ex1 <- data.frame(
   Grade = Grade
 )
 ```
+
 ### Answer
 
 ```{r}
@@ -721,8 +724,6 @@ dat_ex11 <- data.frame(
 )
 dat_ex11
 ```
-
-
 :::
 
 ## Step 2: Sum of Squares of main effects
@@ -731,9 +732,9 @@ $$
 SS_A = \sum n_a (M_{Aa} - M_T)^2
 $$
 
-- $M_{Aa}$ marginal mean of main effect A at each level
-- $n_a$: sample size for factor A at each level
-- $M_T$: grand mean of outcome
+-   $M_{Aa}$ marginal mean of main effect A at each level
+-   $n_a$: sample size for factor A at each level
+-   $M_T$: grand mean of outcome
 
 ```{r}
 #| include: false
@@ -755,13 +756,14 @@ M_A_table
 M_A_table$N[1] * (M_A_table$Mean[1] - M_T)^2 + 
   M_A_table$N[2] * (M_A_table$Mean[2] - M_T)^2
 ```
-or 
+
+or
 
 ```{r}
 sum(M_A_table$N * (M_A_table$Mean - M_T)^2)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Your turn: Sum of squares of Gender
 
@@ -814,7 +816,7 @@ cell_means <- dat |>
 cell_means
 ```
 
----
+------------------------------------------------------------------------
 
 ### Your turn
 
@@ -830,6 +832,7 @@ cell_means <- dat |>
 
 ::: panel-tabset
 ### Exercise
+
 ```{webr-r}
 SS_gender <- 7.84
 SS_TP <- 28.09
@@ -845,7 +848,6 @@ SS_TP <- 28.09
 M_T <- 3.3
 sum(cell_means$N * (cell_means$Mean - M_T)^2) - SS_gender - SS_TP
 ```
-
 :::
 
 ## Step 4: Degree of freedom and F-statistics
@@ -878,8 +880,8 @@ F_TP = (___ / df_TP) / (SS_residual / df_residual)
 F_GxTP = (___ / df_GxTP) / (SS_residual / df_residual)
 ```
 
-
 ### Answer
+
 ```{webr-r}
 #                       Df Sum Sq Mean Sq F value Pr(>F)   
 # gender                 1   7.84   7.840   2.942  0.112   
@@ -896,12 +898,11 @@ F_gender = (SS_gender / df_gender) / (SS_residual / df_residual)
 F_TP = (SS_TP / df_TP) / (SS_residual / df_residual)
 F_GxTP = (SS_GxTP / df_GxTP) / (SS_residual / df_residual)
 ```
-
 :::
 
 ## Interpretation
 
-```
+```         
 #                       Df Sum Sq Mean Sq F value Pr(>F)   
 # gender                 1   7.84   7.840   2.942  0.112   
 # tatto_piercing         1  28.09  28.090  10.540  0.007 **
@@ -913,54 +914,49 @@ F_GxTP = (SS_GxTP / df_GxTP) / (SS_residual / df_residual)
 
 -   Main Effect of Gender: Retain the null → Ignoring the tattoo, there is NO significant main effect of gender on risky behavior.
 
--  Interaction: Retain the null → Under alpha=.05 level, because F-observed (F=0.63) does not exceed the critical value (F=4.75), we fail to reject the null that the effect of Factor A depends on Factor B. → “There is NO significant interaction between gender and tattoo on risky behavior.”
-
+-   Interaction: Retain the null → Under alpha=.05 level, because F-observed (F=0.63) does not exceed the critical value (F=4.75), we fail to reject the null that the effect of Factor A depends on Factor B. → “There is NO significant interaction between gender and tattoo on risky behavior.”
 
 ## Other extensions about 2-way ANOVA: I
 
-- Type I? Type II? Type III?
-    - Effect sums of squares (SSA, SSB, SSAB) are a decomposition of the total sum of squared deviations from the overall mean (SST).
-    - How the SST is decomposed depends on characteristics of the data as well as the hypotheses of interest to the researcher.
-    
-- Type I sums of squares (SS) are based on a sequential decomposition.
-    - For example, if your ANOVA model statement is “MODEL Y = A B A\*B”, then, the sum of squares are considered in effect order A, B, A*B, with each effect adjusted for all preceding effects in the model.
-    - Thus, any variance that is shared between the various effects will be sub-summed by the variable entered earlier.
+-   Type I? Type II? Type III?
+    -   Effect sums of squares (SSA, SSB, SSAB) are a decomposition of the total sum of squared deviations from the overall mean (SST).
+    -   How the SST is decomposed depends on characteristics of the data as well as the hypotheses of interest to the researcher.
+-   Type I sums of squares (SS) are based on a sequential decomposition.
+    -   For example, if your ANOVA model statement is “MODEL Y = A B A\*B”, then, the sum of squares are considered in effect order A, B, A\*B, with each effect adjusted for all preceding effects in the model.
+    -   Thus, any variance that is shared between the various effects will be sub-summed by the variable entered earlier.
 
 Pros:
 
-1. Nice property: balanced or not, SS for all the effects add up to the total SS, a complete decomposition of the predicted sums of squares for the whole model. This is not generally true for any other type of sums of squares.
+1.  Nice property: balanced or not, SS for all the effects add up to the total SS, a complete decomposition of the predicted sums of squares for the whole model. This is not generally true for any other type of sums of squares.
 
-2. Preferable when some factors (such as nesting) should be taken out before other factors. For example, with unequal number of male and female, factor "gender" should precede "subject" in an unbalanced design.
+2.  Preferable when some factors (such as nesting) should be taken out before other factors. For example, with unequal number of male and female, factor "gender" should precede "subject" in an unbalanced design.
 
-Cons:
-1. Order matters!
-2. Not appropriate for factorial designs, but might be ok for Blocking designs.
-
+Cons: 1. Order matters! 2. Not appropriate for factorial designs, but might be ok for Blocking designs.
 
 ## Other extensions about 2-way ANOVA: II
 
 -   With Type II SS, each main effect is considered as though it were added after the other main effects but before the interaction.
-    - Any interaction effects are calculated based on a model already containing the main effects.
-    - Any variance that is shared between A and B is not considered part of A or B.
-    - Thus, interaction variance that is shared with A or with B will be counted as part of the main effect, and not as part of the interaction effect.
+    -   Any interaction effects are calculated based on a model already containing the main effects.
+    -   Any variance that is shared between A and B is not considered part of A or B.
+    -   Thus, interaction variance that is shared with A or with B will be counted as part of the main effect, and not as part of the interaction effect.
 
 Pros:
 
-1. appropriate for model building, and natural choice for regression
-2. most powerful when there is no interaction
-3. invariant to the order in which effects are entered into the model
+1.  appropriate for model building, and natural choice for regression
+2.  most powerful when there is no interaction
+3.  invariant to the order in which effects are entered into the model
 
 Cons:
 
-1. For factorial designs with unequal cell samples, Type II sums of squares test hypotheses that are complex functions of the cell ns that ordinarily are not meaningful.
-2. Not appropriate for factorial designs.
-
+1.  For factorial designs with unequal cell samples, Type II sums of squares test hypotheses that are complex functions of the cell ns that ordinarily are not meaningful.
+2.  Not appropriate for factorial designs.
 
 ## Other extensions about 2-way ANOVA: III
+
 -   Type III SS considers all effects as though they are added last.
-    - Any shared variance ends up not being counted in any of the effects.
-    - In ANOVA, when the data are balanced (equal cell sizes) and the factors are orthogonal and all three types of sums of squares are identical.
-    - Orthogonal, or independent, indicates that there is no variance shared across the various effects, and the separate sums of squares can be added to obtain the model sums of squares.
+    -   Any shared variance ends up not being counted in any of the effects.
+    -   In ANOVA, when the data are balanced (equal cell sizes) and the factors are orthogonal and all three types of sums of squares are identical.
+    -   Orthogonal, or independent, indicates that there is no variance shared across the various effects, and the separate sums of squares can be added to obtain the model sums of squares.
 
 Pros:
 
@@ -974,22 +970,24 @@ Not appropriate for designs with missing cells: for ANOVA designs with missing c
 In general, for the factorial design, we usually report Type III SS, unless you have missing cells in your model.
 :::
 
-
 ## Final discussion
 
 In this example,
 
-  - The interaction effect shows several issues:
+-   The interaction effect shows several issues:
+
     -   Violation of independency assumption
     -   Violation of normality assumption in the condition of “Male” and “Tattoo=Yes”
-    
-  - We can guess/think about one possibility that it might be cause by several reasons. (e.g., too small sample sizes, not randomized assignments of the samples, not a significant interaction effect, etc.)
-    -  From the two-way ANOVA results, we found that the interaction effect is not significant.
 
-  - Thus, in this case, it is more reasonable to conduct 
-    1. one-way ANOVA for “Group” variable, and 
-    2. one-way ANOVA for “Gender” variable, separately.
-    - For each of one-way ANOVAs, we should check the assumptions, conduct
-one-way ANOVA, and post-hoc test separately as well.
+-   We can guess/think about one possibility that it might be cause by several reasons. (e.g., too small sample sizes, not randomized assignments of the samples, not a significant interaction effect, etc.)
+
+    -   From the two-way ANOVA results, we found that the interaction effect is not significant.
+
+-   Thus, in this case, it is more reasonable to conduct
+
+    1.  one-way ANOVA for “Group” variable, and
+    2.  one-way ANOVA for “Gender” variable, separately.
+
+    -   For each of one-way ANOVAs, we should check the assumptions, conduct one-way ANOVA, and post-hoc test separately as well.
 
 ## Fin

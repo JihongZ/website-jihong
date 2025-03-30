@@ -58,7 +58,7 @@ There are two ways to publish Observable Javascript with Quarto:
 ::: maccaution
 Either way has pros and cons: First method can make use of various R packages for data sciences (i.e., `tidyverse`) if you are R users, it also has seamlessly embedded into `.qmd` file. However, `{ojs}` cells do not have autocompletion nor allow you to execute cells without rendering the whole Quarto markdown document. Second method, on the other hand, allows you to write syntax-highlighted OJS code with autocompletion and execute the cells lively, but you have to use Javascript libraries to do data analysis (i.e., [Aquero](https://idl.uw.edu/arquero/api/)).
 
-**A mixing method** combing the goods of both methods is performing the data analysis in R, export it to CSV locally or into the cloud (e.g., Google), then using the file attachment function for reading data in the ObservableHQ. Alternatively, if you are not mentally attached to Quarto markdown, the Observable [Framework](https://observablehq.com/framework/getting-started) is another option of standalone data visualization project.
+**A mixing method** combining the goods of both methods is performing the data analysis in R, export it to CSV locally or into the cloud (e.g., Google), then using the file attachment function for reading data in the ObservableHQ. Alternatively, if you are not mentally attached to Quarto markdown, the Observable [Framework](https://observablehq.com/framework/getting-started) is another option of standalone data visualization project.
 :::
 
 ```{ojs}
