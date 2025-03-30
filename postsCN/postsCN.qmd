@@ -1,11 +1,12 @@
 ---
-title: '博客｜杂然'
-subtitle: "天地有正气，杂然赋流形。"
+title: "<span style='color:#2e4963;'>博客｜杂然</span>"
+subtitle: "<span style='color:#2e4963;'>天地有正气，杂然赋流形。</span>"
 listing:
   contents: ./**/*.[Rq]md
+  type: default
   categories: cloud
   sort: "date desc"
-  fields: [date, title, author]
+  fields: [date, title, description, author]
 page-layout: full
 execute: 
   warning: false

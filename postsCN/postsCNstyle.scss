@@ -1,0 +1,21 @@
+/*-- scss:rules --*/
+$font-size-root: "FZFWZhuZiAYuanJW";
+
+h1, h2, h3, .callout-title-container {
+  font-family: "FZFWZhuZiAYuanJW", sans-serif;
+  letter-spacing: 1.6px;
+  font-weight: normal;
+}
+
+body, p, li, a{ // main font family of post content
+  font-family: "FZFWZhuZiAYuanJW", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+div.quarto-title.column-body {
+  h1 {
+    font-family: "FZFWZhuZiAYuanJW";
+    font-size: 1.7rem;
+  }
+}

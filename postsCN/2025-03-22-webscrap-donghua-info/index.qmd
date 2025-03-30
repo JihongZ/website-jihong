@@ -4,7 +4,7 @@ author: "学徒"
 date: "2025-03-22"
 draft: false
 categories: 
-  - R
+  - R语言
   - rvest
 execute: 
   warning: false
@@ -15,14 +15,16 @@ format:
     code-fold: true
 ---
 
-```{r}
-library(rvest)
-library(stringr)
-```
 
 ## 剧集汇总
 
 从豆瓣网抓取凡人修仙传的简介和每一季的集数。先找到第一到第六以及特别篇的豆瓣网址。
+
+```{r}
+#| code-summary: "加载rvest以及stringr包"
+library(rvest)
+library(stringr)
+```
 
 ```{r scrap, cache=TRUE}
 #| code-summary: "豆瓣网剧集网址"
@@ -178,7 +180,6 @@ lwt_ep_info <- lwt_titles |>
   str_replace_all("逻辑梳理", "") |> 
   str_replace_all(" ", "")
 ```
-
 
 ```{r}
 #| code-summary: "利维坦视频整理"

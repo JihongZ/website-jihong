@@ -1,10 +1,8 @@
-website:
-  page-footer: 
-    left:
-      © {{< now year >}} 杂流居士
 date-format: "YYYY-MM-DD"      
 format: 
   html:
     code-tools: false
     comments: false
-    mainfont: "MiSans"
+    theme:
+      light: 
+        - postsCNstyle.scss
