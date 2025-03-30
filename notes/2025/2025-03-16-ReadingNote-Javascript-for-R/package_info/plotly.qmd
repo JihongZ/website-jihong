@@ -402,7 +402,9 @@ plot_ly() |> add_surface(x=~x, y=~y, z=~volcano)
 
 ###  `savehtml()` and `saveWidget()` to save contents
 
+
 `htmlwidgets::saveWidget()` will save self-contained html files (including all html/css dependencies) by default. It will has larger file size but others can directly open and review it. You can save dependency into separated folder by specifying  `selfcontained = F`. By doing that, it will be equivalent to `htmltools::savehtml()`. For example, see the following example code:
+
 
 ```{r}
 #| eval: false

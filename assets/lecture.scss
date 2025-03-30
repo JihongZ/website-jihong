@@ -129,3 +129,45 @@ div.maccaution::before {
   color: #EE6331;
   font-weight: bold;
 }
+
+.rmdquote {
+    padding: 1em;
+    margin: 1em 0;
+    min-height: 120px;
+    color: rgba(26, 22, 45, .7);
+    background-color: color-mix(in srgb, #222, white 95%);
+    border-radius: 10px;
+    max-width: 100%;
+    line-height: 1.75em;
+    font-size: .95em;
+    letter-spacing: 1pt;
+    margin-bottom:1.5em
+}
+
+.rmdquote p, li {
+    margin:1em 1em
+}
+
+div.rmdquote::before {
+    position: relative;
+    display: inline-block;
+    width: 2pc;
+    height: 2pc;
+    top: 1pc;
+    background: url("images/blockquote.svg");
+    content: "";
+    background-size:2pc
+}
+
+div.rmdquote::after {
+    display: inline-block;
+    width: 2pc;
+    height: 2pc;
+    position: relative;
+    float: inline-end;
+    bottom: 1pc;
+    background: url("images/blockquote.svg");
+    content: "";
+    background-size: 2pc;
+    transform: rotate(180deg)
+}

@@ -19,7 +19,7 @@ format:
 ::: {#lectures}
 :::
 
-::: nice-paragraph
+::: rmdquote
 1.  **ESRM 64103. [Experimental Design in Education](teaching/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd)**. 3 Hours.
     -   Principles of experimental design as applied to educational situations. Special emphasis on analysis of variance techniques used in educational research. Prerequisite: [ESRM64003](https://catalog.uark.edu/search/?P=ESRM%2064003 "ESRM 64003") with a grade of C or better or an equivalent course with a grade of C or better. (Typically offered: **Spring**)
 2.  **ESRM 6990V. [Advanced Seminar: Introduction to R](teaching/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd).** 3 Hours

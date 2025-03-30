@@ -7,6 +7,7 @@ institute: |
   University of Arkansas
 date: "2025-03-07"
 format: html
+comments: false
 ---
 
 -   [ ] Write a blog post about the community detection in psychometric network analysis.
