@@ -8,8 +8,11 @@ execute:
   echo: true
   warning: false
   message: false
+webr:
+  editor-font-scale: 1.2
 format: 
   html:
+    toc-expand: 3
     code-tools: true
     code-line-numbers: false
     code-fold: false
@@ -53,11 +56,19 @@ format:
 ## Steps for conducting two-way ANOVA
 
 -   **Similar to one-way ANOVA**:
-    1.  Set the null hypothesis and the alternative hypothesis → Research question?
-    2.  Find the critical value of test statistics (i.e., F-critical) based on alpha and df
-    3.  Calculate the observed value of test statistics (i.e., F-observed) based on the information about the collected data (i.e., the sample)
-    4.  Make the statistical conclusion → either reject or retain the null hypothesis
-    5.  State the research conclusion regarding the research question
+    1.  Set the null **hypothesis** and the alternative hypothesis → Research question?
+        -   It is also great to perform **power analysis** to decide on minimum sample size needed.
+        -   Here is a ShinyApp—[ANOVA Power](https://shiny.ieis.tue.nl/anova_power/)— for power analysis of ANOVA
+    2.  Find the critical value of test statistics (i.e., F-critical) based on alpha and DF (done by Software)
+    3.  Calculate the **observed value of test statistics** (i.e., F-observed) based on the information about the collected data (i.e., the sample)
+    4.  Make the statistical **conclusion** → either reject or retain the null hypothesis
+    5.  State the research **conclusion** regarding the research question
+
+::: rmdquote
+Power is the probability of detecting an effect, given that the effect is really there.
+:::
+
+# Hypothesis testing for two-way ANOVA
 
 ## Hypothesis testing for two-way ANOVA (I)
 
@@ -88,25 +99,8 @@ Interaction
 
 ## Hypothesis testing for two-way ANOVA (II)
 
-::: callout-important
-## Example
-
-**Background**: A researcher is investigating how study method (Factor A: Lecture vs. Interactive) and test format (Factor B: Multiple-Choice vs. Open-Ended) affect student performance (dependent variable: test scores). The study involves randomly assigning students to one of the two study methods and then assessing their performance on one of the two test formats.
-
--   **Main Effect of Study Method (Factor A):**
-    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students who used the Lecture method and those who used the Interactive method.
-    -   [H1:]{style="color:tomato; font-weight:bold"} There is a significant difference in test scores between the two study methods.
--   **Main Effect of Test Format (Factor B):**
-    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students taking a Multiple-Choice test and those taking an Open-Ended test.
-    -   [H1:]{style="color:tomato; font-weight:bold"} There is a significant difference in test scores between the two test formats.
--   **Interaction Effect (Study Method × Test Format):**
-    -   [H0:]{style="color:royalblue; font-weight:bold"} The effect of study method on test scores is the same regardless of test format.
-    -   [H1:]{style="color:tomato; font-weight:bold"} The effect of study method on test scores depends on the test format (i.e., there is an interaction).
-:::
-
-## Hypothesis testing for two-way ANOVA (III)
-
 1.  Hypothesis test for the main effect with more than 2 levels
+
     -   Mean differences among levels of one factor:
 
         i)  Differences are tested for statistical significance
@@ -124,10 +118,32 @@ Interaction
 
         $H_1$: At least one $\mu_{B_i}$ is different from the control group in Factor A
 
-::: callout-caution
-**Question**: what dose "controlling" mean in “Controlling Factor A, ..."?
+    -   Interaction effect between A and B:
 
-**Answer**: ["Controlling" means the decrease of error variances by incorporating the effects of factor A on outcome?]{.mohu}
+        $H_0:\mu_{A_1B_2}-\mu_{A_1B_1}=\mu_{A_2B_2}-\mu_{A_2B_1}$
+
+        or $H_0: \mu_{A_1B_1}-\mu_{A_2B_1}=\mu_{A_1B_2}-\mu_{A_2B_2}$
+
+    ::: rmdnote
+    B's group differences do not change at different levels of A. OR A's group differences do not change at different levels of B.
+    :::
+
+## Hypothesis testing for two-way ANOVA (III)
+
+::: callout-important
+## Example
+
+**Background**: A researcher is investigating how study method (Factor A: Lecture vs. Interactive) and test format (Factor B: Multiple-Choice vs. Open-Ended) affect student performance (dependent variable: test scores). The study involves randomly assigning students to one of the two study methods and then assessing their performance on one of the two test formats.
+
+-   **Main Effect of Study Method (Factor A):**
+    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students who used the Lecture method and those who used the Interactive method.
+    -   [H1:]{style="color:tomato; font-weight:bold"} There is a significant difference in test scores between the two study methods.
+-   **Main Effect of Test Format (Factor B):**
+    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students taking a Multiple-Choice test and those taking an Open-Ended test.
+    -   [H1:]{style="color:tomato; font-weight:bold"} There is a significant difference in test scores between the two test formats.
+-   **Interaction Effect (Study Method × Test Format):**
+    -   [H0:]{style="color:royalblue; font-weight:bold"} The effect of study method on test scores is the same regardless of test format.
+    -   [H1:]{style="color:tomato; font-weight:bold"} The effect of study method on test scores depends on the test format (i.e., there is an interaction).
 :::
 
 ## Hypothesis testing for two-way ANOVA (IV)
@@ -149,7 +165,7 @@ Interaction
         $H_0$: $\mu_{\mathrm{public}}=\mu_{\mathrm{private-religious}}=\mu_{\mathrm{private-secular}}$
 :::
 
-## Visualization of Two-Way ANOVA (No Interaction)
+## Model 1: Two-Way ANOVA without interaction
 
 -   The main-effect only ANOVA with no interaction has a following statistical form:
 
@@ -182,7 +198,7 @@ grades <- c(
   rnorm(n, mean = 88, sd = 5),  # Daily, Private-Secular
   rnorm(n, mean = 86, sd = 5)   # Daily, Private-Religious
 )
-# Create a dataframe
+# Create a data_frame
 data <- data.frame(
   Tutoring = factor(tutoring, levels = c("No Tutor", "Once a Week", "Daily")),
   School = factor(school, levels = c("Public", "Private-Secular", "Private-Religious")),
@@ -191,7 +207,9 @@ data <- data.frame(
 ```
 
 ```{r}
-#| include: false
+#| eval: true
+#| code-fold: true
+#| code-summary: "Data Generation"
 library(tidyverse)
 # Set seed for reproducibility
 set.seed(123)
@@ -283,13 +301,17 @@ distinct(tutoring_summary[, c("Tutoring", "Mean_Grade_byTutor")])
 -   If the main effect of tutoring is significant, we expect to see noticeable differences in mean grades across tutoring conditions.
 :::
 
-## You turn: Main Effect of School Type
+## You turn: Visualize Main Effect of School Type
 
 ::: panel-tabset
 ### Marginal Means for each tutoring / school type group
 
 ```{webr-r}
-School_Levels <- c("Public","Private-Secular", "Private-Religious")
+School_Levels <- c("Public",
+                   "Private-Secular", 
+                   "Private-Religious")
+
+## Calculate marginal means for tutoring
 tutoring_summary <- data |>
   group_by(Tutoring) |>
   summarise(
@@ -298,12 +320,14 @@ tutoring_summary <- data |>
                     levels = School_Levels)
   ) 
 
+## Calculate marginal means for school types
 school_summary <- data |>
   group_by(School) |>
   summarise(
     Mean_Grade_bySchool = mean(Grades)
   ) 
 
+## Combine them into one table
 total_summary <- tutoring_summary |> 
   left_join(school_summary, by = "School")
 ```
@@ -323,7 +347,7 @@ ggplot(total_summary, aes(x = Tutoring)) +
 ```
 :::
 
-## Combined Visualization
+## Combined Visualization for no-interaction model
 
 ::: panel-tabset
 ### R Plot
@@ -361,8 +385,17 @@ ggplot(data = combined_vis_data, aes(x = School_Levels)) +
     -   Effect of Factor [School Type]{.mohu}: the very small horizontal distance
 :::
 
-## Two-Way ANOVA with Interaction
+## Model 2: Two-Way ANOVA with Interaction
 
+
+$$
+\mathrm{Grade} = U_1(\mathrm{Tutoring}) + U_2(\mathrm{School}) + U_3(\mathrm{TutoringxSchool})
+$$
+
+There variance components (random effects) included in a full two-way ANOVA with two Factors.
+
+
+## Model 2: Visualization of Two-Way ANOVA with Interaction
 ::::: columns
 ::: column
 ![](images/clipboard-3633655973.png)
@@ -380,6 +413,8 @@ In the graph, there is an intersection between two lines → This is an interact
 -   The level of Factor B depends upon the level of Factor A – B1 is higher than B2 for A1, but lower for A2 – B2 is lower than B1 for A1, but higher for A2
 :::
 :::::
+
+# F-statistics
 
 ## F-statistics for Two-Way ANOVA
 
@@ -439,7 +474,7 @@ Because DF is linked to SS.
 
 ```{r}
 #| results: hold
-sum((data$Grades - mean(data$Grades))^2)
+sum((data$Grades - mean(data$Grades))^2) # manually calculate total Sum of squares
 nrow(data) - 1 # nrow() calculate the number of rows / observations
 ```
 
@@ -466,7 +501,7 @@ Total = FactorA + FactorB + A\*B + Residual
 :::::
 
 ::: rmdnote
-*Within* in one-way ANOVA and *Residual* in two-way ANOVA have same meaning, both of which are unexplained part of DV by the model.
+*Within*-factor effects (one-way ANOVA) and *Residuals* (two-way ANOVA) have same meaning, both of which are unexplained part of DV by the model.
 :::
 
 -   In Factor ANOVA Design, the overall between-group variability is divided up into variance terms for each unique source of the factors.
@@ -491,18 +526,28 @@ choose(4, 2) + choose(4, 3) + choose(4, 4)
 
 -   F-observed values:
 
-    -   Main effect of factor A: $F_A = \frac{MS_A}{MS_E}$
+    -   Main effect of factor A: $F_A = \frac{SS_A/df_A}{SS_E/df_E} = \frac{MS_A}{MS_E}$
         -   $F_{tutoring} = \frac{MS_{tutoring}}{MS_{residual}} = \frac{2120.1}{23.8} = 89.065$
     -   Main effect of factor B: $F_B = \frac{MS_B}{MS_E}$
         -   $F_{School} = \frac{MS_{School}}{MS_{residual}} = \frac{10.8}{23.8} = 0.453$
     -   Interaction effect of AxB: $F_{AB} = \frac{MS_{AB}}{MS_E}$
         -   $F_{SxT} = \frac{MS_{SxT}}{MS_{residual}} = \frac{46.5}{23.8} = 1.953$
 
+-   Degree of freedom:
+    -   $df_{tutoring}$ = (Number of levels of Tutoring) - 1
+    -   $df_{school}$ = (Number of levels of School) - 1
+    -   $df_{interaction}$ = $df_{tutoring} \times df_{school}$
+    -   $df_{total}$ = N - 1
+    -   $df_{residual}$ = $df_{total}-df_{tutoring}-df_{school} - df_{interaction}$
+    
 ------------------------------------------------------------------------
 
-A new samples with N = 300: Tutoring still has three levels, School types only have two levels: Public vs. Private.
+## Exercise
+- A new samples with N = 300
+    - Tutoring still has **three** levels, 
+    - School types only have two levels: Public vs. Private.
 
-Based on the SS provide below, calculate F values for three effects.
+Based on the SS provide below, calculate DF and F values for three effects.
 
 ```{webr-r}
 #| context: "setup"
@@ -581,6 +626,10 @@ fit_summary
 
 ## F-statistics for Two-way ANOVA: Sum of squres
 
+::: callout-note
+In a old-fashion way, you can calculate Sum of Squares based on marginal means and sample size for each cell.
+:::
+
 ::::: columns
 ::: column
 ![](images/clipboard-3610072829.png)
@@ -631,7 +680,7 @@ fit_summary
     2.  Having a large N and equal cell sizes protects you against violations of the normality assumption → Rough suggestion: have at least 15 participants per cell → If you don’t have large N or equal groups, check cell normality 2 ways: (1) skew/kurtosis values, (2) histograms
     3.  Use Levene’s test to check homogeneity of cell variance assumption → If can’t assume equal variances, use Welch or Brown-Forsyth. → However, F is somewhat robust to violations of HOV as long as within-cell standard deviations are approximately equal.
 
-## Two-way ANOVA: R Calculation
+## Two-way ANOVA: Calculation based on Grand \& Marginal \& Cell Means
 
 ::: panel-tabset
 ### Background
@@ -782,6 +831,9 @@ dat <- data.frame(
 dat
 ```
 
+::: panel-tabset
+
+### Your turn
 `dat` object has already been loaded into R. Please, calculate the gender's sum of squares:
 
 ```{webr-r}
@@ -791,12 +843,31 @@ M_B_table <-  dat |>
     N = n(),
     Mean = mean(___)
   ) 
-M_T = mean(____)
+M_T = mean(____) ## grand mean
 M_B_table
 
+## Formula for Sum of squares of Gender
 ___[1] * (____[1] - ___)^2 + 
   ___[2] * (____[2] - ____)^2
 ```
+
+### Answer
+
+```{webr-r}
+M_B_table <-  dat |> 
+  group_by(gender) |>  
+  summarise(
+    N = n(),
+    Mean = mean(outcome)
+  ) 
+M_T = mean(dat$outcome) ## grand mean
+M_B_table
+
+M_B_table$N[1] * (M_B_table$Mean[1] - M_T)^2 + 
+  M_B_table$N[2] * (M_B_table$Mean[2] - M_T)^2
+```
+
+:::
 
 ## Step 3: Sum of Squares of Interaction Effect
 
@@ -878,18 +949,12 @@ df_residual = __ - __ - __ - __ - ___
 F_gender = (___ / df_gender) / (SS_residual / df_residual)
 F_TP = (___ / df_TP) / (SS_residual / df_residual)
 F_GxTP = (___ / df_GxTP) / (SS_residual / df_residual)
+F_gender; F_TP; F_GxTP # print out three F-statistics
 ```
 
 ### Answer
 
 ```{webr-r}
-#                       Df Sum Sq Mean Sq F value Pr(>F)   
-# gender                 1   7.84   7.840   2.942  0.112   
-# tatto_piercing         1  28.09  28.090  10.540  0.007 **
-# gender:tatto_piercing  1   1.69   1.690   0.634  0.441   
-# Residuals             12  31.98   2.665                  
-
-
 df_gender = 1
 df_TP = 1
 df_GxTP = 1*1
@@ -897,6 +962,13 @@ df_residual = 16 - 1 - 1 - 1 - 1*1
 F_gender = (SS_gender / df_gender) / (SS_residual / df_residual)
 F_TP = (SS_TP / df_TP) / (SS_residual / df_residual)
 F_GxTP = (SS_GxTP / df_GxTP) / (SS_residual / df_residual)
+F_gender; F_TP; F_GxTP # print out three F-statistics
+
+#                       Df Sum Sq Mean Sq F value Pr(>F)   
+# gender                 1   7.84   7.840   2.942  0.112   
+# tatto_piercing         1  28.09  28.090  10.540  0.007 **
+# gender:tatto_piercing  1   1.69   1.690   0.634  0.441   
+# Residuals             12  31.98   2.665                  
 ```
 :::
 
@@ -915,6 +987,10 @@ F_GxTP = (SS_GxTP / df_GxTP) / (SS_residual / df_residual)
 -   Main Effect of Gender: Retain the null → Ignoring the tattoo, there is NO significant main effect of gender on risky behavior.
 
 -   Interaction: Retain the null → Under alpha=.05 level, because F-observed (F=0.63) does not exceed the critical value (F=4.75), we fail to reject the null that the effect of Factor A depends on Factor B. → “There is NO significant interaction between gender and tattoo on risky behavior.”
+
+## ShinyApp for ANOVA
+
+[![](images/clipboard-2180015893.png)](https://utrecht-university.shinyapps.io/ANCOVA_Shiny/)
 
 ## Other extensions about 2-way ANOVA: I
 
