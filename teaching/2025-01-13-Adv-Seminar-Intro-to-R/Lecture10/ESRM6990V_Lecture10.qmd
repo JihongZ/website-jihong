@@ -34,19 +34,19 @@ filters:
 ::: objectives
 ## Overview
 
-- Introduction to Plotly
-- Advanced Plot Types
-- Customization Techniques
-- Interactivity Features
-- Integration with Other Tools
-- Performance Optimization
+-   Introduction to Plotly
+-   Advanced Plot Types
+-   Customization Techniques
+-   Interactivity Features
+-   Integration with Other Tools
+-   Performance Optimization
 :::
 
 ## Introduction to Plotly
 
 1.  Plotly is an open-source JavaScript library that enables the creation of interactive, publication-quality plots in R. It supports various chart types, including line plots, scatter plots, bar charts, histograms, and more. Interactive plots enhance data exploration and presentation by allowing users to engage directly with visualizations.
 
-2. The `plotly` package is built on top of the `htmlwidgets` framework, which allows R users to create interactive web-based visualizations using JavaScript libraries.
+2.  The `plotly` package is built on top of the `htmlwidgets` framework, which allows R users to create interactive web-based visualizations using JavaScript libraries.
 
 ### plotly package
 
@@ -65,7 +65,7 @@ head(diamonds)
 ```
 
 ::: callout-note
--  Within below code block, `plot_ly()` tries to find a sensible geometric representation of that information for
+-   Within below code block, `plot_ly()` tries to find a sensible geometric representation of that information for
 
 -   Note that column name is formated with `~Name` in `plot_ly()`, which is different from `ggplot2` package `Name` or `vars(Name)`.
 :::
@@ -91,7 +91,6 @@ plot_ly(diamonds, x=~cut,
 layout(title = "Histogram with I() function")
 ```
 
-
 ### Translate ggplot2 to plotly
 
 In @fig-plotly-1, `ggplotly()` can translate a `ggplot2` object into a plotly object.
@@ -114,7 +113,6 @@ plot_ly(mtcars, x=~disp) |>
   add_markers(y=~mpg, text = rownames(mtcars)) |> 
   add_lines(y=~fitted(loess(mpg ~ disp)))
 ```
-
 
 ## Advanced Plot Types
 
@@ -272,7 +270,7 @@ shinyApp(ui, server)
 
 Embedding interactive plots in R Markdown documents facilitates dynamic reporting.
 
-```yaml
+``` yaml
 ---
 title: "Interactive Plot in R Markdown"
 output: html_document
@@ -282,7 +280,6 @@ output: html_document
 ```{r plotly_example, echo=FALSE}
 plot_ly(x = ~rnorm(100), type = 'histogram')
 ```
-
 
 ## Performance Optimization
 
@@ -320,4 +317,4 @@ fig
 
 ## Conclusion
 
-Incorporating advanced features of Plotly into your data visualization workflow can significantly enhance the interactivity and 
+Incorporating advanced features of Plotly into your data visualization workflow can significantly enhance the interactivity and
