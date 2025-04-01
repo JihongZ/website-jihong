@@ -366,6 +366,8 @@ hello <- function(){
 #### Step 2: document and load
 Then, in `Build` panel, click `More` -\> `Document` -\> `Load All`.
 
+These two buttons correspond to `document()` and `load_all` in `devtools` package, which are most frequently used.
+
 ![](images/clipboard-255122707.png)
 
 #### Step 3: Test the function
@@ -394,6 +396,15 @@ library(jeremy)
 
 :::
 
+## Help files
+
+To build help page of one function, we need to understand the procedure of R document building.
+
+1. You put all of the help information (Title, description, Usage, Arguments, Value, Example) directly in the code where you define each function, with the format `#'`.
+
+2. You call `document()` or click `Build` > `document`, the roxygen2 package will convert the help information into `.Rd` files.
+
+3. These help files will ultimately be moved to a folder called `/man` of your package, in an R documentation format (.Rd file extensions) that is fairly similar to LaTeX. 
 
 ## Reference
 
