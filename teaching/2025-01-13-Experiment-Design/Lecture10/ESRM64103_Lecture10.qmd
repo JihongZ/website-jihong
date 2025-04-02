@@ -387,15 +387,14 @@ ggplot(data = combined_vis_data, aes(x = School_Levels)) +
 
 ## Model 2: Two-Way ANOVA with Interaction
 
-
 $$
 \mathrm{Grade} = U_1(\mathrm{Tutoring}) + U_2(\mathrm{School}) + U_3(\mathrm{TutoringxSchool})
 $$
 
 There variance components (random effects) included in a full two-way ANOVA with two Factors.
 
-
 ## Model 2: Visualization of Two-Way ANOVA with Interaction
+
 ::::: columns
 ::: column
 ![](images/clipboard-3633655973.png)
@@ -534,18 +533,20 @@ choose(4, 2) + choose(4, 3) + choose(4, 4)
         -   $F_{SxT} = \frac{MS_{SxT}}{MS_{residual}} = \frac{46.5}{23.8} = 1.953$
 
 -   Degree of freedom:
+
     -   $df_{tutoring}$ = (Number of levels of Tutoring) - 1
     -   $df_{school}$ = (Number of levels of School) - 1
     -   $df_{interaction}$ = $df_{tutoring} \times df_{school}$
     -   $df_{total}$ = N - 1
     -   $df_{residual}$ = $df_{total}-df_{tutoring}-df_{school} - df_{interaction}$
-    
+
 ------------------------------------------------------------------------
 
 ## Exercise
-- A new samples with N = 300
-    - Tutoring still has **three** levels, 
-    - School types only have two levels: Public vs. Private.
+
+-   A new samples with N = 300
+    -   Tutoring still has **three** levels,
+    -   School types only have two levels: Public vs. Private.
 
 Based on the SS provide below, calculate DF and F values for three effects.
 
@@ -680,7 +681,7 @@ In a old-fashion way, you can calculate Sum of Squares based on marginal means a
     2.  Having a large N and equal cell sizes protects you against violations of the normality assumption → Rough suggestion: have at least 15 participants per cell → If you don’t have large N or equal groups, check cell normality 2 ways: (1) skew/kurtosis values, (2) histograms
     3.  Use Levene’s test to check homogeneity of cell variance assumption → If can’t assume equal variances, use Welch or Brown-Forsyth. → However, F is somewhat robust to violations of HOV as long as within-cell standard deviations are approximately equal.
 
-## Two-way ANOVA: Calculation based on Grand \& Marginal \& Cell Means
+## Two-way ANOVA: Calculation based on Grand & Marginal & Cell Means
 
 ::: panel-tabset
 ### Background
@@ -832,8 +833,8 @@ dat
 ```
 
 ::: panel-tabset
-
 ### Your turn
+
 `dat` object has already been loaded into R. Please, calculate the gender's sum of squares:
 
 ```{webr-r}
@@ -866,7 +867,6 @@ M_B_table
 M_B_table$N[1] * (M_B_table$Mean[1] - M_T)^2 + 
   M_B_table$N[2] * (M_B_table$Mean[2] - M_T)^2
 ```
-
 :::
 
 ## Step 3: Sum of Squares of Interaction Effect

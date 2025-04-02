@@ -25,25 +25,31 @@ format:
 
 
 
-::: separator
-[Experience]{.next-section}
-:::
+```{r}
+#| results: asis
+#| echo: false
+library(htmltools)
+div(class="timeline",
+    h3("Working"),
+    tags$main(
+      p(tags$br(tags$b("June 2021 - Jan 2022")), "Stanford Research Institute (SRI) | Associate Researcher (Internship)"),
+      p(tags$br(tags$b("Dec 2022 - June 2023")), "The Chinese University of Hong Kong | Postdoctoral Fellow"),
+      p(tags$br(tags$b("Jan 2024 - Current")), "University of Arkansas | Assistant Professor"),
+    )
+)
 
-::: {.panel-tabset align="left"}
-## Experience
-
--   University of Arkansas \| **Assistant Professor** \| [Jan 2024 - Current]{style="color:darkgrey;"}
--   The Chinese University of Hong Kong \| **Postdoctoral Fellow** \| [Dec 2022 - June 2023]{style="color:darkgrey;"}
--   Stanford Research Institute (SRI) \| **Associate Researcher (Intern)** \| [June 2021 - Jan 2022]{style="color:darkgrey;"}
+div(class="timeline",
+    h3("Education"),
+    tags$main(
+      p(tags$br(tags$b("Aug 2011 - Dec 2013")), "B.S. Law | Soochow University"),
+      p(tags$br(tags$b("Aug 2009 - Dec 2013")), "B.S. Applied Psychology | Soochow University"),
+      p(tags$br(tags$b("Aug 2015 - Dec 2019")), "M.S. Educational Psychology & Research | University of Kansas"),
+      p(tags$br(tags$b("Jan 2019 - Dec 2022")), "Ph.D. Educational Measurement & Statistics | University of Iowa")
+    )
+)
+```
 
 <a href="./uploads/Curriculum_Vitae.pdf"><button type="button" class="btn btn-primary float-end btn-sm">See C.V.</button></a>
-
-## Education
-
--   **Ph.D.** \| Educational Measurement & Statistics \| **University of Iowa** \| Jan [2019 - Dec 2022]{style="color:darkgrey;"}
--   **M.S.** \| Educational Psychology & Research \| **University of Kansas** \| Aug [2015 - Dec 2019]{style="color:darkgrey;"}
--   **B.S.** \| Applied Psychology \| **Soochow University** \| Aug [2009 - Dec 2013]{#date style="color:darkgrey;"}
--   **B.S.** \| Law \| **Soochow University** \| [2011 - 2013]{style="color:darkgrey;"}
 
 ## Interests
 
@@ -52,29 +58,17 @@ format:
 -   Psychometric network and Latent variable modeling
 -   Machine Learning and data mining in Education
 -   Diagnostic Classification Models
-:::
 
-::: separator
-[News]{.next-section}
-:::
-
+## News
 
 ::: macwindow
-
 -   2025-03-30: New journal paper accepted by [Behavioral Sciences]{.underline}: *Comparing Frequentist and Bayesian Methods for Factorial Invariance with Latent Distribution Heterogeneity*, Authors: Xinya Liang \*, Ji Li, Mauricio Garnier-Villarreal, Jihong Zhang
 
--   2025-03-27: New journal paper published (online first) by [Learning and Individual Differences]{.underline}:*Math anxiety is associated with skipping problems and less help-seeking behavior after error commission*, 
+-   2025-03-27: New journal paper published (online first) by [Learning and Individual Differences]{.underline}:*Math anxiety is associated with skipping problems and less help-seeking behavior after error commission*,
 
 -   2025-02-28: I have been elected to serve as Secretary/Treasurer (3-year term begins in 2025) of the Cognition and Assessment SIG (SIG #167) of the American Educational Research Association (AERA). My term will begin at the conclusion of the 2025 AERA Annual Meeting.
-
 :::
 
-
-
-
-::: separator
-[Teaching & Research]{.next-section}
-:::
 
 ## Teaching
 

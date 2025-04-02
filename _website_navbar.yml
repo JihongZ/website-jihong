@@ -7,6 +7,8 @@ website:
     title: "<span class='icon-line'></span><span style='color:#2e4963; font-size: 0.9em; font-family: FZFWZhuZiAYuanJW'>JIHONG ZHANG (张吉鸿)</span><span class='icon-line'></span>"
     foreground: "#404041"
     right:
+      - text: "<span class='menutext-teach'>ABOUT</span><span class='text-line text-line-teach'></span>"
+        file: about.qmd
       - text: "<span class='menutext-teach'>TEACHING</span><span class='text-line text-line-teach'></span>"
         file: teaching.qmd
       - text: "<span class='menutext-research'>RESEARCH</span><span class='text-line text-line-research'></span>"

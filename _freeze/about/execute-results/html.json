@@ -1,0 +1,15 @@
+{
+  "hash": "b4bfc559a7033b350b4bb47c9147cc45",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"\"\nlisting:\n  - id: posts\n    contents: posts/**/*.[Rq]md\n    type: grid\n    fields: [image, date, reading-time, title]\n    sort: \"date desc\"\n    sort-ui: false\n    filter-ui: false\n    page-size: 3\n    feed: true\n  - id: lectures\n    contents: teaching/**/*_syllabus.[Rq]md\n    fields: [image, date, title]\n    sort: \"date desc\"\n    type: grid\n    max-items: 3\nformat: \n  html:\n    code-tools: false\n    comments: false\n    toc: false\n---\n\n\n```{=html}\n<div class=\"timeline\">\n<h3>Working</h3>\n<main>\n<p>\n<br>\n<b>June 2021 - Jan 2022</b>\n</br>\nStanford Research Institute (SRI) | Associate Researcher (Internship)\n</p>\n<p>\n<br>\n<b>Dec 2022 - June 2023</b>\n</br>\nThe Chinese University of Hong Kong | Postdoctoral Fellow\n</p>\n<p>\n<br>\n<b>Jan 2024 - Current</b>\n</br>\nUniversity of Arkansas | Assistant Professor\n</p>\n</main>\n</div>\n```\n\n```{=html}\n<div class=\"timeline\">\n<h3>Education</h3>\n<main>\n<p>\n<br>\n<b>Aug 2011 - Dec 2013</b>\n</br>\nB.S. Law | Soochow University\n</p>\n<p>\n<br>\n<b>Aug 2009 - Dec 2013</b>\n</br>\nB.S. Applied Psychology | Soochow University\n</p>\n<p>\n<br>\n<b>Aug 2015 - Dec 2019</b>\n</br>\nM.S. Educational Psychology &amp; Research | University of Kansas\n</p>\n<p>\n<br>\n<b>Jan 2019 - Dec 2022</b>\n</br>\nPh.D. Educational Measurement &amp; Statistics | University of Iowa\n</p>\n</main>\n</div>\n```\n\n\n\n\n<a href=\"./uploads/Curriculum_Vitae.pdf\"><button type=\"button\" class=\"btn btn-primary float-end btn-sm\">See C.V.</button></a>\n\n## Interests\n\n-   AI in Educational Measurement and Psychometrics\n-   Bayesian Psychometric Modeling\n-   Psychometric network and Latent variable modeling\n-   Machine Learning and data mining in Education\n-   Diagnostic Classification Models\n\n## News\n\n::: macwindow\n-   2025-03-30: New journal paper accepted by [Behavioral Sciences]{.underline}: *Comparing Frequentist and Bayesian Methods for Factorial Invariance with Latent Distribution Heterogeneity*, Authors: Xinya Liang \\*, Ji Li, Mauricio Garnier-Villarreal, Jihong Zhang\n\n-   2025-03-27: New journal paper published (online first) by [Learning and Individual Differences]{.underline}:*Math anxiety is associated with skipping problems and less help-seeking behavior after error commission*,\n\n-   2025-02-28: I have been elected to serve as Secretary/Treasurer (3-year term begins in 2025) of the Cognition and Assessment SIG (SIG #167) of the American Educational Research Association (AERA). My term will begin at the conclusion of the 2025 AERA Annual Meeting.\n:::\n\n\n## Teaching\n\n::: {#lectures}\n:::\n\n## Recent Posts\n\n::: {#posts}\n:::\n\n<a href=\"./posts.qmd\"><button type=\"button\" class=\"btn btn-primary float-end btn-sm\">See all</button></a>\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
