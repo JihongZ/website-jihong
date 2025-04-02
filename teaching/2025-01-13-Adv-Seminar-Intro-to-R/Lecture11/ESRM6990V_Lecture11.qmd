@@ -339,12 +339,20 @@ In your `R` folder, create a new R file named `hello.R`:
 
 ![](images/clipboard-548549187.png)
 
---- 
+------------------------------------------------------------------------
 
 ### Exp1: Your first function --- hello.R
 
 ::: panel-tabset
+### Step 0: create the package
+
+```{r}
+#| eval: false
+devtools::create("~/Downloads/jeremy")
+```
+
 #### Step 1: create the R file
+
 Copy-and-paste the following starting template code into your `hello.R` file and save.
 
 ```{r filename="hello.R"}
@@ -353,9 +361,12 @@ Copy-and-paste the following starting template code into your `hello.R` file and
 #' This is the function for showing the information of XXX
 #'
 #' @param details Want to know more
+#' 
 #' @returns describe some basic information about XXX
+#' 
 #' @examples
 #' hello()
+#' 
 #' @export
 
 hello <- function(){
@@ -364,6 +375,7 @@ hello <- function(){
 ```
 
 #### Step 2: document and load
+
 Then, in `Build` panel, click `More` -\> `Document` -\> `Load All`.
 
 These two buttons correspond to `document()` and `load_all` in `devtools` package, which are most frequently used.
@@ -371,6 +383,7 @@ These two buttons correspond to `document()` and `load_all` in `devtools` packag
 ![](images/clipboard-255122707.png)
 
 #### Step 3: Test the function
+
 Finally, in R console, type in `hello()`. Do you see the results?
 
 ```{r}
@@ -393,19 +406,118 @@ Finally, try to load your package. Did you see your package can be successfully 
 #| eval: false
 library(jeremy)
 ```
-
 :::
 
-## Help files
+## Help files: Procedure
 
-To build help page of one function, we need to understand the procedure of R document building.
+To build help page of one function, we need to understand the **procedure** of R document building.
 
-1. You put all of the help information (Title, description, Usage, Arguments, Value, Example) directly in the code where you define each function, with the format `#'`.
+1.  You put all of the help information (Title, description, Usage, Arguments, Value, Example) directly in the code where you define each function, with the format `#'`.
 
-2. You call `document()` or click `Build` > `document`, the roxygen2 package will convert the help information into `.Rd` files.
+2.  You call `document()` or click `Build` \> `document`, the roxygen2 package will convert the help information into `.Rd` files.
 
-3. These help files will ultimately be moved to a folder called `/man` of your package, in an R documentation format (.Rd file extensions) that is fairly similar to LaTeX. 
+3.  These help files will ultimately be moved to a folder called `/man` of your package, in an R documentation format (.Rd file extensions) that is fairly similar to LaTeX.
+
+## Help files: Tags
+
+-   the `roxygen2` package lets you put all of the help information directly in the code where you define each function. Further, `roxygen2` documentation allows you to include tags (`@export`, `@importFrom`) that will automate writing the package NAMESPACE file, so you don’t need to edit that file by hand.
+
+-   In our example, the following code starting with `@` is called tags:
+
+    ```{r}
+    #| eval: false
+    #' This is the function for showing the information of XXX
+    #'
+    #' @param details Want to know more
+    #' 
+    #' @returns describe some basic information about XXX
+    #' 
+    #' @examples
+    #' hello()
+    #' 
+    #' @export
+    ```
+
+Some frequently used key tags:
+
+1.  `@export` : Export the function, so users will have direct access to it when they load the package
+2.  `@param`: Explanation of a function parameter. `@param [param_name] [explanation]`
+3.  `@examples` : Example code showing how to use the function
+4.  `@return` : A description of the object returned by the function
+
+You can find the full list of tags in roxygen2's documentation ([here](https://roxygen2.r-lib.org/reference/index.html)).
+
+## Store Data in Package
+
+-   If you want to store R objects and make them available to the user, put them in `data/`. This is the best place to put example datasets. All the concrete examples above for data in a package and data as a package use this mechanism.
+
+-   If you want to store R objects for your own use as a developer, put them in `R/sysdata.rda`. This is the best place to put internal data that your functions need.
+
+-   If you want to store data in some raw, non-R-specific form and make it available to the user, put it in `inst/extdata/`.
+
+-   If you want to store dynamic data that reflects the internal state of your package within a single R session, use an environment. This technique is not as common or well-known as those above, but can be very useful in specific situations.
+
+-   If you want to store data persistently across R sessions, such as configuration or user-specific data, use one of the officially sanctioned locations.
+
+------------------------------------------------------------------------
+
+### Exp1: Store your data into your package
+
+::: panel-tabset
+#### Step 4: create Dataset.R
+
+```{r}
+#| eval: false
+usethis::use_data_raw(name = "Dataset")
+```
+
+![](images/clipboard-3638710880.png)
+
+#### Step 5: create R script for data generation
+
+In `Dataset.R` file, put the following R code into R file.
+
+```{r}
+#| eval: false
+dat <- data.frame(
+  name = "jihong",
+  bio = "
+I am a tenure-track Assistant Professor of Educational Statistics and Research Methods (ESRM) in the Department of Counseling, Leadership, and Research Methods (CLRM) at the University of Arkansas, Fayetteville, U.S.
+
+Previously, I was a postdoctoral fellow in the Department of Social Work at the Chinese University of Hong Kong (CUHK). My academic journey in psychometrics began with doctoral training under Dr. Jonathan Templin in the Educational Measurement and Statistics (EMS) program at the University of Iowa. I have extensive experience in educational assessment. During my master’s program at the University of Kansas, I worked as a research assistant for three years in the Kansas Assessment Program (KAP), contributing to various assessment initiatives, including Dynamic Learning Maps (DLM). Later, during my Ph.D. program, I interned at the Stanford Research Institute (SRI), where I focused on digital learning in computerized testing.
+
+My primary research interests include empirical and methodological studies in psychological network modeling, AI in Education, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric methods. My expertise lies in applying advanced statistical modeling techniques in psychology and education.
+"
+)
+usethis::use_data(dat, overwrite = TRUE)
+```
+
+#### Step 5: run Dataset.R
+
+Open `Dataset.R` and Click the `Source` button to run the R file. You shall see the following output in R console.
+
+```{r}
+#| eval: false
+>>> usethis::use_data(dat, overwrite = TRUE)
+✔ Setting active project to "/Users/jihong/Downloads/jeremy".
+✔ Adding R to Depends field in DESCRIPTION.
+✔ Creating data/.
+✔ Setting LazyData to "true" in DESCRIPTION.
+✔ Saving "dat" to "data/dat.rda".
+☐ Document your data (see <https://r-pkgs.org/data.html>).
+```
+
+![](images/clipboard-340822857.png)
+
+#### Step 6: Test the data
+
+Type in the data name, such as `dat` in the R console. Do you see the data in your menu?
+
+![](images/clipboard-553801648.png)
+:::
 
 ## Reference
 
 1.  [Mastering Software Development in R --- Chapter 3 Building R Packages](https://bookdown.org/rdpeng/RProgDA/building-r-packages.html)
+2.  `roxygen2` [documentation](https://roxygen2.r-lib.org/reference/index.html)
+3.  R Package by (https://r-pkgs.org/data.html)
