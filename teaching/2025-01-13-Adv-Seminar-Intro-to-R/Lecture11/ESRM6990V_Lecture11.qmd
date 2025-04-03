@@ -16,6 +16,7 @@ format:
     code-fold: false
     number-offset: 0
     fig-align: center
+    toc-expand: true
   uark-revealjs:
     scrollable: true
     chalkboard: true
@@ -38,16 +39,7 @@ filters:
 -   Create a simple R package skeleton using the devtools package
 -   Recognize the key directives in a NAMESPACE file
 -   Create R function documentation using roxygen2
--   Create vignettes using knitr and R Markdown
 -   Create an R package that contains data (and associated documentation)
--   Create unit tests for an R package using the testthat package
--   Categorize errors in the R CMD check process
--   Recall the principles of open source software
--   Recall two open source licenses
--   Create create a GitHub repository for an R package
--   Create an R package that is tested and deployed on Travis
--   Create an R package that is tested and deployed on Appveyor
--   Recognize characteristics of R packages that are not cross-platform
 :::
 
 ## Prerequisite
@@ -331,7 +323,7 @@ Below figure gives an example of what the new package directory will look like a
 :::::
 ::::::
 
-## Exp1: Build your first R file in your first package
+## Example 1: Build your first R file in your first package
 
 Open the `.Rproj` file will open Rstudio with your package directory as root path.
 
@@ -461,10 +453,10 @@ You can find the full list of tags in roxygen2's documentation ([here](https://r
 
 ------------------------------------------------------------------------
 
-### Exp1: Store your data into your package
+### Example 1: Store your data into your package
 
 ::: panel-tabset
-#### Step 4: create Dataset.R
+#### Step 4: Create Dataset.R
 
 ```{r}
 #| eval: false
@@ -473,7 +465,7 @@ usethis::use_data_raw(name = "Dataset")
 
 ![](images/clipboard-3638710880.png)
 
-#### Step 5: create R script for data generation
+#### Step 5: Create R script for data generation
 
 In `Dataset.R` file, put the following R code into R file.
 
@@ -514,10 +506,51 @@ Open `Dataset.R` and Click the `Source` button to run the R file. You shall see 
 Type in the data name, such as `dat` in the R console. Do you see the data in your menu?
 
 ![](images/clipboard-553801648.png)
+
+#### Step 7: Share your package
+
+Currently, you can compress your package and share the zip file to anyone you want to share with.
+
+As an example, download jeremy.zip on the [webpage of Syllabus](https://jihongzhang.org/teaching/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.html#schedule). Unzip it to `Downloads` folder and run the following R script.
+
+```{r}
+#| eval: false
+install.packages("~/Downloads/jeremy", repos = NULL, type="source")
+>> Installing package into ‘/Users/jihong/Rlibs’
+>> (as ‘lib’ is unspecified)
+>> * installing *source* package ‘jeremy’ ...
+>> ** using staged installation
+>> ** R
+>> ** data
+>> *** moving datasets to lazyload DB
+>> ** byte-compile and prepare package for lazy loading
+>> ** help
+>> *** installing help indices
+>> ** building package indices
+>> ** testing if installed package can be loaded from temporary location
+>> ** testing if installed package can be loaded from final location
+>> ** testing if installed package keeps a record of temporary installation path
+>> * DONE (jeremy)
+```
 :::
+
+## More about R Package
+
+We've learnt how to build a simplest R package. However, today class is scratching the surface of R package. There are more things when you build your more complicated package. Some of which are:
+
+-   Create unit tests for an R package using the testthat package
+-   Categorize errors in the R CMD check process
+-   Recall the principles of open source software
+-   Recall two open source licenses
+-   Create create a GitHub repository for an R package
+-   Create an R package that is tested and deployed on Travis
+-   Create an R package that is tested and deployed on Appveyor
+-   Recognize characteristics of R packages that are not cross-platform
+
+You can take a look at the Reference slide if you want to know more.
 
 ## Reference
 
 1.  [Mastering Software Development in R --- Chapter 3 Building R Packages](https://bookdown.org/rdpeng/RProgDA/building-r-packages.html)
 2.  `roxygen2` [documentation](https://roxygen2.r-lib.org/reference/index.html)
-3.  R Package by (https://r-pkgs.org/data.html)
+3.  [R Packages (2e)](https://r-pkgs.org/data.html) by Hadley Wickham and Jennifer Bryan
