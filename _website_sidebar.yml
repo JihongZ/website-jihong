@@ -29,6 +29,8 @@ website:
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture07/ESRM6990V_Lecture07.qmd
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture08/ESRM6990V_Lecture08.qmd      
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture09/ESRM6990V_Lecture09.qmd      
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture10/ESRM6990V_Lecture10.qmd      
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture11/ESRM6990V_Lecture11.qmd      
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture12/ESRM6990V_Lecture12.qmd      
         - section: "Exercise"
           contents:
