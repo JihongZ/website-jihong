@@ -432,7 +432,7 @@ summary(aov(Grades ~ Tutoring + School + Tutoring:School, data = data))
 ### Interpretation
 
 | Source | df | MS | F |
-|------------------|------------------|------------------|------------------|
+|----|----|----|----|
 | Main Effect of Tutoring | 2 | $2120.1 = 4240 / 2$ | 89.065\*\*\* |
 | Main Effect of School | 2 | $10.8 = 22 / 2$ | 0.636 |
 | Interaction Effect of School x Tutoring | 4 | $46.5 = 186 / 4$ | 0.102 |
@@ -506,7 +506,7 @@ Total = FactorA + FactorB + A\*B + Residual
 -   In Factor ANOVA Design, the overall between-group variability is divided up into variance terms for each unique source of the factors.
 
 | Source | 2 IVs | 3 IVs | 4 IVs |
-|------------------|------------------|------------------|------------------|
+|----|----|----|----|
 | Main effect | A, B | A, B, C | A, B, C, D |
 | Interaction effect | AB | AB, BC, AC, ABC | AB, AC, AD, BC, BD, CD, ABC, ABD, BCD, ACD, ABCD |
 
