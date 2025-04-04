@@ -188,7 +188,7 @@ This book is free and comprehensive for a broad R tasks of data analysis. For ex
     -   Research questions/objectives
     -   Proposed analysis methods
     -   Timeline for completion
--   **Create a GitHub Repository (20%)**
+-   **Create a GitHub Repository (20%; [Optional]{style="color: red;"})**
     -   Well-organized project structure
     -   Clear documentation
     -   Regular commits showing progress
