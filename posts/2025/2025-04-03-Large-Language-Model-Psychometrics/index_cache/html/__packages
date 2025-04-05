@@ -11,3 +11,5 @@ stringr
 forcats
 lubridate
 glue
+jsonlite
+kableExtra

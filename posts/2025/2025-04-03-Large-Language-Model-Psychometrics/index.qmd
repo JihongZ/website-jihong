@@ -98,7 +98,9 @@ First of all, type in the following bash command in the terminal to install `ope
 ```{r setup}
 #| echo: false
 library(reticulate)
+library(jsonlite)
 library(tidyverse)
+library(kableExtra)
 library(glue)
 ```
 
@@ -357,14 +359,30 @@ for message in inputs:
 The outputs for 4 conditions show that the condition of the prompt with schema and the input with precise quantity has the most clear LLM output.
 
 ::: macwindow
+
+```{r}
+#| results: hide
+#| code-fold: true
+#| code-summary: "Function to convert JSON to Markdown Table"
+json_to_markdownTBL <- function(x) {
+  dat <- as.data.frame(fromJSON(x)) # convert JSON into data.frame
+  md_dat <- paste0(kableExtra::kable(dat, format = "simple"), collapse ="\n")
+  return(md_dat)
+}
+data_frame_output <- sapply(dat_output$json_data, json_to_markdownTBL) |> 
+  unlist()
+```
+
 ```{r}
 #| results: asis
 #| code-fold: true
+#| code-summary: "Compile pieces of informatiom into output"
 content <- paste0(glue("
 ### {tabset_condition}
 **Prompt**:\n{dat_output$prompts}\n\n
 **Input**:\n\n{dat_output$inputs}\n\n
 **LLMOutput**:\n\n{dat_output$json_data}\n\n
+**R DataFrame**:\n\n{data_frame_output}\n\n
 "), collapse = "")
 glue("::: panel-tabset\n{content}:::")
 
