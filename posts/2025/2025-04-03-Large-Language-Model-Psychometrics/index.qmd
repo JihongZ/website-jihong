@@ -477,3 +477,7 @@ response = client.responses.create(
 print(response.output_text)
 ```
 
+## Resources
+
+- [YouTube Video](https://www.youtube.com/watch?v=0pGxoubWI6s): OpenAI Just Changed Everything (Responses API Walkthrough)
+  - [GitHub Repo](https://github.com/daveebbelaar/ai-cookbook/tree/main/models/openai/05-responses)
