@@ -93,7 +93,7 @@ AI Agents in generative AI raises more attentions in Education because of the po
 
 The following section is inspired by the fascinating guide in the [post](https://pavelbazin.com/post/the-essential-guide-to-large-language-models-structured-output-and-function-calling/?utm_source=reddit&utm_medium=social&utm_campaign=structured_output&utm_content=sub_python) authored by Pavel Bazin.
 
-First of all, type in the following command in the terminal to install `openai` python module.
+First of all, type in the following bash command in the terminal to install `openai` python module if you already have Python installed.
 
 ```{r setup}
 #| echo: false
@@ -106,6 +106,8 @@ library(glue)
 pip install openai
 python3 -m pip install openai
 ```
+
+The next step is to either create a new Python file (`.py`) or use `{python}` code chunk in Quarto, in which importing the `OpenAI` module and construct a python function called `llm_eval()`. This function can call OpenAI ChatGPT (e.g., `gpt-4o`) via the API key:
 
 ```{python}
 # Further down these imports will be ommited for brevity
@@ -126,10 +128,9 @@ def llm_eval(prompt: str, message: str, model: str = "gpt-4o"):
     )
 ```
 
-Then, we should be able to call the function either in R or in Python:
+Then, we should be able to call the function either in R (use `reticulate` package) or in Python:
 
 ::: panel-tabset
-
 ### R
 
 ```{r}
@@ -150,7 +151,13 @@ json_data = res$choices[[1]]$message$content
 cat(json_data)
 ```
 
-1. There are two things that should be noted: (1) In R code chunk, use `py$<python object>` format to access python object. (2) In contrast to use `res.choices[0].message.content` in Python, the nested list in R is extract using `$` with the starting index as `1`.
+::: rmdnote
+There are two things that should be noted: 
+
+1. If you are using Quarto, use `py$<python object>` in R code chunk to have access to the python object. If you put python code and R code in multiple files, use `source_python("<Path to Python file>")` to load the python function into R session.
+
+2. In contrast to use `res.choices[0].message.content` in Python,  note that the nested list in R is extract using `$` with the starting index as `1`.
+:::
 
 ### Python
 
@@ -242,7 +249,7 @@ HTML(py$render(json_data2))
 
 ### Utilize Schema to Define Data Shape
 
-The problem is, we don’t have the data shape defined; let’s call it **schema**. Our schema is now up to the LLM, and it might change based on user input. Let’s rephrase the user query to see it in action. Instead of asking, “I’d like to buy some bread, a pack of eggs, a few apples, and a bottle of milk,” let’s ask, “12 eggs, 2 bottles of milk, 6 sparkling waters.”
+The problem is, we don’t have the data shape defined; let’s call it **JSON schema**. Our schema is now up to the LLM, and it might change based on user input. Let’s rephrase the user query to see it in action. Instead of asking, “I’d like to buy some bread, a pack of eggs, a few apples, and a bottle of milk,” let’s ask, “12 eggs, 2 bottles of milk, 6 sparkling waters.”
 
 ```{r}
 #| echo: true
@@ -255,11 +262,13 @@ json_data = res$choices[[1]]$message$content
 cat(json_data)
 ```
 
+As seen in the output, ChatGPT can incorporate inputs with quantities into outputs with extra quantity attribute.
+
 ::: rmdnote
-OpenAI introduced the next step for Structured Output. You can get the same results using `response_format={"type": "json_object"}` and parse data yourself without using beta version of API which was not performing reliably in our products. Beta version uses response_format as well, and refactoring would take a few minutes. 
+OpenAI introduced the next step for [Structured Output](https://platform.openai.com/docs/guides/structured-outputs/structured-outputs). You can get the same results using `response_format={"type": "json_object"}` and parse data yourself without using beta version of API which was not performing reliably in our products. 
 :::
 
-Let's create two prompts (No schema vs. With schema) and two inputs (Vague quantity vs. Precise quantity). We let LLM to generate the outputs for these 4 conditions:
+For the following experiment, let's create two prompts (No schema vs. With schema) and two inputs (Vague quantity vs. Precise quantity). We let LLM to generate the outputs for these 4 conditions:
 
 ::: panel-tabset
 
@@ -347,6 +356,7 @@ for message in inputs:
 
 The outputs for 4 conditions show that the condition of the prompt with schema and the input with precise quantity has the most clear LLM output.
 
+::: macwindow
 ```{r}
 #| results: asis
 #| code-fold: true
@@ -359,4 +369,4 @@ content <- paste0(glue("
 glue("::: panel-tabset\n{content}:::")
 
 ```
-
+:::
