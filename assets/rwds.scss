@@ -159,14 +159,20 @@ body, p, li, a{ // main font family of post content
   font-style: normal;
 }
 
+p {
+  line-height: 2em;
+  margin-bottom: 2.5em;
+  margin-top: 2.5em;
+}
+
 label {
   font-family: "Jost", sans-serif;
 }
 
-p > em, li > em {
-  text-decoration: green underline wavy;
-  text-decoration-skip-ink: none;
-}
+// p > em, li > em {
+//   text-decoration: green underline wavy;
+//   text-decoration-skip-ink: none;
+// }
 
 strong {
   font-family: "Source Sans 3", sans-serif;
