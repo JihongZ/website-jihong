@@ -486,6 +486,61 @@ response = client.responses.create(
 
 print(response.output_text)
 ```
+#### Use AI to reproduce academic figure
+Let's try a more academic figure --- a histogram plot from the web:
+
+```{python}
+#| eval: true
+#| code-fold: true
+#| code-summary: "LLM-generated R code"
+#| cache: true
+
+from openai import OpenAI
+
+client = OpenAI()
+response = client.responses.create(
+    model="gpt-4o",
+    input=[
+        {"role": "user", "content": "You are a R programming assistant. Provide R code to generate this figure. Make sure only R code is provide."},
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_image",
+                    "image_url": "https://seaborn.pydata.org/_images/distributions_3_0.png",
+                }
+            ],
+        },
+    ],
+)
+
+
+print(response.output_text)
+```
+
+::: columns
+::: column
+##### Original Plot
+![](https://seaborn.pydata.org/_images/distributions_3_0.png)
+:::
+
+::: column
+##### AI-generated Plot
+```{r}
+#| code-fold: true
+#| code-summary: "R Code"
+# Required packages
+library(ggplot2)
+library(palmerpenguins)
+
+# Plot
+ggplot(penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "black", alpha = 0.6) +
+  theme_minimal(base_size = 15) +
+  labs(x = "flipper_length_mm", y = "Count")
+```
+:::
+:::
 
 ## Resources
 
