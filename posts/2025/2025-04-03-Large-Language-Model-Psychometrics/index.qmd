@@ -27,6 +27,14 @@ format:
     code-line-numbers: false
     code-fold: false
     code-summary: "Click this to see R code"
+include-in-header:
+  - text: |
+      <style>
+      .cell-output-stdout code {
+        word-break: break-wor !important;
+        white-space: pre-wrap !important;
+      }
+      </style>    
 ---
 
 ::: objectives
@@ -454,13 +462,15 @@ print(response.output_text)
 
 ```{python}
 #| cache: true
+#| code-fold: true
+#| code-summary: "Response API with image as input"
 from openai import OpenAI
 
 client = OpenAI()
 response = client.responses.create(
     model="gpt-4o",
     input=[
-        {"role": "user", "content": "Descript what you see in the image?"},
+        {"role": "user", "content": "Describe the person  in the image using 5-6 sentences?"},
         {
             "role": "user",
             "content": [
