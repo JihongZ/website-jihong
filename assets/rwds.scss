@@ -220,6 +220,9 @@ div.quarto-post a {
 pre.sourceCode.r::before, .language-r::before {
   content:"❆ ℝ";
 }
+pre.sourceCode.python::before {
+  content:"⎔ Python"
+}
 pre.sourceCode.yaml::before {
   content:"♦ YAML"
 }
@@ -235,6 +238,7 @@ button.code-copy-button {
 }
 
 pre.sourceCode.r::before, 
+pre.sourceCode.python::before,
 pre.sourceCode.yaml::before, 
 pre.sourceCode.markdown::before, 
 pre.sourceCode.bash::before {
@@ -248,6 +252,7 @@ pre.sourceCode.bash::before {
 }
 
 pre.sourceCode.r, 
+pre.sourceCode.python,
 pre.sourceCode.yaml, 
 pre.sourceCode.markdown, 
 pre.sourceCode.bash {
@@ -255,17 +260,20 @@ pre.sourceCode.bash {
   border-radius: 4px;
   padding: 1px 1px; // Remove spacing around ::before content
 }
-pre.sourceCode.bash {
-  border-left: solid 3px $gray;
-}
 pre.sourceCode.r {
   border-left: solid 3px $qian-qing;
+}
+pre.sourceCode.python {
+  border-left: solid 3px $cui-qing;
 }
 pre.sourceCode.markdown {
   border-left: solid 3px $green;
 }
 pre.sourceCode.yaml {
   border-left: solid 3px $indigo;
+}
+pre.sourceCode.bash {
+  border-left: solid 3px $gray;
 }
 
 /* output color for R chunck */

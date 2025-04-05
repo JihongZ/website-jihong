@@ -76,8 +76,8 @@ No prior programming experience is required, but basic statistical knowledge and
 
 -   Come to class ready to learn and come with your laptop;
 -   Complete in-class exercises;
--   If you become confused or don't fully grasp a concept, ask for help from your instructor
--   Know what is going on: keep up with email, course announcements, and the course schedule.
+-   If you become confused or don't fully grasp a concept, ask for help from your instructor;
+-   Know what is going on: keep up with email, course announcements, and the course schedule;
 -   Try to apply the information to your area of interest --- if you have a cool research idea, come talk to me!
 
 ## Software

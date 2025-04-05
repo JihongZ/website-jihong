@@ -6,7 +6,7 @@ institute: |
   University of Arkansas
 date: "2025-03-07"
 date-modified: "`{r} Sys.Date()`"
-draft: true
+draft: false
 bibliography: references.bib
 image: index_files/figure-html/plot-1.png
 tbl-cap-location: top
@@ -24,7 +24,7 @@ format:
   html:
     code-tools: false
     code-line-numbers: false
-    code-fold: true
+    code-fold: false
     code-summary: "Click this to see R code"
 ---
 
@@ -71,7 +71,7 @@ According to @vondavier2021, Computational Psychometrics provides "*a new framew
 
 : AI applications in Educational Psychometrics {#tbl-app tbl-colwidths="\[25,25,50\]"}
 
-AI Agents in generative AI raises more attentions in Education because of the popularity and success of AI chatbots such as ChatGPT, Claude, Gemini. AI agents utilize many AI engineering techniques such as retreval-augmented generation (RAG) and prompt engineering to enhancing the accuracy and reliability of output of large language models with information fetched from specific and relevant data sources[@merritt2025]. Some projects are based on Maryland Assessment Research Center ([MARC](https://education.umd.edu/research/centers/marc)).
+AI Agents in generative AI raises more attentions in Education because of the popularity and success of AI chat bots such as ChatGPT, Claude, Gemini. AI agents utilize many AI engineering techniques such as retrieval-augmented generation (RAG) and prompt engineering to enhancing the accuracy and reliability of output of large language models with information fetched from specific and relevant data sources[@merritt2025]. Some projects are based on Maryland Assessment Research Center ([MARC](https://education.umd.edu/research/centers/marc)).
 
 +----------------------------+--------------------------------------------------------------------------------------------------------------------+
 | Topic                      | Research Question                                                                                                  |
@@ -88,3 +88,275 @@ AI Agents in generative AI raises more attentions in Education because of the po
 +----------------------------+--------------------------------------------------------------------------------------------------------------------+
 |                            |                                                                                                                    |
 +----------------------------+--------------------------------------------------------------------------------------------------------------------+
+
+## Example 1: Construct LLM function calling with Python and R
+
+The following section is inspired by the fascinating guide in the [post](https://pavelbazin.com/post/the-essential-guide-to-large-language-models-structured-output-and-function-calling/?utm_source=reddit&utm_medium=social&utm_campaign=structured_output&utm_content=sub_python) authored by Pavel Bazin.
+
+First of all, type in the following command in the terminal to install `openai` python module.
+
+```{r setup}
+#| echo: false
+library(reticulate)
+library(tidyverse)
+library(glue)
+```
+
+```bash
+pip install openai
+python3 -m pip install openai
+```
+
+```{python}
+# Further down these imports will be ommited for brevity
+import os
+from openai import OpenAI
+
+
+def llm_eval(prompt: str, message: str, model: str = "gpt-4o"):
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    messages = [
+        {"role": "system", "content": prompt},
+        {"role": "user", "content": message},
+    ]
+
+    return client.chat.completions.create(
+        model=model,
+        messages=messages
+    )
+```
+
+Then, we should be able to call the function either in R or in Python:
+
+::: panel-tabset
+
+### R
+
+```{r}
+#| cache: true
+library(reticulate)
+
+prompt = "
+You are a data parsing assistant. 
+User provides a list of groceries. 
+Your goal is to output it as JSON.
+"
+message = "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk."
+
+res = py$llm_eval(prompt=prompt, message=message) #<1>
+
+json_data = res$choices[[1]]$message$content
+
+cat(json_data)
+```
+
+1. There are two things that should be noted: (1) In R code chunk, use `py$<python object>` format to access python object. (2) In contrast to use `res.choices[0].message.content` in Python, the nested list in R is extract using `$` with the starting index as `1`.
+
+### Python
+
+```{python}
+#| eval: false
+
+prompt = """
+You are a data parsing assistant. 
+User provides a list of groceries. 
+Your goal is to output it as JSON.
+"""
+message = "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk."
+
+res = eval(prompt=prompt, message=message)
+json_data = res.choices[0].message.content
+
+print(json_data)
+```
+
+:::
+
+LLM returned a markdown formatted string containing JSON. The reason is that we didn’t enable structured output in the API call.
+
+To return the plain JSON text, structure output in python function:
+
+```{python}
+def llm_eval2(prompt: str, message: str, model: str = "gpt-4o"):
+    
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    messages = [
+        {"role": "system", "content": prompt},
+        {"role": "user", "content": message},
+    ]
+    
+    return client.chat.completions.create(
+        model=model,
+        messages=messages,
+        # Enable structured output capability
+        response_format={"type": "json_object"},
+    )
+```
+
+Now, running the same code will return plain JSON. That is great not only because we don’t need to parse anything extra, but it also guarantees that the LLM won’t include any free-form text such as “Sure, here is your data! \{…\}”.
+
+```{r}
+#| cache: true
+
+res2 = py$llm_eval2(prompt=prompt, message=message)
+
+json_data2 = res2$choices[[1]]$message$content
+
+cat(json_data2)
+```
+
+We can further transform the json text into R list/data.frame.
+
+```{r}
+list_data2 <- jsonlite::fromJSON(json_data2)
+
+str(list_data2)
+
+as.data.frame(list_data2)
+```
+
+### Structure as a HTML list
+
+To further structure the output as HTML list (e.g., `<ul></ul>`), we can construct a simple sparser in Python and print it in R like this:
+
+```{python}
+import json
+def render(data: str):
+    data_dict = json.loads(data)
+    backslash ="\n\t"
+
+    return f"""
+    <ul>
+        {"".join([ f"<li>{x}</li>" for x in data_dict["groceries"]])}
+    </ul>
+    """
+```
+
+```{r}
+#| results: asis
+#| cache: true
+library(htmltools)
+HTML(py$render(json_data2))
+```
+
+
+### Utilize Schema to Define Data Shape
+
+The problem is, we don’t have the data shape defined; let’s call it **schema**. Our schema is now up to the LLM, and it might change based on user input. Let’s rephrase the user query to see it in action. Instead of asking, “I’d like to buy some bread, a pack of eggs, a few apples, and a bottle of milk,” let’s ask, “12 eggs, 2 bottles of milk, 6 sparkling waters.”
+
+```{r}
+#| echo: true
+message = "12 eggs, 2 bottles of milk, 6 sparkling waters"
+
+res = py$llm_eval2(prompt=prompt, message=message)
+
+json_data = res$choices[[1]]$message$content
+
+cat(json_data)
+```
+
+::: rmdnote
+OpenAI introduced the next step for Structured Output. You can get the same results using `response_format={"type": "json_object"}` and parse data yourself without using beta version of API which was not performing reliably in our products. Beta version uses response_format as well, and refactoring would take a few minutes. 
+:::
+
+Let's create two prompts (No schema vs. With schema) and two inputs (Vague quantity vs. Precise quantity). We let LLM to generate the outputs for these 4 conditions:
+
+::: panel-tabset
+
+### R
+
+```{r}
+#| cache: true
+prompt_old = "
+You are data parsing assistant. 
+User provides a list of groceries. 
+Your goal is to output is as JSON.
+"
+
+prompt_schema = "
+You are data parsing assistant. 
+User provides a list of groceries. 
+Use the following JSON schema to generate your response:
+
+{{
+    'groceries': [
+        { 'name': ITEM_NAME, 'quantity': ITEM_QUANTITY }
+    ]
+}}
+
+Name is any string, quantity is a numerical value.
+"
+
+vague_input <- "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk."
+precise_input <- "12 eggs, 2 bottles of milk, 6 sparkling waters."
+
+tabset_condition <- apply(expand.grid(c("No_Schema", "With_Schema"), c("Vague_Input", "Precise_Input")), 1, \(x) paste0(x[1], "+", x[2]))
+
+dat_prompt_input <- data.frame(
+  expand.grid(
+    prompts = c(prompt_old, prompt_schema),
+    inputs = c(vague_input, precise_input), stringsAsFactors = FALSE
+  )
+  
+)
+
+get_response <- function(prompt, message) {
+  res <- py$llm_eval2(prompt=as.character(prompt), 
+                      message=as.character(message))
+  output <- res$choices[[1]]$message$content
+  return(output)
+}
+
+dat_output <- dat_prompt_input |> 
+  rowwise() |> 
+  mutate(
+    json_data =get_response(prompt = prompts, message = inputs) 
+  )
+```
+
+### Python
+
+```{python}
+#| eval: false
+prompt = """
+You are data parsing assistant. 
+User provides a list of groceries. 
+Use the following JSON schema to generate your response:
+
+{{
+    "groceries": [
+        { "name": ITEM_NAME, "quantity": ITEM_QUANTITY }
+    ]
+}}
+
+Name is any string, quantity is a numerical value.
+"""
+
+inputs = [
+    "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk.",
+    "12 eggs, 2 bottles of milk, 6 sparkling waters.",
+]
+
+for message in inputs:
+    res = eval(prompt=prompt, message=message)
+    json_data = res.choices[0].message.content
+    print(json_data)
+```
+:::
+
+
+The outputs for 4 conditions show that the condition of the prompt with schema and the input with precise quantity has the most clear LLM output.
+
+```{r}
+#| results: asis
+#| code-fold: true
+content <- paste0(glue("
+### {tabset_condition}
+**Prompt**:\n{dat_output$prompts}\n\n
+**Input**:\n\n{dat_output$inputs}\n\n
+**LLMOutput**:\n\n{dat_output$json_data}\n\n
+"), collapse = "")
+glue("::: panel-tabset\n{content}:::")
+
+```
+
