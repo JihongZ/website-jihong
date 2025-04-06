@@ -1,0 +1,507 @@
+---
+title: "OpenAI Cookbook with R and Python"
+date: "2025-03-07"
+date-modified: "`{r} Sys.Date()`"
+draft: false
+bibliography: ../references.bib
+image: ../images/thumbnail_chatgpt.png
+tbl-cap-location: top
+citation:
+  type: webpage
+  issued: 2025-03-07
+format: 
+  html:
+    code-tools: false
+    code-line-numbers: false
+    code-fold: false
+    code-summary: "Click this to see R code"
+---
+
+```{r}
+#| echo: false
+library(reticulate)
+library(jsonlite)
+library(tidyverse)
+library(kableExtra)
+library(glue)
+```
+
+## Response API Walk-through
+
+OpenAI provides [Prompts Playground](https://platform.openai.com/playground/prompts?models=gpt-4o) to test your prompt. OpenAI has recently updated their API from Chat to [Response API](https://platform.openai.com/docs/api-reference/responses).
+
+To use the Response API, update `OpenAI` python module to the latest using the following command:
+
+``` bash
+pip install openai --upgrade
+```
+
+::: macwindow
+**Responses vs. Chat Completions**
+
+For OpenAI, there are two types of API interfaces (see [Responses vs. Chat Completions](https://platform.openai.com/docs/guides/responses-vs-chat-completions)). Previously, I use `client.chat.completions` for example. In the following example, I will use `client.responses`.
+
+```{python}
+#| cache: true
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
+
+response = client.responses.create(
+    model="gpt-4o",
+    instructions="You are a coding assistant that talks like a pirate.",
+    input="How do I check if a Python object is an instance of a class?",
+)
+
+print(response.output_text)
+```
+:::
+
+### Image example
+
+![](https://campusdata.uark.edu/resources/images/FacultyStaffProfile/jzhang.jpg?1743825231865&w=440){width="40%"}
+
+```{python}
+#| cache: true
+#| code-fold: true
+#| code-summary: "Response API with image as input"
+from openai import OpenAI
+
+client = OpenAI()
+response = client.responses.create(
+    model="gpt-4o",
+    input=[
+        {"role": "user", "content": "Describe the person  in the image using 5-6 sentences?"},
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_image",
+                    "image_url": "https://campusdata.uark.edu/resources/images/FacultyStaffProfile/jzhang.jpg?1743825231865&w=440",
+                }
+            ],
+        },
+    ],
+)
+
+
+print(response.output_text)
+```
+
+#### Use AI to reproduce academic figure
+
+Let's try a more academic figure --- a histogram plot from the web:
+
+```{python}
+#| eval: true
+#| code-fold: true
+#| code-summary: "LLM-generated R code"
+#| cache: true
+
+from openai import OpenAI
+
+client = OpenAI()
+response = client.responses.create(
+    model="gpt-4o",
+    input=[
+        {"role": "user", "content": "You are a R programming assistant. Provide R code to generate this figure. Make sure only R code is provide."},
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "input_image",
+                    "image_url": "https://seaborn.pydata.org/_images/distributions_3_0.png",
+                }
+            ],
+        },
+    ],
+)
+
+
+print(response.output_text)
+```
+
+::::: columns
+::: column
+##### Original Plot
+
+![](https://seaborn.pydata.org/_images/distributions_3_0.png)
+:::
+
+::: column
+##### AI-generated Plot
+
+```{r}
+#| code-fold: true
+#| code-summary: "R Code"
+# Required packages
+library(ggplot2)
+library(palmerpenguins)
+
+# Plot
+ggplot(penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "black", alpha = 0.6) +
+  theme_minimal(base_size = 15) +
+  labs(x = "flipper_length_mm", y = "Count")
+```
+:::
+:::::
+
+### Conversation State
+
+Resource: <https://platform.openai.com/docs/guides/conversation-state?api-mode=responses>
+
+The idea is creating a dynamic R vectors. The appended R string can change LLM conversation state including history.
+
+```{python}
+#| cache: true
+from openai import OpenAI
+
+client = OpenAI()
+def get_conversation(history): 
+  response = client.responses.create(
+      model="gpt-4o-mini", input=history, store=False
+  )
+  
+  history += [
+    {"role": output.role, "content": output.content} for output in response.output]
+    
+  return history
+
+history = [{"role": "user", "content": "tell me a joke"}]
+res = get_conversation(history)
+res[1]['content'][0].text
+
+res.append({"role": "user", "content": "tell me another"})
+res2 = get_conversation(res)
+res2[3]['content'][0].text
+```
+
+```{r}
+#| eval: false
+library(reticulate)
+library(jsonlite)
+history <- c("role" = "user", "content" = "tell me a joke")
+history_json <- toJSON(history)
+
+py_to_r(py$get_conversation(history_json))
+
+# The first joke
+res <- py$get_conversation(history_json)
+
+## The second joke
+history2 <- toJSON(list(history, c("role" = "user", "content" = "tell me a joke")))
+```
+
+## Example 1: Construct LLM function calling with Python and R
+
+The following section is inspired by the fascinating guide in the [post](https://pavelbazin.com/post/the-essential-guide-to-large-language-models-structured-output-and-function-calling/?utm_source=reddit&utm_medium=social&utm_campaign=structured_output&utm_content=sub_python) authored by Pavel Bazin.
+
+First of all, type in the following bash command in the terminal to install `openai` python module if you already have Python installed.
+
+``` bash
+pip install openai
+python3 -m pip install openai
+pip install openai --upgrade
+```
+
+The next step is to either create a new Python file (`.py`) or use `{python}` code chunk in Quarto, in which importing the `OpenAI` module and construct a python function called `llm_eval()`. This function can call OpenAI ChatGPT (e.g., `gpt-4o`) via the API key:
+
+```{python}
+# Further down these imports will be ommited for brevity
+import os
+from openai import OpenAI
+
+
+def llm_eval(prompt: str, message: str, model: str = "gpt-4o"):
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    messages = [
+        {"role": "system", "content": prompt},
+        {"role": "user", "content": message},
+    ]
+
+    return client.chat.completions.create(
+        model=model,
+        messages=messages
+    )
+```
+
+Then, we should be able to call the function either in R (use `reticulate` package) or in Python:
+
+:::: panel-tabset
+### R
+
+```{r}
+#| cache: true
+library(reticulate)
+
+prompt = "
+You are a data parsing assistant. 
+User provides a list of groceries. 
+Your goal is to output it as JSON.
+"
+message = "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk."
+
+res = py$llm_eval(prompt=prompt, message=message) #<1>
+
+json_data = res$choices[[1]]$message$content
+
+cat(json_data)
+```
+
+::: rmdnote
+There are two things that should be noted:
+
+1.  If you are using Quarto, use `py$<python object>` in R code chunk to have access to the python object. If you put python code and R code in multiple files, use `source_python("<Path to Python file>")` to load the python function into R session.
+
+2.  In contrast to use `res.choices[0].message.content` in Python, note that the nested list in R is extract using `$` with the starting index as `1`.
+:::
+
+### Python
+
+```{python}
+#| eval: false
+
+prompt = """
+You are a data parsing assistant. 
+User provides a list of groceries. 
+Your goal is to output it as JSON.
+"""
+message = "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk."
+
+res = eval(prompt=prompt, message=message)
+json_data = res.choices[0].message.content
+
+print(json_data)
+```
+::::
+
+### `response_format`: Structured Response
+
+LLM returned a markdown formatted string containing JSON by default. The reason is that we didn’t enable structured output in the API call.
+
+To return the plain JSON text, we can structure output in Python function through setting up `response_format`:
+
+```{python}
+def llm_eval2(prompt: str, message: str, model: str = "gpt-4o"):
+    
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    messages = [
+        {"role": "system", "content": prompt},
+        {"role": "user", "content": message},
+    ]
+    
+    return client.chat.completions.create(
+        model=model,
+        messages=messages,
+        # Enable structured output capability
+        response_format={"type": "json_object"},
+    )
+```
+
+```{r}
+# A R function to request LLM's response given prompt and message.
+get_response <- function(prompt, message) {
+  res <- py$llm_eval2(prompt=as.character(prompt), 
+                      message=as.character(message))
+  output <- res$choices[[1]]$message$content
+  return(output)
+}
+```
+
+Now, running the same code will return plain JSON. That is great not only because we don’t need to parse anything extra, but it also guarantees that the LLM won’t include any free-form text such as “Sure, here is your data! {…}”.
+
+```{r}
+#| cache: true
+
+json_data2 = get_response(prompt=prompt, message=message)
+
+cat(json_data2)
+```
+
+We can further transform the JSON text into multiple format:
+
+-   Data Frame
+-   List
+-   Vector
+
+```{r}
+list_data2 <- jsonlite::fromJSON(json_data2)
+```
+
+::: panel-tabset
+### Data Frame
+
+```{r}
+kable(as.data.frame(list_data2))
+```
+
+### Vector
+
+```{r}
+list_data2$groceries
+```
+:::
+
+### Structure as a HTML list
+
+To further structure the output as HTML list (e.g., `<ul></ul>`), we can construct a simple sparser in Python and print it in R like this:
+
+```{python}
+import json
+def render(data: str):
+    data_dict = json.loads(data)
+    backslash ="\n\t"
+
+    return f"""
+    <ul>
+        {"".join([ f"<li>{x}</li>" for x in data_dict["groceries"]])}
+    </ul>
+    """
+```
+
+```{r}
+#| results: asis
+#| cache: true
+library(htmltools)
+HTML(py$render(json_data2))
+```
+
+### Utilize Schema to Define Data Shape
+
+The problem is, we don’t have the data shape defined; let’s call it **JSON schema**. Our schema is now up to the LLM, and it might change based on user input. Let’s rephrase the user query to see it in action. Instead of asking, “I’d like to buy some bread, a pack of eggs, a few apples, and a bottle of milk,” let’s ask, “12 eggs, 2 bottles of milk, 6 sparkling waters.”
+
+```{r}
+#| echo: true
+message = "12 eggs, 2 bottles of milk, 6 sparkling waters"
+
+res = py$llm_eval2(prompt=prompt, message=message)
+
+json_data = res$choices[[1]]$message$content
+
+cat(json_data)
+```
+
+As seen in the output, ChatGPT can incorporate inputs with quantities into outputs with extra quantity attribute.
+
+::: rmdnote
+OpenAI introduced the next step for [Structured Output](https://platform.openai.com/docs/guides/structured-outputs/structured-outputs). You can get the same results using `response_format={"type": "json_object"}` and parse data yourself without using beta version of API which was not performing reliably in our products.
+:::
+
+For the following experiment, let's create two prompts (No schema vs. With schema) and two inputs (Vague quantity vs. Precise quantity). We let LLM to generate the outputs for these 4 conditions:
+
+::: panel-tabset
+### R
+
+```{r}
+#| cache: true
+prompt_old = "
+You are data parsing assistant. 
+User provides a list of groceries. 
+Your goal is to output is as JSON.
+"
+
+prompt_schema = "
+You are data parsing assistant. 
+User provides a list of groceries. 
+Use the following JSON schema to generate your response:
+
+{{
+    'groceries': [
+        { 'name': ITEM_NAME, 'quantity': ITEM_QUANTITY }
+    ]
+}}
+
+Name is any string, quantity is a numerical value.
+"
+
+vague_input <- "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk."
+precise_input <- "12 eggs, 2 bottles of milk, 6 sparkling waters."
+
+tabset_condition <- apply(expand.grid(c("No_Schema", "With_Schema"), c("Vague_Input", "Precise_Input")), 1, \(x) paste0(x[1], "+", x[2]))
+
+dat_prompt_input <- data.frame(
+  expand.grid(
+    prompts = c(prompt_old, prompt_schema),
+    inputs = c(vague_input, precise_input), stringsAsFactors = FALSE
+  )
+  
+)
+
+dat_output <- dat_prompt_input |> 
+  rowwise() |> 
+  mutate(
+    json_data =get_response(prompt = prompts, message = inputs) 
+  )
+```
+
+### Python
+
+```{python}
+#| eval: false
+prompt = """
+You are data parsing assistant. 
+User provides a list of groceries. 
+Use the following JSON schema to generate your response:
+
+{{
+    "groceries": [
+        { "name": ITEM_NAME, "quantity": ITEM_QUANTITY }
+    ]
+}}
+
+Name is any string, quantity is a numerical value.
+"""
+
+inputs = [
+    "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk.",
+    "12 eggs, 2 bottles of milk, 6 sparkling waters.",
+]
+
+for message in inputs:
+    res = eval(prompt=prompt, message=message)
+    json_data = res.choices[0].message.content
+    print(json_data)
+```
+:::
+
+The outputs for 4 conditions show that the condition of the prompt with schema and the input with precise quantity has the most clear LLM output.
+
+::: macwindow
+```{r}
+#| results: hide
+#| code-fold: true
+#| code-summary: "Function to convert JSON to Markdown Table"
+json_to_markdownTBL <- function(x) {
+  dat <- as.data.frame(fromJSON(x)) # convert JSON into data.frame
+  md_dat <- paste0(kableExtra::kable(dat, format = "simple"), collapse ="\n")
+  return(md_dat)
+}
+data_frame_output <- sapply(dat_output$json_data, json_to_markdownTBL) |> 
+  unlist()
+```
+
+```{r}
+#| results: asis
+#| code-fold: true
+#| code-summary: "Compile pieces of informatiom into output"
+content <- paste0(glue("
+### {tabset_condition}
+**Prompt**:\n{dat_output$prompts}\n\n
+**Input**:\n\n{dat_output$inputs}\n\n
+**LLMOutput**:\n\n{dat_output$json_data}\n\n
+**R DataFrame**:\n\n{data_frame_output}\n\n
+"), collapse = "")
+glue("::: panel-tabset\n{content}:::")
+
+```
+:::
+
+## Resources
+
+-   [YouTube Video](https://www.youtube.com/watch?v=0pGxoubWI6s): OpenAI Just Changed Everything (Responses API Walkthrough)
+    -   [GitHub Repo](https://github.com/daveebbelaar/ai-cookbook/tree/main/models/openai/05-responses)

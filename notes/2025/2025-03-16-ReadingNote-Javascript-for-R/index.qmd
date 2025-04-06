@@ -73,9 +73,9 @@ Plot.rectY({length: 100000},
 
 Since ObservableHQ is likely long-term maintained, I prefer the second method.
 
-To embed [ObservableHQ](https://observablehq.com/) notebook cells into Quarto, make sure your ObservableHQ notebook is public, then take the following steps in ObservableHQ to have access to a sharable url of one cell: 
+To embed [ObservableHQ](https://observablehq.com/) notebook cells into Quarto, make sure your ObservableHQ notebook is public, then take the following steps in ObservableHQ to have access to a sharable url of one cell:
 
-[&#8942;]{.redcolor} \> `Export` \> `Embed Cells`.
+[⋮]{.redcolor} \> `Export` \> `Embed Cells`.
 
 ::: macwindow
 Method 2: One example of embedded cell is like the following, note that you may need to upgrade to the Pro version to remove attribution banner.
@@ -93,7 +93,6 @@ htmltools::tags$iframe(
 :::
 
 ::: macwindow
-
 **Dashboard with javascript**
 
 If you prefer construct the dashboard with javascript locally and use your perfered language (such as R and Python) for data analysis, the Observable Framework offers another option to deploy your javascript+R dashboard. See here for detailed [code](https://observablehq.com/framework/getting-started#next-steps) for "get started of local development". Following is the toy example I created (Github [link](https://github.com/JihongZ/hello-framework)).
@@ -110,9 +109,10 @@ htmltools::tags$iframe(
 )
 ```
 
-
 <!-- ::: {.column-screen} -->
+
 <!-- <iframe width="100%" height="1000" frameborder="0"   title="Hello World Observable Framework"></iframe> -->
+
 <!-- ::: -->
 :::
 

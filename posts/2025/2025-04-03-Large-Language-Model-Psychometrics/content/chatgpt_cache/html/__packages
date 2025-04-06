@@ -1,5 +1,5 @@
 reticulate
-htmltools
+jsonlite
 tidyverse
 ggplot2
 tibble
@@ -10,6 +10,7 @@ dplyr
 stringr
 forcats
 lubridate
-glue
-jsonlite
 kableExtra
+glue
+palmerpenguins
+htmltools

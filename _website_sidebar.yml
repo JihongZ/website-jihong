@@ -3,6 +3,15 @@ website:
   sidebar:
     - id: id-blog
       style: floating
+    - id: id-LLM-Psychometrics
+      style: "docked"
+      search: false
+      collapse-level: 0
+      contents:
+        - section: <h3>Contents</h3>
+          href: posts/2025/2025-04-03-Large-Language-Model-Psychometrics/index.qmd
+          contents:
+            - posts/2025/2025-04-03-Large-Language-Model-Psychometrics/content/chatgpt.qmd
     - id: id-javascript-in-R
       style: "docked"
       search: false
