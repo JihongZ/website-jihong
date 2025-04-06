@@ -53,7 +53,7 @@ website:
       collapse-level: 0
       contents: 
         - text: <h3>ESRM64103</h3>
-        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆"
+        - text: "◆◆◆◆◆◆◆◆◆"
         - section: "Lecture"
           contents:
             - file: teaching/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd
@@ -66,6 +66,8 @@ website:
             - teaching/2025-01-13-Experiment-Design/Lecture07/ESRM64103_Lecture07.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture08/ESRM64103_Lecture08.qmd      
             - teaching/2025-01-13-Experiment-Design/Lecture09/ESRM64103_Lecture09.qmd      
+            - teaching/2025-01-13-Experiment-Design/Lecture10/ESRM64103_Lecture10.qmd      
+            - teaching/2025-01-13-Experiment-Design/Lecture11/ESRM64103_Lecture11.qmd      
         - section: "Exercise"
           contents:
             - file: teaching/2025-01-13-Experiment-Design/Lecture01/MakeFriendsWithR.qmd

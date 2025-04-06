@@ -1,5 +1,5 @@
 ---
-title: "Lecture 08: Block Design (2)"
+title: "Lecture 08: Block Design II"
 subtitle: "Experimental Design in Education"
 date: "2025-03-07"
 date-modified: "`{r} Sys.Date()`"

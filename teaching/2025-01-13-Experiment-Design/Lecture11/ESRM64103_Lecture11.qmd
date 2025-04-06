@@ -1,7 +1,7 @@
 ---
 title: "Lecture 11: Repeated Measure ANOVA"
 subtitle: "Experimental Design in Education"
-date: "2025-03-07"
+date: "2025-04-06"
 date-modified: "`{r} Sys.Date()`"
 execute: 
   eval: true

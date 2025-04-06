@@ -1,5 +1,5 @@
 ---
-title: "Lecture 06: Validation"
+title: "Lecture 06: Validation of ANOVA"
 subtitle: "Experimental Design in Education"
 date: "2025-02-24"
 execute: 

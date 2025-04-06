@@ -1,5 +1,5 @@
 ---
-title: "Lecture 07: Block Design (1)"
+title: "Lecture 07: Block Design"
 subtitle: "Experimental Design in Education"
 date: "2025-02-27"
 execute: 

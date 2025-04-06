@@ -1,5 +1,5 @@
 ---
-title: "Lecture 01: Welcome to ESRM 64103"
+title: "Lecture 01: Welcome to ESRM64103"
 subtitle: "Experimental design in Education"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
