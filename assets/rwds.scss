@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
-@import url(https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css);
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&');
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 
 // Quarto Bootstrap variables and rules:
@@ -146,7 +145,7 @@ h1, h2 {text-transform: capitalize;}
 
 h1, h2, h3, .callout-title-container {
   font-family: "Inter", sans-serif;
-  letter-spacing: 1.6px;
+  letter-spacing: 1.5px;
   font-weight: normal;
 }
 
@@ -169,19 +168,22 @@ label {
   font-family: "Jost", sans-serif;
 }
 
-// p > em, li > em {
-//   text-decoration: green underline wavy;
-//   text-decoration-skip-ink: none;
-// }
-
 strong {
-  font-family: "Source Sans 3", sans-serif;
+  font-family: "MiSans Bold", sans-serif;
   font-optical-sizing: auto;
   font-weight: bold;
-  text-decoration: #404041 underline dashed;
-  text-decoration-skip-ink: none;
 }
 
+code.sourceCode { // Source Code
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.875em;
+}
+
+.cell-output-stdout code {
+  font-family: "MiSans";
+}
+
+// Inline Code
 p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
   border: 1px solid #b9c680;
   color: #404041;
@@ -192,10 +194,7 @@ p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
   padding: .2em;
 }
 
-code.sourceCode {
-  font-family: "Fira Code", monospace;
-  font-size: 0.875em;
-}
+
 
 // https://quarto.org/docs/output-formats/html-themes.html#inline-code
 /* Quarto title block */
@@ -284,21 +283,21 @@ pre.sourceCode.bash {
 
 /* output color for R chunck */
 div.cell-output::before {
-  content:"⩥ OUT";
+  content:" ⩥ OUTPUT";
   font-size: var(--bs-body-font-size);
   color: $tao-you;
   display: block;
   padding: 1px 1px 1px;
-  font-family: 'Source Code Pro', monospace;
+  font-family: "MiSans", sans-serif;
 }
 div.cell-output {
   //background-color: $freeze-purple;
-  background-color: color-mix(in srgb, $hutao-hong, white 90%);
+  background-color: color-mix(in srgb, $shen-qing, white 90%);
   color: $shen-qing;
-  border-radius: 8px;
+  border-radius: 4px;
   border-left: solid 3px $hutao-hong;
-  font-family: 'Source Code Pro', monospace;
-  box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1), 0 3px 5px 0 rgba(0,0,0,0.1);
+  font-family: "MiSans", sans-serif;
+  // box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1), 0 3px 5px 0 rgba(0,0,0,0.1);
 }
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
