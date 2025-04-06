@@ -43,7 +43,9 @@ pubs <- pubs |>
     pubs_formated = paste0(str_replace(format_publications("MbRDAB4AAAAJ"), 
                                        "Zhang, J.", "**Zhang, J.**"))
   ) |> 
-  mutate(publication_pdf_path = paste0("publications/", year, "/",str_replace(title, ":", "_"), ".pdf")) |> # generate the path for pdf
+  # generate the path for pdf
+  # Replace ":" or "?" with "_"
+  mutate(publication_pdf_path = paste0("publications/", year, "/",str_replace(title, "[:|?]", "_"), ".pdf")) |> 
   mutate(
     pubs_formated = paste0(str_replace(pubs_formated, 
                                        title, 
