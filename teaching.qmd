@@ -20,9 +20,9 @@ format:
 :::
 
 ::: rmdquote
-1.  **ESRM 64103. [Experimental Design in Education](teaching/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd)**. 3 Hours.
+1.  **ESRM64103. [Experimental Design in Education](teaching/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd)**. 3 Hours.
     -   Principles of experimental design as applied to educational situations. Special emphasis on analysis of variance techniques used in educational research. Prerequisite: [ESRM64003](https://catalog.uark.edu/search/?P=ESRM%2064003 "ESRM 64003") with a grade of C or better or an equivalent course with a grade of C or better. (Typically offered: **Spring**)
-2.  **ESRM 6990V. [Advanced Seminar: Introduction to R](teaching/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd).** 3 Hours
+2.  **ESRM6990V. [Advanced Seminar: Introduction to R](teaching/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd).** 3 Hours
     -   This seminar covers basics of R, data wrangling, data visualization, project version control via git etc. (Typically offered: **Spring**)
 3.  **ESRM64503. [Applied Multivariate Statistics](teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus.qmd).** 3 Hours.
     -   Multivariate statistical procedures as applied to educational research settings including discriminant analysis, principal components analysis, factor analysis, canonical correlation, and cluster analysis. Emphasis on use of existing computer statistical packages. Prerequisite: [ESRM64103](https://catalog.uark.edu/search/?P=ESRM%2064103 "ESRM 64103") and [ESRM64203](https://catalog.uark.edu/search/?P=ESRM%2064203 "ESRM 64203"), both with a grade of C or better. (Typically offered: **Spring**)
