@@ -15,6 +15,8 @@ format:
 freeze: false    
 ---
 
+
+
 ```{r setup}
 #| message: false
 library(scholar)
@@ -38,9 +40,23 @@ pubs <- pubs |>
   ) |> 
   arrange(desc(year)) |> 
   mutate(
-    pubs_formated = paste0(str_replace(format_publications("MbRDAB4AAAAJ"), "Zhang, J.", "**Zhang, J.**"))
+    pubs_formated = paste0(str_replace(format_publications("MbRDAB4AAAAJ"), 
+                                       "Zhang, J.", "**Zhang, J.**"))
+  ) |> 
+  mutate(publication_pdf_path = paste0("publications/", year, "/",str_replace(title, ":", "_"), ".pdf")) |> # generate the path for pdf
+  mutate(
+    pubs_formated = paste0(str_replace(pubs_formated, 
+                                       title, 
+                                       paste0("[", title, "](", publication_pdf_path, ")")))
   ) |> 
   select(title:number, year, pubs_formated, URL)
+```
+
+```{r}
+#| eval: false
+publication_pdf_path <- list.files("publications", full.names = TRUE, recursive = TRUE)
+pubs$pubs_formated <- str_replace(pubs$pubs_formated, "Math anxiety is associated with skipping problems and less help-seeking behavior after error commission", 
+                                  paste0("[Math anxiety is associated with skipping problems and less help-seeking behavior after error commission](", publication_pdf_path[2], ")"))
 ```
 
 ```{r total_paper}
@@ -82,36 +98,48 @@ plot_ly(data = pubs_count_ts, x=~year,
   ) 
 ```
 
-## {{< fa pencil >}} Journal Articles
+------------------------------------------------------------------------
 
 ```{r}
 #| echo: false
 #| results: asis
 #| warning: false
-
 # https://github.com/sonsoleslp/sonsoleslp.github.io/blob/main/publications.qmd
+
 leading_year_icon = ""
 pubs_formated <- pubs$pubs_formated
 for (y in 1:nrow(pubs_count_byyear)) {
+  ## Create a year tag
   year_tag <- paste0(leading_year_icon, pubs_count_byyear$year[y], leading_year_icon)
-  print(tags$section(id = year_tag, class = "level3",
-                     h3(year_tag, style="color: #72994E", 
-                        class = "anchored", `data-anchor-id` = year_tag)))
+  print(p(year_tag, style="color: #72994E; font-family: 'Abel'; text-align: center; font-size: 1.45em;"))
   
+  ## Per each year, calculate the index of publication
   index_min = ifelse(y == 1, 1, pubs_count_byyear$n_cum[y-1] + 1)
   index_max = pubs_count_byyear$n_cum[y]
+  
+  pubs_list_peryear <- list()
+  j = 0
+  length(pubs_list_peryear) <- (index_max - index_min) + 1
   for (i in index_min:index_max) {
-    cat("\n\n")
-    print(tags$ul(pubs_formated[i], 
-                  a(class = "fa-brands fa-google-scholar fa-sm", 
-                    href = pubs$URL[i], style="color: #74C0FC;")) , 
-          style="padding-left: 3rem")
-  }
+    j = j + 1
+    
+    cat("\n")
+    
+    pubs_list_peryear[[j]] <- tags$li(pubs_formated[i], 
+                                      a(class = "fa-brands fa-google-scholar fa-sm", 
+                                        href = pubs$URL[i], 
+                                        style="color: #74C0FC"), 
+                                      style="font-size: .9em;")
+    }
+  
+  ## Print the publication list per year
+  print(tags$ul(pubs_list_peryear, style="padding-left: 3rem;"))
 }
 ```
 
 
-## Citations
+
+## {{< fa brands apple >}} Citations
 
 @fig-citation shows the citations.
 

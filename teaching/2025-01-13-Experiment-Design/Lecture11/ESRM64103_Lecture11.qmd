@@ -1,0 +1,57 @@
+---
+title: "Lecture 11: Repeated Measure ANOVA"
+subtitle: "Experimental Design in Education"
+date: "2025-03-07"
+date-modified: "`{r} Sys.Date()`"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
+webr:
+  editor-font-scale: 1.2
+format: 
+  html:
+    toc-expand: 3
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    code-summary: "Click to see R code"
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64503"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    output-file: slides-index.html
+    mermaid:
+      theme: forest    
+---
+
+::: objectives
+## Overview of Lecture 11 {.unnumbered}
+
+1.  The rest of the semester
+2.  Advantage of Factorial Design
+3.  Two-way ANOVA:
+    -   Steps for conducting 2-way ANOVA
+    -   Hypothesis testing
+    -   Assumptions for 2-way ANOVA
+    -   Visualization
+    -   Difference between 1-way and 2-way ANOVA
+
+**Question**: How about the research scenario when more than two independent variables?
+:::
+
+
+## Fin
