@@ -115,12 +115,13 @@ Source: <https://explorable.com/repeated-measures-design>
 ## First Type of RM ANOVA: Repeated Measure Design
 
 -   Two types of repeated measures are common:
-    1.  Repeated measures in time: individuals receive a treatment, and then are followed with repeated measures on the response variable over several times.
-        -   [x] Ex: The dataset might be:
-        -   For example, Sally is only in the “None” group. She never receives the “daily tutoring” condition.
-        -   Chi is only in the “daily tutoring” condition.
+    1.  **Repeated measures in time**: individuals receive a treatment, and then are followed with repeated measures on the response variable over several times.
+        - Ex: The dataset might be:
+          -   For example, Sally is only in the “None” group. She never receives the “daily tutoring” condition.
+          -   Chi is only in the “daily tutoring” condition.
+          -   IV: "Tutoring type" can only explain the between-subject variance.
 
-| Tutoring Type | Time1 (1st week out) | Time2 (2nd week out) | Time3 (3rd week out) |
+| Tutoring Type | Time 1 (1st week out) | Time 2 (2nd week out) | Time 3 (3rd week out) |
 |------------------|------------------|------------------|------------------|
 | None | Sally <br> Joe <br> Montes | Sally <br> Joe <br> Montes | Sally <br> Joe <br> Montes |
 | Once/week | Omar <br> Fred <br> Jenny | Omar <br> Fred <br> Jenny | Omar <br> Fred <br> Jenny |
@@ -132,22 +133,22 @@ Source: <https://explorable.com/repeated-measures-design>
 
     2.  **Cross-over Design**: alternatively, experiments can involve administering all treatment levels (in a sequence) to each experimental unit.
 
-    -   [x] Require a wash-out period between treatment applications to prevent (or minimize) **carry-over effects**.
-        -   Carry-over effects occur when the application of one treatment affects the response of the next treatment applied in the cross-over design.
-    -   [x] The **order** of treatment administration in a crossover experiment is called a **“sequence.”**
-        -   The sequences should be determined a priori and the experimental units are randomized to sequences.
-    -   [x] **Time** of a treatment administration is called a **“period.”**
-        -   Treatments are designated with capital letters, such as A, B, etc.
-    -   [x] The most popular crossover design is the 2-sequence, 2-period, 2-treatment crossover design, with sequences AB and BA.
-        -   Often called the **2 × 2 crossover design**.
+      - Require a wash-out period between treatment applications to prevent (or minimize) **carry-over effects**.
+          -   Carry-over effects occur when the application of one treatment affects the response of the next treatment applied in the cross-over design.
+      - The **order** of treatment administration in a crossover experiment is called a **“sequence.”**
+          -   The sequences should be determined a priori and the experimental units are randomized to sequences.
+      - **Time** of a treatment administration is called a **“period.”**
+          -   Treatments are designated with capital letters, such as A, B, etc.
+      - The most popular crossover design is the 2-sequence, 2-period, 2-treatment crossover design, with sequences AB and BA.
+          -   Often called the **2 × 2 crossover design**.
 
 ## Cross-Over Design: 2 x 2
 
 2.  **Cross-over Design**: alternatively, experiments can involve administering all treatment levels (in a sequence) to each experimental unit.
 
-    -   [x] **2 × 2 crossover design**:
-        -   [x] Experimental units that are randomized to the AB sequence receive treatment A in the first period and treatment B in the second period.
-        -   [x] Experimental units that are randomized to the BA sequence receive treatment B in the first period and treatment A in the second period.
+    - **2 × 2 crossover design**:
+        - Experimental units that are randomized to the AB sequence receive treatment A in the first period and treatment B in the second period.
+        - Experimental units that are randomized to the BA sequence receive treatment B in the first period and treatment A in the second period.
 
     |                 | **Period 1** | **Period 2** |
     |-----------------|--------------|--------------|
@@ -183,27 +184,30 @@ $$
 | **Sequence BAC** | B            | A            | C            |
 | **Sequence CBA** | C            | B            | A            |
 
-## Carryover effects in Cross-Over Design
+## Carryover Effects Issues
 
 ::: macwindow
 **Carryover effects**:
 
-In a cross-over design, carryover effects refer to the residual effects of a treatment that persist and influence responses in subsequent treatment periods. Since each participant receives multiple treatments in sequence, the outcome measured in a later period may be affected not only by the current treatment but also by the lingering influence of prior treatments.
+- In a cross-over design, carryover effects refer to the residual effects of a treatment that persist and influence responses in subsequent treatment periods. 
+
+- Since each participant receives multiple treatments in sequence, the outcome measured in a later period may be affected not only by the current treatment but also by the lingering influence of prior treatments.
 :::
 
 -   ✔ **Example**:
 
     -   One student was measured three math tests (Math A/B/C). Math A and B has overlapping items with similar difficulty.
-    -   Consider a 3×3 crossover design where a subject receives treatments A, B, and C across three periods. If the subject receives treatment B in Period 1 and treatment A in Period 2, the effect observed in Period 2 may not reflect the pure effect of A—it may be contaminated by the residual effect of B, thus biasing the estimation of treatment A's effectiveness.
+    -   Consider a 3×3 crossover design where a subject receives treatments A, B, and C across three periods. 
+        - If the subject receives treatment B in Period 1 and treatment A in Period 2, the effect observed in Period 2 may not reflect the pure effect of A—it may be contaminated by the residual effect of B, thus biasing the estimation of treatment A's effectiveness.
 
 -   **Discussion**: Can you think about more carryover effect in your research area?
 
-## Disadvantage of Cross-Over
+## Problems of Carryover
 
 -   ✔ **Main disadvantage**: carryover effects may be confounded with treatment effects, because these effects cannot be estimated separately.
     -   ✔ *Think about Sequence BCA*: You think you are estimating the effect of treatment A, but there is also a bias (or carryover) from the previous treatments to account for.
--   ✔ **However, carryover effects** can bias the interpretation of data analysis, so an investigator should proceed cautiously when implementing a crossover design.
-    -   ✔ *So, what do we do?* Washout periods can diminish the impact of carryover effects\
+-   ✔ **Carryover effects** can also bias the interpretation of data analysis, so an investigator should proceed cautiously when implementing a crossover design.
+    -   ✔ *So, what do we do?* Washout periods can diminish the impact of carryover effects
     -   ➔ **Washout period**: time between treatment periods.
 -   ✔ These are especially helpful in clinical trials: Instead of immediately stopping and then starting the new treatment, a period of time where the drug is washed out of the patient's system is used.
     -   ✔ *Ex: educational tests* ➔ Subjects may be affected permanently by what they learned during the first period.
@@ -215,8 +219,10 @@ In a cross-over design, carryover effects refer to the residual effects of a tre
 -   **Statistical Terminology:**
     -   When a dependent variable is measured repeatedly for all sampled, this set of conditions is called a **within-subjects factor**.
         -   ✔ **Time** (or trial) is typically used as our within-subject factor.
+        -   ✔ **Emotion over time** is typically used as our within-subject factor.
+        -   ✔ **Self-reported Status** is typically used as our within-subject factor.
     -   When a dependent variable is measured on independent groups of sample members, where each group is exposed to a different condition, the set of conditions is called a **between-subjects factor**.
-        -   ✔ In the previous example, **tutoring type** would be the between-subject factor.
+        -   ✔ In the previous example, **tutoring type** would be the **between-subject factor**.
         -   ✔ We think of these as the IVs from our “usual” ANOVAs.
     -   When an analysis has both within-subjects factors and between-subjects factors, and considers their interaction effect, it is called a **mixed design**.
         *(We will talk about it later!)*
@@ -224,7 +230,7 @@ In a cross-over design, carryover effects refer to the residual effects of a tre
 ## RM ANOVA Logic
 
 -   The logic behind a **repeated measures ANOVA** is very similar to that of a **between-subjects ANOVA**.
--   Recall that in a **between-subjects ANOVA** (i.e., the “usual” ANOVA), we partition total variability into:
+-   Recall that in a **between-subjects ANOVA** (i.e., the “usual” ANOVA), we partition the total variability into:
     -   **Model** (i.e., between-groups variability; SS<sub>Model</sub>)
     -   **Error** (i.e., within-groups variability; SS<sub>Error</sub>)
 
@@ -232,7 +238,7 @@ In a cross-over design, carryover effects refer to the residual effects of a tre
 
 ## RM ANOVA Logic II
 
--   In this design, **within-group variability** (SS<sub>w</sub>) is used as the **error variability** (SS<sub>Error</sub>).
+-   In RM ANOVA design, **within-group variability** (SS<sub>w</sub>) is used as the **error variability** (SS<sub>Error</sub>).
 
     -   That said, "Why subjects differ within the same group" is **unexplained**!
 
@@ -304,18 +310,21 @@ In a cross-over design, carryover effects refer to the residual effects of a tre
 | Source           | Sub-Component | SS  | df  | MS  | F   |
 |------------------|---------------|-----|-----|-----|-----|
 | Between-time     |               |     |     |     |     |
-| Within-time      |               |     |     |     |     |
-| Between-Subjects |               |     |     |     |     |
-| Error            |               |     |     |     |     |
+| Within-time (I)      |      Between-Subjects         |     |     |     |     |
+| Within-time (II)|          Within-Subjects / Error       |     |     |     |     |
 
 : 🔴 ANOVA Table of Repeated Measures ANOVA {tbl-colwidths="\[30,30,10,10,10,10\]"}
+
 
 ***Note.*** Under the repeated measures ANOVA, we can decompose the total variability:
 
 **Total variability of DV = "between-time" variability + "within-time" variability**
 
--   ➔ *"within-time"* variability = *"between-subjects"* variability + *"within-subjects"* variability\
--   ➔ *"within-subjects"* variability is treated as **"error"**
+-   ➔ *"Within-Time"* variability = *"Between-subjects"* variability + *"Within-subjects"* variability\
+-   ➔ *"Within-Subjects"* variability is treated as **"error"**
+    -   We know outcome differ because of time (consistent time variability over people) or people (consistent people variability over time), what left is unexplained
+
+**Between-subjects** are useful because we can use it to explain the treatment effects / gender effects (anything relevant to why people different from each other).
 
 ---
 
@@ -333,7 +342,7 @@ $$
 Where:
 
 $$
-SS_{btime} = \sum n_{time}(\bar{Y}_{time} - \bar{Y}_{grand})^2 = 
+SS_{btime} = \sum n_{subjects}(\bar{Y}_{time} - \bar{Y}_{grand})^2 = 
 6(11.33 - 19.67)^2 + \cdots + 6(21.83 - 19.67)^2 = 712.961
 $$
 
@@ -379,7 +388,7 @@ $$
 
 ---
 
-### Think about “between-dog” row in ANOVA table
+### Think about “between-subjects” row in ANOVA table
 
 :::::: panel-tabset
 #### Statistics
@@ -393,7 +402,7 @@ $$
 Where:
 
 $$
-SS_{bsubjects} = \sum k_i(\bar{Y}_i - \bar{Y}_{grand})^2 = 
+SS_{bsubjects} = \sum n_{times}(\bar{Y}_i - \bar{Y}_{grand})^2 = 
 4*(19.25 - 19.67)^2 + \cdots + 4*(19.50 - 19.67)^2 = 54.33
 $$
 
@@ -568,8 +577,10 @@ $$
 ### ✅ Main Effect of Time:
 
 **Research Question:**\
-Does histamine concentration change over time?\
+**Does histamine concentration change over time?**\
 (That is, does mean histamine concentration differ across the four time points?)
+
+(Histamine is a chemical your immune system releases.)
 
 **Null Hypothesis:**\
 $$
