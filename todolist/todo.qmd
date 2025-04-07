@@ -23,6 +23,7 @@ format: html
 @. How to score individuals in the longitudinal network analysis?
 @. Use network analysis to examine Testlet effect.
 @. Apply the network analysis to self-reported variables in the mediation task?
+@. Diagnosis individuals (yes of no) in the network analysis?
 @. Develop ranking factor scores for factor analysis (Authors: Ji L., Xinya L., Jihong Z.)
 @. Compare item selection performance for regularized factor analysis and network analysis. (Authors: Jiayin C., Xinya L., Jihong Z.)
 @. Apply cross-section network analysis to after-school staffs' physical activity. (Authors: Anqi D., Jihong Z.)
