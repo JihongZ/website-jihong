@@ -71,6 +71,7 @@ website:
         - section: "Exercise"
           contents:
             - file: teaching/2025-01-13-Experiment-Design/Lecture01/MakeFriendsWithR.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture11/ESRM64103_Example11.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture02/ESRM64103_HW1_QA.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture05/HW2_Answer.qmd
     - id: id-note

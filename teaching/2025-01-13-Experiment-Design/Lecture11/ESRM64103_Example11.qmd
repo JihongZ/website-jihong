@@ -1,0 +1,295 @@
+---
+title: "Example 11: Repeated Measure ANOVA"
+execute: 
+  message: false
+  warning: false
+format: html
+---
+
+## Research Scenario
+
+- **Strength Measure**: CrossFit evaluated strength using the **front squat** across three event types:
+  - **RM1**: One-repetition maximum
+  - **RM4**: Four-repetition maximum
+  - **RM21**: Twenty-one-repetition maximum
+
+- **Study Context**:
+  - RM1, RM4, and RM21 were measured for **athletes in the CrossFit Games quarterfinals**
+
+- **DV**: Average pounds for each type of RM trial using the front squat
+- **Within-subject factor**: Repetition maximum (RM) type (RM1, RM4, RM21)
+- **Research question**: Are there differences in average pounds across RM types?
+
+$$
+H_0: \mu_{RM1} = \mu_{RM4} = \mu_{RM21}
+$$
+
+---
+
+## Data Preparation (R code)
+
+```{r}
+#| code-fold: true
+set.seed(123)
+
+library(tidyverse)
+
+# Simulate 54 participants: 27 males, 27 females
+n <- 54
+gender <- rep(c("M", "F"), each = n / 2)
+
+# Mean and SDs from the slides (approximate)
+means <- list(
+  M = c(RM1 = 403.65, RM4 = 378.04, RM21 = 247.08),
+  F = c(RM1 = 262.32, RM4 = 246.18, RM21 = 162.25)
+)
+sds <- list(
+  M = c(30, 28, 25),
+  F = c(25, 23, 20)
+)
+
+# Simulate repeated measures data per subject
+simulate_subject <- function(gender, id) {
+  mu <- means[[gender]]
+  sd <- sds[[gender]]
+  data.frame(
+    subject = id,
+    gender = gender,
+    RM1 = rnorm(1, mu[1], sd[1]),
+    RM4 = rnorm(1, mu[2], sd[2]),
+    RM21 = rnorm(1, mu[3], sd[3])
+  )
+}
+
+# Generate the full dataset
+sim_data <- map2_dfr(gender, 1:n, simulate_subject)
+
+# Convert to long format
+sim_data_long <- sim_data %>%
+  pivot_longer(cols = starts_with("RM"),
+               names_to = "RM_type",
+               values_to = "weight") %>%
+  mutate(
+    subject = factor(subject),
+    gender = factor(gender),
+    RM_type = factor(RM_type, levels = c("RM1", "RM4", "RM21"))
+  )
+
+# Display head
+head(sim_data_long)
+
+```
+
+```{r}
+library(tidyverse)
+library(rstatix)
+
+# Sample format
+cf_long <- sim_data_long %>%
+  mutate(RM_type = factor(RM_type, levels = c("RM1", "RM4", "RM21")))
+```
+
+---
+
+## Assumption Checks
+
+- **Normality**: Robust due to CLT
+- **Independence**: Not required (repeated measures)
+- **Sphericity**: Use Mauchly's test
+
+```{r}
+# Sphericity test
+anova_res <- cf_long %>% anova_test(dv = weight, wid = subject, within = RM_type)
+anova_res$`Mauchly's Test for Sphericity`
+```
+
+Sphericity is not violated (W = .914, p = .095). We can use standard F-test.
+
+```{r}
+anova_res$`Sphericity Corrections`
+```
+
+- If sphericity violated, use the following instead of F-test:
+  - **`GGe`**: Greenhouse-Geisser correction
+  - **`HFe`**: Huynh-Feldt correction
+  
+---
+
+## ANOVA Results
+
+```{r}
+get_anova_table(anova_res)
+```
+
+The `RM Type` has significant effect on outcome.
+
+
+---
+
+## Post-hoc Tests (if needed)
+
+```{r}
+cf_long %>%
+  pairwise_t_test(weight ~ RM_type, paired = TRUE, p.adjust.method = "bonferroni")
+```
+
+To obtain **sum of squares (SS)** for **between-subject** and **within-subject** effects using the `lme4` package in R, you can follow these steps:
+
+---
+
+## Mixed ANOVA: RQ2
+
+- **Between-subjects factor**: Gender
+- **Within-subject factor**: RM type
+- **RQ**: Is there a gender × RM type interaction?
+
+---
+
+## Mixed ANOVA (R code)
+
+```{r}
+mixed_res <- anova_test(
+  data = cf_long, dv = weight, wid = subject,
+  within = RM_type, between = gender
+)
+mixed_res
+```
+
+---
+
+## Follow-up Contrasts
+
+```{r}
+cf_long %>%
+  group_by(RM_type, gender) %>%
+  summarise(mean = mean(weight), .groups = "drop")
+
+cf_long %>%
+  pairwise_t_test(weight ~ gender, paired = FALSE, 
+                  p.adjust.method = "bonferroni")
+```
+
+---
+
+## Interpretation Summary
+
+- RM1 > RM4 > RM21
+- Significant main effect of RM type
+- Interaction between RM type and gender significant
+- Males lift significantly more than females across all RM types
+
+---
+
+## Sphericity Explained
+
+- **Assumption**: Variance of the differences between RM levels are equal
+- **Test**: Mauchly's Test
+- **If violated**:
+  - Use **Greenhouse-Geisser** correction (default conservative choice)
+
+```{r}
+anova_res$`Mauchly's Test for Sphericity`
+```
+
+---
+
+## Conclusion
+
+- Repeated measures ANOVA is powerful when assumptions are met or adjusted
+- Mixed ANOVA enables testing interactions with between-subject factors
+- Use corrected tests (e.g., GG) when sphericity is violated
+
+
+### ✅ **Step-by-step Procedure using `lme4`**
+
+We will assume the data is in **long format** (as simulated previously), with variables:
+- `subject`: participant ID
+- `gender`: between-subjects factor (optional)
+- `RM_type`: within-subject factor (e.g., RM1, RM4, RM21)
+- `weight`: outcome variable
+
+#### **1. Load required packages**
+
+```{r}
+library(lme4)
+library(lmerTest)  # for p-values and ANOVA
+```
+
+---
+
+#### **2. Fit the linear mixed model**
+
+```{r}
+# Main repeated measures model (random intercept for subject)
+model <- lmer(weight ~ gender + RM_type + (1 | subject), data = sim_data_long)
+summary(model)
+```
+
+- `RM_type`: fixed effect (within-subject factor)
+- `(1 | subject)`: random intercept for subjects to account for repeated measures
+
+---
+
+#### **3. Obtain the ANOVA table with Type III SS**
+
+```{r}
+anova_results <- anova(model, type = 3)
+print(anova_results)
+```
+
+This will provide:
+- **Sum of Squares** for the within-subject effect (`RM_type`)
+- **Mean Squares**, **F-statistics**, and **p-values**
+
+---
+
+#### **4. Estimate between-subject variability (subject-level random effect)**
+
+The **between-subjects SS** is not shown directly in the ANOVA table but can be **extracted from the model’s random effects**:
+
+```{r}
+# Extract random effects variance (between-subjects variability)
+VarCorr(model)
+```
+
+You will see something like:
+
+```
+ Groups   Name        Variance Std.Dev.
+ subject  (Intercept)  XXX      YYY
+ Residual              ZZZ      ...
+```
+
+- `subject (Intercept)` reflects the **between-subject variability**
+- `Residual` is the **within-subject (error) variance**
+
+To calculate the **sum of squares** for these components, you can multiply the variances by their degrees of freedom (or number of units):
+
+```{r}
+# Degrees of freedom
+n_subjects <- length(unique(sim_data_long$subject))
+n_within   <- length(unique(sim_data_long$RM_type))
+
+# Estimated variances
+var_components <- as.data.frame(VarCorr(model))
+between_var <- var_components$vcov[1] # random intercept
+residual_var <- var_components$vcov[2] # residuals
+
+# Approximate SS
+SS_between <- between_var * (n_subjects - 1)
+SS_within <- residual_var * (n_subjects * (n_within - 1))
+SS_acrossRM <- as.data.frame(anova_results)[["Sum Sq"]]
+
+SS_total <- sum((sim_data_long$weight - mean(sim_data_long$weight))^2)
+
+SS_between + SS_within + SS_acrossRM
+SS_total
+```
+
+---
+
+### ✅ Summary Output
+
+- `anova(model)` gives **SS for fixed effects** (within-subject factor)
+- `VarCorr(model)` provides **random effects variance**
+- Manual calculation gives **approximate SS for between- and within-subject variability**

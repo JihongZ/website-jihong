@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&');
@@ -7,6 +6,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
 
+// monospace
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 // Quarto Bootstrap variables and rules:
 // Bootstrap variables: https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/html/bootstrap/_bootstrap-variables.scss
@@ -166,7 +168,7 @@ p {
 }
 
 label {
-  font-family: "Jost", sans-serif;
+  font-family: "FZFWZhuZiAYuanJW", sans-serif;
 }
 
 strong {
@@ -176,12 +178,12 @@ strong {
 }
 
 code.sourceCode { // Source Code
-  font-family: "Source Code Pro", monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: 0.875em;
 }
 
 .cell-output-stdout code {
-  font-family: "Source Code Pro", monospace;
+  font-family: "Roboto Mono", monospace;
 }
 
 // Inline Code
@@ -248,7 +250,7 @@ pre.sourceCode.python::before,
 pre.sourceCode.yaml::before, 
 pre.sourceCode.markdown::before, 
 pre.sourceCode.bash::before {
-  font-family: 'Source Code Pro', monospace;
+  font-family: "MiSans", sans-serif;
   font-weight: bold;
   font-size: var(--bs-body-font-size);
   background-color: $dan-qing;
@@ -442,24 +444,22 @@ button.show-answer:hover {
     list-style: none;
 }
 .panel-tabset .nav-tabs .nav-link {
-    font-family: "Red Hat Text", sans-serif;
-    font-size: .9rem;
+    font-family: "Abel", sans-serif;
+    font-size: 1.1rem;
+    font-style: bold;
     background: transparent;
     border-radius: 5px 5px 0 0;
     transition: all 0.3s ease;
 }
-
 .panel-tabset .nav-tabs .nav-link:hover {
-    background: #9A4665;
+    background: $green;
     color: $soft-color1;
 }
-
 .panel-tabset .nav-tabs .nav-link.active {
-    background: #447099;
+    background: $orange;
     color: $soft-color1;
     //border-bottom: 2px solid #365e7d;
 }
-
 /* Styling tab content */
 .panel-tabset .tab-content {
     padding: 5px;
@@ -468,7 +468,6 @@ button.show-answer:hover {
     border-top: none;
     border-radius: 0 0 8px 8px;
 }
-
 /* Styling lists inside the tab */
 .panel-tabset ul {
     padding-left: 15px;
