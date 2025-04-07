@@ -38,7 +38,7 @@ format:
 ::: {#hero-heading .nice-paragraph}
 [About Me]{.mt2 .mb0 .baskerville .i .fw6 .f4}
 
-I am a tenure-track Assistant Professor of Educational Statistics and Research Methods ([ESRM](https://esrm.uark.edu/directory/uid/jzhang/name/Jihong+Zhang/)) in the Department of Counseling, Leadership, and Research Methods (CLRM) at the University of Arkansas, Fayetteville, U.S.
+I am a tenure-track Assistant Professor of Educational Statistics and Research Methods ([ESRM](https://esrm.uark.edu/directory/uid/jzhang/name/Jihong+Zhang/)) in the Department of Counseling, Leadership, and Research Methods (CLRM) and Center for Public Health & Technology Research ([CPHT](https://publichealthtech-center.uark.edu)) at the University of Arkansas.
 
 Previously, I was a postdoctoral fellow in the Department of Social Work at the Chinese University of Hong Kong ([CUHK](https://www.cuhk.edu.hk)). My academic journey in psychometrics began with doctoral training under [Dr. Jonathan Templin](https://jonathantemplin.com/) in the Educational Measurement and Statistics (EMS) program at the University of Iowa. I have extensive experience in educational assessment. During my master’s program at the University of Kansas, I worked as a research assistant for three years in the Kansas Assessment Program ([KAP](https://ksassessments.org)), contributing to various assessment initiatives, including Dynamic Learning Maps (DLM). Later, during my Ph.D. program, I interned at the Stanford Research Institute ([SRI](https://www.sri.com)), where I focused on digital learning in computerized testing.
 

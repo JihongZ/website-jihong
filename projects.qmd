@@ -10,9 +10,9 @@ sidebar: false
 listing: 
   contents: projects
   sort: "date desc"
-  type: table
+  type: grid
   categories: numbered
-  fields: [date, title, description, reading-time]
+  fields: [date, title, description, author, reading-time]
   filter-ui: [title, date]
   sort-ui: true
 ---

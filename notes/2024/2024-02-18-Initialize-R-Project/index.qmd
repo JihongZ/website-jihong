@@ -1,5 +1,6 @@
 ---
-title: "Initialize R Project"
+title: "How to Initialize a R Project"
+description: "This note provides a setup R file to orgranize project files."
 author: "Jihong Zhang"
 date: "Feb 18 2024" 
 date-modified: "Feb 18 2024"

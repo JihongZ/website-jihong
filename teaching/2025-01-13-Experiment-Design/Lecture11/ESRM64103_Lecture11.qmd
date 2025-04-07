@@ -43,7 +43,7 @@ format:
 
 1.  The rest of the semester
 2.  Advantage of Factorial Design
-3.  Two-way ANOVA:
+3.  Repeated-measure ANOVA:
     -   Steps for conducting 2-way ANOVA
     -   Hypothesis testing
     -   Assumptions for 2-way ANOVA
@@ -53,5 +53,667 @@ format:
 **Question**: How about the research scenario when more than two independent variables?
 :::
 
+## More independent variables
+
+-   When we want to add more independent variables to ANOVA-design,
+    1.  Blocking Design: 1 independent variable, 1 blocking variable
+    2.  Factorial Design: N-way ANOVA (e.g., 2-way ANOVA = 2 independent variables)
+    3.  Repeated Measures ANOVA: 1 independent variable measured only one time, and 1 independent variable measured repeated time points
+    4.  ANCOVA: 1 independent variable, and 1 covariate (continuous IV!)
+    5.  Mixed Design
+
+::: macwindow
+Note. All ANOVA-related designs talked about in this class can handle only one dependent variable; if you want to deal with more than 2 dependent variable, we may consider other research designs…
+:::
+
+## Procedure of RM ANOVA
+
+-   To conduct the hypothesis test, we follow:
+
+    1.  Set the null hypothesis, and the alternative hypothesis
+    2.  Determine alpha level, and calculate dfs → critical value of test statistics
+    3.  Calculate the observed value of test statistics
+    4.  Make the statistical conclusion → (1) critical vs. observed, OR (2) 𝛼 vs. p
+    5.  Make the research conclusion → research question?
+
+-   Before conducting the hypothesis test, we check:
+
+    1.  Independence of observations → [!!!ANOVA it NOT robust to violation of this!!!]{.redcolor}
+    2.  Normality → ANOVA tends to be relatively robust to non-normality.
+    3.  Homogeneity of variance → ANOVA can handle the violation of HOV when the group sizes are equal (i.e., balanced) and the group sizes are large enough. Or we can use Welch’s.
+
+-   Independence of the observations:
+
+    1.  Measurements from one case in the study are independent of other cases in the study.
+    2.  If we violate this assumption, we have to do something else!
+
+    -   → One of the remedies would be to use “**Repeated Measures ANOVA** (RM ANOVA)”
+
+## What Is RM ANOVA
+
+-   When multiple, repeat measurements are made on an experimental unit:
+    -   The observations can no longer be assumed to be independent.
+        -   → Result: Correlations in the residual errors among time periods!
+        -   → The correlations indicate the shared part among the individuals.
+    -   Not just over time, many other scenarios can result in repeated measures:
+        -   → Ex: Cross-over design where the treatments themselves are switched on the same experimental unit during the course of the experiment.
+        -   → In a cross-over design: each person goes through each treatment condition.
+        -   → Repeated measures are frequently encountered in clinical trials, development of growth models, and situations in which experimental units are difficult to acquire.
+
+## RM ANOVA Design
+
+::::: columns
+::: {.column width="50%"}
+![](images/within-subject-design.jpg){width="120%"}
+:::
+
+::: {.column width="50%"}
+![](images/crossover-repeated-measures-design.jpg){width="120%"}
+:::
+
+Source: <https://explorable.com/repeated-measures-design>
+:::::
+
+## First Type of RM ANOVA: Repeated Measure Design
+
+-   Two types of repeated measures are common:
+    1.  Repeated measures in time: individuals receive a treatment, and then are followed with repeated measures on the response variable over several times.
+        -   [x] Ex: The dataset might be:
+        -   For example, Sally is only in the “None” group. She never receives the “daily tutoring” condition.
+        -   Chi is only in the “daily tutoring” condition.
+
+| Tutoring Type | Time1 (1st week out) | Time2 (2nd week out) | Time3 (3rd week out) |
+|-----------------|-------------------|-------------------|-------------------|
+| None | Sally <br> Joe <br> Montes | Sally <br> Joe <br> Montes | Sally <br> Joe <br> Montes |
+| Once/week | Omar <br> Fred <br> Jenny | Omar <br> Fred <br> Jenny | Omar <br> Fred <br> Jenny |
+| Daily | Chi <br> Lena <br> Caroline | Chi <br> Lena <br> Caroline | Chi <br> Lena <br> Caroline |
+
+## Second Type of RM ANOVA: Cross-Over Design
+
+-   **Two types of repeated measures are common:**
+
+    2.  **Cross-over Design**: alternatively, experiments can involve administering all treatment levels (in a sequence) to each experimental unit.
+
+    -   [x] Require a wash-out period between treatment applications to prevent (or minimize) **carry-over effects**.
+        -   Carry-over effects occur when the application of one treatment affects the response of the next treatment applied in the cross-over design.
+    -   [x] The **order** of treatment administration in a crossover experiment is called a **“sequence.”**
+        -   The sequences should be determined a priori and the experimental units are randomized to sequences.
+    -   [x] **Time** of a treatment administration is called a **“period.”**
+        -   Treatments are designated with capital letters, such as A, B, etc.
+    -   [x] The most popular crossover design is the 2-sequence, 2-period, 2-treatment crossover design, with sequences AB and BA.
+        -   Often called the **2 × 2 crossover design**.
+
+## Cross-Over Design: 2 x 2
+
+2.  **Cross-over Design**: alternatively, experiments can involve administering all treatment levels (in a sequence) to each experimental unit.
+
+    -   [x] **2 × 2 crossover design**:
+        -   [x] Experimental units that are randomized to the AB sequence receive treatment A in the first period and treatment B in the second period.
+        -   [x] Experimental units that are randomized to the BA sequence receive treatment B in the first period and treatment A in the second period.
+
+    |                 | **Period 1** | **Period 2** |
+    |-----------------|--------------|--------------|
+    | **Sequence AB** | A            | B            |
+    | **Sequence BA** | B            | A            |
+
+:::: callout-important
+How many potential sequences are for J x J design?
+
+::: mohu
+$$
+\prod (J, J-1, \cdots,1)
+$$
+:::
+::::
+
+## Cross-Over Design: 3 x 3
+
+-   **Two types of repeated measures are common:**
+
+    2.  **Cross-over Design**: alternatively, experiments can involve administering all treatment levels (in a sequence) to each experimental unit.
+
+    -   ✔ **3 × 3 crossover design**:
+        -   ✔ Consider a 3-treatment, 3-period design\
+        -   ✔ A = no tutoring, B = once/week, C = daily
+
+|                  | **Period 1** | **Period 2** | **Period 3** |
+|------------------|--------------|--------------|--------------|
+| **Sequence ABC** | A            | B            | C            |
+| **Sequence BCA** | B            | C            | A            |
+| **Sequence CAB** | C            | A            | B            |
+| **Sequence ACB** | A            | C            | B            |
+| **Sequence BAC** | B            | A            | C            |
+| **Sequence CBA** | C            | B            | A            |
+
+## Carryover effects in Cross-Over Design
+
+::: macwindow
+**Carryover effects**:
+
+In a cross-over design, carryover effects refer to the residual effects of a treatment that persist and influence responses in subsequent treatment periods. Since each participant receives multiple treatments in sequence, the outcome measured in a later period may be affected not only by the current treatment but also by the lingering influence of prior treatments.
+:::
+
+-   ✔ **Example**:
+
+    -   One student was measured three math tests (Math A/B/C). Math A and B has overlapping items with similar difficulty.
+    -   Consider a 3×3 crossover design where a subject receives treatments A, B, and C across three periods. If the subject receives treatment B in Period 1 and treatment A in Period 2, the effect observed in Period 2 may not reflect the pure effect of A—it may be contaminated by the residual effect of B, thus biasing the estimation of treatment A's effectiveness.
+
+-   **Discussion**: Can you think about more carryover effect in your research area?
+
+## Disadvantage of Cross-Over
+
+-   ✔ **Main disadvantage**: carryover effects may be confounded with treatment effects, because these effects cannot be estimated separately.
+    -   ✔ *Think about Sequence BCA*: You think you are estimating the effect of treatment A, but there is also a bias (or carryover) from the previous treatments to account for.
+-   ✔ **However, carryover effects** can bias the interpretation of data analysis, so an investigator should proceed cautiously when implementing a crossover design.
+    -   ✔ *So, what do we do?* Washout periods can diminish the impact of carryover effects\
+    -   ➔ **Washout period**: time between treatment periods.
+-   ✔ These are especially helpful in clinical trials: Instead of immediately stopping and then starting the new treatment, a period of time where the drug is washed out of the patient's system is used.
+    -   ✔ *Ex: educational tests* ➔ Subjects may be affected permanently by what they learned during the first period.
+
+## RM ANOVA Factors
+
+-   As with any ANOVA, **repeated measures ANOVA tests the equality of means**.
+    -   But, the statistical approach might differ.
+-   **Statistical Terminology:**
+    -   When a dependent variable is measured repeatedly for all sampled, this set of conditions is called a **within-subjects factor**.
+        -   ✔ **Time** (or trial) is typically used as our within-subject factor.
+    -   When a dependent variable is measured on independent groups of sample members, where each group is exposed to a different condition, the set of conditions is called a **between-subjects factor**.
+        -   ✔ In the previous example, **tutoring type** would be the between-subject factor.
+        -   ✔ We think of these as the IVs from our “usual” ANOVAs.
+    -   When an analysis has both within-subjects factors and between-subjects factors, and considers their interaction effect, it is called a **mixed design**.\
+        *(We will talk about it later!)*
+
+## RM ANOVA Logic
+
+-   The logic behind a **repeated measures ANOVA** is very similar to that of a **between-subjects ANOVA**.
+-   Recall that in a **between-subjects ANOVA** (i.e., the “usual” ANOVA), we partition total variability into:
+    -   **Model** (i.e., between-groups variability; SS<sub>Model</sub>)
+    -   **Error** (i.e., within-groups variability; SS<sub>Error</sub>)
+
+![](images/clipboard-1193144382.png)
+
+## RM ANOVA Logic II
+- In this design, **within-group variability** (SS<sub>w</sub>) is used as the **error variability** (SS<sub>Error</sub>).
+  - That said, "Why subjects differ within the same group" is **unexplained**!
+- The **F-statistic** is calculated as the ratio of MS<sub>Model</sub> to MS<sub>Error</sub>:
+
+  *Independent ANOVA:*  
+  $$ F = \frac{MS_b}{MS_w} = \frac{MS_b}{MS_{error}} $$
+
+## RM ANOVA Logic III
+
+::: callout-important
+"Why subjects differ within the same group (e.g., treatment/control groups)" can be **explained** in RM ANOVA!
+:::
+
+::: columns
+::: {.column}
+- **The advantage of a repeated measures ANOVA**:  
+  - ✔ Within-group variability (SS<sub>w</sub>) is the error variability (SS<sub>error</sub>) in an independent (between-subjects) ANOVA.  
+  - ✔ But, in a repeated measures ANOVA we further partition this error term, reducing its size, and **increasing power**!
+
+- **A repeated measures ANOVA calculates an F-statistic in a similar way**:
+
+  - *Repeated Measures ANOVA:*  $F = \frac{MS_{conditions}}{MS_{error}}$
+  
+:::
+
+::: {.column}
+![](images/Lecture 11_ Repeated Measure ANOVA-2025-04-06-232317.png)
+Generated by [https://www.mermaidchart.com/app/projects](https://www.mermaidchart.com/app/projects)
+:::
+
+:::
+
+## RM ANOVA Logic IV
+- Mathematically, we are partitioning the variability attributable to the differences between groups (SS<sub>conditions</sub>) and variability within groups (SS<sub>w</sub>) exactly as we do in a between-subjects (independent) ANOVA.
+
+- With a repeated measures ANOVA, we are using the same subjects in each group, so we can remove the variability due to the individual differences *between subjects*, referred to as SS<sub>subjects</sub>, from the within-groups variability (SS<sub>w</sub>).
+
+- We simply **treat each subject as a “block.”**
+  - ✔ Each subject becomes a level of a factor, called **subjects**.
+  - ✔ Then, we **do not care** about the **interaction** between within- and between-subjects.
+
+- The ability to subtract SS<sub>subjects</sub> will leave us with a smaller SS<sub>error</sub> term:
+
+  *Independent ANOVA:*  $SS_{error} = SS_{w}$
+
+  *Repeated Measures ANOVA:* $SS_{error} = SS_{w} - SS_{subjects}$
+
+## Example #1
+
+- **Researchers are interested in the effect of drug on blood concentration of histamine at 0, 1, 3, and 5 minutes after injection of the drug.**
+  - **Subjects**: dogs
+  - ✔ **DV**: blood concentration of histamine
+  - ✔ **Within-subject factor**: time (4 levels: 0, 1, 3, and 5 minutes)
+- Six dogs, four time points
+
+| Dog ID | time1 | time2 | time3 | time4 | Dog mean |
+|--------|-------|-------|-------|-------|----------|
+| 1      | 10    | 16    | 25    | 26    | 19.25    |
+| 2      | 12    | 19    | 27    | 25    | 20.75    |
+| 3      | 13    | 20    | 28    | 28    | 22.25    |
+| 4      | 12    | 18    | 25    | 15    | 17.50    |
+| 5      | 11    | 20    | 26    | 18    | 18.75    |
+| 6      | 10    | 22    | 27    | 19    | 19.50    |
+| **Time mean** | **11.33** | **19.17** | **26.33** | **21.83** | **Grand mean = 19.67** |
+
+## Template for RM ANOVA Report
+
+| Source              | Sub-Component   | SS   | df   | MS   | F   |
+|---------------------|-----|------|------|------|-----|
+| Between-time        |      |      |      |      |     |
+| Within-time         |      |      |      |      |     |
+| Between-Subjects    |       |      |      |     |
+| Error    |       |      |      |     |
+
+: 🔴 ANOVA Table of Repeated Measures ANOVA {tbl-colwidths="[30,30,10,10,10,10]"}
+
+**_Note._** Under the repeated measures ANOVA, we can decompose the total variability:
+
+**Total variability of DV = "between-time" variability + "within-time" variability**
+
+- ➔ *"within-time"* variability = *"between-subjects"* variability + *"within-subjects"* variability  
+- ➔ *"within-subjects"* variability is treated as **"error"**
+
+
+## 1. Think about “between-time” row in ANOVA table
+
+::: panel-tabset
+### Statistics
+We calculate mean square for **between-time** as:
+
+$$
+MS_{btime} = \frac{SS_{btime}}{df_{btime}}
+$$
+
+Where:
+
+$$
+SS_{btime} = \sum n_{time}(\bar{Y}_{time} - \bar{Y}_{grand})^2 = 
+6(11.33 - 19.67)^2 + \cdots + 6(21.83 - 19.67)^2 = 712.961
+$$
+
+$$
+df_{btime} = \text{Number of time points} - 1 = 4 - 1 = 3
+$$
+
+Thus,
+
+$$
+MS_{btime} = \frac{712.96}{3} = 237.65
+$$
+
+### Results
+::: columns
+::: column
+| Dog ID | time1 | time2 | time3 | time4 | Dog mean |
+|--------|-------|-------|-------|-------|----------|
+| 1      | 10    | 16    | 25    | 26    | 19.25    |
+| 2      | 12    | 19    | 27    | 25    | 20.75    |
+| 3      | 13    | 20    | 28    | 28    | 22.25    |
+| 4      | 12    | 18    | 25    | 15    | 17.50    |
+| 5      | 11    | 20    | 26    | 18    | 18.75    |
+| 6      | 10    | 22    | 27    | 19    | 19.50    |
+| **Time means**      | 11.33  | 19.17  | 26.33  | 21.83  | **Grand Mean = 19.67**    |
+: Data
+:::
+
+::: column
+
+| Source            | SS      | df  | MS      | F   |
+|-------------------|---------|-----|---------|-----|
+| Between-time      | 712.96  | 3   | 237.65  |     |
+| Within-time       |         |     |         |     |
+| Between-Subjects  |         |     |         |     |
+| Error             |         |     |         |     |
+: ANOVA Table (Partial)
+
+:::
+:::
+:::
+
+
+## 2. Think about “between-dog” row in ANOVA table
+
+::: panel-tabset
+### Statistics
+We calculate mean square for **between-subjects** (between-dog) as:
+
+$$
+MS_{bsubjects} = \frac{SS_{bsubjects}}{df_{bsubjects}}
+$$
+
+Where:
+
+$$
+SS_{bsubjects} = \sum k_i(\bar{Y}_i - \bar{Y}_{grand})^2 = 
+4*(19.25 - 19.67)^2 + \cdots + 4*(19.50 - 19.67)^2 = 54.33
+$$
+
+```{r}
+#| code-fold: true
+#| code-summary: "Click here to see R code"
+dog_means <- c(19.25, 20.75, 22.25, 17.50, 18.75, 19.50 )
+sum(4 * (dog_means - 19.67)^2)
+```
+
+$$
+df_{bsubject} = N_{dogs} - 1 = 6 - 1 = 5
+$$
+
+Thus,
+
+$$
+MS_{bsubjects} = \frac{54.33}{5} = 10.866
+$$
+
+
+### Results
+::: columns
+::: column
+| Dog ID | time1 | time2 | time3 | time4 | Dog mean |
+|--------|-------|-------|-------|-------|----------|
+| 1      | 10    | 16    | 25    | 26    | 19.25    |
+| 2      | 12    | 19    | 27    | 25    | 20.75    |
+| 3      | 13    | 20    | 28    | 28    | 22.25    |
+| 4      | 12    | 18    | 25    | 15    | 17.50    |
+| 5      | 11    | 20    | 26    | 18    | 18.75    |
+| 6      | 10    | 22    | 27    | 19    | 19.50    |
+| **Time means**      | 11.33  | 19.17  | 26.33  | 21.83  | **Grand Mean = 19.67**    |
+: Data
+:::
+
+::: column
+
+| Source            | SS      | df  | MS      | F     |
+|-------------------|---------|-----|---------|-------|
+| Between-time      | 712.96  | 3   | 237.65  |       |
+| Within-time       |         |     |         |       |
+| Between-Subjects  | 54.33   | 5   | 10.87   |       |
+| Error             |         |     |         |       |
+: ANOVA Table (Partial)
+
+:::
+:::
+:::
+
+## 3. Think about “within-time” row in ANOVA table
+
+::: panel-tabset
+### Statistics
+We calculate the mean square for within-time as:
+
+$$
+MS_{wtime} = \frac{SS_{wtime}}{df_{wtime}}
+$$
+
+Where:
+
+$$
+SS_{wtime} = \sum_{i,time}(y_{i,time} - \bar{Y}_{time})^2 = 
+(10 - 11.33)^2 + \cdots + (19 - 21.83)^2 = 170.33
+$$
+
+$$
+df_{wtime} = (6 - 1) + (6 - 1) + (6 - 1) + (6 - 1) = 20
+$$
+
+Thus,
+
+$$
+MS_{wtime} = \frac{170.33}{20} = 8.5165
+$$
+
+
+### Results
+::: columns
+::: column
+| Dog ID | time1 | time2 | time3 | time4 | Dog mean |
+|--------|-------|-------|-------|-------|----------|
+| 1      | 10    | 16    | 25    | 26    | 19.25    |
+| 2      | 12    | 19    | 27    | 25    | 20.75    |
+| 3      | 13    | 20    | 28    | 28    | 22.25    |
+| 4      | 12    | 18    | 25    | 15    | 17.50    |
+| 5      | 11    | 20    | 26    | 18    | 18.75    |
+| 6      | 10    | 22    | 27    | 19    | 19.50    |
+| **Time means**      | 11.33  | 19.17  | 26.33  | 21.83  | **Grand Mean = 19.67**    |
+: Data
+:::
+
+::: column
+
+| Source            | SS      | df  | MS      | F     |
+|-------------------|---------|-----|---------|-------|
+| Between-time      | 712.96  | 3   | 237.65  |       |
+| Within-time       | 170.33  | 20  | 8.52    |       |
+| Between-Subjects  | 54.33   | 5   | 10.87   |       |
+| Error             |         |     |         |       |
+: ANOVA Table (Partial)
+
+:::
+:::
+:::
+
+## 4. Think about “Error” row in ANOVA table
+
+::: panel-tabset
+### Statistics
+We calculate the mean square for error as:
+
+$$
+MS_{error} = \frac{SS_{error}}{df_{error}}
+$$
+
+Where:
+
+$$
+SS_{error} = SS_{wtime} - SS_{bsubjects} = 170.33 - 54.33 = 116
+$$
+
+$$
+df_{error} = df_{wtime} - df_{bsubjects} = 20 - 5 = 15
+$$
+
+Thus:
+
+$$
+MS_{error} = \frac{116}{15} = 7.333
+$$
+
+### Results
+::: columns
+::: column
+| Dog ID | time1 | time2 | time3 | time4 | Dog mean |
+|--------|-------|-------|-------|-------|----------|
+| 1      | 10    | 16    | 25    | 26    | 19.25    |
+| 2      | 12    | 19    | 27    | 25    | 20.75    |
+| 3      | 13    | 20    | 28    | 28    | 22.25    |
+| 4      | 12    | 18    | 25    | 15    | 17.50    |
+| 5      | 11    | 20    | 26    | 18    | 18.75    |
+| 6      | 10    | 22    | 27    | 19    | 19.50    |
+| **Time means**      | 11.33  | 19.17  | 26.33  | 21.83  | **Grand Mean = 19.67**    |
+: Data
+:::
+
+::: column
+
+| Source            | SS      | df  | MS      | F     |
+|-------------------|---------|-----|---------|-------|
+| Between-time      | 712.96  | 3   | 237.65  |       |
+| Within-time       | 170.33  | 20  | 8.52    |       |
+| Between-Subjects  | 54.33   | 5   | 10.87   |       |
+| Error             | 116.00  | 15  | 7.33    |       |
+: ANOVA Table (Complete)
+
+:::
+:::
+:::
+
+## Hypothesis Test Procedure
+
+### ✅ Main Effect of Time:
+**Research Question:**  
+Does histamine concentration change over time?  
+(That is, does mean histamine concentration differ across the four time points?)
+
+**Null Hypothesis:**  
+$$
+H_0: \mu_{time1} = \mu_{time2} = \mu_{time3} = \mu_{time4}
+$$
+
+::: columns
+::: column
+
+**ANOVA Table**
+
+| Source            | SS      | df  | MS      | F                          |
+|-------------------|---------|-----|---------|----------------------------|
+| **Between-time**  | 712.96  | 3   | 237.65  | **237.65 / 7.33 = 30.73**  |
+| Within-time       | 170.33  | 20  | 8.52    | 8.52 / 7.33 = 1.16         |
+| Between-Subjects  | 54.33   | 5   | 10.87   | 10.87 / 7.33 = 1.48        |
+| Error             | 116.00  | 15  | 7.33    |                            |
+:::
+
+::: column
+**Conclusion**
+
+- Under $\alpha = 0.05$, the critical value for $df_{time} = 3$ and $df_{error} = 15$ from the F-table is:  
+  **$F_{crit} = 3.29$**
+
+- Since the observed F-value for the time effect is **30.73**, which exceeds the critical value of 3.29:
+
+  - ✅ We **reject the null hypothesis**.
+  - ✅ There is a **significant main effect of time**.
+
+**Conclusion:**  
+There is a significant difference in histamine concentration across the four time points.
+
+:::
+:::
+
+
+## Repeated Measures ANOVA: Assumption I
+
+::: columns
+::: column
+🔍 Before conducting the hypothesis test, we check:
+
+1. **Independence of observations**  
+   ➔ **!!! ANOVA is NOT robust to violation of this !!!**
+
+2. **Normality**  
+   ➔ ANOVA tends to be relatively robust to non-normality.
+
+3. **Homogeneity of variance (HOV)**  
+   ➔ ANOVA can handle HOV violations when:
+   - Group sizes are equal (i.e., balanced)
+   - Group sizes are large enough  
+   ➔ Otherwise, consider using **Welch’s ANOVA**
+:::
+
+::: column
+✅ Independence of the Observations:
+
+- ✔ **Measurements from one case in the study are independent of other cases in the study.**
+- ✔ **If we violate this assumption, we have to do something else!**  
+  ➔ One remedy would be to use **repeated measures ANOVA**.
+:::
+:::
+
+❓ Then, which assumption should we check for **repeated measures ANOVA**?
+
+## Repeated Measures ANOVA: Assumption II
+
+### 🔍 Before conducting the hypothesis test, we check:
+
+1. **Independency**  
+   ➔ **Do not need to check!** (in repeated measures designs)
+
+2. **Normality**  
+   ➔ The dependent variable (DV) at each level of the independent variable(s) should be approximately normally distributed.  
+   ➔ However, ANOVA tends to be **relatively robust to non-normality**.
+
+3. **Instead of HOV (Homogeneity of Variance)**  
+   ➔ We should check **"Sphericity"**
+
+### 🧠 Sphericity
+
+- The concept of **sphericity** is the repeated measures equivalent of homogeneity of variances.
+- Sphericity is the condition where **the variances of the differences** between all combinations of related groups (levels) are equal.
+- Violation of sphericity occurs when **the variances of the differences** between all combinations of related groups are **not equal**.
+- Testing for sphericity 
+  -   is an option in **PROC GLM** using **Mauchly's Test for Sphericity**.
+  -   In R, testing for sphericity in a repeated measures ANOVA is typically conducted using the `anova_test()` function from the `rstatix` package, which includes Mauchly’s Test of Sphericity.
+
+
+## ✅ Step-by-step: Testing Sphericity in R
+
+::: panel-tabset
+### 1. Prepare your data
+
+You need your data in **long format**: one row per subject per time point.
+
+Example:
+
+```{r}
+library(rstatix)
+library(tidyverse)
+# Sample wide-format data
+data <- data.frame(
+  subject = factor(1:6),
+  time1 = c(10, 12, 13, 12, 11, 10),
+  time2 = c(16, 19, 20, 18, 20, 22),
+  time3 = c(25, 27, 28, 25, 26, 27),
+  time4 = c(26, 25, 28, 15, 18, 19)
+)
+
+# Convert to long format
+data_long <- data %>%
+  pivot_longer(
+    cols = starts_with("time"),
+    names_to = "time",
+    values_to = "histamine"
+  ) %>%
+  mutate(time = factor(time))
+```
+
+### 2. Run repeated measures ANOVA with sphericity test
+
+```{r}
+anova_results <- data_long %>%
+  anova_test(dv = histamine, wid = subject, within = time)
+
+anova_results
+```
+
+- This will output:
+
+  1. ANOVA table
+  2. **Mauchly’s Test of Sphericity**
+  3. **Greenhouse-Geisser** and **Huynh-Feldt** corrections (if sphericity is violated)
+
+### 3. View the sphericity test
+
+```{r}
+anova_results$`Sphericity Corrections`
+```
+
+### 📌 Interpreting the Output:
+
+| Test                         | Interpretation                                    |
+|-----------------------------|----------------------------------------------------|
+| **Mauchly's Test (p > .05)** | Sphericity holds – use standard F-statistic       |
+| **Mauchly's Test (p < .05)** | Sphericity violated – use corrected F-statistics  |
+
+If violated, refer to the corrected tests:
+- Use **Greenhouse-Geisser** correction unless `epsilon > 0.75`
+- Otherwise, **Huynh-Feldt** is often preferred
+
+### 📝 Example Reporting:
+
+> Mauchly's test indicated that the assumption of sphericity had been violated, W = 0.621, p = .013. Greenhouse-Geisser corrected results showed a significant effect of time, F(2.34, 11.69) = 6.82, p = .008.
+
+:::
 
 ## Fin

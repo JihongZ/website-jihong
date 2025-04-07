@@ -81,7 +81,7 @@ pubs_count_ts <- pubs_count_byyear |> arrange(year) |> mutate(n_cum = cumsum(n))
 
 ## Refer to https://rstudio.github.io/dygraphs/
 t <- list(
-  family = "MiSans",
+  family = "Abel",
   size = 14,
   color = '#404041')
 plot_ly(data = pubs_count_ts, x=~year,
@@ -94,7 +94,7 @@ plot_ly(data = pubs_count_ts, x=~year,
     paper_bgcolor = "#FAF9F6",
     plot_bgcolor='#FAF9F6',
     title = "",
-    xaxis = list(title = "Jihong: Number of Publications by Year"),
+    xaxis = list(title = "Line Plot: Number of Publications per Year (<span style='color: maroon'>Red</span>) and Cumulative number (<span style='color: darkseagreen'>Green</span>)"),
     yaxis = list(title = ""),
     font = t
   ) 

@@ -1,8 +1,7 @@
 ---
-title: |
-  Summary of Accomplishments
-date: "2025-03-18"  
+title: 2025 Summary of Accomplishments
 author: "Jihong Zhang"
+date: "2025-03-18"  
 from-details: |
   Jihong Zhang \ 
   Assistant Professor \

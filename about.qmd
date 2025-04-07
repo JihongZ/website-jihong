@@ -23,8 +23,6 @@ format:
     toc: false
 ---
 
-
-
 ```{r}
 #| results: asis
 #| echo: false
@@ -54,10 +52,10 @@ div(class="timeline",
 ### Interests
 
 ::: macwindow
-- AI in Educational Measurement and Psychometrics
-- Psychometric network and Latent variable modeling
-- Machine Learning and data mining in Education
-- Diagnostic Classification Models
+-   AI in Educational Measurement and Psychometrics
+-   Psychometric network and Latent variable modeling
+-   Machine Learning and data mining in Education
+-   Diagnostic Classification Models
 :::
 
 ### News
@@ -69,7 +67,6 @@ div(class="timeline",
 
 -   2025-02-28: I have been elected to serve as Secretary/Treasurer (3-year term begins in 2025) of the Cognition and Assessment SIG (SIG #167) of the American Educational Research Association (AERA). My term will begin at the conclusion of the 2025 AERA Annual Meeting.
 :::
-
 
 ### Teaching
 
