@@ -79,7 +79,7 @@ website:
       collapse-level: 2
       contents:
         - text: <h3>RESOURCE</h3>
-        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆"
+        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆"
         - section: 'Useful Materials'
           contents: 
             - text: '2024 Research Plan'

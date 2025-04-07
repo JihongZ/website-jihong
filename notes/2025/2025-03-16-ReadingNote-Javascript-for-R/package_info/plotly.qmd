@@ -4,9 +4,7 @@ author: Jihong Zhang
 date: "2025-03-16"
 date-modified: "`{r} Sys.Date()`"
 categories:
-  - htmltools
-  - htmlwidgets
-  - Javascript
+  - plotly
 execute: 
   warning: false
   message: false
@@ -14,15 +12,18 @@ fig-cap-location: top
 toc-depth: 3
 toc-expand: true
 toc-location: left
-sidebar: id-javascript-in-R  
-format: html
+format: 
+  html:
+    grid: 
+      body-width: 800px
+      margin-width: 200px
 ---
 
 # plotly package
 
 -   This section also includes [Chapter 2 - Overview](https://plotly-r.com/overview) in [Book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/), which has more details about `plotly` package.
 
-## Color Schema
+## Set UP
 
 ```{r}
 shen_qing = "#212A54" # 深青色
@@ -32,8 +33,9 @@ dan_qing = "#F2F8FF" # 淡青色
 hutao_hong = "#793328" # 胡桃红
 dan_feng = "#FFF8F0" # 淡粉色
 tao_you = "#C0BAB6" # 陶釉色
+library(plotly)
+library(ggplot2)
 ```
-
 
 ------------------------------------------------------------------------
 
@@ -42,8 +44,6 @@ tao_you = "#C0BAB6" # 陶釉色
 `plotly` R package is powered by the Javascript library *plotly.js*. A `plotly` object is initialized with a `plot_ly()` function.
 
 ```{r}
-library(plotly)
-library(ggplot2)
 head(diamonds)
 ```
 
@@ -54,12 +54,14 @@ head(diamonds)
 ```{r}
 #| layout-ncol: 1
 #| fig-cap:
-#|   - "Plot 1"
-#|   - "Plot 2"
-#|   - "Plot 3"
-plot_ly(diamonds, x=~cut)
-plot_ly(diamonds, x=~cut, y=~clarity, colors="Accent")
-plot_ly(diamonds, x=~cut, color=~clarity, colors="Accent")
+#|   - "Plot 1/2/3"
+
+subplot(
+  plot_ly(diamonds, x=~cut),
+  plot_ly(diamonds, x=~cut, y=~clarity, colors="Accent"),
+  plot_ly(diamonds, x=~cut, color=~clarity, colors="Accent"),
+  nrows = 2)
+
 ```
 
 -   To specify the color directly, use `I()` function to declar the color value as "asis".
@@ -296,7 +298,6 @@ plot_ly(data = econ, x=~mnth, y=~uempmed, linetype =~factor(yr), size = I(3)) |>
   add_lines()
 ```
 
-
 ## IVRPS Chapter 5: Bars and Histogram
 
 ### `add_bars()` and `add_histogram()`
@@ -400,11 +401,9 @@ plot_ly() |> add_surface(x=~x, y=~y, z=~volcano)
 
 ## IVRPS Chapter 10: Share HTML to others
 
-###  `savehtml()` and `saveWidget()` to save contents
+### `savehtml()` and `saveWidget()` to save contents
 
-
-`htmlwidgets::saveWidget()` will save self-contained html files (including all html/css dependencies) by default. It will has larger file size but others can directly open and review it. You can save dependency into separated folder by specifying  `selfcontained = F`. By doing that, it will be equivalent to `htmltools::savehtml()`. For example, see the following example code:
-
+`htmlwidgets::saveWidget()` will save self-contained html files (including all html/css dependencies) by default. It will has larger file size but others can directly open and review it. You can save dependency into separated folder by specifying `selfcontained = F`. By doing that, it will be equivalent to `htmltools::savehtml()`. For example, see the following example code:
 
 ```{r}
 #| eval: false
@@ -424,5 +423,130 @@ htmltools::tags$iframe(
   seamless = "seamless",
   frameBorder = "0"
 )
+```
+
+## IVRPS Chapter 11: Exporting static images
+
+### `toImageButtonOptions` to modify exported filetype
+
+For example, in function `config()`, set up `toImageButtonOptions` allows you set up the filetype of exported file. In this case, a SVG file with filename as "myplot.svg" will be exported.
+
+```{r}
+p <- plot_ly(x = rnorm(100))
+p |> 
+  config(
+    toImageButtonOptions = list(
+      format = "svg",
+      filename = "myplot",
+      width = 600,
+      height = 700
+    )
+  )
+```
+
+Here is a example of adjusting annotations interactively, and then exporting the adjusted plot into the local.
+
+```{r}
+#| eval: false
+#| code-summary: "Click here to see R code"
+#| code-fold: true
+library(dplyr)
+library(sf)
+library(purrr)
+library(tidycensus)
+# install.packages("USAboundariesData", repos = "https://ropensci.r-universe.dev", type = "source")
+# remotes::install_github("ropensci/USAboundaries")
+library(USAboundaries)
+
+# obtain geographical information for each county in MN
+mn_sf <- us_counties(states = "MN")
+mn_sf <- mn_sf[, !duplicated(colnames(mn_sf))]
+
+# get income information for each county in MN
+mn_income <- get_acs(
+  geography = "county", variables = "B19013_001", state = "MN"
+) %>%
+  mutate(
+    NAME = sub("County, Minnesota", "", NAME),
+    county = reorder(NAME, estimate),
+    color = scales::col_numeric("viridis", NULL)(estimate)
+  )
+
+# find center of each county (for placing annotations)
+mn_center <- mn_sf %>% st_centroid() 
+## Remove duplicated names
+mn_center <- mn_center |> 
+  mutate(
+    x = map_dbl(geometry, 1),
+    y = map_dbl(geometry, 2)
+  )
+
+# get top 10 counties by income with their x/y center location
+top10labels <- mn_income %>%
+  top_n(10, estimate) %>%
+  left_join(mn_center, by = c("GEOID" = "geoid"))
+
+# the map and top 10 county labels
+map <- plot_ly() %>%
+  add_sf(
+    data = left_join(mn_sf, mn_income, by = c("geoid" = "GEOID")),
+    color = ~ I(color), split = ~NAME,
+    stroke = I("black"), span = I(1), hoverinfo = "none"
+  ) %>%
+  add_annotations(
+    data = select(top10labels, NAME, x, y),
+    text = ~NAME, x = ~x, y = ~y
+  )
+
+# the dot-plot
+bars <- ggplot(mn_income, aes(x = estimate, y = county)) +
+  geom_errorbarh(aes(xmin = estimate - moe, xmax = estimate + moe)) +
+  geom_point(aes(color = color), size = 2) +
+  scale_color_identity()
+
+# make manual edits in the browser, then click the
+# 'toImage' button to export an svg file
+ggplotly(
+  bars,
+  dynamicTicks = TRUE, tooltip = "y",
+  height = 8 * 96, width = 11 * 96
+) %>%
+  subplot(map, nrows = 1, widths = c(0.3, 0.7)) %>%
+  layout(showlegend = FALSE) %>%
+  config(
+    edits = list(
+      annotationPosition = TRUE,
+      annotationTail = TRUE,
+      annotationText = TRUE
+    ),
+    toImageButtonOptions = list(format = "svg")
+  )
+```
+
+## IVRPS Chapter 13: Arragement
+
+### `subplot`: set up the layout of multiple plots
+
+`subplot` accepts arbitary plots or a list of plots generated by `lapply`.
+
+```{r}
+library(plotly)
+p1 <- plot_ly(economics, x = ~date, y = ~unemploy) |> 
+  add_lines(name = "unemploy")
+p2 <- plot_ly(economics, x = ~date, y = ~uempmed) |> 
+  add_lines(name = "uempmed")
+subplot(p1, p2) # subplot(list(p1, p2))
+```
+
+- Use `nrows = length(plots)` to arrange plots into 1 columns.
+- Use `shareX=TRUE` argument to make sure all plots share the same x-axis.
+
+```{r}
+vars <- setdiff(names(economics), "date")
+plots <- lapply(vars, function(var) {
+  plot_ly(economics, x = ~date, y = as.formula(paste0("~", var))) %>%
+    add_lines(name = var)
+})
+subplot(plots, nrows = length(plots), shareX = TRUE, titleX = FALSE)
 ```
 

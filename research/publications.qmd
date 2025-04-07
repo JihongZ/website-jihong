@@ -15,8 +15,6 @@ format:
 freeze: false    
 ---
 
-
-
 ```{r setup}
 #| message: false
 library(scholar)
@@ -56,6 +54,8 @@ pubs <- pubs |>
 
 ```{r}
 #| eval: false
+
+## Debug
 publication_pdf_path <- list.files("publications", full.names = TRUE, recursive = TRUE)
 pubs$pubs_formated <- str_replace(pubs$pubs_formated, "Math anxiety is associated with skipping problems and less help-seeking behavior after error commission", 
                                   paste0("[Math anxiety is associated with skipping problems and less help-seeking behavior after error commission](", publication_pdf_path[2], ")"))
@@ -138,8 +138,6 @@ for (y in 1:nrow(pubs_count_byyear)) {
   print(tags$ul(pubs_list_peryear, style="padding-left: 3rem;"))
 }
 ```
-
-
 
 ## {{< fa brands apple >}} Citations
 

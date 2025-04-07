@@ -15,10 +15,10 @@ website:
         file: research/publications.qmd
       - text: "<span class='menutext-note'>NOTE</span><span class='text-line text-line-note'></span>"
         file: notes.qmd
-      - text: "<span class='menutext-presentation'>TALK</span><span class='text-line text-line-presentation'></span>"
-        file: presentation.qmd
       - text: "<span class='menutext-blog'>BLOG</span><span class='text-line text-line-blog'></span>"     
         file: posts.qmd 
+      - text: "<span class='menutext-presentation'>TALK</span><span class='text-line text-line-presentation'></span>"
+        file: presentation.qmd
       - text: MORE
         menu:
           - text: To-Do
