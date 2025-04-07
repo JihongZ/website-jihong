@@ -32,6 +32,8 @@ library(htmltools)
 # Text after "user=" is your ID
 # get_publication_url(id = "MbRDAB4AAAAJ", pub_id = pubs$pubid[2])
 pubs <- scholar::get_publications("MbRDAB4AAAAJ", sortby = "year") 
+# generate the path for pdf
+# Replace ":" or "?" with "_"
 pubs <- pubs |> 
   mutate(
     URL = get_article_scholar_url(id = "MbRDAB4AAAAJ", pubid = pubid)
@@ -41,13 +43,9 @@ pubs <- pubs |>
     pubs_formated = paste0(str_replace(format_publications("MbRDAB4AAAAJ"), 
                                        "Zhang, J.", "**Zhang, J.**"))
   ) |> 
-  # generate the path for pdf
-  # Replace ":" or "?" with "_"
-  mutate(publication_pdf_path = paste0("publications/", year, "/",str_replace(title, "[:|?]", "_"), ".pdf")) |> 
+  mutate(publication_pdf_path = paste0("publications/", year, "/", str_replace(title, "[:|?]", "_"), ".pdf")) |> 
   mutate(
-    pubs_formated = paste0(str_replace(pubs_formated, 
-                                       title, 
-                                       paste0("[", title, "](", publication_pdf_path, ")")))
+    pubs_formated = str_replace(pubs_formated, title, paste0("[", title, "](", publication_pdf_path, ")"))
   ) |> 
   select(title:number, year, pubs_formated, URL)
 ```
