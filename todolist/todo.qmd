@@ -7,10 +7,29 @@ institute: |
   University of Arkansas
 date: "2025-03-07"
 format: html
-comments: false
 ---
 
--   [ ] Write a blog post about the community detection in psychometric network analysis.
--   [ ] Finish the data analysis of network analysis of physical activity.
--   [ ] Review Ji's code of rank factor scores.
--   [ ] Run the whole simulation of Large Language Model + Interview Data.
+## To-do
+
+@.   [ ] Write a blog post about the community detection in psychometric network analysis.
+@.   [ ] Finish the data analysis of network analysis of physical activity.
+@.   [ ] Review Ji's code of rank factor scores.
+@.   [ ] Run the whole simulation of Large Language Model + Interview Data.
+
+## Upcoming Project Topic
+
+### Network Analysis
+
+@. How to score individuals in the longitudinal network analysis?
+@. Use network analysis to examine Testlet effect.
+@. Apply the network analysis to self-reported variables in the mediation task?
+@. Develop ranking factor scores for factor analysis (Authors: Ji L., Xinya L., Jihong Z.)
+@. Compare item selection performance for regularized factor analysis and network analysis. (Authors: Jiayin C., Xinya L., Jihong Z.)
+@. Apply cross-section network analysis to after-school staffs' physical activity. (Authors: Anqi D., Jihong Z.)
+@. Apply longitudinal network analysis to EEG data of mediation task (Authors: Yanli (Jeff) Lin, Jihong Z.)
+
+### Large Language Models in Education
+@. Test psychometric difference between LLM-generated and human-generated using measurement invariance.
+@. Use LLM to convert interview data into survey response (Jihong Z., Nicole Bonge)
+@. Test the stability of LLM-generated survey responses under different conditions (Xinya L., Jihong Z.)
+@. Training Generated AI algorithm using large education item pools (Hong Jiao, Xinya L., Jihong Z.).
