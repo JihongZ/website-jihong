@@ -41,16 +41,14 @@ format:
 ::: objectives
 ## Overview of Lecture 11 {.unnumbered}
 
-1.  The rest of the semester
-2.  Advantage of Factorial Design
-3.  Repeated-measure ANOVA:
-    -   Steps for conducting 2-way ANOVA
+1.  Disadvantages and Advantages of Repeated Measure ANOVA
+2.  Repeated-measure ANOVA:
+    -   Random components (What to report)
     -   Hypothesis testing
-    -   Assumptions for 2-way ANOVA
-    -   Visualization
-    -   Difference between 1-way and 2-way ANOVA
+    -   Assumptions for RM ANOVA
 
-**Question**: How about the research scenario when more than two independent variables?
+[**Question**: How about the research scenario when more than two independent variables?]{.bigger}
+
 :::
 
 ## More independent variables
@@ -220,7 +218,7 @@ In a cross-over design, carryover effects refer to the residual effects of a tre
     -   When a dependent variable is measured on independent groups of sample members, where each group is exposed to a different condition, the set of conditions is called a **between-subjects factor**.
         -   ✔ In the previous example, **tutoring type** would be the between-subject factor.
         -   ✔ We think of these as the IVs from our “usual” ANOVAs.
-    -   When an analysis has both within-subjects factors and between-subjects factors, and considers their interaction effect, it is called a **mixed design**.\
+    -   When an analysis has both within-subjects factors and between-subjects factors, and considers their interaction effect, it is called a **mixed design**.
         *(We will talk about it later!)*
 
 ## RM ANOVA Logic
@@ -753,7 +751,7 @@ anova_results$`Mauchly's Test for Sphericity`
 anova_results$`Sphericity Corrections`
 ```
 
-### 📌 Interpreting the Output:
+### 📌 Interpreting the Output
 
 | Test | Interpretation |
 |--------------------------|----------------------------------------------|
@@ -765,11 +763,79 @@ If violated, refer to the corrected tests:
   - Use **Greenhouse-Geisser** correction unless `epsilon > 0.75` 
   - Otherwise, **Huynh-Feldt** is often preferred
 
-### 📝 Example Reporting:
+### 📝 Example Reporting
 
 > Mauchly's test indicated that the assumption of sphericity had not been violated, W = 0.407, p = .165. We can use standard F-test.
 
 :::
+
+
+## 📌 Report Between-Subject Variability (Random effects)
+
+The `anova_test()` function in the **`rstatix`** package **does not provide between-subject variability** directly in its output. This is because `anova_test()` focuses on the **within-subject effects** (repeated measures factors) and treats **subject** as a blocking factor rather than estimating its variance as a separate effect.
+
+In traditional repeated measures ANOVA, **between-subject variability** corresponds to:
+
+> The variance **between the subjects’ overall means** — captured by the **SS_subjects** term.
+
+However, in the `anova_test()` framework:
+- The subject-level variability is **partialed out** (i.e., controlled for), not estimated explicitly.
+- It is **absorbed into the model** as the random effect (like a blocking factor in a randomized block design).
+
+---
+
+### ✅ Workaround: Manually Compute Between-Subject SS
+
+::: panel-tabset
+
+#### Formula again:
+
+You can compute the **between-subject sum of squares** manually from the **subject means** using the formula:
+
+
+$$
+SS_{\text{subjects}} = k \sum (\bar{Y}_i - \bar{Y}_{\text{grand}})^2
+$$
+
+Where:
+
+- $\bar{Y}_i$: subject means across time points
+- $\bar{Y}_{\text{grand}}$: grand mean
+- $k$: number of repeated measurements (e.g., 4 time points)
+
+#### Example in R:
+
+```{r}
+# Compute subject means and grand mean
+subject_means <- dat_long %>%
+  group_by(ID) %>%
+  summarise(subject_mean = mean(Y))
+
+grand_mean <- mean(subject_means$subject_mean)
+
+# Number of repeated measures (e.g., 4 time points)
+k <- n_distinct(dat_long$Time)
+
+# Compute SS_subjects
+SS_subjects <- subject_means %>%
+  summarise(SS = k * sum((subject_mean - grand_mean)^2)) %>%
+  pull(SS)
+
+SS_subjects
+```
+This gives the **between-subjects sum of squares**.
+
+
+
+#### 📌 Summary
+
+| Component            | Available from `anova_test()` | How to Obtain                          |
+|---------------------|-------------------------------|----------------------------------------|
+| **Within-subjects** | ✅ `Effect == "Residuals"`      | `filter(Effect == "Residuals")`        |
+| **Between-subjects**| ❌ *Not provided*              | ✅ Compute manually using subject means |
+
+:::
+
 
 
 ## Fin
