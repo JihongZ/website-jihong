@@ -13,7 +13,7 @@ webr:
 format: 
   html:
     toc-expand: 3
-    code-tools: true
+    code-tools: false
     code-line-numbers: false
     code-fold: false
     code-summary: "Click to see R code"
