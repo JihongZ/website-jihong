@@ -3,6 +3,13 @@ website:
   sidebar:
     - id: id-blog
       style: floating
+    - id: id-todo
+      style: "docked"
+      search: false
+      collapse-level: 0
+      contents:
+        - todolist/todo.qmd
+        - todolist/reading_list_2025April.qmd
     - id: id-LLM-Psychometrics
       style: "docked"
       search: false

@@ -1,5 +1,6 @@
 ---
 title: "Reading List 2025"
+sidebar: id-todo
 format: html
 ---
 

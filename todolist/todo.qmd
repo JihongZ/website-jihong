@@ -1,12 +1,19 @@
 ---
 title: "To-do List | Jihong Zhang"
 author: "Jihong Zhang*, Ph.D"
+sidebar: id-todo
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
   
   University of Arkansas
 date: "2025-03-07"
-format: html
+format: 
+  html:
+    code-tools: false
+    grid:
+      sidebar-width: 350px
+      body-width: 900px
+      margin-width: 350px
 ---
 
 ## To-do
