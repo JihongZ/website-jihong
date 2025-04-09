@@ -849,4 +849,4 @@ This gives the **between-subjects sum of squares**.
 
 
 
-## Fin
+# Fin {.unnumbered}

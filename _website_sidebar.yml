@@ -75,6 +75,7 @@ website:
             - teaching/2025-01-13-Experiment-Design/Lecture09/ESRM64103_Lecture09.qmd      
             - teaching/2025-01-13-Experiment-Design/Lecture10/ESRM64103_Lecture10.qmd      
             - teaching/2025-01-13-Experiment-Design/Lecture11/ESRM64103_Lecture11.qmd      
+            - teaching/2025-01-13-Experiment-Design/Lecture12/ESRM64103_Lecture12.qmd      
         - section: "Exercise"
           contents:
             - file: teaching/2025-01-13-Experiment-Design/Lecture01/MakeFriendsWithR.qmd

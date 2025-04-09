@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 // monospace
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
@@ -163,8 +164,8 @@ body, p, li, a{ // main font family of post content
 
 p {
   line-height: 2em;
-  margin-bottom: 2.5em;
-  margin-top: 2.5em;
+  margin-bottom: 2em;
+  margin-top: 2em;
 }
 
 label {
@@ -172,9 +173,10 @@ label {
 }
 
 strong {
-  font-family: "Abel", sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   font-optical-sizing: auto;
-  font-weight: bold;
+  font-weight: 600;
+  font-style: normal;
 }
 
 code.sourceCode { // Source Code
