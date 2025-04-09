@@ -8,23 +8,21 @@ format: html
 
 ## Research Scenario
 
-- **Strength Measure**: CrossFit evaluated strength using the **front squat** across three event types:
-  - **RM1**: One-repetition maximum
-  - **RM4**: Four-repetition maximum
-  - **RM21**: Twenty-one-repetition maximum
-
-- **Study Context**:
-  - RM1, RM4, and RM21 were measured for **athletes in the CrossFit Games quarterfinals**
-
-- **DV**: Average pounds for each type of RM trial using the front squat
-- **Within-subject factor**: Repetition maximum (RM) type (RM1, RM4, RM21)
-- **Research question**: Are there differences in average pounds across RM types?
+-   **Strength Measure**: CrossFit evaluated strength using the **front squat** across three event types:
+    -   **RM1**: One-repetition maximum
+    -   **RM4**: Four-repetition maximum
+    -   **RM21**: Twenty-one-repetition maximum
+-   **Study Context**:
+    -   RM1, RM4, and RM21 were measured for **athletes in the CrossFit Games quarterfinals**
+-   **DV**: Average pounds for each type of RM trial using the front squat
+-   **Within-subject factor**: Repetition maximum (RM) type (RM1, RM4, RM21)
+-   **Research question**: Are there differences in average pounds across RM types?
 
 $$
 H_0: \mu_{RM1} = \mu_{RM4} = \mu_{RM21}
 $$
 
----
+------------------------------------------------------------------------
 
 ## Data Preparation (R code)
 
@@ -89,13 +87,13 @@ cf_long <- sim_data_long %>%
   mutate(RM_type = factor(RM_type, levels = c("RM1", "RM4", "RM21")))
 ```
 
----
+------------------------------------------------------------------------
 
 ## Assumption Checks
 
-- **Normality**: Robust due to CLT
-- **Independence**: Not required (repeated measures)
-- **Sphericity**: Use Mauchly's test
+-   **Normality**: Robust due to CLT
+-   **Independence**: Not required (repeated measures)
+-   **Sphericity**: Use Mauchly's test
 
 ```{r}
 # Sphericity test
@@ -109,11 +107,11 @@ Sphericity is not violated (W = .914, p = .095). We can use standard F-test.
 anova_res$`Sphericity Corrections`
 ```
 
-- If sphericity violated, use the following instead of F-test:
-  - **`GGe`**: Greenhouse-Geisser correction
-  - **`HFe`**: Huynh-Feldt correction
-  
----
+-   If sphericity violated, use the following instead of F-test:
+    -   **`GGe`**: Greenhouse-Geisser correction
+    -   **`HFe`**: Huynh-Feldt correction
+
+------------------------------------------------------------------------
 
 ## ANOVA Results
 
@@ -123,8 +121,7 @@ get_anova_table(anova_res)
 
 The `RM Type` has significant effect on outcome.
 
-
----
+------------------------------------------------------------------------
 
 ## Post-hoc Tests (if needed)
 
@@ -135,15 +132,15 @@ cf_long %>%
 
 To obtain **sum of squares (SS)** for **between-subject** and **within-subject** effects using the `lme4` package in R, you can follow these steps:
 
----
+------------------------------------------------------------------------
 
 ## Mixed ANOVA: RQ2
 
-- **Between-subjects factor**: Gender
-- **Within-subject factor**: RM type
-- **RQ**: Is there a gender × RM type interaction?
+-   **Between-subjects factor**: Gender
+-   **Within-subject factor**: RM type
+-   **RQ**: Is there a gender × RM type interaction?
 
----
+------------------------------------------------------------------------
 
 ## Mixed ANOVA (R code)
 
@@ -155,7 +152,7 @@ mixed_res <- anova_test(
 mixed_res
 ```
 
----
+------------------------------------------------------------------------
 
 ## Follow-up Contrasts
 
@@ -169,44 +166,39 @@ cf_long %>%
                   p.adjust.method = "bonferroni")
 ```
 
----
+------------------------------------------------------------------------
 
 ## Interpretation Summary
 
-- RM1 > RM4 > RM21
-- Significant main effect of RM type
-- Interaction between RM type and gender significant
-- Males lift significantly more than females across all RM types
+-   RM1 \> RM4 \> RM21
+-   Significant main effect of RM type
+-   Interaction between RM type and gender significant
+-   Males lift significantly more than females across all RM types
 
----
+------------------------------------------------------------------------
 
 ## Sphericity Explained
 
-- **Assumption**: Variance of the differences between RM levels are equal
-- **Test**: Mauchly's Test
-- **If violated**:
-  - Use **Greenhouse-Geisser** correction (default conservative choice)
+-   **Assumption**: Variance of the differences between RM levels are equal
+-   **Test**: Mauchly's Test
+-   **If violated**:
+    -   Use **Greenhouse-Geisser** correction (default conservative choice)
 
 ```{r}
 anova_res$`Mauchly's Test for Sphericity`
 ```
 
----
+------------------------------------------------------------------------
 
 ## Conclusion
 
-- Repeated measures ANOVA is powerful when assumptions are met or adjusted
-- Mixed ANOVA enables testing interactions with between-subject factors
-- Use corrected tests (e.g., GG) when sphericity is violated
-
+-   Repeated measures ANOVA is powerful when assumptions are met or adjusted
+-   Mixed ANOVA enables testing interactions with between-subject factors
+-   Use corrected tests (e.g., GG) when sphericity is violated
 
 ### ✅ **Step-by-step Procedure using `lme4`**
 
-We will assume the data is in **long format** (as simulated previously), with variables:
-- `subject`: participant ID
-- `gender`: between-subjects factor (optional)
-- `RM_type`: within-subject factor (e.g., RM1, RM4, RM21)
-- `weight`: outcome variable
+We will assume the data is in **long format** (as simulated previously), with variables: - `subject`: participant ID - `gender`: between-subjects factor (optional) - `RM_type`: within-subject factor (e.g., RM1, RM4, RM21) - `weight`: outcome variable
 
 #### **1. Load required packages**
 
@@ -215,7 +207,7 @@ library(lme4)
 library(lmerTest)  # for p-values and ANOVA
 ```
 
----
+------------------------------------------------------------------------
 
 #### **2. Fit the linear mixed model**
 
@@ -225,10 +217,10 @@ model <- lmer(weight ~ gender + RM_type + (1 | subject), data = sim_data_long)
 summary(model)
 ```
 
-- `RM_type`: fixed effect (within-subject factor)
-- `(1 | subject)`: random intercept for subjects to account for repeated measures
+-   `RM_type`: fixed effect (within-subject factor)
+-   `(1 | subject)`: random intercept for subjects to account for repeated measures
 
----
+------------------------------------------------------------------------
 
 #### **3. Obtain the ANOVA table with Type III SS**
 
@@ -237,11 +229,9 @@ anova_results <- anova(model, type = 3)
 print(anova_results)
 ```
 
-This will provide:
-- **Sum of Squares** for the within-subject effect (`RM_type`)
-- **Mean Squares**, **F-statistics**, and **p-values**
+This will provide: - **Sum of Squares** for the within-subject effect (`RM_type`) - **Mean Squares**, **F-statistics**, and **p-values**
 
----
+------------------------------------------------------------------------
 
 #### **4. Estimate between-subject variability (subject-level random effect)**
 
@@ -254,14 +244,14 @@ VarCorr(model)
 
 You will see something like:
 
-```
+```         
  Groups   Name        Variance Std.Dev.
  subject  (Intercept)  XXX      YYY
  Residual              ZZZ      ...
 ```
 
-- `subject (Intercept)` reflects the **between-subject variability**
-- `Residual` is the **within-subject (error) variance**
+-   `subject (Intercept)` reflects the **between-subject variability**
+-   `Residual` is the **within-subject (error) variance**
 
 To calculate the **sum of squares** for these components, you can multiply the variances by their degrees of freedom (or number of units):
 
@@ -286,10 +276,10 @@ SS_between + SS_within + SS_acrossRM
 SS_total
 ```
 
----
+------------------------------------------------------------------------
 
 ### ✅ Summary Output
 
-- `anova(model)` gives **SS for fixed effects** (within-subject factor)
-- `VarCorr(model)` provides **random effects variance**
-- Manual calculation gives **approximate SS for between- and within-subject variability**
+-   `anova(model)` gives **SS for fixed effects** (within-subject factor)
+-   `VarCorr(model)` provides **random effects variance**
+-   Manual calculation gives **approximate SS for between- and within-subject variability**

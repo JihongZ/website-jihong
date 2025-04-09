@@ -9,6 +9,8 @@ tbl-cap-location: top
 citation:
   type: webpage
   issued: 2025-03-07
+execute: 
+  cache: true  
 format: 
   html:
     code-tools: false
@@ -154,8 +156,10 @@ Resource: <https://platform.openai.com/docs/guides/conversation-state?api-mode=r
 
 The idea is creating a dynamic R vectors. The appended R string can change LLM conversation state including history.
 
+In OpenAI, the `previous_response_id` parameter was used to chain responses and create a threaded conversation.
+
 ```{python}
-#| cache: true
+#| results: asis
 from openai import OpenAI
 
 client = OpenAI()
@@ -169,30 +173,16 @@ def get_conversation(history):
     
   return history
 
-history = [{"role": "user", "content": "tell me a joke"}]
+history = [{"role": "user", "content": "Can your generate one 6-Likert scale item response with item difficult as 2 for a persoon with 1 standard deviation factor score?"}]
 res = get_conversation(history)
-res[1]['content'][0].text
+print(res[1]['content'][0].text)
 
-res.append({"role": "user", "content": "tell me another"})
+# A second response will be like:
+res.append({"role": "user", "content": "Can your generate another 6-Likert scale item response with item difficult as 2 and item discrimination as 1 for a persoon with 2 standard deviation factor score?"})
 res2 = get_conversation(res)
-res2[3]['content'][0].text
+print(res2[3]['content'][0].text)
 ```
 
-```{r}
-#| eval: false
-library(reticulate)
-library(jsonlite)
-history <- c("role" = "user", "content" = "tell me a joke")
-history_json <- toJSON(history)
-
-py_to_r(py$get_conversation(history_json))
-
-# The first joke
-res <- py$get_conversation(history_json)
-
-## The second joke
-history2 <- toJSON(list(history, c("role" = "user", "content" = "tell me a joke")))
-```
 
 ## Example 1: Construct LLM function calling with Python and R
 
