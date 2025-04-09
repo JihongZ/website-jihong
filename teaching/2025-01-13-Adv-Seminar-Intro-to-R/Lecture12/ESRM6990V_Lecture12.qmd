@@ -12,17 +12,12 @@ format:
     code-tools: true
     code-line-numbers: false
     code-fold: false
+    toc-location: left
     number-offset: 0
-  uark-revealjs:
-    scrollable: true
-    chalkboard: true
-    embed-resources: false
-    code-fold: false
-    number-sections: false
-    footer: "ESRM 64503 - Lecture 03: Object/Function/Package"
-    slide-number: c/t
-    tbl-colwidths: auto
-    output-file: slides-index.html
+    grid:
+      sidebar-width: 250px
+      body-width: 1300px
+      margin-width: 50px
 ---
 
 # Introduction to Git and GitHub
@@ -81,6 +76,41 @@ git config --global user.email "youremail@example.com"
 
 ------------------------------------------------------------------------
 
+## A More user-friendly method - GitHub Desktop
+
+```{r}
+#| eval: true
+#| echo: false
+htmltools::tags$iframe(
+  src = "https://www.youtube.com/embed/CAwStH0ay-M?si=Iie97MNxKGD1NhsR",
+  scrolling = "no", 
+  seamless = "seamless",
+  frameborder = "0",
+  width="100%", 
+  height="769"
+)
+```
+
+------------------------------------------------------------------------
+
+## GitHub Desktop: Commit Existing Folder
+
+```{r}
+#| eval: true
+#| echo: false
+
+htmltools::tags$iframe(
+  src="https://www.youtube.com/embed/unoUc1LNFtY?si=8Ck-8dMeVCujo_l-",
+  scrolling = "no", 
+  seamless = "seamless",
+  frameborder = "0",
+  width="100%", 
+  height="769"
+)
+```
+
+# Git Terminal
+
 ## Creating a GitHub Repository
 
 1.  Go to [GitHub](https://github.com).
@@ -95,17 +125,18 @@ git config --global user.email "youremail@example.com"
 Once the repository is created on GitHub, follow these steps to clone it to your local machine.
 
 1.  Copy the repository URL from GitHub.
+
 2.  In your terminal, type:
 
-``` bash
-git clone https://github.com/yourusername/yourrepository.git
-```
+    ``` bash
+    git clone https://github.com/yourusername/yourrepository.git
+    ```
 
 3.  Navigate into the repository:
 
-``` bash
-cd yourrepository
-```
+    ``` bash
+    cd yourrepository
+    ```
 
 ------------------------------------------------------------------------
 
@@ -262,6 +293,23 @@ Now that the changes are committed locally, you can push them to GitHub.
 ![](images/clipboard-131139395.png)
 
 ------------------------------------------------------------------------
+
+## Example: Create a new github repository
+
+-   You start with a new project
+
+```{r}
+#| eval: true
+#| echo: false
+htmltools::tags$iframe(
+  src = "https://www.youtube.com/embed/nMvNe3PdO_M?si=Xza9Ybp_BjJMgAZz",
+  scrolling = "no", 
+  seamless = "seamless",
+  frameborder = "0",
+  width="100%", 
+  height="769"
+  )
+```
 
 ## Conclusion
 

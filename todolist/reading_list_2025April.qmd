@@ -1,0 +1,38 @@
+---
+title: "Reading List 2025"
+format: html
+---
+
+## AI in Education
+
+@. Cheng, Y., Zhang, C., Zhang, Z., Meng, X., Hong, S., Li, W., Wang, Z., Wang, Z., Yin, F., Zhao, J., & He, X. (2024). Exploring Large Language Model based Intelligent Agents: Definitions, Methods, and Prospects (No. arXiv:2401.03428). arXiv. https://doi.org/10.48550/arXiv.2401.03428
+@. Huang, J., Jiao, W., Lam, M. H., Li, E. J., Wang, W., & Lyu, M. R. (2024). Revisiting the Reliability of Psychological Scales on Large Language Models (No. arXiv:2305.19926). arXiv. https://doi.org/10.48550/arXiv.2305.19926
+@. Huang, J., Wang, W., Li, E. J., Lam, M. H., Ren, S., Yuan, Y., Jiao, W., Tu, Z., & Lyu, M. R. (2024). Who is ChatGPT? Benchmarking LLMs’ Psychological Portrayal Using PsychoBench (No. arXiv:2310.01386). arXiv. https://doi.org/10.48550/arXiv.2310.01386
+@. Jiang, H., Zhang, X., Cao, X., Breazeal, C., Roy, D., & Kabbara, J. (2024). PersonaLLM: Investigating the Ability of Large Language Models to Express Personality Traits (No. arXiv:2305.02547). arXiv. https://doi.org/10.48550/arXiv.2305.02547
+@. Li, Y., Huang, Y., Wang, H., Zhang, X., Zou, J., & Sun, L. (2024). Quantifying AI Psychology: A Psychometrics Benchmark for Large Language Models (No. arXiv:2406.17675). arXiv. https://doi.org/10.48550/arXiv.2406.17675
+@. Liu, Y., Bhandari, S., & Pardos, Z. A. (2024). Leveraging LLM-Respondents for Item Evaluation: A Psychometric Analysis (No. arXiv:2407.10899). arXiv. https://doi.org/10.48550/arXiv.2407.10899
+@. Olson, K., Smyth, J. D., Dykema, J., Holbrook, A. L., Kreuter, F., & West, B. T. (2020). The past, present, and future of research on interviewer effects. In Interviewer effects from a total survey error perspective (pp. 3–16). Chapman and Hall/CRC. https://www.taylorfrancis.com/chapters/edit/10.1201/9781003020219-2/past-present-future-research-interviewer-effects-kristen-olson-jolene-smyth-jennifer-dykema-allyson-holbrook-frauke-kreuter-brady-west
+@. Ongena, Y. P., & Dijkstra, W. (2021). Advances in research on survey interview interaction. International Journal of Social Research Methodology, 24(2), 177–179. https://doi.org/10.1080/13645579.2020.1824625
+@. Parker, M. J., Anderson, C., Stone, C., & Oh, Y. (2024). A Large Language Model Approach to Educational Survey Feedback Analysis. International Journal of Artificial Intelligence in Education. https://doi.org/10.1007/s40593-024-00414-0
+@. Serapio-García, G., Safdari, M., Crepy, C., Sun, L., Fitz, S., Romero, P., Abdulhai, M., Faust, A., & Matarić, M. (2023). Personality Traits in Large Language Models (No. arXiv:2307.00184). arXiv. https://doi.org/10.48550/arXiv.2307.00184
+@. Wang, P., Zou, H., Yan, Z., Guo, F., Sun, T., Xiao, Z., & Zhang, B. (2024). Not Yet: Large Language Models Cannot Replace Human Respondents for Psychometric Research. OSF. https://doi.org/10.31219/osf.io/rwy9b
+@. Xu, S., & Zhang, X. (2023). Leveraging generative artificial intelligence to simulate student learning behavior (No. arXiv:2310.19206). arXiv. https://doi.org/10.48550/arXiv.2310.19206
+@. Zou, Z., Mubin, O., Alnajjar, F., & Ali, L. (2024). A pilot study of measuring emotional response and perception of LLM-generated questionnaire and human-generated questionnaires. Scientific Reports, 14(1), 2781. https://doi.org/10.1038/s41598-024-53255-1
+
+## Psychological Network Analysis in Education
+
+@. Blanken, T. F., Van Der Zweerde, T., Van Straten, A., Van Someren, E. J. W., Borsboom, D., & Lancee, J. (2019). Introducing Network Intervention Analysis to Investigate Sequential, Symptom-Specific Treatment Effects: A Demonstration in Co-Occurring Insomnia and Depression. Psychotherapy and Psychosomatics, 88(1), 52–54. https://doi.org/10.1159/000495045
+@. Bork, R. van, Lunansky, G., & Borsboom, D. (2024). Measurement Targets for Network Constructs in Psychopathology. Preprint. https://doi.org/10.31234/osf.io/2k34t
+@. Borsboom, D. (2002). The Structure of the DSM. Archives of General Psychiatry, 59(6), 569–570.
+@. Borsboom, D. (2008). Psychometric perspectives on diagnostic systems. Journal of Clinical Psychology, 64(9), 1089–1108. https://doi.org/10.1002/jclp.20503
+@. Borsboom, D. (2017). A network theory of mental disorders. World Psychiatry, 16(1), 5–13. https://doi.org/10.1002/wps.20375
+@. Borsboom, D. (2022). Possible futures for network psychometrics. Psychometrika, 87(1), 253–265. https://doi.org/10.1007/s11336-022-09851-z
+@. Borsboom, D., & Cramer, A. O. J. (2013). Network analysis: An integrative approach to the structure of psychopathology. Annual Review of Clinical Psychology, 9, 91–121. https://doi.org/10.1146/annurev-clinpsy-050212-185608
+@. Borsboom, D., Deserno, M. K., Rhemtulla, M., Epskamp, S., Fried, E. I., McNally, R. J., Robinaugh, D. J., Perugini, M., Dalege, J., Costantini, G., Isvoranu, A.-M., Wysocki, A. C., van Borkulo, C. D., van Bork, R., & Waldorp, L. J. (2021). Network analysis of multivariate data in psychological science. Nature Reviews Methods Primers, 1(1), Article 1. https://doi.org/10.1038/s43586-021-00055-w
+@. Christensen, A. P., Garrido, L. E., & Golino, H. (2023). Unique Variable Analysis: A Network Psychometrics Method to Detect Local Dependence. Multivariate Behavioral Research, 58(6), 1165–1182. https://doi.org/10.1080/00273171.2023.2194606
+@. Christensen, A. P., Garrido, L. E., Guerra-Peña, K., & Golino, H. (2024). Comparing community detection algorithms in psychometric networks: A Monte Carlo simulation. Behavior Research Methods, 56(3), 1485–1505. https://doi.org/10.3758/s13428-023-02106-4
+@. Epskamp, S. (2020). Psychometric network models from time-series and panel data. Psychometrika, 85(1), 206–231. https://doi.org/10.1007/s11336-020-09697-3
+@. Epskamp, S. (2023). psychonetrics: Structural Equation Modeling and Confirmatory Network Analysis (Version 0.11.5) [Computer software]. https://cran.r-project.org/web/packages/psychonetrics/index.html
+@. Epskamp, S., Borsboom, D., & Fried, E. I. (2018). Estimating psychological networks and their accuracy: A tutorial paper. Behavior Research Methods, 50(1), 195–212. https://doi.org/10.3758/s13428-017-0862-1
+@. Epskamp, S., & Fried, E. I. (2018). A tutorial on regularized partial correlation networks. Psychological Methods, 23, 617–634. https://doi.org/10.1037/met0000167
+
