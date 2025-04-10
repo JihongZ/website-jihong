@@ -318,6 +318,257 @@ htmltools::tags$iframe(
 3.  **Add the `README.md`** file into the repository
 4.  **Stage, commit**, and **push** the changes back to GitHub.
 
+# Now you prepared all skills for R project
+
+## TidyTuesday Project
+
+![](images/tt_logo.png)
+
+Tidytuesday is a weekly social data project that provide a dataset every Tuesday for data scientists to visualize, dashboard, develop shiny app (["tidytuesday GitHub"](https://github.com/rfordatascience/tidytuesday)).
+
+::: rmdquote
+-   Data is posted to social media every Monday morning.
+-   Explore the data, watching out for interesting relationships.
+-   Create a visualization, a model, a Quarto report, a shiny app, or some other piece of data-science-related output, using R, Python, or another programming language.
+-   Share your output and the code used to generate it on social media with the #TidyTuesday hashtag.
+:::
+
+## Today Let's Play with the data
+
+**Project Plan**
+
+-   Step 1: Create a new Git Repo with the name `ttw13-pokemon`
+
+-   Step 2: Pull the repo into local
+
+-   Step 3: Create a R Project using Rstudio
+
+-   Step 4: Authoring: `.R` file to store functions and `.qmd` file to report your results.
+
+-   Step 5: Push your local changes into GitHub for others to review.
+
+![](images/clipboard-3082418888.png)
+
+------------------------------------------------------------------------
+
+### Step 1: Create a new repository
+
+::: panel-tabset
+#### Creation
+
+![](images/clipboard-2331666406.png)
+
+#### Screenshot
+
+![](images/clipboard-3961907120.png)
+:::
+
+### Step 2: Pull the Repo to the Local
+
+::: panel-tabset
+#### Step 2.1
+
+Open up GitHub Desktop, Click `Current Repository` \> `Add` \> `Clone Repositoty`.
+
+![](images/clipboard-2263758270.png)
+
+#### Step 2.2
+
+In the pop-up window, search `poke`, then your Repository just created will show up. Click `Choose` to change the `Local Path` where you want to store your project, then click `Clone`.
+
+![](images/clipboard-1958824580.png)
+
+#### Step 2.3
+
+Open you File Management, you shall see a folder named `ttw13-pokemon`.
+
+![](images/clipboard-758987797.png)
+:::
+
+### Step 3: Create R Project
+
+::: panel-tabset
+#### Step 3.1
+
+![](images/clipboard-1596156871.png)
+
+#### Step 3.2
+
+![](images/clipboard-1449531618.png)
+
+#### Step 3.3
+
+![](images/clipboard-3907598938.png)
+
+#### Step 3.4
+
+Create a Quarto Document called `pokemon`, and a R file called `pokemon_funs`.
+
+![](images/clipboard-2848164523.png)
+
+#### Step 3.5
+
+![](images/clipboard-2863727634.png)
+:::
+
+### Step 4: Authoring Quarto and R file
+
+::: panel-tabset
+#### Step 4.1
+
+Open up your `pokemon.qmd` file, in the begining of your file, replace the YAML with the followings:
+
+``` yaml
+---
+title: "Pokemon Data Visualization and Analysis with R"
+author: "Jihong Zhang"
+date: "2025-04-10"
+format: pdf
+---
+```
+
+#### Step 4.2
+
+Still in `pokemon.qmd` file, cope and paste the following markdown text after the YAML header:
+
+``` markdown
+# Motivation
+
+Pokemon is a global icon. It is a TV series that expanded into video games, Pokemon cards/collectibles, and merchandise that made it into a multimillion dollar franchise. Growing up, Pokemon was one of my favorite shows and to this day, it remains one of the fondest memories from my childhood.
+
+# Research Question
+
+Before I begin my project, I should know what I am doing and how to do it. This quarter, I am in my first *Introduction to R* course so my project directly applies the course material. I utilized my lecture notes to learn the technicalities of coding it and the mathematics behind each line I wrote.
+
+After doing my research, I took this approach to solve my own problem: **Could I predict battle outcomes?**
+
+My report is organized into the following section:
+
+1. Loading the Data Set
+
+2. Data Visualization
+
+3. Linear Regression.
+```
+
+#### Step 4.3
+
+Click ![](images/clipboard-2497746264.png)button, do you see a PDF file in the `Viewer` panel?
+
+![](images/clipboard-27660231.png)
+
+#### Step 4.4
+
+Open up `pokemon_funs.R`, write up and test your R code including data importing, data visualization and modeling code.
+
+Check the Tidytuesday's Document – [Pokemon dataset](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-01/readme.md) to know more details about the sampled data.
+
+As an example, copy and paste the following code.
+
+```{r filename="pokemon_funs.R"}
+#| eval: false
+# Using R
+# Option 1: tidytuesdayR R package 
+## install.packages("tidytuesdayR")
+if( !require(GGally)){
+  install.packages("GGally")
+}
+if( !require(tidyverse)){
+  install.packages("tidyverse")
+}
+
+data_url <- 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-01/pokemon_df.csv'
+pokemon <- readr::read_csv(data_url, col_select = c("id", "pokemon", "type_1", "type_2",  "hp", "attack", "defense", "special_attack", "special_defense", "speed"))
+NewNames <- c('Number', 'Names', 'Type1', 'Type2', 'HP', 'Attack', 'Defense', 'SpAttack', 'SpDefense', 'Speed')
+names(pokemon) <- NewNames
+
+cols_to_check <- c("HP", "Attack", "Defense", "SpAttack", "SpDefense", "Speed")
+pokemon[, cols_to_check]
+
+
+fig1 <- ggplot(data=pokemon, mapping=aes(x=Attack, y=Defense, color=Type1))+
+  geom_boxplot()+
+  coord_flip()
+
+fig2 <- ggpairs(pokemon, columns = 5:10)
+
+
+## Linear regression
+model1= lm(HP ~ Speed + Attack + Defense + SpAttack + SpDefense, data=pokemon)
+
+tbl1 <- summary(model1)$coefficients
+```
+
+#### Step 4.5
+
+After you are satisfied with your data analysis results, write up your Quarto markdown to combine your interpretion and computational results togethor.
+
+As one example, copy the following text and append it to the end of your Quarto file --- `pokemon.qmd`.
+
+```{r, filename="pokemon.qmd"}
+#| eval: false
+
+## Data Visualization
+
+Data visualization is a powerful tool. @fig-boxplot shows the characteristics by their Types.
+
+#| message: false
+#| echo: false
+#| fig-cap: "Boxplot of denfense and attack by their types"
+#| label: fig-boxplot
+source("pokemon_funs.R")
+fig1
+
+Second, I check out the relationships among six dimensions of information of Pokemon using pairwise scatterplot. As shown in @fig-scatter, I did not see clear relationships.
+
+#| message: false
+#| echo: false
+#| fig-cap: "Pairwise scatterplot"
+#| label: fig-scatter
+fig2
+
+## Linar Regression Results
+
+#| echo: false
+#| label: tbl-regression
+#| tbl-cap: "Linear regression of six indices on HP"
+kableExtra::kable(tbl1)
+
+As @tbl-regression shows, *Speed* and *Defense* have negative effects on *HP*, while *Attack* has positive effect on Pokemon's HP. *Defense* has no significant relationship with *HP*.
+
+## Conclusion
+
+With this project, I achieved a lot of firsts. It was the first time that I worked with such a large dataset. Not only were there 800 observations, but there were also 12 different variables. This meant I had a lot to play around with and explore, but also there was room for a lot of error.
+
+It was also the first time I have worked with multiple linear regression. I am accustomed to performing linear regression analysis on the relationship between two variables, so working with eight was a new challenge.
+```
+:::
+
+### Step 5: Push your local changes into GitHub
+
+::: panel-tabset
+#### Step 5.1
+
+Go back to GitHub Desktop, you will see changes in files.
+
+Add commit messages at the bottom left — "Add .qmd and .R into repo". Click `Commit to main`.
+
+![](images/clipboard-2765692310.png)
+
+#### Step 5.2
+
+Click `Push origin` to push it to the GitHub
+
+![](images/clipboard-2933292089.png)
+
+#### Step 5.3
+
+You should see the updated GitHub repo including changed files and documents. 
+
+![](images/clipboard-876647728.png)
+
+:::
+
 ## Conclusion
 
 -   Git and GitHub are essential tools for version control and collaboration.
