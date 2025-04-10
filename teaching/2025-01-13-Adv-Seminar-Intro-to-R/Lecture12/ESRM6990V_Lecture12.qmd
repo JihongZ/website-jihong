@@ -56,13 +56,16 @@ format:
 ## Setting Up Git
 
 1.  Install Git on your computer
-    -   [Git Downloads](https://git-scm.com/downloads)
-2.  Configure Git
+    -   [Git Download](https://git-scm.com/downloads)
+2.  Configure Git in your terminal
 
 ``` bash
 git config --global user.name "Your Name"
 git config --global user.email "youremail@example.com"
 ```
+
+3.  Install GitHub Desktop
+    -   [GitHub Desktop Download](https://github.com/apps/desktop)
 
 ------------------------------------------------------------------------
 
