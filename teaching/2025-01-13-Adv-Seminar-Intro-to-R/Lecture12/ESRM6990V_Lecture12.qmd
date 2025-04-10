@@ -542,6 +542,26 @@ With this project, I achieved a lot of firsts. It was the first time that I work
 
 It was also the first time I have worked with multiple linear regression. I am accustomed to performing linear regression analysis on the relationship between two variables, so working with eight was a new challenge.
 ```
+
+#### Step 4.6
+
+Update your `README.md` file to illustrate your purpose and how to use your repo.
+
+As an example:
+
+``` markdown
+# ttw13-pokemon
+
+Tidytuesday Project Week 13 - Pokemon
+
+# Introduction
+
+I downloaded the Pokemon. Visualized the data to understanding the relationships among HP and other indices.
+
+# File Structure
+
+You can open `pokemon.qmd` to see the report. Alternatively, You can check `pokemon.pdf`.
+```
 :::
 
 ### Step 5: Push your local changes into GitHub
@@ -563,10 +583,9 @@ Click `Push origin` to push it to the GitHub
 
 #### Step 5.3
 
-You should see the updated GitHub repo including changed files and documents. 
+You should see the updated GitHub repo including changed files and documents.
 
-![](images/clipboard-876647728.png)
-
+![](images/clipboard-4112720816.png)
 :::
 
 ## Conclusion
