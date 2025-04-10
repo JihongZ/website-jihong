@@ -12,7 +12,7 @@ format:
     code-tools: false
     code-fold: false
     comments: false
-freeze: false    
+freeze: true
 ---
 
 ```{r setup}
