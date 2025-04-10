@@ -67,6 +67,11 @@ git config --global user.email "youremail@example.com"
 3.  Install GitHub Desktop
     -   [GitHub Desktop Download](https://github.com/apps/desktop)
 
+```{=html}
+<blockquote class="reddit-embed-bq" data-embed-showtitle="true" data-embed-context="1" data-embed-depth="2" data-embed-theme="dark" data-embed-showusername="false" data-embed-height="296"><a href="https://www.reddit.com/r/git/comments/msznyy/comment/guws2du/">Comment</a><br> by<a href="https://www.reddit.com/user/Electronic_Ad2207/">u/Electronic_Ad2207</a> from discussion<a href="https://www.reddit.com/r/git/comments/msznyy/is_git_necessary_when_theres_github_desktop/"></a><br> in<a href="https://www.reddit.com/r/git/">git</a></blockquote><script async="" src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>
+<blockquote class="reddit-embed-bq" data-embed-theme="dark" data-embed-showusername="false" data-embed-height="412"><a href="https://www.reddit.com/r/git/comments/msznyy/comment/guwm8x3/">Comment</a><br> by<a href="https://www.reddit.com/user/Electronic_Ad2207/">u/Electronic_Ad2207</a> from discussion<a href="https://www.reddit.com/r/git/comments/msznyy/is_git_necessary_when_theres_github_desktop/"></a><br> in<a href="https://www.reddit.com/r/git/">git</a></blockquote><script async="" src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>
+```
+
 ------------------------------------------------------------------------
 
 ## Basic Git Commands
@@ -77,40 +82,6 @@ git config --global user.email "youremail@example.com"
 -   `git status`: Check the status of your files
 -   `git log`: View commit history
 
-------------------------------------------------------------------------
-
-## A More user-friendly method - GitHub Desktop
-
-```{r}
-#| eval: true
-#| echo: false
-htmltools::tags$iframe(
-  src = "https://www.youtube.com/embed/CAwStH0ay-M?si=Iie97MNxKGD1NhsR",
-  scrolling = "no", 
-  seamless = "seamless",
-  frameborder = "0",
-  width="100%", 
-  height="769"
-)
-```
-
-------------------------------------------------------------------------
-
-## GitHub Desktop: Commit Existing Folder
-
-```{r}
-#| eval: true
-#| echo: false
-
-htmltools::tags$iframe(
-  src="https://www.youtube.com/embed/unoUc1LNFtY?si=8Ck-8dMeVCujo_l-",
-  scrolling = "no", 
-  seamless = "seamless",
-  frameborder = "0",
-  width="100%", 
-  height="769"
-)
-```
 
 # Git Terminal
 
@@ -296,6 +267,39 @@ Now that the changes are committed locally, you can push them to GitHub.
 ![](images/clipboard-131139395.png)
 
 ------------------------------------------------------------------------
+## A More user-friendly method - GitHub Desktop
+
+```{r}
+#| eval: true
+#| echo: false
+htmltools::tags$iframe(
+  src = "https://www.youtube.com/embed/CAwStH0ay-M?si=Iie97MNxKGD1NhsR",
+  scrolling = "no", 
+  seamless = "seamless",
+  frameborder = "0",
+  width="100%", 
+  height="769"
+)
+```
+
+------------------------------------------------------------------------
+
+## GitHub Desktop: Commit Existing Folder
+
+```{r}
+#| eval: true
+#| echo: false
+
+htmltools::tags$iframe(
+  src="https://www.youtube.com/embed/unoUc1LNFtY?si=8Ck-8dMeVCujo_l-",
+  scrolling = "no", 
+  seamless = "seamless",
+  frameborder = "0",
+  width="100%", 
+  height="769"
+)
+```
+
 
 ## Example: Create a new github repository
 
