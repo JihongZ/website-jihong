@@ -147,9 +147,9 @@ $breadcrumb-border-radius:  0.30em;
 
 h1, h2 {text-transform: capitalize;}
 
-h1, h2, h3, .callout-title-container {
-  font-family: "Inter", sans-serif;
-  letter-spacing: 1.5px;
+h1, h2, h2#toc-title, h3, h4, .callout-title-container {
+  font-family: "Roboto Condensed", sans-serif;
+  letter-spacing: 1.2px;
   font-weight: normal;
 }
 

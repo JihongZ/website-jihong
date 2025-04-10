@@ -12,6 +12,7 @@ format:
     toc-expand: true
     toc-location: left
     page-layout: article
+    code-tools: false
     grid:
       sidebar-width: 350px
       body-width: 900px

@@ -17,7 +17,7 @@ format:
     code-line-numbers: false
     code-fold: false
     code-summary: "Click to see R code"
-    number-offset: 1
+    number-sections: true
     fig.width: 10
     fig-align: center
     message: false
@@ -29,7 +29,7 @@ format:
     code-fold: false
     number-sections: true
     number-depth: 1
-    footer: "ESRM 64503"
+    footer: "ESRM 64103"
     slide-number: c/t
     tbl-colwidths: auto
     scrollable: true
@@ -49,7 +49,7 @@ format:
 
 # Introduction
 
-## Introduction - Overview other design
+## Introduction: Overview other design
 
 -   **The ANOVA designs we have been talking about use experimental control (e.g., our research design) in order to reduce error variance.**
     -   ✔ Example: In the one-way ANOVA tutoring example, we thought that there might be another factor explaining math scores beyond just tutoring program (factor A).
@@ -59,7 +59,7 @@ format:
     -   ✔ Between-subjects design (i.e., N-way ANOVA)
     -   ✔ Within-subjects design (i.e., repeated measures)
 
-## Introduction - ANCOVA
+## Introduction: ANCOVA
 
 -   What we will discuss today is a **statistical control for reducing the variance due to error**.
 

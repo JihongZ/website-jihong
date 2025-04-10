@@ -311,6 +311,13 @@ htmltools::tags$iframe(
   )
 ```
 
+### Steps for Students to Follow:
+
+1.  **Create a new GitHub repository**.
+2.  **Clone the repository** to their local machine using `git clone`.
+3.  **Add the `README.md`** file into the repository
+4.  **Stage, commit**, and **push** the changes back to GitHub.
+
 ## Conclusion
 
 -   Git and GitHub are essential tools for version control and collaboration.
@@ -322,13 +329,3 @@ htmltools::tags$iframe(
 ## Questions?
 
 Feel free to ask any questions or explore Git and GitHub further!
-
-### Steps for Students to Follow:
-
-1.  **Create a new GitHub repository**.
-2.  **Clone the repository** to their local machine using `git clone`.
-3.  **Make a change** to a file (e.g., creating or modifying a text file).
-4.  **Stage, commit**, and **push** the changes back to GitHub.
-5.  **Fork, branch, and create pull requests** for collaborative work.
-
-This example should provide a full workflow for students to practice, from creating a repository to collaborating on projects. Let me know if you need further modifications!
