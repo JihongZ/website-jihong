@@ -95,8 +95,6 @@ $danger: #9A4665;
 $caution: #EE6331;
 
 $body-bg: $soft-color1; // body background color
-// $sidebar-bg: $dan-feng;
-// $sidebar-hl: $hutao-hong;
 $code-bg: #eef1e0; // code block's bg
 $code-color: var(--bs-code-color);
 $body-color: #404041;
@@ -167,6 +165,13 @@ p {
   line-height: 2em;
   margin-bottom: 2em;
   margin-top: 2em;
+  em {
+    text-decoration-line: underline;
+    text-decoration-color: $gray;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 1px;
+    text-decoration-skip-ink: none; // overthorough the text
+  }
 }
 
 li {
@@ -209,10 +214,13 @@ p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
 div.quarto-title-banner {
   border-radius: 12px;
 }
+
+/* Quarto text block */
 div.quarto-title.column-body {
   h1 {
-    font-family: "Abel";
+    font-family: "Roboto Condensed", sans-serif;
     font-size: 1.7rem;
+    font-weight: 500;
   }
   display: block;
   border: 1px solid $gray;
@@ -226,7 +234,7 @@ div.quarto-title.column-body {
 
 div.quarto-post a {
   color: $shen-qing;
-  text-decoration: none;
+  //text-decoration: none;
 }
 
 /* Source Code  */

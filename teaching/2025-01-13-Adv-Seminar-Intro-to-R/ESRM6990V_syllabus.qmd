@@ -10,7 +10,7 @@ draft-mode: unlinked
 sidebar: id-lec6990v
 format: 
   html:
-    code-tools: true
+    code-tools: false
     code-line-numbers: false
 format-links:
   - html

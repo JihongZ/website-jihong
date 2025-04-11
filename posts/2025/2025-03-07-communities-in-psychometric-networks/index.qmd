@@ -99,7 +99,7 @@ qgraph::qgraph(getmatrix(mod1, "omega"),
 ```
 :::
 
-## Big Problem in the network
+## Big problem in the network analysis
 
 [A]{.bigger}s said in Eiko's post [@friedTutorialHowIdentify2016] and I cited here – authors sometimes *over-interpret* the network visualization of their data that some meaningful modules exist. This over-interpretation may have Type I error (mistakenly cluster nodes with actually weak connections in a community) or Type II error (fail to cluster nodes with strong connection into a community). In other words, researchers found that relying on visual inspection of network structure can not obtain reliable conclusion about which nodes should be clustered together and which ones should not be clustered, especially in a complicated network structure (say \> 20 nodes).
 
@@ -140,7 +140,7 @@ Relationships among theory, statistical model, and data ![](theory_model.png){fi
 Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
 | Algorithm | Feature | Citation |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Walktrap | random walks | @ponsComputingCommunitiesLarge2006 |
 | Infomap | random walks | @rosvallMapsRandomWalks2008 |
 | Fast-greedy | hierarchical clustering; modularity-based | @clausetFindingCommunityStructure2004 |
