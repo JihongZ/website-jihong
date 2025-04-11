@@ -23,6 +23,13 @@
     font-weight: 400;
     font-style: normal;
   }
+
+@font-face {
+    font-family: 'FZFWZhuZiAYuanJW Bold';
+    src: url('./fonts/FZFWZhuZiAYuanJW/FZFWZhuZiAYuanJWB.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
 @font-face {
     font-family: 'MiSans';
     src: local('MiSans Regular'), local('MiSans-Regular'),
@@ -40,7 +47,7 @@
          url('./fonts/MiSans/MiSans-Bold.ttf') format('truetype');
     font-weight: 400;
     font-style: bold;
-  }  
+  }
 @font-face {
     font-family: 'Taub Sans';
     src: local('Taub Sans Regular'), local('Taub-Sans-Regular'),
@@ -62,6 +69,7 @@
 
 /*-- scss:uses --*/
 // colors
+// https://getbootstrap.com/docs/5.1/customize/sass/
 $blue: #447099;
 $orange: #EE6331;
 $green: #72994E;
@@ -106,8 +114,16 @@ $link-hover-color: $orange;
 $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
-//*Reference: https://rpubs.com/drgregmartin/1266676*//
 //* Enhanced Navbar Styles */
+a.nav-link.active { // active navigation tab styling
+    background-image: url(images/qinghua_bian.png);
+    background-size: 100% 100%;
+    .menu-text{
+        color: $headings-color;
+        font-family: "FZFWZhuZiAYuanJW Bold";
+    }
+}
+
 .navbar, .quarto-banner, nav.quarto-secondary-nav {
   background-color: transparent !important;
   backdrop-filter: blur(5px) !important;
@@ -115,15 +131,15 @@ $breadcrumb-border-radius:  0.30em;
   padding-bottom: 5px !important;
 }
 
-.navbar > .container, 
-.navbar > .container-fluid, 
-.navbar > .container-sm, 
-.navbar > .container-md, 
-.navbar > .container-lg, 
-.navbar > .container-xl, 
+.navbar > .container,
+.navbar > .container-fluid,
+.navbar > .container-sm,
+.navbar > .container-md,
+.navbar > .container-lg,
+.navbar > .container-xl,
 .navbar > .container-xxl {
-  padding-left: 10vw;  
-  padding-right: 10vw;  
+  padding-left: 10vw;
+  padding-right: 10vw;
 }
 
 /* Responsive Navbar for Mobile */
@@ -131,7 +147,7 @@ $breadcrumb-border-radius:  0.30em;
     .navbar {
         padding: 10px;
     }
-    .navbar > .container, 
+    .navbar > .container,
     .navbar > .container-fluid {
         padding-left: 5vw;
         padding-right: 5vw;
@@ -258,10 +274,10 @@ button.code-copy-button {
   margin: 0px;
 }
 
-pre.sourceCode.r::before, 
+pre.sourceCode.r::before,
 pre.sourceCode.python::before,
-pre.sourceCode.yaml::before, 
-pre.sourceCode.markdown::before, 
+pre.sourceCode.yaml::before,
+pre.sourceCode.markdown::before,
 pre.sourceCode.bash::before {
   font-family: "MiSans", sans-serif;
   font-weight: bold;
@@ -272,10 +288,10 @@ pre.sourceCode.bash::before {
   padding: 1px 1px;
 }
 
-pre.sourceCode.r, 
+pre.sourceCode.r,
 pre.sourceCode.python,
-pre.sourceCode.yaml, 
-pre.sourceCode.markdown, 
+pre.sourceCode.yaml,
+pre.sourceCode.markdown,
 pre.sourceCode.bash {
   font-size: var(--bs-body-font-size);
   border-radius: 4px;
@@ -573,7 +589,7 @@ p {
   counter-increment: section;
   position: relative;
   color: $black-tl;
-  
+
   //numbers
   &:before {
     content: counter(section);
@@ -594,9 +610,9 @@ p {
 p:nth-child(odd) {
   border-right: 3px solid;
   padding-left: 0px;
-  
+
   &:before {
-    left: 100%; 
+    left: 100%;
     margin-left: -15px;
   }
 }
@@ -605,9 +621,9 @@ p:nth-child(odd) {
 p:nth-child(even) {
   border-left: 3px solid;
   padding-right: 0;
-  
+
   &:before {
-    right: 100%; 
+    right: 100%;
     margin-right: -15px;
   }
 }

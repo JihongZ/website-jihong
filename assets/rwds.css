@@ -5,10 +5,10 @@
 
 /* Cursor Customization */
 body {
-  cursor: url("https://img.icons8.com/?size=20&id=vTiD01dSnldt&format=png&color=000000"), auto;    
+  cursor: url("https://img.icons8.com/?size=20&id=vTiD01dSnldt&format=png&color=000000"), auto;
 }
 a:link {
-  cursor: url("https://img.icons8.com/?size=20&id=42917&format=png&color=000000"), auto;    
+  cursor: url("https://img.icons8.com/?size=20&id=42917&format=png&color=000000"), auto;
 }
 .code-copy-button {
   cursor: url("https://img.icons8.com/?size=20&id=42917&format=png&color=000000"), auto;
@@ -22,7 +22,7 @@ a:link {
 }
 
 .menu-text:hover > .text-line {
-  animation-duration: 200ms;
+  animation-duration: 100ms;
   animation-name: line-expand;
   animation-fill-mode: forwards;
 }
@@ -267,5 +267,3 @@ body.quarto-dark .menu-text:hover > .menutext-cn {
   border-radius: 5px; /* Softens the background edges */
   display: inline-block; /* Ensures proper background wrapping */
 }
-
-

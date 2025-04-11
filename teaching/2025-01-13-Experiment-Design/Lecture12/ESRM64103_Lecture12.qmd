@@ -3,14 +3,14 @@ title: "Lecture 12: ANCOVA"
 subtitle: "Experimental Design in Education"
 date: "2025-04-09"
 date-modified: "`{r} Sys.Date()`"
-execute: 
+execute:
   eval: true
   echo: true
   warning: false
   message: false
 webr:
   editor-font-scale: 1.2
-format: 
+format:
   html:
     toc-expand: 3
     code-tools: false
@@ -35,16 +35,16 @@ format:
     scrollable: true
     output-file: slides-index.html
     mermaid:
-      theme: forest    
+      theme: forest
 ---
 
 ::: objectives
 ## Overview of Lecture 12 {.unnumbered}
 
-1. What is ANCOVA?
-2. Why use ANCOVA?
-3. How to use ANCOVA (assumptions, hypothesis setup)?
-4. Potential issues of using ANCOVA.
+1.  What is ANCOVA?
+2.  Why use ANCOVA?
+3.  How to use ANCOVA (assumptions, hypothesis setup)?
+4.  Potential issues of using ANCOVA.
 :::
 
 # Introduction
@@ -61,13 +61,19 @@ format:
 
 ## Introduction: ANCOVA
 
+::: rmdquote
+ANOVA is Analysis of Variance
+
+**ANCOVA is Analysis of Covariance**
+:::
+
 -   What we will discuss today is a **statistical control for reducing the variance due to error**.
 
 -   Statistical control is used when we know a subject’s score on an additional variable.
 
     -   When we discussed blocking design, it was a categorical control (e.g., schools, class).
     -   But for **ANCOVA**, it is a **continuous** covariate!
-        - e.g., students' academic motivation; engagement levels; math disorder scores.
+        -   e.g., students' academic motivation; engagement levels; math disorder scores.
 
 -   **ANCOVA** by definition is a general linear model that includes both:
 
@@ -76,35 +82,36 @@ format:
 
 ## ANCOVA: Example
 
--   We are interested in **comparing method of instruction on students’ math problem solving skills, as measured by a test score**.
+-   We are interested in
 
-    -   The test is composed of word problems that are each presented in a few sentences.
-        -   **Ex**: “Joe buys 60 cantaloupes and sells 5. He then gives away 4…”
-        -   **DV** = \# of problems correctly answered in an hour.
-        -   **IV** = method of instruction (three levels)
+    -   Comparing ***method of instruction*** on students’ ***math problem solving skills*****, as measured by a test score**.
 
--   One-way, independent ANOVA: If we get a significant F statistic, we would conclude that method of instruction differed on the mean \# of math problems answered correctly.
+        -   The test is composed of word problems that are each presented in a few sentences.
+            -   **Ex**: “Joe buys 60 cantaloupes and sells 5. He then gives away 4…”
+            -   **DV** = \# of problems correctly answered in an hour.
+            -   **IV** = method of instruction (three levels)
 
--   Performance on math word problems may be affected by things other than method of instruction and math ability.
+-   *One-way, independent ANOVA*: If we get a significant F statistic, we would conclude that ***method of instruction differed on the mean \# of math problems answered correctly***.
+
+-   [But]{.bigger}, performance on math word problems may be affected by things other than method of instruction and math ability.
 
     -   To name a few: Motivation on the test, verbal proficiency, hunger, gender, previous years’ math grades…
 
 -   The DV score results from instructional method + the other factors we just listed.
 
-    -   We really want to ask: **to what extent might we have obtained method of instruction difference on math scores had the groups been equivalent in their motivation levels?** (or verbal proficiency?)
+    -   We really want to ask:
+
+        > To what extent might we have obtained ***method of instruction difference on math scores had the groups been equivalent in their motivation levels***? (or verbal proficiency?)
 
 ## ANCOVA definition
 
 -   ANCOVA is one way to investigate the effects of these factors.
 -   Includes information on the other variable (e.g., motivation) in the analysis!
-    -    **To examine the difference in math word problem performance, as if the groups were the same on entering motivation** (or experience, etc...).
+    -   **To examine the difference in math word problem performance, as if the groups were the same on entering motivation** (or experience, etc...).
 -   When comparing groups, we claim that people vary in their scores on the DV for a variety of reasons:
-    -    **Treatment Effects (i.e., group differences)**
-        -    Ex: Instructional Method
-    -    **Individual Differences**
-        -    Ex: Motivation to do well on the math tests
-    -    **Measurement Error**
-        -    Ex: The math assessment is unreliable
+    -   **Treatment Effects (i.e., group differences)** - Ex: Instructional Method
+    -   **Individual Differences** - Ex: Motivation to do well on the math tests
+    -   **Measurement Error** - Ex: The math assessment is unreliable
     -   These two sources (Individual Differences and Measurement Error) contribute to:
         -   ***Experimental Error***
         -   *(both of these go into* $SS_{\text{Error}}$)
@@ -112,10 +119,10 @@ format:
 ## ANCOVA Advantage
 
 -   **Reduces Error Variance**
-    -    By explaining some of the unexplained variance ($SS_{\text{error}}$), the error variance in the model can be reduced.
-    -    Think of the pie charts below!
+    -   By explaining some of the unexplained variance ($SS_{\text{error}}$), the error variance in the model can be reduced.
+    -   Think of the pie charts below!
 -   **Greater Experimental Control**
-    -    By controlling known extraneous variables, we gain greater insight into the effect of the predictor (IV) variable(s).
+    -   By controlling known extraneous variables, we gain greater insight into the effect of the predictor (IV) variable(s).
 
 ```{r}
 #| eval: true
@@ -161,14 +168,14 @@ ancova_pie
 
 -   The analyses addressed different research questions!
 
-    -    Ex. Ignoring the impact of height\
+    -   Ex. Ignoring the impact of height\
         ➔ $H_0\!: \mu_A = \mu_B = \mu_C$
-    -    Considering height: Adjusted mean! (ANCOVA)\
+    -   Considering height: Adjusted mean! (ANCOVA)\
         ➔ $H_0\!: \text{Adj}_{\mu_A} = \text{Adj}_{\mu_B} = \text{Adj}_{\mu_C}$
 
 -   If there is no random assignment of treatments, we should be careful to use ANCOVA!
 
-    -    We don’t always expect groups to be the same, so ANCOVA may not make sense.
+    -   We don’t always expect groups to be the same, so ANCOVA may not make sense.
 :::
 
 ::: column
@@ -221,12 +228,12 @@ ggplot(df, aes(x = height, y = yield, color = genotype)) +
 
 -   Let’s examine a scenario in which *a school principal wants to examine the effectiveness of teaching methods in math courses*.
 -   The principal would like to gauge the effectiveness of the following three types of instruction:
-    -    lecture-only,
-    -    lecture + hands-on activities,
-    -    self-paced instruction
+    -   lecture-only,
+    -   lecture + hands-on activities,
+    -   self-paced instruction
 -   The principal randomly-assigned 200 students to one of the three types of math instruction and measured performance on an end-of-semester achievement test (out of 100 points).
 -   A consultant from ESRM 6413 suggested that the principal also **statistically control for students’ ability**.
-    -    Each student had also completed a math pre-test, so the principal decided to include the pre-test scores in the analysis as the covariate.
+    -   Each student had also completed a math pre-test, so the principal decided to include the pre-test scores in the analysis as the covariate.
 
 ## ANCOVA: Assumption Check I
 
@@ -234,15 +241,15 @@ ggplot(df, aes(x = height, y = yield, color = genotype)) +
 
 ➤ **The three usual ANOVA assumptions apply:**
 
--    Independency
--    Normality (within-group; for each group)
--    Equality of variance (homogeneity of variance)
+-   Independency
+-   Normality (within-group; for each group)
+-   Equality of variance (homogeneity of variance)
 
 ➤ **Three additional data considerations:**
 
--    Linear relationship between the covariate & DV
--    Homogeneity of Regression Slope
--    Covariate is measured without error
+-   Linear relationship between the covariate & DV
+-   Homogeneity of Regression Slope
+-   Covariate is measured without error
 
 ## ANCOVA: Assumption Check II
 
@@ -303,12 +310,13 @@ ggplot(df, aes(x = pretest, y = posttest)) +
 
 ## ANCOVA: Assumption Check III
 
-- **Assumption Check in ANCOVA:**
-2. **Homogeneity of Regression Slope:**
-  - ✓ The relationship between each covariate and the DV should be the same for each level of the IV.
-  - ✓ *Think of this as an interaction between the IV and covariate.*
-  - ✓ *We don’t want this in ANCOVA!*
+-   **Assumption Check in ANCOVA:**
 
+2.  **Homogeneity of Regression Slope:**
+
+-   [x] The relationship between each covariate and the DV should be the same for each level of the IV.
+-   [x] *Think of this as an interaction between the IV and covariate.*
+-   [x] *We don’t want this in ANCOVA!*
 
 ```{python}
 #| echo: false
@@ -355,22 +363,24 @@ plt.show()
 
 ## ANCOVA: Assumption Check IV
 
-- **Assumption Check in ANCOVA:**
-2. **Homogeneity of Regression Slope:**
+-   **Assumption Check in ANCOVA:**
+
+2.  **Homogeneity of Regression Slope:**
 
 ➤ This is equivalent to saying that the relationship between the DV and covariate has to be the same for each cell (a.k.a. “group”)
 
-  - ✓ The slope value – *b* – that we use to make the adjustment is the same
+-   [x] The slope value – *b* – that we use to make the adjustment is the same
 
 ➤ Consequences depend on whether cells have equal sample sizes and whether a true experiment
 
-  - ✓ *If equal sample sizes, then a true experiment ANCOVA is relatively robust to violations of this assumption.*
-  - ✓ *If unequal sample sizes (or quasi-experimental design), the mean adjustments will be off by a moderate amount.*
+-   [x] *If equal sample sizes, then a true experiment ANCOVA is relatively robust to violations of this assumption.*
+-   [x] *If unequal sample sizes (or quasi-experimental design), the mean adjustments will be off by a moderate amount.*
 
 ## ANCOVA: Assumption Check V
 
-- **Assumption Check in ANCOVA:**
-2. **Homogeneity of Regression Slope:**
+-   **Assumption Check in ANCOVA:**
+
+2.  **Homogeneity of Regression Slope:**
 
 > When we “eyeball” the three regression slopes (regression of the covariate predicting the DV), we see the relationship is approximately equal.
 
@@ -389,40 +399,41 @@ ggplot(df, aes(x = pretest, y = posttest, color = method)) +
 
 ## ANCOVA: Assumption Check VI
 
-- **Assumption Check in ANCOVA:**
-2. **Homogeneity of Regression Slope:**
+-   **Assumption Check in ANCOVA:**
+
+2.  **Homogeneity of Regression Slope:**
 
 ➤ **The formal/general method of checking homogeneity of regression slope:**
 
-1. Run the model **with the interaction** term included to make sure it is negligible (a.k.a., not significant) → this is *not* the ANCOVA yet!
+1.  Run the model **with the interaction** term included to make sure it is negligible (a.k.a., not significant) → this is *not* the ANCOVA yet!
 
 $SS_{total} = SS_{IV} + SS_{COV} + \color{red}{SS_{IV*COV}} + SS_{within}$
 
-2. IF negligible (a.k.a., not significant), re-run the ANCOVA **without the interaction** term to get the final values to interpret → this *is* the ANCOVA model.
+2.  IF negligible (a.k.a., not significant), re-run the ANCOVA **without the interaction** term to get the final values to interpret → this *is* the ANCOVA model.
 
 $SS_{total} = SS_{IV} + SS_{COV} + SS_{within}$
 
 ## ANCOVA: Assumption Check VII
-2. **Homogeneity of Regression Slope:**
-➤ **The formal/general method of checking homogeneity of regression slope:**
 
-1. Run the model **with the interaction** term included to make sure it is negligible (a.k.a., not significant) → this is *not* the ANCOVA yet!
+2.  **Homogeneity of Regression Slope:** ➤ **The formal/general method of checking homogeneity of regression slope:**
+
+3.  Run the model **with the interaction** term included to make sure it is negligible (a.k.a., not significant) → this is *not* the ANCOVA yet!
 
 ```{r}
 #| code-fold: true
 library(gt)
 library(tidyverse)
 res <- anova(lm(posttest~pretest*method, data=df))
-res_tbl <- res |> 
-  as.data.frame() |> 
+res_tbl <- res |>
+  as.data.frame() |>
   rownames_to_column("Coefficient")
-res_gt_display <- gt(res_tbl) |> 
+res_gt_display <- gt(res_tbl) |>
   fmt_number(
     columns = `Sum Sq`:`Pr(>F)`,
     suffixing = TRUE,
     decimals = 3
   )
-res_gt_display|> 
+res_gt_display|>
   tab_style( # style for versicolor
     style = list(
       cell_fill(color = "royalblue"),
@@ -434,22 +445,21 @@ res_gt_display|>
   )
 ```
 
-
-2. IF negligible (a.k.a., not significant), re-run the ANCOVA **without the interaction** term to get the final values to interpret → this *is* the ANCOVA model.
+2.  IF negligible (a.k.a., not significant), re-run the ANCOVA **without the interaction** term to get the final values to interpret → this *is* the ANCOVA model.
 
 ```{r}
 #| code-fold: true
 res <- anova(lm(posttest~pretest+method, data=df))
-res_tbl <- res |> 
-  as.data.frame() |> 
+res_tbl <- res |>
+  as.data.frame() |>
   rownames_to_column("Coefficient")
-res_gt_display <- gt(res_tbl) |> 
+res_gt_display <- gt(res_tbl) |>
   fmt_number(
     columns = `Sum Sq`:`Pr(>F)`,
     suffixing = TRUE,
     decimals = 3
   )
-res_gt_display|> 
+res_gt_display|>
   tab_style( # style for versicolor
     style = list(
       cell_fill(color = "royalblue"),
@@ -460,56 +470,56 @@ res_gt_display|>
         rows = Coefficient == "method")
   )
 ```
+
 ## ANCOVA: Assumption Check VIII
 
-- **Assumption Check in ANCOVA:**
-3. **Covariate is measured without error:**
+-   **Assumption Check in ANCOVA:**
 
-➤ **Reliability of Covariates**
-  - ✓ Because the covariates are used in a linear prediction of the DV, no error is assessed or removed from the covariate in the way it is for the DV.
-  - ✓ So, it is assumed that the covariates are measured without any error.
-    ➔ You’ll learn MUCH more about reliability of measures in Dr. Turner’s measurement class!
-    ➔ So, despite the fact that it’s a crucial assumption, we won’t spend much time on it here.
+3.  **Covariate is measured without error:**
+
+➤ **Reliability of Covariates** - ✓ Because the covariates are used in a linear prediction of the DV, no error is assessed or removed from the covariate in the way it is for the DV. - ✓ So, it is assumed that the covariates are measured without any error. ➔ You’ll learn MUCH more about reliability of measures in Dr. Turner’s measurement class! ➔ So, despite the fact that it’s a crucial assumption, we won’t spend much time on it here.
 
 ➤ **The reliability of covariate scores is crucial with ANCOVA**
 
 | True Experimental Design | Quasi-Experimental Design |
-|--------------------------|----------------------------|
-| - Relationship between covariate and DV underestimated, resulting in less adjustment than is necessary  | - Relationship between covariate and DV underestimated, resulting in less adjustment than is necessary |
-| - Less powerful *F* test | - *Group effects (IV) may be seriously biased* |
+|-----------------------------------|-------------------------------------|
+| \- Relationship between covariate and DV underestimated, resulting in less adjustment than is necessary | \- Relationship between covariate and DV underestimated, resulting in less adjustment than is necessary |
+| \- Less powerful *F* test | \- *Group effects (IV) may be seriously biased* |
 
 ## ANCOVA: Hypothesis Test II
 
-**[Example] Step #1**
+**\[Example\] Step #1**
 
-- **Research/alternative hypothesis**
-  - ✓ $H_A$: *Controlling for pretest*, the **adjusted** means of math scores among three instructional groups will differ.
+-   **Research/alternative hypothesis**
+    -   [x] $H_A$: *Controlling for pretest*, the **adjusted** means of math scores among three instructional groups will differ.
+-   **Null hypothesis**
+    -   [x] $H_0$: *Controlling for pre-test*, there is no difference between the **adjusted** means of math scores among three instructional groups.\
+        $\Rightarrow H_0: \text{adjusted } \mu_{\text{lecture}} = \text{adjusted } \mu_{\text{hands-on}} = \text{adjusted } \mu_{\text{self-paced}}$
 
-- **Null hypothesis**
-  - ✓ $H_0$: *Controlling for pre-test*, there is no difference between the **adjusted** means of math scores among three instructional groups.  
-  $\Rightarrow H_0: \text{adjusted } \mu_{\text{lecture}} = \text{adjusted } \mu_{\text{hands-on}} = \text{adjusted } \mu_{\text{self-paced}}$
-
----
+------------------------------------------------------------------------
 
 ### ANCOVA: Adjusted Means I
 
-- **Adjusted cell means** are the observed cell mean minus a weighted within-cell deviation of the covariate values from the covariate cell means.
-  - ✓ When we do the adjustment, this is what happens:
+-   **Adjusted cell means** are the observed cell mean minus a weighted within-cell deviation of the covariate values from the covariate cell means.
+    -   [x] When we do the adjustment, this is what happens:
 
 $$
 \bar{Y}_{\text{adjusted}} = \bar{Y}_{\text{original}} - b (\bar{X}_{\text{cell}} - \bar{X}_{\text{grand}})
 $$
 
-- *b* is the pooled slope for the simple regression of the covariate on the DV  
-- *X* is the covariate (cell mean and grand mean)  
-- *Y* is the dependent variable (adjusted and unadjusted cell means)
+-   *b* is the pooled slope for the simple regression of the covariate on the DV\
 
-- If *b* is zero (relationship is zero) then there is no adjustment.
-- The bigger *b* is (the stronger the covariate/DV relationship), the more of an adjustment.
+-   *X* is the covariate (cell mean and grand mean)\
+
+-   *Y* is the dependent variable (adjusted and unadjusted cell means)
+
+-   If *b* is zero (relationship is zero) then there is no adjustment.
+
+-   The bigger *b* is (the stronger the covariate/DV relationship), the more of an adjustment.
 
 ➔ **The further a cell mean is from the covariate grand mean (the bigger the deviation), the more the cell mean is adjusted.**
 
----
+------------------------------------------------------------------------
 
 ### ANCOVA: Adjusted Means II
 
@@ -544,24 +554,23 @@ pooled_slope <- coef(model)["pretest"]
 results <- left_join(unadjusted_means, pretest_means, by = "method")
 ```
 
-
 ```{r}
 #| code-fold: true
 # Calculate adjusted means using the ANCOVA adjustment formula
-results2 <- results |> 
-  mutate(grand_pretest_mean = grand_pretest_mean) |> 
-  mutate(pooled_slope = pooled_slope) |> 
+results2 <- results |>
+  mutate(grand_pretest_mean = grand_pretest_mean) |>
+  mutate(pooled_slope = pooled_slope) |>
   mutate(adjusted_mean = posttest_mean - pooled_slope * (pretest_mean - grand_pretest_mean))
-  
+
 
 # View results
-gt(results2) |> 
+gt(results2) |>
   fmt_number(
     columns = posttest_mean:adjusted_mean
   )
 ```
 
----
+------------------------------------------------------------------------
 
 ### Visualization
 
@@ -569,12 +578,12 @@ gt(results2) |>
 #| code-fold: true
 used_colors <- c("steelblue", "tomato", "seagreen4")
 used_group_labels <- c("Pretest", "Posttest", "Adjusted")
-results2 |> 
-  select(method, pretest_mean, posttest_mean, adjusted_mean) |> 
-  pivot_longer(ends_with("_mean"), names_to = "type", values_to = "Mean") |> 
-  mutate(type = factor(type, levels = paste0(c("pretest", "posttest", "adjusted"), "_mean"))) |> 
+results2 |>
+  select(method, pretest_mean, posttest_mean, adjusted_mean) |>
+  pivot_longer(ends_with("_mean"), names_to = "type", values_to = "Mean") |>
+  mutate(type = factor(type, levels = paste0(c("pretest", "posttest", "adjusted"), "_mean"))) |>
   ggplot(aes(y = method, x = Mean)) +
-  geom_col(aes(y = method, x = Mean, fill = type), position = position_dodge()) + 
+  geom_col(aes(y = method, x = Mean, fill = type), position = position_dodge()) +
   geom_text(aes(x = Mean + 5, label = round(Mean, 2), color = type), position = position_dodge(width = .85)) +
   scale_color_manual(values = used_colors, labels = used_group_labels) +
   scale_fill_manual(values = used_colors, labels = used_group_labels) +
@@ -583,54 +592,42 @@ results2 |>
   theme(legend.position = "bottom")
 ```
 
-
 ## ANCOVA: Hypothesis Test II
 
-- **[Example] Step #2**
-- **Recall: What distinguishes ANCOVA from other analyses?**
-- In addition to a grouping variable (IV), we have scores from some continuous measure (i.e., covariate) that is related to the DV
-  - ✓ Preferably, we are in a randomized-control experimental situation — use caution when in a quasi-experimental situation! (because it does not consider random assignments of treatments/levels of IV)
-- This is a situation in which we desire **“statistical control”** based upon the covariate.
-  - ✓ In some scenarios it may not make sense to adjust the group means as if they were the same on the covariate.
-
-- In ANCOVA:
-  - ✓ IV: same as before — grouping/categorical variable with 2 or more levels
-  - ✓ In addition to IV, we are adding a **continuous covariate** → this is **NEW!**
-  - ✓ DV: same as before — continuous variable
+-   **\[Example\] Step #2**
+-   **Recall: What distinguishes ANCOVA from other analyses?**
+-   In addition to a grouping variable (IV), we have scores from some continuous measure (i.e., covariate) that is related to the DV
+    -   [x] Preferably, we are in a randomized-control experimental situation — use caution when in a quasi-experimental situation! (because it does not consider random assignments of treatments/levels of IV)
+-   This is a situation in which we desire **“statistical control”** based upon the covariate.
+    -   [x] In some scenarios it may not make sense to adjust the group means as if they were the same on the covariate.
+-   In ANCOVA:
+    -   [x] IV: same as before — grouping/categorical variable with 2 or more levels
+    -   [x] In addition to IV, we are adding a **continuous covariate** → this is **NEW!**
+    -   [x] DV: same as before — continuous variable
 
 ## ANCOVA: Hypothesis Test III
 
-- **[Example] Step #2**
-- **Recall: Continuous covariate?**
+-   **\[Example\] Step #2**
+-   **Recall: Continuous covariate?**
 
-➤ **Categorical variable**
-  - ✓ Contain a finite number of categories or distinct groups.
-  - ✓ Might not have a logical order.
-  - ✓ Examples: gender, material type, and payment method.
+➤ **Categorical variable** - ✓ Contain a finite number of categories or distinct groups. - ✓ Might not have a logical order. - ✓ Examples: gender, material type, and payment method.
 
-➤ **Discrete variable**
-  - ✓ Numeric variables that have a countable number of values between any two values.
-  - ✓ Examples: number of customer complaints, number of items correct on an assessment, attempts on GRE.
-  - ✓ It is common practice to treat discrete variables as continuous, as long as there are a large number of levels (e.g., 1–100 not 1–4).
+➤ **Discrete variable** - ✓ Numeric variables that have a countable number of values between any two values. - ✓ Examples: number of customer complaints, number of items correct on an assessment, attempts on GRE. - ✓ It is common practice to treat discrete variables as continuous, as long as there are a large number of levels (e.g., 1–100 not 1–4).
 
-➤ **Continuous variable**
-  - ✓ Numeric variables that have an infinite number of values between any two values.
-  - ✓ Examples: length, weight, time to complete an exam.
+➤ **Continuous variable** - ✓ Numeric variables that have an infinite number of values between any two values. - ✓ Examples: length, weight, time to complete an exam.
 
 ➔ **We often assume the DV for ANCOVA is continuous, but we can sometimes “get away” with discrete, ordered outcomes if there are enough categories.**
 
 ## ANCOVA: Hypothesis Test IV
 
-- **[Example] Step #2**
-- **What if we have a categorical outcome?**
+-   **\[Example\] Step #2**
+-   **What if we have a categorical outcome?**
 
-➤ Not related to this course, but categorical outcomes are commonly analyzed:
-  - ✓ Examples: pass/fail a fitness test; pass/fail an academic test; retention (yes/no); on-time graduation (yes/no); proficiency (below, meeting, advanced), etc.
+➤ Not related to this course, but categorical outcomes are commonly analyzed: - ✓ Examples: pass/fail a fitness test; pass/fail an academic test; retention (yes/no); on-time graduation (yes/no); proficiency (below, meeting, advanced), etc.
 
-  ➔ **These are not continuous, so we cannot use them in ANOVA**
+➔ **These are not continuous, so we cannot use them in ANOVA**
 
-➤ Instead: **logistic regression** (PROC LOGISTIC or PROC GLM!)
-  - ✓ *Logistic regression can include both categorical and continuous IVs (and their interactions)*
+➤ Instead: **logistic regression** (PROC LOGISTIC or PROC GLM!) - ✓ *Logistic regression can include both categorical and continuous IVs (and their interactions)*
 
 ```{r}
 #| code-fold: true
@@ -681,89 +678,92 @@ p1 + p2
 
 ## ANOVA: Degree of Freedom
 
-- **In addition to the traditional degrees of freedom for an ANOVA, you now lose a degree of freedom for each covariate.**
+-   **In addition to the traditional degrees of freedom for an ANOVA, you now lose a degree of freedom for each covariate.**
 
-- **Degrees of Freedom** → In our scenario, we have 1 IV with 3 groups and 1 covariate.
-- The $df_{method}$* is the same as before: *k - 1*, where *k* represents the number of groups.
-  - ✓ In our scenario, we have 3 groups, so the numerator df = 3 − 1 = **2**
+-   **Degrees of Freedom** → In our scenario, we have 1 IV with 3 groups and 1 covariate.
 
-- The $df_{error}$ is different:
-  - ✓ *N − k − #covariates*, where *k* is the number of groups and *#covariates* is the number of continuous controls.
-  - ✓ In our scenario, if there are 200 students (*N = 200*), 3 groups, and 1 covariate (e.g., IQ), the df is  
-    **200 − 3 − 1 = 196**
+-   The $df_{method}$\* is the same as before: *k - 1*, where *k* represents the number of groups.
 
-- The $df_{covariate}$ is **#covariates = 1**
+    -   [x] In our scenario, we have 3 groups, so the numerator df = 3 − 1 = **2**
 
-- If the principal in the scenario assigned a total of 200 students, the degrees of freedom for this analysis would be:  
-  - **2** (numerator) and **196** (denominator)
+-   The $df_{error}$ is different:
+
+    -   [x] *N − k − #covariates*, where *k* is the number of groups and *#covariates* is the number of continuous controls.
+    -   [x] In our scenario, if there are 200 students (*N = 200*), 3 groups, and 1 covariate (e.g., IQ), the df is\
+        **200 − 3 − 1 = 196**
+
+-   The $df_{covariate}$ is **#covariates = 1**
+
+-   If the principal in the scenario assigned a total of 200 students, the degrees of freedom for this analysis would be:
+
+    -   **2** (numerator) and **196** (denominator)
 
 ## AFTER ANCOVA: Treatment Effect
 
-- **Now we need to follow-up to see where the differences lie.**
+-   **Now we need to follow-up to see where the differences lie.**
 
-- **Planned and Pairwise comparisons**
-  - ✓ based on the **adjusted means** and the **error term** after removing covariate variance
-  - ✓ Can interpret the same, **just be sure to note that it is the effect for the adjusted means**  
-    *(i.e., the means of DV after controlling for covariate)*
+-   **Planned and Pairwise comparisons**
 
-- **Post-hoc tests**
-  - ✓ Not designed for situations in which a covariate is specified; however, you can obtain a limited selection.
-  - ✓ Tukey’s LSD; Bonferroni, Sidak Correction still work…
+    -   [x] based on the **adjusted means** and the **error term** after removing covariate variance
+    -   [x] Can interpret the same, **just be sure to note that it is the effect for the adjusted means**\
+        *(i.e., the means of DV after controlling for covariate)*
 
+-   **Post-hoc tests**
+
+    -   [x] Not designed for situations in which a covariate is specified; however, you can obtain a limited selection.
+    -   [x] Tukey’s LSD; Bonferroni, Sidak Correction still work…
 
 ## Problem: ANCOVA in Quasi-experimental Design I
 
-|                            | **True Experimental Design**                                                                 | **Quasi-Experimental Design**                                                                 |
-|----------------------------|----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
-| **Assignment to treatment**| The researcher *randomly assigns* subjects to control and treatment groups.                 | Some other, *non-random* method is used to assign subjects to groups.                         |
-| **Control over treatment** | The researcher usually *designs the treatment*.                                             | The researcher often *does not have control over the treatment*, but studies pre-existing groups. |
-| **Use of control groups**  | Requires the use of *control and treatment groups*.                                         | Control groups are not required (although they are commonly used).                            |
+|   | **True Experimental Design** | **Quasi-Experimental Design** |
+|-------------------|---------------------------|---------------------------|
+| **Assignment to treatment** | The researcher *randomly assigns* subjects to control and treatment groups. | Some other, *non-random* method is used to assign subjects to groups. |
+| **Control over treatment** | The researcher usually *designs the treatment*. | The researcher often *does not have control over the treatment*, but studies pre-existing groups. |
+| **Use of control groups** | Requires the use of *control and treatment groups*. | Control groups are not required (although they are commonly used). |
 
 ## Problem: ANCOVA in Quasi-experimental Design II
 
-- **ANCOVA for an experimental design is pretty straightforward**
-  - ✓ It reduces error variance and increases power and is a great option if you have a good covariate and have met the ANCOVA assumptions.
-
-- **ANCOVA for quasi-experimental designs is controversial and risky**
-  - ✓ Some people say you shouldn’t do it at all. Others say you just have to be careful not to over-interpret and to be sure to do replications.
-
-- **Accounting for Pre-Existing Group Differences:**
-  - ➤ If people are not randomly assigned to conditions, there may be differences in the DV across the groups before the experiment starts.
-  - ➤ Some people use ANCOVA to “account for preexisting differences” of groups in a quasi-experimental design, then:
-    - ✓ ANCOVA equates groups on a particular covariate, but there is no guarantee that this is the only or most important dimension that the groups differ on.
-    - ✓ Equating pre-existing groups on one variable may accentuate differences on another variable.
+-   **ANCOVA for an experimental design is pretty straightforward**
+    -   [x] It reduces error variance and increases power and is a great option if you have a good covariate and have met the ANCOVA assumptions.
+-   **ANCOVA for quasi-experimental designs is controversial and risky**
+    -   [x] Some people say you shouldn’t do it at all. Others say you just have to be careful not to over-interpret and to be sure to do replications.
+-   **Accounting for Pre-Existing Group Differences:**
+    -   ➤ If people are not randomly assigned to conditions, there may be differences in the DV across the groups before the experiment starts.
+    -   ➤ Some people use ANCOVA to “account for preexisting differences” of groups in a quasi-experimental design, then:
+        -   [x] ANCOVA equates groups on a particular covariate, but there is no guarantee that this is the only or most important dimension that the groups differ on.
+        -   [x] Equating pre-existing groups on one variable may accentuate differences on another variable.
 
 ## Problem: ANCOVA in Quasi-experimental Design III
 
-- **What is the risk/concern with quasi-experimental design?**
+-   **What is the risk/concern with quasi-experimental design?**
 
-  ➤ For example, **the inclusion of the covariate adjusts the two groups’ means, as if they are the same on the covariate**.  
-  ➤ *Therefore, the two analyses are addressing two different research questions!*
-  - ✓ Pre-post change analysis addressed the $H_0\!: \mu_{\text{female}} = \mu_{\text{male}}$
-  - ✓ ANCOVA analysis addressed the $H_0\!: \text{adjusted } \mu_{\text{female}} = \text{adjusted } \mu_{\text{male}}$
+    ➤ For example, **the inclusion of the covariate adjusts the two groups’ means, as if they are the same on the covariate**.\
+    ➤ *Therefore, the two analyses are addressing two different research questions!*
 
-| **Biases the effect size of the IV**                                                                 | **Values can’t be trusted**                                                             |
-|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| - Can remove real “effect variance” and attenuate the effect size                                     | - Adjusted means are implausible values                                                 |
-| - If other variables involved, can make it look like there is an effect when there isn’t              | - Interaction and slope values could just apply to the cells observed, not the population |
+    -   [x] Pre-post change analysis addressed the $H_0\!: \mu_{\text{female}} = \mu_{\text{male}}$
+    -   [x] ANCOVA analysis addressed the $H_0\!: \text{adjusted } \mu_{\text{female}} = \text{adjusted } \mu_{\text{male}}$
+
+| **Biases the effect size of the IV** | **Values can’t be trusted** |
+|--------------------------------------|----------------------------------|
+| \- Can remove real “effect variance” and attenuate the effect size | \- Adjusted means are implausible values |
+| \- If other variables involved, can make it look like there is an effect when there isn’t | \- Interaction and slope values could just apply to the cells observed, not the population |
 
 ## ANCOVA: Final Thoughts…
 
-- Use of covariates does not guarantee that groups will be “equivalent” —  
-  even after using multiple covariates, there still may be some confounding variables operating that you are unaware of.
+-   Use of covariates does not guarantee that groups will be “equivalent” —\
+    even after using multiple covariates, there still may be some confounding variables operating that you are unaware of.
 
-- Best way to overcome differences between groups due to variables other than the IV  
-  is to randomly assign subjects to groups.
+-   Best way to overcome differences between groups due to variables other than the IV\
+    is to randomly assign subjects to groups.
 
-- Make sure that the covariate you are using is reliable!
-
+-   Make sure that the covariate you are using is reliable!
 
 ## Summary
 
-- This lecture leads you to go throught varied pieces of ANCOVA:
+-   This lecture leads you to go throught varied pieces of ANCOVA:
     -   Why ANCOVA is better than ANOVA?
     -   How is the ANCOVA hypotheses compared to ANOVA hypotheses
     -   Adjusted Means after incorporating covariate
     -   The potential problems of ANOVA when assumption violated
-    
+
 # Fin {.unnumbered}
