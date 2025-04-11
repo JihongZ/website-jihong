@@ -267,6 +267,7 @@ Now that the changes are committed locally, you can push them to GitHub.
 ![](images/clipboard-131139395.png)
 
 ------------------------------------------------------------------------
+
 ## A More user-friendly method - GitHub Desktop
 
 ```{r}
