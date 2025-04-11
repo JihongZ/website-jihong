@@ -59,43 +59,6 @@
     font-style: normal;
   }
 
-//*Reference: https://rpubs.com/drgregmartin/1266676*//
-//* Enhanced Navbar Styles */
-.navbar {
-  background-color: transparent;
-  backdrop-filter: blur(5px);
-  padding-top: 1px;
-  padding-bottom: 5px;
-}
-
-.navbar > .container, 
-.navbar > .container-fluid, 
-.navbar > .container-sm, 
-.navbar > .container-md, 
-.navbar > .container-lg, 
-.navbar > .container-xl, 
-.navbar > .container-xxl {
-  padding-left: 10vw;  
-  padding-right: 10vw;  
-}
-
-/* Responsive Navbar for Mobile */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 10px;
-    }
-    .navbar > .container, 
-    .navbar > .container-fluid {
-        padding-left: 5vw;
-        padding-right: 5vw;
-        flex-direction: column;
-    }
-    .navbar-nav {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-}
 
 /*-- scss:uses --*/
 // colors
@@ -145,12 +108,51 @@ $link-hover-color: $orange;
 $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
+//*Reference: https://rpubs.com/drgregmartin/1266676*//
+//* Enhanced Navbar Styles */
+.navbar, .quarto-banner, nav.quarto-secondary-nav {
+  background-color: transparent !important;
+  backdrop-filter: blur(5px) !important;
+  padding-top: 1px !important;
+  padding-bottom: 5px !important;
+}
+
+.navbar > .container, 
+.navbar > .container-fluid, 
+.navbar > .container-sm, 
+.navbar > .container-md, 
+.navbar > .container-lg, 
+.navbar > .container-xl, 
+.navbar > .container-xxl {
+  padding-left: 10vw;  
+  padding-right: 10vw;  
+}
+
+/* Responsive Navbar for Mobile */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+    .navbar > .container, 
+    .navbar > .container-fluid {
+        padding-left: 5vw;
+        padding-right: 5vw;
+        flex-direction: column;
+    }
+    .navbar-nav {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+
 h1, h2 {text-transform: capitalize;}
 
 h1, h2, h2#toc-title, h3, h4, .callout-title-container {
   font-family: "Roboto Condensed", sans-serif;
   letter-spacing: 1.2px;
-  font-weight: normal;
+  font-weight: 500;
 }
 
 // Add shadow to images
@@ -159,7 +161,6 @@ h1, h2, h2#toc-title, h3, h4, .callout-title-container {
 body, p, li, a{ // main font family of post content
   font-family: "Abel", sans-serif;
   font-weight: 400;
-  font-style: normal;
 }
 
 p {
@@ -168,15 +169,17 @@ p {
   margin-top: 2em;
 }
 
+li {
+  line-height: 2em;
+}
+
 label {
   font-family: "Abel", sans-serif;
 }
 
 strong {
   font-family: "Roboto Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
+  font-weight: 500;
 }
 
 code.sourceCode { // Source Code
