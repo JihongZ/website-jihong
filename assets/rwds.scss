@@ -115,12 +115,14 @@ $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
 //* Enhanced Navbar Styles */
-a.nav-link.active { // active navigation tab styling
-    background-image: url(images/qinghua_bian.png);
-    background-size: 100% 100%;
-    .menu-text{
-        color: $headings-color;
-        font-family: "FZFWZhuZiAYuanJW Bold";
+.navbar-nav  { // active navigation tab styling
+    a.nav-link.active {
+        background-image: url(images/qinghua_bian.png);
+        background-size: 100% 100%;
+        .menu-text{
+            color: $headings-color;
+            font-family: "FZFWZhuZiAYuanJW Bold";
+        }
     }
 }
 
