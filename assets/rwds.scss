@@ -114,11 +114,29 @@ $link-hover-color: $orange;
 $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
-//* Enhanced Navbar Styles *//
+//* Enhanced Sidebar Styles *//
 nav.sidebar.sidebar-navigation:not(.rollup) { // sidebar color
+  .menu-text {
+    font-family: "FZFWZhuZiAYuanJW";
+    color: $body-color;
+  }  
   // background-color: $tao-you !important;
 }
 
+a.sidebar-item-text.sidebar-link.active { // selected item in the sidebar list
+  .menu-text {
+    font-family: "FZFWZhuZiAYuanJW Bold";
+    color: $success;
+  }
+}
+a.sidebar-item-text.sidebar-link.text-start { // leading texts in the sidebar list
+  .menu-text {
+    font-family: "FZFWZhuZiAYuanJW Bold";
+  }  
+}
+
+
+//* Enhanced Navbar Styles *//
 .navbar-nav  { // active navigation tab styling
     a.nav-link.active {
         background-image: url(images/qinghua_bian.png);
@@ -550,7 +568,7 @@ tr:hover {
 }
 
 .bigger {
-  font-size: 2.5em;
+  font-size: 1.5em;
   line-height: normal;
 }
 
