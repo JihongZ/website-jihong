@@ -89,7 +89,7 @@ website:
       collapse-level: 2
       contents:
         - text: <h4>RESOURCE</h4>
-        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆"
+        - text: "◆◆◆◆◆◆◆◆◆"
         - section: 'Useful Materials'
           contents: 
             - text: '2024 Research Plan'
@@ -125,7 +125,7 @@ website:
       search: false
       contents:
         - text: <h4>PREVIOUS COURSES</h4>
-        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆"
+        - text: "◆◆◆◆◆◆◆◆◆"
         - section: "ESRM64503: Applied MVA (Spring2024)"
           contents: 
             - text: 'Syllabus'
