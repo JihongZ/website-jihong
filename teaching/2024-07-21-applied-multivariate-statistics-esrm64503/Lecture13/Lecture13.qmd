@@ -7,7 +7,7 @@ institute: |
   
   University of Arkansas
 date: "2024-11-22"
-sidebar: false
+date-modified: '`r format(Sys.Date(), "%Y-%m-%d")`'
 execute: 
   echo: true
   eval: true
@@ -15,12 +15,8 @@ execute:
   message: false
 format: 
   html: 
-    page-layout: full
-    toc: true
-    toc-depth: 2
-    toc-expand: true
-    lightbox: true
     code-fold: false
+    number-sections: true
   uark-revealjs:
     scrollable: true
     chalkboard: true
@@ -49,9 +45,6 @@ bibliography: references.bib
 -   EFA and CFA are same things except that one is to explore the factor structure (EFA) and one is to confirm pre-determined factor structure (CFA).
 
 -   But ... we can also conduct **exploratory analysis** using a CFA model
-<<<<<<< HEAD
-=======
-
     -   Need to set the right number of constraints for identification
     -   We set the value of factor loadings for a few items on a few of the factors
         -   Typically to zero
@@ -136,10 +129,8 @@ summary(CFA_2factor.model, fit.measures = TRUE, standardized = TRUE)
 
 See the [example](https://www.lavaan.ugent.be/tutorial/cfa.html) from lavaan package
 
-# Background
-=======
+
 # Network Analysis
->>>>>>> a79e7de (local changes)
 
 ## Network Analysis
 
@@ -300,6 +291,8 @@ $$
 
 Assume there are three variables: fatigue, insomnia, concentration
 
+We can get partial correlation matrix $R$ from the precision matrix $K$ and the correlation matrix `Sigma`.
+
 ::: columns
 ::: {.column width="50%"}
 ```{r}
@@ -370,6 +363,10 @@ Where
 
 ## `psychonetrics`: Partial correlation matrix estimation
 
+::: rmdnote
+`ggm()` function in the package further separates the precision matrix $R$ into two parts: $\Delta$ and $\Omega$. $\Omega$ matrix will the estimated network edges in GGM.
+:::
+
 ::: columns
 ::: {.column width="50%"}
 ```{r}
@@ -407,6 +404,10 @@ S |> round(3)
 :::
 
 ## `BGGM`: Bayesian approach
+
+Partial correlation matrix can be estimated using Bayesian approach. The `BGGM` package uses Bayesian Hypothesis Testing to estimate the partial correlation matrix.
+
+The advantage of Bayesian approach is that it can provide the posterior distribution of the partial correlation matrix, which can be used to assess the uncertainty of the estimates.
 
 ```{r}
 #| code-summary: 'Posterior means of partial correlation matrix'

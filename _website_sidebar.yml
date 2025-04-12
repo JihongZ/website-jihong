@@ -107,12 +107,25 @@ website:
               file: posts/2017-11-08-sem-homework/index.Rmd
             - text: "Measurement Invariance"
               file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
+        - text: "---"    
+        - section: Network Analysis
+          contents: 
+            - text: "Community detection"
+              file: posts/2025/2025-03-07-communities-in-psychometric-networks/index.qmd
+            - text: "Network estimation methods"
+              file: notes/2024/2024-04-04-Network-Estimation-Methods/index.qmd
+            - text: "Presentation: Group differences in network"
+              file: presentation/2024-07-14-Presentation-M3/index.qmd
+            - text: "Presentation: Item selection"
+              file: projects/2025-04-06-Network-Factor-Analysis-Item-Selection/index.qmd
+            - text: "ESRM64503 Lecture: CFA and NA"
+              file: teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture13/Lecture13.qmd
     - id: id-history
       collapse-level: 2
       search: false
       contents:
         - text: <h4>PREVIOUS COURSES</h4>
-        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆"
+        - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆"
         - section: "ESRM64503: Applied MVA (Spring2024)"
           contents: 
             - text: 'Syllabus'
@@ -128,6 +141,8 @@ website:
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture09/Lecture09.qmd
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture10/Lecture10.qmd
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture11/Lecture11.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture12/Lecture12.qmd
+            - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture13/Lecture13.qmd
         - text: "---"    
         - section: "ESRM6553: Advanced MVA (Fall2024)"
           contents: 
