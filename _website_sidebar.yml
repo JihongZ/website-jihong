@@ -1,8 +1,6 @@
 # MetaData Documentation: https://quarto.org/docs/projects/quarto-projects.html#metadata-includes
 website:
   sidebar:
-    - id: id-blog
-      style: floating
     - id: id-todo
       style: "docked"
       search: false
@@ -15,20 +13,22 @@ website:
       search: false
       collapse-level: 0
       contents:
-        - section: <h3>Contents</h3>
+        - section: <h4>Contents</h4>
           href: posts/2025/2025-04-03-Large-Language-Model-Psychometrics/index.qmd
           contents:
             - posts/2025/2025-04-03-Large-Language-Model-Psychometrics/content/chatgpt.qmd
     - id: id-javascript-in-R
       style: "docked"
-      search: false
-      collapse-level: 0
+      border: true
+      search: true
       contents:
-        - section: <h3>Contents</h3>
-          href: notes/2025/2025-03-16-ReadingNote-Javascript-for-R/index.qmd
-          contents:
-            - notes/2025/2025-03-16-ReadingNote-Javascript-for-R/package_info/plotly.qmd
-            - notes/2025/2025-03-16-ReadingNote-Javascript-for-R/package_info/DiagrammeR.qmd
+        - text: <h4>Content</h4>
+        - text: 'htmlwidgets'
+          file: notes/2025/2025-03-16-ReadingNote-Javascript-for-R/index.qmd
+        - text: 'plotly'
+          file: notes/2025/2025-03-16-ReadingNote-Javascript-for-R/package_info/plotly.qmd
+        - text: 'DiagrammeR'
+          file: notes/2025/2025-03-16-ReadingNote-Javascript-for-R/package_info/DiagrammeR.qmd
     - id: id-lec6990v # https://github.com/quarto-dev/quarto-cli/discussions/8117
       style: floating
       collapse-level: 0
@@ -59,7 +59,7 @@ website:
       style: floating
       collapse-level: 0
       contents: 
-        - text: <h3>ESRM64103</h3>
+        - text: <h4>ESRM64103</h4>
         - text: "◆◆◆◆◆◆◆◆◆"
         - section: "Lecture"
           contents:
@@ -87,7 +87,7 @@ website:
       search: true
       collapse-level: 2
       contents:
-        - text: <h3>RESOURCE</h3>
+        - text: <h4>RESOURCE</h4>
         - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆"
         - section: 'Useful Materials'
           contents: 
@@ -110,7 +110,7 @@ website:
       collapse-level: 2
       search: false
       contents:
-        - text: <h3>PREVIOUS COURSES</h3>
+        - text: <h4>PREVIOUS COURSES</h4>
         - text: "◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆"
         - section: "ESRM64503: Applied MVA (Spring2024)"
           contents: 

@@ -15,3 +15,10 @@ page-layout: full
 code-tools: false
 comments: false
 fig-align: center
+collapse-level: 2
+format: 
+  html:
+    grid:
+      sidebar-width: 200px
+      body-width: 1000px
+      margin-width: 400px

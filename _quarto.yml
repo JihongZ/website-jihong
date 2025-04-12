@@ -45,14 +45,13 @@ format:
     comments:
       giscus:
         repo: JihongZ/quarto-academic-jihong
-    include-in-header: 
+    include-in-header:
       - file: "assets/js/callout.html"
       - assets/add-answer-button.html
       - assets/font.html
     html-math-method: katex
     lightbox: true # Lightbox Figure
     # code settings
-    fontsize: 1.1em
     reading-time: true
     code-link: false
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
@@ -73,7 +72,6 @@ format:
     title-block-banner: "#EFEFEC" 
     title-block-banner-color: "#403E3E"  # Foreground Color: https://quarto.org/docs/authoring/title-blocks.html#foreground-color
     
-editor: visual
 
 execute: 
   freeze: true

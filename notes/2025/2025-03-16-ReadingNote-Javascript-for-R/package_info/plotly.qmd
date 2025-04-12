@@ -9,14 +9,7 @@ execute:
   warning: false
   message: false
 fig-cap-location: top  
-toc-depth: 3
-toc-expand: true
-toc-location: left
-format: 
-  html:
-    grid: 
-      body-width: 800px
-      margin-width: 200px
+format: html
 ---
 
 # plotly package
@@ -538,8 +531,8 @@ p2 <- plot_ly(economics, x = ~date, y = ~uempmed) |>
 subplot(p1, p2) # subplot(list(p1, p2))
 ```
 
-- Use `nrows = length(plots)` to arrange plots into 1 columns.
-- Use `shareX=TRUE` argument to make sure all plots share the same x-axis.
+-   Use `nrows = length(plots)` to arrange plots into 1 columns.
+-   Use `shareX=TRUE` argument to make sure all plots share the same x-axis.
 
 ```{r}
 vars <- setdiff(names(economics), "date")
@@ -549,4 +542,7 @@ plots <- lapply(vars, function(var) {
 })
 subplot(plots, nrows = length(plots), shareX = TRUE, titleX = FALSE)
 ```
+
+## IVRPS Chapter 19: JSON
+
 

@@ -114,7 +114,11 @@ $link-hover-color: $orange;
 $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
-//* Enhanced Navbar Styles */
+//* Enhanced Navbar Styles *//
+nav.sidebar.sidebar-navigation:not(.rollup) { // sidebar color
+  // background-color: $tao-you !important;
+}
+
 .navbar-nav  { // active navigation tab styling
     a.nav-link.active {
         background-image: url(images/qinghua_bian.png);
