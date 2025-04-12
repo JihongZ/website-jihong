@@ -12,12 +12,7 @@ format:
     code-tools: true
     code-line-numbers: false
     code-fold: false
-    toc-location: left
     number-offset: 0
-    grid:
-      sidebar-width: 250px
-      body-width: 1300px
-      margin-width: 50px
 ---
 
 # Introduction to Git and GitHub
@@ -81,7 +76,6 @@ git config --global user.email "youremail@example.com"
 -   `git commit -m "message"`: Save changes with a commit message
 -   `git status`: Check the status of your files
 -   `git log`: View commit history
-
 
 # Git Terminal
 
@@ -152,15 +146,15 @@ After modifying the files, you need to stage the changes before committing them.
 
 1.  Commit the staged changes with a descriptive message:
 
-``` bash
-git commit -m "Add hello.txt with initial content"
-```
+    ``` bash
+    git commit -m "Add hello.txt with initial content"
+    ```
 
 2.  View the commit history:
 
-``` bash
-git log
-```
+    ``` bash
+    git log
+    ```
 
 ------------------------------------------------------------------------
 
@@ -300,7 +294,6 @@ htmltools::tags$iframe(
   height="769"
 )
 ```
-
 
 ## Example: Create a new github repository
 

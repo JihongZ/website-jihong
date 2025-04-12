@@ -30,9 +30,10 @@ website:
         - text: 'DiagrammeR'
           file: notes/2025/2025-03-16-ReadingNote-Javascript-for-R/package_info/DiagrammeR.qmd
     - id: id-lec6990v # https://github.com/quarto-dev/quarto-cli/discussions/8117
-      style: floating
       collapse-level: 0
-      contents: 
+      contents:
+        - text: <h4>ESRM6990V</h4>
+        - text: "◆◆◆◆◆◆◆◆◆"
         - section: "Lecture"
           contents:
             - file: teaching/2025-01-13-Adv-Seminar-Intro-to-R/ESRM6990V_syllabus.qmd
