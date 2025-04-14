@@ -230,7 +230,7 @@ ggplot(df, aes(x = height, y = yield, color = genotype)) +
     -   Lecture + hands-on activities,
     -   Self-paced instruction
 -   The principal randomly-assigned 200 students to one of the three types of math instruction and measured performance on an end-of-semester achievement test (out of 100 points).
--   One researcher suggested that the principal also **statistically control for students’ ability**:
+-   One researcher suggested that the principal also want to **statistically control for students’ ability**:
 
 ::: rmdquote
 Each student had also completed a math pre-test (as a indicator of **students' ability**), so the principal decided to include the pre-test scores in the analysis as the covariate.
@@ -359,6 +359,8 @@ cor(df$pretest, df$posttest)
 
 1.  **Linear relationship between the covariate & DV:**
 
+---
+
 ::: rmdnote
 By looking over the plot, we can find that there is a general linear relationship (i.e., straight line) between the covariate (pretest) and the DV (mathtest).
 :::
@@ -389,6 +391,8 @@ ggplot(df, aes(x = pretest, y = posttest)) +
     -   *We don’t want this in ANCOVA!*
     -   This assumption limits the applicability of ANCOVA
 :::
+
+---
 
 ```{python}
 #| code-fold: true
