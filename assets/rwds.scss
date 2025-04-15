@@ -208,7 +208,13 @@ details.code-fold {
   font-family: "Roboto Condensed", sans-serif;
   letter-spacing: -0.5px;
   font-weight: 500;
-  margin: 1rem;
+}
+
+details.code-fold {
+  margin: .65rem;
+  summary {
+    color: $qian-qing;
+  }
 }
 
 // Add shadow to images

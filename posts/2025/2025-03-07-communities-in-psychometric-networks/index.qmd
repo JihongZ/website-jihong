@@ -140,7 +140,7 @@ Relationships among theory, statistical model, and data ![](theory_model.png){fi
 Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
 | Algorithm | Feature |
-|:------------------------|:-----------------|
+|:---|:---|
 | Walktrap [@ponsComputingCommunitiesLarge2006] | random walks |
 | Infomap [@rosvallMapsRandomWalks2008] | random walks |
 | Fast-greedy [@clausetFindingCommunityStructure2004] | hierarchical clustering; modularity-based |
