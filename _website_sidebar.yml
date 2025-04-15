@@ -91,13 +91,13 @@ website:
       contents:
         - text: <h4>RESOURCE</h4>
         - text: "◆◆◆◆◆◆◆◆◆"
-        - section: 'Useful Materials'
+        - section: 'Useful materials'
           contents: 
             - text: '2024 Research Plan'
               file: projects/Research_Plan/Timeline-Visualization.qmd
             - text: 'CSS cheatsheet'
               href: uploads/css3-cheat-sheet.pdf
-            - text: 'Latex Symbols'
+            - text: 'Latex symbols'
               file: uploads/latex_symbols.pdf
         - text: "---"    
         - section: Latent Variable Model
@@ -109,7 +109,7 @@ website:
             - text: "Measurement Invariance"
               file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
         - text: "---"    
-        - section: Network Analysis
+        - section: "Network analysis"
           contents: 
             - text: "Community detection"
               file: posts/2025/2025-03-07-communities-in-psychometric-networks/index.qmd
@@ -119,7 +119,7 @@ website:
               file: presentation/2024-07-14-Presentation-M3/index.qmd
             - text: "Presentation: Item selection"
               file: projects/2025-04-06-Network-Factor-Analysis-Item-Selection/index.qmd
-            - text: "ESRM64503 Lecture: CFA and NA"
+            - text: "ESRM64503: CFA and NA"
               file: teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture13/Lecture13.qmd
     - id: id-history
       collapse-level: 2

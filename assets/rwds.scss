@@ -145,6 +145,10 @@ a.sidebar-item-text.sidebar-link.text-start { // leading texts in the sidebar li
   }  
 }
 
+div.column-container { // margin text should be left aligned
+  text-align: left;
+}
+
 
 //* Enhanced Navbar Styles *//
 .navbar-nav  { // active navigation tab styling

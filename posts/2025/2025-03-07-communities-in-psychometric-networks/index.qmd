@@ -139,20 +139,20 @@ Relationships among theory, statistical model, and data ![](theory_model.png){fi
 
 Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
-| Algorithm | Feature | Citation |
-|:-----------------------|:-----------------------|:-----------------------|
-| Walktrap | random walks | @ponsComputingCommunitiesLarge2006 |
-| Infomap | random walks | @rosvallMapsRandomWalks2008 |
-| Fast-greedy | hierarchical clustering; modularity-based | @clausetFindingCommunityStructure2004 |
-| Louvian | hierarchical clustering; modularity-based | @blondelFastUnfoldingCommunities2008 |
-| Leading Eigenvalue | eigenvalue | @newmanModularityCommunityStructure2006 |
-| Label Propagation | non-parametric | @raghavanLinearTimeAlgorithm2007 |
-| Spinglass | non-parametric | @reichardtStatisticalMechanicsCommunity2006 |
-| Edge Betweenness | non-parametric | @girvanCommunityStructureSocial2002 |
-| Triangulated Maximally Filtered Graph (TMFG) | score based | @massaraNetworkFilteringBig2017 |
-| Parallel Analysis | EFA |  |
+| Algorithm | Feature |
+|:------------------------|:-----------------|
+| Walktrap [@ponsComputingCommunitiesLarge2006] | random walks |
+| Infomap [@rosvallMapsRandomWalks2008] | random walks |
+| Fast-greedy [@clausetFindingCommunityStructure2004] | hierarchical clustering; modularity-based |
+| Louvian [@blondelFastUnfoldingCommunities2008] | hierarchical clustering; modularity-based |
+| Leading Eigenvalue [@newmanModularityCommunityStructure2006] | eigenvalue |
+| Label Propagation [@raghavanLinearTimeAlgorithm2007] | non-parametric |
+| Spinglass [@reichardtStatisticalMechanicsCommunity2006] | non-parametric |
+| Edge Betweenness [@girvanCommunityStructureSocial2002] | non-parametric |
+| Triangulated Maximally Filtered Graph (TMFG) [@massaraNetworkFilteringBig2017] | score based |
+| Parallel Analysis | EFA |
 
-: Different types of community detection algorithms {#tbl-algorithm tbl-colwidths="\[35,30,35\]"}
+: Different types of community detection algorithms {#tbl-algorithm tbl-colwidths="\[60,40\]"}
 
 @tbl-algorithm shows the list of community detection algorithms and their features. In the framework of psychometric assessment (\< 50 nodes, balanced item number per factor), the best-performing algorithms are GLASSO with unidimentional adjustment, Louvian, Fast-greedy, Walktrap, and parallel analysis. The evaluation criteria include:
 

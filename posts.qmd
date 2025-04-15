@@ -72,8 +72,8 @@ freq_post <- data.frame(
 
 ## font setting
 t <- list(
-  family = "MiSans",
-  size = 14,
+  family = "Abel",
+  size = 16,
   color = '#404041')
 plot_ly(x =~year, y=~number_post, data = freq_post, 
         showlegend = FALSE) |> 
