@@ -115,6 +115,14 @@ $breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
 //* Enhanced Sidebar Styles *//
+nav#TOC.toc-active {
+  font-family: "FZFWZhuZiAYuanJW";
+  font-size: 1em;
+  h2 {
+    font-family: "FZFWZhuZiAYuanJW Bold";
+    font-weight: 600;
+  }
+}
 nav.sidebar.sidebar-navigation:not(.rollup) { // sidebar color
   .menu-text {
     font-family: "FZFWZhuZiAYuanJW";
@@ -189,7 +197,7 @@ h1, h2 {text-transform: capitalize;}
 
 h1, h2, h2#toc-title, h3, h4, .callout-title-container {
   font-family: "Roboto Condensed", sans-serif;
-  letter-spacing: 1.2px;
+  letter-spacing: -0.5px;
   font-weight: 500;
 }
 
@@ -579,87 +587,86 @@ $black-tl: #34435E;
 $white-tl: #ffffff;
 
 .timeline {
-
-body {
-  font-family: "Abel", sans-serif;
-  margin: 0;
-  padding: 0 4em;
-}
-
-main {
-  min-width: 300px;
-  max-width: 500px;
-  margin: auto;
-}
-
-h3 {
-  font-size: 1.2em;
-  color: $black-tl;
-  position: relative;
-  padding-left: 0px;
-  margin: auto;
-}
-
-
-p {
-  font-size: .8em;
-  line-height: 1.75em;
-  border-top: 2px solid;
-  border-image: linear-gradient(to right, #6636a9 0%, #9A4665 100%);
-  border-image-slice: 1;
-  border-width: 2px;
-  margin: 0;
-  padding: 5px 25px 15px;
-  counter-increment: section;
-  position: relative;
-  color: $black-tl;
-
-  //numbers
-  &:before {
-    content: counter(section);
-    position: absolute;
-    border-radius: 50%;
-    padding: 8px;
-    height: 2.25em;
-    width: 2.25em;
-    background-color: $black-tl;
-    text-align: center;
-    line-height: 1.25em;
-    color: $white-tl;
-    font-size: 1em;
+  body {
+    font-family: "Abel", sans-serif;
+    margin: 0;
+    padding: 0 4em;
   }
-}
-
-//odd number borders
-p:nth-child(odd) {
-  border-right: 3px solid;
-  padding-left: 0px;
-
-  &:before {
-    left: 100%;
-    margin-left: -15px;
+  
+  main {
+    min-width: 300px;
+    max-width: 500px;
+    margin: auto;
   }
-}
-
-//even number borders
-p:nth-child(even) {
-  border-left: 3px solid;
-  padding-right: 0;
-
-  &:before {
-    right: 100%;
-    margin-right: -15px;
+  
+  h3 {
+    font-size: 1.2em;
+    color: $black-tl;
+    position: relative;
+    padding-left: 0px;
+    margin: auto;
   }
-}
-//handle first and last
-p:first-child {
-  border-top: 0;
-  border-top-right-radius:0;
-  border-top-left-radius:0;
-}
-p:last-child {
-  border-bottom-right-radius:0;
-  border-bottom-left-radius:0;
-}
+  
+  
+  p {
+    font-size: .8em;
+    line-height: 1.75em;
+    border-top: 2px solid;
+    border-image: linear-gradient(to right, #6636a9 0%, #9A4665 100%);
+    border-image-slice: 1;
+    border-width: 2px;
+    margin: 0;
+    padding: 5px 25px 15px;
+    counter-increment: section;
+    position: relative;
+    color: $black-tl;
+  
+    //numbers
+    &:before {
+      content: counter(section);
+      position: absolute;
+      border-radius: 50%;
+      padding: 8px;
+      height: 2.25em;
+      width: 2.25em;
+      background-color: $black-tl;
+      text-align: center;
+      line-height: 1.25em;
+      color: $white-tl;
+      font-size: 1em;
+    }
+  }
+  
+  //odd number borders
+  p:nth-child(odd) {
+    border-right: 3px solid;
+    padding-left: 0px;
+  
+    &:before {
+      left: 100%;
+      margin-left: -15px;
+    }
+  }
+  
+  //even number borders
+  p:nth-child(even) {
+    border-left: 3px solid;
+    padding-right: 0;
+  
+    &:before {
+      right: 100%;
+      margin-right: -15px;
+    }
+  }
+  //handle first and last
+  p:first-child {
+    border-top: 0;
+    border-top-right-radius:0;
+    border-top-left-radius:0;
+  }
+  p:last-child {
+    border-bottom-right-radius:0;
+    border-bottom-left-radius:0;
+  }
 
 }
