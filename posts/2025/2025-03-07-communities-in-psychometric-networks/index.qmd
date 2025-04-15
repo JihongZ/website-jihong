@@ -140,7 +140,7 @@ Relationships among theory, statistical model, and data ![](theory_model.png){fi
 Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
 
 | Algorithm | Feature | Citation |
-|----|----|----|
+|:-----------------------|:-----------------------|:-----------------------|
 | Walktrap | random walks | @ponsComputingCommunitiesLarge2006 |
 | Infomap | random walks | @rosvallMapsRandomWalks2008 |
 | Fast-greedy | hierarchical clustering; modularity-based | @clausetFindingCommunityStructure2004 |
@@ -152,7 +152,7 @@ Numerous prior studies have compared different community detection methods in va
 | Triangulated Maximally Filtered Graph (TMFG) | score based | @massaraNetworkFilteringBig2017 |
 | Parallel Analysis | EFA |  |
 
-: Different types of community detection algorithms {#tbl-algorithm tbl-colwidths="\[35,40,25\]"}
+: Different types of community detection algorithms {#tbl-algorithm tbl-colwidths="\[35,30,35\]"}
 
 @tbl-algorithm shows the list of community detection algorithms and their features. In the framework of psychometric assessment (\< 50 nodes, balanced item number per factor), the best-performing algorithms are GLASSO with unidimentional adjustment, Louvian, Fast-greedy, Walktrap, and parallel analysis. The evaluation criteria include:
 

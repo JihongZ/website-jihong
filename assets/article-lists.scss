@@ -1,13 +1,14 @@
 /*-- scss:rules --*/
 // Blog categories
 #quarto-margin-sidebar {
-    .quarto-listing-category-title {
-        font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
+    .quarto-listing-category-title { // category title
+        font-family: "Roboto Condensed", sans-serif;
+        font-weight: 600;
         margin-left: 0.5em;
     }
 
-    .quarto-listing-category {
-        font-family: "FZFWZhuZiAYuanJW", sans-serif;
+    .quarto-listing-category { // category text
+        font-family: "Roboto Condensed", sans-serif;
         font-weight: 300;
         font-size: 1em;
         line-height: 1.1;

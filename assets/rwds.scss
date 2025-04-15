@@ -116,16 +116,17 @@ $breadcrumb-border-radius:  0.30em;
 
 //* Enhanced Sidebar Styles *//
 nav#TOC.toc-active {
-  font-family: "FZFWZhuZiAYuanJW";
+  font-family: "Roboto Condensed", sans-serif;
   font-size: 1em;
   h2 {
-    font-family: "FZFWZhuZiAYuanJW Bold";
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: 600;
   }
 }
 nav.sidebar.sidebar-navigation:not(.rollup) { // sidebar color
   .menu-text {
-    font-family: "FZFWZhuZiAYuanJW";
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 300;
     color: $body-color;
   }  
   // background-color: $tao-you !important;
@@ -133,13 +134,14 @@ nav.sidebar.sidebar-navigation:not(.rollup) { // sidebar color
 
 a.sidebar-item-text.sidebar-link.active { // selected item in the sidebar list
   .menu-text {
-    font-family: "FZFWZhuZiAYuanJW Bold";
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 600;
     color: $success;
   }
 }
 a.sidebar-item-text.sidebar-link.text-start { // leading texts in the sidebar list
   .menu-text {
-    font-family: "FZFWZhuZiAYuanJW Bold";
+    font-family: "Roboto Condensed", sans-serif;
   }  
 }
 
@@ -195,7 +197,10 @@ a.sidebar-item-text.sidebar-link.text-start { // leading texts in the sidebar li
 
 h1, h2 {text-transform: capitalize;}
 
-h1, h2, h2#toc-title, h3, h4, .callout-title-container {
+h1, h2, h2#toc-title, h3, h4, 
+figcaption,
+.callout-title-container, 
+details.code-fold {
   font-family: "Roboto Condensed", sans-serif;
   letter-spacing: -0.5px;
   font-weight: 500;
@@ -204,7 +209,7 @@ h1, h2, h2#toc-title, h3, h4, .callout-title-container {
 // Add shadow to images
 // img { box-shadow: 4px 4px 8px 0px rgba( 0, 0, 0, 0.2 );}
 
-body, p, li, a{ // main font family of post content
+body, p, li { // main font family of post content
   font-family: "Abel", sans-serif;
   font-weight: 400;
 }
@@ -538,7 +543,7 @@ button.show-answer:hover {
 /* Table styling */
 table {
   font-family: "Abel", sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   width: 100%;
   margin-bottom: 1em;
   border-radius: 5px;
@@ -549,7 +554,6 @@ th {
   background-color: #f8f9fa;
   border-bottom: 2px solid #dee2e6;
   padding: 0.25em;
-  text-align: left;
 }
 
 td {
