@@ -49,7 +49,7 @@ freq_note <- data.frame(
 )
 
 t <- list(
-  family = "MiSans",
+  family = "Roboto Condensed",
   size = 14,
   color = '#404041')
 plot_ly(x =~year, y=~number_note, data = freq_note, showlegend = FALSE) |> 
@@ -63,6 +63,7 @@ plot_ly(x =~year, y=~number_note, data = freq_note, showlegend = FALSE) |>
     xaxis = list(title = "Number of Notes by Year"), 
     yaxis = list(title = ""),
     font = t)
+    
 ```
 
 ```{r}

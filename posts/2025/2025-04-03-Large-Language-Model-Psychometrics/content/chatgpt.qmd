@@ -28,9 +28,126 @@ library(kableExtra)
 library(glue)
 ```
 
+![The generated Likert-scale motivation item by GPT-4.1](images/clipboard-1126306144.png){#fig-gpt-item}
+
+## GPT-4.1
+
+OpenAI published [GPT-4.1](https://platform.openai.com/docs/models/gpt-4.1) (Model: `gpt-4.1-2025-04-14`) on April 2025. The price is \$2 / 1M token. As a reference, in my recent project of using LLM to generate survey responses, the number of tokens per prompt ranges from 5K to 10K, which means 100 calls costs $2 or \$.02 / call.
+
+Next, I used one example to see the different values from the same prompt.
+
+As shown in @fig-gpt-compr, two items show differences in generated survey responses. It may be because the emotional words such as "ashamed" or "failure".
+
+-   Item6: I feel **ashamed** when I miss an exercise session.
+
+-   Item7: I feel like a **failure** when I haven't exercised in a while.
+
+In contrast to choosing "**Somewhat disagree**" by GPT-4o, GPT-4.1 tend to choose "**Disagree**" in these two items with negatively emotional words. Does GPT-4.1 tend to be more emotionally similar to humans — mentally avoiding negative emotion?
+
+```{r}
+#| code-fold: true
+#| code-summary: "Create meta prompts without personal information"
+instruction <- "
+Instructions:
+
+For your output,
+  - Only provide the numerical responses.
+  - Format your responses as a semicolon-separated list: X;X;X;X;X;X;X, where X represents your selected option for each question, the total number of X depends on number of items.
+  - Example: '1;3;2' corresponds to:
+  	- 1 (Strongly Agree) for the first question
+  	- 3 (Somewhat Agree) for the second question
+  	- 2 (Agree) for the third question
+  	
+The scale for all items is: 1 = Strongly disagree, 2 = Disagree, 3 = Somewhat disagree, 4 = Somewhat agree, 5 = Agree, 6 = Strongly agree.  	
+"
+prompt <- "
+Role & Task:
+
+You are a staff member of the Boys & Girls Club serving underserved communities. The program enrolls at least 50% of youth (ages 9–14) from low-income households (as defined by free/reduced lunch status) and minority backgrounds in Richland and Lexington counties in Columbia, South Carolina. Researchers have interviewed you in 2024, where ‘I’ represents the interviewer and ‘S’ represents you (the interviewee) in the transcript provided in the <Interview> section below. 
+
+Your task is to construct a persona that reflects the characteristics and perspectives conveyed in the interview. Based on this persona, generate numerical responses to survey items in Survey Questions section using a Likert scale in Response Scale section that aligns with your expressed views.
+
+Survey Questions:
+Item1: I exercise because other people say I should.
+Item2: I take part in exercise because my friends/family/spouse say I should.
+Item3: I exercise because others will not be pleased with me if I don't.
+Item4: I feel under pressure from my friends/family to exercise.
+Item5: I feel guilty when I don't exercise.
+Item6: I feel ashamed when I miss an exercise session.
+Item7: I feel like a failure when I haven't exercised in a while.
+Item8: I value the benefits of exercise.
+Item9: It's important to me to exercise regularly.
+Item10: I think it is important to make the effort to exercise regularly.
+Item11: I get restless if I don't exercise regularly.
+Item12: I exercise because it's fun.
+Item13: I enjoy my exercise sessions.
+Item14: I find exercise a pleasurable activity.
+Item15: I get pleasure and satisfaction from participating in exercise
+"
+```
+
+```{python}
+#| code-fold: true
+#| code-summary: "Python code to call GPT API"
+#| cache: true
+import time  # Import the time module
+from dis import Instruction
+import os
+import csv
+from openai import OpenAI
+
+# ChatGPT
+def get_response_gpt4o(instructions, input, temp):
+    # Initialize the OpenAI API client
+    client = OpenAI()
+    response = client.responses.create(
+        model="gpt-4o",
+        instructions=instructions,
+        input=input,
+        temperature=temp,
+    )
+    return response.output_text
+
+def get_response_gpt41(instructions, input, temp):
+    # Initialize the OpenAI API client
+    client = OpenAI()
+    response = client.responses.create(
+        model="gpt-4.1-2025-04-14",
+        instructions=instructions,
+        input=input,
+        temperature=temp,
+    )
+    return response.output_text
+```
+
+```{r}
+#| fig-cap: "Generated survey output for GPT-4o and GPT-4.1"
+#| label: fig-gpt-compr
+#| code-fold: true
+#| code-summary: "ggplot2 for generated responses"
+#| cache: true
+gpt4o_resp <- py$get_response_gpt4o(instructions=instruction, 
+                                    input=prompt, temp = 0)
+gpt41_resp <- py$get_response_gpt41(instructions=instruction, 
+                                    input=prompt, temp = 0)
+
+res <- data.frame(
+  gpt4o = unlist(str_split(gpt4o_resp, ";")),
+  gpt41 = unlist(str_split(gpt41_resp, ";")),
+  Item = factor(1:15)
+) |> 
+  pivot_longer(starts_with("gpt"), names_to = "Model", values_to = "Response")
+
+ggplot(res) +
+  geom_path(aes(x = Item, y = Response, color = Model, group = Model) ) +
+  scale_color_manual(values = c("royalblue", "red3"), 
+                     labels = c("GPT4.1", "GPT4o")) +
+  theme_classic()
+```
+
 ## Response API Walk-through
 
-OpenAI provides [Prompts Playground](https://platform.openai.com/playground/prompts?models=gpt-4o) to test your prompt. OpenAI has recently updated their API from Chat to [Response API](https://platform.openai.com/docs/api-reference/responses).
+As shown in @fig-gpt-item, OpenAI provides [Prompts Playground](https://platform.openai.com/playground/prompts?models=gpt-4o) to test your prompt. OpenAI has recently updated their API from Chat to [Response API](https://platform.openai.com/docs/api-reference/responses).
 
 To use the Response API, update `OpenAI` python module to the latest using the following command:
 
@@ -182,7 +299,6 @@ res.append({"role": "user", "content": "Can your generate another 6-Likert scale
 res2 = get_conversation(res)
 print(res2[3]['content'][0].text)
 ```
-
 
 ## Example 1: Construct LLM function calling with Python and R
 

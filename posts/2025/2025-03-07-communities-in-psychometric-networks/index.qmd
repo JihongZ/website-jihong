@@ -90,7 +90,7 @@ qgraph::qgraph(getmatrix(mod1, "omega"),
                groups = labels,
                title = "Big 5 agreeableness",
                theme = "Borkulo",
-               bg = rgb(red = 145, # same to .macwindow class in lecture.scss
+               bg = rgb(red = 145, 
                         green = 203, 
                         blue = 215, 
                         alpha = .2196078431, 
