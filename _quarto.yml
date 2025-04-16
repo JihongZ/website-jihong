@@ -10,7 +10,7 @@ website:
   search: 
     location: sidebar
     type: overlay
-  bread-crumbs: true
+  bread-crumbs: false
   page-navigation: true
   back-to-top-navigation: true
   title: "Jihong Zhang, Ph.D."
@@ -29,9 +29,9 @@ website:
 format:
   html:
     grid:
-      sidebar-width: 350px
-      body-width: 900px
-      margin-width: 350px
+      sidebar-width: 300px
+      body-width: 1000px
+      margin-width: 300px
     csl: assets/apa.csl
     code-copy: true
     theme: 
@@ -57,7 +57,7 @@ format:
     code-summary: '&#8984;+C' # https://symbl.cc/en/collections/special-symbols/
     code-line-numbers: false
     code-overflow: scroll
-    code-tools: true
+    code-tools: false
     # links
     link-external-newwindow: true
     link-external-icon: false # icon next to href link
@@ -69,8 +69,9 @@ format:
     reference-location: margin
     citation-location: margin
     footnotes-hover: true
-    title-block-banner: "#EFEFEC" 
-    title-block-banner-color: "#403E3E"  # Foreground Color: https://quarto.org/docs/authoring/title-blocks.html#foreground-color
+    title-block-banner: "images/block_background.jpg" 
+    # title-block-banner: "#EFEFEC" 
+    #title-block-banner-color: "#403E3E"  # Foreground Color: https://quarto.org/docs/authoring/title-blocks.html#foreground-color
     
 
 execute: 

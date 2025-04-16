@@ -2,14 +2,13 @@
 website:
   sidebar:
     - id: id-todo
-      style: "docked"
+      style: floating
       search: false
       collapse-level: 0
       contents:
         - todolist/todo.qmd
         - todolist/reading_list_2025April.qmd
     - id: id-LLM-Psychometrics
-      style: "docked"
       search: false
       collapse-level: 0
       contents:
@@ -18,7 +17,6 @@ website:
           contents:
             - posts/2025/2025-04-03-Large-Language-Model-Psychometrics/content/chatgpt.qmd
     - id: id-javascript-in-R
-      style: "docked"
       border: true
       search: true
       contents:

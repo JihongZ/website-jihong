@@ -5,7 +5,6 @@
 author: Jihong Zhang
 number-sections: true
 number-depth: 3
-sidebar: id-blog
 format:
   html:
     toc-depth: 3
@@ -14,7 +13,7 @@ format:
     page-layout: article
     code-tools: false
     grid:
-      sidebar-width: 350px
-      body-width: 900px
-      margin-width: 350px
+      sidebar-width: 300px
+      body-width: 1000px
+      margin-width: 300px
       
