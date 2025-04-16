@@ -9,6 +9,7 @@ execute:
   echo: false
 format: 
   html:
+    title-block-banner: false
     code-tools: false
     code-fold: false
     comments: false

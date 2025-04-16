@@ -1,7 +1,6 @@
 ---
 title: "Note: Interactive Data Visualization for R"
 author: Jihong Zhang <a href="https://orcid.org/0000-0003-2820-3734"><img src="/images/ORCID-iD_icon_24x24.png" alt=""/></a>
-title-block-banner: false
 date: "2025-03-16"
 date-modified: "`{r} Sys.Date()`"
 execute: 

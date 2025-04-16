@@ -11,6 +11,7 @@ format:
   html:
     code-tools: false
     toc: false
+    title-block-banner: false
     comments: false
     grid:
       sidebar-width: 400px

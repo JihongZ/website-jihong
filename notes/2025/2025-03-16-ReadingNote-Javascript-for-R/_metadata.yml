@@ -1,10 +1,12 @@
-execute: 
-  warning: false
-  message: false
 categories:
   - htmltools
   - htmlwidgets
   - Javascript
+comments: false
+collapse-level: 2
+execute: 
+  warning: false
+  message: false
 fig-cap-location: top  
 toc-depth: 3
 toc-expand: true
@@ -12,13 +14,4 @@ toc-location: right
 sidebar: id-javascript-in-R
 number-sections: true
 page-layout: full
-code-tools: false
-comments: false
 fig-align: center
-collapse-level: 2
-format: 
-  html:
-    grid:
-      sidebar-width: 200px
-      body-width: 1000px
-      margin-width: 400px

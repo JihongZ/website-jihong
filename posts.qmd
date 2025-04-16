@@ -52,6 +52,7 @@ execute:
   message: false
 format: 
   html:
+    title-block-banner: false
     code-tools: false
     comments: false
 ---
