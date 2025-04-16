@@ -32,9 +32,9 @@ library(glue)
 
 ## GPT-4.1
 
-OpenAI published [GPT-4.1](https://platform.openai.com/docs/models/gpt-4.1) (Model: `gpt-4.1-2025-04-14`) on April 2025. The price is \$2 / 1M token. As a reference, in my recent project of using LLM to generate survey responses, the number of tokens per prompt ranges from 5K to 10K, which means 100 calls costs $2 or \$.02 / call.
+OpenAI published [GPT-4.1](https://platform.openai.com/docs/models/gpt-4.1) (Model: `gpt-4.1-2025-04-14`) on April 2025. The price is \$2 / 1M token. As a reference, in my recent project of using LLM to generate survey responses, the number of tokens per prompt ranges from 5K to 10K, which means 100 calls cost around $2 or \$.02 / calling.
 
-Next, I used one example to see the different values from the same prompt.
+Next, I used one tiny experiment to examine the differences between GPT-4o and GPT-4.1 when answering to the same prompt. The prompt is a general prompt from my recent project.
 
 As shown in @fig-gpt-compr, two items show differences in generated survey responses. It may be because the emotional words such as "ashamed" or "failure".
 
@@ -63,9 +63,9 @@ The scale for all items is: 1 = Strongly disagree, 2 = Disagree, 3 = Somewhat di
 prompt <- "
 Role & Task:
 
-You are a staff member of the Boys & Girls Club serving underserved communities. The program enrolls at least 50% of youth (ages 9–14) from low-income households (as defined by free/reduced lunch status) and minority backgrounds in Richland and Lexington counties in Columbia, South Carolina. Researchers have interviewed you in 2024, where ‘I’ represents the interviewer and ‘S’ represents you (the interviewee) in the transcript provided in the <Interview> section below. 
+You are a staff member of club serving underserved communities. The program enrolls at least 50% of youth (ages 9–14) from low-income households (as defined by free/reduced lunch status) and minority backgrounds.
 
-Your task is to construct a persona that reflects the characteristics and perspectives conveyed in the interview. Based on this persona, generate numerical responses to survey items in Survey Questions section using a Likert scale in Response Scale section that aligns with your expressed views.
+Your task is to construct a persona. Based on this persona, generate numerical responses to survey items in Survey Questions section using a Likert scale in Response Scale section that aligns with your expressed views.
 
 Survey Questions:
 Item1: I exercise because other people say I should.
