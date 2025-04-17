@@ -4,7 +4,7 @@ website:
     collapse: true
     tools-collapse: true
     pinned: true
-    title: "<span class='icon-line'></span><span style='color:#2e4963; font-size: 0.9em; font-family: FZFWZhuZiAYuanJW'>JIHONG ZHANG (张吉鸿)</span><span class='icon-line'></span>"
+    title: "<span class='icon-line'></span><span class='website-name'>JIHONG ZHANG (张吉鸿)</span><span class='icon-line'></span>"
     foreground: "#404041"
     right:
       - text: "<span class='menutext-teach'>ABOUT</span><span class='text-line text-line-teach'></span>"

@@ -150,15 +150,12 @@ div.column-container { // margin text should be left aligned
 }
 
 
-//* Enhanced Navbar Styles *//
+//* Enhanced Navbar Styles <nav> *//
 .navbar-nav  { // active navigation tab styling
-    a.nav-link.active {
-        background-image: url(images/qinghua_bian.png);
-        background-size: 100% 100%;
-        .menu-text{
-            color: $headings-color;
-            font-family: "FZFWZhuZiAYuanJW Bold";
-        }
+    .menu-text { // text for navigation bar and side bar
+      font-family: "Inter", sans-serif;
+      font-size: 0.95rem;
+      color: $headings-color;
     }
 }
 
@@ -309,18 +306,18 @@ div.quarto-post a {
 }
 // Inside quarto document, add a animation to links (box shadow move from left to right)
 // Select all <a> elements without the `lightbox` (zoom-in img) or the `nav-link` class (tabset)
-#quarto-document-content a:not(.lightbox, .nav-link) {
+#quarto-document-content a:not(.lightbox, .nav-link, .about-link) {
   color: $qian-qing;
   box-shadow: inset 0 0 0 0 $freeze-purple;
   text-decoration-line: none;
   transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
 }
-#quarto-document-content a:not(.lightbox, .nav-link):hover {
+#quarto-document-content a:not(.lightbox, .nav-link, .about-link):hover {
   color: $caution;
   box-shadow: inset 900px 0 0 0 $freeze-purple;
 }
 
-/* Source Code  */
+// Source Code Block
 pre.sourceCode.r::before, .language-r::before {
   content:"❆ ℝ";
 }
@@ -400,6 +397,28 @@ div.cell-output {
 }
 
 // Animation logo: https://ellakaye.co.uk/posts/2023-04-11_animated-logo/
+// Website Anchor-name
+.website-name { // 张吉鸿
+  font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: -2px;
+  color: $gray;
+}
+  
+
+div.quarto-about-trestles .about-entity .about-link{ // Buttons under the profile picture
+  background: #000;
+  border-radius: 15px !important;
+  min-width: 100px;
+  &:hover {
+    background: $warning;
+    border: 0px;
+  }
+  .about-link-text {
+    font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
+    color: $soft-color1;
+  }
+}
 
 .icon-line {
   display: block;
@@ -410,18 +429,6 @@ div.cell-output {
   display: table;
   margin-top: -6px;
   margin-bottom: -6px;
-}
-
-.menu-text { // text for navigation bar and side bar
-  font-family: "FZFWZhuZiAYuanJW", sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 0px;
-  color: $gray;
-}
-
-.menu-text h3 {
-  font-family: "Abel", sans-serif;
-  color: $gray;
 }
 
 .sidebar-navigation .sidebar-item-text .menu-text {
@@ -468,25 +475,6 @@ div.cell-output {
   background: #e3abdb;
 }
 
-button.show-answer {
-  background-color: #04AA6D;
-  color: white;
-  border: none;
-  font-size: 1em;
-  font-family:  'Titillium Web';
-  text-align: center;
-  padding: 10px;
-  transition-duration: 0.4s;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  border-radius: 8px;
-}
-
-button.show-answer:hover {
-  background-color: white;
-  color: #04AA6D;
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
 /* Nice Paragraph */
 .nice-paragraph {
     font-size: 0.9rem;
@@ -502,25 +490,15 @@ button.show-answer:hover {
     transition: all 0.3s ease-in-out;
     position: relative;
     overflow: hidden;
+    /* Subtle Hover Effect */
+    &:hover {
+        /* background-color: #eef6fc; Light blue shade on hover */
+        transform: scale(1.01); /* Slight zoom effect */
+        box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1); /* Enhanced depth */
+        border-left: 0px solid #365e7d; /* Darker shade of blue */
+        &:before {opacity: 1;}
+    }
 }
-
-/* Subtle Hover Effect */
-.nice-paragraph:hover {
-    /* background-color: #eef6fc; Light blue shade on hover */
-    transform: scale(1.01); /* Slight zoom effect */
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1); /* Enhanced depth */
-}
-
-/* Decorative Glow Effect */
-.nice-paragraph:hover::before {
-    opacity: 1;
-}
-
-/* Optional - Animate border color on hover */
-.nice-paragraph:hover {
-    border-left: 0px solid #365e7d; /* Darker shade of blue */
-}
-
 
 /* Styling the tab container */
 .panel-tabset {

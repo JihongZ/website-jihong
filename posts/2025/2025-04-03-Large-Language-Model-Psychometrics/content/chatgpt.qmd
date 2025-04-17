@@ -32,7 +32,7 @@ library(glue)
 
 ## GPT-4.1
 
-OpenAI published [GPT-4.1](https://platform.openai.com/docs/models/gpt-4.1) (Model: `gpt-4.1-2025-04-14`) on April 2025. The price is \$2 / 1M token. As a reference, in my recent project of using LLM to generate survey responses, the number of tokens per prompt ranges from 5K to 10K, which means 100 calls cost around $2 or \$.02 / calling.
+OpenAI published [GPT-4.1](https://platform.openai.com/docs/models/gpt-4.1) (Model: `gpt-4.1-2025-04-14`) on April 2025. The price is \$2 / 1M token. As a reference, in my recent project of using LLM to generate survey responses, the number of tokens per prompt ranges from 5K to 10K, which means 100 calls cost around \$2 or \$.02 / calling.
 
 Next, I used one tiny experiment to examine the differences between GPT-4o and GPT-4.1 when answering to the same prompt. The prompt is a general prompt from my recent project.
 

@@ -12,17 +12,13 @@ about:
   image-shape: round
   image-width: 15em
   links:
-    - icon: bi-person-lines-fill
-      text: C.V.
+    - text: C.V.
       href: uploads/Curriculum_Vitae.pdf
-    - icon: envelope
-      text: Email
+    - text: Email
       href: mailto:jzhang@uark.edu
-    - icon: twitter
-      text: Twitter
+    - text: Twitter
       href: https://twitter.com/jihongzgamma
-    - icon: github
-      text: Github
+    - text: Github
       href: https://github.com/JihongZ
     - text: <img src="images/ORCID-iD_icon_vector.svg" width="16" height="16" /> ORCID
       href: https://orcid.org/0000-0003-2820-3734
