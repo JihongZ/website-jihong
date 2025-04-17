@@ -169,7 +169,7 @@ This book is free and comprehensive for a broad R tasks of data analysis. For ex
 
 -   Choose one from two types of research:
 
-    -   A research project of data analysis. Provide a research report on data analysis evetually.
+    -   A research project of data analysis. Provide a research report on data analysis eventually.
 
     -   Alternatively, a project of developing a R package. Provide a vignette to illustrate the functionality of your R package.
 
