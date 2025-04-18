@@ -1,4 +1,5 @@
 author: "张吉鸿"
+date-format: "YYYY年MM月DD日"
 format: 
   html:
     code-tools: false
