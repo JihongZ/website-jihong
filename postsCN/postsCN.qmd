@@ -6,7 +6,7 @@ listing:
   type: default
   categories: cloud
   sort: "date desc"
-  fields: [date, title, description, author]
+  fields: [date, title]
 page-layout: full
 execute: 
   warning: false
