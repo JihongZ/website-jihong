@@ -27,9 +27,11 @@ website:
             file: projects.qmd
           - text: "<span class='menutext-db'>Dashboard</span><span class='text-line text-line-db'></span>"
             file: dashboards/template.qmd  
-    tools:
-      - icon: 'bi bi-globe-asia-australia'
-        file: postsCN/postsCN.qmd
+      - text: '<i class="bi-globe-asia-australia"></i><span class="chinese-post">中文博客</span>'
+        file: postsCN/postsCN.qmd      
+#    tools:
+#      - text: '<i class="bi-globe-asia-australia"></i>中文博客'
+#        file: postsCN/postsCN.qmd
 #      - icon: "bi bi-person-square"
 #        file: uploads/Curriculum_Vitae.pdf
 #      - icon: twitter

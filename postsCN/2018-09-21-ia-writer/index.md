@@ -1,10 +1,10 @@
 ---
 title: "使用iPad来进行写作"
-date: 2018-09-20
+date: "2018-09-20"
 categories:
-- manual
+  - manual
 tags:
-- Blog
+  - Blog
 ---
 
 > 我对ipad一直是又爱又恨，爱它的便捷型，恨它功能性有很多限制。但是便捷型还是占据了上风。我决定尝试用IPad来写markdown. 在电脑端，可以使用iWriter Pro.

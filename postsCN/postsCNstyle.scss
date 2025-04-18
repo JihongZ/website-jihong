@@ -1,10 +1,27 @@
 /*-- scss:rules --*/
 $font-size-root: "FZFWZhuZiAYuanJW";
 
-h1, h2, h3, .callout-title-container {
-  font-family: "FZFWZhuZiAYuanJW", sans-serif;
-  letter-spacing: 1.6px;
-  font-weight: normal;
+.blog {
+  .blog-entry {
+    display: flex;
+    align-items: center; /*Vertical align*/
+    justify-content: space-between;
+    flex-direction: row;
+    column-gap: 1.5em;
+    width: 600px;
+    margin-left: 100px;
+    a, p.listing-date {
+      font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
+      font-size: 1em;
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
+    p.listing-date {
+      font-size: .9em;
+      font-family: "FZFWZhuZiAYuanJW", sans-serif;
+      color: $lightwhite;
+    }
+  }
 }
 
 body, p, li, a{ // main font family of post content
@@ -13,6 +30,17 @@ body, p, li, a{ // main font family of post content
   font-weight: 400;
   font-style: normal;
 }
+strong, figcaption {
+  font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
+}
+
+h1, h2, h3, .callout-title-container {
+  font-family: "FZFWZhuZiAYuanJW", sans-serif;
+  letter-spacing: 1.6px;
+  font-weight: normal;
+}
+
+
 
 div.quarto-title.column-body {
   h1 {

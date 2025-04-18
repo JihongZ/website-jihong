@@ -404,6 +404,16 @@ div.cell-output {
   letter-spacing: -2px;
   color: $gray;
 }
+
+.chinese-post {
+  font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
+  font-size: 1em;
+  color: $gray;
+  transition: color .5s ease-in-out;
+}
+.chinese-post:hover {
+  color: $caution;
+}
   
 
 div.quarto-about-trestles .about-entity .about-link{ // Buttons under the profile picture

@@ -1,0 +1,8 @@
+<div class="blog">
+<% for (const post of items) { %>
+  <div class="blog-entry">
+  <a href="<%- post.path %>"><%= post.title %></a>
+  <div class="date"><p class="listing-date" align="right"><%= post.date %></p></div>
+  </div>
+<% } %>
+</div>

@@ -2,9 +2,7 @@
 title: "在午后静静"
 date: 2019-11-11
 categories:
-- blog
-tags:
-- Blog
+  - 日常
 ---
 
 在周一一个闲来无事的午后（周二有Test and Theory的期中考试，但是并不想看）翻看起益晖兄的博客[如何想静静](https://yihui.name/cn/2019/07/inner-peace/)，觉得他谈到了现代人的一些很重要的问题，比如拖延症，缺少专注力。

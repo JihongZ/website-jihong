@@ -1,8 +1,9 @@
-date-format: "YYYY-MM-DD"      
+author: "张吉鸿"
 format: 
   html:
     code-tools: false
-    comments: false
+    grid: 
+      body-width: 600px
     theme:
       light: 
         - postsCNstyle.scss

@@ -1,13 +1,15 @@
 ---
 title: "<span style='color:#2e4963;'>博客｜杂然</span>"
 subtitle: "<span style='color:#2e4963;'>天地有正气，杂然赋流形。</span>"
+author: ""
 listing:
-  contents: ./**/*.[Rq]md
-  type: default
+  template: glallery.ejs
+  contents: ./**/*.*md
   categories: cloud
   sort: "date desc"
   fields: [date, title]
 page-layout: full
+date-format: "⏺ YYYY年MM月DD日"
 execute: 
   warning: false
   message: false
