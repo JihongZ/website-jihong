@@ -19,7 +19,7 @@ format:
     toc-expand: true
     toc-location: left
     page-layout: article
-    code-tools: false
+    code-tools: true
     grid:
       sidebar-width: 300px
       body-width: 1000px

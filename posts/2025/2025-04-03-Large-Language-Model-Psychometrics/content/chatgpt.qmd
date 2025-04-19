@@ -145,6 +145,133 @@ ggplot(res) +
   theme_classic()
 ```
 
+### Response probability distribution vs. responses value
+
+Instead of asking LLM to generate survey responses directly, we can also instruct LLMs to generate probability distributions of responses for each item. For example, instead of letting LLM output "1;2;2" for three 5-point Liker-scale items, we ask LLMs to output `Xi_k1:pi1,Xi_k2:pi2,Xi_k3:pi3,Xi_k4:pi4,Xi_k5:pi5,Xi_k6:pi6;`.
+
+where:
+
+  - `Xi_kj` denotes response option j (from 1 to 6) for item i
+  - `pij` is the probability (between 0 and 1) of selecting that option. 
+  - Each line (separated by semicolons) corresponds to a different item
+  - The probabilities for each item must sum to 1
+
+```{r second_run}
+#| code-fold: true
+#| code-summary: "Use response probabities for generated responses"
+#| cache: true
+instruction2 <- "
+Instructions:
+Generate probabilistic responses for each survey item using the following format. Each response should represent a probability distribution across six ordinal options of 15 items. The pribabilities of all options of each item should be two or three decimal places. Ensure that for each item, the sum of all six probabilities equals 1.
+
+- Output format:
+
+Provide only numerical responses. Use a semicolon-separated list to indicate the probability of selecting each response option for each item.
+
+- Structure:
+
+For Item i, the response should follow this pattern:
+
+Xi_k1:pi1,Xi_k2:pi2,Xi_k3:pi3,Xi_k4:pi4,Xi_k5:pi5,Xi_k6:pi6;
+
+where:
+  - Xi_kj denotes response option j (from 1 to 6) for item i
+  - pij is the probability (between 0 and 1) of selecting that option. 
+  - Each line (separated by semicolons) corresponds to a different item
+  - The probabilities for each item must sum to 1
+
+- Example:
+  
+  X1_k1:0.50,X1_k2:0.10,X1_k3:0.10,X1_k4:0.10,X1_k5:0.10,X1_k6:0.10;
+
+This indicates that for Item 1, the probabilities of selecting options 1 through 6 are 50%, 10%, 10%, 10%, 10%, and 10%, respectively.
+
+- Scale (applies to all items):
+  1 = Strongly Disagree
+  2 = Disagree
+  3 = Somewhat Disagree
+  4 = Somewhat Agree
+  5 = Agree
+  6 = Strongly Agree
+"
+
+gpt4o_resp2 <- py$get_response_gpt4o(instructions=instruction2, 
+                                    input=prompt, temp = 0)
+gpt41_resp2 <- py$get_response_gpt41(instructions=instruction2, 
+                                    input=prompt, temp = 0)
+```
+
+You can find that GPT models can understand the prompt very well
+
+```{r}
+cat(gpt4o_resp2)
+```
+
+Let's do some data cleaning and then visualize the item response probabilities.
+
+```{r second_run_vis}
+#| code-fold: true
+#| code-summary: "Visualize the response probability for two LLM mdoels"
+#| fig-cap: "Item response probabity distribution for GPT-4o and GPT-4.1"
+#| label: fig-gpt-prob
+get_df_from_output <- function(raw_gpt_op) {
+  all_item_resp_name <- NULL
+  all_item_resp_prob <- NULL
+  item_resps <- str_split(raw_gpt_op, "\n")[[1]]
+  for (i in 1:length(item_resps)) { # i = 1
+    each_resp_foritem <- str_split(str_remove(item_resps[i], ";"), ",")[[1]]
+    for (r in 1:length(each_resp_foritem)) { # for each response, r = 1
+      each_resp <- str_split(each_resp_foritem[r], ":")[[1]]
+      each_resp_name <- each_resp[1]
+      each_resp_prob <- as.numeric(each_resp[2])
+      all_item_resp_name <- c(all_item_resp_name, each_resp_name)
+      all_item_resp_prob <- c(all_item_resp_prob, each_resp_prob)
+    }
+  }
+  res <- data.frame(
+    item_resps = all_item_resp_name,
+    probability = all_item_resp_prob
+  ) |> 
+    separate(item_resps, into = c("Item", "Option"), sep = "_") |> 
+    mutate(Option = factor(str_remove(Option, "k"), levels = 1:6),
+           Item = factor(Item, levels = paste0("X", 15:1)))
+  return(res)
+}
+
+gpt4o_resp2_dt <- get_df_from_output(gpt4o_resp2)
+gpt41_resp2_dt <- get_df_from_output(gpt41_resp2)
+
+dt_comb <- rbind(
+  gpt4o_resp2_dt |> mutate(Model = "GPT-4o"),
+  gpt41_resp2_dt |> mutate(Model = "GPT-4.1")
+) 
+
+mycolors = c("#4682B4", "#B4464B", "#B4AF46", 
+             "#1B9E77", "#D95F02", "#7570B3",
+             "#E7298A", "#66A61E", "#B4F60A")
+
+ggplot(dt_comb) +
+  geom_col(aes(x=Item, y = probability, fill = Option), 
+           position =  position_stack(reverse = TRUE)) +
+  geom_text(aes(x=Item, y = probability, 
+                label = probability, group = Item),
+            size = 2,
+            position = position_stack(reverse = TRUE, vjust = 0.5)) +
+  facet_wrap(~ Model) +
+  coord_flip() +
+  scale_fill_manual(values = mycolors)
+```
+
+As @fig-gpt-prob shows, GPT-4.1 has varied item probability in Item 6 and Item 7. Taking item 7 for example, choosing 2 (Disagree) and 3 (Somewhat disagree) has same probability (p = .22) for GPT-4.1, while GPT-4o tend to have more in 1-Strongly disagree (p = .3) than 2-Disagree (p = .25) and 1-Somewhat disagree (p = .2).
+
+In addition, GPT-4o seems to have exactly same item response distribution for item 8-10 and item 12-15. In contrast, GPT-4.1 has different item response distribution for these items.
+
+::: callout-important
+#### Takehome note
+-   GPT-4.1 is more sensitive to emotional words than GPT-4o.
+-   GPT-4.1 is more likely to have different response probability distribution across items that GPT-4o, suggesting GPT-4.1 can have more diversity in generation item responses.
+:::
+
 ## Response API Walk-through
 
 As shown in @fig-gpt-item, OpenAI provides [Prompts Playground](https://platform.openai.com/playground/prompts?models=gpt-4o) to test your prompt. OpenAI has recently updated their API from Chat to [Response API](https://platform.openai.com/docs/api-reference/responses).

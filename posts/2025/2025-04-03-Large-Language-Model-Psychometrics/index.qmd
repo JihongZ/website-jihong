@@ -40,16 +40,25 @@ AI training needs human data but in a controlled way [@zhou2024].
 
 According to @vondavier2021, Computational Psychometrics provides "*a new framework to re-conceptualize assessment theory and practices in the era of digital assessment with the advances in machine learning, natural language processing, and generative AI*". As shown in @tbl-app, there are many AI-enhanced applications in psychometric research, including ML Statistics, Text Data analysis, Generative AI for Data Generation etc.
 
-| AI Areas | Type | Application |
-|:---|:---|:---|
-| Machine Learning Algorithm | Supervised Learning | Prediction, Classification |
-|  | Unsupervised Learning | Clustering, Association, Dimensionality Reduction |
-|  | Reinforcement Learning |  |
-| Natural Language Processing | Language Models | Text generation, Text summarization |
-|  | Semantic Analysis | Text theme extraction, Text classification, Text understanding |
-|  | Text data analysis | Text processing, Item parameters prediction, Item quality check |
-| Generative AI | AI Agent | Data generation and augmentation: Missing data imputation, [Item development and generation](https://education.umd.edu/research/centers/marc/selected-projects/ai-enhanced-assessment-methods/automated-item-generation), item review, [Automated scoring](https://education.umd.edu/research/centers/marc/selected-projects/ai-enhanced-assessment-methods/automated-scoring), |
-|  | Large Language Models | Trained LLMs for psychometric tasks: [Cheating detection](https://education.umd.edu/research/centers/marc/selected-projects/ai-enhanced-assessment-methods/cheating-detection) |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| AI Areas                    | Type                   | Application                                                                                                                                                                                                                                                                                                                                                                     |
++:============================+:=======================+:================================================================================================================================================================================================================================================================================================================================================================================+
+| Machine Learning Algorithm  | Supervised Learning    | Prediction, Classification                                                                                                                                                                                                                                                                                                                                                      |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                             | Unsupervised Learning  | Clustering, Association, Dimensionality Reduction                                                                                                                                                                                                                                                                                                                               |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                             | Reinforcement Learning |                                                                                                                                                                                                                                                                                                                                                                                 |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Natural Language Processing | Language Models        | Text generation, Text summarization                                                                                                                                                                                                                                                                                                                                             |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                             | Semantic Analysis      | Text theme extraction, Text classification, Text understanding                                                                                                                                                                                                                                                                                                                  |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                             | Text data analysis     | Text processing, Item parameters prediction, Item quality check                                                                                                                                                                                                                                                                                                                 |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Generative AI               | AI Agent               | Data generation and augmentation: Missing data imputation, [Item development and generation](https://education.umd.edu/research/centers/marc/selected-projects/ai-enhanced-assessment-methods/automated-item-generation), item review, [Automated scoring](https://education.umd.edu/research/centers/marc/selected-projects/ai-enhanced-assessment-methods/automated-scoring), |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                             | Large Language Models  | Trained LLMs for psychometric tasks: [Cheating detection](https://education.umd.edu/research/centers/marc/selected-projects/ai-enhanced-assessment-methods/cheating-detection)                                                                                                                                                                                                  |
++-----------------------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 : AI applications in Educational Psychometrics {#tbl-app tbl-colwidths="\[25,25,50\]"}
 
@@ -70,3 +79,47 @@ AI Agents in generative AI raises more attentions in Education because of the po
 +----------------------------+--------------------------------------------------------------------------------------------------------------------+
 |                            |                                                                                                                    |
 +----------------------------+--------------------------------------------------------------------------------------------------------------------+
+
+## Large Language Models
+
+Jeff Dean recently give a pretension about the history of LLM.
+
+```{r}
+#| echo: false
+htmltools::tags$iframe(
+  src = "https://oc-vp-distribution04.ethz.ch/mh_default_org/oaipmh-mmp/16b7fcd0-891b-4c3b-82f7-905df6280fb1/7288e657-c11b-4ddd-99e4-b3272f681512/presentation-79f711b5-f716-4ffc-ad9c-96f24f7bdbe9.mp4",
+  width = "100%",
+  height = "560px",
+  frameborder = "0",
+  allowfullscreen = NA,
+  allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+)
+```
+
+Some key points are relevant to the development of LLMs:
+
+1. Neural networks and backpropagation are key building block.
+
+2. 2012: Train a very large neural network using 16,000 CPUs.
+
+3. Distributed training data/models on multiple computers.
+
+4. Word2Vec makes the relationships between words as quantified vectors in high dimensional spaces.
+
+5. 2015: The development of TPU (Tensor Processing Unit) chips for training large models.
+
+6. TensorFlow, PyTorch, [jax](https://docs.jax.dev/en/latest/quickstart.html)
+
+7. Attention: save all internal status and attend to certain status
+
+8. 2022: "Thinking longer" => show its work
+
+9. Distillation: "Teacher" model provides probability distribution is better.
+
+### Are large models better than small models?
+
+Many traditional social science models are small models. The question is whether large models are better than small models. Here, let's say large models are the models with more than $10^5$ estimated parameters. 
+
+Large models always assume there are large amount of data that can be used to train the model.
+
+The answer is "yes" and "no". It depends on the task and the data.
