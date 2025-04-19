@@ -19,6 +19,11 @@ format:
     code-summary: "Click this to see R code"
 ---
 
+::: callout-important
+#### Notice
+This is a **draft** document. The content is not final and may change in the future. Please check back later for updates.
+:::
+
 ```{r setup}
 #| echo: false
 library(reticulate)
