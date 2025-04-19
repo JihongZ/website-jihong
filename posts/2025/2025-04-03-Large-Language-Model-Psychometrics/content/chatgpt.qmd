@@ -1,5 +1,5 @@
 ---
-title: "OpenAI Cookbook with R and Python"
+title: "OpenAI Cookbook for Psychometricians with R and Python"
 date: "2025-03-07"
 date-modified: "`{r} Sys.Date()`"
 draft: false
@@ -214,6 +214,7 @@ Let's do some data cleaning and then visualize the item response probabilities.
 #| code-summary: "Visualize the response probability for two LLM mdoels"
 #| fig-cap: "Item response probabity distribution for GPT-4o and GPT-4.1"
 #| label: fig-gpt-prob
+#| fig-width: 10
 get_df_from_output <- function(raw_gpt_op) {
   all_item_resp_name <- NULL
   all_item_resp_prob <- NULL
