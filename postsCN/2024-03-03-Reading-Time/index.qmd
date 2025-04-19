@@ -1,14 +1,11 @@
 ---
 title: "闲散时光"
 subtitle: ""
-author: 学徒
 date: "Mar 3 2024" 
 date-modified: "Mar 3 2024"
 categories:
   - 日常
-format: 
-  html:
-    code-tools: true
+format: html
 citation:
   type: webpage
   issued: 2024-03-3

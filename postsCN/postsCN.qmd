@@ -13,4 +13,8 @@ date-format: "⏺ YYYY年MM月DD日"
 execute: 
   warning: false
   message: false
+format: 
+  html:
+    grid:
+      body-width: 600px
 ---

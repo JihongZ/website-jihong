@@ -1,9 +1,5 @@
 ---
 title: "Psychometric Networks: Community = Clustering?"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-03-07"
 date-modified: "`{r} Sys.Date()`"
 draft: false

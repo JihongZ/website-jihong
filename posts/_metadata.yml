@@ -2,7 +2,15 @@
 
 # freeze computational output
 # author: Jihong Zhang <a href="https://orcid.org/0000-0003-2820-3734"><img src="/images/ORCID-iD_icon_24x24.png" alt=""/></a>
-author: Jihong Zhang
+author: 
+  - name: Jihong Zhang
+    orcid: 0000-0003-2820-3734
+    email: jzhang@uark.edu
+    affiliation: 
+      - name: University of Arkansas
+        city: Fayetteville
+        state: AR
+        url: www.uark.edu
 number-sections: true
 number-depth: 3
 format:

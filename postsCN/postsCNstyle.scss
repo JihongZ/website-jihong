@@ -8,8 +8,6 @@ $font-size-root: "FZFWZhuZiAYuanJW";
     justify-content: space-between;
     flex-direction: row;
     column-gap: 1.5em;
-    width: 600px;
-    margin-left: 100px;
     a, p.listing-date {
       font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
       font-size: 1em;
@@ -40,7 +38,13 @@ h1, h2, h3, .callout-title-container {
   font-weight: normal;
 }
 
-
+div.quarto-title-meta-heading { // "Author" and "Date" 
+  color: $tao-you;
+}
+div.quarto-title-meta-contents {// content of "Author" and "Date" 
+  color: $tao-you;
+  p {font-family: "MiSans", sans-serif;}
+}
 
 div.quarto-title.column-body {
   h1 {

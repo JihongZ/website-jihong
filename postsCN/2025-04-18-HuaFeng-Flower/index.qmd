@@ -5,13 +5,13 @@ date: "2025-04-18"
 format: html
 ---
 
-经过一个不平静的早春。伴随着温度不停的起伏。阿肯色州的费耶特维尔小镇又到了花粉大爆发的时间了。近来越发觉得自己的鼻子过敏反应更严重了。所以闲来无事看看有可能的“罪魁祸首”有哪些。
+经过一个不平静的早春。伴随着起伏不定的温度，阿肯色州的费耶特维尔小镇又到了花粉大爆发的时间了(见 @fig-1)。近来越发觉得自己的鼻子过敏反应更严重了。所以闲来无事看看有可能的“罪魁祸首”有哪些。
 
 Arkansas Heritage网站上的[游客手册](https://www.arkansasheritage.com/arkansas-natural-heritage/naturalareas/native-plants)上列举了很多阿肯色常见的植物。这个网站甚至还有非常详细的[种植建议与推荐](https://www.arkansasheritage.com/arkansas-natural-heritage/naturalareas/native-gardening-guide)。PictureThis网站则列出了Fayetteville最常见的20种[植物](https://www.picturethisai.com/region/United-States-Arkansas-Fayetteville.html)。接下来我就看一下我经常见到的几种。
 
 ## Dogwood Tree 大花四照花
 
-又称多花狗木， 大花山茱萸。大花四照花（Cornus florida）是山茱萸科的北美种。根据[维基百科](https://zh.wikipedia.org/zh-cn/%E5%A4%A7%E8%8A%B1%E5%9B%9B%E7%85%A7%E8%8A%B1)，此花是北卡和维吉尼亚的州花。早春时节，有四片白色苞叶其中有小小的花簇，通常在四月初开花。在校园的old main旁边就栽种了三四颗狗木树。
+又称多花狗木， 大花山茱萸。大花四照花（Cornus florida）是山茱萸科的北美种。根据[维基百科](https://zh.wikipedia.org/zh-cn/%E5%A4%A7%E8%8A%B1%E5%9B%9B%E7%85%A7%E8%8A%B1)，此花是北卡和维吉尼亚的州花。早春时节，有四片白色苞叶其中有小小的花簇，通常在四月初开花。在校园的old main旁边就栽种了三四颗狗木树(见 @fig-2)。
 
 关于“狗木”的名字来源，[果壳网](https://m.guokr.com/article/448133)是这么说的：
 
@@ -19,8 +19,11 @@ Arkansas Heritage网站上的[游客手册](https://www.arkansasheritage.com/ark
 
 > 然而时间可以改变一切，“dagwood”这个词的发音最终被“偷懒”的人们音变为“dogwood”，于是，跟狗没关系的山茱萸们被硬生生地和狗扯在一起。四照花和狗也没有关系，但“dogwood”这个名字被转嫁到了大花四照花身上，后者是四照花的同属远洋亲戚，花序和它很像的四照花自然也被扣上了这个名字。
 
+::: {.callout-note collapse=true}
+### Dogwood Tree 大花四照花
 ![](images/clipboard-49498089.png)
 ![](images/clipboard-1699244183.png)
+:::
 
 ## Bradford Pear Tree豆梨树
 
@@ -32,8 +35,10 @@ Arkansas Heritage网站上的[游客手册](https://www.arkansasheritage.com/ark
 
 味道难闻也还可以忍受，另一个槽点是老豆梨树的易脆性。经常一场暴风雨过去，路上洒落众多豆梨树枝桠，给路政造成很大的麻烦。
 
+::: {.callout-note collapse=true}
+### Bradford Pear Tree 豆梨树
 ![](images/clipboard-1875821857.png)
-
+:::
 
 
 ## Pokeweed 垂序/美洲商陆
@@ -50,4 +55,8 @@ Arkansas Heritage网站上的[游客手册](https://www.arkansasheritage.com/ark
 
 ![](images/clipboard-93641841.png)
 
-## 
+## 照片
+
+![花粉洒落在汽车上](images/IMG_2959.jpg){#fig-1}
+
+![Old Main旁边的大花四照花](images/IMG_2961.jpg){#fig-2}

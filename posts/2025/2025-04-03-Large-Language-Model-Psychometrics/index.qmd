@@ -1,9 +1,5 @@
 ---
 title: "AI-Enhanced Psychometrics with R and Python Examples"
-institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
-  
-  University of Arkansas
 date: "2025-03-07"
 date-modified: "`{r} Sys.Date()`"
 draft: false
