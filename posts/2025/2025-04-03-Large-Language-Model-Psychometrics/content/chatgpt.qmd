@@ -1,5 +1,6 @@
 ---
-title: "OpenAI Cookbook for Psychometricians with R and Python"
+title: "LLM Cookbook for Psychometricians"
+subtitle: "Examples with R and Python"
 date: "2025-03-07"
 date-modified: "`{r} Sys.Date()`"
 draft: false
@@ -37,21 +38,23 @@ library(glue)
 
 ## GPT-4.1
 
-OpenAI published [GPT-4.1](https://platform.openai.com/docs/models/gpt-4.1) (Model: `gpt-4.1-2025-04-14`) on April 2025. The price is \$2 / 1M token. As a reference, in my recent project of using LLM to generate survey responses, the number of tokens per prompt ranges from 5K to 10K, which means 100 calls cost around \$2 or \$.02 / calling.
+OpenAI published [GPT-4.1](https://platform.openai.com/docs/models/gpt-4.1) (Model: `gpt-4.1-2025-04-14`) on April 2025. The price is \$2 / 1M token. As a reference, in my recent project of using LLM to generate survey responses, the number of tokens per prompt ranges from 5K to 10K, which means 100 calls cost around \$2 or \$.02 / calling. **The question is how GPT-4.1 performs compared to GPT-4o regarding survey response generation**. I will use two mini studies to examine the differences between GPT-4o and GPT-4.1 when answering to the same prompt.
 
-Next, I used one tiny experiment to examine the differences between GPT-4o and GPT-4.1 when answering to the same prompt. The prompt is a general prompt from my recent project.
+### Mini Study 1: Likert-scale item response generation
 
-As shown in @fig-gpt-compr, two items show differences in generated survey responses. It may be because the emotional words such as "ashamed" or "failure".
+In study 1, the prompt is a general prompt from my recent project: *Survey data generation for after-school program staffs by large language models*. Here is the `Role & Task` that I used in the prompt:
 
--   Item6: I feel **ashamed** when I miss an exercise session.
+> You are a staff member of club serving underserved communities. The program enrolls at least 50% of youth (ages 9–14) from low-income households (as defined by free/reduced lunch status) and minority backgrounds.
 
--   Item7: I feel like a **failure** when I haven't exercised in a while.
+> Your task is to construct a persona. Based on this persona, generate numerical responses to survey items in Survey Questions section using a Likert scale in Response Scale section that aligns with your expressed views.
 
-In contrast to choosing "**Somewhat disagree**" by GPT-4o, GPT-4.1 tend to choose "**Disagree**" in these two items with negatively emotional words. Does GPT-4.1 tend to be more emotionally similar to humans — mentally avoiding negative emotion?
+The simulated survey is a validated survey of motivation for exercise. The survey items are 15 Likert-scale items with 6 response options (1 = Strongly disagree, 2 = Disagree, 3 = Somewhat disagree, 4 = Somewhat agree, 5 = Agree, 6 = Strongly agree).
+
+#### Result 
 
 ```{r}
 #| code-fold: true
-#| code-summary: "Create meta prompts without personal information"
+#| code-summary: "Step 1: Create meta prompts without personal information"
 instruction <- "
 Instructions:
 
@@ -93,7 +96,7 @@ Item15: I get pleasure and satisfaction from participating in exercise
 
 ```{python}
 #| code-fold: true
-#| code-summary: "Python code to call GPT API"
+#| code-summary: "Step 2: Python functions to call GPT API"
 #| cache: true
 import time  # Import the time module
 from dis import Instruction
@@ -129,7 +132,7 @@ def get_response_gpt41(instructions, input, temp):
 #| fig-cap: "Generated survey output for GPT-4o and GPT-4.1"
 #| label: fig-gpt-compr
 #| code-fold: true
-#| code-summary: "ggplot2 for generated responses"
+#| code-summary: "Step 3: Data visualization for LLM-generated responses"
 #| cache: true
 gpt4o_resp <- py$get_response_gpt4o(instructions=instruction, 
                                     input=prompt, temp = 0)
@@ -150,7 +153,16 @@ ggplot(res) +
   theme_classic()
 ```
 
-### Response probability distribution vs. responses value
+As shown in @fig-gpt-compr, without providing any context information, two items show differences in generated survey responses for GPT-4o and GPT-4.1. Looking these two items into details, it shows that the difference may come from the strong emotional words such as "ashamed" or "failure".
+
+-   Item6: I feel **ashamed** when I miss an exercise session.
+
+-   Item7: I feel like a **failure** when I haven't exercised in a while.
+
+In contrast to choosing "**Somewhat disagree**" by GPT-4o, GPT-4.1 tend to choose "**Disagree**" in these two items with negatively emotional words. Does GPT-4.1 tend to be more emotionally similar to humans — mentally avoiding negative emotion?
+
+
+### Mini Study 2: Probability-based generation
 
 Instead of asking LLM to generate survey responses directly, we can also instruct LLMs to generate probability distributions of responses for each item. For example, instead of letting LLM output "1;2;2" for three 5-point Liker-scale items, we ask LLMs to output `Xi_k1:pi1,Xi_k2:pi2,Xi_k3:pi3,Xi_k4:pi4,Xi_k5:pi5,Xi_k6:pi6;`.
 
@@ -160,6 +172,8 @@ where:
   - `pij` is the probability (between 0 and 1) of selecting that option. 
   - Each line (separated by semicolons) corresponds to a different item
   - The probabilities for each item must sum to 1
+
+#### Result
 
 ```{r second_run}
 #| code-fold: true
