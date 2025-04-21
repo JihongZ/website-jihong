@@ -1,6 +1,7 @@
 author: "张吉鸿"
 date-format: "YYYY年MM月DD日"
 author-title: "作者"
+affiliation-title: "附属机构"
 # https://quarto.org/docs/authoring/title-blocks.html#metadata-labels
 published-title: "发表时间"
 # https://quarto.org/docs/authoring/cross-reference-options.html
