@@ -1,0 +1,114 @@
+---
+title: "Discussant Commentary"
+subtitle: "Symposium: Cutscore Estimation Via Two-Stage Analysis"
+author: 
+  - name: "Jihong Zhang, Ph.D."
+    affiliation: "University of Arkansas"
+format: 
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "NCME 2025, Denver, CO"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    output-file: slides-index.html
+    mermaid:
+      theme: forest  
+---
+
+
+# Theoretical and Methodological Contributions
+
+## Theoretical and Methodological Contributions
+### Alfonso Martinez: Maximum Likelihood Estimation of Scale Score Cutpoints via a Two Stage Mixture Model Likelihood 
+
+- Introduced **MLE procedure** for cutscore estimation using a **two-stage mixture model**.
+- Bridges **latent class** (categorical) with **latent trait** (continuous) structure.
+- Enhances diagnostic clarity in latent variable models.
+- Two-stage structure improves **flexibility** and **computational tractability**.
+- Emphasis on **model identifiability** and convergence diagnostics.
+
+---
+
+## Theoretical and Methodological Contributions
+### Jonathan Templin: Bayesian Estimation of Scale Score Cutpoints Using a Two-Stage Mixture Model Likelihood 
+
+- Proposed a **Bayesian extension** of the two-stage mixture model.
+- Incorporates **prior knowledge** from domain experts.
+- Produces **posterior uncertainty estimates** around cutpoints.
+- Enhances **transparency**, supports **decision consistency**.
+- Bayesian modeling supports **probabilistic reasoning** and **knowledge absorption**.
+
+---
+
+# Practical and Substantive Applications
+
+## Practical and Substantive Applications
+### Sergio Haab: Creating Scale Score Classifications with Substantively Meaningful Cutpoints 
+
+- Shifted focus to **interpretation of cutpoints**.
+- Anchors classifications in **behavioral or cognitive benchmarks**.
+- Supports **construct validity** in standard setting.
+- Offers empirical strategies to align scores with **performance descriptors**.
+- Reinforces the role of psychometrics in **supporting human judgment**.
+
+---
+
+## Practical and Substantive Applications
+### Ae Kyong Jung: Comparing Item Selection in CAT: DCM Shannon Entropy and IRT Maximum Information
+
+- Investigated **item selection** in **CAT** frameworks.
+- Compared **Shannon entropy (DCM)** vs. **D-optimality (MIRT)**.
+- DCM-based selection supports **fine-grained classification**.
+- Bridges **diagnostic precision** with **testing efficiency**.
+- Offers practical implications for **adaptive test design**.
+
+---
+
+## Practical and Substantive Applications
+### Ahmed Bediwy: Using the Two-Stage Estimation Approach for Cutscore Estimation in Standard Setting Procedures 
+
+- Applied two-stage approach in **standard setting procedures**.
+- Integrates with operational practices (e.g., **Angoff**, **Bookmark**).
+- Quantifies **psychometric implications** of panelist ratings.
+- Proposes a **hybrid framework** balancing model-based and expert-driven cutpoints.
+- Promotes **transparency and refinement** in policy-relevant decisions.
+
+---
+
+## Integrative Reflections
+
+1. **Two-stage modeling** supports integration of **latent classification** and **IRT**, improving interpretability and specification.
+2. **Frequentist and Bayesian paradigms** offer **complementary insights**—asymptotic clarity vs. interpretive flexibility.
+3. Emphasis on **interpretive defensibility** of cutpoints moves the field toward **substantive alignment**.
+4. **CAT item selection using diagnostic entropy** offers a promising bridge between **classification quality** and **efficiency**.
+5. Embedding psychometric modeling into **standard setting** refines the interface of **statistics and expert judgment**.
+
+Together, these five papers articulate a compelling future for **hybrid psychometric models**—models that are:
+
+- **Flexible in structure**
+- **Efficient in computation**
+- **Defensible in interpretation**
+
+
+---
+
+## Thank you
+
+---
+
+## Appreciation
+
+Thank you to:
+
+- Dr. Alfonso Martinez  
+- Dr. Jonathan Templin  
+- Sergio Haab  
+- Ae Kyong Jung  
+- Ahmed Bediwy  
+
+for your significant contributions to this important dialogue.
