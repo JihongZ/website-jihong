@@ -43,7 +43,6 @@ format:
 - Enhances **transparency**, supports **decision consistency**.
 - Bayesian modeling supports **probabilistic reasoning** and **knowledge absorption**.
 
----
 
 # Practical and Substantive Applications
 

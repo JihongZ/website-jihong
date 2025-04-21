@@ -33,6 +33,6 @@ Together, these five papers present a coherent vision for the **future of hybrid
 4. Innovations in **CAT item selection with diagnostic modeling shannon entropy** illustrate how classification-oriented model can have comparable item selection efficieny and provide the future direction.
 5. The **integration of psychometric modeling into standard setting practices** represents a promising frontier, helping resolve the long-standing tension between expert judgment and statistical modeling.
 
-In closing, this symposium not only advances the theoretical landscape of cutscore estimation but also foregrounds its practical and ethical responsibilities. As psychometricians, we are called not only to estimate well, but to explain and justify clearly. This work does both.
+In closing, this symposium not only advances the theoretical landscape of cutscore estimation but also expand its practical scenarios. As psychometricians, we are called not only to estimate well, but to explain and justify clearly. This work does both.
 
 Thank you to all presenters for your contributions to this important dialogue.
