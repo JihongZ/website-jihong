@@ -32,7 +32,8 @@ format:
 ---
 
 ::: {#hero-heading .nice-paragraph}
-[About Me]{.mt2 .mb0 .baskerville .i .fw6 .f4}
+
+<span style="font-family:'Roboto Condensed', sans-serif; font-weight: 600;">About Me</span>
 
 I am a tenure-track Assistant Professor of Educational Statistics and Research Methods ([ESRM](https://esrm.uark.edu/directory/uid/jzhang/name/Jihong+Zhang/)) in the Department of Counseling, Leadership, and Research Methods (CLRM) and Center for Public Health & Technology Research ([CPHT](https://publichealthtech-center.uark.edu)) at the University of Arkansas.
 
