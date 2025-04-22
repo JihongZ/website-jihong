@@ -201,11 +201,30 @@ h1, h2 {text-transform: capitalize;}
 h1, h2, h2#toc-title, h3, h4, 
 figcaption,
 .callout-title-container, 
-details.code-fold {
+details.code-fold{
   font-family: "Roboto Condensed", sans-serif;
   letter-spacing: -0.5px;
   font-weight: 500;
 }
+
+div.card-body.post-contents {
+  font-family: "Abel", sans-serif;
+  .card-title.listing-title {
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 500;
+  }
+}
+h1.title { // title of the post
+  text-align: center;
+  font-size: 2.7rem;
+  line-height: 1.5;
+  letter-spacing: -0.5px;
+  font-weight: 600;
+}
+p.subtitle.lead, div.description {
+  text-align: center;
+}
+
 
 details.code-fold {
   margin: .65rem;
@@ -214,10 +233,6 @@ details.code-fold {
   }
 }
 
-
-
-// Add shadow to images
-// img { box-shadow: 4px 4px 8px 0px rgba( 0, 0, 0, 0.2 );}
 
 body, p, li { // main font family of post content
   font-family: "Abel", sans-serif;
@@ -265,10 +280,12 @@ strong {
 code.sourceCode { // Source Code
   font-family: "Roboto Mono", monospace;
   font-size: 0.875em;
+  letter-spacing: -0.5px;
 }
 
 .cell-output-stdout code {
   font-family: "Roboto Mono", monospace;
+  letter-spacing: -0.5px;
 }
 
 
@@ -300,14 +317,10 @@ div.quarto-title.column-body {
 }
 
 /* Styling for Link <a> */
-div.quarto-post a {
-  color: $shen-qing;
-  text-decoration: none;
-}
 // Inside quarto document, add a animation to links (box shadow move from left to right)
 // Select all <a> elements without the `lightbox` (zoom-in img) or the `nav-link` class (tabset)
 #quarto-document-content a:not(.lightbox, .nav-link, .about-link) {
-  color: $qian-qing;
+  color: $hutao-hong;
   box-shadow: inset 0 0 0 0 $freeze-purple;
   text-decoration-line: none;
   transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
@@ -487,7 +500,6 @@ div.quarto-about-trestles .about-entity .about-link{ // Buttons under the profil
 
 /* Nice Paragraph */
 .nice-paragraph {
-    font-size: 0.9rem;
     line-height: 1.6;
     color: #333;
     background-color: $soft-color1; /* Fallback if $soft-color1 is not defined */

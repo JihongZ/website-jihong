@@ -112,7 +112,6 @@ pubs_formated <- pubs$pubs_formated
 for (y in 1:nrow(pubs_count_byyear)) {
   ## Create a year tag
   year_tag <- paste0(leading_year_icon, pubs_count_byyear$year[y], leading_year_icon)
-  print(p(year_tag, style="color: #72994E; font-family: 'Abel'; text-align: center; font-size: 1.45em;"))
   
   ## Per each year, calculate the index of publication
   index_min = ifelse(y == 1, 1, pubs_count_byyear$n_cum[y-1] + 1)
@@ -123,18 +122,19 @@ for (y in 1:nrow(pubs_count_byyear)) {
   length(pubs_list_peryear) <- (index_max - index_min) + 1
   for (i in index_min:index_max) {
     j = j + 1
-    
     cat("\n")
-    
     pubs_list_peryear[[j]] <- tags$li(pubs_formated[i], 
                                       a(class = "fa-brands fa-google-scholar fa-sm", 
                                         href = pubs$URL[i], 
-                                        style="color: #74C0FC"), 
-                                      style="font-size: .9em;")
-    }
+                                        style="color: #74C0FC"))
+  }
   
   ## Print the publication list per year
-  print(tags$ul(pubs_list_peryear, style="padding-left: 3rem;"))
+  print(p(year_tag, style="color: #72994E; font-family: 'Abel'; text-align: center; font-size: 1.45em;"))
+  
+  print(div(tags$ol(pubs_list_peryear, style="padding-left: 3rem;"), class="macwindow"))
+  
+  
 }
 ```
 
