@@ -7,7 +7,7 @@ format: html
 
 [Slides](slides.qmd)
 
-It is my honor to serve as discussant for this well-integrated symposium that addresses the longstanding challenge of **cutscore estimation** through innovative applications of **two-stage modeling frameworks**. Each presentation today contributes meaningfully to the methodological and practical advancement of classification procedures in educational and psychological measurement, with clear implications for both researchers and practitioners.
+It is my honor to serve as the discussant for this well-integrated symposium that addresses the longstanding challenge of **cutscore estimation** through innovative applications of **two-stage modeling frameworks**. Each presentation today contributes meaningfully to the methodological and practical advancement of classification procedures in educational and psychological measurement, with clear implications for both researchers and practitioners.
 
 ### Theoretical and Methodological Contributions
 

@@ -21,93 +21,93 @@ format:
 ---
 
 
-# Theoretical and Methodological Contributions
-
 ## Theoretical and Methodological Contributions
-### Alfonso Martinez: Maximum Likelihood Estimation of Scale Score Cutpoints via a Two Stage Mixture Model Likelihood 
 
-- Introduced **MLE procedure** for cutscore estimation using a **two-stage mixture model**.
-- Bridges **latent class** (categorical) with **latent trait** (continuous) structure.
-- Enhances diagnostic clarity in latent variable models.
-- Two-stage structure improves **flexibility** and **computational tractability**.
-- Emphasis on **model identifiability** and convergence diagnostics.
+### Dr. Alfonso Martinez
+
+- Introduced **MLE estimation** using a **two-stage mixture model**.
+- Questioned the meaning of "mastery" across populations (e.g., 7th vs. 3rd graders).
+- Proposed viewing latent ability as a continuum with cutpoints.
+- Linked to the **Hybrid Model of IRT and Latent Class Models** (Yamamoto, 1982).
+- Advanced understanding of continuous-discrete latent structure integration.
 
 ---
 
-## Theoretical and Methodological Contributions
-### Jonathan Templin: Bayesian Estimation of Scale Score Cutpoints Using a Two-Stage Mixture Model Likelihood 
+### Dr. Jonathan Templin
 
-- Proposed a **Bayesian extension** of the two-stage mixture model.
-- Incorporates **prior knowledge** from domain experts.
-- Produces **posterior uncertainty estimates** around cutpoints.
-- Enhances **transparency**, supports **decision consistency**.
-- Bayesian modeling supports **probabilistic reasoning** and **knowledge absorption**.
-
-
-# Practical and Substantive Applications
-
-## Practical and Substantive Applications
-### Sergio Haab: Creating Scale Score Classifications with Substantively Meaningful Cutpoints 
-
-- Shifted focus to **interpretation of cutpoints**.
-- Anchors classifications in **behavioral or cognitive benchmarks**.
-- Supports **construct validity** in standard setting.
-- Offers empirical strategies to align scores with **performance descriptors**.
-- Reinforces the role of psychometrics in **supporting human judgment**.
+- Developed a **Bayesian two-stage model**.
+- Incorporated **prior knowledge** for enhanced inference.
+- Estimated **posterior uncertainty** around cutpoints.
+- Provided **transparent** probabilistic classification.
+- Strengthened defensible reporting of classification precision.
 
 ---
 
 ## Practical and Substantive Applications
-### Ae Kyong Jung: Comparing Item Selection in CAT: DCM Shannon Entropy and IRT Maximum Information
 
-- Investigated **item selection** in **CAT** frameworks.
-- Compared **Shannon entropy (DCM)** vs. **D-optimality (MIRT)**.
-- DCM-based selection supports **fine-grained classification**.
-- Bridges **diagnostic precision** with **testing efficiency**.
-- Offers practical implications for **adaptive test design**.
+### Mr. Sergio Haab
+
+- Addressed **interpretation of cutpoints**.
+- Advocated for **behavioral and cognitive benchmarks**.
+- Supported **construct validity** in standard setting.
+- Emphasized **alignment of scores** with theoretical descriptions.
 
 ---
 
-## Practical and Substantive Applications
-### Ahmed Bediwy: Using the Two-Stage Estimation Approach for Cutscore Estimation in Standard Setting Procedures 
+### Ae Kyong Jung
 
-- Applied two-stage approach in **standard setting procedures**.
-- Integrates with operational practices (e.g., **Angoff**, **Bookmark**).
-- Quantifies **psychometric implications** of panelist ratings.
-- Proposes a **hybrid framework** balancing model-based and expert-driven cutpoints.
-- Promotes **transparency and refinement** in policy-relevant decisions.
+- Extended two-stage methods to **CAT item selection**.
+- Proposed **discretizing latent traits** for adaptive item selection.
+- Compared **Shannon entropy** (DCM) vs. **D-optimality** (MIRT).
+- Found D-optimality yields better item selection accuracy.
+- Balanced **diagnostic precision** and **theta estimation**.
+
+---
+
+### Mr. Ahmed Bediwy
+
+- Applied two-stage approach to **standard setting**.
+- Integrated with **Angoff** and **Bookmark** methods.
+- Quantified **psychometric implications** of panelist decisions.
+- Proposed a **hybrid model** balancing evidence and expert judgment.
 
 ---
 
 ## Integrative Reflections
 
-1. **Two-stage modeling** supports integration of **latent classification** and **IRT**, improving interpretability and specification.
-2. **Frequentist and Bayesian paradigms** offer **complementary insights**—asymptotic clarity vs. interpretive flexibility.
-3. Emphasis on **interpretive defensibility** of cutpoints moves the field toward **substantive alignment**.
-4. **CAT item selection using diagnostic entropy** offers a promising bridge between **classification quality** and **efficiency**.
-5. Embedding psychometric modeling into **standard setting** refines the interface of **statistics and expert judgment**.
+### Emerging Themes
 
-Together, these five papers articulate a compelling future for **hybrid psychometric models**—models that are:
-
-- **Flexible in structure**
-- **Efficient in computation**
-- **Defensible in interpretation**
-
+1. **Two-stage modeling** with diverse item response types.
+2. **Bayesian approaches** using different priors.
+3. Emphasis on **interpretability** beyond statistical adequacy.
+4. Innovations in **CAT scoring incorporating cutpoints**.
+5. **Hybrid psychometric-standard setting models** as future frontier.
 
 ---
 
-## Thank you
+## Conclusion
+
+This symposium advances both **theoretical landscapes** and **practical applications** of cutscore estimation.
+
+As psychometricians, we must estimate, explain, and justify our models clearly.
+
+This symposium exemplifies that mission.
 
 ---
 
-## Appreciation
+## Open Discussion
 
-Thank you to:
+- How to incorporate cutscores information in CAT?
+- Addressing **non-normal latent traits**.
+- **Multiple cutpoints** per trait — how many are meaningful?
+- **Real-world meaning** of cutscores.
+- **Uncertainty** and variability around cutscores.
+- Generalizability of cutpoints across varied populations.
 
-- Dr. Alfonso Martinez  
-- Dr. Jonathan Templin  
-- Sergio Haab  
-- Ae Kyong Jung  
-- Ahmed Bediwy  
+---
 
-for your significant contributions to this important dialogue.
+## References
+
+- Yamamoto, K. (1982). *Hybrid Model of IRT and Latent Class Models*.  
+- Hong, Y. (2014). *Efficient Models for Cognitive Diagnosis with Continuous and Mixed-Type Latent Variables*.
+

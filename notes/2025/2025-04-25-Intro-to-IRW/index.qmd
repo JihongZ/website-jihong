@@ -1,0 +1,46 @@
+---
+title: "index"
+execute: 
+  eval: false
+format: html
+---
+
+## Resource
+
+1.  The [official website](https://datapages.github.io/irw/analysis.html) of IRW data
+
+## Installation
+
+```{r}
+devtools::install_github("redivis/redivis-r", ref="main")
+```
+
+Use [redvis](https://redivis.com/workspace) to authorize the API
+
+![](images/clipboard-1103660106.png)
+
+![](images/clipboard-2989591376.png)
+
+```{r}
+file.edit("~/.Renviron")
+```
+
+```{r}
+REDIVIS_API_TOKEN=[Placeholder for API token]
+```
+
+```{r}
+# Install the development version of irwpkg from GitHub
+devtools::install_github("hansorlee/irwpkg")
+```
+
+## First Use
+
+```{r}
+library(irwpkg)
+df <- irw_fetch("4thgrade_math_sirt")
+```
+
+```{r}
+df
+```
