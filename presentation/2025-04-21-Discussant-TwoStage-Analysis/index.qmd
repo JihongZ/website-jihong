@@ -7,19 +7,26 @@ format: html
 
 [Slides](slides.qmd)
 
-It is my honor to serve as the discussant for this well-integrated symposium that addresses the longstanding challenge of **cutscore estimation** through innovative applications of **two-stage modeling frameworks**. Each presentation today contributes meaningfully to the methodological and practical advancement of classification procedures in educational and psychological measurement, with clear implications for both researchers and practitioners.
+It is my honor to serve as discussant for this well-integrated symposium that addresses the challenge of **cutscore estimation** through innovative **two-stage modeling frameworks**.
+
+Item Response Theory (IRT) has been around for decades, and Diagnostic Classification Models (DCMs) have been used for over ten years. Both have evolved into different variants, each suited for particular scenarios. However, challenges in communication between users of these two modeling traditions still remain. The main theme of this symposium stems from a simple but important question: how can we best combine IRT and DCMs to leverage the strengths of both? Today's symposium brings together five presentations that tackle this question from different perspectives, including theoretical developments, methodological innovations, and practical applications.
+
 
 ### Theoretical and Methodological Contributions
 
-**Dr. Alfonso Martinez** begins the session by introducing a **maximum likelihood estimation (MLE)** procedure for cutscore identification using a **two-stage mixture model likelihood**. This approach elegantly bridges categorical latent class with continuous latent variable, mitigate diagnostic issues in LVM and rankings of test takers in latent class model. Importantly, the two-stage decomposition adds flexibility and computational tractability, especially in contexts where the joint model's convergence may be sensitive to initial model specifications. Dr. Martinez’s emphasis on model identifiability and estimation diagnostics sets a strong theoretical foundation for the symposium.
+Dr. Alfonso Martinez opens the session by introducing a maximum likelihood estimation (MLE) approach for cutscore identification using a two-stage mixture model. He raises a very interesting point: diagnostic models are often pushed to classify individuals into groups without considering the magnitude of their underlying traits. This can lead to a situation where "mastery" and "non-mastery" groups may have very different meanings across different populations.
 
-**Dr. Jonathan Templin** expands on this framework through a **Bayesian adaptation** of the two-stage mixture model. The Bayesian perspective not only facilitates the incorporation of prior knowledge—particularly useful in domains with strong content expertise—but also yields posterior uncertainty estimates around cutpoints. These are critical for defensible reporting of decision consistency and classification precision. Dr. Templin's work exemplifies how Bayesian methods can offer transparency in probabilistic classification and absorb the expert's knowledge.
+Instead of focusing only on classification, we can think of the latent ability space as a continuum, with certain points serving as latent cutpoints. In this framework, both the continuous distribution and the discrete cutpoints can be estimated. The idea of blending IRT with classification models is not new— for example, Kentaro Yamamoto’s Hybrid Model of IRT and Latent Class Models is an early effort in this area. However, the research questions in this space remain challenging and largely underexplored. 
+
+Alfonso’s two-stage MLE approach may offer a new way forward in addressing this topic.
+
+**Dr. Jonathan Templin** expands on this framework through a **Bayesian estimation** of the two-stage mixture model. The Bayesian perspective not only facilitates the incorporation of prior knowledge, but also yields posterior uncertainty estimates around cutpoints. These are critical for defensible reporting of decision consistency and classification precision. Dr. Templin's work exemplifies how Bayesian methods can offer transparency in probabilistic classification and absorb the expert's knowledge.
 
 ### Practical and Substantive Applications
 
-**Mr. Sergio Haab** pushes the discussion from estimation to **interpretation**, addressing how scale score cutpoints can be made **substantively meaningful**. His approach advocates anchoring cutpoints in real-world behavioral or cognitive benchmarks rather than purely statistical partitions. This resonates strongly with calls for **construct validity** in standard setting, and Mr. Haab provides empirical strategies for aligning score regions with theoretically grounded performance descriptions. His contribution reminds us that psychometric sophistication must ultimately support human judgment and policy clarity.
+**Sergio Haab** pushes the discussion from estimation to **interpretation**, addressing how scale score cutpoints can be made **substantively meaningful**. His approach advocates anchoring cutpoints in real-world behavioral or cognitive benchmarks rather than purely statistical partitions. This resonates  with calls for **construct validity** in standard setting, and Mr. Haab provides empirical strategies for aligning score regions with theoretically performance descriptions. His contribution reminds us that psychometric modeling must support human judgment and policy making.
 
-**Ae Kyong Jung** takes the conversation in a complementary direction by exploring how **item selection algorithms**—particularly within **Computerized Adaptive Testing (CAT)**—interact with cutscore estimation when grounded in different psychometric theories. The comparison between **Shannon entropy** and **D-optimality in MIRT** highlights how DCMs can better serve fine-grained classification needs in CAT. Jung’s work importantly bridges the gap between **diagnostic precision** and **measurement efficiency**, offering actionable guidance for test developers.
+**Ae Kyong Jung** takes the ideas of estimating cutscores for contunous latent traits into the area of **Computerized Adaptive Testing (CAT)**, especially item selection procedure. The idea is very naturally, if you can convert the continous latent distribution into discrete distribution using the method presented by Alfonso and Jonathan, you then can use Shannon Entropy for item selection and IRT for theme estimation at the same time. She then performed the comparison between **Shannon entropy** and **D-optimality in MIRT** in terms of item accuracy. The results highlights the D-optimality method in MIRT outperforms Shannon Entropy in the DCM framework. Ae Kong’s work tries to find the balance **diagnostic precision** and **theta estimation accuracy**.
 
 Finally, **Mr. Ahmed Bediwy** presents a compelling application of the two-stage approach to **standard setting procedures**, suggesting that cutscore estimation can—and perhaps should—be integrated with operational practices such as the Angoff or Bookmark methods. By quantifying the psychometric implications of panelist judgments and enabling model-based refinement, His work suggests a promising hybrid model that respects both statistical evidence and expert consensus.
 
@@ -27,12 +34,28 @@ Finally, **Mr. Ahmed Bediwy** presents a compelling application of the two-stage
 
 Together, these five papers present a coherent vision for the **future of hybrid general psychometric models**, one that embraces methodological rigor, computational efficiency, and substantive relevance. Several cross-cutting themes deserve emphasis:
 
-1. **Two-stage modeling** represents a flexible and extensible architecture for merging **latent classification models** into **item response theory**, enabling flexible model specification and enhanced interpretation for item and person parameters.
-2. The **Bayesian and frequentist approaches** presented today are not in opposition, but rather offer complementary strengths—frequentist approaches provide asymptotic clarity, while Bayesian models enhance interpretability and probabilistic reasoning.
-3. The field must continue to move beyond statistical adequacy to ensure **interpretive defensibility** of cutpoints, as emphasized by Mr. Haab.
-4. Innovations in **CAT item selection with diagnostic modeling shannon entropy** illustrate how classification-oriented model can have comparable item selection efficieny and provide the future direction.
+1. **Two-stage modeling** with different item responses types
+2. The **Bayesian approach** with different priors
+3. The field must continue to move beyond statistical adequacy to ensure **interpretability** of cutpoints, as emphasized by Mr. Haab.
+4. Innovations in **CAT Scoring including cutpoints information**
 5. The **integration of psychometric modeling into standard setting practices** represents a promising frontier, helping resolve the long-standing tension between expert judgment and statistical modeling.
 
 In closing, this symposium not only advances the theoretical landscape of cutscore estimation but also expand its practical scenarios. As psychometricians, we are called not only to estimate well, but to explain and justify clearly. This work does both.
 
 Thank you to all presenters for your contributions to this important dialogue.
+
+
+### Open Discussion
+
+- Given that we have cutpoints as well as The minimum test length needed for acceptable classification accuracy in CAT.
+- What about the non-normal latent traits. 
+- Number of cutpoints per trait? More cutpoints for each traits. 
+- The meanings of cutscores in real world. 
+- The uncertainty of cutscores
+
+
+
+
+HYBRID MODEL OF IRT AND LATENT CLASS MODELS, Kentaro Yamamoto (Dec 1982), https://onlinelibrary.wiley.com/doi/10.1002/j.2333-8504.1982.tb01326.x
+- Efficient Models for Cognitive Diagnosis With Continuous and Mixed-Type Latent Variables, Hong (Apr 2014).
+	- A model that combines continuous and discrete latent variables is proposed that includes a noncompensatory item response theory (IRT) term and a term following the discrete attribute Deterministic Input, Noisy “And” Gate (DINA) model in cognitive diagnosis.
