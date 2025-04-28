@@ -1,0 +1,15 @@
+{
+  "hash": "6060031ec084057744ea1d23cafcc46a",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"index\"\nexecute: \n  eval: false\nformat: html\n---\n\n\n\n\n\n## Resource\n\n1.  The [official website](https://datapages.github.io/irw/analysis.html) of IRW data\n\n## Installation\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\ndevtools::install_github(\"redivis/redivis-r\", ref=\"main\")\n```\n:::\n\n\n\n\n\nUse [redvis](https://redivis.com/workspace) to authorize the API\n\n![](images/clipboard-1103660106.png)\n\n![](images/clipboard-2989591376.png)\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nfile.edit(\"~/.Renviron\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nREDIVIS_API_TOKEN=[Placeholder for API token]\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\n# Install the development version of irwpkg from GitHub\ndevtools::install_github(\"hansorlee/irwpkg\")\n```\n:::\n\n\n\n\n\n## First Use\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(irwpkg)\ndf <- irw_fetch(\"4thgrade_math_sirt\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ndf\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

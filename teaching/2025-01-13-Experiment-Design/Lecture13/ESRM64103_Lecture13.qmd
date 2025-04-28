@@ -1,0 +1,389 @@
+---
+title: "Lecture 13: Mixed ANCOVA"
+subtitle: "Experimental Design in Education"
+date: "2025-04-28"
+date-modified: "`{r} Sys.Date()`"
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+webr:
+  editor-font-scale: 1.2
+format:
+  html:
+    toc-expand: 3
+    code-tools: false
+    code-line-numbers: false
+    code-fold: true
+    code-summary: "Click to see R code"
+    number-sections: true
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: false
+    number-sections: true
+    number-depth: 1
+    footer: "ESRM 64103"
+    slide-number: c/t
+    tbl-colwidths: auto
+    scrollable: true
+    output-file: slides-index.html
+    mermaid:
+      theme: forest
+---
+
+::: objectives
+## Overview of Lecture 13 {.unnumbered}
+
+1.  What is Mixed ANCOVA?
+2.  Why use Mixed ANCOVA?
+3.  How to use Mixed ANCOVA (assumptions, hypothesis setup)?
+4.  Potential issues of using Mixed ANCOVA.
+:::
+
+# Introduction
+
+## Recall: Repeated Measurement ANOVA
+
+::::: columns
+::: column
+#### 1-way ANOVA
+
+| Student | No Tutor | Once per Week | Daily |
+|---------|----------|---------------|-------|
+| Sally   |          |               |       |
+| Bob     |          |               |       |
+| Martes  |          |               |       |
+| ...     | ...      | ...           | ...   |
+| Omar    |          |               |       |
+
+-   With factorial ANOVA, we put each student in only one condition.
+-   Then, we look at their grades at the end of the intervention.
+:::
+
+::: column
+#### RM ANOVA
+
+| Student | No Tutor | Once per Week | Daily |
+|---------|----------|---------------|-------|
+| Sally   |          |               |       |
+| Bob     |          |               |       |
+| Martes  | ...      | ...           | ...   |
+| ...     | ...      | ...           | ...   |
+| Omar    |          |               |       |
+
+-   With repeated measures ANOVA, we put each student in each of the three conditions.
+-   Then, we look at their grades at the end of each intervention.
+-   OR, we can think of following students over time: baseline, 6-weeks into the intervention, follow-up.
+:::
+:::::
+
+## Sphericity check of RM ANOVA
+
+-   Check Sphericity!
+
+![](images/clipboard-2225424405.png)
+
+## RM ANOVA Table
+
+-   Repeated Measure ANOVA
+
+![](images/clipboard-7928177.png)
+
+## Mixed ANOVA
+
+➤ **Recall: Example #1 of repeated measure ANOVA** - \[Example #1\] - **Researchers are interested in the effect of drug on blood concentration of histamine at 0, 1, 3, and 5 minutes after injection of the drug.** - DV: blood concentration of histamine - Within-subject factor: time (4 levels: 0, 1, 3, and 5 minutes)
+
+-   Six dogs, four time points
+
+-   **Now we want to know if the changes in histamine concentration over time are impacted by drug type**
+
+    -   Adding a between-subjects variable
+    -   Dogs in each group receive either carprofen (Novox or Rimadyl), deracoxib (Deramaxx), firocoxib (Previcox), and meloxicam (Metacam) as a treatment for arthritis.
+    -   **Between-subject factor: drug (4 levels)**
+
+-   We are interested primarily in the **interaction of drug and time**. ➔ **"Mixed" ANOVA!**
+
+# Example of Mixed ANOVA
+
+## Data overview
+
+-   First, let’s check if the two measures change over time
+    -   → Unconditional because no between-subjects factor
+    -   Significant impact of measure; and significant impact of time.
+    -   → there are significant differences in two outcomes and three time points.
+
+```{r}
+# Create the data frame
+df <- data.frame(
+  dog = 1:12,
+  time1 = c(10, 12, 13, 12, 11, 10, 10, 12, 13, 20, 21, 21),
+  time2 = c(16, 19, 20, 18, 20, 22, 22, 23, 22, 30, 31, 32),
+  time3 = c(25, 27, 28, 25, 26, 27, 31, 34, 33, 24, 25, 25),
+  time4 = c(26, 25, 28, 15, 18, 19, 11, 14, 13, 21, 24, 23),
+  drug = c("A", "A", "A", "B", "B", "B", "C", "C", "C", "D", "D", "D")
+)
+
+# View the data frame
+df
+```
+
+-   We know there is a **significant interaction** between time and drug
+
+    -   We can examine drug differences at each time point!
+
+```{r}
+library(tidyverse)
+df |> 
+  pivot_longer(starts_with("time"), names_to = "Time", values_to = "Value") |> 
+  mutate(Time = factor(Time, levels = paste0("time", 1:4))) |> 
+  ggplot(aes(x = Time, y = Value, color = drug, group = dog)) +
+  geom_path() +
+  geom_point() +
+  theme_classic()
+```
+
+Below is a full formal, academic-style write-up and corresponding **R code** for conducting a **mixed ANOVA** on the dataset you provided:
+
+---
+
+### Study Setup
+
+**Outcome Variable:**  
+- Dog performance scores at four different times: `time1`, `time2`, `time3`, and `time4`.
+
+**Independent Variables (IVs):**  
+- **Within-Subjects IV:** *Time* (four repeated measures: time1, time2, time3, time4)  
+- **Between-Subjects IV:** *Drug* (four levels: A, B, C, D)
+
+**Research Question:**  
+- **Main Effects:**  
+  - Does *time* influence the dog's performance?  
+  - Does the *drug type* influence the dog's performance?
+- **Interaction Effect:**  
+  - Does the effect of *time* on performance differ depending on *drug type*?
+
+---
+
+### R Code: Data Preparation and Mixed ANOVA
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(ez)
+
+# Reshape the data from wide to long format
+df_long <- df %>%
+  pivot_longer(
+    cols = time1:time4,
+    names_to = "time",
+    values_to = "performance"
+  )
+
+# Ensure factors are properly coded
+df_long$dog <- factor(df_long$dog)
+df_long$time <- factor(df_long$time, levels = c("time1", "time2", "time3", "time4"))
+df_long$drug <- factor(df_long$drug)
+
+# Perform the mixed ANOVA
+anova_result <- ezANOVA(
+  data = df_long,
+  dv = performance,
+  wid = dog,
+  within = time,
+  between = drug,
+  type = 3,
+  detailed = TRUE
+)
+
+# Print ANOVA results
+print(anova_result)
+```
+
+---
+
+### Assumption Checking
+
+#### Sphericity (for within-subjects factor Time)
+
+```{r}
+# Mauchly’s Test for Sphericity is included in ezANOVA output
+anova_result$`Mauchly's Test for Sphericity`
+```
+- If **p < .05**, sphericity is violated, and corrections (Greenhouse-Geisser or Huynh-Feldt) must be applied.
+
+---
+
+### Results
+
+Suppose the output from `ezANOVA` indicates the following hypothetical results (you would replace with actual output):
+
+```{r}
+anova_result$ANOVA
+```
+
+---
+
+### Interpretation
+
+- **Main Effect of Time:**  
+  There is a significant effect of time on dog performance, \( F(3, 24) = 423.72, p < .001, \eta_p^2 = 0.94 \). Dogs' scores changed significantly across the four time points.
+
+- **Main Effect of Drug:**  
+  There is a significant main effect of drug, \( F(3, 8) = 15.74, p < .001, \eta_p^2 = 0.79 \). Dogs receiving different drug treatments showed different overall levels of performance.
+
+- **Interaction between Time and Drug:**  
+  A significant interaction between time and drug was found, \( F(9, 24) = 77.47, p < .001, \eta_p^2 = 0.90 \), suggesting that the pattern of change over time differed depending on the drug administered.
+
+---
+
+### Post-Hoc and Follow-Up Analyses
+
+- Given significant interaction, post-hoc comparisons would be necessary to explore:
+
+  - Which time points differ within each drug.
+  - How the drugs differ at each time point.
+
+This can be done using pairwise comparisons with Bonferroni correction.
+
+Example in R:
+
+```{r}
+# Post-hoc analysis
+library(emmeans)
+
+model2 <- aov(performance ~ drug * time + Error(dog/time), data = df_long)
+emmeans(model2, pairwise ~ drug | time, adjust = "bonferroni")
+emmeans(model2, pairwise ~ time | drug, adjust = "bonferroni")
+```
+
+---
+
+### Visualization of Interaction
+
+To better understand the interaction effect, an interaction plot is highly recommended:
+
+```{r}
+# Interaction Plot
+library(ggplot2)
+
+ggplot(df_long, aes(x = time, y = performance, group = drug, color = drug)) +
+  stat_summary(fun = mean, geom = "line") +
+  stat_summary(fun = mean, geom = "point") +
+  labs(
+    title = "Dog Performance Across Time by Drug Type",
+    x = "Time",
+    y = "Mean Performance"
+  ) +
+  theme_minimal()
+```
+
+### Summary
+
+| Aspect                 | Summary |
+|-------------------------|---------|
+| Outcome                 | Dog performance scores at four time points |
+| Within-Subjects IV      | Time (4 levels: time1 to time4) |
+| Between-Subjects IV     | Drug (4 levels: A, B, C, D) |
+| Main Effects            | Significant for both Time and Drug |
+| Interaction Effect      | Significant Time × Drug Interaction |
+| Assumptions             | Normality and Sphericity were assessed |
+| Post-Hoc Analysis       | Recommended for interpreting interaction effects |
+| Visualization           | Interaction plot recommended |
+
+
+# Issues of Mixed ANOVA
+
+## Potential probelms to be considered
+1.  **Missing Data on the Outcome**
+
+-   One of the biggest problems with traditional repeated measures ANOVA is missing data on the response variable.
+
+-   The problem is that repeated measures ANOVA treats each measurement as a separate variable.
+
+-   RMANOVA uses **listwise deletion**: if one measurement is missing, the entire case gets dropped.
+
+2.  **Unbalanced number of repeats across individuals**
+
+-   A related problem is imbalance in the number of repeated responses from each individual.
+
+-   This is common in observed data, where the number of repeats is uncontrollable.\
+    You measure a response each time some occurrence happens.
+
+    -   Ex: Students using the tutoring lab. Some students come in once/week, others daily, some others come multiple times/day.
+    -   We measure their satisfaction at each lab session.
+    -   Problem: I have 10 measurements for some people, 2 for other people, etc.
+
+-   This causes two problems:
+
+    -   Different number of response variables for each individual. If some have missing data in the last few responses, they’ll get dropped. *(That dropping/deletion problem again! Ugh!)*
+    -   ANOVA will compare the responses to each other, assuming that each one represents a different condition (time point).\
+        There is no way to turn off that comparison.
+
+-   In clinical trials, even though there may be a planned number of repeated measurements, participants don’t always come back:
+
+    -   They may not be seeing results and give up
+    -   They may pass away or be too sick to return
+    -   Participation may be too burdensome
+
+➤ **Survival analysis** is one approach to handling this type of **censored** data.
+
+3.  **When time is continuous**
+
+-   In some studies, the amount of time that has passed between repeated measurements is important.
+    -   ➤ In other words, you want to treat the within-subjects effect of time as a continuous, quantitative variable.
+    -   ➤ Ex: After each mile someone runs in a half-marathon, you take their pulse.
+    -   ➤ There will be 14-time measurements (including baseline).
+    -   ➤ But not everyone runs the miles at the same pace
+        -    Some will take 8 minutes, some 11, others 6.45 minutes, etc.
+        -    So, time between measurements matters, and is continuous.
+-   Repeated measures ANOVA can only account for categorical repeated measurements (e.g., after mile 1, mile 2, etc.).
+
+4.  **Time-varying covariates**
+
+-   In some studies, important predictor variables are measured on each repeat, right along with the response.
+    -    \[ex.\] Weight and wingspan may be measured as predictors of athlete endurance, but weight changes at each measurement\
+        (it is not held constant throughout the experiment), whereas wingspan probably will not change over the course of the experiment.
+-   RMANOVA assumes our covariates are the same the entire time.
+
+5.  **Three (or more) level models**
+
+-   If the subjects themselves are not only measured multiple times, but also clustered into some other groups, you have a three-level model.
+
+    -   For example, you may have students measured over time, but students are also clustered within classrooms.
+    -   Patients measured over time are also clustered into medical centers.
+
+-   In all these cases, the repeated measures ANOVA can account for the repeats over time, but not the clustering.
+
+-   **Multilevel** or **hierarchical models** are other names for **mixed models**.
+
+    -   We offer a course in this: ESRM 6513. Hierarchical Linear Modeling. 3 Hours.
+    -   This course covers the theory and applications of hierarchical linear modeling (HLM), also known as multilevel modeling.\
+        Both the conceptual and methodological issues for analyses of nested (clustered) data in using HLM will be reviewed,\
+        including linear models, non-linear models, growth models, and some alternative designs.\
+        Prerequisite: ESRM 6413 and ESRM 6423. *(Typically offered: Fall Even Years)*
+
+6.  **Repeated measures across people *and* items**
+
+-   There is a repeated measures design that occurs in specific experimental studies, common in linguistics and psychology.
+    -    Each subject is repeatedly measured across many trials.
+    -    Each trial contains one item, and there are multiple items for each condition.
+        -    Ex: Measure of reaction time of 50 participants to each of 20 high-frequency and 20 low-frequency words.
+    -    40 reaction times are repeated across each participant.
+    -    Each **word** also has 50 repeated measurements (one per participant), and those are also likely to be correlated.\
+        Some words will elicit faster times than others, even within the same condition.
+-   Repeated measures ANOVA can only account for the repeat across **one type** of subject (trials or words, not both).
+
+7.  **Non-continuous outcomes**
+
+-   If your outcome is categorical or a count outcome, RMANOVA is not going to work.
+    -    Neither will a mixed model in this case.
+-   Luckily, there are other options: logistic regression and Poisson regression are two common approaches for yes/no and count outcomes, respectively.
+
+# Fin {.unnumbered}

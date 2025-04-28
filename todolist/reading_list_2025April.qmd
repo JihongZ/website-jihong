@@ -1,7 +1,9 @@
 ---
-title: "Reading List 2025"
+title: "Reading List 2025 - Featured Papers"
 sidebar: id-todo
-format: html
+format: 
+  html:
+    number-sections: true
 ---
 
 ## AI in Education
@@ -20,20 +22,45 @@ format: html
 @. Xu, S., & Zhang, X. (2023). Leveraging generative artificial intelligence to simulate student learning behavior (No. arXiv:2310.19206). arXiv. https://doi.org/10.48550/arXiv.2310.19206
 @. Zou, Z., Mubin, O., Alnajjar, F., & Ali, L. (2024). A pilot study of measuring emotional response and perception of LLM-generated questionnaire and human-generated questionnaires. Scientific Reports, 14(1), 2781. https://doi.org/10.1038/s41598-024-53255-1
 
-## Psychological Network Analysis in Education
+## Network psychometrics
 
-@. Blanken, T. F., Van Der Zweerde, T., Van Straten, A., Van Someren, E. J. W., Borsboom, D., & Lancee, J. (2019). Introducing Network Intervention Analysis to Investigate Sequential, Symptom-Specific Treatment Effects: A Demonstration in Co-Occurring Insomnia and Depression. Psychotherapy and Psychosomatics, 88(1), 52–54. https://doi.org/10.1159/000495045
-@. Bork, R. van, Lunansky, G., & Borsboom, D. (2024). Measurement Targets for Network Constructs in Psychopathology. Preprint. https://doi.org/10.31234/osf.io/2k34t
+### Tutorial
 @. Borsboom, D. (2002). The Structure of the DSM. Archives of General Psychiatry, 59(6), 569–570.
 @. Borsboom, D. (2008). Psychometric perspectives on diagnostic systems. Journal of Clinical Psychology, 64(9), 1089–1108. https://doi.org/10.1002/jclp.20503
 @. Borsboom, D. (2017). A network theory of mental disorders. World Psychiatry, 16(1), 5–13. https://doi.org/10.1002/wps.20375
 @. Borsboom, D. (2022). Possible futures for network psychometrics. Psychometrika, 87(1), 253–265. https://doi.org/10.1007/s11336-022-09851-z
 @. Borsboom, D., & Cramer, A. O. J. (2013). Network analysis: An integrative approach to the structure of psychopathology. Annual Review of Clinical Psychology, 9, 91–121. https://doi.org/10.1146/annurev-clinpsy-050212-185608
 @. Borsboom, D., Deserno, M. K., Rhemtulla, M., Epskamp, S., Fried, E. I., McNally, R. J., Robinaugh, D. J., Perugini, M., Dalege, J., Costantini, G., Isvoranu, A.-M., Wysocki, A. C., van Borkulo, C. D., van Bork, R., & Waldorp, L. J. (2021). Network analysis of multivariate data in psychological science. Nature Reviews Methods Primers, 1(1), Article 1. https://doi.org/10.1038/s43586-021-00055-w
-@. Christensen, A. P., Garrido, L. E., & Golino, H. (2023). Unique Variable Analysis: A Network Psychometrics Method to Detect Local Dependence. Multivariate Behavioral Research, 58(6), 1165–1182. https://doi.org/10.1080/00273171.2023.2194606
-@. Christensen, A. P., Garrido, L. E., Guerra-Peña, K., & Golino, H. (2024). Comparing community detection algorithms in psychometric networks: A Monte Carlo simulation. Behavior Research Methods, 56(3), 1485–1505. https://doi.org/10.3758/s13428-023-02106-4
-@. Epskamp, S. (2020). Psychometric network models from time-series and panel data. Psychometrika, 85(1), 206–231. https://doi.org/10.1007/s11336-020-09697-3
-@. Epskamp, S. (2023). psychonetrics: Structural Equation Modeling and Confirmatory Network Analysis (Version 0.11.5) [Computer software]. https://cran.r-project.org/web/packages/psychonetrics/index.html
-@. Epskamp, S., Borsboom, D., & Fried, E. I. (2018). Estimating psychological networks and their accuracy: A tutorial paper. Behavior Research Methods, 50(1), 195–212. https://doi.org/10.3758/s13428-017-0862-1
 @. Epskamp, S., & Fried, E. I. (2018). A tutorial on regularized partial correlation networks. Psychological Methods, 23, 617–634. https://doi.org/10.1037/met0000167
+@. Epskamp, S. (2023). psychonetrics: Structural Equation Modeling and Confirmatory Network Analysis (Version 0.11.5) [Computer software]. https://cran.r-project.org/web/packages/psychonetrics/index.html
+@. Epskamp, S. (2020). Psychometric network models from time-series and panel data. Psychometrika, 85(1), 206–231. https://doi.org/10.1007/s11336-020-09697-3
 
+### Interpreability
+@. Bork, R. van, Lunansky, G., & Borsboom, D. (2024). Measurement Targets for Network Constructs in Psychopathology. Preprint. https://doi.org/10.31234/osf.io/2k34t
+@. Blanken, T. F., Van Der Zweerde, T., Van Straten, A., Van Someren, E. J. W., Borsboom, D., & Lancee, J. (2019). Introducing Network Intervention Analysis to Investigate Sequential, Symptom-Specific Treatment Effects: A Demonstration in Co-Occurring Insomnia and Depression. Psychotherapy and Psychosomatics, 88(1), 52–54. https://doi.org/10.1159/000495045
+@. Hallquist, M. N., Wright, A. G. C., & Molenaar, P. C. M. (2021). Problems with Centrality Measures in Psychopathology Symptom Networks: Why Network Psychometrics Cannot Escape Psychometric Theory. Multivariate Behavioral Research, 56(2), 199–223. https://doi.org/10.1080/00273171.2019.1640103
+
+
+### Accuaracy and reliability issues
+
+::: rmdnote
+The reliability and replicability problems in network analysis raise a lot of debates.
+:::
+
+@. Epskamp, S., Borsboom, D., & Fried, E. I. (2018). Estimating psychological networks and their accuracy: A tutorial paper. Behavior Research Methods, 50(1), 195–212. https://doi.org/10.3758/s13428-017-0862-1
+@. Forbes, M. K., Wright, A. G. C., Markon, K. E., & Krueger, R. F. (2017a). Evidence that psychopathology symptom networks have limited replicability. Journal of Abnormal Psychology, 126(7), 969–988. https://doi.org/10.1037/abn0000276
+@. Forbes, M. K., Wright, A. G. C., Markon, K. E., & Krueger, R. F. (2017b). Further evidence that psychopathology networks have limited replicability and utility: Response to Borsboom et al. (2017) and Steinley et al. (2017). Journal of Abnormal Psychology, 126(7), 1011–1016. https://doi.org/10.1037/abn0000313
+@. Forbes, M. K., Wright ,Aidan G. C., Markon ,Kristian E., & and Krueger, R. F. (2021a). On Unreplicable Inferences in Psychopathology Symptom Networks and the Importance of Unreliable Parameter Estimates. Multivariate Behavioral Research, 56(2), 368–376. https://doi.org/10.1080/00273171.2021.1886897
+@. Forbes, M. K., Wright ,Aidan G. C., Markon ,Kristian E., & and Krueger, R. F. (2021b). Quantifying the Reliability and Replicability of Psychopathology Network Characteristics. Multivariate Behavioral Research, 56(2), 224–242. https://doi.org/10.1080/00273171.2019.1616526
+@. Fried, E. I., van Borkulo ,Claudia D., & and Epskamp, S. (2021). On the Importance of Estimating Parameter Uncertainty in Network Psychometrics: A Response to Forbes et al. (2019). Multivariate Behavioral Research, 56(2), 243–248. https://doi.org/10.1080/00273171.2020.1746903
+@. Jones, P. J., Williams ,Donald R., & and McNally, R. J. (2021). Sampling Variability Is Not Nonreplication: A Bayesian Reanalysis of Forbes, Wright, Markon, and Krueger. Multivariate Behavioral Research, 56(2), 249–255. https://doi.org/10.1080/00273171.2020.1797460
+
+
+### Community dectection
+
+@. Christensen, A. P., Garrido, L. E., Guerra-Peña, K., & Golino, H. (2024). Comparing community detection algorithms in psychometric networks: A Monte Carlo simulation. Behavior Research Methods, 56(3), 1485–1505. https://doi.org/10.3758/s13428-023-02106-4
+@. Werner, M. A., de Ron, J., Fried, E. I., & Robinaugh, D. J. (2025). Iterated community detection in psychological networks. Psychological Methods. https://doi.org/10.1037/met0000744
+
+### Connection to FA
+
+@. Christensen, A. P., Garrido, L. E., & Golino, H. (2023). Unique Variable Analysis: A Network Psychometrics Method to Detect Local Dependence. Multivariate Behavioral Research, 58(6), 1165–1182. https://doi.org/10.1080/00273171.2023.2194606
