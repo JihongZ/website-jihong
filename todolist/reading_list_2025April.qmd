@@ -35,7 +35,11 @@ format:
 @. Epskamp, S. (2023). psychonetrics: Structural Equation Modeling and Confirmatory Network Analysis (Version 0.11.5) [Computer software]. https://cran.r-project.org/web/packages/psychonetrics/index.html
 @. Epskamp, S. (2020). Psychometric network models from time-series and panel data. Psychometrika, 85(1), 206–231. https://doi.org/10.1007/s11336-020-09697-3
 
-### Interpreability
+### Interpreability of outcomes
+::: rmdnote
+How to appropriately interpret outcomes of network analysis, such as edge weights, centrality, targeted construct, scoring etc, is very important topic for explanatory network analysis.
+:::
+
 @. Bork, R. van, Lunansky, G., & Borsboom, D. (2024). Measurement Targets for Network Constructs in Psychopathology. Preprint. https://doi.org/10.31234/osf.io/2k34t
 @. Blanken, T. F., Van Der Zweerde, T., Van Straten, A., Van Someren, E. J. W., Borsboom, D., & Lancee, J. (2019). Introducing Network Intervention Analysis to Investigate Sequential, Symptom-Specific Treatment Effects: A Demonstration in Co-Occurring Insomnia and Depression. Psychotherapy and Psychosomatics, 88(1), 52–54. https://doi.org/10.1159/000495045
 @. Hallquist, M. N., Wright, A. G. C., & Molenaar, P. C. M. (2021). Problems with Centrality Measures in Psychopathology Symptom Networks: Why Network Psychometrics Cannot Escape Psychometric Theory. Multivariate Behavioral Research, 56(2), 199–223. https://doi.org/10.1080/00273171.2019.1640103
