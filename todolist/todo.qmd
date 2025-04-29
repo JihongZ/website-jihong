@@ -37,8 +37,8 @@ format:
 @. Apply longitudinal network analysis to EEG data of mediation task (Authors: Yanli (Jeff) Lin, Jihong Z.)
 
 ### Large language models in Education and Psychology
-@. CDM-drive LLMs for interview data analysis.
-@. Test psychometric difference between LLM-generated and human-generated using measurement invariance.
+@. CDM-driven LLMs for interview data analysis.
+@. Test psychometric difference between LLM-generated and human-generated using measurement invariance (DIF). Use the multi-agent system to detect DIF.
 @. Use LLM to convert interview data into survey response (Jihong Z., Nicole Bonge)
 @. Test the stability of LLM-generated survey responses under different conditions (Xinya L., Jihong Z.)
 @. Training Generated AI algorithm using large education item pools (Hong Jiao, Xinya L., Jihong Z.).
