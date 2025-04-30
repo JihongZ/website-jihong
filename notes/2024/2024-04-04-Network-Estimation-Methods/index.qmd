@@ -15,6 +15,7 @@ format:
   html: 
     code-fold: true
     code-summary: 'Click to see the code'
+    toc-location: left
 bibliography: references.bib
 csl: apa.csl
 ---
@@ -31,7 +32,8 @@ Please see [here](../2024-03-05-Bayesian-GGM/index.qmd) for `BGGM` R package for
 
 ![Estimation methods used in Isvoranu and Epskamp (2023)](estimation_methods_table.png){#fig-usedestimation fig-align="center"}
 
-# Data Generation
+# Simulation Study 1
+## Data Generation
 
 For the sake of simplicity, I will only pick one condition from the simulation settings.
 To simulate data, I used the same code from the paper.
@@ -127,9 +129,9 @@ gen <- bootnet::ggmGenerator()
 data <- gen(2800, as.matrix(bfi_truenetwork))
 ```
 
-# Measures
+## Measures
 
-## Overview of Centrality Measures
+### Overview of Centrality Measures
 
 Centrality measures are used as one characteristic of network model to summarize the importance of nodes/items given a network.
 Some ideas of centrality measures come from social network.
@@ -155,7 +157,7 @@ In association networks, the idea of network distance does not have physical ref
 @bringmann2019 also think distance-based centrality like closeness centrality (CC) and betweenness centrality (BC) do not have "shortest path", or "node exchangeability" assumptions in psychological networks so they are not suitable in the context of psychological network.
 In addition, ND (degree), CC (closeness), and BC (betweenness) do not take negative values of edge weights into account that may lose important information in the context of psychology.
 
-## Network level accuracy metrics
+### Network level accuracy metrics
 
 Structure accuracy measures such as *sensitivity*, specificity, and precision investigate if an true edge is include or not or an false edge is include or not.
 Several edge weight accuracy measures include: (1) correlation between absolute values of estimated edge weights and true edge weights, (2) average absolute bias between estimated edge weights and true weights, (3) average absolute bias for true edges.
@@ -271,10 +273,10 @@ comparison_metrics <- function(real, est, name = "full"){
 }
 ```
 
-# Estimation
+## Estimation
  
 ::: {.panel-tabset}
-## Method 1 - EBICglasso in bootnet
+### Method 1 - EBICglasso in bootnet
 
 This method uses the `bootnet::estimateNetwork` function.
 
@@ -334,7 +336,7 @@ qgraph(estnet_m1)
 ```
 
 
-## Method 2 - ggmModSelect in bootnet
+### Method 2 - ggmModSelect in bootnet
 
 The *ggmModSelect* algorithm is a non-regularized method.
 
@@ -378,7 +380,7 @@ estnet_m2_2 <- res_m2_2$graph
 qgraph(estnet_m2_2)
 ```
 
-## Method 3 - FIML in psychonetrics
+### Method 3 - FIML in psychonetrics
 
 ```{r}
 #| code-fold: show
@@ -419,7 +421,7 @@ estnet_m3_2 <- getmatrix(res_m3_2, "omega")
 qgraph(estnet_m3_2)
 ```
 
-## Method 4 - WLS in psychonetrics
+### Method 4 - WLS in psychonetrics
 
 ```{r}
 #| code-fold: show
@@ -457,7 +459,7 @@ estnet_m4_2 <- getmatrix(res_m4_2, "omega")
 qgraph(estnet_m4_2)
 ```
 
-## Method 5 - mgm in mgm
+### Method 5 - mgm in mgm
 
 `mgm` package is used for estimating mixed graphical models.
 Node type can be "g" for Gaussian or "c" for categorical.
@@ -503,7 +505,7 @@ estnet_m5_2 <- getmatrix_mgm(res_m5_2)
 qgraph(estnet_m5_2)
 ```
 
-## Method 6 - BGGM in BGGM
+### Method 6 - BGGM in BGGM
 
 ```{r}
 #| code-fold: show
@@ -568,7 +570,7 @@ rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModS
 kableExtra::kable(performance_compr, digits = 3)
 ```
 
-# Summary
+## Summary
 
 ```{r}
 #| fig-width: 8

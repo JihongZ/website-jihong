@@ -203,6 +203,14 @@ details.code-fold{
   font-weight: 500;
 }
 
+details.code-fold {
+  summary {
+    border: .5px solid #b9c680;
+    color: $qian-qing;
+    background-color: #eef1e0;
+  }
+}
+
 div.card-body.post-contents {
   font-family: "Abel", sans-serif;
   .card-title.listing-title {
@@ -222,12 +230,7 @@ p.subtitle.lead, div.description {
 }
 
 
-details.code-fold {
-  margin: .65rem;
-  summary {
-    color: $qian-qing;
-  }
-}
+
 
 
 body, p, li { // main font family of post content
@@ -567,7 +570,6 @@ div.quarto-about-trestles .about-entity .about-link{ // Buttons under the profil
 /* Table styling */
 table {
   font-family: "Abel", sans-serif;
-  font-size: 1rem;
   width: 100%;
   margin-bottom: 1em;
   border-radius: 5px;
@@ -575,14 +577,15 @@ table {
 }
 
 th {
-  background-color: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 1px solid #b9c680 !important;
+  background-color: #eef1e0;
+  font-size: 1.1em;
   padding: 0.25em;
 }
 
 td {
+  font-size: 1.1em;
   padding: 0.25em;
-  border-bottom: 1px solid #dee2e6;
 }
 
 /* Striped tables */
