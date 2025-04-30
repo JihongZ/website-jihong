@@ -1,6 +1,5 @@
 ---
-title: 'How to choose network analysis estimation for application research'
-
+title: 'Network analysis estimation for application research'
 subtitle: 'Compare multiple R packages for psychological network analysis'
 date: 'April 4 2024'
 categories:
@@ -22,13 +21,21 @@ csl: apa.csl
 
 # Background
 
-Multiple estimation methods for network analysis have been proposed, from regularized to unregularized, from frequentist to Bayesian approach, from one-step to multiple steps. @isvoranuWhichEstimationMethod2023a provides an throughout illustration of current network estimation methods and simulation study. This post tries to reproduce the procedures and coding illustrated by the paper and compare the results for packages with up-to-date version. Five packages will be used for network modeling: (1) `qgraph`, (2)`psychonetrics`, (3)`MGM`, (4)`BGGM`, (5)`GGMnonreg`. Note that the tutorial of each R package is not the scope of this post. The specific variants of estimation is described in @fig-usedestimation. Please see [here](../2024-03-05-Bayesian-GGM/index.qmd) for `BGGM` R package for more detailed example.
+Multiple estimation methods for network analysis have been proposed, from regularized to unregularized, from frequentist to Bayesian approach, from one-step to multiple steps.
+@isvoranuWhichEstimationMethod2023a provides an throughout illustration of current network estimation methods and simulation study.
+This post tries to reproduce the procedures and coding illustrated by the paper and compare the results for packages with up-to-date version.
+Five packages will be used for network modeling: (1) `qgraph`, (2)`psychonetrics`, (3)`MGM`, (4)`BGGM`, (5)`GGMnonreg`.
+Note that the tutorial of each R package is not the scope of this post.
+The specific variants of estimation is described in @fig-usedestimation.
+Please see [here](../2024-03-05-Bayesian-GGM/index.qmd) for `BGGM` R package for more detailed example.
 
 ![Estimation methods used in Isvoranu and Epskamp (2023)](estimation_methods_table.png){#fig-usedestimation fig-align="center"}
 
 # Data Generation
 
-For the sake of simplicity, I will only pick one condition from the simulation settings. To simulate data, I used the same code from the paper. The function is a wrapper of `bootnet::ggmGenerator` function
+For the sake of simplicity, I will only pick one condition from the simulation settings.
+To simulate data, I used the same code from the paper.
+The function is a wrapper of `bootnet::ggmGenerator` function
 
 ```{r}
 #| code-summary: 'dataGenerator() function'
@@ -101,7 +108,8 @@ dataGenerator <- function(
 }
 ```
 
-BFI contains 26 columns: first columns are the precision matrix with 25 $\times$ 25 and second columns as clusters. We will use the structure of BFI for the simulation.
+BFI contains 26 columns: first columns are the precision matrix with 25 $\times$ 25 and second columns as clusters.
+We will use the structure of BFI for the simulation.
 
 ```{r}
 library(here)
@@ -123,21 +131,34 @@ data <- gen(2800, as.matrix(bfi_truenetwork))
 
 ## Overview of Centrality Measures
 
-Centrality measures are used as one characteristic of network model to summarize the importance of nodes/items given a network. Some ideas of centrality measures come from social network. Some may not make much sense in psychometric network. I also listed the centrality measures that have been used in literatures of psychological or psychometric modeling. Following the terminology of @christensen2018, centrality measures include: (1) betweenness centrality (BC); (2) the randomized shortest paths betweeness centrality (RSPBC); (3) closeness centrality (CC); (4)node degree (ND); (5) node strength (NS); (6) expected influence (EI); (7) engenvector centrality (EC); (8) Eccentricity (*k;* @hage1995); (9) hybrid centrality (HC; @christensen2018a).
+Centrality measures are used as one characteristic of network model to summarize the importance of nodes/items given a network.
+Some ideas of centrality measures come from social network.
+Some may not make much sense in psychometric network.
+I also listed the centrality measures that have been used in literatures of psychological or psychometric modeling.
+Following the terminology of @christensen2018, centrality measures include: (1) betweenness centrality (BC); (2) the randomized shortest paths betweeness centrality (RSPBC); (3) closeness centrality (CC); (4)node degree (ND); (5) node strength (NS); (6) expected influence (EI); (7) engenvector centrality (EC); (8) Eccentricity (*k;* @hage1995); (9) hybrid centrality (HC; @christensen2018a).
 
 They can be grouped into three categories:
 
-[*Type 1*]{.underline}—Number of path relevant metrics: BC measures how often a node is on the shortest path from one node to another. RSPBC is a adjusted BC measure which measures how oftern a node is on the random shortest path from one to another; CC measures the average number of paths from one node to all other nodes in the network. ND measures how many connections are connected to each node. Eccentricity (*k*) measures the maximum "distance" between one node with other nodes with lower values suggests higher centrality, where one node's distance is the length of a shortest path between this node to other nodes.
+[*Type 1*]{.underline}—Number of path relevant metrics: BC measures how often a node is on the shortest path from one node to another.
+RSPBC is a adjusted BC measure which measures how oftern a node is on the random shortest path from one to another; CC measures the average number of paths from one node to all other nodes in the network.
+ND measures how many connections are connected to each node.
+Eccentricity (*k*) measures the maximum "distance" between one node with other nodes with lower values suggests higher centrality, where one node's distance is the length of a shortest path between this node to other nodes.
 
-[*Type 2*]{.underline}—Path strength relevant metrics: **NS** measures the sum of the absolute values of edge weights connected to a single node. **EI** measures the sum of the positive or negative values of edge weights connected to a single node.
+[*Type 2*]{.underline}—Path strength relevant metrics: **NS** measures the sum of the absolute values of edge weights connected to a single node.
+**EI** measures the sum of the positive or negative values of edge weights connected to a single node.
 
 [*Type 3*]{.underline}—Composite of multiple centrality measures: **HC** measures nodes on the basis of their centrality values across multiple measures of centrality (BC, LC, *k*, EC, and NS) which describes highly central nodes with large values and highly peripheral nodes with small values [@christensen2018b].
 
-Some literature of network psychometrics criticized the use of Type 1 centrality measures and some Type II centrality measures [@hallquist2021; @neal2022]. For example, @hallquist2021 argued that some Type I centrality measures such as BC and CC derive from the concept of distance, which builds on the physical nature of many traditional graph theory applications, including railways and compute networks. In association networks, the idea of network distance does not have physical reference. @bringmann2019 also think distance-based centrality like closeness centrality (CC) and betweenness centrality (BC) do not have "shortest path", or "node exchangeability" assumptions in psychological networks so they are not suitable in the context of psychological network. In addition, ND (degree), CC (closeness), and BC (betweenness) do not take negative values of edge weights into account that may lose important information in the context of psychology.
+Some literature of network psychometrics criticized the use of Type 1 centrality measures and some Type II centrality measures [@hallquist2021; @neal2022].
+For example, @hallquist2021 argued that some Type I centrality measures such as BC and CC derive from the concept of distance, which builds on the physical nature of many traditional graph theory applications, including railways and compute networks.
+In association networks, the idea of network distance does not have physical reference.
+@bringmann2019 also think distance-based centrality like closeness centrality (CC) and betweenness centrality (BC) do not have "shortest path", or "node exchangeability" assumptions in psychological networks so they are not suitable in the context of psychological network.
+In addition, ND (degree), CC (closeness), and BC (betweenness) do not take negative values of edge weights into account that may lose important information in the context of psychology.
 
 ## Network level accuracy metrics
 
-Structure accuracy measures such as *sensitivity*, specificity, and precision investigate if an true edge is include or not or an false edge is include or not. Several edge weight accuracy measures include: (1) correlation between absolute values of estimated edge weights and true edge weights, (2) average absolute bias between estimated edge weights and true weights, (3) average absolute bias for true edges.
+Structure accuracy measures such as *sensitivity*, specificity, and precision investigate if an true edge is include or not or an false edge is include or not.
+Several edge weight accuracy measures include: (1) correlation between absolute values of estimated edge weights and true edge weights, (2) average absolute bias between estimated edge weights and true weights, (3) average absolute bias for true edges.
 
 ```{r}
 cor0 <- function(x,y,...){
@@ -251,8 +272,9 @@ comparison_metrics <- function(real, est, name = "full"){
 ```
 
 # Estimation
-
-## Method 1 - EBICglasso in `bootnet`
+ 
+::: {.panel-tabset}
+## Method 1 - EBICglasso in bootnet
 
 This method uses the `bootnet::estimateNetwork` function.
 
@@ -276,7 +298,8 @@ $$
 \log \det(\boldsymbol{K}) - \text{trace}(\boldsymbol{SK})-\lambda \Sigma|\kappa_{ij}|
 $$
 
-where $\boldsymbol{S}$ represents the sample variance-covariance matrix and $\boldsymbol{K}$ represents the precision matrix that *lasso* aims to estimate. Overall, the regularization limits the sum of absolute partial correlation coefficients.
+where $\boldsymbol{S}$ represents the sample variance-covariance matrix and $\boldsymbol{K}$ represents the precision matrix that *lasso* aims to estimate.
+Overall, the regularization limits the sum of absolute partial correlation coefficients.
 
 `sampleSize="pairwise_average"` will set the sample size to the average of sample sizes used for each individual correlation in `EBICglasso`.
 
@@ -285,8 +308,8 @@ where $\boldsymbol{S}$ represents the sample variance-covariance matrix and $\bo
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 1: EBICglasso"
-#| fig-width: 8
-#| fig-height: 8
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-bfi
 #| fig-cap: "Method 1: Network Plot for BFI-25 with EBICglasso"
 library("qgraph")
@@ -310,31 +333,16 @@ EBIC = mean(res_m1$results$ebic) # EBIC of the final model
 qgraph(estnet_m1)
 ```
 
-```{r}
-performance <- function(network) {
-  res_comparison <- comparison_metrics(real = as.matrix(bfi_truenetwork), est = as.matrix(network))
-  c(
-    sensitivity = res_comparison$sensitivity_full,
-    specificity = res_comparison$specificity_full,
-    precision = res_comparison$precision_full,
-    
-    abs_corr = res_comparison$abs_cor_true_edges_full, # The Pearson correlation between the absolute edge weights
-    bias = res_comparison$bias_full, # The average absolute deviation
-    bias_true = res_comparison$bias_true_edges_full # The average absolute deviation between the true edge weight and the estimated edge weight
-  )
-}
-performance(estnet_m1)
-```
 
-## Method 2 - ggmModSelect in `bootnet`
+## Method 2 - ggmModSelect in bootnet
 
 The *ggmModSelect* algorithm is a non-regularized method.
 
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 2: ggmModSelect"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m2_1
 #| cache: true
 #| fig-cap: "Method 2.1: Network Plot for BFI-25 with ggmModSelect and Stepwise"
@@ -354,8 +362,8 @@ qgraph(estnet_m2_1)
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 2: ggmModSelect"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m2_2
 #| fig-cap: "Method 2.1: Network Plot for BFI-25 with ggmModSelect and No Stepwise"
 
@@ -370,19 +378,13 @@ estnet_m2_2 <- res_m2_2$graph
 qgraph(estnet_m2_2)
 ```
 
-```{r}
-performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2), performance))
-rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise")
-kableExtra::kable(performance_compr)
-```
-
-## Method 3 - FIML in `psychonetrics`
+## Method 3 - FIML in psychonetrics
 
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 3: FIML"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m3_1
 #| cache: true
 #| fig-cap: "Method 3: Network Plot for BFI-25 with FIML and Prue"
@@ -401,8 +403,8 @@ qgraph(estnet_m3_1)
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 3: FIML"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m3_2
 #| cache: true
 #| fig-cap: "Method 3: Network Plot for BFI-25 with FIML and Stepup"
@@ -417,21 +419,13 @@ estnet_m3_2 <- getmatrix(res_m3_2, "omega")
 qgraph(estnet_m3_2)
 ```
 
-```{r}
-performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2, 
-                                               estnet_m3_1, estnet_m3_2), performance))
-rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise",
-                                 "FIML_prune", "FIML_stepup")
-kableExtra::kable(performance_compr, digits = 3)
-```
-
-## Method 4 - WLS in `psychonetrics`
+## Method 4 - WLS in psychonetrics
 
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 4: WLS"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m4_1
 #| cache: true
 #| fig-cap: "Method 4: Network Plot for BFI-25 with WLS and prune"
@@ -448,8 +442,8 @@ qgraph(estnet_m4_1)
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 4: WLS"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m4_2
 #| cache: true
 #| fig-cap: "Method 4: Network Plot for BFI-25 with WLS, prune, and modelsearch"
@@ -463,25 +457,17 @@ estnet_m4_2 <- getmatrix(res_m4_2, "omega")
 qgraph(estnet_m4_2)
 ```
 
-```{r}
-performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2, 
-                                               estnet_m3_1, estnet_m3_2,
-                                               estnet_m4_1, estnet_m4_2), performance))
-rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise",
-                                 "FIML_prune", "FIML_stepup",
-                                 "WLS_prune", "WLS_prune_modelsearch")
-kableExtra::kable(performance_compr, digits = 3)
-```
+## Method 5 - mgm in mgm
 
-## Method 5 - mgm in `mgm`
-
-`mgm` package is used for estimating mixed graphical models. Node type can be "g" for Gaussian or "c" for categorical. For continuous variables, set `level` to 1 and `type` to g.
+`mgm` package is used for estimating mixed graphical models.
+Node type can be "g" for Gaussian or "c" for categorical.
+For continuous variables, set `level` to 1 and `type` to g.
 
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 5: mgm"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m5_1
 #| cache: true
 #| fig-cap: "Method 5: Network Plot for BFI-25 with mgm and CV" 
@@ -502,8 +488,8 @@ qgraph(estnet_m5_1)
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 5: mgm"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m5_2
 #| cache: true
 #| fig-cap: "Method 5: Network Plot for BFI-25 with mgm and EBIC" 
@@ -517,25 +503,13 @@ estnet_m5_2 <- getmatrix_mgm(res_m5_2)
 qgraph(estnet_m5_2)
 ```
 
-```{r}
-performance_compr <- Reduce(rbind, lapply(list(estnet_m1, estnet_m2_1, estnet_m2_2, 
-                                               estnet_m3_1, estnet_m3_2,
-                                               estnet_m4_1, estnet_m4_2,
-                                               estnet_m5_1, estnet_m5_2), performance))
-rownames(performance_compr) <- c("EBICglasso", "ggmModSelect_stepwise", "ggmModSelect_nostepwise",
-                                 "FIML_prune", "FIML_stepup",
-                                 "WLS_prune", "WLS_prune_modelsearch",
-                                 "mgm_CV", "mgm_EBIC")
-kableExtra::kable(performance_compr, digits = 3)
-```
-
-## Method 6 - BGGM in `BGGM`
+## Method 6 - BGGM in BGGM
 
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 6: BGGM"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m6_1
 #| cache: true
 #| fig-cap: "Method 6: Network Plot for BFI-25 with BGGM and explore" 
@@ -549,8 +523,8 @@ qgraph(estnet_m6_1)
 ```{r}
 #| code-fold: show
 #| code-summary: "Method 6: BGGM"
-#| fig-width: 5
-#| fig-height: 5
+#| fig-width: 3
+#| fig-height: 3
 #| label: fig-m6_2
 #| cache: true
 #| fig-cap: "Method 6: Network Plot for BFI-25 with BGGM and estimate" 
@@ -559,6 +533,25 @@ res_m6_2 <- BGGM::explore(data, type = "continuous") |>
   BGGM:::select.estimate(cred = 0.95)
 estnet_m6_2 <- res_m6_2$pcor_adj
 qgraph(estnet_m6_2)
+```
+
+:::
+
+## Performance Comparison
+
+```{r}
+performance <- function(network) {
+  res_comparison <- comparison_metrics(real = as.matrix(bfi_truenetwork), est = as.matrix(network))
+  c(
+    sensitivity = res_comparison$sensitivity_full,
+    specificity = res_comparison$specificity_full,
+    precision = res_comparison$precision_full,
+    
+    abs_corr = res_comparison$abs_cor_true_edges_full, # The Pearson correlation between the absolute edge weights
+    bias = res_comparison$bias_full, # The average absolute deviation
+    bias_true = res_comparison$bias_true_edges_full # The average absolute deviation between the true edge weight and the estimated edge weight
+  )
+}
 ```
 
 ```{r}
@@ -585,13 +578,23 @@ kableExtra::kable(performance_compr, digits = 3)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+mycolors = c("#4682B4", "#B4464B", "#752021",  
+             "#1B9E77", "#66A61E", "#D95F02", "#7570B3",
+             "#E7298A", "#E75981", "#B4AF46", "#B4726A")
 performance_tbl <- performance_compr |> 
   as.data.frame() |> 
   mutate(method = rownames(performance_compr)) |> 
-  mutate(method = factor(method, levels = rownames(performance_compr)))
+  mutate(method = factor(method, levels = rownames(performance_compr))) |> 
+  filter(
+    method != "WLS_prune_modelsearch"
+  )
 ggplot(performance_tbl) +
   geom_point(aes(x = sensitivity, y = specificity, col = method), size = 3) +
+  geom_text(aes(x = sensitivity, y = specificity, label = method), size = 3,
+            nudge_x = .005, nudge_y = .005) +
+  geom_smooth(aes(x = sensitivity, y = specificity), se = FALSE, method = lm) +
   theme_bw() +
+  scale_color_manual(values = mycolors) +
   theme(legend.position = 'bottom')
 ```
 
