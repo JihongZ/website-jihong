@@ -34,6 +34,7 @@ format:
       margin-width: 300px
     csl: assets/apa.csl
     code-copy: true
+    respect-user-color-scheme: true
     theme: 
       light: 
         - assets/rwds.scss

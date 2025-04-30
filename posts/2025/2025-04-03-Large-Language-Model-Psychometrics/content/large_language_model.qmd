@@ -1,0 +1,112 @@
+---
+title: "Large Language Models"
+subtitle: "Examples with R and Python"
+date: "2025-04-29"
+date-modified: "`{r} Sys.Date()`"
+draft: false
+bibliography: ../references.bib
+image: ../images/thumbnail_chatgpt.png
+tbl-cap-location: top
+citation:
+  type: webpage
+  issued: 2025-03-07
+execute: 
+  cache: true  
+format: 
+  html:
+    code-tools: false
+    code-line-numbers: false
+    code-fold: true
+    code-summary: "Click this to see R code"
+---
+
+# Model architecture
+
+## Transformer
+
+The original Transformer architecture was introduced in the paper [Attention is All You Need](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html) by Vaswani et al. in 2017.
+The Transformer model has since become the foundation for many state-of-the-art natural language processing (NLP) models, including BERT, GPT-3, and T5.
+
+### Terminology
+
+-   Self-attention: an attention mechanism relating different positions of a single sequence to compute a representation of the sequence.
+
+    -   Q,K,V matrix: query, keys, values.
+        The output is computed as a weighted sum of the values.
+        All these three are key component of Attention function.
+        The following formula is also known as Scaled dot-product attention.
+
+        $$
+        \text{Attention}(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V
+        $$
+
+    -   where queries and keys have the dimension $d_k$
+
+> the dot products get larger variances when the dimension of q and k increase.
+> So they scale the dot product by $\frac{1}{\sqrt{d_k}}$ to make sure the dot product has close variance with q and k.
+
+```{r}
+library(ggplot2)
+N_rep = 1000
+dot_product <- function(i, d_k, var_q = 1) {
+  set.seed(i)
+  q = rnorm(d_k, 0, sd = sqrt(var_q))
+  k = rnorm(d_k, 0, sd = sqrt(var_q))
+  crossprod(q, k)
+}
+
+var_dot_product <- function(N_rep, d_k, var_q = 1) {
+  dot_product_values <- sapply(1:N_rep, \(x) dot_product(x, d_k = d_k, var_q))
+  var(dot_product_values)
+}
+
+to_plot <- data.frame(
+  d_k_values = c(1, 10, 100, 1000),
+  var_dot_product_values = sapply(c(1, 10, 100, 1000), \(x) var_dot_product(N_rep = N_rep, 
+                                                                   d_k = x))
+)
+
+ggplot(to_plot, aes(x = d_k_values, y = var_dot_product_values)) +
+  geom_path() +
+  geom_point() +
+  labs(x = "d_k", y = "Variance of dot product of q and k")
+```
+
+```{r}
+var_q_values = c(1, 10, 25, 100, 400) # variances of q and k
+d_k = 2 # dimension of k
+
+# function to generate the variaance of scaled dot products
+var_scaled_dot_product <- function(N_rep, d_k, var_q = 1) {
+  scaled_dot_product_values <- sapply(1:N_rep,\(x){dot_product(x, d_k = d_k, var_q = var_q)/sqrt(d_k)} )
+  var(scaled_dot_product_values)
+}
+
+var_scaled_dot_product_values <- sapply(var_q_values, 
+                                        \(x) var_scaled_dot_product(N_rep = N_rep, 
+                                                                    d_k = d_k, 
+                                                                    var_q = x) )
+
+data.frame(
+  var_q_values = var_q_values,
+  var_scaled_dot_product_values = var_scaled_dot_product_values
+) |> 
+ggplot(aes(x = var_q_values, y = var_scaled_dot_product_values)) +
+  geom_path() +
+  geom_point() +
+  labs(x = "variances of q and k", y = "Variance of scaled dot product of q and k")
+```
+
+-   Multi-Head Attention:
+
+-   Encoder-decoder structure: The basic structure of most neural sequence transduction models.
+
+    -   Encoder maps an input to a sequence of continuous representations.
+
+    -   Decoder generates an output sequence given the continuous representation of encoder
+
+![The Transformer - model architecture in the original paper](images/clipboard-1162313639.png){fig-align="center" width="500"}
+
+# Evaluation metrics
+
+## BLEU
