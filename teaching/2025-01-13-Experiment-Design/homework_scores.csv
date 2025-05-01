@@ -1,11 +1,11 @@
-"","Student_ID","Name","Bonus","HW1_Grade","HW2_Grade","Total"
-"1","011021830","Ayankoya, Monisola Beauty","2pts","10/10","10/10","22"
-"2","002796491","Barr, Stephanie Marie","2pts","10/10","10/10","22"
-"3","010686196","Binhuwaimel, Azizah Abdulrahman A","2pts","10/10","10/10","22"
-"4","010734654","Bonge, Nicole Grace","2pts","10/10","10/10","22"
-"5","010827156","Cascante  Vallejo,Diana Carolina","2pts","10/10","10/10","22"
-"6","011088780","Hughes, Yale","2pts","10/10","10/10","22"
-"7","010848887","Lan, Xi","2pts","10/10","10/10","22"
-"8","010866994","Negrete  Becerra,Luis Arturo","2pts","10/10","10/10","22"
-"9","011015879","Shakeri, Sepideh","2pts","10/10","10/10","22"
-"10","010953825","West, Abigail Joan","2pts","10/10","10/10","22"
+"","Student_ID","Name","Bonus","HW1_Grade","HW2_Grade","HW3_Grade","raw_Grade","Scaled_Grade"
+"1","011021830","Ayankoya, Monisola Beauty","2pts","10/10","10/10","20/20",42,100
+"2","002796491","Barr, Stephanie Marie","2pts","10/10","10/10","17/20",39,97.5
+"3","010686196","Binhuwaimel, Azizah Abdulrahman A","2pts","10/10","10/10","19/20",41,100
+"4","010734654","Bonge, Nicole Grace","2pts","10/10","10/10","19/20",41,100
+"5","010827156","Cascante  Vallejo,Diana Carolina","2pts","10/10","10/10","18/20",40,100
+"6","011088780","Hughes, Yale","2pts","10/10","10/10","20/20",42,100
+"7","010848887","Lan, Xi","2pts","10/10","10/10","20/20",42,100
+"8","010866994","Negrete  Becerra,Luis Arturo","2pts","10/10","10/10","20/20",42,100
+"9","011015879","Shakeri, Sepideh","2pts","10/10","10/10","17/20",39,97.5
+"10","010953825","West, Abigail Joan","2pts","10/10","10/10","20/20",42,100

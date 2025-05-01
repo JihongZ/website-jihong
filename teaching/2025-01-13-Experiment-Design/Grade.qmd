@@ -1,6 +1,6 @@
 ---
 title: "ESRM64103: Student Grades"
-
+sidebar: false
 execute: 
   echo: false
 format: 
@@ -11,6 +11,17 @@ format:
 
 ```{r}
 #| eval: false
+
+## Read in homework 3
+library(tidyverse)
+hw3 <- readxl::read_xlsx("ESRM 64503_Homework3.xlsx")
+hw3_scores <- hw3 |> 
+  select(
+    Name = `Choose your name`, Points = `Total points`
+  ) |> 
+  mutate(Points = ifelse(Name == "Binhuwaimel, Azizah Abdulrahman A", Points +1, Points)) |>  # Azizah add one more point
+  mutate(HW3_Grade = paste0(Points, "/20"),
+         raw_Grade = 22 + Points)
 Student_name = c(
   "Ayankoya, Monisola Beauty",
   "Barr, Stephanie Marie",
@@ -46,7 +57,12 @@ grades_data <- data.frame(
   HW2_Grade = rep("10/10", 10),
   Total = rep("22", 10)
 )
-write.csv(grades_data, "homework_scores.csv")
+
+grades_data_final <- grades_data |> 
+  left_join(hw3_scores, by = "Name") |> 
+  mutate(Scaled_Grade = ifelse(raw_Grade > 40, 100, raw_Grade / 40 * 100)) |> 
+  select(Student_ID:HW2_Grade, HW3_Grade, raw_Grade, Scaled_Grade)
+write.csv(grades_data_final, "homework_scores.csv")
 ```
 
 ```{ojs}
@@ -92,7 +108,7 @@ filteredData = {
 
 // Display the filtered data in a table with custom styling
 Table(filteredData, {
-  columns: ["Student_ID", "Name", "Bonus", "HW1_Grade", "HW2_Grade", "Total"]
+  columns: ["Student_ID","Name","Bonus","HW1_Grade","HW2_Grade","HW3_Grade","raw_Grade","Scaled_Grade"]
 });
 
 
