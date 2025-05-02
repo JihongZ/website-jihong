@@ -5,3 +5,6 @@ qgraph
 psychonetrics
 magrittr
 mgm
+StanHeaders
+rstan
+cmdstanr

@@ -46,6 +46,12 @@ The function is a wrapper of `bootnet::ggmGenerator` function
 ```{r}
 #| code-summary: 'dataGenerator() function'
 library("bootnet")
+library("qgraph")
+
+mycolors = c("#4682B4", "#B4464B", "#752021",  
+             "#1B9E77", "#66A61E", "#D95F02", "#7570B3",
+             "#E7298A", "#E75981", "#B4AF46", "#B4726A")
+
 dataGenerator <- function(
   trueNet,  # true network models: DASS21, PTSD, BFI
   sampleSize, # sample size
@@ -283,6 +289,28 @@ comparison_metrics <- function(real, est, name = "full"){
 ### Method 1 - EBICglasso in bootnet
 
 This method uses the `bootnet::estimateNetwork` function.
+
+This method makes used of polychoric correlation as input, graphical LASSO as regularlization, and EBIC as model selection method. The polychoric correlation is a technique for estimating the correlation between two hypothesised normally distributed continuous latent variables, from two observed ordinal variables.
+
+The figure below plot the relationships between two continous variables vs. relationships between two ordinal variables (using `floor` function). It appears that they did not deviate a lot given the values of pearson correlation (-.32) and polychoric correlation (-.3).
+
+```{r}
+dt <- as.data.frame(data[, 1:2])
+dt_ordinal <- as.data.frame(floor(data[, 1:2]))
+
+ # polychoric correlation
+pearson_corr <- round(cor_auto(dt[, 1:2])[1, 2], 2)
+polychoric_corr <- round(cor_auto(floor(data[, 1:2]))[1, 2], 2)
+ggplot(dt) +
+  geom_point(aes(x = V1, y = V2), data = dt, color = mycolors[1], alpha = .4) +
+  geom_smooth(aes(x = V1, y = V2), data = dt, color = mycolors[1], method = "lm", se = FALSE) +
+  geom_point(aes(x = V1, y = V2), data = dt_ordinal, color = mycolors[2]) +
+  geom_smooth(aes(x = V1, y = V2), data = dt_ordinal, color = mycolors[2], method = "lm", se = FALSE) +
+  geom_text(aes(x = 2, y = 2, label = paste0("Pearson: ", pearson_corr))) +
+  geom_text(aes(x = 2, y = 1.7, label = paste0("Polychoric: ", polychoric_corr))) +
+  theme_classic()
+```
+
 
 `EBICtuning <- 0.5` sets up the hyperparameter ($\gamma$) as .5 that controls how much the EBIC prefers simpler models (fewer edges), which by default is .5.
 
@@ -618,7 +646,7 @@ ggplot(performance_tbl) +
 
 `ggmMoSelect` with the stepwise procedure appears to have highest precision, followed by BGGM explore.
 
-# Real Data 1: PTSD
+# Empirical study 1: PTSD networks
 
 This study examines the reliability and replicability of the network structure of PTSD symptoms in a large sample of trauma-exposed individuals.
 Fried et al. (2018) shared their correlation matrices, model output, and code in the [Supplementary Materials](https://doi.org/10.1080/00273171.2019.1616526) and encouraged reanalysis of the data for further replicability research.
@@ -714,6 +742,14 @@ The default setting of this function is converting input data into polychoric co
 
 ```{r}
 #| code-summary: "Visualize strength centrality for wave 1 and 2"
+
+library(bootnet)
+library(qgraph)
+
+mycolors = c("#4682B4", "#B4464B", "#752021",  
+             "#1B9E77", "#66A61E", "#D95F02", "#7570B3",
+             "#E7298A", "#E75981", "#B4AF46", "#B4726A")
+
 ##Estimate GGM networks
 network1 <- estimateNetwork(time1data, default="EBICglasso")
 network2 <- estimateNetwork(time2data, default="EBICglasso")
