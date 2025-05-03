@@ -112,8 +112,10 @@ website:
           contents: 
             - text: "Community detection"
               file: posts/2025/2025-03-07-communities-in-psychometric-networks/index.qmd
+            - text: "Reliability and reproducibility"
+              file: posts/2025/2025-05-03-reliability-of-network-psychometrics/reliability-of-network-psychometrics.qmd
             - text: "Network estimation methods"
-              file: notes/2024/2024-04-04-Network-Estimation-Methods/index.qmd
+              file: posts/2024/2024-04-04-Network-Estimation-Methods/index.qmd
             - text: "Presentation: Group differences in network"
               file: presentation/2024-07-14-Presentation-M3/index.qmd
             - text: "Presentation: Item selection"
