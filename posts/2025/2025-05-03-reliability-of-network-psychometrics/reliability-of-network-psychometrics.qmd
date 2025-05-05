@@ -271,7 +271,7 @@ datatable(network_char_tbl)
 ```
 
 ```{r}
-#| code-summary: "Most influential nodes for wave 1 and 2"
+#| code-summary: "Most influential nodes for wave 1 and 2 based on node strength"
 library(tidyverse)
 centralityTable(list(Wave_1 = network1, 
                      Wave_2 = network2)) |> 
