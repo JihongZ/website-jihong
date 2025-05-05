@@ -544,7 +544,6 @@ qgraph(estnet_m5_2)
 #| fig-width: 3
 #| fig-height: 3
 #| label: fig-m6_1
-#| cache: true
 #| fig-cap: "Method 6: Network Plot for BFI-25 with BGGM and explore" 
 
 res_m6_1 <- BGGM::explore(data, type = "continuous") |> 
@@ -559,7 +558,6 @@ qgraph(estnet_m6_1)
 #| fig-width: 3
 #| fig-height: 3
 #| label: fig-m6_2
-#| cache: true
 #| fig-cap: "Method 6: Network Plot for BFI-25 with BGGM and estimate" 
 
 res_m6_2 <- BGGM::explore(data, type = "continuous") |> 
