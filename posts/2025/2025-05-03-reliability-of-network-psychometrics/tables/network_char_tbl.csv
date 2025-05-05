@@ -1,0 +1,12 @@
+"Network.characteristics","Wave1","Wave2"
+"Global strength (sum absolute edge weights)",14.57,14.77
+"Maximum strength",1.2,1.13
+"Minimum strength",0.69,0.62
+"Connectivity (percentage of edges that are non-zero)",60.8,62.5
+"Total number of possible edges",120,120
+"Number of non-zero edges",73,75
+"Number of boostrapped non-zero edges",47,48
+"Number of zero edges",47,45
+"Number of positive edges",73,74
+"Number of boostrapped positive edges",47,48
+"Number of negative edges",0,1
