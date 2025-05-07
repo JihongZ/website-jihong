@@ -1,0 +1,18 @@
+---
+title: "Regularization for Variable Selection in Multidimensional Factor and Network Models"
+author: "Jiaying Chen, Xinya Liang, Jihong Zhang"
+date: "2025-04-24"
+format: html
+---
+
+```{r}
+#| echo: false
+htmltools::tags$iframe(
+  src = "AERA 2025_2nd.pdf", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="100%",
+  height="600px"
+)
+```
+

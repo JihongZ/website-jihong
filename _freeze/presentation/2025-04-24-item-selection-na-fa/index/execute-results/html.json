@@ -1,0 +1,15 @@
+{
+  "hash": "da5cf2ef6cf207e5ae47332e4670ddab",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Regularization for Variable Selection in Multidimensional Factor and Network Models\"\nauthor: \"Jiaying Chen, Xinya Liang, Jihong Zhang\"\ndate: \"2025-04-24\"\nformat: html\n---\n\n::: {.cell}\n::: {.cell-output-display}\n\n```{=html}\n<iframe src=\"AERA 2025_2nd.pdf\" seamless=\"seamless\" frameBorder=\"0\" width=\"100%\" height=\"600px\"></iframe>\n```\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,253 @@
+---
+title: "Rank Factor Score in Factor Analysis"
+subtitle: "NCME 2025 Presentation"
+author: "Ji Li, Xinya Liang, Jihong Zhang"
+date: "2025-04-24"
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+format: 
+  uark-revealjs:
+    chalkboard: false
+    embed-resources: true # changed by Jihong Zhang at 11:20AM 04-22-2025
+    code-fold: true
+    number-sections: true
+    number-depth: 1
+---
+
+::: objectives
+## Motivation
+
+-   Latent traits or constructs (e.g., anxiety or satisfaction) measured via observed items.
+-   Factor scores estimate these traits.
+-   Existing scoring methods for factor analysis:
+    -   **Thurstone's Factor Score**
+    -   **Bartlett's Factor Score**
+-   These struggle under **model misspecification**.
+:::
+
+------------------------------------------------------------------------
+
+## Thurstone Regression Scores
+
+Factor scores are used to estimate individuals' positions on unobserved latent variables based on their responses to observed items. Traditionally, these are computed using:
+
+### 📘 Traditional Factor Scores
+
+-   **Thurstone Regression Scores (Ordinary Least Squares, OLS)**: $$
+      \hat{F}_i^{(T)} = \Phi \Lambda' \Sigma^{-1} Y_i
+      $$
+    -   $\hat{F}_i^{(T)}$ = estimated factor scores for individual *i*
+    -   $Y_i$ = vector of observed responses\
+    -   $\Lambda$ = factor loading matrix\
+    -   $\Phi$ = factor covariance matrix\
+    -   $\Sigma$ = model-implied covariance of observed variables\
+        🔹 Minimizes squared differences between observed and predicted variables, but can be biased if the model is misspecified.
+
+------------------------------------------------------------------------
+
+## Bartlett Factor Scores
+
+-   **Bartlett Scores (Maximum Likelihood, ML)**: $$
+      \hat{F}_i^{(B)} = (\Lambda' \Psi^{-1} \Lambda)^{-1} \Lambda' \Psi^{-1} Y_i
+      $$
+    -   $\Psi$ = diagonal matrix of residual variances (uniquenesses)\
+        🔹 Accounts for measurement error by giving **less weight to noisy items**.\
+        🔹 More precise under correct model assumptions, but **sensitive to violations** (e.g., error correlations or cross-loadings).
+
+------------------------------------------------------------------------
+
+## Network scores
+
+### 🌐 Network Scores
+
+-   Inspired by network psychometrics: $$
+      \hat{NS}_i = HS \cdot Y_i
+      $$
+    -   $HS$ = hybrid centrality scores (e.g., rank the importance of items in terms of items’ closeness, betweenness, and influences in the network)
+    -   Ranks items by influence within an item correlation network.
+
+------------------------------------------------------------------------
+
+## Proposed Solution: Rank Factor Score
+
+### 🚀 Rank Factor Score: Our Proposed Method
+
+-   Use ranked factor loadings to compute factor scores, rather than using their original loading estimates: $$
+      \hat{F}_i^{(R)} = \text{rank}(\Lambda)' \cdot Y_i
+      $$
+
+    -   $\text{rank}(\Lambda)$ = a function that ranks factor loadings
+
+    🔹 Highest loading → highest rank → greatest weight\
+    🔹 Ranking can be **global ranking** (ranks all loadings) or **factor-level ranking** (rank loadings within each latent factor)
+
+------------------------------------------------------------------------
+
+## Proposed Solution: Rank Factor Score (Cont.)
+
+### ✅ Why Rank?
+
+-   Ranking reduces sensitivity to:
+    -   Estimation noise in $\Lambda$ and $\Psi$
+    -   Violations of normality or residual independence
+    -   Cross-loading items
+-   Connects to network-based intuition: *“Importance, not exact magnitude”*\
+-   Easy to compute and interpret\
+-   Particularly robust under **model misspecification**
+
+## Traditional vs. Rank Scores
+
+| Method                | Estimation | Strengths                         |
+|-----------------------|------------|-----------------------------------|
+| Thurstone             | OLS        | Simplicity                        |
+| Bartlett              | ML         | Less bias                         |
+| **Rank Factor Score** | Rank-based | **Robust under misspecification** |
+
+------------------------------------------------------------------------
+
+## Simulation Overview
+
+::: columns
+::: column
+[Study 1]{.redcolor}
+
+-   Models:
+    -   1-factor
+    -   6 or 12 items/factor
+-   Loadings: U(.3, .9), U(.7, .8), N(.6, .15), N(.75, .025)
+-   Error correlation: ψ = 0, .20, .40
+-   Sample sizes: N = 100, 500, 1000
+-   1,000 replications
+:::
+
+::: column
+[Study 2]{.redcolor}
+
+-   Model:
+    -   3-factor
+    -   6 items/factor
+-   Loadings: U(.3, .9), U(.7, .8), N(.6, .15), N(.75, .025)
+-   Error correlation: ψ = 0, .20, .40
+-   Sample sizes: N = 100, 500, 1000
+-   1,000 replications
+:::
+:::
+
+------------------------------------------------------------------------
+
+## Analysis and Evaluation Metrics
+
+All analysis models are simple structured models.
+
+::: rmdnote
+-   Factor score correlation (estimated vs. true)
+-   Model fit indices:
+    -   CFI, TLI, RMSEA
+-   K-S test for score distributions (upcoming)
+:::
+
+------------------------------------------------------------------------
+
+## Key Findings
+
+::: rmdnote
+-   Rank Factor Score ≈ Traditional scores when model is correct
+-   Rank Factor Score \> Traditional under severe misspecification
+-   Strong performance with:
+    -   Weak loadings
+    -   Non-normality
+    -   Cross-loadings
+:::
+
+------------------------------------------------------------------------
+
+## Visual Summary for Study 1
+
+[Correlation Between Estimated and True Factor Scores for Uniform Distributions]{.redcolor}
+
+![Correlation Between Estimated and True Factor Scores for Uniform Distributions](figures/F1_RankScores_Cond12.png)
+
+------------------------------------------------------------------------
+
+## Visual Summary for Study 1 (Cont.)
+
+[Correlation Between Estimated and True Factor Scores for Normal Distributions]{.redcolor}
+
+![Correlation Between Estimated and True Factor Scores for Normal Distributions](figures/F1_RankScores_Cond34.png)
+
+------------------------------------------------------------------------
+
+## Visual Summary for Study 1 (Cont.)
+
+[Model Fit Indices (CFI, TLI, RMSEA) Comparison for Uniform Distributions]{.redcolor}
+
+![Model Fit Indices (CFI, TLI, RMSEA) Comparison for Uniform Distributions](figures/F1_RankFitIndices_Cond12.png)
+
+------------------------------------------------------------------------
+
+## Visual Summary for Study 1 (Cont.)
+
+[Model Fit Indices (CFI, TLI, RMSEA) Comparison for Normal Distributions]{.redcolor}
+
+![Model Fit Indices (CFI, TLI, RMSEA) Comparison for Normal Distributions](figures/F1_RankFitIndices_Cond34.png)
+
+------------------------------------------------------------------------
+
+## Visual Summary for Study 2
+
+[Correlation Between Estimated and True Factor Scores of factor 1 for Uniform Distributions]{.redcolor}
+
+![Correlation Between Estimated and True Factor Scores of factor 1 for Uniform Distributions](figures/F3_RankScores_Cond12.png)
+
+------------------------------------------------------------------------
+
+## Visual Summary for Study 2 (Cont.)
+
+[Correlation Between Estimated and True Factor Scores of factor 1 for Normal Distributions]{.redcolor}
+
+![Correlation Between Estimated and True Factor Scores of factor 1 for Normal Distributions](figures/F3_RankScores_Cond34.png)
+
+------------------------------------------------------------------------
+
+## Visual Summary for Study 2 (Cont.)
+
+[Model Fit Indices (CFI, TLI, RMSEA) Comparison of factor 1 for Uniform Distributions]{.redcolor}
+
+![Model Fit Indices (CFI, TLI, RMSEA) Comparison of factor 1 for Uniform Distributions](figures/F3_RankFitIndices_Cond12.png)
+
+------------------------------------------------------------------------
+
+## Visual Summary for Study 2 (Cont.)
+
+[Model Fit Indices (CFI, TLI, RMSEA) Comparison of factor 1 for Normal Distributions]{.redcolor}
+
+![Model Fit Indices (CFI, TLI, RMSEA) Comparison of factor 1 for Normal Distributions](figures/F3_RankFitIndices_Cond34.png)
+
+------------------------------------------------------------------------
+
+## Practical Implications
+
+::: rmdnote
+-   Models often misspecified in real research
+-   **Rank Factor Score offers more reliable estimates**
+-   Valuable in applied settings, especially education & psychometrics
+:::
+
+------------------------------------------------------------------------
+
+## Future Directions
+
+::: rmdwarning
+-   Explore Rank Factor Score in real-world data
+-   Evaluate **factor-level ranking**
+-   Publish full simulation results (2025)
+:::
+
+------------------------------------------------------------------------
+
+## Thank You!
+
+Questions?\
+**Email:** jili\@uark.edu

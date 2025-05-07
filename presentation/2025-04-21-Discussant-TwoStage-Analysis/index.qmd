@@ -1,6 +1,7 @@
 ---
 title: "Discussant Commentary: Cutscore Estimation Via Two-Stage Analysis—Implications for Psychometric Research and Practice"
 subtitle: "NCME 2025, Denver, CO"
+date: 2025-04-26
 author: "Jihong Zhang"
 format: html
 ---
