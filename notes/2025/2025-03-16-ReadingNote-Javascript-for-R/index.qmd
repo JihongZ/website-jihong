@@ -13,7 +13,8 @@ bibliography: references.bib
 ::: objectives
 ## Overview {.unnumbered}
 
-The interactive web app development in R requires multiple relevant skillsets: HTML, CSS, Javascript, R, and Shiny etc. This is a reading note covering the following books:
+The interactive web app development in R requires multiple relevant skillsets: HTML, CSS, Javascript, R, and Shiny etc.
+This is a reading note covering the following books:
 
 1.  {[Javascript for R](https://book.javascript-for-r.com/widgets-intro-intro)} (JFR) by John Coene (2021-04-19).
 2.  {[Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com)} (IVRPS) by Carson Sievert (2019-12-19).
@@ -55,9 +56,12 @@ There are two ways to publish Observable Javascript with Quarto:
 2.  Write code using ObservableHQ notebook and share embedded output
 
 ::: maccaution
-Either way has pros and cons: First method can make use of various R packages for data sciences (i.e., `tidyverse`) if you are R users, it also has seamlessly embedded into `.qmd` file. However, `{ojs}` cells do not have autocompletion nor allow you to execute cells without rendering the whole Quarto markdown document. Second method, on the other hand, allows you to write syntax-highlighted OJS code with autocompletion and execute the cells lively, but you have to use Javascript libraries to do data analysis (i.e., [Aquero](https://idl.uw.edu/arquero/api/)).
+Either way has pros and cons: First method can make use of various R packages for data sciences (i.e., `tidyverse`) if you are R users, it also has seamlessly embedded into `.qmd` file.
+However, `{ojs}` cells do not have autocompletion nor allow you to execute cells without rendering the whole Quarto markdown document.
+Second method, on the other hand, allows you to write syntax-highlighted OJS code with autocompletion and execute the cells lively, but you have to use Javascript libraries to do data analysis (i.e., [Aquero](https://idl.uw.edu/arquero/api/)).
 
-**A mixing method** combining the goods of both methods is performing the data analysis in R, export it to CSV locally or into the cloud (e.g., Google), then using the file attachment function for reading data in the ObservableHQ. Alternatively, if you are not mentally attached to Quarto markdown, the Observable [Framework](https://observablehq.com/framework/getting-started) is another option of standalone data visualization project.
+**A mixing method** combining the goods of both methods is performing the data analysis in R, export it to CSV locally or into the cloud (e.g., Google), then using the file attachment function for reading data in the ObservableHQ.
+Alternatively, if you are not mentally attached to Quarto markdown, the Observable [Framework](https://observablehq.com/framework/getting-started) is another option of standalone data visualization project.
 :::
 
 ```{ojs}
@@ -94,7 +98,9 @@ htmltools::tags$iframe(
 ::: macwindow
 **Dashboard with javascript**
 
-If you prefer construct the dashboard with javascript locally and use your perfered language (such as R and Python) for data analysis, the Observable Framework offers another option to deploy your javascript+R dashboard. See here for detailed [code](https://observablehq.com/framework/getting-started#next-steps) for "get started of local development". Following is the toy example I created (Github [link](https://github.com/JihongZ/hello-framework)).
+If you prefer construct the dashboard with javascript locally and use your perfered language (such as R and Python) for data analysis, the Observable Framework offers another option to deploy your javascript+R dashboard.
+See here for detailed [code](https://observablehq.com/framework/getting-started#next-steps) for "get started of local development".
+Following is the toy example I created (Github [link](https://github.com/JihongZ/hello-framework)).
 
 ```{r}
 htmltools::tags$iframe(

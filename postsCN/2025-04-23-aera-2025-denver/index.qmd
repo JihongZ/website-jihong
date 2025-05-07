@@ -1,12 +1,13 @@
 ---
 title: "丹佛战记"
 subtitle: "AERA 2025纪要"
+date: 2025-04-23
 format: html
 ---
 
 ## 到达
 
-周二晚上7点左右和梁老师到达丹佛国际机场(DEN)。这
+周二 (2025-04-22) 晚上7点左右和梁老师到达丹佛国际机场(DEN)。这
 个机场给人的印象就是大，从航站楼B到外面的打车点足足走了十几分钟。这
 还是一路有传送带的情况下。搭
 上Uber开去会展中心旁的凯悦酒店大概花了40分钟。
@@ -18,3 +19,38 @@ format: html
 一路的雪山和开阔的地平线还是让我们心旷神怡。
 
 ![雪山地平线](images/IMG_2979.webp){fig-align="center" width="560"}
+
+## 住宿
+
+入住Hyatt Regency Denver。就
+在Denver Convention Center旁边。酒
+店的房间还是挺舒服的。
+
+![室内](images/IMG_2988.webp)
+
+![窗外的夜景](images/IMG_2987.webp)
+
+![窗外的白天](images/IMG_2993.webp)
+
+![丹佛会议中心的蓝熊](images/IMG_3003.webp)
+
+![趴着往里瞧的蓝熊](images/IMG_3002.webp)
+
+## 餐食
+
+第二天在酒店的自助餐厅用餐。
+
+![美式自助](images/IMG_2997.webp)
+
+来丹佛当然要吃正宗的中餐。去
+了Szechuan Tasty House 川味坊。烤
+鱼和羊杂汤很好吃。
+
+![热腾腾的麻辣烤鱼](images/IMG_3097.webp)
+
+## 游玩
+
+只去了离会场50分钟以内的Red rocks以及Lookout Mountains。和
+梁老师，曹老师一起随便逛逛。
+
+![红石剧场](images/IMG_3089.webp)
