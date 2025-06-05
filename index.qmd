@@ -39,7 +39,7 @@ I am a tenure-track Assistant Professor of Educational Statistics and Research M
 
 Previously, I was a postdoctoral fellow in the Department of Social Work at the Chinese University of Hong Kong ([CUHK](https://www.cuhk.edu.hk)). My academic journey in psychometrics began with doctoral training under [Dr. Jonathan Templin](https://jonathantemplin.com/) in the Educational Measurement and Statistics (EMS) program at the University of Iowa. I have extensive experience in educational assessment. During my master’s program at the University of Kansas, I worked as a research assistant for three years in the Kansas Assessment Program ([KAP](https://ksassessments.org)), contributing to various assessment initiatives, including Dynamic Learning Maps (DLM). Later, during my Ph.D. program, I interned at the Stanford Research Institute ([SRI](https://www.sri.com)), where I focused on digital learning in computerized testing.
 
-My primary research interests include empirical and methodological studies in psychological network modeling, AI in Education, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric methods. My expertise lies in applying advanced statistical modeling techniques in psychology and education.
+My primary research interests include empirical and methodological studies in psychological network modeling, AI-enhanced assessment, Bayesian latent variable modeling, Item Response Theory modeling, and other advanced psychometric methods. My expertise lies in applying advanced statistical modeling techniques in psychology and education.
 
 [![](images/dog.png){width="20"} LEARN MORE ABOUT ME →](about.qmd)
 :::
