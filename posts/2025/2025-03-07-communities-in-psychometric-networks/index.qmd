@@ -26,15 +26,18 @@ format:
 ::: objectives
 ## Overview {.unnumbered}
 
-A friend of mine recently asked me one question about network community: in her recent research, a network without community defined has different estimation with the one with community define. Why this happens? In this blog, I try to dive a little deeper into community issues in psychometric network analysis. You can find my previous post on the estimation methods of network analysis - [How To Choose Network Analysis Estimation For Application Research](../../../notes/2024/2024-04-04-Network-Estimation-Methods/index.qmd).
+A friend of mine recently asked me one question about network community: in her recent research, a network without community defined has different estimation with the one with community define. Why this happens? In this blog, I try to dive a little deeper into community issues in psychometric network analysis. You can find my previous post on the estimation methods of network analysis - [How To Choose Network Analysis Estimation For Application Research].
 
-This [blog](https://psych-networks.com/r-tutorial-identify-communities-items-networks/) instead aims to talk about varied aspects of *community detection* in psychometric network analysis, including the following questions:
+This [blog] instead aims to talk about varied aspects of *community detection* in psychometric network analysis, including the following questions:
 
 1.  What is "node community"?
 2.  Why we need communities of nodes in network analysis?
 3.  How communities are generated in the network?
 4.  How to identify those communities given a network?
 :::
+
+  [How To Choose Network Analysis Estimation For Application Research]: ../../../notes/2024/2024-04-04-Network-Estimation-Methods/index.qmd
+  [blog]: https://psych-networks.com/r-tutorial-identify-communities-items-networks/
 
 ::: macwindow
 ```{r plot}
@@ -110,7 +113,10 @@ Given this community structure, *Community* (or called clusters or modules) is d
 
 For example, within a social network of one person, one individual is considered as node and his/her social relationship with other people as edges, then "communities" may be conceptualized as *family*, *company*, or any other social groups. The latent common causes of community in social network may be the shared emotional pattern constructed via the family education, close levels of cognitive abilities within same university/college/classroom, in or similar behavioral pattern under company policy. In protein-protein interaction networks, communities are likely to group proteins having the same specific function within the cell. In the graph of the World Wide Web, community may correspond to groups of web pages dealing with the same or related topics. The regression-based relationship between community and external factors has not been well developed to my knowledge, i.e., the relationship between depression community with age, education, and other disorders. Currently, community-level centrality-based network scores [@zhangEvaluatingGeneralNetwork2024] can be used as measurement of the community, which then can potentially be used as independent variables or outcome in a regression model. However, network scores are suffering from interpretability in psychometrics and relevant research on this topic is still sparse. Similar idea can be found in other psychometric modeling, such as latent regression model in latent variable modeling literature [@anderssonEstimationLatentRegression2021; @yamaguchiFullyGibbsSampling2023] or the structural model in structural equation modeling.
 
-[B]{.bigger}ack to the community conceptualization in psychological area, especially psychiatry, the community is usually associated with *syndromes* or *comorbidity*. According to [Wikipedia](https://en.wikipedia.org/wiki/Syndrome), a syndrome is a set of medical signs and symptoms which are correlated with each other and often associated with a particular disease or disorder. Some psychological syndromes may present comorbidity of symptoms, which refers to simultaneous presence of two or more psychological symptoms in a same individual within a time frame (co-occurring, concurrent). In a earlier paper of @borsboomStructureDSM2002, Borsboom took the DSM-IV ([Diagnostic and Statistical Manual of Mental Disorders](https://en.wikipedia.org/wiki/Diagnostic_and_Statistical_Manual_of_Mental_Disorders)) as example and argued that "... Commodity appears to be, at least partially and in particular for mood, anxiety, and substance abuse disorders, encoded in the structure of the diagnostic criteria themselves" [@borsboomStructureDSM2002], but he did not link the "commodity" of a cluster of highly-connected symptoms to the statistical concept "community" in network graph. It is until the paper of @cramerComorbidityNetworkPerspective2010, the symptom community as a local connectivity was considered as *syndromes*, while symptoms clusters are interconnected by individual symptoms ("bridge symptoms") that form the boundaries between the various basic syndromes of psychiatric disorders [@goekoopNetworkViewPsychiatric2014]. @goekoopNetworkViewPsychiatric2014 also emphasized that the presence of bridge symptoms that connects symptom clusters (communities / syndromes) plays a key role that can be identified as potential targets for treatment.
+[B]{.bigger}ack to the community conceptualization in psychological area, especially psychiatry, the community is usually associated with *syndromes* or *comorbidity*. According to [Wikipedia], a syndrome is a set of medical signs and symptoms which are correlated with each other and often associated with a particular disease or disorder. Some psychological syndromes may present comorbidity of symptoms, which refers to simultaneous presence of two or more psychological symptoms in a same individual within a time frame (co-occurring, concurrent). In a earlier paper of @borsboomStructureDSM2002, Borsboom took the DSM-IV ([Diagnostic and Statistical Manual of Mental Disorders]) as example and argued that "... Commodity appears to be, at least partially and in particular for mood, anxiety, and substance abuse disorders, encoded in the structure of the diagnostic criteria themselves" [@borsboomStructureDSM2002], but he did not link the "commodity" of a cluster of highly-connected symptoms to the statistical concept "community" in network graph. It is until the paper of @cramerComorbidityNetworkPerspective2010, the symptom community as a local connectivity was considered as *syndromes*, while symptoms clusters are interconnected by individual symptoms ("bridge symptoms") that form the boundaries between the various basic syndromes of psychiatric disorders [@goekoopNetworkViewPsychiatric2014]. @goekoopNetworkViewPsychiatric2014 also emphasized that the presence of bridge symptoms that connects symptom clusters (communities / syndromes) plays a key role that can be identified as potential targets for treatment.
+
+  [Wikipedia]: https://en.wikipedia.org/wiki/Syndrome
+  [Diagnostic and Statistical Manual of Mental Disorders]: https://en.wikipedia.org/wiki/Diagnostic_and_Statistical_Manual_of_Mental_Disorders
 
 ## Identify Community
 
@@ -128,15 +134,19 @@ In psychometric literature, however, confirmatory network analysis has become mo
 Theories are those tools can explain, predict, control phenomena. They are also in one point between strong to weak given to what degree they can explain, predict, and control phenomena. Typically, theorectical model is related to the date generation process—how data is generated, which is unknown in prior. We can link theory to data by using statistical modeling that impose assumptions on the data. However, the statistical models themselves can not be used to measure how strong or weak the theory is.
 
 ::: macwindow
-Relationships among theory, statistical model, and data ![](theory_model.png){fig-align="center"}
+Relationships among theory, statistical model, and data ![][1]
 :::
+
+  [1]: theory_model.png {fig-align="center"}
 
 ### Community Detection Algorithm
 
-Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App](https://alex-christensen.shinyapps.io/community_detection_results/) to interactive present the results.
+Numerous prior studies have compared different community detection methods in varied network structure [@yangComparativeAnalysisCommunity2016; @gatesMonteCarloEvaluation2016]. In the framework of latent factor analysis or psychometric network, @christensenComparingCommunityDetection2024 recently conducted a Monte-Carlo simulation study compared various node community detection algorithm. To interpret the results, @christensenComparingCommunityDetection2024 even created a [Shiny App] to interactive present the results.
+
+  [Shiny App]: https://alex-christensen.shinyapps.io/community_detection_results/
 
 | Algorithm | Feature |
-|:---|:---|
+|:-----------------------------------|:-----------------------------------|
 | Walktrap [@ponsComputingCommunitiesLarge2006] | random walks |
 | Infomap [@rosvallMapsRandomWalks2008] | random walks |
 | Fast-greedy [@clausetFindingCommunityStructure2004] | hierarchical clustering; modularity-based |
