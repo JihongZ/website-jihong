@@ -27,3 +27,7 @@ format: html
 ## 结语
 
 秦朝人也许不知道汽车的构造，但是他们能够理解轮子。我们不知道100年后甚至20年后的AI会变成什么样子，但是我们肯定它的input和output是有边界。
+
+## 相关文献
+
+1. [Language models and linguistic theories beyond words (2023)](https://www.nature.com/articles/s42256-023-00703-8), Nature.
