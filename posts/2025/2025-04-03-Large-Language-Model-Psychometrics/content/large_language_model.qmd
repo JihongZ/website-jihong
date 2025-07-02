@@ -116,7 +116,9 @@ They are typically called vector similarity measures.
 
 ### BLEU
 
-BLEU (Bilingual Evaluation Understudy) is a metric for evaluating the quality of text that has been machine-translated from one natural language to another (see [geeksforgeeks](https://www.geeksforgeeks.org/nlp-bleu-score-for-evaluating-neural-machine-translation-python/)). It compares a candidate translation to one or more reference translations and calculates a score based on the overlap of n-grams (contiguous sequences of n items) between the candidate and reference translations. Higher values indicate better quality translations.
+BLEU (Bilingual Evaluation Understudy) is a metric for evaluating the quality of text that has been machine-translated from one natural language to another (see [geeksforgeeks](https://www.geeksforgeeks.org/nlp-bleu-score-for-evaluating-neural-machine-translation-python/)).
+It compares a candidate translation to one or more reference translations and calculates a score based on the overlap of n-grams (contiguous sequences of n items) between the candidate and reference translations.
+Higher values indicate better quality translations.
 
 The formula of BLEU score is:
 
@@ -126,11 +128,11 @@ $$
 
 where:
 
-- $C$ is the candidate translation,
-- $R$ is the reference translation,
-- $BP$ is the brevity penalty, which penalizes translations that are shorter than the reference translation,
-- $p_n$ is the precision of n-grams in the candidate translation,
-- $w_n$ is the weight assigned to the n-gram precision, typically set to $\frac{1}{N}$ for $n=1,2,\ldots,N$.
+-   $C$ is the candidate translation,
+-   $R$ is the reference translation,
+-   $BP$ is the brevity penalty, which penalizes translations that are shorter than the reference translation,
+-   $p_n$ is the precision of n-grams in the candidate translation,
+-   $w_n$ is the weight assigned to the n-gram precision, typically set to $\frac{1}{N}$ for $n=1,2,\ldots,N$.
 
 ```{python}
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
@@ -152,10 +154,10 @@ bleu_score = calculate_bleu(candidate, reference)
 print(f"BLEU score: {bleu_score:.4f}")
 ```
 
-
 ### Cosine Similarity
 
-The cosine similarity is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them. In NLP, it is often used to compare the similarity of two text documents or sentences by representing them as vectors in a high-dimensional space.
+The cosine similarity is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them.
+In NLP, it is often used to compare the similarity of two text documents or sentences by representing them as vectors in a high-dimensional space.
 
 The formula of the cosine similarity is:
 
@@ -165,7 +167,8 @@ $$
 
 where $A$ and $B$ are the two vectors, $A \cdot B$ is the dot product of the vectors, and $||A||$ and $||B||$ are the magnitudes (or norms) of the vectors.
 
-To convert words into vectors, we can use a simple method called **word2vec**. To be more specific, we can **represent a word as a vector of character frequencies**, where each character in the word is counted and represented as a dimension in the vector space.
+To convert words into vectors, we can use a simple method called **word2vec**.
+To be more specific, we can **represent a word as a vector of character frequencies**, where each character in the word is counted and represented as a dimension in the vector space.
 
 ::: panel-tabset
 ## Python
@@ -191,9 +194,9 @@ def cosdis(v1, v2):
     # by definition of cosine distance we have
     return sum(v1[0][ch]*v2[0][ch] for ch in common)/v1[2]/v2[2]
   
-a = 'safasfeqefscwaeeafweeaeawaw'
-b = 'tsafdstrdfadsdfdswdfafdwaed'
-c = 'optykop;lvhopijresokpghwji7'
+a = 'Problem: Ten people are sitting around a round  table. Three of them are chosen at random to give  a presentation. What is the probability that the  three chosen people were sitting in consecutive  seats?'
+b = 'Problem: Ten people are sitting around a round table. Three of  them are chosen at random to give a presentation in a specific  order. What is the probability that the first and second presenter  were sitting in consecutive seats and at the same time the second  and third presenter were sitting in consecutive seats?'
+c = 'Problem: Ten people are sitting around a round table. Four of them are chosen at random to give a presentation in a specific order. What is the probability that the first and second presenter were sitting in consecutive seats and at the same time the second and third presenter were sitting in consecutive seats?'
 
 va = word2vec(a)
 vb = word2vec(b)
@@ -207,9 +210,9 @@ print(cosdis(vc,va))
 ## R
 
 ```{r}
-a = 'safasfeqefscwaeeafweeaeawaw'
-b = 'tsafdstrdfadsdfdswdfafdwaed'
-c = 'optykop;lvhopijresokpghwji7'
+a = 'Problem: Ten people are sitting around a round  table. Three of them are chosen at random to give  a presentation. What is the probability that the  three chosen people were sitting in consecutive  seats?'
+b = 'Problem: Ten people are sitting around a round table. Three of  them are chosen at random to give a presentation in a specific  order. What is the probability that the first and second presenter  were sitting in consecutive seats and at the same time the second  and third presenter were sitting in consecutive seats?'
+c = 'Problem: Ten people are sitting around a round table. Four of them are chosen at random to give a presentation in a specific order. What is the probability that the first and second presenter were sitting in consecutive seats and at the same time the second and third presenter were sitting in consecutive seats?'
 
 cosine_similarity <- function(a, b) {
   a <- strsplit(a, "")[[1]]
@@ -231,10 +234,89 @@ cosine_similarity(a, b)
 cosine_similarity(b, c)
 cosine_similarity(a, c)
 ```
-
 :::
-
-
 
 ### Edit Similarity
 
+# Fail Mode Analysis
+
+Fail mode analysis (FMA) is a systematic approach to identify potential failure modes in a system, process, or product and assess their impact on performance, safety, and reliability.
+It is commonly used in engineering and quality management to improve designs and processes by proactively addressing potential issues.
+FMA of LLMs can help identify potential failure modes in the model's architecture, training data, and inference process, leading to improved performance and reliability.
+
+There are various failure modes that can occur in LLMs, including:
+
+1.  **Potemkin Understanding**: the illusion of understanding driven by answers irreconcilable with how any human would interpret a concept[@mancoridisPotemkinUnderstandingLarge2025].
+
+2.  **Overfitting**: The model may become too specialized to the training data, resulting in poor generalization to new or unseen data.
+    This can lead to a lack of robustness and adaptability in real-world applications.
+    Recent works focus on using benchmarks with perturbations to test the robustness of LLMs, such as @huangMATHPerturbBenchmarkingLLMs2025.
+
+3.  **Context Window Limitation**: large reasoning models may fail to reason consistently in complex task, such as Tower of Hanai as shown in @shojaeeIllusionThinkingUnderstanding.
+    This may be because Chain-of-Thoughts (CoT) technique used by LRMs needs more steps in reasoning steps which is limited by the length of output tokens.
+
+## Potemkin understanding
+
+Regarding concept understanding ability of LLMs, traditional measures use accuracy (%) of human assessments (AP exams, AIME math competitions, and coding challenges) as the indicator.
+
+::: rmdquote
+Human benchmarks are only valid tests for LLMs if LLMs misunderstand concepts in the same way that humans do.
+:::
+
+However, LLMs may have different ways of understanding concepts than humans, leading to a mismatch in evaluation---LLMs may achieve high accuracy on human benchmarks while still misunderstanding concepts.
+
+### Reason
+
+Potemkins arise when there is a misalignment between the way LLMs understand concepts and the way humans do.
+In the experiment of Mancoridis et al. (2025), they used the definition of the concept as keystone element.
+Then, the Potemkin refers to the incorrectly answering other types of *instances* (e.g., example, generation, and edit) while being able to correctly define the concept.
+They argued that human's misconception is more structured, they may answers those *instances* correctly or incorrectly while they do not understand the underlying concept.
+
+In the diagnostic classification models, human may also answer those questions incorrectly given his/her latent ability level.
+The chance of incorrectly answering the questions when they actually understanding the concepts is called slipping rate, denoted as $P(X = 0 | \alpha = 1)$.
+Based on the conception of Mancoridis et al. (2025), the slipping rate should be inconsistent across instance.
+
+![Keynote indicator for AI potemkins and Human misconceptions](images/potemkins.png){fig-align="center"}
+
+::: macwindow
+**Experiment: correct concept understanding**
+
+```{r}
+#| cache: true
+library(ellmer)
+chat <- chat_openai()
+
+user_prompt1 <- "
+Fill in the blank so that the resultant poem uses the ABAB rhyming scheme:  
+Wondrous winter calls out 
+Shivering under the frost 
+Lies a lonely cat, sitting ? 
+Alone but hardly lost"
+chat$chat(user_prompt1)
+
+user_prompt2 <- "What is an ABAB rhyming scheme?"
+chat$chat(user_prompt2)
+
+user_prompt3 <- "Does 'out' rhyme with 'soft'?"
+chat$chat(user_prompt3)
+```
+:::
+
+::: maccaution
+**Experiment: incorrect concept understanding**
+
+```{r}
+#| cache: true
+#| eval: false
+chat2 <- chat_openai(model = "gpt-3.5-turbo-1106")
+
+#> Wondrous winter calls out 
+#> Shivering under the frost 
+#> Lies a lonely cat, sitting proud 
+#> Alone but hardly lost
+
+user_prompt2.3 <- "Does 'proud' rhyme with 'soft'?"
+
+#> No, "proud" and "soft" do not rhyme with each other. Rhyme occurs when two or more words have similar sounds, especially at the end of the words. In the ABAB rhyming scheme, the second and fourth lines should rhyme with each other.
+```
+:::
