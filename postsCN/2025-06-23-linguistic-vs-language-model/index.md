@@ -8,6 +8,10 @@ format:
     number-sections: true
 ---
 
+```{=html}
+<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7351769290015993856?collapsed=1" height="635" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+```
+
 ## 派系之争
 
 现代语言学的争论，根源于围绕AI及其代表的大语言模型的不同学派观点。以乔姆斯基为代表的“守旧派”认为，大语言模型及其相关技术（如自然语言处理）对科学并无实质性贡献（“not a contribution to science”）。与之相对，史蒂夫·皮安塔多西（Steven Piantadosi）等“革新派”则主张，语言模型为语言学习提供了精确且正式的理论框架（“precise and formal accounts of language learning”）。此外，还有“平衡派”，他们认可语言模型在某些语言学领域的价值，例如利用神经网络或大语言模型来构建语言习得和语言处理的现实模型。
@@ -45,3 +49,6 @@ format:
 ## 相关文献
 
 1. [Language models and linguistic theories beyond words (2023)](https://www.nature.com/articles/s42256-023-00703-8), Nature.
+2. Manning, C. D. (2022). Human Language Understanding & Reasoning. Daedalus, 151(2), 127–138. https://doi.org/10.1162/daed_a_01905
+
+Excellent work by researchers at the University of Maryland. LLM benchmarks utilizing IRT item calibration demonstrate significant potential. The integration of AI and psychometrics appears to be highly promising.
