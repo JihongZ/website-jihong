@@ -36,6 +36,15 @@ library(glue)
 
 ![The generated Likert-scale motivation item by GPT-4.1](images/clipboard-1126306144.png){#fig-gpt-item}
 
+## GPT-5
+
+OpenAI recently publish GPT-5 and claimed that it provides better [data analysis and research capabilities](https://academy.openai.com/home/clubs/work-users-ynjqu/resources/intro-gpt-5). 
+
+> GPT-5 is better at research and analysis.
+Summarize large datasets quickly and accurately.
+"Analyze this uploaded CSV of global retail sales (3 years, 12 markets, 200k rows). Identify top-performing regions, seasonal sales trends, and product category outliers. Then create a 5-page insights brief with charts and a one-page executive summary that highlights growth opportunities and risk areas, citing specific data points.”
+
+
 ## GPT-4.1
 
 OpenAI published [GPT-4.1](https://platform.openai.com/docs/models/gpt-4.1) (Model: `gpt-4.1-2025-04-14`) on April 2025. The price is \$2 / 1M token. As a reference, in my recent project of using LLM to generate survey responses, the number of tokens per prompt ranges from 5K to 10K, which means 100 calls cost around \$2 or \$.02 / calling. **The question is how GPT-4.1 performs compared to GPT-4o regarding survey response generation**. I will use two mini studies to examine the differences between GPT-4o and GPT-4.1 when answering to the same prompt.
