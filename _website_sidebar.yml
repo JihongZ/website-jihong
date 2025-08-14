@@ -63,7 +63,7 @@ website:
         - text: "◆◆◆◆◆◆◆◆◆"
         - section: "Lecture"
           contents:
-            - file: teaching/2025-01-13-Experiment-Design/ESRM64103_syllabus.qmd
+            - file: teaching/2025-01-13-Experiment-Design/ESRM64103_syllabus_Fall2025.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture01/ESRM64103_Lecture01.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture02/ESRM64103_Lecture02.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture03/ESRM64103_Lecture03.qmd
@@ -131,7 +131,7 @@ website:
         - section: "ESRM64503: Applied MVA (Spring2024)"
           contents: 
             - text: 'Syllabus'
-              file: teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus.qmd
+              file: teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus_Fall2025.qmd
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/Lecture01.qmd
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture02/Lecture02.qmd
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture03/Lecture03.qmd
