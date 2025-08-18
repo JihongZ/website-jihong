@@ -80,7 +80,7 @@ Also, it is assumed that students have has solid statistical training up to and 
 
 ## In-Class Quizzes
 
--   **Format:** Short quizzes (1-3 questions) at the beginning of each class to refresh your memory.
+-   **Format:** Short quizzes (1-3 questions) at the beginning of the class (not always for every class) to refresh your memory.
 -   **Duration:** 5-10 minutes per quiz.
 -   **Content:** Questions will be general and cover recent material.
 -   **Device:** Please **bring your laptop or mobile device** to class to answer the quiz.
@@ -100,8 +100,8 @@ After everyone finishes, we will review the quiz together as a class.
 2.  [Homework 0] (HW0)
 3.  [Homework 1] (HW1)
 4.  [Homework 2] (HW2)
-5.  ~~Homework 3 (HW3)~~
-6.  [Final Homework]
+5.  [Homework 3] (HW3)
+6.  [Final Homework] (HW4: Report of data analysis using your own data)
 
   [Grading Online Checking]: HWs/Grading_ShinyApp.qmd
   [Homework 0]: ./HWs/HW_demo.qmd

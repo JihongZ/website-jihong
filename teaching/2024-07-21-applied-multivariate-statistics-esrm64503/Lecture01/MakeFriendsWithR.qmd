@@ -1,33 +1,161 @@
 ---
-title: "Make Friends With R, RStudio, and Quarto"
+title: "Make Friends With R, RStudio, Positron, and Quarto"
 author: "Jihong Zhang"
 format: html
-editor: visual
 ---
 
 <!-- Prompt: Make a brief tutorial with the format of quarto markdown to R, Rstudio, and Quarto (.qmd) can be used to execute R code/syntax. Some important sections include data import, export, loading R package-->
 
-# Make Friends With R, RStudio, and Quarto
+# Make Friends With R, RStudio, Positron, and Quarto
 
-Welcome to your first steps in applied multivariate statistics! In this tutorial, you'll learn how to use R, RStudio, and Quarto (`.qmd` files) to run R code, analyze data, and create reproducible reports.
+Welcome to your first steps in applied multivariate statistics! In this tutorial, you'll learn how to use R, RStudio, Positron, and Quarto (`.qmd` files) to run R code, analyze data, and create reproducible reports.
 
 ------------------------------------------------------------------------
 
-## 1. What are R, RStudio, and Quarto?
+## 1. What are R, RStudio, Positron, and Quarto?
 
--   **R**: A powerful programming language for statistical computing and graphics.
--   **RStudio**: An integrated development environment (IDE) that makes using R easier.
--   **Quarto**: A next-generation tool for creating dynamic documents, presentations, and websites with R (and other languages). Quarto files use the `.qmd` extension.
+-   **R** (required): A powerful programming language for statistical computing and graphics.
+-   **Quarto** (required): A next-generation tool for creating dynamic documents, presentations, and websites with R (and other languages). Quarto files use the `.qmd` extension. Download [link](https://quarto.org/docs/get-started/)
+-   **RStudio** (optional): An integrated development environment (IDE) that makes using R easier. Download [link](https://posit.co/download/rstudio-desktop/)
+-   **Positron** (optional): A next-generation data science IDE created by Posit (formerly RStudio), built on VS Code architecture, designed for both R and Python workflows. Download [link](https://positron.posit.co)
+
+::: {.rmdnote}
+Choose RStudio or Positron based on your preference
+:::
+------------------------------------------------------------------------
+
+## 1.4. Getting Started with RStudio: The Classic R IDE
+
+**RStudio** is the most widely-used IDE for R programming, offering a user-friendly interface that has helped millions of data scientists learn R. It's mature, stable, and specifically designed for R workflows.
+
+### Key Features of RStudio:
+
+-   **R-focused design**: Built specifically for R programming and statistical analysis
+-   **Four-panel layout**: Organized interface with Source, Console, Environment, and Files/Plots panels
+-   **Package management**: Easy package installation and loading through GUI
+-   **Project management**: RStudio Projects for organized, reproducible workflows
+-   **Git integration**: Built-in version control support
+-   **R Markdown/Quarto support**: Native support for literate programming
+
+### RStudio Interface Layout:
+
+-   **Source Editor (top-left)**: Edit `.R`, `.qmd`, and other files with syntax highlighting
+-   **Console (bottom-left)**: Interactive R console for running commands
+-   **Environment/History (top-right)**: View objects, variables, and command history
+-   **Files/Plots/Packages/Help (bottom-right)**: Navigate files, view plots, manage packages, access help
+
+### Getting Started with RStudio:
+
+1. **Download**: Get RStudio Desktop from [posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/)
+2. **Create projects**: Use File → New Project for organized workflows
+3. **Customize layout**: Tools → Global Options → Pane Layout to adjust panels
+4. **Install packages**: Use Tools → Install Packages or the Packages panel
+
+### Essential RStudio Features:
+
+-   **Code completion**: Tab completion for functions and variables
+-   **Help integration**: F1 on functions for instant help
+-   **Object inspector**: Click objects in Environment to view details
+-   **Plot history**: Navigate through previous plots in Plots panel
+-   **Addins**: Extend functionality with community-developed tools
+
+### RStudio Keyboard Shortcuts:
+
+-   **Run code**: Ctrl+Enter (Cmd+Enter on Mac)
+-   **New R script**: Ctrl+Shift+N (Cmd+Shift+N)
+-   **Render document**: Ctrl+Shift+K (Cmd+Shift+K)
+-   **Insert code chunk**: Ctrl+Alt+I (Cmd+Option+I)
+-   **Go to line**: Ctrl+G (Cmd+G)
+
+------------------------------------------------------------------------
+
+## 1.5. Introducing Positron: A Modern Data Science IDE
+
+**Positron** is Posit's newest IDE, designed specifically for data scientists working with R and Python. Built on the VS Code platform, it combines the best of modern development tools with data science-specific features.
+
+### Key Features of Positron:
+
+-   **Multi-language support**: Seamlessly work with R and Python in the same environment
+-   **Interactive console**: Enhanced R and Python consoles with rich outputs
+-   **Variable viewer**: Inspect data frames, lists, and objects with interactive exploration
+-   **Plot viewer**: View and interact with ggplot2, matplotlib, and other graphics
+-   **Integrated terminal**: Access system commands and package managers
+-   **Extension ecosystem**: Leverage VS Code's vast extension library
+
+### Positron vs RStudio:
+
+| Feature | RStudio | Positron |
+|---------|---------|----------|
+| Language Support | R-focused | R + Python |
+| Base Platform | Custom Qt | VS Code |
+| Extensions | Limited | Extensive VS Code ecosystem |
+| Performance | Traditional | Modern, faster startup |
+| Interface | Fixed panels | Flexible layouts |
+| Learning Curve | R-specific | General programming |
+
+### Getting Started with Positron:
+
+1. **Download**: Get Positron from [positron.posit.co](https://positron.posit.co/)
+2. **Open projects**: Use File → Open Folder or create new R/Python projects
+3. **Run code**: Use Ctrl+Enter (Cmd+Enter on Mac) to execute code
+4. **Explore data**: Click variables in the Variables panel to explore interactively
+
+### Positron Keyboard Shortcuts:
+
+-   **Run code**: Ctrl+Enter (Cmd+Enter)
+-   **New R console**: Ctrl+Shift+`
+-   **Render Quarto**: Ctrl+Shift+K (Cmd+Shift+K)
+-   **Command palette**: Ctrl+Shift+P (Cmd+Shift+P)
+
+## 1.6. RStudio Basics
+
+-   Source Editor (top-left): edit `.R`/`.qmd` files
+-   Choose your IDE: Try both RStudio and Positron to see which fits your workflow
+-   Explore the `tidyverse` (readr, dplyr, tidyr, ggplot2)
+-   Learn Quarto for documents, slides, and websites
+-   If using Positron, explore Python integration for data science
+-   Practice by importing a dataset, cleaning it, summarizing, and plottingpackages, read help
+-   Useful shortcuts: Run line/selection (Cmd+Enter), Render (Cmd+Shift+K)
+
+## 1.7. IDE Basics: RStudio vs Positron
+
+### RStudio Layout:
+-   Source Editor (top-left): edit `.R`/`.qmd` files
+-   Console/Terminal (bottom-left): run commands
+-   Environment/History (top-right): objects and history
+-   Files/Plots/Packages/Help (bottom-right): navigate, view plots, manage packages, read help
+
+### Positron Layout:
+-   **Editor**: Central area for `.R`/`.qmd` files with syntax highlighting
+-   **Console**: Bottom panel with enhanced R/Python consoles
+-   **Variables**: Side panel with interactive data exploration
+-   Use projects and `here::here()` for reliable paths in both RStudio and Positron options
+-   **Explorer**: File browser and project navigation
+
+### Common Shortcuts (Both IDEs):
+
+-   **Rendering**:
+    - RStudio: Use the Render button or Cmd+Shift+K
+    - Positron: Use Ctrl+Shift+K or the Command Palette
+    - Terminal: Run `quarto render` in any IDE
+
+**Note**: Both RStudio and Positron support project-based workflows, making it easy to manage paths and dependencies. Render Quarto: Cmd+Shift+K (Mac) / Ctrl+Shift+K (Windows/Linux)
 
 ------------------------------------------------------------------------
 
 ## 2. Running R Code in Quarto
 
-You can write and execute R code directly in Quarto documents using code chunks. For example:
+You can write and execute R code directly in Quarto documents (*.qmd) using code chunks. This works identically in both RStudio and Positron:
 
 ```{r}
 1 + 1
 mean(c(1, 2, 3))
+```
+
+```{r}
+#| eval: false
+
+print("Hello, world!")
 ```
 
 ------------------------------------------------------------------------
@@ -107,15 +235,6 @@ ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
 
 ------------------------------------------------------------------------
 
-## 8. RStudio Basics
-
--   Source Editor (top-left): edit `.R`/`.qmd` files
--   Console/Terminal (bottom-left): run commands
--   Environment/History (top-right): objects and history
--   Files/Plots/Packages/Help (bottom-right): navigate, view plots, manage packages, read help
--   Useful shortcuts: Run line/selection (Cmd+Enter), Render (Cmd+Shift+K)
-
-------------------------------------------------------------------------
 
 ## 9. Working Directories and Projects
 

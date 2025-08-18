@@ -345,6 +345,10 @@ Imagine our theory of depression support following two models:
 :::
 :::
 
+## Visual Studio Code
+
+You can review the official article for setting up [R in Visual Studio Code](https://code.visualstudio.com/docs/languages/r).
+
 ## More RStudio
 
 ![](figures/Rstudio_labelled.png){fig-align="left" width="100%"}
