@@ -10,9 +10,9 @@ tbl-cap-location: top
 citation:
   type: webpage
   issued: 2025-03-07
-execute: 
-  cache: true  
-format: 
+execute:
+  cache: true
+format:
   html:
     code-tools: false
     code-line-numbers: false
@@ -38,12 +38,13 @@ library(glue)
 
 ## GPT-5
 
-OpenAI recently publish GPT-5 and claimed that it provides better [data analysis and research capabilities](https://academy.openai.com/home/clubs/work-users-ynjqu/resources/intro-gpt-5). 
+OpenAI recently publishes GPT-5 and claimed that it provides better [data analysis and research capabilities](https://academy.openai.com/home/clubs/work-users-ynjqu/resources/intro-gpt-5).
 
 > GPT-5 is better at research and analysis.
-Summarize large datasets quickly and accurately.
-"Analyze this uploaded CSV of global retail sales (3 years, 12 markets, 200k rows). Identify top-performing regions, seasonal sales trends, and product category outliers. Then create a 5-page insights brief with charts and a one-page executive summary that highlights growth opportunities and risk areas, citing specific data points.”
+> Summarize large datasets quickly and accurately.
+> "Analyze this uploaded CSV of global retail sales (3 years, 12 markets, 200k rows). Identify top-performing regions, seasonal sales trends, and product category outliers. Then create a 5-page insights brief with charts and a one-page executive summary that highlights growth opportunities and risk areas, citing specific data points.”
 
+GPT-5 is OpenAI’s latest frontier multimodal model focused on high‑accuracy reasoning, data analysis, and tool use. It supports long context, structured outputs (JSON), and improved grounding via tools (code execution, retrieval, and function calling). Typical uses include research assistance, analytics over uploaded files, and robust code generation/refactoring. You can access it through the Responses API using the model name `gpt-5` (text) and pair it with features like structured outputs and file inputs for reliable, reproducible workflows.
 
 ## GPT-4.1
 
@@ -59,7 +60,7 @@ In study 1, the prompt is a general prompt from my recent project: *Survey data 
 
 The simulated survey is a validated survey of motivation for exercise. The survey items are 15 Likert-scale items with 6 response options (1 = Strongly disagree, 2 = Disagree, 3 = Somewhat disagree, 4 = Somewhat agree, 5 = Agree, 6 = Strongly agree).
 
-#### Result 
+#### Result
 
 ```{r}
 #| code-fold: true
@@ -74,8 +75,8 @@ For your output,
   	- 1 (Strongly Agree) for the first question
   	- 3 (Somewhat Agree) for the second question
   	- 2 (Agree) for the third question
-  	
-The scale for all items is: 1 = Strongly disagree, 2 = Disagree, 3 = Somewhat disagree, 4 = Somewhat agree, 5 = Agree, 6 = Strongly agree.  	
+
+The scale for all items is: 1 = Strongly disagree, 2 = Disagree, 3 = Somewhat disagree, 4 = Somewhat agree, 5 = Agree, 6 = Strongly agree.
 "
 prompt <- "
 Role & Task:
@@ -143,21 +144,21 @@ def get_response_gpt41(instructions, input, temp):
 #| code-fold: true
 #| code-summary: "Step 3: Data visualization for LLM-generated responses"
 #| cache: true
-gpt4o_resp <- py$get_response_gpt4o(instructions=instruction, 
+gpt4o_resp <- py$get_response_gpt4o(instructions=instruction,
                                     input=prompt, temp = 0)
-gpt41_resp <- py$get_response_gpt41(instructions=instruction, 
+gpt41_resp <- py$get_response_gpt41(instructions=instruction,
                                     input=prompt, temp = 0)
 
 res <- data.frame(
   gpt4o = unlist(str_split(gpt4o_resp, ";")),
   gpt41 = unlist(str_split(gpt41_resp, ";")),
   Item = factor(1:15)
-) |> 
+) |>
   pivot_longer(starts_with("gpt"), names_to = "Model", values_to = "Response")
 
 ggplot(res) +
   geom_path(aes(x = Item, y = Response, color = Model, group = Model) ) +
-  scale_color_manual(values = c("royalblue", "red3"), 
+  scale_color_manual(values = c("royalblue", "red3"),
                      labels = c("GPT4.1", "GPT4o")) +
   theme_classic()
 ```
@@ -178,7 +179,7 @@ Instead of asking LLM to generate survey responses directly, we can also instruc
 where:
 
   - `Xi_kj` denotes response option j (from 1 to 6) for item i
-  - `pij` is the probability (between 0 and 1) of selecting that option. 
+  - `pij` is the probability (between 0 and 1) of selecting that option.
   - Each line (separated by semicolons) corresponds to a different item
   - The probabilities for each item must sum to 1
 
@@ -204,12 +205,12 @@ Xi_k1:pi1,Xi_k2:pi2,Xi_k3:pi3,Xi_k4:pi4,Xi_k5:pi5,Xi_k6:pi6;
 
 where:
   - Xi_kj denotes response option j (from 1 to 6) for item i
-  - pij is the probability (between 0 and 1) of selecting that option. 
+  - pij is the probability (between 0 and 1) of selecting that option.
   - Each line (separated by semicolons) corresponds to a different item
   - The probabilities for each item must sum to 1
 
 - Example:
-  
+
   X1_k1:0.50,X1_k2:0.10,X1_k3:0.10,X1_k4:0.10,X1_k5:0.10,X1_k6:0.10;
 
 This indicates that for Item 1, the probabilities of selecting options 1 through 6 are 50%, 10%, 10%, 10%, 10%, and 10%, respectively.
@@ -223,9 +224,9 @@ This indicates that for Item 1, the probabilities of selecting options 1 through
   6 = Strongly Agree
 "
 
-gpt4o_resp2 <- py$get_response_gpt4o(instructions=instruction2, 
+gpt4o_resp2 <- py$get_response_gpt4o(instructions=instruction2,
                                     input=prompt, temp = 0)
-gpt41_resp2 <- py$get_response_gpt41(instructions=instruction2, 
+gpt41_resp2 <- py$get_response_gpt41(instructions=instruction2,
                                     input=prompt, temp = 0)
 ```
 
@@ -260,8 +261,8 @@ get_df_from_output <- function(raw_gpt_op) {
   res <- data.frame(
     item_resps = all_item_resp_name,
     probability = all_item_resp_prob
-  ) |> 
-    separate(item_resps, into = c("Item", "Option"), sep = "_") |> 
+  ) |>
+    separate(item_resps, into = c("Item", "Option"), sep = "_") |>
     mutate(Option = factor(str_remove(Option, "k"), levels = 1:6),
            Item = factor(Item, levels = paste0("X", 15:1)))
   return(res)
@@ -273,16 +274,16 @@ gpt41_resp2_dt <- get_df_from_output(gpt41_resp2)
 dt_comb <- rbind(
   gpt4o_resp2_dt |> mutate(Model = "GPT-4o"),
   gpt41_resp2_dt |> mutate(Model = "GPT-4.1")
-) 
+)
 
-mycolors = c("#4682B4", "#B4464B", "#B4AF46", 
+mycolors = c("#4682B4", "#B4464B", "#B4AF46",
              "#1B9E77", "#D95F02", "#7570B3",
              "#E7298A", "#66A61E", "#B4F60A")
 
 ggplot(dt_comb) +
-  geom_col(aes(x=Item, y = probability, fill = Option), 
+  geom_col(aes(x=Item, y = probability, fill = Option),
            position =  position_stack(reverse = TRUE)) +
-  geom_text(aes(x=Item, y = probability, 
+  geom_text(aes(x=Item, y = probability,
                 label = probability, group = Item),
             size = 2,
             position = position_stack(reverse = TRUE, vjust = 0.5)) +
@@ -436,14 +437,14 @@ In OpenAI, the `previous_response_id` parameter was used to chain responses and 
 from openai import OpenAI
 
 client = OpenAI()
-def get_conversation(history): 
+def get_conversation(history):
   response = client.responses.create(
       model="gpt-4o-mini", input=history, store=False
   )
-  
+
   history += [
     {"role": output.role, "content": output.content} for output in response.output]
-    
+
   return history
 
 history = [{"role": "user", "content": "Can your generate one 6-Likert scale item response with item difficult as 2 for a persoon with 1 standard deviation factor score?"}]
@@ -499,8 +500,8 @@ Then, we should be able to call the function either in R (use `reticulate` packa
 library(reticulate)
 
 prompt = "
-You are a data parsing assistant. 
-User provides a list of groceries. 
+You are a data parsing assistant.
+User provides a list of groceries.
 Your goal is to output it as JSON.
 "
 message = "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk."
@@ -526,8 +527,8 @@ There are two things that should be noted:
 #| eval: false
 
 prompt = """
-You are a data parsing assistant. 
-User provides a list of groceries. 
+You are a data parsing assistant.
+User provides a list of groceries.
 Your goal is to output it as JSON.
 """
 message = "I'd like to buy some bread, pack of eggs, few apples, and a bottle of milk."
@@ -547,13 +548,13 @@ To return the plain JSON text, we can structure output in Python function throug
 
 ```{python}
 def llm_eval2(prompt: str, message: str, model: str = "gpt-4o"):
-    
+
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
     messages = [
         {"role": "system", "content": prompt},
         {"role": "user", "content": message},
     ]
-    
+
     return client.chat.completions.create(
         model=model,
         messages=messages,
@@ -565,7 +566,7 @@ def llm_eval2(prompt: str, message: str, model: str = "gpt-4o"):
 ```{r}
 # A R function to request LLM's response given prompt and message.
 get_response <- function(prompt, message) {
-  res <- py$llm_eval2(prompt=as.character(prompt), 
+  res <- py$llm_eval2(prompt=as.character(prompt),
                       message=as.character(message))
   output <- res$choices[[1]]$message$content
   return(output)
@@ -659,14 +660,14 @@ For the following experiment, let's create two prompts (No schema vs. With schem
 ```{r}
 #| cache: true
 prompt_old = "
-You are data parsing assistant. 
-User provides a list of groceries. 
+You are data parsing assistant.
+User provides a list of groceries.
 Your goal is to output is as JSON.
 "
 
 prompt_schema = "
-You are data parsing assistant. 
-User provides a list of groceries. 
+You are data parsing assistant.
+User provides a list of groceries.
 Use the following JSON schema to generate your response:
 
 {{
@@ -688,13 +689,13 @@ dat_prompt_input <- data.frame(
     prompts = c(prompt_old, prompt_schema),
     inputs = c(vague_input, precise_input), stringsAsFactors = FALSE
   )
-  
+
 )
 
-dat_output <- dat_prompt_input |> 
-  rowwise() |> 
+dat_output <- dat_prompt_input |>
+  rowwise() |>
   mutate(
-    json_data =get_response(prompt = prompts, message = inputs) 
+    json_data =get_response(prompt = prompts, message = inputs)
   )
 ```
 
@@ -703,8 +704,8 @@ dat_output <- dat_prompt_input |>
 ```{python}
 #| eval: false
 prompt = """
-You are data parsing assistant. 
-User provides a list of groceries. 
+You are data parsing assistant.
+User provides a list of groceries.
 Use the following JSON schema to generate your response:
 
 {{
@@ -740,7 +741,7 @@ json_to_markdownTBL <- function(x) {
   md_dat <- paste0(kableExtra::kable(dat, format = "simple"), collapse ="\n")
   return(md_dat)
 }
-data_frame_output <- sapply(dat_output$json_data, json_to_markdownTBL) |> 
+data_frame_output <- sapply(dat_output$json_data, json_to_markdownTBL) |>
   unlist()
 ```
 

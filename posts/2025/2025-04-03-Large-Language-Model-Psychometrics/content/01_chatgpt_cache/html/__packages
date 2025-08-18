@@ -14,3 +14,6 @@ kableExtra
 glue
 palmerpenguins
 htmltools
+StanHeaders
+rstan
+cmdstanr
