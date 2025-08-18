@@ -59,13 +59,13 @@ format:
     1.  Your name
     2.  Department name
     3.  Which year in your program
-    4.  Anything else you want to share
+    4.  Anything else you want to share to others
 
 ## Class Time
 
-1.  Unit 1: 17:00 - 17:50
-2.  Unit 2: 18:00 - 18:50
-3.  Unit 3: 19:00 - 19:45 (**Practice with R Code on your laptop and Ask Questions**)
+1.  Unit 1: 17:00 - 18:00
+2.  Unit 2: 18:15 - 19:00
+3.  Unit 3: 19:15 - 19:45 (**Q&A; Practice with R Code on your laptop and Ask Questions**)
 
 ## What To Expect This Semester
 
@@ -99,19 +99,19 @@ format:
 
     -   Typically 2-3 questions that can be finished in 15 minutes
 
--   **4 homework assignments** (HW1-4, 84 points): Practice doing data analysis
+-   **3 homework assignments** (HW1-3, 84 points): Practice doing data analysis
 
-    -   Based directly on example given (no googling or ChatGPT needed, ever)
+    -   Based directly on example given (no googling or ChatGPT needed)
 
     -   **Homework 1-3**: unique canned dataset
 
         -   Answered online homework portal
 
-    -   **Homework 4: individual data analysis + written results section**
+    -   **Final Homework (Homework 4): individual data analysis + written results section**
 
         -   Get my feedback for using a model of your choice on your data + optional revision
 
--   **Extra points** (10 points, **HW0**)
+-   **Extra points** (2 credit points, **HW0**)
 
     -   I will show you how to use the system using Homework 0 as the example
 
@@ -491,11 +491,8 @@ Imagine our theory of depression support following two models:
 
 : {.striped}
 
-## Example 1: More Usage about R
 
--   Open up [MakeFriendsWithR.qmd](MakeFriendsWithR.qmd)
-
-## Example 2: Homework Portal
+## Example 1: Homework Portal
 
 -   Homework online portal will be delivered on the website
 
@@ -517,5 +514,6 @@ Imagine our theory of depression support following two models:
 
 We will:
 
-1.  Talk about descriptive statistics, data visualization and general linear model
-2.  HW0 will be due before **CLASS BEGINS** on Monday
+1.  Practice R coding using [MakeFriendsWithR.qmd](MakeFriendsWithR.qmd)
+2.  Talk about descriptive statistics, data visualization and general linear model
+3.  HW0 will be due before **CLASS BEGINS** on next Monday

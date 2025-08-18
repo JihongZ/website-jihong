@@ -1,0 +1,171 @@
+---
+title: "Make Friends With R, RStudio, and Quarto"
+author: "Jihong Zhang"
+format: html
+editor: visual
+---
+
+<!-- Prompt: Make a brief tutorial with the format of quarto markdown to R, Rstudio, and Quarto (.qmd) can be used to execute R code/syntax. Some important sections include data import, export, loading R package-->
+
+# Make Friends With R, RStudio, and Quarto
+
+Welcome to your first steps in applied multivariate statistics! In this tutorial, you'll learn how to use R, RStudio, and Quarto (`.qmd` files) to run R code, analyze data, and create reproducible reports.
+
+------------------------------------------------------------------------
+
+## 1. What are R, RStudio, and Quarto?
+
+-   **R**: A powerful programming language for statistical computing and graphics.
+-   **RStudio**: An integrated development environment (IDE) that makes using R easier.
+-   **Quarto**: A next-generation tool for creating dynamic documents, presentations, and websites with R (and other languages). Quarto files use the `.qmd` extension.
+
+------------------------------------------------------------------------
+
+## 2. Running R Code in Quarto
+
+You can write and execute R code directly in Quarto documents using code chunks. For example:
+
+```{r}
+1 + 1
+mean(c(1, 2, 3))
+```
+
+------------------------------------------------------------------------
+
+## 3. Install and Load Packages
+
+-   Use `install.packages()` once per machine; load each time with `library()`.
+
+```{r}
+#| eval: false
+install.packages(c("tidyverse", "readr", "ggplot2", "here"))
+```
+
+```{r}
+library(tidyverse)
+library(here)
+```
+
+------------------------------------------------------------------------
+
+## 4. Importing Data
+
+-   Prefer `readr::read_csv()` for CSV; `read.csv()` is the base R alternative.
+
+1.  Create a folder called "data" in your project folder, download `heights.csv` into that folder. Run the following chunk.
+
+```{r}
+#| eval: false
+# Read CSV with readr
+data <- readr::read_csv(here::here("data", "heights.csv"))
+
+# Base R alternative
+data_base <- read.csv(here::here("data", "heights.csv"))
+```
+
+------------------------------------------------------------------------
+
+## 5. Exporting Data
+
+-   Save data to disk using `write_csv()` or `write.csv()`.
+
+```{r}
+#| eval: false
+readr::write_csv(data, here::here("outputs", "clean-data.csv"))
+write.csv(data, here::here("outputs", "clean-data-base.csv"), row.names = FALSE)
+```
+
+------------------------------------------------------------------------
+
+## 6. Basic Data Wrangling with dplyr
+
+-   Core verbs: `select()`, `filter()`, `mutate()`, `summarize()`, `group_by()`.
+
+```{r}
+library(dplyr)
+
+mtcars_summary <- mtcars |>
+  group_by(cyl) |>
+  summarize(mean_mpg = mean(mpg), .groups = "drop")
+
+head(mtcars_summary)
+```
+
+------------------------------------------------------------------------
+
+## 7. Basic Plot with ggplot2
+
+-   Create a scatterplot and map aesthetics.
+
+```{r}
+library(ggplot2)
+
+ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
+  geom_point(size = 2) +
+  labs(color = "Cylinders", x = "Weight", y = "MPG")
+```
+
+------------------------------------------------------------------------
+
+## 8. RStudio Basics
+
+-   Source Editor (top-left): edit `.R`/`.qmd` files
+-   Console/Terminal (bottom-left): run commands
+-   Environment/History (top-right): objects and history
+-   Files/Plots/Packages/Help (bottom-right): navigate, view plots, manage packages, read help
+-   Useful shortcuts: Run line/selection (Cmd+Enter), Render (Cmd+Shift+K)
+
+------------------------------------------------------------------------
+
+## 9. Working Directories and Projects
+
+-   Use RStudio Projects and `here::here()` for reliable paths.
+
+```{r}
+getwd()
+here::here()
+```
+
+------------------------------------------------------------------------
+
+## 10. Quarto Basics (YAML, Chunks, Render)
+
+-   YAML header controls title, author, format.
+-   Chunk options customize behavior (e.g., hide code, set figure captions).
+
+```{r}
+#| label: fig-scatter
+#| echo: false
+#| fig-cap: "Scatterplot of wt vs mpg"
+ggplot(mtcars, aes(wt, mpg)) + geom_point()
+```
+
+-   Render via the Render button in RStudio or run `quarto render` in a terminal.
+
+------------------------------------------------------------------------
+
+## 11. Reproducibility
+
+-   Record your session details for reproducibility.
+
+```{r}
+sessionInfo()
+```
+
+------------------------------------------------------------------------
+
+## 12. Getting Help
+
+```{r}
+?mean
+help("mean")
+example(mean)
+```
+
+------------------------------------------------------------------------
+
+## 13. Next Steps
+
+-   Explore the `tidyverse` (readr, dplyr, tidyr, ggplot2)
+-   Learn Quarto for documents, slides, and websites
+-   Practice by importing a dataset, cleaning it, summarizing, and plotting
