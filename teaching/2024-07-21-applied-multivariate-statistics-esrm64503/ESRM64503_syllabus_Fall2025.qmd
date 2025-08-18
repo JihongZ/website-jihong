@@ -2,12 +2,12 @@
 title: "ESRM 64503: Applied Multivariate Analysis"
 subtitle: "Fall 2025, Monday, 5:00-7:45PM, Classroom GRAD 229, 2025/8/18 - 2025/12/05"
 author: "Jihong Zhang"
-date: "Aug 18 2025" 
+date: "Aug 18 2025"
 date-modified: ""
 categories:
   - Lecture
 sidebar: true
-format: 
+format:
   html:
     code-tools: false
     code-line-numbers: false
@@ -71,12 +71,12 @@ Also, it is assumed that students have has solid statistical training up to and 
 
 # Homework
 
-**Grading Breakdown:** - **Homework Assignments:** 84% of your final grade - **In-Class Quizzes:** 16% of your final grade
-
 ## Homework Assignments
 
--   **Posting & Submission:** Homework (HW) assignments will be posted on the **online homework portal** every Wednesday.
+-   **Posting & Submission:** Homework (HW) assignments will be posted on the **online homework portal** on this page and [Blackboard](https://learn.uark.edu) every Monday morning.
+-   **Homework Format**: Takehome assignment. Answering questions on Microsoft Forms. May include multiple-choice questions or open questions. May take you around half hour to finish.
 -   **Due Date:** Assignments are due by the end of work hours on the following Monday.
+
 
 ## In-Class Quizzes
 
@@ -96,18 +96,13 @@ After everyone finishes, we will review the quiz together as a class.
 
 ## Online Homework Portal
 
-1.  [Grading Online Checking]
-2.  [Homework 0] (HW0)
-3.  [Homework 1] (HW1)
-4.  [Homework 2] (HW2)
-5.  [Homework 3] (HW3)
-6.  [Final Homework] (HW4: Report of data analysis using your own data)
+1.  Homework 0 (HW0)
+2.  Homework 1 (HW1)
+3.  Homework 2 (HW2)
+4.  Homework 3 (HW3)
+5.  Final Homework (HW4: Report of data analysis using your own data)
+6.  Grading Online Checking
 
-  [Grading Online Checking]: HWs/Grading_ShinyApp.qmd
-  [Homework 0]: ./HWs/HW_demo.qmd
-  [Homework 1]: HWs/HW_1.qmd
-  [Homework 2]: HWs/HW_2.qmd
-  [Final Homework]: https://forms.office.com/r/YUeb8Z6Swr
 
 ## Grading
 
@@ -120,9 +115,9 @@ Your final grade in this class will be based on a combination of homework assign
 +----------------------+-------------------------------------+-------------+--------------+------------------------------------------------------------+
 | Component            | Number                              | Points Each | Total Points | Notes                                                      |
 +======================+=====================================+=============+==============+============================================================+
-| Homework Assignments | 4                                   | \~20        | 84           | Assignments are posted weekly; see schedule for due dates. |
+| Homework Assignments | 4                                   | \~20        | 80           | Assignments are posted weekly; see schedule for due dates. |
 +----------------------+-------------------------------------+-------------+--------------+------------------------------------------------------------+
-| In-Class Quizzes     | Matches number of in-person classes | Varies      | 16           | Must be present in class to earn quiz points.              |
+| In-Class Quizzes     | Matches number of in-person classes | Varies      | 20           | Must be present in class to earn quiz points.              |
 +----------------------+-------------------------------------+-------------+--------------+------------------------------------------------------------+
 | Extra Credit (HW0)   | 1                                   | 2           | 2            | Optional; see online course website for details.           |
 +----------------------+-------------------------------------+-------------+--------------+------------------------------------------------------------+
@@ -140,9 +135,9 @@ Your final grade in this class will be based on a combination of homework assign
 | \< 60                | F            |
 
 **Note:**\
-- There are 3 homework assignments (28 points each, totaling 84 points).\
-- The number of in-class quizzes will match the number of in-person class sessions (16 points total).\
-- Extra credit is available through Homework 0 (up to 10 points).\
+- There are 4 homework assignments (20 points each, totaling 80 points).\
+- The number of in-class quizzes will match the number of in-person class sessions (20 points total).\
+- Extra credit is available through Homework 0 (up to 2 points).\
 - You must be present on the day a quiz is given to earn quiz points.
 
 If you have questions about grading or how your grade will be calculated, please ask!

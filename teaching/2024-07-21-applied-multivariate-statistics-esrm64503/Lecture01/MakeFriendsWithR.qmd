@@ -1,10 +1,10 @@
 ---
 title: "Make Friends With R, RStudio, Positron, and Quarto"
 author: "Jihong Zhang"
-format: html
+format:
+  html:
+    code-tools: true
 ---
-
-<!-- Prompt: Make a brief tutorial with the format of quarto markdown to R, Rstudio, and Quarto (.qmd) can be used to execute R code/syntax. Some important sections include data import, export, loading R package-->
 
 # Make Friends With R, RStudio, Positron, and Quarto
 
@@ -22,6 +22,7 @@ Welcome to your first steps in applied multivariate statistics! In this tutorial
 ::: {.rmdnote}
 Choose RStudio or Positron based on your preference
 :::
+
 ------------------------------------------------------------------------
 
 ## 1.4. Getting Started with RStudio: The Classic R IDE
@@ -67,6 +68,16 @@ Choose RStudio or Positron based on your preference
 -   **Insert code chunk**: Ctrl+Alt+I (Cmd+Option+I)
 -   **Go to line**: Ctrl+G (Cmd+G)
 
+### RStudio Basics
+
+-   Source Editor (top-left): edit `.R`/`.qmd`/`.rmd` files
+-   Choose your IDE: Try both RStudio and Positron to see which fits your workflow
+-   Explore the `tidyverse` (readr, dplyr, tidyr, ggplot2)
+-   Learn Quarto for documents, slides, and websites
+-   If using Positron, explore Python integration for data science
+-   Practice by importing a dataset, cleaning it, summarizing, and plottingpackages, read help
+-   Useful shortcuts: Run line/selection (Cmd+Enter), Render (Cmd+Shift+K)
+
 ------------------------------------------------------------------------
 
 ## 1.5. Introducing Positron: A Modern Data Science IDE
@@ -107,15 +118,6 @@ Choose RStudio or Positron based on your preference
 -   **Render Quarto**: Ctrl+Shift+K (Cmd+Shift+K)
 -   **Command palette**: Ctrl+Shift+P (Cmd+Shift+P)
 
-## 1.6. RStudio Basics
-
--   Source Editor (top-left): edit `.R`/`.qmd` files
--   Choose your IDE: Try both RStudio and Positron to see which fits your workflow
--   Explore the `tidyverse` (readr, dplyr, tidyr, ggplot2)
--   Learn Quarto for documents, slides, and websites
--   If using Positron, explore Python integration for data science
--   Practice by importing a dataset, cleaning it, summarizing, and plottingpackages, read help
--   Useful shortcuts: Run line/selection (Cmd+Enter), Render (Cmd+Shift+K)
 
 ## 1.7. IDE Basics: RStudio vs Positron
 

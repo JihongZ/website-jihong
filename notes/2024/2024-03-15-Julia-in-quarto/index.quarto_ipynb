@@ -64,7 +64,7 @@
         "\n",
         "After the installation, you should be able to run the julia code in quarto like:\n"
       ],
-      "id": "160f679e"
+      "id": "6a72162e"
     },
     {
       "cell_type": "code",
@@ -73,7 +73,7 @@
         "#| output: true\n",
         "print(\"Hello World!\")"
       ],
-      "id": "ea48d5a7",
+      "id": "17864a75",
       "execution_count": null,
       "outputs": []
     },
@@ -83,7 +83,7 @@
       "source": [
         "## Import dataset\n"
       ],
-      "id": "e5ca1d32"
+      "id": "7ace3f64"
     },
     {
       "cell_type": "code",
@@ -95,7 +95,7 @@
         "# load in the diamonds.csv\n",
         "diamonds = DataFrame(CSV.File(\"diamonds.csv\"))"
       ],
-      "id": "94b54b2e",
+      "id": "674571dc",
       "execution_count": null,
       "outputs": []
     },
@@ -106,7 +106,7 @@
         "#| output: true\n",
         "first(diamonds, 7)"
       ],
-      "id": "465e8db9",
+      "id": "c71dab9a",
       "execution_count": null,
       "outputs": []
     },
@@ -118,7 +118,7 @@
         "\n",
         "Following the previous post, we can easily model a generalized linear regression using `GLM` module:\n"
       ],
-      "id": "5ce5fa81"
+      "id": "16c157ad"
     },
     {
       "cell_type": "code",
@@ -128,7 +128,7 @@
         "using GLM\n",
         "lm_fit = lm(@formula(price ~ depth), diamonds)"
       ],
-      "id": "9d60ba17",
+      "id": "9a58e4e5",
       "execution_count": null,
       "outputs": []
     },
@@ -138,7 +138,7 @@
       "source": [
         "Let's do some more advanced measurement - Factor analysis:\n"
       ],
-      "id": "530f8e50"
+      "id": "0acfa6dd"
     },
     {
       "cell_type": "code",
@@ -153,7 +153,7 @@
         "# train a one-factor model\n",
         "M = fit(FactorAnalysis, Xtr; maxoutdim=1, method=:em)"
       ],
-      "id": "4f355cae",
+      "id": "7362336f",
       "execution_count": null,
       "outputs": []
     },
@@ -163,7 +163,7 @@
       "source": [
         "You can refer to this [doc](https://multivariatestatsjl.readthedocs.io/en/latest/fa.html) for more details for parameter estimation of factor analysis\n"
       ],
-      "id": "923b63e0"
+      "id": "6583a8df"
     },
     {
       "cell_type": "code",
@@ -172,7 +172,7 @@
         "#| output: true\n",
         "loadings(M)"
       ],
-      "id": "f9e6eeec",
+      "id": "d8032ef7",
       "execution_count": null,
       "outputs": []
     },
@@ -202,7 +202,7 @@
         "\n",
         "Flux is an elegant approach to machine learning. It's a 100% pure-Julia stack, and provides lightweight abstractions on top of Julia's native GPU and AD support. Flux makes the easy things easy while remaining fully hackable. See more details in [Juliahub](https://juliahub.com/ui/Packages/General/Flux).\n"
       ],
-      "id": "a0effd7f"
+      "id": "a3046de3"
     },
     {
       "cell_type": "code",
@@ -222,7 +222,7 @@
         "plot(x -> 2x-x^3, -2, 2, legend=false)\n",
         "scatter!(x -> model([x]), -2:0.1f0:2)"
       ],
-      "id": "18f15b2f",
+      "id": "f7a3b312",
       "execution_count": null,
       "outputs": []
     },
@@ -275,7 +275,7 @@
         "\n",
         "mean((out2[1,:] .> 0.5) .== truth)  # accuracy 94% so far!"
       ],
-      "id": "f2e6dff6",
+      "id": "7623f21e",
       "execution_count": null,
       "outputs": []
     },
@@ -292,7 +292,7 @@
         "\n",
         "plot(p_true, p_raw, p_done, layout=(1,3), size=(1000,330))"
       ],
-      "id": "075990ca",
+      "id": "4a67ed5b",
       "execution_count": null,
       "outputs": []
     },
@@ -307,7 +307,7 @@
         "plot!(n:n:length(losses), mean.(Iterators.partition(losses, n)),\n",
         "    label=\"epoch mean\", dpi=200)"
       ],
-      "id": "ad5306b0",
+      "id": "2b5f7de4",
       "execution_count": null,
       "outputs": []
     }

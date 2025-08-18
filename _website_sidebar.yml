@@ -43,11 +43,11 @@ website:
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture05/ESRM6990V_Lecture05.qmd
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture06/ESRM6990V_Lecture06.qmd
             - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture07/ESRM6990V_Lecture07.qmd
-            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture08/ESRM6990V_Lecture08.qmd      
-            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture09/ESRM6990V_Lecture09.qmd      
-            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture10/ESRM6990V_Lecture10.qmd      
-            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture11/ESRM6990V_Lecture11.qmd      
-            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture12/ESRM6990V_Lecture12.qmd      
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture08/ESRM6990V_Lecture08.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture09/ESRM6990V_Lecture09.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture10/ESRM6990V_Lecture10.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture11/ESRM6990V_Lecture11.qmd
+            - teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture12/ESRM6990V_Lecture12.qmd
         - section: "Exercise"
           contents:
             - file: teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture02/ESRM6990V_Exercise02.qmd
@@ -58,7 +58,7 @@ website:
     - id: id-lec64103 # https://github.com/quarto-dev/quarto-cli/discussions/8117
       style: floating
       collapse-level: 0
-      contents: 
+      contents:
         - text: <h4>ESRM64103</h4>
         - text: "◆◆◆◆◆◆◆◆◆"
         - section: "Lecture"
@@ -71,11 +71,11 @@ website:
             - teaching/2025-01-13-Experiment-Design/Lecture05/ESRM64103_Lecture05.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture06/ESRM64103_Lecture06.qmd
             - teaching/2025-01-13-Experiment-Design/Lecture07/ESRM64103_Lecture07.qmd
-            - teaching/2025-01-13-Experiment-Design/Lecture08/ESRM64103_Lecture08.qmd      
-            - teaching/2025-01-13-Experiment-Design/Lecture09/ESRM64103_Lecture09.qmd      
-            - teaching/2025-01-13-Experiment-Design/Lecture10/ESRM64103_Lecture10.qmd      
-            - teaching/2025-01-13-Experiment-Design/Lecture11/ESRM64103_Lecture11.qmd      
-            - teaching/2025-01-13-Experiment-Design/Lecture12/ESRM64103_Lecture12.qmd      
+            - teaching/2025-01-13-Experiment-Design/Lecture08/ESRM64103_Lecture08.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture09/ESRM64103_Lecture09.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture10/ESRM64103_Lecture10.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture11/ESRM64103_Lecture11.qmd
+            - teaching/2025-01-13-Experiment-Design/Lecture12/ESRM64103_Lecture12.qmd
         - section: "Exercise"
           contents:
             - file: teaching/2025-01-13-Experiment-Design/Lecture01/MakeFriendsWithR.qmd
@@ -91,25 +91,25 @@ website:
         - text: <h4>RESOURCE</h4>
         - text: "◆◆◆◆◆◆◆◆◆"
         - section: 'Useful materials'
-          contents: 
+          contents:
             - text: '2024 Research Plan'
               file: projects/Research_Plan/Timeline-Visualization.qmd
             - text: 'CSS cheatsheet'
               href: uploads/css3-cheat-sheet.pdf
             - text: 'Latex symbols'
               file: uploads/latex_symbols.pdf
-        - text: "---"    
+        - text: "---"
         - section: Latent Variable Model
-          contents: 
+          contents:
             - text: 'Power Analysis'
               file: posts/2022-04-29-power-analysis-for-sem/index.Rmd
             - text: "CFA via `lavaan`"
               file: posts/2017-11-08-sem-homework/index.Rmd
             - text: "Measurement Invariance"
               file: posts/2017-11-12-MESUREMENT-INVARIANCE/index.Rmd
-        - text: "---"    
+        - text: "---"
         - section: "Network analysis"
-          contents: 
+          contents:
             - text: "Community detection"
               file: posts/2025/2025-03-07-communities-in-psychometric-networks/index.qmd
             - text: "Reliability and reproducibility"
@@ -128,8 +128,8 @@ website:
       contents:
         - text: <h4>PREVIOUS COURSES</h4>
         - text: "◆◆◆◆◆◆◆◆◆"
-        - section: "ESRM64503: Applied MVA (Spring2024)"
-          contents: 
+        - section: "ESRM64503: Applied MVA (Fall 2025)"
+          contents:
             - text: 'Syllabus'
               file: teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus_Fall2025.qmd
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/Lecture01.qmd
@@ -145,9 +145,9 @@ website:
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture11/Lecture11.qmd
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture12/Lecture12.qmd
             - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture13/Lecture13.qmd
-        - text: "---"    
+        - text: "---"
         - section: "ESRM6553: Advanced MVA (Fall2024)"
-          contents: 
+          contents:
             - text: 'Syllabus'
               file: teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus.qmd
             - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
