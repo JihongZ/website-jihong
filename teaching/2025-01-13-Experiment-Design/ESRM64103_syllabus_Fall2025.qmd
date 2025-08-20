@@ -2,7 +2,7 @@
 title: "ESRM 64103: Experimental Design In Education"
 subtitle: "Fall 2025, Wednesday | 5:00 PM - 7:45 PM, Classroom GRAD 239, 2025/08/18 - 2025/12/12"
 author: "Jihong Zhang"
-date: "Aug 18 2025" 
+date: "Aug 18 2025"
 date-modified: "Aug 18 2025"
 categories:
   - Lecture
@@ -38,18 +38,18 @@ citation:
 
 # Course Overview
 
-Welcome to **ESRM 64103: Experimental Design in Education**. This course is designed to strengthen your ability to analyze and interpret research data using analysis-of-variance (ANOVA) techniques. Building on your foundation from ESRM 64003 (*Educational Statistics and Data Processing*), you will gain skills essential for advanced ESRM coursework.
+Welcome to **ESRM 64103: Experimental Design in Education**. This course is designed to strengthen your ability to analyze and interpret research data using analysis-of-variance (ANOVA) techniques. Building on your foundation from ESRM 64003 (*Educational Statistics and Data Processing*), you will gain skills essential for advanced ESRM coursework.Prerequisites: ESRM 64003 (*Educational Statistics and Data Processing*) or an equivalent course with a grade of C or better.
 
 ## Course Objectives
 
 By the end of this course, you will be able to:
 
-- Select appropriate statistical techniques based on research methods and questions.
-- Understand the factors that influence the statistics discussed in class.
-- Use the R language to display data and conduct statistical analyses.
-- Apply both descriptive and inferential methods to analyze empirical data.
-- Interpret, write, and discuss results in accordance with APA format.
-- Develop a conceptual understanding of each method, enabling you to apply and interpret statistical techniques appropriately and creatively.
+-   Select appropriate statistical techniques based on research methods and questions.
+-   Understand the factors that influence the statistics discussed in class.
+-   Use the R language to display data and conduct statistical analyses.
+-   Apply both descriptive and inferential methods to analyze empirical data.
+-   Interpret, write, and discuss results in accordance with APA format.
+-   Develop a conceptual understanding of each method, enabling you to apply and interpret statistical techniques appropriately and creatively.
 
 *Note: This is not a mathematics course, but a strong conceptual grasp of the methods is essential for meaningful application and interpretation.*
 
@@ -57,37 +57,29 @@ By the end of this course, you will be able to:
 
 Topics covered in this course include:
 
-- Identification of ANOVA Designs
-- Model Comparison: Two-Group Situation
-- Model Comparison: General Case of One-Way Designs
-- Tests of Comparisons
-- Multiple Comparisons
-- Brief Overview of Trend Analysis
-- Two-Way Between-Subjects Factorial Designs
-- Interactions and Simple Main Effects
-- One-Way Within-Subjects Designs: Univariate Approach
-- Two-Way Within-Subjects Designs: Univariate Approach
-- Designs with Both Between-Subjects and Within-Subjects Factors
-
-## Prerequisites
-
-- ESRM 64003 (*Educational Statistics and Data Processing*) or an equivalent course with a grade of C or better.
+-   Overview of ANOVA Designs
+-   Model Comparison: Two-Group Situation and One-Way Designs
+-   Tests of Single and Multiple Comparisons
+-   Two-Way Between-Subjects Factorial Designs
+-   Interactions and Simple Main Effects
+-   One-Way and Multiple Way Within-Subjects Designs
+-   Designs with Both Between-Subjects and Within-Subjects Factors
 
 ## Recommended Textbooks
 
-- Maxwell, S. E., Delaney, H. D., & Kelley, K. (2017). *Designing Experiments and Analyzing Data: A Model Comparison Perspective* (3rd ed.). Routledge.
-- Fox, J. (2008). *Applied Regression Analysis and Generalized Linear Models* (2nd ed.). Sage.
-- Kuhn, M., & Silge, J. (2023). *Tidy Modeling with R*. [https://www.tmwr.org/](https://www.tmwr.org/)
+-   Maxwell, S. E., Delaney, H. D., & Kelley, K. (2017). *Designing Experiments and Analyzing Data: A Model Comparison Perspective* (3rd ed.). Routledge.
+-   Fox, J. (2008). *Applied Regression Analysis and Generalized Linear Models* (2nd ed.). Sage.
+-   Kuhn, M., & Silge, J. (2023). *Tidy Modeling with R*. <https://www.tmwr.org/>
 
 ## Resources
 
-- **Course Materials:** All lecture notes, homework, and project instructions will be posted on Blackboard ([https://learn.uark.edu/webapps/login/](https://learn.uark.edu/webapps/login/)).
-- **Technology:** Please bring your own laptop to class for computer-based practice.
-- **Assignment Submission:** All assignments (except exams) must be submitted via Blackboard by the due date.
+-   **Course Materials:** All lecture notes, homework, and project instructions will be posted on Blackboard (<https://learn.uark.edu/webapps/login/>).
+-   **Technology:** Please bring your own laptop to class for computer-based practice.
+-   **Assignment Submission:** All assignments (except exams) must be submitted via Blackboard by the due date.
 
 ### Online Resource
 
-- [Blog: ANOVA in R](https://statsandr.com/blog/anova-in-r/)
+-   [Blog: ANOVA in R](https://statsandr.com/blog/anova-in-r/)
 
 ## Attendance
 
@@ -107,8 +99,8 @@ This is a graduate-level course. Students are expected to read assigned textbook
 |---------------|-----------|------------|
 | Homework      | 80        | 80%        |
 | In-Class Quiz | 20        | 20%        |
-| Bonus Points  | 10        | —          |
-| **Total**     | **110**   | **100%**   |
+| Bonus Points  | 2         | —          |
+| **Total**     | **102**   | **100%**   |
 
 : Grading Breakdown
 
@@ -120,7 +112,7 @@ The grading scale for this course is as follows:
 | 89–80                | B     |
 | 79–70                | C     |
 | 69–60                | D     |
-| < 60                 | F     |
+| \< 60                | F     |
 
 # Academic Policies
 
@@ -160,79 +152,67 @@ The university does not observe religious holidays; however Campus Council has p
 
 # Homework Portal {#sec-homeworkportal}
 
-1.  [ESRM64103: EDIC Assignment Demo](https://forms.office.com/r/v5QU6KMgXc) (2 bonus points)
-2.  [Homework 1](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAbGr9vVUQlNUUjFTQ09ISU1WODM1QzZDRlZLR0xZTS4u)
-3.  [Homework 2](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAbGr9vVUM1Q2RkxUTkQ4UEcySENMNFAxQUlMSFJIWi4u)
-4.  [Homework 3](Lecture12/ESRM64103_Homework3.qmd)
+1.  [Homework 0: Demo](https://forms.office.com/r/v5QU6KMgXc) (2 bonus points)
+2.  Homework 1
+3.  Homework 2
+4.  Homework 3
 
 Please see the online gradebook for your current grade.
-
-# Course Evaluation
-
-+------------------+-----------------------------+----------------+----------------+
-| Course Num - Sec | Course Name                 | Survey Open    | Survey Close   |
-+==================+=============================+================+================+
-| ESRM 64103 - 001 | EXPERIMENTAL DESIGN IN EDUC | Apr 22 6:00 AM | May 2 11:59 PM |
-+------------------+-----------------------------+----------------+----------------+
 
 # Schedule
 
 Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon on next Wednesday.**
 
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| Week     | Date     | Topic                                                                | HW                                                                       |
-+:=========+:=========+:=====================================================================+:=========================================================================+
-| 1        | 08/20    | [Lec1: Welcome to ESRM 64103](Lecture01/ESRM64103_Lecture01.qmd)     | [ESRM64103: EDIC Assignment Demo](https://forms.office.com/r/v5QU6KMgXc) |
-|          |          |                                                                      |                                                                          |
-|          |          | [Example01 - MakeFriendsWithR.qmd](Lecture01/MakeFriendsWithR.qmd)   |                                                                          |
-|          |          |                                                                      |                                                                          |
-|          |          | Data: [heights.csv](Lecture01/heights.csv)                           |                                                                          |
-|          |          |                                                                      |                                                                          |
-|          |          | Data: [wide.sav](Lecture01/wide.sav)                                 |                                                                          |
-|          |          |                                                                      |                                                                          |
-|          |          | [ExtraCode.R](Lecture01/ExtraCode.R)                                 |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 2        | 08/27    | Lec1: R programming                                                  | HW#1                                                                     |
-|          |          |                                                                      |                                                                          |
-|          |          |                                                                      | Due on 09/03 Noon                                                        |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 3        | 09/03    | [Lec2: Hypothesis testing](Lecture02/ESRM64103_Lecture02.qmd)        | HW#1 Answer                                                              |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 4        | 09/10    | [Lec3: One-way ANOVA](Lecture03/ESRM64103_Lecture03.qmd)             |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 5        | 09/17    | [Lec4: ANOVA Assumption Checking](Lecture04/ESRM64103_Lecture04.qmd) |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 6        | 09/24    | [Lec5: Comparison and Contrast](Lecture05/ESRM64103_Lecture05.qmd)   | HW#2                                                                     |
-|          |          |                                                                      |                                                                          |
-|          |          | Data: [week5_example.csv](Lecture05/week5_example.csv)               | Due on 10/01 Noon                                                        |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 7        | 10/01    | [Lec6: Validity](Lecture06/ESRM64103_Lecture06.qmd)                  | HW#2 Answer                                                              |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 8        | 10/08    | [Lec7: Blocking design (1)](Lecture07/ESRM64103_Lecture07.qmd)       |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 9        | 10/15    | [Lec8: Blocking design (2)](Lecture08/ESRM64103_Lecture08.qmd)       |                                                                          |
-|          |          |                                                                      |                                                                          |
-|          |          | [exp1_data.csv](Lecture08/exp1_data.csv)                             |                                                                          |
-|          |          |                                                                      |                                                                          |
-|          |          | [tip_hardness.csv](Lecture08/tip_hardness.csv)                       |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 10       | 10/22    | [Lec9: 2-Way ANOVA (1)](Lecture09/ESRM64103_Lecture09.qmd)           |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 11       | 10/29    | [Lec10: 2-Way ANOVA (2)](Lecture10/ESRM64103_Lecture10.qmd)          |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 12       | 11/05    | [Lec11: Repeated Measure ANOVA](Lecture11/ESRM64103_Lecture11.qmd)   |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 13       | 11/12    | [Lec12: ANCOVA](Lecture12/ESRM64103_Lecture12.qmd)                   |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 14       | 11/19    | [Lec13: Mixed ANOVA](Lecture13/ESRM64103_Lecture13.qmd)              |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 15       | 11/26    | **No Class: Thanksgiving Break**                                     |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 16       | 12/03    |                                                                      | HW#3                                                                     |
-|          |          |                                                                      |                                                                          |
-|          |          |                                                                      | Due on 04/28 7PM                                                         |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
-| 17       | 12/10    | Final week: Homework Q&A                                             |                                                                          |
-+----------+----------+----------------------------------------------------------------------+--------------------------------------------------------------------------+
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| Week     | Date     | Topic                                                                | HW                                                        |
++:=========+:=========+:=====================================================================+:==========================================================+
+| 1        | 08/20    | [Lec1: Introduction and Overview](Lecture01/ESRM64103_Lecture01.qmd) | [Homework 0: Demo](https://forms.office.com/r/v5QU6KMgXc) |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 2        | 08/27    | Lec1: R programming                                                  | HW#1                                                      |
+|          |          |                                                                      |                                                           |
+|          |          | [heights.csv](Lecture01/heights.csv)                                 | Due on 09/03 Noon                                         |
+|          |          |                                                                      |                                                           |
+|          |          | [wide.sav](Lecture01/wide.sav)                                       |                                                           |
+|          |          |                                                                      |                                                           |
+|          |          | [ExtraCode.R](Lecture01/ExtraCode.R)                                 |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 3        | 09/03    | [Lec2: Hypothesis testing](Lecture02/ESRM64103_Lecture02.qmd)        | HW#1 Answer                                               |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 4        | 09/10    | [Lec3: One-way ANOVA](Lecture03/ESRM64103_Lecture03.qmd)             |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 5        | 09/17    | [Lec4: ANOVA Assumption Checking](Lecture04/ESRM64103_Lecture04.qmd) |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 6        | 09/24    | [Lec5: Comparison and Contrast](Lecture05/ESRM64103_Lecture05.qmd)   | HW#2                                                      |
+|          |          |                                                                      |                                                           |
+|          |          | Data: [week5_example.csv](Lecture05/week5_example.csv)               | Due on 10/01 Noon                                         |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 7        | 10/01    | [Lec6: Validity](Lecture06/ESRM64103_Lecture06.qmd)                  | HW#2 Answer                                               |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 8        | 10/08    | [Lec7: Blocking design (1)](Lecture07/ESRM64103_Lecture07.qmd)       |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 9        | 10/15    | [Lec8: Blocking design (2)](Lecture08/ESRM64103_Lecture08.qmd)       |                                                           |
+|          |          |                                                                      |                                                           |
+|          |          | [exp1_data.csv](Lecture08/exp1_data.csv)                             |                                                           |
+|          |          |                                                                      |                                                           |
+|          |          | [tip_hardness.csv](Lecture08/tip_hardness.csv)                       |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 10       | 10/22    | [Lec9: 2-Way ANOVA (1)](Lecture09/ESRM64103_Lecture09.qmd)           |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 11       | 10/29    | [Lec10: 2-Way ANOVA (2)](Lecture10/ESRM64103_Lecture10.qmd)          |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 12       | 11/05    | [Lec11: Repeated Measure ANOVA](Lecture11/ESRM64103_Lecture11.qmd)   |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 13       | 11/12    | [Lec12: ANCOVA](Lecture12/ESRM64103_Lecture12.qmd)                   |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 14       | 11/19    | [Lec13: Mixed ANOVA](Lecture13/ESRM64103_Lecture13.qmd)              |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 15       | 11/26    | **No Class: Thanksgiving Break**                                     |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 16       | 12/03    |                                                                      | HW#3                                                      |
+|          |          |                                                                      |                                                           |
+|          |          |                                                                      | Due on 04/28 7PM                                          |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 17       | 12/10    | Final week: Homework Q&A                                             |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
 
 : Weekly Schedule {tbl-colwidths="\[10,10,45,20\]"}

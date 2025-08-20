@@ -2,12 +2,12 @@
 title: "Lecture 01: Welcome to ESRM64103"
 subtitle: "Experimental design in Education"
 author: "Jihong Zhang*, Ph.D"
-institute: | 
+institute: |
   Educational Statistics and Research Methods (ESRM) Program*
-  
+
   University of Arkansas
 date: "2025-01-13"
-format: 
+format:
   html:
     code-tools: true
     code-line-numbers: false
@@ -30,7 +30,7 @@ format:
     scrollable: true
     output-file: slides-index.html
     mermaid:
-      theme: forest  
+      theme: forest
 ---
 
 # Overview
@@ -107,16 +107,16 @@ format:
 1.  **ESRM 64003 — Educational Statistics and Data Processing**: Establish fundamental statistical skills.
 2.  **ESRM 64103 — Experimental Design**: Learn research design methodologies.
 3.  **ESRM 64203 — Multiple Regression**: Explore complex relationships between variables.
-4.  Elective: **ESRM 64503 — Applied Multivariate Statistics**: Extend analysis to multiple dependent and independent variables.
-5.  Elective: **ESRM 65203 — Structural Equation Modeling**: Develop expertise in complex model testing.
+4.  [Elective]{.underline}: **ESRM 64503 — Applied Multivariate Statistics**: Extend analysis to multiple dependent and independent variables.
+5.  [Elective]{.underline}: **ESRM 65203 — Structural Equation Modeling**: Develop expertise in complex model testing.
 
 ### Measurement Learning Path:
 
 1.  **ESRM 64003 — Educational Statistics and Data Processing**: Gain foundational knowledge in statistics.
 2.  **ESRM 64103 — Experimental Design**: Acquire skills in designing educational research.
 3.  **ESRM 64203 — Multiple Regression**: Understand the influence of multiple predictors.
-4.  Elective: **ESRM 66503 — Measurement and Evaluation**: Focus on assessment and evaluation techniques.
-5.  Elective: **ESRM 67503 — Item Response Theory**: Specialize in modern test theory applications.
+4.  [Elective]{.underline}: **ESRM 66503 — Measurement and Evaluation**: Focus on assessment and evaluation techniques.
+5.  [Elective]{.underline}: **ESRM 67503 — Item Response Theory**: Specialize in modern test theory applications.
 
 ## Class Time
 
@@ -148,22 +148,21 @@ format:
 
 -   Participants will have the opportunity to earn **up to 100 total points** in this course.
 
--   **Up to 88 points** can be earned from homework assignment **(3\~6 assignments in total)**
+-   **Up to 80 points** can be earned from homework assignment **(3\~6 assignments in total)**
 
--   **Up to 12 points** may be earned from submitting in-class quiz. In-class quiz will be delivered randomly in class. These will be graded on effort only—incorrect answers will not be penalized.
+-   **Up to 20 points** may be earned from submitting in-class quiz. In-class quiz will be delivered randomly in class. These will be graded on effort only—incorrect answers will not be penalized.
 
--   **Bonus points** (10 points)
+-   **Bonus points** (2 points)
 
     -   There may be other opportunities to earn extra credit at the instructor’s discretion.
 
 -   **Late Assignment**:
 
-    -   Assignments submitted any time after the deadline will incur a **1-point penalty**. However, extensions will be granted as needed for extenuating circumstances (e.g., conferences, comprehensive exams, family obligations) if requested at least two weeks in advance of the due date.
+    -   Assignments submitted any time after the deadline will incur a **4-point penalty**. However, extensions will be granted as needed for extenuating circumstances (e.g., conferences, comprehensive exams, family obligations) if requested at least two weeks in advance of the due date.
 
-## Homework delivery
+## Homework Delivery Format
 
-1.  [Online Microsoft form]{.underline} or [Word document via Email]{.underline}
-2.  <https://www.menti.com/alu3mgbzvd6g>
+1.  [Online Microsoft form]{.underline}
 
 ## Our Other Responsibility
 
@@ -289,13 +288,15 @@ format:
 ::::
 ::::::
 
+## RStudio User Interface
+
+![](figures/Rstudio_labelled.png){fig-align="left" width="100%"}
+
 ## More RStudio
 
 {{< video https://www.youtube.com/watch?v=FIrsOBy5k58 width="1024" height="768" >}}
 
 ------------------------------------------------------------------------
-
-![](figures/Rstudio_labelled.png){fig-align="left" width="100%"}
 
 ## Installation of R and RStudio
 
@@ -346,8 +347,17 @@ format:
     #| eval: false
     #| echo: true
     #| code-fold: false
-    require(devtools)
+    library(devtools)
     install_version("tidyverse", version = "1.3.0", repos = "http://cran.us.r-project.org")
+    ```
+
+    -   If you find some error message like:
+
+    ```{r}
+    #| error: true
+
+    # This will show the error message
+    unknown_function()
     ```
 
 ## More about R packages
@@ -438,10 +448,6 @@ format:
 +----------------------------+-------------------+-----------------------------+
 
 : {.striped}
-
-## Exercise 01: Make friends with R
-
--   Open up [Example01 - MakeFriendsWithR](MakeFriendsWithR.qmd)
 
 ## Summary
 
