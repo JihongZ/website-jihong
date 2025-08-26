@@ -116,7 +116,7 @@ identical(MyObject, MyObject2, MyObject3)
 getwd()
 dir()
 # If I tried to re-load the data, I would get an error:
-HeightsData = read.csv(file = "heights.csv", stringsAsFactors = FALSE)
+HeightsData = read.csv(file = here::here("teaching/2025-01-13-Experiment-Design/Lecture01", "heights.csv"), stringsAsFactors = FALSE)
 ```
 
 ```{r}

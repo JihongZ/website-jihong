@@ -168,7 +168,7 @@ Following materials are only allowed for previewing for students registered in E
 +:=========+:=========+:=====================================================================+:==========================================================+
 | 1        | 08/20    | [Lec1: Introduction and Overview](Lecture01/ESRM64103_Lecture01.qmd) | [Homework 0: Demo](https://forms.office.com/r/v5QU6KMgXc) |
 +----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
-| 2        | 08/27    | Lec1: R programming                                                  | HW#1                                                      |
+| 2        | 08/27    | Lec1 (Online): R programming                                         | HW#1                                                      |
 |          |          |                                                                      |                                                           |
 |          |          | [heights.csv](Lecture01/heights.csv)                                 | Due on 09/03 Noon                                         |
 |          |          |                                                                      |                                                           |
