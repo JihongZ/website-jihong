@@ -20,7 +20,7 @@ format:
 
 2.  To test one certain chunk of code, you click the "copy" icon in the upper right hand side of the chunk block (see screenshot below)
 
-    -   ![][1]
+    -   ![](figures/R-copy-paste.png)
 
     -   Try copy the following code
 
@@ -30,18 +30,18 @@ format:
         print(b)
         ```
 
-3.  To review the whole file, click `</> Code` next to the title of this paper. Find `View Source` and click the button. Then, you can paste to the newly created Quarto Document.
+3.  To review the whole file, click `</> Code` next to the title of this paper.
+    Find `View Source` and click the button.
+    Then, you can paste to the newly created Quarto Document.
 
-    ![][2]
-
-  [1]: figures/R-copy-paste.png
-  [2]: figures/code-copy-paste.png
+    ![](figures/code-copy-paste.png)
 
 # Getting Started with R
 
 ## What is R?
 
-R is a powerful programming language and environment specifically designed for statistical computing and graphics. It's free, open-source, and has a vast ecosystem of packages for data analysis, visualization, and machine learning.
+R is a powerful programming language and environment specifically designed for statistical computing and graphics.
+It's free, open-source, and has a vast ecosystem of packages for data analysis, visualization, and machine learning.
 
 ## Why R?
 
@@ -56,16 +56,13 @@ R is a powerful programming language and environment specifically designed for s
 
 -   **R**: The programming language and computing environment
 
-    ![][3]
+    ![](images/paste-3.png)
 
 -   **RStudio**: An integrated development environment (IDE) that makes R easier to use
 
-    ![][4]
+    ![](images/paste-2.png)
 
-  [3]: images/paste-3.png
-  [4]: images/paste-2.png
-
-# Suggestion in R 
+# Suggestion in R
 
 ```{r}
 #| eval: FALSE
@@ -249,7 +246,6 @@ summary(age_groups_factor)
 # They help R understand categorical variables properly
 ```
 
-
 # R Objects
 
 ```{r}
@@ -329,11 +325,14 @@ matrix1 * matrix2  # Element-wise multiplication
 
 # Importing and Exporting Data
 
--   The data frame is an R object that is a rectangular array of data. The variables in the data frame can be any class (e.g., numeric, character) and go across the columns. The observations are across the rows.
+-   The data frame is an R object that is a rectangular array of data.
+    The variables in the data frame can be any class (e.g., numeric, character) and go across the columns.
+    The observations are across the rows.
 
 -   We will start by importing data from a comma-separated values (csv) file.
 
--   We will use the read.csv() function. Here, the argument `stringsAsFactors` keeps R from creating data strings
+-   We will use the read.csv() function.
+    Here, the argument `stringsAsFactors` keeps R from creating data strings
 
 -   We will use `here::here()` function to quickly point to the target data file.
 
@@ -415,17 +414,17 @@ subset(HeightsData, Height > 170)
 HeightsData[HeightsData$Height > 170, ]
 ```
 
-## Exercise 
+## Exercise
 
-- Obtain the following information from WideData
-  - Dimensions (rows, columns)
-  - Number of rows
-  - Number of columns
-  - Column names
-  - Structure of the data frame
-  - First 6 rows
-  - Last 6 rows
-  - Summary statistics
+-   Obtain the following information from WideData
+    -   Dimensions (rows, columns)
+    -   Number of rows
+    -   Number of columns
+    -   Column names
+    -   Structure of the data frame
+    -   First 6 rows
+    -   Last 6 rows
+    -   Summary statistics
 
 # Merging R data frame objects
 
@@ -485,9 +484,9 @@ OnePerson
 
 In this exercise, practice reshaping repeated-measures data from wide to long using a dplyr pipeline (with tidyr helpers inside the pipe).
 
-1. Create the small wide data frame below.
-2. Reshape to long so that you have columns `id`, `time`, `dv`, and `age`.
-3. Compute the mean of `dv` by `time` as a quick check.
+1.  Create the small wide data frame below.
+2.  Reshape to long so that you have columns `id`, `time`, `dv`, and `age`.
+3.  Compute the mean of `dv` by `time` as a quick check.
 
 ```{r}
 # Load packages
@@ -530,6 +529,7 @@ toy_long |>
   group_by(time) |> 
   summarize(mean_dv = mean(dv, na.rm = TRUE), .groups = "drop")
 ```
+
 # Data Manipulation with dplyr
 
 ```{r}
@@ -649,6 +649,11 @@ ggplot(AllDataLong, aes(x = Age, y = DV)) +
   labs(title = "DV vs Age")
 ```
 
+```{r}
+hw0_feedback <- read.csv(here::here("teaching/2025-01-13-Experiment-Design/Lecture01", "hw0_feedback.csv"))
+table(hw0_feedback$Feedback)
+```
+
 # Control Structures
 
 ```{r}
@@ -660,6 +665,10 @@ if (x > 5) {
 } else {
   print("x is less than or equal to 5")
 }
+## Method 2
+ifelse(x > 5, 
+       print("x is greater than 5"), 
+       print("x is less than or equal to 5"))
 
 # Loops
 for (i in 1:5) {
@@ -701,6 +710,7 @@ AllDataLong$DV_imputed <- ifelse(is.na(AllDataLong$DV),
 ```
 
 # Best Practices and Tips
+
 ```{r}
 #| eval: FALSE
 # 1. Always use meaningful variable names
