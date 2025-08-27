@@ -8,22 +8,34 @@ format:
     toc_float: true
     toc_depth: 2
     toc_collapsed: true
-    number_sections: true
+    number-sections: true
+    code-tools: true
     code-fold: show
     code-summary: "Hide the code"
 ---
 
 # How to use this file
 
-1.  You can review all R code on this webpage.
+1.  This file is created using Quarto, one type of file you can review all R code on this webpage.
 
 2.  To test one certain chunk of code, you click the "copy" icon in the upper right hand side of the chunk block (see screenshot below)
 
-    -   ![](figures/R-copy-paste.png)
+    -   ![][1]
+
+    -   Try copy the following code
+
+        ```{r}
+        a = 1 + 1
+        b = a + 1
+        print(b)
+        ```
 
 3.  To review the whole file, click "\</\> Code" next to the title of this paper. Find "View Source" and click the button. Then, you can paste to the newly created Quarto Document.
 
-    ![](figures/code-copy-paste.png)
+    ![][2]
+
+  [1]: figures/R-copy-paste.png
+  [2]: figures/code-copy-paste.png
 
 # Getting Started with R
 
@@ -33,17 +45,17 @@ R is a powerful programming language and environment specifically designed for s
 
 ## Why R?
 
-- **Free and Open Source**: No licensing costs
-- **Extensive Package Ecosystem**: Over 18,000 packages available
-- **Excellent for Statistics**: Built by statisticians, for statisticians
-- **Great Visualization**: ggplot2 and other packages for beautiful graphics
-- **Reproducible Research**: R Markdown and Quarto for literate programming
-- **Active Community**: Large, helpful community of users
+-   **Free and Open Source**: No licensing costs
+-   **Extensive Package Ecosystem**: Over 18,000 packages available
+-   **Excellent for Statistics**: Built by statisticians, for statisticians
+-   **Great Visualization**: ggplot2 and other packages for beautiful graphics
+-   **Reproducible Research**: R Markdown and Quarto for literate programming
+-   **Active Community**: Large, helpful community of users
 
 ## R vs RStudio
 
-- **R**: The programming language and computing environment
-- **RStudio**: An integrated development environment (IDE) that makes R easier to use
+-   **R**: The programming language and computing environment
+-   **RStudio**: An integrated development environment (IDE) that makes R easier to use
 
 # R SYNTAX AND NAMING CONVENTIONS
 
