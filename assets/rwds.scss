@@ -113,7 +113,7 @@ $breadcrumb-border-radius:  0.30em;
 //* Enhanced sidebar styles *//
 nav#TOC.toc-active {
   font-family: "Roboto Condensed", sans-serif;
-  font-size: 1em;
+  font-size: 0.8rem;
   h2 {
     font-family: "Roboto Condensed", sans-serif;
     font-weight: 600;
@@ -150,7 +150,7 @@ div.column-container { // margin text should be left aligned
 .navbar-nav  { // active navigation tab styling
     .menu-text { // text for navigation bar and side bar
       font-family: "Roboto Condensed", sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       color: $headings-color;
     }
 }
@@ -220,7 +220,7 @@ div.card-body.post-contents {
 }
 h1.title { // title of the post
   text-align: center;
-  font-size: 2.7rem;
+  font-size: 2rem;
   line-height: 1.5;
   letter-spacing: -0.5px;
   font-weight: 600;
@@ -278,7 +278,7 @@ strong {
 
 code.sourceCode { // Source Code
   font-family: "Roboto Mono", monospace;
-  font-size: 0.875em;
+  font-size: 0.8rem;
   letter-spacing: -0.5px;
 }
 
@@ -412,14 +412,14 @@ div.cell-output {
 // Website Anchor-name
 .website-name { // 张吉鸿
   font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   letter-spacing: -2px;
   color: $gray;
 }
 
 .chinese-post {
   font-family: "FZFWZhuZiAYuanJW Bold", sans-serif;
-  font-size: 1em;
+  font-size: 1rem;
   color: $gray;
   transition: color .5s ease-in-out;
 }
@@ -455,7 +455,7 @@ div.quarto-about-trestles .about-entity .about-link{ // Buttons under the profil
 
 .sidebar-navigation .sidebar-item-text .menu-text {
   font-family: "Abel", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: $primary;
 }
 
@@ -540,7 +540,7 @@ div.quarto-about-trestles .about-entity .about-link{ // Buttons under the profil
 }
 .panel-tabset .nav-tabs .nav-link {
     font-family: "Roboto Condensed", sans-serif;
-    font-size: .8em;
+    font-size: 0.8rem;
     background: transparent;
     border-radius: 5px 5px 0 0;
     transition: all 0.3s ease;
@@ -579,12 +579,12 @@ table {
 th {
   border-bottom: 1px solid #b9c680 !important;
   background-color: #eef1e0;
-  font-size: 1em;
+  font-size: 1rem;
   padding: 0.25em;
 }
 
 td {
-  font-size: 1.1em;
+  font-size: 1.2rem;
   padding: 0.25em;
 }
 
@@ -607,7 +607,7 @@ tr:hover {
 }
 
 .bigger {
-  font-size: 1.5em;
+  font-size: 1.2rem;
   line-height: normal;
 }
 
@@ -631,7 +631,7 @@ $white-tl: #ffffff;
   }
   
   h3 {
-    font-size: 1.2em;
+    font-size: 1.2rem;
     color: $black-tl;
     position: relative;
     padding-left: 0px;
@@ -640,7 +640,7 @@ $white-tl: #ffffff;
   
   
   p {
-    font-size: .8em;
+    font-size: 0.8rem;
     line-height: 1.75em;
     border-top: 2px solid;
     border-image: linear-gradient(to right, #6636a9 0%, #9A4665 100%);
@@ -664,7 +664,7 @@ $white-tl: #ffffff;
       text-align: center;
       line-height: 1.25em;
       color: $white-tl;
-      font-size: 1em;
+      font-size: 1rem;
     }
   }
   

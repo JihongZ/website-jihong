@@ -193,11 +193,11 @@ Following materials are only allowed for previewing for students registered in E
 +-------------+-------------+-----------------------------------+--------------------+
 | 2           | 08/27       | Lec1 (Online): [R programming]    |                    |
 |             |             |                                   |                    |
-|             |             | [heights.csv]                     |                    |
+|             |             | Exercise: [R Exercise]            |                    |
 |             |             |                                   |                    |
-|             |             | [wide.sav]                        |                    |
+|             |             | Data: [heights.csv]               |                    |
 |             |             |                                   |                    |
-|             |             | [ExtraCode.R]                     |                    |
+|             |             | Data: [wide.sav]                  |                    |
 +-------------+-------------+-----------------------------------+--------------------+
 | 3           | 09/03       | [Lec2: Hypothesis testing]        | HW#1               |
 |             |             |                                   |                    |
@@ -245,9 +245,9 @@ Following materials are only allowed for previewing for students registered in E
   [Lec1: Introduction and Overview]: Lecture01/ESRM64103_Lecture01.qmd
   [Homework 0: Demo]: https://forms.office.com/r/v5QU6KMgXc
   [R programming]: Lecture01/MakeFriendsWithR.qmd
+  [R Exercise]: Lecture01/R_Exercises.qmd
   [heights.csv]: Lecture01/heights.csv
   [wide.sav]: Lecture01/wide.sav
-  [ExtraCode.R]: Lecture01/ExtraCode.R
   [Lec2: Hypothesis testing]: Lecture02/ESRM64103_Lecture02.qmd
   [Lec3: One-way ANOVA]: Lecture03/ESRM64103_Lecture03.qmd
   [Lec4: ANOVA Assumption Checking]: Lecture04/ESRM64103_Lecture04.qmd
