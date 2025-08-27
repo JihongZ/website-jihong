@@ -15,8 +15,8 @@ website:
         - section: <h4>Contents</h4>
           href: posts/2025/2025-04-03-Large-Language-Model-Psychometrics/index.qmd
           contents:
-            - posts/2025/2025-04-03-Large-Language-Model-Psychometrics/content/chatgpt.qmd
-            - posts/2025/2025-04-03-Large-Language-Model-Psychometrics/content/large_language_model.qmd
+            - posts/2025/2025-04-03-Large-Language-Model-Psychometrics/content/01_LLM_for_Psychometrics.qmd
+            - posts/2025/2025-04-03-Large-Language-Model-Psychometrics/content/02_large_language_model_conception.qmd
     - id: id-javascript-in-R
       border: true
       search: true

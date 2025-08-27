@@ -25,6 +25,27 @@ format:
 This is a **draft** document. The content is not final and may change in the future. Please check back later for updates.
 :::
 
+::: macwindow
+
+**Topic: Strategies for Enhancing and Validating AI-Generated Response Diversity in Psychological Surveys**
+
+1. Methods to Increase Response Diversity
+
+-   **Fine-tune AI models** with datasets that include diverse cultural, demographic, and psychological profiles to better reflect broad human variability.
+-   **Adjust model parameters** (e.g., increase temperature or use top-k sampling) to introduce randomness and mimic varied human response patterns.
+-   **Combine responses from multiple AI chatbots** trained on distinct datasets to capture a wider range of subgroup perspectives.
+
+2. Checking AI Response Quality
+
+-   **Analyze AI-generated responses** to ensure they do not skew toward specific groups (e.g., highly educated English speakers) by examining output distributions.
+-   **Cluster AI responses and compare to real human data** using metrics such as response variability or linguistic diversity to confirm authenticity.
+
+3. Validating Measurement Tools
+
+-   **Mix synthetic AI responses with real human responses** to create a larger dataset, then test the measurement tool’s reliability and validity across both groups.
+
+:::
+
 ```{r setup}
 #| echo: false
 library(reticulate)

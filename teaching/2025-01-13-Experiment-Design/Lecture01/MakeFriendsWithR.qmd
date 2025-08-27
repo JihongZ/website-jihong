@@ -25,6 +25,26 @@ format:
 
     ![](figures/code-copy-paste.png)
 
+# Getting Started with R
+
+## What is R?
+
+R is a powerful programming language and environment specifically designed for statistical computing and graphics. It's free, open-source, and has a vast ecosystem of packages for data analysis, visualization, and machine learning.
+
+## Why R?
+
+- **Free and Open Source**: No licensing costs
+- **Extensive Package Ecosystem**: Over 18,000 packages available
+- **Excellent for Statistics**: Built by statisticians, for statisticians
+- **Great Visualization**: ggplot2 and other packages for beautiful graphics
+- **Reproducible Research**: R Markdown and Quarto for literate programming
+- **Active Community**: Large, helpful community of users
+
+## R vs RStudio
+
+- **R**: The programming language and computing environment
+- **RStudio**: An integrated development environment (IDE) that makes R easier to use
+
 # R SYNTAX AND NAMING CONVENTIONS
 
 ```{r}
@@ -37,10 +57,50 @@ format:
 
 # RStudio helps you build syntax
 #   GREEN: Comments and character values in single or double quotes
+#   BLUE: Functions and keywords
+#   BLACK: Variable names and values
 
-# You can use the tab key to complete object names, functions, and arugments
+# You can use the tab key to complete object names, functions, and arguments
 
 # R is case sensitive. That means R and r are two different things.
+
+# Good naming conventions:
+#   - Use descriptive names: my_data instead of x
+#   - Use underscores or dots: my_data or my.data
+#   - Avoid spaces and special characters (except . and _)
+#   - Don't start with numbers: 1data is invalid, data1 is valid
+```
+
+# Basic Data Types in R
+
+```{r}
+#| eval: FALSE
+# R has several basic data types:
+
+# 1. Numeric (double) - decimal numbers
+numeric_value <- 3.14
+class(numeric_value)
+
+# 2. Integer - whole numbers
+integer_value <- 42L  # The L suffix makes it an integer
+class(integer_value)
+
+# 3. Character (string) - text
+character_value <- "Hello, R!"
+class(character_value)
+
+# 4. Logical (boolean) - TRUE/FALSE
+logical_value <- TRUE
+class(logical_value)
+
+# 5. Complex - complex numbers
+complex_value <- 3 + 4i
+class(complex_value)
+
+# Check the type of any object
+typeof(numeric_value)
+is.numeric(numeric_value)
+is.character(character_value)
 ```
 
 # R Functions
@@ -60,6 +120,49 @@ print(x = 10)
 
 # You can determine what type of object is returned by using the class function
 class(print(x = 10))
+
+# Function syntax: function_name(argument1, argument2, ...)
+# Examples of common functions:
+sqrt(16)           # Square root
+abs(-5)            # Absolute value
+round(3.14159, 2)  # Round to 2 decimal places
+length(c(1,2,3,4)) # Length of a vector
+sum(c(1,2,3,4))    # Sum of values
+mean(c(1,2,3,4))   # Mean of values
+```
+
+# Vectors - The Building Blocks
+
+```{r}
+#| eval: FALSE
+# Vectors are the most basic data structure in R
+# They can contain elements of the same type
+
+# Creating vectors
+numeric_vector <- c(1, 2, 3, 4, 5)
+character_vector <- c("apple", "banana", "cherry")
+logical_vector <- c(TRUE, FALSE, TRUE)
+
+# Using the colon operator for sequences
+sequence <- 1:10
+sequence
+
+# Using seq() function for more control
+seq(from = 1, to = 10, by = 2)
+seq(1, 10, length.out = 5)
+
+# Using rep() to repeat values
+rep(5, times = 3)
+rep(c(1, 2), times = 3)
+rep(c(1, 2), each = 3)
+
+# Vector operations
+x <- c(1, 2, 3, 4, 5)
+y <- c(10, 20, 30, 40, 50)
+
+x + y    # Element-wise addition
+x * y    # Element-wise multiplication
+x^2      # Element-wise exponentiation
 ```
 
 # R Objects
@@ -94,6 +197,49 @@ identical(MyObject, MyObject2)
 print(x = 10) -> MyObject3
 
 identical(MyObject, MyObject2, MyObject3)
+
+# Best practice: Use <- for assignment (more explicit)
+# Use = only for function arguments
+```
+
+# Working with Data Structures
+
+## Lists
+
+```{r}
+#| eval: FALSE
+# Lists can contain elements of different types
+my_list <- list(
+  name = "John",
+  age = 30,
+  scores = c(85, 90, 78),
+  passed = TRUE
+)
+
+# Accessing list elements
+my_list$name
+my_list[["age"]]
+my_list[[3]]
+
+# Lists are very flexible and useful for complex data structures
+```
+
+## Matrices
+
+```{r}
+#| eval: FALSE
+# Matrices are 2-dimensional arrays with the same data type
+my_matrix <- matrix(1:12, nrow = 3, ncol = 4)
+my_matrix
+
+# Creating matrices from vectors
+matrix(c(1,2,3,4,5,6), nrow = 2, ncol = 3)
+
+# Matrix operations
+matrix1 <- matrix(1:4, nrow = 2)
+matrix2 <- matrix(5:8, nrow = 2)
+matrix1 + matrix2
+matrix1 * matrix2  # Element-wise multiplication
 ```
 
 # Importing and Exporting Data
@@ -156,6 +302,34 @@ WideData = read.spss(file = "teaching/2025-01-13-Experiment-Design/Lecture01/wid
 WideData
 ```
 
+# Working with Data Frames
+
+```{r}
+#| eval: FALSE
+# Data frames are the most common data structure for statistical analysis
+# They are like spreadsheets with rows (observations) and columns (variables)
+
+# Basic data frame operations
+dim(HeightsData)        # Dimensions (rows, columns)
+nrow(HeightsData)       # Number of rows
+ncol(HeightsData)       # Number of columns
+names(HeightsData)      # Column names
+str(HeightsData)        # Structure of the data frame
+head(HeightsData)       # First 6 rows
+tail(HeightsData)       # Last 6 rows
+summary(HeightsData)    # Summary statistics
+
+# Accessing data frame elements
+HeightsData[1, 2]       # Row 1, Column 2
+HeightsData[1:5, ]      # Rows 1-5, all columns
+HeightsData[, "ID"]     # All rows, column named "ID"
+HeightsData$ID          # Same as above (preferred method)
+
+# Subsetting data frames
+subset(HeightsData, Height > 170)
+HeightsData[HeightsData$Height > 170, ]
+```
+
 # Merging R data frame objects
 
 ```{r}
@@ -167,6 +341,12 @@ AllData
 library(dplyr)
 WideData |> 
   left_join(HeightsData, by = "ID")
+
+# Different types of joins:
+# left_join(): Keep all rows from left table
+# right_join(): Keep all rows from right table  
+# inner_join(): Keep only rows that appear in both tables
+# full_join(): Keep all rows from both tables
 ```
 
 # Transforming Wide to Long
@@ -187,6 +367,45 @@ AllData |>
   tidyr::pivot_longer(c(starts_with("DVTime"), starts_with("AgeTime"))) |> 
   tidyr::separate(name, into = c("Variable", "Time"), sep = "Time") |> 
   tidyr::pivot_wider(names_from = "Variable", values_from = "value") -> AllDataLong
+
+# Understanding data reshaping:
+# Wide format: Each time point has its own column
+# Long format: Time points are in rows, with a time variable
+```
+
+# Data Manipulation with dplyr
+
+```{r}
+#| eval: FALSE
+# dplyr provides a grammar for data manipulation
+
+# Select columns
+AllData |> 
+  select(ID, starts_with("DV"))
+
+# Filter rows
+AllData |> 
+  filter(ID < 5)
+
+# Arrange rows
+AllData |> 
+  arrange(ID)
+
+# Create new variables
+AllData |> 
+  mutate(
+    DV_avg = (DVTime1 + DVTime2 + DVTime3) / 3,
+    DV_range = DVTime3 - DVTime1
+  )
+
+# Group and summarize
+AllDataLong |> 
+  group_by(Time) |> 
+  summarize(
+    mean_DV = mean(DV, na.rm = TRUE),
+    sd_DV = sd(DV, na.rm = TRUE),
+    n = n()
+  )
 ```
 
 # Gathering Descriptive Statistics
@@ -206,6 +425,15 @@ DescriptivesLong
 # We can use describeBy() to get descriptive statistics by groups:
 DescriptivesLongID = describeBy(AllDataLong, group = AllDataLong$ID)
 DescriptivesLongID
+
+# Basic descriptive statistics without packages:
+mean(AllDataLong$DV, na.rm = TRUE)
+median(AllDataLong$DV, na.rm = TRUE)
+sd(AllDataLong$DV, na.rm = TRUE)
+var(AllDataLong$DV, na.rm = TRUE)
+min(AllDataLong$DV, na.rm = TRUE)
+max(AllDataLong$DV, na.rm = TRUE)
+quantile(AllDataLong$DV, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
 ```
 
 # Transforming Data
@@ -219,4 +447,142 @@ AllDataLong$AgeC = AllDataLong$Age - mean(AllDataLong$Age)
 AllDataLong$AgeYear = signif(x = AllDataLong$Age, digits = 2)
 AllDataLong$AgeDecade = signif(x = AllDataLong$Age, digits = 1)
 head(AllDataLong)
+
+# Common data transformations:
+# Centering: subtract mean
+# Standardizing: (x - mean) / sd
+# Log transformation: log(x)
+# Square root: sqrt(x)
+# Recoding: ifelse(condition, value_if_true, value_if_false)
+
+# Example: Create standardized variables
+AllDataLong$DV_z <- scale(AllDataLong$DV)
+AllDataLong$Age_z <- scale(AllDataLong$Age)
+```
+
+# Basic Plotting
+
+```{r}
+#| eval: FALSE
+# R has excellent plotting capabilities
+
+# Base R plotting
+hist(AllDataLong$DV, main = "Distribution of DV", xlab = "DV Values")
+boxplot(DV ~ Time, data = AllDataLong, main = "DV by Time")
+plot(AllDataLong$Age, AllDataLong$DV, main = "DV vs Age")
+
+# Using ggplot2 (more modern and flexible)
+library(ggplot2)
+
+# Histogram
+ggplot(AllDataLong, aes(x = DV)) +
+  geom_histogram(bins = 30) +
+  labs(title = "Distribution of DV", x = "DV Values", y = "Count")
+
+# Boxplot
+ggplot(AllDataLong, aes(x = Time, y = DV)) +
+  geom_boxplot() +
+  labs(title = "DV by Time")
+
+# Scatter plot
+ggplot(AllDataLong, aes(x = Age, y = DV)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "DV vs Age")
+```
+
+# Control Structures
+
+```{r}
+#| eval: FALSE
+# Conditional statements
+x <- 10
+if (x > 5) {
+  print("x is greater than 5")
+} else {
+  print("x is less than or equal to 5")
+}
+
+# Loops
+for (i in 1:5) {
+  print(paste("Iteration", i))
+}
+
+# While loop
+i <- 1
+while (i <= 5) {
+  print(paste("While iteration", i))
+  i <- i + 1
+}
+
+# Apply functions (more R-like than loops)
+numbers <- 1:10
+sapply(numbers, function(x) x^2)
+lapply(numbers, function(x) x^2)
+```
+
+# Working with Missing Data
+
+```{r}
+#| eval: FALSE
+# R uses NA to represent missing data
+# Check for missing values
+is.na(AllDataLong$DV)
+sum(is.na(AllDataLong$DV))
+complete.cases(AllDataLong)
+
+# Remove rows with missing data
+AllDataLong_complete <- na.omit(AllDataLong)
+# or
+AllDataLong_complete <- AllDataLong[complete.cases(AllDataLong), ]
+
+# Replace missing values
+AllDataLong$DV_imputed <- ifelse(is.na(AllDataLong$DV), 
+                                 mean(AllDataLong$DV, na.rm = TRUE), 
+                                 AllDataLong$DV)
+```
+
+# Best Practices and Tips
+
+```{r}
+#| eval: FALSE
+# 1. Always use meaningful variable names
+# 2. Comment your code
+# 3. Use consistent formatting
+# 4. Check your data after importing
+# 5. Save your work regularly
+# 6. Use version control (Git)
+# 7. Write reproducible code
+# 8. Use packages for common tasks
+# 9. Learn to use help documentation
+# 10. Practice regularly!
+
+# Useful keyboard shortcuts in RStudio:
+# Ctrl+Enter (Cmd+Enter on Mac): Run current line/selection
+# Ctrl+Shift+Enter: Run entire script
+# Ctrl+Shift+M: Insert pipe operator |>
+# Ctrl+Shift+C: Comment/uncomment lines
+# Ctrl+Shift+R: Insert code section
+```
+
+# Getting Help
+
+```{r}
+#| eval: FALSE
+# R has excellent help documentation
+?mean                    # Help for a function
+??"regression"          # Search for functions containing "regression"
+help(mean)              # Same as ?mean
+example(mean)           # Run examples for a function
+
+# Online resources:
+# - R Documentation: https://www.rdocumentation.org/
+# - Stack Overflow: https://stackoverflow.com/questions/tagged/r
+# - R-bloggers: https://www.r-bloggers.com/
+# - RStudio Community: https://community.rstudio.com/
+
+# Installing and loading packages
+install.packages("package_name")  # Install once
+library(package_name)             # Load each session
+require(package_name)             # Alternative to library()
 ```

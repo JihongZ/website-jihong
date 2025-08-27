@@ -20,6 +20,8 @@ format:
     code-summary: "Click this to see code"
 ---
 
+
+
 # Model architecture
 
 ## Transformer
