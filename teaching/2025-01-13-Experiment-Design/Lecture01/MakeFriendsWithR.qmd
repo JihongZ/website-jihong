@@ -30,7 +30,7 @@ format:
         print(b)
         ```
 
-3.  To review the whole file, click "\</\> Code" next to the title of this paper. Find "View Source" and click the button. Then, you can paste to the newly created Quarto Document.
+3.  To review the whole file, click `</> Code` next to the title of this paper. Find `View Source` and click the button. Then, you can paste to the newly created Quarto Document.
 
     ![][2]
 
@@ -55,16 +55,20 @@ R is a powerful programming language and environment specifically designed for s
 ## R vs RStudio
 
 -   **R**: The programming language and computing environment
+
+    ![][3]
+
 -   **RStudio**: An integrated development environment (IDE) that makes R easier to use
 
-# R SYNTAX AND NAMING CONVENTIONS
+    ![][4]
+
+  [3]: images/paste-3.png
+  [4]: images/paste-2.png
+
+# Comments in R 
 
 ```{r}
 #| eval: FALSE
-# MAKE FRIENDS WITH R
-# BASED ON MAKE FRIENDS WITH R BY JONATHAN TEMPLIN
-# CREATED BY JIHONG ZHANG
-
 # R comments begin with a # -- there are no multiline comments
 
 # RStudio helps you build syntax
@@ -342,6 +346,18 @@ subset(HeightsData, Height > 170)
 HeightsData[HeightsData$Height > 170, ]
 ```
 
+## Exercise 
+
+- Obtain the information from WideData
+  - Dimensions (rows, columns)
+  - Number of rows
+  - Number of columns
+  - Column names
+  - Structure of the data frame
+  - First 6 rows
+  - Last 6 rows
+  - Summary statistics
+
 # Merging R data frame objects
 
 ```{r}
@@ -370,21 +386,81 @@ WideData |>
 library(dplyr) # contains variable selection 
 
 ## Wrong Way
-AllData |> 
+AllDataLong <- AllData |> 
   tidyr::pivot_longer(starts_with("DVTime"), names_to = "DV", values_to = "DV_Value") |> 
   tidyr::pivot_longer(starts_with("AgeTime"), names_to = "Age", values_to = "Age_Value") 
 
+OnePerson <- AllDataLong  |> 
+  filter(ID == "1")
+
+OnePerson
+
 ## Correct Way
-AllData |> 
+AllDataLong <- AllData |> 
   tidyr::pivot_longer(c(starts_with("DVTime"), starts_with("AgeTime"))) |> 
   tidyr::separate(name, into = c("Variable", "Time"), sep = "Time") |> 
   tidyr::pivot_wider(names_from = "Variable", values_from = "value") -> AllDataLong
+
+OnePerson <- AllDataLong |> 
+  filter(ID == "1")
+OnePerson
 
 # Understanding data reshaping:
 # Wide format: Each time point has its own column
 # Long format: Time points are in rows, with a time variable
 ```
 
+## Exercise
+
+### Practice: Wide to Long with dplyr
+
+In this exercise, practice reshaping repeated-measures data from wide to long using a dplyr pipeline (with tidyr helpers inside the pipe).
+
+1. Create the small wide data frame below.
+2. Reshape to long so that you have columns `id`, `time`, `dv`, and `age`.
+3. Compute the mean of `dv` by `time` as a quick check.
+
+```{r}
+# Load packages
+library(dplyr)
+library(tidyr)
+
+# 1) Start from a small wide toy data set
+toy_wide <- tibble::tribble(
+  ~id, ~dv_time1, ~dv_time2, ~dv_time3, ~age_time1, ~age_time2, ~age_time3,
+   1,        10,        12,        15,         20,         21,         22,
+   2,         8,        11,        11,         19,         20,         21,
+   3,        14,        13,        16,         21,         22,         23
+)
+
+# 2) YOUR TURN: Convert to long using a single dplyr pipeline
+#    Goal columns: id, time (1/2/3), dv, age
+#    Hints:
+#      - Use pivot_longer() on both dv_ and age_ columns together
+#      - Separate the column name into variable (dv/age) and time (1/2/3)
+#      - Use pivot_wider() to spread variable back into dv and age columns
+```
+
+#### Optional solution
+
+```{r}
+#| code-fold: true
+toy_long <- toy_wide |> 
+  pivot_longer(
+    cols = c(starts_with("dv_"), starts_with("age_")),
+    names_to = "name",
+    values_to = "value"
+  ) |> 
+  separate(name, into = c("variable", "time"), sep = "_time") |> 
+  pivot_wider(names_from = variable, values_from = value) |> 
+  mutate(time = as.integer(time))
+
+toy_long
+
+toy_long |> 
+  group_by(time) |> 
+  summarize(mean_dv = mean(dv, na.rm = TRUE), .groups = "drop")
+```
 # Data Manipulation with dplyr
 
 ```{r}
@@ -484,6 +560,7 @@ boxplot(DV ~ Time, data = AllDataLong, main = "DV by Time")
 plot(AllDataLong$Age, AllDataLong$DV, main = "DV vs Age")
 
 # Using ggplot2 (more modern and flexible)
+# If you have not install the package yet, type in install.packages("ggplot2")
 library(ggplot2)
 
 # Histogram
@@ -555,7 +632,6 @@ AllDataLong$DV_imputed <- ifelse(is.na(AllDataLong$DV),
 ```
 
 # Best Practices and Tips
-
 ```{r}
 #| eval: FALSE
 # 1. Always use meaningful variable names
