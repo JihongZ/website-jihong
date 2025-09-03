@@ -15,7 +15,7 @@ format:
     code-summary: 'Code'
     code-fold: false
     code-line-numbers: false
-jupyter: julia-1.10
+# jupyter: julia-1.10
 ---
 
 ## Previous posts

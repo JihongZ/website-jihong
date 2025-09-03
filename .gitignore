@@ -10,3 +10,5 @@
 /notes_files/
 /posts_files/
 /site_libs/
+
+**/*.quarto_ipynb

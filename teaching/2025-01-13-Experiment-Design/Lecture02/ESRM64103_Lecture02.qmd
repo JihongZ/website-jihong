@@ -58,6 +58,15 @@ format:
 
 ## Types of Statistics
 
+We can classify the statistics regarding its purposes:
+
+1. Descriptive Statistics
+2. Inferential Statistics
+3. Predictive Statistics
+
+------------------------------------------------------------------------
+
+
 ### 1. Descriptive Statistics
 
 -   **Definition**: Describes and summarizes the collected data using numbers/values
@@ -75,6 +84,31 @@ moments::skewness(rnorm(100, 0, 1))
 -   **Examples** of skewness with two graphs:
 
 ![](images/clipboard-2603774303.png)
+
+------------------------------------------------------------------------
+
+```{r}
+set.seed(1234)
+# Simulate a skewed normal distribution using beta distribution
+neg_skewed_data <- rbeta(10000,5,2)
+hist(neg_skewed_data, main = "Negative Skewed Distribution")
+pos_skewed_data <- rbeta(10000,2,5)
+hist(pos_skewed_data, main = "Positive Skewed Distribution")
+```
+
+------------------------------------------------------------------------
+
+```{r}
+library(ggplot2)
+library(tidyr)
+data.frame(
+  neg = neg_skewed_data,
+  pos = pos_skewed_data
+  ) |>
+  pivot_longer(c(neg, pos), names_to = "Type") |> 
+  ggplot(aes(y = value)) +
+  geom_boxplot(aes(fill = Type))
+```
 
 ------------------------------------------------------------------------
 
