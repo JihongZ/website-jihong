@@ -75,6 +75,7 @@ We can classify the statistics regarding its purposes:
     -   Shape of distribution: skewness, kurtosis
 
 ```{r}
+# install.packages("moments")
 moments::skewness(c(1:10, 100))
 moments::skewness(rnorm(100, 0, 1))
 ```
@@ -106,8 +107,9 @@ data.frame(
   pos = pos_skewed_data
   ) |>
   pivot_longer(c(neg, pos), names_to = "Type") |> 
-  ggplot(aes(y = value)) +
-  geom_boxplot(aes(fill = Type))
+  ggplot(aes(y = value, fill = Type)) +
+  geom_boxplot() +
+  scale_fill_discrete(labels = c("Negative Skewed", "Positive Skewed"), name = "")
 ```
 
 ------------------------------------------------------------------------
@@ -217,7 +219,7 @@ data.frame(
 
 ## Background
 
--   A political scientist is interested in politicians’ attitudes toward tax reform and conducts a survey of Republicans, Independents, and Democrats.
+-   [A political scientist is interested in politicians’ attitudes toward tax reform and conducts a survey of Republicans, Independents, and Democrats.]{.underline}
 -   Political scientist study on tax reform attitudes:
     -   Groups: Democrats, Republicans, Independents
     -   Data shows attitude scores (higher score = greater concern for tax reform)
@@ -227,10 +229,13 @@ data.frame(
         -   `scores`: attitudes scores for the survey respondents
             -   [The higher the score, the greater the concern for tax reform]{.underline}
 
+------------------------------------------------------------------------
+
 ```{r}
 #| eval: false
+
+## Install the package ESRM64103 from GitHub
 remotes::install_github("JihongZ/ESRM64103")
-library(ESRM64103)
 ```
 
 ```{r}
@@ -269,7 +274,7 @@ ggplot(data = mean_byGroup) +
   theme(text = element_text(size = 15))
 ```
 
-## Analysis Steps
+## Steps of ANOVA
 
 1.  State the null hypothesis and alternative hypothesis:
 
@@ -320,18 +325,18 @@ Results show rejection of H₀ (F_obs \> F_critical)
 
 1.  Formulate the null hypothesis (𝐻₀) and the alternative hypothesis (𝐻ₐ)
     -   Prior to any statistical tests, start with a working hypothesis based on an initial guess about the phenomenon.
-    -   Example: Investigating whether diet groups affect weight loss.
-        -   Research question: "Is there a variance in weight loss among different diet groups?"
-        -   Hypothesis: "[**Different diet groups will show varying weight loss.**]{.underline}"
+    -   Example: Investigating whether political groups affect their attitudes.
+        -   Research question: "Is there a variance in attitude score among different groups?"
+        -   Hypothesis: "[**Different political groups will show varied attitudes.**]{.underline}"
     -   Operational Definitions:
         -   Null hypothesis (𝐻₀): No observed difference or effect ("[Something is something]{.underline}").
             -   Group A's mean - Group B's mean = 0
         -   Alternative hypothesis (𝐻ₐ): Noticeable difference or effect, contrary to 𝐻₀. ("[Something is not something]{.underline}")
     -   The adequacy of the data will dictate if 𝐻₀ can be confidently rejected.
 
-## Step 2: Rejection region
+## Step 2: Rejection region (alpha)
 
-F-statistic has two degree of freedoms. This is the density distribution of F-statistics for degree of freedoms as 2 and 13.
+F-statistic has two degree of freedoms (df = 2). This is the density distribution of F-statistics for degree of freedoms as 2 and 13.
 
 ```{r}
 #| code-fold: true
@@ -375,12 +380,12 @@ ggplot(data_to_plot) +
 
     -   Large sample size needs lower alpha level : .01/.001 (more restrict rejection rate)
 
-2.  When we conduct a hypothesis testing, these four cases might be occured
+2.  When we conduct a hypothesis testing, these four cases might be occurred
 
 +----------------------+-------------------------+--------------------------+
 |                      | **Reality**             |                          |
 +----------------------+-------------------------+--------------------------+
-| **Decision**         | True $H_0$              | False $H_0$              |
+| **Decision**         | $H_0$ is true           | $H_0$ is false           |
 +----------------------+-------------------------+--------------------------+
 | Fail to reject $H_0$ | Correct Decision        | Error made.              |
 |                      |                         |                          |
