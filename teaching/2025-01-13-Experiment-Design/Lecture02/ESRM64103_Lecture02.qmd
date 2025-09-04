@@ -159,7 +159,7 @@ data.frame(
 
 ## Statistical Hypothesis Testing Steps
 
-**To perform inference statistics, we need to go through following steps:**
+**To perform inferential statistics, we need to go through following steps:**
 
 1.  State null hypothesis (H₀) and alternative hypothesis ($H_A$)
     -   Null hypothesis must be some statement that is **statistically testable**.
@@ -172,7 +172,7 @@ data.frame(
 
 ## ANOVA Introduction
 
--   ANOVA is one of the most frequently used statistical tool for inference statistics in experimental design.
+-   ANOVA is one of the most frequently used statistical tool for inferential statistics in experimental design.
 -   Settings for Analysis of Variance (ANOVA):
     -   One dependent variable (DV), "Outcome"
     -   One independent variable (IV) with multiple levels, "Group"
@@ -454,7 +454,7 @@ A one-way ANOVA was conducted to compare the level of concern for tax reform amo
 
 1.  p-values: the probability of observing data as extreme as, or more extreme than, the data observed [under the assumption that the null hypothesis is true]{.underline}.
     -   Lower the p-values are, we are less likely to see the observed data given the null hypothesis is true
-    -   Question: Given that we already have the observed data, does **lower p-values means the null hypothesis is unlikely to be true**, which is our goal for inference statistics?
+    -   Question: Given that we already have the observed data, does **lower p-values means the null hypothesis is unlikely to be true**, which is our goal for inferential statistics?
     -   Answer: [p(observed data exists \| H0 = true) is not equal to p(H0 = true \| observed data exists), P-values are often misconstrued as the probability that the null hypothesis is true given the observed data. However, this interpretation is incorrect.]{.heimu}
 2.  Type I error, also known as a "false positive," occurs when the null hypothesis is incorrectly rejected when it is, in fact, true.
 3.  The alpha level set before conducting a test (commonly α = 0.05) essentially defines the cut-off point for the p-value below which the null hypothesis will be rejected.
