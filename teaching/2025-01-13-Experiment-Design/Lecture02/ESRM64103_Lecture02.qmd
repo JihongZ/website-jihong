@@ -135,7 +135,7 @@ data.frame(
 
 ![](images/clipboard-3105485841.png)
 
-## Which type statistics to use
+## Which type of statistics to use
 
 1.  How many houses burned in California wildfire in the first week?
 
