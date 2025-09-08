@@ -542,8 +542,13 @@ $$
     S_{Y_1, Y_2} = r_{Y_1, Y_2} \times S_{Y_1} \times S_{Y_2}
     $$
 
+------------------------------------------------------------------------
+
 ```{r}
-CorToCov <- function(r, s1, s2){
+#| output-location: default
+
+# Create a function to convert Correlation into Covariance
+CorToCov <- function(r, s1, s2){ 
   return(r * s1 * s2)
 }
 
@@ -551,8 +556,37 @@ r <- cor(dataSexHeightWeight$heightIN, dataSexHeightWeight$weightLB)
 CorToCov(r = r, s1 = sd(dataSexHeightWeight$heightIN), s2 = sd(dataSexHeightWeight$weightLB))
 cov(dataSexHeightWeight$heightIN, dataSexHeightWeight$weightLB) 
 ```
+
 :::{.rmdwarning}
 **Exercise**: Write a function to convert the covarance into the correlation.
+
+```{r}
+#| eval: false
+#| output-location: default
+
+CovToCor <- function(cov, s1, s2){
+  r = ADD_YOUR_ANSWER_HERE
+  return(r)
+}
+
+Cov <- cov(dataSexHeightWeight$heightIN, dataSexHeightWeight$weightLB)
+CovToCor(cov = Cov, s1 = sd(dataSexHeightWeight$heightIN), s2 = sd(dataSexHeightWeight$weightLB))
+```
+
+```{r}
+#| eval: false
+#| output-location: default
+#| code-fold: true
+#| code-summary: "Answer"
+
+CovToCor <- function(cov, s1, s2){
+  r = cov / (s1 * s2)
+  return(r)
+}
+
+Cov <- cov(dataSexHeightWeight$heightIN, dataSexHeightWeight$weightLB)
+CovToCor(cov = Cov, s1 = sd(dataSexHeightWeight$heightIN), s2 = sd(dataSexHeightWeight$weightLB))
+```
 :::
 
 ## Summary of Unit 1
@@ -690,8 +724,11 @@ $$
     -   $e_p$: **Residual error** - how each one's observes deviate from $\beta_0$
 
     -   $\sigma^2_e$: **Residual variance** - variability of residual error across all people
+    
+------------------------------------------------------------------------
 
 ```{r}
+#| output-location: default
 plot(x = dataSexHeightWeight$heightIN, 
      y = dataSexHeightWeight$weightLB, 
      xlab = "Height (inches)", 
