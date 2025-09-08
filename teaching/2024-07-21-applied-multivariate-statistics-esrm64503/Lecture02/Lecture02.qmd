@@ -142,9 +142,10 @@ dataSexHeightWeight # You should find data named "dataSexHeightWeight" already l
 
 -   All models we learnt today will follow this framework.
 
-## Recoding Variables
+## Recode Variables
 
 ```{r}
+#| results: hide
 library(ESRM64503) # INSTALL: pak::pak("JihongZ/ESRM64504")
 library(kableExtra) # INSTALL: pak::pak("JihongZ/ESRM64504")
 
@@ -153,10 +154,16 @@ library(kableExtra) # INSTALL: pak::pak("JihongZ/ESRM64504")
 
 ## Recode Sex as Female
 dataSexHeightWeight$female = dataSexHeightWeight$sex == "F"
+dataSexHeightWeight
+```
+
+```{r}
+#| echo: false
 kable(dataSexHeightWeight,
       caption = 'toy data set') |> 
   kable_styling(font_size = 30)
 ```
+
 
 ## Descriptive Statistics
 
@@ -231,20 +238,37 @@ hist(dataSexHeightWeight$heightIN, main = 'Height', xlab = 'Inches')
 ## Descriptive Statistics for Toy Data: Marginal
 
 ```{r}
+#| results: hide
 library(dplyr)
 ## wide-format marginal description
 wide_marginal_desp <- dataSexHeightWeight |> 
   summarise(across(c(heightIN, weightLB, female), list(mean = mean, sd = sd, var = var)))
+wide_marginal_desp
 ```
 
 ```{r}
+#| echo: false
+wide_marginal_desp |> kable(digits = 3)
+```
+
+
+```{r}
+#| results: hide
 library(tidyr)
-wide_marginal_desp |> 
+long_marginal_desp <- wide_marginal_desp |> 
   pivot_longer(everything(), names_to = "Variable", values_to = "Value") |> 
   separate(Variable, sep = "_", into = c("Variable", "Stats")) |> 
-  pivot_wider(names_from = Stats, values_from = Value) |> 
-  kable(digits = 3)
+  pivot_wider(names_from = Stats, values_from = Value) 
+
+long_marginal_desp
 ```
+
+```{r}
+#| echo: false
+
+long_marginal_desp |> kable(digits = 3)
+```
+
 
 ## Descriptive Statistics for Toy Data: Joint
 
@@ -256,17 +280,23 @@ wide_marginal_desp |>
 
     -   Below Diagonal (lower triangle): Correlation
 
--   **Question:** What we can tell regarding the relationships among three variables?
+-   **Question:** What conclusions we can draw regarding the relationships among three variables?
 
 ```{r}
+#| results: hide
 cor_cov_mat <- matrix(nrow = 3, ncol = 3)
 colnames(cor_cov_mat) <- rownames(cor_cov_mat) <- c("heightIN", "weightLB", "female")
 cov_mat <- cov(dataSexHeightWeight[, c("heightIN", "weightLB", "female")])
 cor_mat <- cor(dataSexHeightWeight[, c("heightIN", "weightLB", "female")])
 ## Assign values
-cor_cov_mat[lower.tri(cor_cov_mat)] <- cor_mat[lower.tri(cor_mat)]
-cor_cov_mat[upper.tri(cor_cov_mat)] <- cov_mat[upper.tri(cov_mat)]
+cor_cov_mat[lower.tri(cor_cov_mat)] <- cor_mat[lower.tri(cor_mat)] # Lower triangle is the pairwise correlation
+cor_cov_mat[upper.tri(cor_cov_mat)] <- cov_mat[upper.tri(cov_mat)] # Upper triangle is the covariances
 diag(cor_cov_mat) <- diag(cov_mat)
+cor_cov_mat
+```
+
+```{r}
+#| echo: false
 kable(cor_cov_mat, digits = 3)
 ```
 
@@ -503,14 +533,27 @@ $$
 -   If you have the covariance matrix (variances and covariances):
 
     $$
-    r_{Y_1,Y_2}=\frac{S_{Y_1,Y_2}}{S_{Y_1}S_{Y_2}}
+    r_{Y_1,Y_2}=\frac{S_{Y_1,Y_2}}{S_{Y_1}\times S_{Y_2}}
     $$
 
 -   If you have the correlation matrix and the standard deviations:
 
     $$
-    S_{Y_1, Y_2} = r_{Y_1, Y_2} S_{Y_1} S_{Y_2}
+    S_{Y_1, Y_2} = r_{Y_1, Y_2} \times S_{Y_1} \times S_{Y_2}
     $$
+
+```{r}
+CorToCov <- function(r, s1, s2){
+  return(r * s1 * s2)
+}
+
+r <- cor(dataSexHeightWeight$heightIN, dataSexHeightWeight$weightLB)
+CorToCov(r = r, s1 = sd(dataSexHeightWeight$heightIN), s2 = sd(dataSexHeightWeight$weightLB))
+cov(dataSexHeightWeight$heightIN, dataSexHeightWeight$weightLB) 
+```
+:::{.rmdwarning}
+**Exercise**: Write a function to convert the covarance into the correlation.
+:::
 
 ## Summary of Unit 1
 
