@@ -66,7 +66,7 @@ format:
 
 ## Why Use ANOVA Instead of Multiple t-tests?
 
-1.  Computational complexity increases with the number of groups.
+1.  Computational complexity increases as the number of groups increases.
 2.  Multiple t-tests inflate the Type I error rate.
 3.  ANOVA provides an omnibus test to detect any significant difference.
 4.  Example demonstrating inflated Type I error with multiple t-tests.
