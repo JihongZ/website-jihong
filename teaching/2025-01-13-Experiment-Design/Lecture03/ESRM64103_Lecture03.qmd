@@ -208,6 +208,22 @@ res
 -   **Visual Inspection**: Boxplots can help assess variance equality.
 -   Graph: Example of equal and unequal variance in boxplots.
 
+## When Homogeneity of Variance Is Violated
+
+1. **Welch's ANOVA** (Welch's F-test)
+   - Specifically designed for unequal variances
+   - Adjusts degrees of freedom to account for heteroscedasticity
+   - Generally preferred first option when HoV is violated
+
+2. **Brown-Forsythe Test**
+   - Another robust alternative to traditional ANOVA
+   - Less affected by unequal variances than standard F-test
+
+3. **Non-parametric Alternatives**
+   - Kruskal-Wallis test (non-parametric equivalent to one-way ANOVA)
+   - Does not assume equal variances or normality
+   - Tests for differences in distributions rather than means
+
 # Example: One-way ANOVA in R
 
 ## Example Scenario
@@ -232,6 +248,7 @@ library(car) # used for leveneTest; install.packages("car")
 ### Generate Sample Data
 
 ```{r}
+set.seed(1234)
 rnorm(10, 20, 10) # generate 10 data points from a normal distribution of mean as 20 and SD as 10
 ```
 
@@ -264,7 +281,7 @@ anova_result2 <- aov(score ~ group, data = data_unequal)
 summary(anova_result2)
 ```
 
-## Checking Homogeneity of Variance
+## Checking Homogeneity of Variance (HoV)
 
 ### Method 1: Visual Inspection of Variance Equality
 
@@ -275,7 +292,7 @@ summary(anova_result2)
 ggplot(data, aes(x = group, y = score)) +
   geom_boxplot() +
   theme_minimal() +
-  labs(title = "Boxplot of Scores by Group", x = "Group", y = "Score")
+  labs(title = "Equal Variance: Boxplot of Scores by Group", x = "Group", y = "Score")
 ```
 
 ------------------------------------------------------------------------
@@ -287,7 +304,7 @@ ggplot(data, aes(x = group, y = score)) +
 ggplot(data_unequal, aes(x = group, y = score)) +
   geom_boxplot() +
   theme_minimal() +
-  labs(title = "Boxplot of Scores by Group", x = "Group", y = "Score")
+  labs(title = "Unequal Variances: Boxplot of Scores by Group", x = "Group", y = "Score")
 ```
 
 ------------------------------------------------------------------------
@@ -296,9 +313,14 @@ ggplot(data_unequal, aes(x = group, y = score)) +
 
 ```{r}
 #| eval: true
+
+cat("Equal group:\n")
 bartlett.test(score ~ group, data = data)
+cat("Unequal group:\n" )
 bartlett.test(score ~ group, data = data_unequal)
 ```
+
+Bartlett test of HoV for equal-group sample is non-significant, suggesting we have no evidence against the null hypothesis and should consider groups are homogeneous.
 
 ------------------------------------------------------------------------
 
@@ -309,6 +331,25 @@ bartlett.test(score ~ group, data = data_unequal)
 leveneTest(score ~ group, data = data)
 leveneTest(score ~ group, data = data_unequal)
 ```
+
+### When to use each test
+
+
+- Use Levene's Test (more frequently used) when:
+
+  - Data may not be normally distributed
+  - Dealing with outliers in the dataset
+  - Working with small sample sizes
+  - Conducting preliminary tests for ANOVA with non-normal data
+  - General robustness is prioritized over power
+  
+- Use Bartlett's Test when:
+
+  - Data is confirmed to be normally distributed
+  - No significant outliers are present
+  - Larger sample sizes are available
+  - Maximum statistical power is desired (under normality)
+  - Preliminary testing for parametric procedures with normal data
 
 ## Post-hoc Analysis
 
@@ -412,28 +453,4 @@ summary(anova_weighted)
 -   Review results and discuss findings.
 -   Key takeaways from the analysis.
 
-## Bonus: AI + Statistics
 
-```{r}
-#| eval: true
-#| echo: true
-
-library(ellmer)
-chat <- chat_ollama(model = "llama3.2", seed = 1234)
-
-prompt <- paste0("Perform ANOVA analysis using R code given the generated data sets by R and then interpret the results",
-'
-set.seed(1234)
-data <- data.frame(
-  group = rep(c("G1", "G2", "G3", "Control"), each = 10),
-  score = c(rnorm(10, 20, 5), rnorm(10, 25, 5), rnorm(10, 30, 5), rnorm(10, 22, 5))
-)
-')
-chat$chat(prompt)
-```
-
-```{r}
-library(ellmer)
-chat <- chat_ollama(model = "llama3.2", seed = 1234)
-chat$chat("What is the null hypothesis for Bartlett's test?")
-```
