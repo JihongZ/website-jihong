@@ -186,15 +186,14 @@ res
 
 ## Assumptions of ANOVA
 
--   Independence of observations.
--   Normality of residuals.
--   Homogeneity of variance (homoscedasticity).
--   Consequences of violating these assumptions.
+1.   Homogeneity of variance (homoscedasticity).
+2.   Independence of observations.
+3.   Normality of residuals.
 
 ## Homogeneity of Variance
 
--   ANOVA assumes that variance across groups is equal.
--   Unequal variances can lead to incorrect conclusions.
+-   ANOVA assumes that variances are equal across groups.
+-   Unequal variances can lead to incorrect conclusions (biased results).
 -   Example illustrating different variance conditions.
 
 ::: callout-note
@@ -413,6 +412,24 @@ data |>
 -   In some cases, observations may have different levels of reliability or importance.
 -   Weighted ANOVA allows us to account for these differences by assigning weights.
 -   Example: A study where some groups have higher variance and should contribute less to the analysis.
+
+## Correct Approach to Sampling Weights
+
+### Basic Principle
+- **Inverse weighting**: Weight = 1 / (Selection probability)
+- Clusters with larger samples have higher selection probabilities
+- Therefore, they receive smaller weights
+
+### Example
+- If Cluster A has 1000 people and you sampled 100, selection probability = 100/1000 = 0.1
+- If Cluster B has 100 people and you sampled 50, selection probability = 50/100 = 0.5
+- Weight for Cluster A = 1/0.1 = 10
+- Weight for Cluster B = 1/0.5 = 2
+
+### Why This Works
+- Oversampled groups (higher sampling fraction) get downweighted
+- Undersampled groups (lower sampling fraction) get upweighted
+- This corrects the disproportionate representation in your sample
 
 ## Example: Applying Weights in `aov()`
 
