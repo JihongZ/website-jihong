@@ -16,7 +16,9 @@ citation:
   issued: 2025-08-14
 ---
 
-![](Images/UA_Logo.png){fig-align="center" width="21%"}
+![][1]
+
+  [1]: Images/UA_Logo.png {fig-align="center" width="21%"}
 
 # General Information
 
@@ -44,7 +46,10 @@ The course has two main objectives:
 1.  **Modern multivariate analysis using observed variables**
 2.  **Building a foundation in terminology, concepts, and software to enable participants to learn more advanced analyses in the future**
 
-This course provides an exploration of multivariate statistics within the context of education and psychology. Class time will be devoted primarily to lectures and examples. Lecture materials in .html format will be available for download and viewing at the website above the day prior to class, or paper copies will be provided in class. Audio/video recordings of the class lectures in .mp4 format will also be posted online upon request, but are not intended to take the place of class attendance. Selected book chapters and journal articles will be assigned for each specific topic as needed. The initial list of readings is provided below but will likely be updated throughout the semester. Updates to the reading list will be posted in the online syllabus and announced in class and via email. The [R](https://www.r-project.org/) language will be the primary statistical tool used throughout the course, with [RStudio](https://posit.co/download/rstudio-desktop/) as the user interface.
+This course provides an exploration of multivariate statistics within the context of education and psychology. Class time will be devoted primarily to lectures and examples. Lecture materials in .html format will be available for download and viewing at the website above the day prior to class, or paper copies will be provided in class. Audio/video recordings of the class lectures in .mp4 format will also be posted online upon request, but are not intended to take the place of class attendance. Selected book chapters and journal articles will be assigned for each specific topic as needed. The initial list of readings is provided below but will likely be updated throughout the semester. Updates to the reading list will be posted in the online syllabus and announced in class and via email. The [R] language will be the primary statistical tool used throughout the course, with [RStudio] as the user interface.
+
+  [R]: https://www.r-project.org/
+  [RStudio]: https://posit.co/download/rstudio-desktop/
 
 ## Prerequisite
 
@@ -68,9 +73,11 @@ Also, it is assumed that students have has solid statistical training up to and 
 
 ## Homework Assignments
 
--   **Posting & Submission:** Homework (HW) assignments will be posted on the **online homework portal** on this page and [Blackboard](https://learn.uark.edu) every Monday morning.
+-   **Posting & Submission:** Homework (HW) assignments will be posted on the **online homework portal** on this page and [Blackboard] every Monday morning.
 -   **Homework Format**: Takehome assignment. Answering questions on Microsoft Forms. May include multiple-choice questions or open questions. May take you around half hour to finish.
 -   **Due Date:** Assignments are due by the end of work hours on the following Monday.
+
+  [Blackboard]: https://learn.uark.edu
 
 ## In-Class Quizzes
 
@@ -91,11 +98,13 @@ After everyone finishes, we will review the quiz together as a class.
 ## Online Homework Portal
 
 1.  Homework 0 (HW0)
-2.  Homework 1 (HW1)
+2.  [Homework 1] (HW1)
 3.  Homework 2 (HW2)
 4.  Homework 3 (HW3)
 5.  Final Homework (HW4: Report of data analysis using your own data)
 6.  Grading Online Checking
+
+  [Homework 1]: https://forms.gle/AHiem6JNPc4vgasG7
 
 ## Grading
 
@@ -105,11 +114,15 @@ Your final grade in this class will be based on a combination of homework assign
 
 -   **Total Possible Points:** 100
 
-| Component | Number | Points Each | Total Points | Notes |
-|----|----|----|----|----|
-| Homework Assignments | 4 | \~20 | 80 | Assignments are posted weekly; see schedule for due dates. |
-| In-Class Quizzes | Matches number of in-person classes | Varies | 20 | Must be present in class to earn quiz points. |
-| Extra Credit (HW0) | 1 | 2 | 2 | Optional; see online course website for details. |
++----------------------+-------------------------------------+-------------+--------------+------------------------------------------------------------+
+| Component            | Number                              | Points Each | Total Points | Notes                                                      |
++======================+=====================================+=============+==============+============================================================+
+| Homework Assignments | 4                                   | \~20        | 80           | Assignments are posted weekly; see schedule for due dates. |
++----------------------+-------------------------------------+-------------+--------------+------------------------------------------------------------+
+| In-Class Quizzes     | Matches number of in-person classes | Varies      | 20           | Must be present in class to earn quiz points.              |
++----------------------+-------------------------------------+-------------+--------------+------------------------------------------------------------+
+| Extra Credit (HW0)   | 1                                   | 2           | 2            | Optional; see online course website for details.           |
++----------------------+-------------------------------------+-------------+--------------+------------------------------------------------------------+
 
 -   **All homework and answers must be your own work.** Copying or paraphrasing from others is not allowed.
 
@@ -145,25 +158,38 @@ Specific permissions will be provided to students regarding the use of generativ
 
 As a core part of its mission, the University of Arkansas provides students with the opportunity to further their educational goals through programs of study and research in an environment that promotes freedom of inquiry and academic responsibility. Accomplishing this mission is only possible when intellectual honesty and individual integrity prevail.
 
-Each University of Arkansas student is required to be familiar with and abide by the University's **Academic Integrity Policy** at [honesty.uark.edu/policy](https://honesty.uark.edu/policy). Students with questions about how these policies apply to a particular course or assignment should immediately contact their instructor.
+Each University of Arkansas student is required to be familiar with and abide by the University's **Academic Integrity Policy** at [honesty.uark.edu/policy]. Students with questions about how these policies apply to a particular course or assignment should immediately contact their instructor.
+
+  [honesty.uark.edu/policy]: https://honesty.uark.edu/policy
 
 ## Emergency Preparedness
 
-The University of Arkansas is committed to providing a safe and healthy environment for study and work. To that end, the university has developed a campus safety plan and an emergency preparedness plan to respond to a variety of emergency situations. The emergency preparedness plan can be found at [emergency.uark.edu](https://emergency.uark.edu). Additionally, the university uses a campus-wide emergency notification system, UARKAlert, to communicate important emergency information via email and text messaging. To learn more and to sign up, visit: <http://safety.uark.edu/emergency-preparedness/emergency-notification-system/>
+The University of Arkansas is committed to providing a safe and healthy environment for study and work. To that end, the university has developed a campus safety plan and an emergency preparedness plan to respond to a variety of emergency situations. The emergency preparedness plan can be found at [emergency.uark.edu]. Additionally, the university uses a campus-wide emergency notification system, UARKAlert, to communicate important emergency information via email and text messaging. To learn more and to sign up, visit: <http://safety.uark.edu/emergency-preparedness/emergency-notification-system/>
+
+  [emergency.uark.edu]: https://emergency.uark.edu
 
 ## Inclement Weather
 
-If you have any questions about whether class will be canceled due to inclement weather, please contact me. If I cancel class, I will notify you via email and/or Blackboard. In general, students need to know how and when they will be notified in the event that class is canceled for weather-related reasons. Please see [here](http://safety.uark.edu/inclement-weather/) for more information.
+If you have any questions about whether class will be canceled due to inclement weather, please contact me. If I cancel class, I will notify you via email and/or Blackboard. In general, students need to know how and when they will be notified in the event that class is canceled for weather-related reasons. Please see [here] for more information.
+
+  [here]: http://safety.uark.edu/inclement-weather/
 
 ## Access and Accommodations
 
-Your experience in this class is important to me. University of Arkansas [Academic Policy Series 1520.10](https://provost.uark.edu/policies/152010.php) requires that students with disabilities be provided reasonable accommodations to ensure their equal access to course content. If you have already established accommodations with the Center for Educational Access (CEA), please request your accommodations letter early in the semester and contact me privately so that we have adequate time to arrange your approved academic accommodations.
+Your experience in this class is important to me. University of Arkansas [Academic Policy Series 1520.10] requires that students with disabilities be provided reasonable accommodations to ensure their equal access to course content. If you have already established accommodations with the Center for Educational Access (CEA), please request your accommodations letter early in the semester and contact me privately so that we have adequate time to arrange your approved academic accommodations.
 
-If you have **not** yet established services through CEA, but have a documented disability and require accommodations *(conditions include but are not limited to: mental health, attention-related, learning, vision, hearing, physical, health, or temporary impacts)*, contact CEA directly to set up an Access Plan. CEA facilitates the interactive process that establishes reasonable accommodations. For more information on CEA registration procedures, contact 479–575–3104, [ada\@uark.edu](mailto:ada@uark.edu), or visit [cea.uark.edu](https://cea.uark.edu/).
+  [Academic Policy Series 1520.10]: https://provost.uark.edu/policies/152010.php
+
+If you have **not** yet established services through CEA, but have a documented disability and require accommodations *(conditions include but are not limited to: mental health, attention-related, learning, vision, hearing, physical, health, or temporary impacts)*, contact CEA directly to set up an Access Plan. CEA facilitates the interactive process that establishes reasonable accommodations. For more information on CEA registration procedures, contact 479–575–3104, [ada\@uark.edu], or visit [cea.uark.edu].
+
+  [ada\@uark.edu]: mailto:ada@uark.edu
+  [cea.uark.edu]: https://cea.uark.edu/
 
 ## Academic Support
 
-A complete list and brief description of academic support programs can be found on the University's Academic Support site, along with links to the specific services, hours, and locations. Faculty are encouraged to be familiar with these programs and to assist students with finding and using the support services that will help them be successful. Please see [here](http://www.uark.edu/academics/academic-support.php) for more information.
+A complete list and brief description of academic support programs can be found on the University's Academic Support site, along with links to the specific services, hours, and locations. Faculty are encouraged to be familiar with these programs and to assist students with finding and using the support services that will help them be successful. Please see [here][2] for more information.
+
+  [2]: http://www.uark.edu/academics/academic-support.php
 
 ## Religious Holidays
 
@@ -175,72 +201,116 @@ The university does not observe religious holidays; however, Campus Council has 
 
 Following materials are only allowed for previewing for students registered in ESRM 64503. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended.
 
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| Week | Date  | Topic                                                                         | Reading                                                                                                                                   | Homework                                                       |
-+:=====+:======+:==============================================================================+:==========================================================================================================================================+:===============================================================+
-| 1    | 08/18 | [Introduction and Overview](Lecture01/Lecture01.qmd)                          | [*dplyr*](https://dplyr.tidyverse.org/) get started                                                                                       | -   [HW0](HWs/HW_demo.qmd)                                     |
-|      |       |                                                                               |                                                                                                                                           | -   [MakeFriendsWithR.qmd](Lecture01/MakeFriendsWithR.qmd)     |
-|      |       |                                                                               | [R for Data Science Ch.3: Data trasformation](https://r4ds.hadley.nz/data-transform)                                                      | -   [heights.csv](Lecture01/data/heights.csv)                  |
-|      |       |                                                                               |                                                                                                                                           | -   [wide.sav](Lecture01/data/wide.sav)                        |
-|      |       |                                                                               | [(Optional) R manual Ch.2 & 3](https://cran.r-project.org/doc/manuals/R-intro.pdf)                                                        |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 2    | 08/25 | Cancelled                                                                     |                                                                                                                                           |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 3    | 09/01 | **No Class: Labor Day Holiday**                                               |                                                                                                                                           |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 4    | 09/08 | [Descriptive Stats. and General Linear Model](Lecture02/Lecture02.qmd)        | Maxwell & Delaney (2004):                                                                                                                 | -   HW0 (Due)                                                  |
-|      |       |                                                                               |                                                                                                                                           |                                                                |
-|      |       |                                                                               | 1.  [Tutorial 3](Materials/Maxwell%20&%20Delaney%20(2004)%20Tutorial%203.pdf)                                                             |                                                                |
-|      |       |                                                                               | 2.  [Tutorial 4](Materials/Maxwell%20&%20Delaney%20(2004)%20Tutorial%204.pdf)                                                             |                                                                |
-|      |       |                                                                               |                                                                                                                                           |                                                                |
-|      |       |                                                                               | [(Optional) R manual Ch.11: Statistical models in R](https://cran.r-project.org/doc/manuals/R-intro.pdf)                                  |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 5    | 09/15 | [Simple, Marginal, and Interaction Effects](Lecture03/Lecture03.qmd)          | [Hoffman (2014) Ch. 2](Materials/Hoffman%20(2015)%20Chapter%202.pdf)                                                                      | -   HW1                                                        |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 6    | 09/22 | [Distributions and Estimation](Lecture04/Lecture04.qmd)                       | [Kutner et al. (2005), Ch.1](Materials/Kutner%20et%20al.%20(2005)%20Chapter%201.pdf) and Appendix A                                       | -   HW1(Due)                                                   |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 7    | 09/29 | [Maximum Likelihood Estimation (MLE)](Lecture05/Lecture05.qmd)                | [Enders (2010) Ch.3: An Intro. to MLE](Materials/Enders%20(2010)%20Ch.3.pdf)                                                              | -   HW2                                                        |
-|      |       |                                                                               |                                                                                                                                           |                                                                |
-|      |       |                                                                               | [(Optional) Buse (1982)](Materials/Buse%20(1982).pdf)                                                                                     |                                                                |
-|      |       |                                                                               |                                                                                                                                           |                                                                |
-|      |       |                                                                               | [(Optional) Enders (2022) Ch.2: MLE](Materials/Enders%20(2022)%20Ch.2.pdf)                                                                |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 8    | 10/06 | [Generalized Linear Models and Matrix Algebra](Lecture06/Lecture06.qmd)       | Johnson & Wichern (2002) 6th ed.:                                                                                                         | -   HW2 (Due)                                                  |
-|      |       |                                                                               |                                                                                                                                           |                                                                |
-|      |       |                                                                               | 1.  [Ch.2.Matrix Algebra And Random Vectors](Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.2.pdf)                              |                                                                |
-|      |       |                                                                               | 2.  [Ch.3.Sample Geometry And Random Sampling](Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.3.pdf)                            |                                                                |
-|      |       |                                                                               | 3.  [Ch.4.The Multivariate Normal Distribution](Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.4.pdf)                           |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 9    | 10/13 | **No Class: Fall Break**                                                      |                                                                                                                                           |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 10   | 10/20 | [Matrix Algebra (Cont.)](Lecture07/Lecture07.qmd)                             | [PennState STAT 415 Sec.1.2](https://online.stat.psu.edu/stat415/lesson/1/1.2)                                                            |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 11   | 10/27 | [Path Analysis: Introduction](Lecture08/Lecture08.qmd)                        | Kline (2010, 3th Ed.):                                                                                                                    | -   HW3                                                        |
-|      |       |                                                                               |                                                                                                                                           |                                                                |
-|      |       |                                                                               | 1.  [Ch.5: Specification](Materials/Kline%20(2005)%20Ch.5.pdf)                                                                            |                                                                |
-|      |       |                                                                               | 2.  [Ch.6: Identification](Materials/Kline%20(2005)%20Ch.6.pdf)                                                                           |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 12   | 11/03 | [Path Analysis: Model Interpretation](Lecture09/Lecture09.qmd)                | [Wright (1998)](https://support.sas.com/resources/papers/proceedings/proceedings/sugi23/Stats/p229.pdf)                                   | -   HW3 (Answer)                                               |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 13   | 11/10 | [Repeated Measures ANOVA](Lecture10/Lecture10.qmd)                            | None                                                                                                                                      |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 14   | 11/17 | [Bayesian Analysis and MCMC](Lecture11/Lecture11.qmd)                         | [Enders (2010) Ch.6.An Introduction to Bayesian Analysis](Materials/Enders%20(2010)%20Ch.6.pdf)                                           |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 15   | 11/24 | [Principal Component Analysis and Exploratory FA](Lecture12/Lecture12.qmd)    | Johnson & Wichern (2002):                                                                                                                 | -   Final Homework                                             |
-|      |       |                                                                               |                                                                                                                                           | -   [gambling_lecture12.csv](Lecture12/gambling_lecture12.csv) |
-|      |       | [Confirmatory FA and Psychological Network Analysis](Lecture13/Lecture13.qmd) | 1.  [Ch.8.Principal Components](Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.8.pdf)                                           |                                                                |
-|      |       |                                                                               | 2.  [Ch.9.Factor Analysis and Inference for Structural Covariance Matrix](Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.9.pdf) |                                                                |
-|      |       |                                                                               | 3.  [Vermunt & Magidson (2002)](Materials/Vermunt%20&%20Magidson%20(2002).pdf)                                                            |                                                                |
-|      |       |                                                                               | 4.  [McCutcheon (2002)](Materials/McCutcheon%20(2002).pdf)                                                                                |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 16   | 12/01 | Q & A                                                                         |                                                                                                                                           |                                                                |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
-| 17   | 12/08 | Final Week                                                                    |                                                                                                                                           | -   Final Homework (Due)                                       |
-+------+-------+-------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------+
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| Week    | Date    | Topic                                                | Reading                                                                            | Homework                     |
++:========+:========+:=====================================================+:===================================================================================+:=============================+
+| 1       | 08/18   | [Introduction and Overview]                          | [*dplyr*] get started                                                              | -   [HW0]                    |
+|         |         |                                                      |                                                                                    | -   [MakeFriendsWithR.qmd]   |
+|         |         |                                                      | [R for Data Science Ch.3: Data trasformation]                                      | -   [heights.csv]            |
+|         |         |                                                      |                                                                                    | -   [wide.sav]               |
+|         |         |                                                      | [(Optional) R manual Ch.2 & 3]                                                     |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 2       | 08/25   | Cancelled                                            |                                                                                    |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 3       | 09/01   | **No Class: Labor Day Holiday**                      |                                                                                    |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 4       | 09/08   | [Descriptive Stats. and General Linear Model]        | Maxwell & Delaney (2004):                                                          | -   HW0 (Due)                |
+|         |         |                                                      |                                                                                    |                              |
+|         |         |                                                      | 1.  [Tutorial 3]                                                                   |                              |
+|         |         |                                                      | 2.  [Tutorial 4]                                                                   |                              |
+|         |         |                                                      |                                                                                    |                              |
+|         |         |                                                      | [(Optional) R manual Ch.11: Statistical models in R][(Optional) R manual Ch.2 & 3] |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 5       | 09/15   | [Simple, Marginal, and Interaction Effects]          | [Hoffman (2014) Ch. 2]                                                             | -   [HW1]                    |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 6       | 09/22   | [Distributions and Estimation]                       | [Kutner et al. (2005), Ch.1] and Appendix A                                        | -   HW1(Due)                 |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 7       | 09/29   | [Maximum Likelihood Estimation (MLE)]                | [Enders (2010) Ch.3: An Intro. to MLE]                                             | -   HW2                      |
+|         |         |                                                      |                                                                                    |                              |
+|         |         |                                                      | [(Optional) Buse (1982)]                                                           |                              |
+|         |         |                                                      |                                                                                    |                              |
+|         |         |                                                      | [(Optional) Enders (2022) Ch.2: MLE]                                               |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 8       | 10/06   | [Generalized Linear Models and Matrix Algebra]       | Johnson & Wichern (2002) 6th ed.:                                                  | -   HW2 (Due)                |
+|         |         |                                                      |                                                                                    |                              |
+|         |         |                                                      | 1.  [Ch.2.Matrix Algebra And Random Vectors]                                       |                              |
+|         |         |                                                      | 2.  [Ch.3.Sample Geometry And Random Sampling]                                     |                              |
+|         |         |                                                      | 3.  [Ch.4.The Multivariate Normal Distribution]                                    |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 9       | 10/13   | **No Class: Fall Break**                             |                                                                                    |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 10      | 10/20   | [Matrix Algebra (Cont.)]                             | [PennState STAT 415 Sec.1.2]                                                       |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 11      | 10/27   | [Path Analysis: Introduction]                        | Kline (2010, 3th Ed.):                                                             | -   HW3                      |
+|         |         |                                                      |                                                                                    |                              |
+|         |         |                                                      | 1.  [Ch.5: Specification]                                                          |                              |
+|         |         |                                                      | 2.  [Ch.6: Identification]                                                         |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 12      | 11/03   | [Path Analysis: Model Interpretation]                | [Wright (1998)]                                                                    | -   HW3 (Answer)             |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 13      | 11/10   | [Repeated Measures ANOVA]                            | None                                                                               |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 14      | 11/17   | [Bayesian Analysis and MCMC]                         | [Enders (2010) Ch.6.An Introduction to Bayesian Analysis]                          |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 15      | 11/24   | [Principal Component Analysis and Exploratory FA]    | Johnson & Wichern (2002):                                                          | -   Final Homework           |
+|         |         |                                                      |                                                                                    | -   [gambling_lecture12.csv] |
+|         |         | [Confirmatory FA and Psychological Network Analysis] | 1.  [Ch.8.Principal Components]                                                    |                              |
+|         |         |                                                      | 2.  [Ch.9.Factor Analysis and Inference for Structural Covariance Matrix]          |                              |
+|         |         |                                                      | 3.  [Vermunt & Magidson (2002)]                                                    |                              |
+|         |         |                                                      | 4.  [McCutcheon (2002)]                                                            |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 16      | 12/01   | Q & A                                                |                                                                                    |                              |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
+| 17      | 12/08   | Final Week                                           |                                                                                    | -   Final Homework (Due)     |
++---------+---------+------------------------------------------------------+------------------------------------------------------------------------------------+------------------------------+
 
 : Weekly breakdown of topics and readings {.striped .hover .responsive-xl tbl-colwidths="\[1,3,45,70,40\]"}
 
-Academic calendar for Fall 2024: [Here](https://registrar.uark.edu/academic-dates/3-year-academic-calendar/2024-2025-five-year-academic-calendar.php)
+  [Introduction and Overview]: Lecture01/Lecture01.qmd
+  [*dplyr*]: https://dplyr.tidyverse.org/
+  [R for Data Science Ch.3: Data trasformation]: https://r4ds.hadley.nz/data-transform
+  [(Optional) R manual Ch.2 & 3]: https://cran.r-project.org/doc/manuals/R-intro.pdf
+  [HW0]: HWs/HW_demo.qmd
+  [MakeFriendsWithR.qmd]: Lecture01/MakeFriendsWithR.qmd
+  [heights.csv]: Lecture01/data/heights.csv
+  [wide.sav]: Lecture01/data/wide.sav
+  [Descriptive Stats. and General Linear Model]: Lecture02/Lecture02.qmd
+  [Tutorial 3]: Materials/Maxwell%20&%20Delaney%20(2004)%20Tutorial%203.pdf
+  [Tutorial 4]: Materials/Maxwell%20&%20Delaney%20(2004)%20Tutorial%204.pdf
+  [Simple, Marginal, and Interaction Effects]: Lecture03/Lecture03.qmd
+  [Hoffman (2014) Ch. 2]: Materials/Hoffman%20(2015)%20Chapter%202.pdf
+  [HW1]: https://forms.gle/AHiem6JNPc4vgasG7
+  [Distributions and Estimation]: Lecture04/Lecture04.qmd
+  [Kutner et al. (2005), Ch.1]: Materials/Kutner%20et%20al.%20(2005)%20Chapter%201.pdf
+  [Maximum Likelihood Estimation (MLE)]: Lecture05/Lecture05.qmd
+  [Enders (2010) Ch.3: An Intro. to MLE]: Materials/Enders%20(2010)%20Ch.3.pdf
+  [(Optional) Buse (1982)]: Materials/Buse%20(1982).pdf
+  [(Optional) Enders (2022) Ch.2: MLE]: Materials/Enders%20(2022)%20Ch.2.pdf
+  [Generalized Linear Models and Matrix Algebra]: Lecture06/Lecture06.qmd
+  [Ch.2.Matrix Algebra And Random Vectors]: Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.2.pdf
+  [Ch.3.Sample Geometry And Random Sampling]: Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.3.pdf
+  [Ch.4.The Multivariate Normal Distribution]: Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.4.pdf
+  [Matrix Algebra (Cont.)]: Lecture07/Lecture07.qmd
+  [PennState STAT 415 Sec.1.2]: https://online.stat.psu.edu/stat415/lesson/1/1.2
+  [Path Analysis: Introduction]: Lecture08/Lecture08.qmd
+  [Ch.5: Specification]: Materials/Kline%20(2005)%20Ch.5.pdf
+  [Ch.6: Identification]: Materials/Kline%20(2005)%20Ch.6.pdf
+  [Path Analysis: Model Interpretation]: Lecture09/Lecture09.qmd
+  [Wright (1998)]: https://support.sas.com/resources/papers/proceedings/proceedings/sugi23/Stats/p229.pdf
+  [Repeated Measures ANOVA]: Lecture10/Lecture10.qmd
+  [Bayesian Analysis and MCMC]: Lecture11/Lecture11.qmd
+  [Enders (2010) Ch.6.An Introduction to Bayesian Analysis]: Materials/Enders%20(2010)%20Ch.6.pdf
+  [Principal Component Analysis and Exploratory FA]: Lecture12/Lecture12.qmd
+  [Confirmatory FA and Psychological Network Analysis]: Lecture13/Lecture13.qmd
+  [Ch.8.Principal Components]: Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.8.pdf
+  [Ch.9.Factor Analysis and Inference for Structural Covariance Matrix]: Materials/Johnson%20&%20Wichern%20(2002)%206h%20ed.%20Ch.9.pdf
+  [Vermunt & Magidson (2002)]: Materials/Vermunt%20&%20Magidson%20(2002).pdf
+  [McCutcheon (2002)]: Materials/McCutcheon%20(2002).pdf
+  [gambling_lecture12.csv]: Lecture12/gambling_lecture12.csv
+
+Academic calendar for Fall 2024: [Here][3]
+
+  [3]: https://registrar.uark.edu/academic-dates/3-year-academic-calendar/2024-2025-five-year-academic-calendar.php
 
 # Course Materials
 
@@ -267,7 +337,11 @@ Academic calendar for Fall 2024: [Here](https://registrar.uark.edu/academic-date
 
 ## Website
 
-1.  [muticomp package vignettes](https://cran.r-project.org/web/packages/multcomp/vignettes/multcomp-examples.pdf)
-2.  Prof. Lesa Hoffman's course: [PSQF 6243 - Intermediate Statistical Methods](https://www.lesahoffman.com/PSQF6243/index.html)
-3.  Prof. Jonathan Templin's course: [EPSY 905 - Fundamentals of Multivariate Modeling](https://jonathantemplin.com/fundamentals-multivariate-modeling-spring-2018-epsy-905/)
+1.  [muticomp package vignettes]
+2.  Prof. Lesa Hoffman's course: [PSQF 6243 - Intermediate Statistical Methods]
+3.  Prof. Jonathan Templin's course: [EPSY 905 - Fundamentals of Multivariate Modeling]
 :::
+
+  [muticomp package vignettes]: https://cran.r-project.org/web/packages/multcomp/vignettes/multcomp-examples.pdf
+  [PSQF 6243 - Intermediate Statistical Methods]: https://www.lesahoffman.com/PSQF6243/index.html
+  [EPSY 905 - Fundamentals of Multivariate Modeling]: https://jonathantemplin.com/fundamentals-multivariate-modeling-spring-2018-epsy-905/

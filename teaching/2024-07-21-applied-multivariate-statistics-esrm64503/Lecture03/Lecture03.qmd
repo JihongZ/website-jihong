@@ -541,7 +541,7 @@ anova(model1)
 These ANOVA table is displaying **marginal tests** (F-test) for the main effects. Marginal tests are for the main effect only and are not conditional on any interacting variables.
 :::
 
-## Getting Group Means as a Contrast
+## Getting estimates and standard errors of group means
 
 We can get group means of test scores with Senior/Freshman by New/Old combination
 
@@ -639,6 +639,7 @@ We can use `glht()` to automatically calculate conditional main effects and thei
 
 ### Method 1: glht method
 
+Using `glht` function to simultaneous testing for group means
 ```{r}
 #| output-location: default
 effect_model1_matrix = matrix(c(
@@ -647,10 +648,10 @@ effect_model1_matrix = matrix(c(
   0, 0, 1, 0,  # New vs. Old | Freshmen
   0, 0, 1, 1   # New vs. Old | Senior
 ), nrow = 4, byrow = T)
-rownames(effect_model1_matrix) <- c( "beta_Senior_New0", # Conditional Main Effect of Senior given New = 0
-                                     "beta_Senior_New1", # Conditional Main Effect of Senior given New = 1
-                                     "beta_New_Senior0", # Conditional Main Effect of New given Senior = 0
-                                     "beta_New_Senior1") # Conditional Main Effect of New given Senior = 1
+rownames(effect_model1_matrix) <- c( "beta_Senior_New0", # Conditional Main Effect of Senior given old instruction (New = 0)
+                                     "beta_Senior_New1", # Conditional Main Effect of Senior given new instruction (New = 1)
+                                     "beta_New_Senior0", # Conditional Main Effect of New Instruction given Senior = 0
+                                     "beta_New_Senior1") # Conditional Main Effect of New Instruction given Senior = 1
 effect_model1 <- glht(model1, linfct = effect_model1_matrix)
 summary(effect_model1)
 ```
@@ -689,25 +690,5 @@ Var_beta_1_new <- Var_beta_1 + Var_beta_3 * 1 + 2 * Cov_beta_1_3 * 1
 (SE_beta_1_new <- sqrt(Var_beta_1_new))
 ```
 
-::: callout-caution
-## Your Homework 1 - Question 2
-
-Copy and paste your R syntax and output that calculates **the standard error of conditional main effect** of *New* (New vs. Old) when *Senior* = 1. For example, standard error of conditional main effect of *Senior* when *New* = 1 is like:
-
-> \# R syntax
->
-> library(ESRM64503)\
-> library(tidyverse)\
-> model1 \<- lm(Test \~ Senior + New + Senior \* New, data = dataTestExperiment)\
-> data("dataTestExperiment")\
-> Var_beta_1 = vcov(model1)\[2,2\]\
-> Var_beta_3 = vcov(model1)\[4,4\]\
-> Cov_beta_1_3 = vcov(model1)\[4,2\]\
-> Var_beta_1_new \<- Var_beta_1 + Var_beta_3 \* 1 + 2 \* Cov_beta_1_3 \* 1\
-> (SE_beta_1_new \<- sqrt(Var_beta_1_new)) \
-> \
-> \# R output\
-> \[1\] 0.7585952
-:::
 
 # Unit 3: R practice and Q&A
