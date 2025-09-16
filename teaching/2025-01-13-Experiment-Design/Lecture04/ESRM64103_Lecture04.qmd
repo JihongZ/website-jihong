@@ -402,7 +402,7 @@ print(dwtest(score ~ group, data = dat2))
 
 ------------------------------------------------------------------------
 
-### Normality within Each Group
+### Normality check for the whole samples
 
 -   Assume that the DV (Y) is distributed normally within each group for ANOVA
 
@@ -471,8 +471,89 @@ shapiro.test(nonnormal_data)
 ks.test(scale(normal_data), "pnorm")
 ks.test(scale(nonnormal_data), "pnorm")
 ```
+:::
+
+-----------------------
+
+### Normaliy check for each group
+
+```{r}
+#| code-fold: false
+#| warning: false
+# Generate three-group data with normal distributions
+library(dplyr) # we need this package to group the data
+set.seed(123)
+group_data <- data.frame(
+  group = rep(c("A", "B", "C"), each = 30),
+  score = c(rnorm(30, mean = 50, sd = 10),  # Group A
+            rnorm(30, mean = 55, sd = 12),  # Group B
+            rnorm(30, mean = 48, sd = 9))   # Group C
+)
+
+# Run Shapiro-Wilk test for each group
+group_data |>
+  group_by(group) |>
+  summarize(
+    shapiro_p_value = shapiro.test(score)$p.value
+  )
+```
+
+**Interpretation of Normality Checking Results:**
+
+- If all p-values > 0.05: All groups satisfy normality assumption - proceed with ANOVA
+- If one group has p-value < 0.05 but others are normal:
+  - ANOVA is generally robust to minor normality violations, especially with equal sample sizes
+  - Consider the sample size: larger samples (n > 30) make ANOVA more robust
+  - Options: (1) Continue with ANOVA if violation is mild, (2) Apply data transformation (log, square root), or (3) Use non-parametric alternative (Kruskal-Wallis test)
+- If multiple groups violate normality: Strong evidence against using ANOVA - consider transformations or non-parametric tests
+
+--------
+
+::: panel-tabset
+### In-class quiz III
+
+Perform Shapiro-Wilk for each group datasets. Tell me which group is not normal.
+
+```{webr-r}
+#| context: setup
+set.seed(2345)
+group_data2 <- data.frame(
+  group = rep(c("A", "B", "C"), each = 30),
+  score = c(round(rnorm(30, mean = 50, sd = 10), 2),  # Group A
+            sample(seq(50, 100, .01), 30, replace = TRUE),  # Group B
+            round(rnorm(30, mean = 48, sd = 9), 2))   # Group C
+)
+
+```
+
+```{webr-r}
+#| editor-code-line-numbers: 5-9
+library(dplyr) # we need this package to group the data
+head(group_data2) # check first 6 rows
+
+### Perform Shapiro-Wilk for each group
+group_data2 |> 
+  ______(______) |> 
+  ______(
+    shapiro_p_value = __________(________)$__________
+  )
+```
+
+### Answer
+
+```{webr-r}
+group_data2 |>
+  group_by(group) |>
+  summarize(
+    shapiro_p_value = shapiro.test(score)$p.value
+  )
+```
+
 
 :::
+
+--------------------------------------------------------------------
+
 ## Assumption 3: Homogeneity of Variance (HOV)
 
 -   Variance across groups should be equal.
@@ -617,27 +698,24 @@ digraph flowchart {
 
 ------------------------------------------------------------------------
 
-[Fisher’s LSD]{.bluecolor}
-
--   **Least Significant Difference test**.
--   **Problem**: Does not control for **multiple comparisons** (inflated Type I error).
-
-[Bonferroni Correction]{.bluecolor}
-
--   Adjusts **alpha** to reduce **Type I error**.
--   New alpha: $\alpha / c$ (where $c$ is the number of comparisons).
--   **Conservative**: Less power, avoids false positives.
-
-[Family-wise Error Rate (adjusted p-values)]{.bluecolor}
-
--   Adjusts p-values to reduce Type I error
--   Report adjusted p-values (typically larger that original p-values)
+### Post-hoc test: 
 
 [Tukey’s HSD]{.bluecolor}
 
 -   Controls for **Type I error** across multiple comparisons.
 -   Uses a **q-statistic** from a Tukey table.
 -   Preferred when **all pairs** need comparison.
+
+```{r}
+aov_result <- aov(score ~ group, group_data) # run the ANOVA model first
+TukeyHSD(aov_result) # call TukeyHSD followed by the model to perform Tukey multiple comparisons
+```
+
+
+[Family-wise Error Rate (adjusted p-values)]{.bluecolor}
+
+-   Adjusts p-values to reduce Type I error
+-   Report adjusted p-values (typically larger that original p-values)
 
 ## ANOVA Example: Intervention and Verbal Acquisition
 
@@ -654,6 +732,9 @@ digraph flowchart {
 ### Step 1: Generate Simulated Data in R
 
 ```{r}
+#| warning: false
+#| message: false
+#| results: hold
 # Load necessary libraries
 library(tidyverse)
 
@@ -710,10 +791,11 @@ data %>%
 
 ```{r}
 # Boxplot visualization
-ggplot(data, aes(x = group, y = verbal_score, fill = group)) +
-  geom_boxplot() +
-  theme_minimal() +
-  labs(title = "Verbal Acquisition Scores Across Groups", y = "Score", x = "Group")
+library(ggplot2)  # Load ggplot2 package for creating visualizations
+ggplot(data, aes(x = group, y = verbal_score, fill = group)) +  # Create base plot with group on x-axis, scores on y-axis, fill by group
+  geom_boxplot() +  # Add boxplot layer to show distribution of scores within each group
+  theme_minimal() +  # Apply minimal theme for clean appearance
+  labs(title = "Verbal Acquisition Scores Across Groups", y = "Score", x = "Group")  # Add descriptive labels
 ```
 
 ### Step 3: Check ANOVA Assumptions
@@ -721,11 +803,11 @@ ggplot(data, aes(x = group, y = verbal_score, fill = group)) +
 ### Assumption Check 1: Independence of residuals Check
 
 ```{r}
+#| results: hold
+#| warning: false
+#| message: false
 # Fit the ANOVA model
 anova_model <- lm(verbal_score ~ group, data = data)
-
-# Install lmtest package if not already installed
-# install.packages("lmtest")
 
 # Load the lmtest package
 library(lmtest)
@@ -746,8 +828,8 @@ print(dw_test_result)
 
 ```{r}
 # Shapiro-Wilk normality test for each group
-data %>%
-  group_by(group) %>%
+data |> 
+  group_by(group) |> 
   summarise(
     shapiro_p = shapiro.test(verbal_score)$p.value
   )
@@ -775,7 +857,7 @@ ggplot(data, aes(sample = verbal_score)) +
 ### Assumption Check 3: Homogeneity of Variance (HOV) Check
 
 ```{r}
-# Levene's Test for homogeneity of variance
+#| results: hold
 car::leveneTest(verbal_score ~ group, data = data)
 stats::bartlett.test(verbal_score ~ group, data = data)
 onewaytests::bf.test(verbal_score ~ group, data = data)
@@ -815,11 +897,15 @@ round(tukey_results$group, 3)
 
 ------------------------------------------------------------------------
 
-### multcomp: Family-wise Error Rate Control
+### Step 6: Family-wise Error Rate Control
 
-Other multicomparison methods allow you to choose which method to adjust p-values.
+`glht` function in multcomp package allow us to perform family-wise error rate control (using `adjusted p-values`).
+Alternatively, we can use `TukeyHSD` to adjust p values to control inflated Type I errpr.
 
 ```{r}
+#| warning: false
+#| message: false
+#| results: hold
 library(multcomp)
 # install.packages("multcomp")
 ### set up multiple comparisons object for all-pair comparisons
@@ -916,14 +1002,18 @@ These findings suggest that higher intervention intensity improves verbal acquis
     -   Independent variable: Sleep duration (3 groups: Short (≤5 hrs), Moderate (6-7 hrs), Long (≥8 hrs)).
     -   Dependent variable: Cognitive performance scores (measured as test scores out of 100).
 
-## Data
+---------------------------------------------
 
-```{r}
+::: panel-tabset
+### Exercise
+
+```{webr-r}
+#| context: setup
 # Set seed for reproducibility
 set.seed(42)
 
 # Generate synthetic data for sleep study
-sleep_data <- tibble(
+sleep_data <- data.frame(
   sleep_group = rep(c("Short", "Moderate", "Long"), each = 30),
   cognitive_score = c(
     rnorm(30, mean = 65, sd = 10),  # Short sleep group (≤5 hrs)
@@ -931,55 +1021,91 @@ sleep_data <- tibble(
     rnorm(30, mean = 80, sd = 8)    # Long sleep group (≥8 hrs)
   )
 )
+```
+
+```{webr-r}
+
+# load packages you need
+library(dplyr)
+library(ggplot2)
+library(lmtest)
+library(car)
 
 # View first few rows
 head(sleep_data)
+
+# Summary statistics by sleep group
+sleep_data  |> 
+  group_by(sleep_group) |> 
+  summarise(
+    _______
+  )
+
+# Step 3: Check ANOVA Assumptions
+# Indepdendence check: Perform the Durbin-Watson test
+dw_test_result <- ____(____(_________, data = sleep_data))
+
+# View the test results
+print(dw_test_result)
+
+# Normality check: Shapiro-Wilk normality test for each group
+sleep_data |> 
+  group_by(sleep_group) |> 
+  summarise(
+    shapiro_p = ______(_______)$p.value
+  )
+
+# HOV check: Levene's Test for homogeneity of variance
+______(_______, data = sleep_data)
+
+# Step 5: Perform One-Way ANOVA
+anova_sleep <- ________(__________, data = sleep_data)
+summary(anova_sleep)
+
+# Step 6: Type I error control -- Tukey HSD post-hoc test
+tukey_sleep <- TukeyHSD(_______)
+tukey_sleep
 ```
 
-Go through all six steps.
+### Answer
 
-## Answer:
-
-```{r}
+```{webr-r}
 #| eval: false
 #| echo: false
+
+library(dplyr)
+library(ggplot2)
+library(lmtest)
+library(car)
+
+# View first few rows
+head(sleep_data)
+
 # Summary statistics by sleep group
-sleep_data %>%
-  group_by(sleep_group) %>%
+sleep_data  |> 
+  group_by(sleep_group) |> 
   summarise(
     mean_score = mean(cognitive_score),
     sd_score = sd(cognitive_score),
     n = n()
   )
-```
 
-```{r}
-#| eval: false
-#| echo: false
 # Boxplot visualization
 ggplot(sleep_data, aes(x = sleep_group, y = cognitive_score, fill = sleep_group)) +
   geom_boxplot() +
   theme_minimal() +
   labs(title = "Cognitive Performance Across Sleep Groups", y = "Test Score", x = "Sleep Duration")
-```
 
-```{r}
-#| eval: false
-#| echo: false
 # Step 3: Check ANOVA Assumptions
-# Perform the Durbin-Watson test
+# Indepdendence check: Perform the Durbin-Watson test
 dw_test_result <- dwtest(aov(cognitive_score ~ sleep_group, data = sleep_data))
 
 # View the test results
 print(dw_test_result)
-```
 
-```{r}
-#| eval: false
-#| echo: false
-# Shapiro-Wilk normality test for each group
-sleep_data %>%
-  group_by(sleep_group) %>%
+# Normality check: Shapiro-Wilk normality test for each group
+sleep_data |> 
+  group_by(sleep_group) |> 
   summarise(
     shapiro_p = shapiro.test(cognitive_score)$p.value
   )
@@ -988,29 +1114,19 @@ ggplot(sleep_data, aes(sample = cognitive_score)) +
   facet_wrap(~sleep_group) +
   theme_minimal() +
   labs(title = "Q-Q Plot for Normality Check")
-```
 
-```{r}
-#| eval: false
-#| echo: false
-# Levene's Test for homogeneity of variance
-library(car)
+# HOV check: Levene's Test for homogeneity of variance
 leveneTest(cognitive_score ~ sleep_group, data = sleep_data)
-```
 
-```{r}
 # Step 5: Perform One-Way ANOVA
 anova_sleep <- aov(cognitive_score ~ sleep_group, data = sleep_data)
 summary(anova_sleep)
-```
 
-```{r}
-#| eval: false
-#| echo: false
-# Tukey HSD post-hoc test
+# Step 6: Type I error control -- Tukey HSD post-hoc test
 tukey_sleep <- TukeyHSD(anova_sleep)
 tukey_sleep
 ```
+
 
 ::: heimu
 -   A one-way ANOVA was conducted to examine the effect of sleep duration on cognitive performance.
