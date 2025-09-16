@@ -28,7 +28,10 @@ format:
     scrollable: true
     output-file: slides-index.html
     mermaid:
-      theme: forest  
+      theme: forest
+engine: knitr      
+filters:
+  - webr      
 ---
 
 ## Class Outline
@@ -328,6 +331,16 @@ These results suggest there is no autocorrelation at the alpha level of .05.
 
 set.seed(1999)
 
+# Create dependent data using autoregressive structure
+generate_dependent_data <- function(n, mean_val, sd_val, rho = 0.7) {
+  y <- numeric(n)
+  y[1] <- rnorm(1, mean_val, sd_val)
+  for(i in 2:n) {
+    y[i] <- rho * y[i-1] + rnorm(1, mean_val * (1-rho), sd_val * sqrt(1-rho^2))
+  }
+  return(y)
+}
+
 # Use the same data from previous example
 n_per_group <- 30
 
@@ -338,9 +351,7 @@ dat1 <- data.frame(
     generate_dependent_data(n_per_group, 50, 10),
     generate_dependent_data(n_per_group, 55, 10),
     generate_dependent_data(n_per_group, 60, 10)
-  ),
-  observation = 1:(3*n_per_group),
-  type = "Dependent (AR)"
+  )
 )
 
 dat2 <- data.frame(
@@ -349,25 +360,29 @@ dat2 <- data.frame(
     rnorm(n_per_group, 50, 10),
     rnorm(n_per_group, 55, 10),
     rnorm(n_per_group, 60, 10)
-  ),
-  observation = 1:(3*n_per_group),
-  type = "Independent"
+  )
 )
 ```
 
 ```{webr-r}
+#| editor-code-line-numbers: 4-7
 print(dat1)
 print(dat2)
 
 ## Test which data violate independence assumption
+library(________)
+print(dwtest(________))
+print(dwtest(________))
+
 ```
 
 ### Answer
 ```{webr-r}
 # DW = 0.8248, p-value = 6.68e-11, dat1 violates independence
 # DW = 2.2514, p-value = 0.8386, dat2 does not violates independence
-print(lmtest::dwtest(score ~ group, data = dat1))
-print(lmtest::dwtest(score ~ group, data = dat2))
+library(lmtest)
+print(dwtest(score ~ group, data = dat1))
+print(dwtest(score ~ group, data = dat2))
 ```
 
 :::
@@ -387,7 +402,7 @@ print(lmtest::dwtest(score ~ group, data = dat2))
 
 ------------------------------------------------------------------------
 
-[Normality within Each Group]{.bluecolor .bigger}
+### Normality within Each Group
 
 -   Assume that the DV (Y) is distributed normally within each group for ANOVA
 
@@ -399,26 +414,65 @@ print(lmtest::dwtest(score ~ group, data = dat2))
 
 ------------------------------------------------------------------------
 
-[`shapiro.test()`]{.bigger}
+### R function `shapiro.test()`
 
 ```{r}
 #| eval: true
+#| results: hold
 set.seed(123)  # For reproducibility
 sample_normal_data <- rnorm(200, mean = 50, sd = 10)  # Generate normal data
-sample_nonnormal_data <- runif(200, min = 1, max = 10)  # Generate non-normal data
+sample_nonnormal_data <- sample(1:10, 200, replace = TRUE)  # Generate non-normal data
 
+cat("Normality assumption holds:")
 shapiro.test(sample_normal_data)
+cat("Normality assumption does not hold:")
 shapiro.test(sample_nonnormal_data)
 ```
 
 ------------------------------------------------------------------------
 
+### R function `ks.test()`
+
 ```{r}
+#| results: hold
 # Perform Kolmogorov-Smirnov test against a normal distribution
+cat("Normality assumption holds:")
 ks.test(scale(sample_normal_data), "pnorm")
+cat("Normality assumption does not hold:")
 ks.test(scale(sample_nonnormal_data), "pnorm")
 ```
 
+
+::: panel-tabset
+### In-class quiz II
+
+Perform Shapiro-Wilk and Kolmogorov-Smirnov for both datasets. Tell me which test works or does not work and why.
+
+```{webr-r}
+#| editor-code-line-numbers: 6-11
+set.seed(2345)
+normal_data <- rnorm(50, mean = 50, sd = 10)  # normal data
+nonnormal_data <- sample(1:10, 50, replace = TRUE)  # non-normal
+
+### Perform Shapiro-Wilk and Kolmogorov-Smirnov for both data
+### Shapiro-Wilk
+_____(normal_data)
+_____(nonnormal_data)
+### Kolmogorov-Smirnov
+_____(____(normal_data, _____))
+_____(____(nonnormal_data, _____))
+```
+
+### Answer
+
+```{webr-r}
+shapiro.test(normal_data)
+shapiro.test(nonnormal_data)
+ks.test(scale(normal_data), "pnorm")
+ks.test(scale(nonnormal_data), "pnorm")
+```
+
+:::
 ## Assumption 3: Homogeneity of Variance (HOV)
 
 -   Variance across groups should be equal.
