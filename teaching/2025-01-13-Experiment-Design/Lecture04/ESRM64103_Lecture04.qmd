@@ -34,11 +34,11 @@ format:
 ## Class Outline
 
 -   Go through three assumptions of ANOVA and their checking statistics
--   Post-hoc test for more group comparisons.
+-   Post-hoc tests for more group comparisons
 -   Example: Intervention and Verbal Acquisition
 -   After-class Exercise: Effect of Sleep Duration on Cognitive Performance
 
-## ANOVA Procedure
+## Review ANOVA Procedure
 
 1.  **Set hypotheses**:
     -   **Null hypothesis** ($H_0$): All group means are equal.
@@ -60,7 +60,20 @@ format:
 -   Compared to multiple t-tests, the ANOVA does not inflate Type I error rates.
     -   For F-test in ANOVA, Type I error rate is not inflated
     -   Type I error rate is inflated when we do multiple comparison
--   Family-wise error rate: probability of at least one Type I error occur = $1 −  (1 − \alpha)^c$ where c =number of tests. Frequently used FWER methods include Bonferroni or FDR.
+-   **Family-wise error rate (FWER)**: probability of at least one Type I error occur = $1 −  (1 − \alpha)^c$ where c =number of tests. Frequently used FWER methods include Bonferroni or FDR.
+
+------------------------------------------
+
+```{r}
+library(purrr)
+alpha <-  .05
+c <- seq(10)
+prob_TypeOneError <- 1 - (1 - alpha)^c
+
+plot(x = c, y = prob_TypeOneError, type = "b", 
+     xlab = "Number of comparisons", ylab = "Pr(#error > 1)",
+     main = "Type I error inflation with number of tests increases")
+```
 
 ::: callout-note
 ## Family-Wise Error Rate
@@ -81,7 +94,7 @@ format:
 ## Importance of Assumptions
 
 -   **If assumptions are violated**, the results of ANOVA may not be reliable.
--   **We call it Robustness** as to what degree ANOVAs are not influenced by the violation of assumption.
+-   **We call models robust** when ANOVAs are not easily influenced by the violation of assumptions.
 -   Typically:
     -   ANOVA is **robust** to minor violations of normality, especially for large sample sizes (Central Limit Theorem).
     -   **Not robust** to violations of independence—if independence is violated, ANOVA is inappropriate.
@@ -94,19 +107,84 @@ format:
     -   Clustering of data (e.g., repeated measures).
     -   Participants influencing each other (e.g., classroom discussions).
 -   **Check (Optional)**: Use the [Durbin-Watson test]{.redcolor}.
--   **Solution**: Repeated Measured ANOVA, Mixed ANOVA, Multilevel Model
+-   **Solution**: Repeated Measures ANOVA, Mixed ANOVA, Multilevel Model
 -   **Consequences**: If independence is violated, [ANOVA results are not valid]{.red}.
+
+----------------------------------
+
+**Example: Demonstrating Independence Violation**
+
+```{r}
+#| code-fold: true
+#| results: hold
+# Generate data with dependency (autocorrelation)
+set.seed(1234)
+n_per_group <- 20
+groups <- 3
+
+# Create dependent data using autoregressive structure
+generate_dependent_data <- function(n, mean_val, sd_val, rho = 0.7) {
+  y <- numeric(n)
+  y[1] <- rnorm(1, mean_val, sd_val)
+  for(i in 2:n) {
+    y[i] <- rho * y[i-1] + rnorm(1, mean_val * (1-rho), sd_val * sqrt(1-rho^2))
+  }
+  return(y)
+}
+
+# Generate data for 3 groups with different means but with dependency
+dependent_data <- data.frame(
+  group = factor(rep(c("A", "B", "C"), each = n_per_group)),
+  score = c(
+    generate_dependent_data(n_per_group, 50, 10),  # Group A
+    generate_dependent_data(n_per_group, 55, 10),  # Group B
+    generate_dependent_data(n_per_group, 60, 10)   # Group C
+  )
+)
+
+# Compare with independent data
+independent_data <- data.frame(
+  group = factor(rep(c("A", "B", "C"), each = n_per_group)),
+  score = c(
+    rnorm(n_per_group, 50, 10),  # Group A
+    rnorm(n_per_group, 55, 10),  # Group B
+    rnorm(n_per_group, 60, 10)   # Group C
+  )
+)
+
+# Run ANOVA on both datasets
+anova_dependent <- aov(score ~ group, data = dependent_data)
+anova_independent <- aov(score ~ group, data = independent_data)
+
+# Compare results
+cat("ANOVA with DEPENDENT data:\n")
+print(summary(anova_dependent))
+cat("\nANOVA with INDEPENDENT data:\n")
+print(summary(anova_independent))
+
+# Check Durbin-Watson test
+cat("\nDurbin-Watson test for dependent data:")
+print(lmtest::dwtest(anova_dependent))
+cat("\nDurbin-Watson test for independent data:")
+print(lmtest::dwtest(anova_independent))
+```
+
+**Key observations:**
+
+- Dependent data often shows artificially **smaller p-values** (inflated significance)
+- Standard errors are **underestimated** when independence is violated
+- Durbin-Watson test helps detect this violation (DW ≠ 2, p < 0.05)
 
 ------------------------------------------------------------------------
 
-[Durbin-Watson (DW) Test]{.bluecolor .bigger}
+### Durbin-Watson (DW) Test
 
 ::: callout-note
 -   The Durbin-Watson test is primarily used for detecting **autocorrelation** in time-series data.
 
 -   In the context of ANOVA with independent groups, residuals are generally assumed to be independent.
 
-    -   However, it's still good practice to check this assumption, especially if there's a reason to suspect potential autocorrelation.
+    -   It's good practice to check this assumption, especially if there's a reason to suspect potential autocorrelation.
 :::
 
 ::: callout-important
@@ -117,8 +195,101 @@ format:
         -   Values approaching 0 indicate positive autocorrelation.
         -   Values toward 4 suggest negative autocorrelation.
     -   P-value
-        -   P-Value: A small p-value (typically \< 0.05) indicates violation of independency
+        -   P-Value: A small p-value (typically \< 0.05) indicates violation of independence
 :::
+
+---------------------------------------------
+
+**Real-world examples of independence violations:**
+
+- **Dependent data scenarios**:
+  - **Repeated measures**: Testing the same students multiple times (pre-test, mid-test, post-test)
+  - **Classroom clusters**: Students in the same classroom influence each other's performance
+  - **Time series**: Daily test scores where yesterday's performance affects today's
+  - **Spatial correlation**: Schools in the same district sharing similar resources and outcomes
+
+- **Independent data scenarios**:
+  - **Random sampling**: Selecting students from different schools across different regions
+  - **Single measurement**: Each participant tested only once with no interaction
+  - **Controlled assignment**: Participants randomly assigned to groups with no cross-contamination
+
+**Why this matters**: When observations are dependent, they don't provide as much unique information as independent observations. This leads to overconfident results (smaller standard errors and p-values).
+
+---------------------------------------------
+
+### Visualization of indepdence test
+```{r}
+#| code-fold: true
+#| fig-width: 12
+#| fig-height: 8
+#| warning: false
+
+library(ggplot2)
+library(gridExtra)
+
+# Use the same data from previous example
+n_per_group <- 20
+
+# Generate dependent and independent data
+dependent_data <- data.frame(
+  group = factor(rep(c("A", "B", "C"), each = n_per_group)),
+  score = c(
+    generate_dependent_data(n_per_group, 50, 10),
+    generate_dependent_data(n_per_group, 55, 10),
+    generate_dependent_data(n_per_group, 60, 10)
+  ),
+  observation = 1:(3*n_per_group),
+  type = "Dependent (AR)"
+)
+
+independent_data <- data.frame(
+  group = factor(rep(c("A", "B", "C"), each = n_per_group)),
+  score = c(
+    rnorm(n_per_group, 50, 10),
+    rnorm(n_per_group, 55, 10),
+    rnorm(n_per_group, 60, 10)
+  ),
+  observation = 1:(3*n_per_group),
+  type = "Independent"
+)
+
+# Combine data
+combined_data <- rbind(dependent_data, independent_data)
+
+# Plot 1: Time series plot showing autocorrelation
+p1 <- ggplot(combined_data, aes(x = observation, y = score, color = group)) +
+  geom_line(size = 0.8) + geom_point(size = 1.5) +
+  facet_wrap(~type, scales = "free") +
+  labs(title = "Time Series: Independence vs Dependence",
+       x = "Observation Order", y = "Score") +
+  theme_minimal() + theme(legend.position = "bottom")
+
+# Plot 2: Lag plot to show autocorrelation
+create_lag_data <- function(data) {
+  data$score_lag1 <- c(NA, data$score[-length(data$score)])
+  return(data[!is.na(data$score_lag1), ])
+}
+
+lag_dependent <- create_lag_data(dependent_data)
+lag_independent <- create_lag_data(independent_data)
+lag_combined <- rbind(lag_dependent, lag_independent)
+
+p2 <- ggplot(lag_combined, aes(x = score_lag1, y = score)) +
+  geom_point(aes(color = group), alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "black", size = 0.5) +
+  facet_wrap(~type, scales = "free") +
+  labs(title = "Lag Plot: Current vs Previous Observation",
+       x = "Score (t-1)", y = "Score (t)") +
+  theme_minimal() + theme(legend.position = "bottom")
+
+# Display plots
+grid.arrange(p1, p2, ncol = 1)
+```
+
+**Key Visual Differences:**
+- **Dependent data**: Shows smooth, connected patterns with visible trends
+- **Independent data**: Shows random scatter with no systematic patterns
+- **Lag plot**: Dependent data shows positive correlation between consecutive observations
 
 ------------------------------------------------------------------------
 
@@ -137,12 +308,69 @@ err1 <- rnorm(100)
 
 ## generate regressor and dependent variable
 x <- rep(c(-1,1), 50)
-y1 <- 1 + x + err1 
+y <- 1 + x + err1 
+dat <- data.frame(x = x, y = y)
 ## perform Durbin-Watson test
-dwtest(y1 ~ x)
+dwtest(y ~ x, data = dat)
 ```
 
-This results suggest there are no autocorrelation at the alpha level of .05.
+These results suggest there is no autocorrelation at the alpha level of .05.
+
+--------------------------------
+
+::: panel-tabset
+### In-class quiz
+
+-   Below is the R code that has loaded two datasets for you. `dat1` and `dat2`, try to examine which dataset violates independence.
+
+```{webr-r}
+#| context: setup
+
+set.seed(1999)
+
+# Use the same data from previous example
+n_per_group <- 30
+
+# Generate dependent and independent data
+dat1 <- data.frame(
+  group = factor(rep(c("A", "B", "C"), each = n_per_group)),
+  score = c(
+    generate_dependent_data(n_per_group, 50, 10),
+    generate_dependent_data(n_per_group, 55, 10),
+    generate_dependent_data(n_per_group, 60, 10)
+  ),
+  observation = 1:(3*n_per_group),
+  type = "Dependent (AR)"
+)
+
+dat2 <- data.frame(
+  group = factor(rep(c("A", "B", "C"), each = n_per_group)),
+  score = c(
+    rnorm(n_per_group, 50, 10),
+    rnorm(n_per_group, 55, 10),
+    rnorm(n_per_group, 60, 10)
+  ),
+  observation = 1:(3*n_per_group),
+  type = "Independent"
+)
+```
+
+```{webr-r}
+print(dat1)
+print(dat2)
+
+## Test which data violate independence assumption
+```
+
+### Answer
+```{webr-r}
+# DW = 0.8248, p-value = 6.68e-11, dat1 violates independence
+# DW = 2.2514, p-value = 0.8386, dat2 does not violates independence
+print(lmtest::dwtest(score ~ group, data = dat1))
+print(lmtest::dwtest(score ~ group, data = dat2))
+```
+
+:::
 
 ## Assumption 2: Normality
 
@@ -249,14 +477,6 @@ digraph flowchart {
 
 ```
 
-------------------------------------------------------------------------
-
-```{r}
-library(ellmer)
-chat = ellmer::chat_ollama(model = "llama3.2")
-chat$chat("How large can be considered as large sample size in one-way ANOVA")
-
-```
 
 ------------------------------------------------------------------------
 
@@ -272,7 +492,7 @@ chat$chat("How large can be considered as large sample size in one-way ANOVA")
     -   **Independence violations**—ANOVA is invalid if data points are dependent.
     -   **Severe HOV violations**—Type I error rates become unreliable.
 
--   The robustness of assumptions is something you should be carefull before/when you perform data collection. They are not something you can do after data collection has been finished.
+-   The robustness of assumptions is something you should be careful about before/when you perform data collection. They are not something you can address after data collection has been finished.
 
 ------------------------------------------------------------------------
 
@@ -284,7 +504,7 @@ chat$chat("How large can be considered as large sample size in one-way ANOVA")
 
 -   **Theoretical Justification**: This robustness is primarily due to the Central Limit Theorem (CLT), which states that, for sufficiently large sample sizes (typically $n≥30$ per group), the sampling distribution of the mean approaches normality, even if the underlying population distribution is non-normal.
 
--   This means that, unless the data are heavily skewed or have extreme outliers, ANOVA results remain valid and Type I error rates are not severely inflated.
+-   This means that unless the data are heavily skewed or have extreme outliers, ANOVA results remain valid and Type I error rates are not severely inflated.
 
 ------------------------------------------------------------------------
 
@@ -377,7 +597,7 @@ chat$chat("How large can be considered as large sample size in one-way ANOVA")
     -   $H_0$: No difference in verbal acquisition scores across groups.
     -   $H_A$: At least one group has a significantly different mean.
 
-## Step 1: Generate Simulated Data in R
+### Step 1: Generate Simulated Data in R
 
 ```{r}
 # Load necessary libraries
@@ -401,7 +621,17 @@ data <- tibble(
 head(data)
 ```
 
-## Step 2: Summary Statistics
+**Function explanations:**
+
+- `library(tidyverse)`: Loads the tidyverse package collection, including dplyr, ggplot2, and tibble
+- `set.seed(123)`: Sets the random number generator seed to ensure reproducible results across runs
+- `tibble()`: Creates a modern data frame (tibble) with improved printing and subsetting behavior
+- `rep(c("Control", "G1", "G2", "G3"), each = 30)`: Repeats each group label 30 times, creating 120 total observations (30 per group)
+- `rnorm(30, mean = X, sd = Y)`: Generates 30 random numbers from a normal distribution with specified mean and standard deviation
+- `c()`: Combines the four vectors of random numbers into a single vector of 120 values
+- `head(data)`: Displays the first 6 rows of the dataset for preview
+
+### Step 2: Summary Statistics
 
 ```{r}
 # Summary statistics by group
@@ -414,6 +644,14 @@ data %>%
   )
 ```
 
+**Function explanations:**
+
+- `group_by(group)`: Groups the data by the `group` variable, allowing subsequent operations to be performed separately for each group
+- `summarise()`: Creates summary statistics for each group, collapsing the grouped data into summary values
+- `mean(verbal_score)`: Calculates the arithmetic mean of verbal scores within each group
+- `sd(verbal_score)`: Computes the standard deviation of verbal scores within each group
+- `n()`: Counts the number of observations in each group
+
 ------------------------------------------------------------------------
 
 ```{r}
@@ -424,7 +662,7 @@ ggplot(data, aes(x = group, y = verbal_score, fill = group)) +
   labs(title = "Verbal Acquisition Scores Across Groups", y = "Score", x = "Group")
 ```
 
-## Step 3: Check ANOVA Assumptions
+### Step 3: Check ANOVA Assumptions
 
 ### Assumption Check 1: Independence of residuals Check
 
@@ -494,7 +732,7 @@ onewaytests::bf.test(verbal_score ~ group, data = data)
     -   If $p<0.05$, variance differs across groups (consider Welch’s ANOVA).
 -   It turns out our data does not violate the homogeneity of variance assumption.
 
-## Step 4: Perform One-Way ANOVA
+### Step 4: Perform One-Way ANOVA
 
 ```{r}
 anova_model <- aov(verbal_score ~ group, data = data)
@@ -505,7 +743,7 @@ summary(anova_model)
     -   If $p<0.05$, at least one group mean is significantly different.
     -   If $p>0.05$, fail to reject $H0$ (no significant differences).
 
-## Step 5: Post-Hoc Tests (Tukey’s HSD)
+### Step 5: Post-Hoc Tests (Tukey's HSD)
 
 ```{r}
 # Tukey HSD post-hoc test
@@ -525,7 +763,7 @@ round(tukey_results$group, 3)
 
 ### multcomp: Family-wise Error Rate Control
 
-Other multicomparison method allow you to choose which method for adjust p-values.
+Other multicomparison methods allow you to choose which method to adjust p-values.
 
 ```{r}
 library(multcomp)
@@ -584,7 +822,7 @@ G3 - G2 == 0      4.005      2.327   1.721  0.10555
 ```
 :::
 
--   The differences in p-value adjustment between the `TukeyHSD` method and the `multcomp` package stem from how each approach calculates and applies the multiple comparisons correction. Below is a detailed explanation of these differences
+-   The differences in p-value adjustment between the `TukeyHSD` method and the `multcomp` package stem from how each approach calculates and applies the multiple comparisons correction. Below is a detailed explanation of these differences.
 :::::
 
 ### Comparison of Differences
@@ -597,7 +835,7 @@ G3 - G2 == 0      4.005      2.327   1.721  0.10555
 | **Adjustment Method** | Tukey-Kramer adjustment | Single-step, Westfall, Holm, Bonferroni, etc. |
 | **P-value Differences** | More conservative (larger p-values) | Slightly different due to t-distribution |
 
-## Step 6: Reporting ANOVA Results
+### Step 6: Reporting ANOVA Results
 
 [Result]{.bigger}
 
@@ -605,13 +843,13 @@ G3 - G2 == 0      4.005      2.327   1.721  0.10555
 
 2.  A one-way ANOVA was then conducted to examine the effect of three intensive intervention methods (Control, G1, G2, G3) on verbal acquisition scores. There was a statistically significant difference between groups, $F(3,116)=14.33$, $p<.001$.
 
-3.  To further examine which intervention method is most effective, we performed Tukey's post-hoc comparisons. The results revealed that all three intervention methods have significantly higher scores than the control group (G1-Ctrl: p = .003; G2-Ctrl: p \< .001; G3-Ctrl: p \< .001). Among three intervention methods, G3 seems to be the most effective. Specifically, G3 showed significantly higher scores than G1 (p = .004). However, no significant difference was found between G2 and G3 (p = .105).
+3.  To further examine which intervention method is most effective, we performed Tukey's post-hoc comparisons. The results revealed that all three intervention methods have significantly higher scores than the control group (G1-Ctrl: p = .003; G2-Ctrl: p \< .001; G3-Ctrl: p \< .001). Among the three intervention methods, G3 seems to be the most effective. Specifically, G3 showed significantly higher scores than G1 (p = .004). However, no significant difference was found between G2 and G3 (p = .105).
 
 [Discussion]{.bigger}
 
-These findings suggest that higher intervention intensity improves verbal acquisition performance, which is consistent with prior literatures \[xxxx/references\]
+These findings suggest that higher intervention intensity improves verbal acquisition performance, which is consistent with prior literature \[xxxx/references\].
 
-# Aftre-Class Exercise: Effect of Sleep Duration on Cognitive Performance
+# After-Class Exercise: Effect of Sleep Duration on Cognitive Performance
 
 ## Background
 
@@ -725,7 +963,7 @@ tukey_sleep
 
 -   There was a statistically significant difference in cognitive test scores across sleep groups, $F(2,87)=15.88$,$p<.001$.
 
--   Tukey's post-hoc test revealed that participants in the Long sleep group (M=81.52,SD=6.27) performed significantly better than those in the Short sleep group (M=65.68,SD=12.55), p\<.01.
+-   Tukey's post-hoc test revealed that participants in the Long sleep group (M=81.52, SD=6.27) performed significantly better than those in the Short sleep group (M=65.68, SD=12.55), p\<.01.
 
 -   These results suggest that inadequate sleep is associated with lower cognitive performance.
 :::

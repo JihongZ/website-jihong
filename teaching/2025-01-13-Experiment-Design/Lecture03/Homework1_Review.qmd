@@ -3,7 +3,7 @@ title: "Homework1 Review"
 draft: true
 format: html
 ---
-
+,
 1. Question (3 scores): Explain the relationship between the significance level (α) chosen by researchers and the interpretation of p-values in the context of F-statistics. How does adjusting the alpha level influence the conclusions drawn from the results of an ANOVA test?
 
 ::: rmdnote
