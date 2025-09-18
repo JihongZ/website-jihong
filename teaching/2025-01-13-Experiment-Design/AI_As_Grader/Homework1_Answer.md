@@ -1,18 +1,12 @@
----
-title: "Homework1 Review"
-draft: true
-format: html
----
-
 1. Question (3 scores): Explain the relationship between the significance level (α) chosen by researchers and the interpretation of p-values in the context of F-statistics. How does adjusting the alpha level influence the conclusions drawn from the results of an ANOVA test?
 
-::: rmdnote
+::: Answer
 Response: If you raise alpha level to .05 from .01, your F-stat is more likely to be significant and more likely to reject the null hypothesis (1 point). You increase the Type I error rate or "False Positive" rate (1 point), which is the probability that a null hypothesis is rejected even though it is actually true (1 point).
 :::
 
 2. Question (3 scores): Consider a scenario in which the F-statistic from an ANOVA yields a p-value less than 0.05 but greater than 0.01, making it significant at α = 0.05 but not at α = 0.01. Discuss the practical implications of this finding for interpreting the results, including how it should be reported and how it might influence decisions regarding the acceptance or rejection of the null hypothesis.
 
-::: rmdnote
+::: Answer
 When a p-value falls between 0.01 and 0.05 (e.g., p = 0.03) in an ANOVA:
 
 1. Reporting: State the exact p-value rather than just 'significant' (F = X.XX, df = X, p = 0.03).
@@ -23,7 +17,7 @@ When a p-value falls between 0.01 and 0.05 (e.g., p = 0.03) in an ANOVA:
 
 3. Question (4 scores): Critically evaluate why exclusive reliance on p-values (such as those derived from F-statistics in ANOVA) can lead to misleading conclusions in social science research. Propose additional statistical metrics or measures that should be reported to offer a more thorough and nuanced interpretation of the data.
 
-::: rmdnote
+::: Answer
 Problem with p-values: (1) Sample Size Sensitivity; (2) Binary Decision Making; (3) No Information on Magnitude; (4) Vulnerable to P-Hacking.
 
 

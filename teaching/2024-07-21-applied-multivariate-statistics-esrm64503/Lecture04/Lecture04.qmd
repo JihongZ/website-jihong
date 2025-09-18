@@ -19,6 +19,7 @@ format:
     toc-expand: true
     lightbox: true
     code-fold: false
+    code-summary: "R code"
   uark-revealjs:
     scrollable: true
     chalkboard: true
@@ -29,8 +30,8 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
-# filters:
-#   - shinylive
+filters:
+  - webr
 ---
 
 ## Today's Class
@@ -79,13 +80,13 @@ $$
 
 - The group mean of Senior-Old is $\beta_0 + \beta_1$.
 
-- Based on algebra for variance, we know hat
+- Based on algebra for variance, we know that
 
 $$
 Var(\beta_0 + \beta_1) = Var(\beta_0)+Var(\beta_1) +2*Cov(\beta_0, \beta_1)
 $$
 
-- `vcor` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
+- `vcov` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
 
 ```{r}
 #| output-location: default
@@ -125,7 +126,7 @@ Var(\beta_2 + \beta_3) = Var(\beta_2)+Var(\beta_3) +2*Cov(\beta_2, \beta_3)
 $$
 
 
--   `vcor` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$ 
+-   `vcov` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$ 
 
 ```{r}
 #| output-location: default
@@ -144,11 +145,11 @@ Var_betaofNew_Senior1 <- Var_beta_2 + Var_beta_3 + 2*Cov_beta_2_3
 
 - [**Random:**]{.underline} situations in which the certainty of the outcome is unknown and is at least in part due to chance
 
-- [**Variable:**]{.underline} a value that may change give the scope of a given problem or set of operations
+- [**Variable:**]{.underline} a value that may change given the scope of a given problem or set of operations
 
-- [**Random Variable**]{.underline}: a variable whose outcome depends on chance (possible values might represent the possible outcomes of a yet-to-be performed experiment)
+- [**Random Variable**]{.underline}: a variable whose outcome depends on chance (possible values represent the potential outcomes of a future experiment)
 
-Today, we will denote a random variable with a lower-cased: ***x***
+Today, we will denote a random variable with lowercase letters: ***x***
 
 **Question**: which one in the following options is random variable:
 
@@ -156,7 +157,7 @@ a. any company's revenue in 2024
 
 b. one specific company's monthly revenue in 2024
 
-c. companies whose revenue over than $30 billions
+c. companies whose revenue is over $30 billion
 
 **My answer**: <span class="mohu">only (a)</span>
 
@@ -165,15 +166,15 @@ c. companies whose revenue over than $30 billions
 
 1.  **Continuous**
     -   Examples of continuous random variables:
-        -   ***x*** represent the height of a person, draw at random
+        -   ***x*** represents the height of a person, drawn at random
         -   *Y* (the outcome/DV in a GLM)
-        -   Some variables like **exam score or motivation scores** are not "true" continuous variables, but it is convenient to consider them as "continuous"
+        -   Some variables like **exam scores or motivation scores** are not truly continuous variables, but it is convenient to treat them as continuous
 2.  **Discrete** (also called categorical, generally)
-    -   Example of discrete random variables:
+    -   Examples of discrete random variables:
         -   ***x*** represents the gender of a person, drawn at random
         -   *Y* (outcomes like yes/no; pass/not pass; master / not master a skill; survive / die)
 3.  **Mixture of Continuous and Discrete**:
-    -   Example of mixture: \begin{equation}
+    -   Example of a mixture: \begin{equation}
           x =
         \begin{cases}
           RT & \text{between 0 and 45 seconds} \\
@@ -183,11 +184,11 @@ c. companies whose revenue over than $30 billions
 
 ## Key Features of Random Variable
 
-1.  Random variables each are described by a **probability density / mass function (PDF) –** $f(x)$
+1.  Random variables are each described by a **probability density / mass function (PDF)** – $f(x)$
 
     -   PDF indicates relative frequency of occurrence
 
-    -   A PDF is a math function that gives rough picture of the distribution from which a random variable is draw
+    -   A PDF is a mathematical function that provides a rough picture of the distribution from which a random variable is drawn
 
 2.  The type of random variable dictates the name and nature of these functions:
 
@@ -212,12 +213,12 @@ c. companies whose revenue over than $30 billions
 ------------------------------------------------------------------------
 
 ::: {.callout-note style="font-size: 1.4em;"}
-Both max and min values of temperature can be considered as continuous random variables.
+Both maximum and minimum temperature values can be considered continuous random variables.
 :::
 
-- Question 1: what are the probabilities of integrating all values of max and min temperatures ({1, 1} or {0.5, 0.5})
+- Question 1: What are the probabilities when integrating over all values of maximum and minimum temperatures ({1, 1} or {0.5, 0.5})?
 
-- **Answer**: <span class="mohu"> it is {1, 1} for max and min temperatures. Because they are two separated random variables.</span>
+- **Answer**: <span class="mohu">It is {1, 1} for maximum and minimum temperatures because they are two separate random variables.</span>
 
 
 ```{r}
@@ -244,7 +245,7 @@ temp |>
     -   **Example 1:** The sample space for a random variable x from a normal distribution $x \sim N(\mu_x, \sigma^2_x)$ is $(-\infty, +\infty)$.
     -   **Example 2:** The sample space for a random variable x representing the outcome of a coin flip is {H, T}
     -   **Example 3:** The sample space for a random variable x representing the outcome of a roll of a die is {1, 2, 3, 4, 5, 6}
--   When using generalized models, the trick is to pick a distribution with a sample space that matches the range of values obtainable by data
+-   When using generalized models, the key is to select a distribution with a sample space that matches the range of values obtainable from the data
     - Logistic regression - Match Bernoulli distribution <span class="mohu">(Example 2)</span>
     - Poisson regression - Match Poisson distribution <span class="mohu">(Example 3)</span>
 
@@ -276,15 +277,15 @@ temp |>
 
     -   Chi-square distribution
 
--   Each are described a set of parameters, which we will later see are what give us our inferences when we analysis data
+-   Each distribution is described by a set of parameters, which we will later see provide the basis for our inferences when we analyze data
 
--   What we then do is put constraints on those parameters based on hypothesized effects in data
+-   We then place constraints on those parameters based on hypothesized effects in the data
 
 ## Uniform distribution
 
--   The uniform distribution is how to help set up how continuous distributions work
+-   The uniform distribution helps us understand how continuous distributions work
     
-    - Typically, used for simulation studies that parameters are randomly generated
+    - Typically used in simulation studies where parameters are randomly generated
 
 -   For a continuous random variable x that ranges from (a, b), the uniform probability density function is:
 
@@ -300,76 +301,6 @@ temp |>
       geom_path(aes(x = x, y = y)) +
       theme_bw()
     ```
-
-------------------------------------------------------------------------
-
-```{shinylive-r}
-#| standalone: true
-#| viewerHeight: 800
-library(shiny)
-library(bslib)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-set.seed(1234)
-# Define UI for application that draws a histogram
-ui <- fluidPage(
-  
-  # Application title
-  titlePanel("Uniform distribution"),
-  
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput("a",
-                  "Lower Bound (a):",
-                  min = 1,
-                  max = 20,
-                  value = 1,
-                  animate = animationOptions(interval = 5000, loop = TRUE)),
-      uiOutput("b_slider")
-    ),
-    
-    # Show a plot of the generated distribution
-    mainPanel(
-      plotOutput("distPlot")
-    )
-  )
-)
-
-# Define server logic required to draw a histogram
-x <- seq(0, 40, .02)
-server <- function(input, output) {
-  observeEvent(input$a, {
-    output$b_slider <<- renderUI({
-      sliderInput("b",
-                  "Upper Bound (b):",
-                  min = as.numeric(input$a),
-                  max = 40,
-                  value = as.numeric(input$a) + 1)
-    })
-    # browser()
-    y <<- reactive({dunif(x, min = as.numeric(input$a), max = as.numeric(input$b))})
-  })
-  # browser()
-  observe({
-    output$distPlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      ggplot() +
-        aes(x = x, y = y())+
-        geom_point() +
-        geom_path() +
-        labs(x = "x", y = "probability") +
-        theme_bw() +
-        theme(text = element_text(size = 20))
-    })
-  })
-}
-
-# Run the application 
-shinyApp(ui = ui, server = server)
-```
-
 
 ## More on the Uniform Distribution
 
@@ -416,11 +347,12 @@ $$
 
 -   Linear combinations of random variables following normal distributions result in a random variable that is normally distributed
 
-## Univariate Normal Distribution in R: pnorm
+## Univariate Normal Distribution in R: `pnorm`
 
 Density (`dnorm`), distribution function (`pnorm`), quantile function (`qnorm`) and random generation (`rnorm`) for the normal distribution with mean equal to `mean` and standard deviation equal to `sd`.
 
 ```{r}
+#| code-fold: true
 Z = seq(-5, 5, .1) # Z-score
 ggplot() +
   aes(x = Z, y = pnorm(q = Z, lower.tail = TRUE)) +
@@ -430,9 +362,65 @@ ggplot() +
        title = "`pnorm()` gives the cumulative probability function P(X < T)")
 ```
 
-## Univariate Normal Distribution in R: dnorm
+::: panel-tabset
+### Exercise - pnorm
+
+95% CI: Try to confirm that the probability of x locating between $\pm$ 2SD is around 95%.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "R code"
+#| fig-align: "center"
+x = seq(-5, 5, .01)
+y = dnorm(x)
+x_pm2sd = c(-2, seq(-2, 2, .01), 2)
+y_pm2sd = c(0, dnorm(seq(-2, 2, .01)), 0)
+data.frame(x, y) |> 
+  ggplot() +
+  aes(x = x, y = y) +
+  geom_polygon(fill = "grey", alpha = .5) +
+  geom_polygon(aes(x = x_pm2sd, y = y_pm2sd), data = data.frame(x_pm2sd, y_pm2sd), fill = "tomato", alpha = .8) +
+  scale_x_continuous(breaks = seq(-5, 5, .5)) +
+  geom_label(x = 0, y = 0.15, label = "~ 95%") +
+  labs(y = "Probability of X = x") +
+  theme_classic()
+```
+
+```{webr-r}
+lb <- pnorm(____________) # The cumulative probability of x = -2SD
+ub <- pnorm(____________) # The cumulative probability of x = 2SD
+____________
+```
+
+### Answer
+
+```{webr-r}
+lb <- pnorm(-2, mean = 0, sd = 1, lower.tail = TRUE)
+ub <- pnorm(2, mean = 0, sd = 1, lower.tail = TRUE)
+ub - lb
+```
+
+
+:::
+
+
+## Univariate Normal Distribution in R: `dnorm`
+
+For example, `dnrom(x = 0, mean = 0, sd = 1)` will calculate the density probability of x = 1 in a standard normal distribution.
+
+So, $\mu_x = 0$, $x = 0$, and $\sigma_x = 1$:
+
+$$
+f(x = 0) = \frac1{\sqrt{2\pi\sigma^2_x}}\exp(-\frac{(x-\mu_x)^2}{2\sigma^2_x}) = \frac{1}{\sqrt{2\pi}} \approx 0.398
+$$
+
+```{r}
+dnorm(x = 0, mean = 0, sd = 1)
+```
+
+
+```{r}
+#| code-fold: true
 x <- seq(-5, 5, .1)
 
 params <- list(
@@ -468,21 +456,26 @@ ggplot(dt) +
     -   Sampling distribution of the variance follows a chi-square distribution
 
     -   Likelihood ratios follow a chi-square distribution
+    
+    -   F-distributed random variable can be expressed as the ratio of two independent gamma-distributed random variables
 
 -   For a continuous random variable *x* (ranging from 0 to $\infty$), the chi-square distribution is given by:
 
     $$
-    f(x) =\frac1{2^{\frac{\upsilon}{2}} \Gamma(\frac{\upsilon}{2})} x^{\frac{\upsilon}{2}-1} \exp(-\frac{x}2)
+    \chi^2(x) =\frac1{2^{\frac{\upsilon}{2}} \Gamma(\frac{\upsilon}{2})} x^{\frac{\upsilon}{2}-1} \exp(-\frac{x}2)
     $$
 
 -   $\Gamma(\cdot)$ is called the gamma function
 
--   The chi-square distribution is govern by one parameter: $\upsilon$ (the degrees of freedom)
+-   The chi-square distribution is governed by one parameter: $\upsilon$ (the degrees of freedom)
 
     -   The mean is equal to $\upsilon$; the variance is equal to 2$\upsilon$
 
 ------------------------------------------------------------------------
+
 ```{r}
+#| code-fold: true
+#| warning: false
 x <- seq(0.01, 15, .01)
 df <- c(1, 2, 3, 5, 10)
 dt2 <- as.data.frame(sapply(df, \(df) dchisq(x, df = df)))
@@ -493,74 +486,49 @@ dt2_with_x |>
   geom_path(aes(x = x, y = value, color = name), linewidth = 1.2) +
   scale_y_continuous(limits = c(0, 1)) +
   scale_color_discrete(name = "", labels = paste("df =", df)) +
-  labs(y = "f(x)") +
+  labs(x = "x", y = "f(x)",
+       title = "Chi-square Distributions with Different Parameters",
+       color = "Parameters") +
   theme_bw() +
   theme(legend.position = "top", text = element_text(size = 13))
 ```
 
-------------------------------------------------------------------------
+## Gamma Distribution Practice
 
-```{shinylive-r}
-#| standalone: true
-#| viewerHeight: 800
-library(shiny)
-library(bslib)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-set.seed(1234)
-# Define UI for application that draws a histogram
-ui <- fluidPage(
+- The chi-square distribution is a special case of the gamma distribution. 
 
-    # Application title
-    titlePanel("Chi-square distribution"),
+  - Specifically, a chi-square distribution with \(k\) degrees of freedom is equivalent to a gamma distribution with a shape parameter of \(k/2\) and a rate parameter of \(1/2\) (or a scale parameter of 2). 
 
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("Df",
-                        "Degree of freedom:",
-                        min = 1,
-                        max = 20,
-                        value = 1,
-                        animate = animationOptions(interval = 5000, loop = TRUE)),
-           verbatimTextOutput(outputId = "Df_display")
-        ),
+- The gamma distribution is another important continuous distribution, particularly useful for modeling waiting times and positive continuous data. It has two parameters: shape ($\alpha$) and rate ($\beta$).
 
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
-    )
-)
+```{r}
+#| code-fold: true
+#| output-location: default
+# Gamma distribution with different shape and rate parameters
+x <- seq(0.01, 10, .01)
+shape_params <- c(1, 2, 3, 5)
+rate_params <- c(1, 1, 2, 1)
 
-# Define server logic required to draw a histogram
-server <- function(input, output) {
-    x <- seq(0.01, 15, .01)
-    df <- reactive({input$Df}) 
-    
-    output$Df_display <- renderText({
-        paste0("DF = ", df())
-    })
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        
-        
-        dt2 <- as.data.frame(sapply(df(), \(df) dchisq(x, df = df)))
-        dt2_with_x <- cbind(x = x, dt2)
-        dt2_with_x |> 
-            pivot_longer(starts_with("V")) |> 
-            ggplot() +
-            geom_path(aes(x = x, y = value), linewidth = 1.2) +
-            scale_y_continuous(limits = c(0, 1)) +
-            labs(y = "f(x)") +
-            theme_bw() +
-            theme(legend.position = "top", text = element_text(size = 13))
-    })
+# Create data for different gamma distributions
+gamma_data <- data.frame()
+for(i in 1:length(shape_params)) {
+  temp_data <- data.frame(
+    x = x,
+    density = dgamma(x, shape = shape_params[i], rate = rate_params[i]),
+    distribution = paste0("Gamma(", shape_params[i], ", ", rate_params[i], ")")
+  )
+  gamma_data <- rbind(gamma_data, temp_data)
 }
 
-# Run the application 
-shinyApp(ui = ui, server = server)
+# Plot the distributions
+ggplot(gamma_data) +
+  geom_path(aes(x = x, y = density, color = distribution), linewidth = 1.2) +
+  scale_color_manual(values = c("red", "blue", "green", "purple")) +
+  labs(x = "x", y = "f(x)",
+       title = "Gamma Distributions with Different Parameters",
+       color = "Parameters") +
+  theme_bw() +
+  theme(legend.position = "top", text = element_text(size = 13))
 ```
 
 # Marginal, Joint, And Conditional Distribution
@@ -569,7 +537,7 @@ shinyApp(ui = ui, server = server)
 
 -   When more than one random variable is present, there are several different types of statistical distributions:
 
--   We will first consider two discrete random variables：
+-   We will first consider two discrete random variables:
 
     -   *x* is the outcome of the flip of a penny {$H_p$, $T_p$}
 
@@ -577,7 +545,7 @@ shinyApp(ui = ui, server = server)
 
     -   *z* is the outcome of the flip of a dime {$H_d$, $T_d$}
 
-        -   $f(z=H_p) = .5$; $f(z =T_p) = .5$
+        -   $f(z=H_d) = .5$; $f(z =T_d) = .5$
 
 -   We will consider the following distributions:
 
@@ -611,9 +579,9 @@ shinyApp(ui = ui, server = server)
 
 ## Joint Distribution
 
--   Joint distributions describe the distribution of more than one variable, simultaneously
+-   Joint distributions describe the simultaneous distribution of more than one variable
 
-    -   Representations of multiple variables collected
+    -   These represent multiple variables collected together
 
 -   Commonly, the joint distribution function is denoted with all random variables separated by commas
 
@@ -647,7 +615,7 @@ shinyApp(ui = ui, server = server)
 
 ## Joint Distributions of Independent Random Variables
 
--   Because the coin flips are independent, this because:
+-   Because the coin flips are independent, this becomes:
 
 |                 | z = $H_d$                            | z = $T_d$                           | Marginal (Penny)              |
 |-----------------|-------------------|-------------------|-----------------|
@@ -667,7 +635,7 @@ shinyApp(ui = ui, server = server)
 
 -   If you had a joint distribution, $\color{orchid}{f(x, z)}$, but wanted the marginal distribution of either variable ($f(x)$ or $f(z)$) you would have to **marginalize** across one dimension of the joint distribution.
 
--   For [**categorical random variables**]{.underline}, marginalize = sum across every value of z
+-   For [**categorical random variables**]{.underline}, marginalizing means summing across every value of z
 
 $$
 f(x) = \sum_zf(x, z)
@@ -675,7 +643,7 @@ $$
 
 -   For example, $f(x = H_p) = f(x = H_p, z=H_d) +f(x = H_p, z=T_d)=.5$
 
--   For [continuous random variables,]{.underline} marginalize = integrate across z
+-   For [**continuous random variables**]{.underline}, marginalizing means integrating across z
 
     -   The integral:
 
@@ -689,7 +657,7 @@ $$
 
     -   The distribution of z given x
 
--   The conditional distribution is equal to the joint distribution divided by the marginal distribution of the conditioning random variable
+-   The conditional distribution equals the joint distribution divided by the marginal distribution of the conditioning variable
 
     $$
     f(z|x) = \frac{f(z,x)}{f(x)}
@@ -697,7 +665,7 @@ $$
 
 -   Conditional distributions are found everywhere in statistics
 
-    -   The general linear model uses the conditional distribution variable
+    -   The general linear model uses the conditional distribution of the variable
 
         $$
         Y \sim N(\beta_0+\beta_1X, \sigma^2_e)
@@ -715,30 +683,32 @@ $$
 
 Conditional: $f(z | x= H_p)$:
 
-$f(z=H_d|x =H_p) = \frac{f(z=H_d, x=H_p}{f(x = H_p)} = \frac{.25}{.5}=.5$
+$f(z=H_d|x =H_p) = \frac{f(z=H_d, x=H_p)}{f(x = H_p)} = \frac{.25}{.5}=.5$
 
-$f(z = T_d | x = H_p)= \frac{f(z=T_d, x=H_p}{f(x=H_p)} = \frac{.25}{.5} = .5$
+$f(z = T_d | x = H_p)= \frac{f(z=T_d, x=H_p)}{f(x=H_p)} = \frac{.25}{.5} = .5$
 
 # Expected Values and The Algebra of Expectation
 
 ## Expected Values
 
--   Expected values are statistics taken the sample space of a random variable: they are essentially weighted averages
+-   Expected values are statistics calculated over the sample space of a random variable: they are essentially weighted averages:
 
     ```{r}
     #| output-location: default
     set.seed(1234)
     x = rnorm(100, mean = 0, sd = 1)
-    weights = dnorm(x, mean = 0, sd = 1)
-    mean(weights * x)
+    w = dnorm(x, mean = 0, sd = 1)
+    mean(w * x)
     ```
 
--   The weights used in computing this average correspond to the probabilities (for a discrete random variable) or to the densities (for a continuous random variable)
+-   Where $w$ denotes the density function of x: $f(x)$
+
+-   The weights used in computing this average correspond to the probabilities (for discrete random variables) or the densities (for continuous random variables)
 
 ::: {.callout-note font-size="1.2em"}
 The expected value is represented by $E(x)$
 
-The actual statistic that is being weighted by the PDF is put into the parenthesis where x is now
+The actual statistic being weighted by the PDF is placed in the parentheses where x appears
 :::
 
 -   Expected values allow us to understand what a statistical model implies about data, for instance:
@@ -750,7 +720,7 @@ The actual statistic that is being weighted by the PDF is put into the parenthes
 -   For discrete random variables, the expected value is found by:
 
     $$
-    E(x) = \sum_x xP(X=x)
+    E(x) = \sum{x \times P(X=x)}
     $$
 
 -   For example, the expected value of a roll of a die is:
@@ -765,7 +735,7 @@ The actual statistic that is being weighted by the PDF is put into the parenthes
     E(x) = \int_x xf(x)dx
     $$
 
--   We won't be calculating theoretical expected values with calculus... we use them only to see how models imply things about out data
+-   We won't be calculating theoretical expected values using calculus... we use them only to understand what our models imply about the data
 
 ## Variance and Covariance... As Expected Values
 
@@ -810,7 +780,7 @@ cov(x, z)
 
 -   More generally, linear combinations of random variables have specific implications for the mean, variance, and possibly covariance of the new random variable
 
--   As such, there are predicable ways in which the means, variances, and covariances change
+-   As such, there are predictable ways in which the means, variances, and covariances change
 
 ## Algebra of Expectations
 
@@ -847,7 +817,7 @@ E(cx) = cE(x) \\
 \text{Var}(cx) = c^2\text{Var}(x) \\
 \text{Cov}(cx, dz) = c*d*\text{Cov}(x, z)
 $$
-Imagine you wanted to convert weight from pounds to kilograms (where 1 pound = .453 kg) and convert height from inches to cm (where 1 inch = 2.54 cm)
+Imagine you wanted to convert weight from pounds to kilograms (where 1 pound = 0.453 kg) and convert height from inches to cm (where 1 inch = 2.54 cm)
 
 
 ```{r}
@@ -878,15 +848,15 @@ var(x*c_+z*d_); c_^2*var(x) + d_^2*var(z) + 2*c_*d_*cov(x, z)
 
 ## Where We Use This Algebra
 
-- Remember how we calculated the standard error of conditional main effect from simple main effect and interaction effect
+- Recall how we calculated the standard error of the conditional main effect using the simple main effect and interaction effect
 
 $$
 \mathbf{Test = 82.20 + 2.16*Senior + 7.76*New - 3.04*Senior*New}
 $$
 
-- Conditional Main Effects of Senior When New is 1 is (2.16 - 3.04) = -0.88
+- The conditional main effect of Senior when New equals 1 is (2.16 - 3.04) = -0.88
 
-    - We know that $Var(\beta_{Senior})$ is 0.575,  $Var(\beta_{Senior*New})$ is 1.151, and $Cov(\beta_{Senior}, \beta_{Senior*New})$ is -0.575.
+    - We know that $\text{Var}(\beta_{\text{Senior}})$ is 0.575, $\text{Var}(\beta_{\text{Senior*New}})$ is 1.151, and $\text{Cov}(\beta_{\text{Senior}}, \beta_{\text{Senior*New}})$ is -0.575.
 
 ```{r}
 #| output-location: default
@@ -902,9 +872,9 @@ $$
 $$
 Thus, $SE(\beta_{Senior}+\beta_{Senior*New})=0.759$
 
-## Combining the GLM with Expections
+## Combining the GLM with Expectations
 
-- Using the algebra of expectations predicting Y from X and Z:
+- Using the algebra of expectations for predicting Y from X and Z:
 
 $$
 \hat{Y}_p=E(Y_p)=E(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+e_p) \\
@@ -918,9 +888,9 @@ $$
 V(Y_P)=V(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+e_p)\\ = V(e_p)=\sigma_e^2
 $$
 
-## Examining What This Means in the Context of Data
+## Understanding These Concepts in the Context of Data
 
-- If you recall from the regression analysis of the height/weight data, the final model we decided to interpret: Model 5
+- Recall from the regression analysis of the height/weight data that the final model we decided to interpret was Model 5
 
 $$
 W_p = \beta_0+\beta_1 (H_p-\bar{H}) +\beta_2F_p+\beta_3 (H_p-\bar{H}) F_p + e_p
@@ -939,11 +909,11 @@ summary(mod5)
 
 ## Picturing the GLM with Distributions
 
-- The distributional assumptions of the GLM are the reason why we do not need to worry if our dependent variable is normally distributed
+- The distributional assumptions of the GLM explain why we do not need to worry about whether our dependent variable is normally distributed
 
 - Our dependent variable should be conditionally normal
 
-- We can check this assumption by checking our assumption about the residuals,
+- We can check this assumption by examining the residuals:
 $e_p \sim N(0, \sigma^2_e)$ 
 
 ```{r}
@@ -964,14 +934,14 @@ residual_dat <- as.data.frame(sapply(pred_y, \(x) rnorm(100, mean = x, sd = sigm
 residual_dat_long <- residual_dat |> 
   pivot_longer(everything())
 
-colnames(residual_dat_long) <- c("Point", "weightLBVaribant")
+colnames(residual_dat_long) <- c("Point", "weightLBVariant")
 
 residual_dat_long <- residual_dat_long |> 
   left_join(pred_y_dat) |> 
   arrange(Point) 
 
 ggplot() +
-  geom_density_ridges(aes(x = weightLBVaribant, y = as.factor(round(heightIN_MC, 3))), 
+  geom_density_ridges(aes(x = weightLBVariant, y = as.factor(round(heightIN_MC, 3))), 
                       data = residual_dat_long, rel_min_height = 0.005, alpha = .5,
                       scale = .7) + 
   geom_point(aes(col = female, x = weightLB, y = as.factor(round(heightIN_MC, 3))), data= dat) +
@@ -992,10 +962,10 @@ plot(mod5)
 
 ## Hypothesis Tests for Normality
 
-If a given test is **significant**, then it is saying that your data do not come from a normal distribution
+If a given test is **significant**, it indicates that your data do not come from a normal distribution
 
-In practice, test will give diverging information quite frequently:
-the best way to evaluate normality is to consider both plots and tests (approximate = good)
+In practice, tests will often provide conflicting information.
+The best way to evaluate normality is to consider both plots and tests together (approximate normality is usually sufficient)
 
 ```{r}
 shapiro.test(mod5$residuals)

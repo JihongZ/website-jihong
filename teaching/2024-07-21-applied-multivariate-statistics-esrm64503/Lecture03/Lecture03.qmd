@@ -131,7 +131,7 @@ $$
 
 -   [Model for the Variance: Stability of Estimates]{style="color: violet; font-weight:bold"}
 
-    1.  **Variance-Covariance Matrix of Regression Coefficients** (Diagnoal: variances of betas (squared standard errors of betas); Nondiagnoal: residual covariances between betas)
+    1.  **Variance-Covariance Matrix of Regression Coefficients** (Diagonal: variances of betas (squared standard errors of betas); Non-diagonal: residual covariances between betas)
 
 $\mathbf{\Sigma_{\boldsymbol{\beta}}}$ =
 
@@ -310,9 +310,9 @@ summary(contrast_value)
 
 -   **The model for the means** will describe what happens to the predicted outcome Y "as X increases" or "as Z increases" and so forth
 
--   But you wont what Y is actually supposed to be unless you know where the predictor variables are starting from!
+-   But you won't know what Y is actually supposed to be unless you know where the predictor variables are starting from!
 
--   Therefor, the intercept is the "YOU ARE HERE" sign in the map of your data... so it should be somewhere in the map\*!
+-   Therefore, the intercept is the "YOU ARE HERE" sign in the map of your data... so it should be somewhere in the map\*!
 
 ```{r}
 #| echo: false
@@ -343,7 +343,7 @@ ggplot(dataTestExperiment) +
 
         -   Software does this for you; oddly enough, nonsignificant interactions usually still are kept in the model (even if only significant interactions are interpreted)
 
-    2.  In “**ANCOVA**”: Continuous predictors (“covariates”) do not get to be part of interaction ➡️ make the “homogeneity of regression” assumption
+    2.  In "**ANCOVA**": Continuous predictors ("covariates") do not get to be part of interactions ➡️ make the "homogeneity of regression" assumption
 
         -   There is no reason to assume this – it is a testable hypothesis!
 
@@ -538,7 +538,7 @@ anova(model1)
 ```
 
 ::: callout-note
-These ANOVA table is displaying **marginal tests** (F-test) for the main effects. Marginal tests are for the main effect only and are not conditional on any interacting variables.
+This ANOVA table is displaying **marginal tests** (F-test) for the main effects. Marginal tests are for the main effect only and are not conditional on any interacting variables.
 :::
 
 ## Getting estimates and standard errors of group means
@@ -615,7 +615,7 @@ Var_Test_2 <- Var_beta_0 + Var_beta_2 + 2*Cov_beta_0_2
 ::: callout-caution
 ## Your Homework 1 - Question 1
 
-Copy and paste your R syntax abd output that calculates the **Senior-Old**'s standard errors of means (use the data and model we use in class). For example, our class syntax for Freshman-New is like:
+Copy and paste your R syntax and output that calculates the **Senior-Old**'s standard errors of means (use the data and model we use in class). For example, our class syntax for Freshman-New is like:
 
 > \# R syntax
 >
