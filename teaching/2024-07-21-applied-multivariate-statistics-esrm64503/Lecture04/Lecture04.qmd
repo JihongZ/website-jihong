@@ -63,30 +63,30 @@ filters:
     -   The statistical assumptions of the GLM
 
     -   How to assess these assumptions
-    
+
 # ESRM 64503: Homework 1
 
 ## Question 2
 
 <details>
 
-- Copy and paste your R syntax and R output that calculates the group **Senior-Old's standard error of group mean** (use the data and model we've used in class). 
+-   Copy and paste your R syntax and R output that calculates the group **Senior-Old's standard error of group mean** (use the data and model we've used in class).
 
-  - **Aim**: Test whether the group mean of senior-old significantly higher than the baseline (here, 0 score)
+    -   **Aim**: Test whether the group mean of senior-old significantly higher than the baseline (here, 0 score)
 
 $$
 \mathbf{Test = \beta_0 +\beta_1Senior + \beta_2New +\beta_3Senior*New}
 $$
 
-- The group mean of Senior-Old is $\beta_0 + \beta_1$.
+-   The group mean of Senior-Old is $\beta_0 + \beta_1$.
 
-- Based on algebra for variance, we know that
+-   Based on algebra for variance, we know that
 
 $$
 Var(\beta_0 + \beta_1) = Var(\beta_0)+Var(\beta_1) +2*Cov(\beta_0, \beta_1)
 $$
 
-- `vcov` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
+-   `vcov` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
 
 ```{r}
 #| output-location: default
@@ -108,25 +108,22 @@ Var_Test_SeniorOld <- Var_beta_0 + Var_beta_1 + 2*Cov_beta_0_1
 
 <details>
 
-- Copy and paste your R syntax and R output that calculates the standard error of conditional main effect of New (New vs. Old) when Senior = 1.
+-   Copy and paste your R syntax and R output that calculates the standard error of conditional main effect of New (New vs. Old) when Senior = 1.
 
-  - **Aim**: Test whether the conditional main effect of New when Senior significantly different from 0
-     - In other words, when individuals are senior, whether new or old instruction method has significantly differences in their test scores
-
+    -   **Aim**: Test whether the conditional main effect of New when Senior significantly different from 0
+        -   In other words, when individuals are senior, whether new or old instruction method has significantly differences in their test scores
 
 $$
 \beta_{2|Senior =1} = \beta_2 + \beta_3 * 1
 $$
 
-
-- Based on algebra for variance, we know that
+-   Based on algebra for variance, we know that
 
 $$
 Var(\beta_2 + \beta_3) = Var(\beta_2)+Var(\beta_3) +2*Cov(\beta_2, \beta_3)
 $$
 
-
--   `vcov` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$ 
+-   `vcov` function provides the variances and covariances for $\beta_0$, $\beta_1$, $\beta_2$, and $\beta_3$
 
 ```{r}
 #| output-location: default
@@ -137,30 +134,30 @@ Cov_beta_2_3 <- vcov(model1)[3,4]
 Var_betaofNew_Senior1 <- Var_beta_2 + Var_beta_3 + 2*Cov_beta_2_3
 (SE_betaofNew_Senior1 <- sqrt(Var_betaofNew_Senior1)) 
 ```
+
 </details>
 
 # Unit 1: Random Variables & Statistical Distribution
 
 ## Definition of Random Variables
 
-- [**Random:**]{.underline} situations in which the certainty of the outcome is unknown and is at least in part due to chance
+-   [**Random:**]{.underline} situations in which the certainty of the outcome is unknown and is at least in part due to chance
 
-- [**Variable:**]{.underline} a value that may change given the scope of a given problem or set of operations
+-   [**Variable:**]{.underline} a value that may change given the scope of a given problem or set of operations
 
-- [**Random Variable**]{.underline}: a variable whose outcome depends on chance (possible values represent the potential outcomes of a future experiment)
+-   [**Random Variable**]{.underline}: a variable whose outcome depends on chance (possible values represent the potential outcomes of a future experiment)
 
 Today, we will denote a random variable with lowercase letters: ***x***
 
 **Question**: which one in the following options is random variable:
 
-a. any company's revenue in 2024
+a.  any company's revenue in 2024
 
-b. one specific company's monthly revenue in 2024
+b.  one specific company's monthly revenue in 2024
 
-c. companies whose revenue is over $30 billion
+c.  companies whose revenue is over \$30 billion
 
-**My answer**: <span class="mohu">only (a)</span>
-
+**My answer**: [only (a)]{.mohu}
 
 ## Types of Random Variables
 
@@ -216,10 +213,9 @@ c. companies whose revenue is over $30 billion
 Both maximum and minimum temperature values can be considered continuous random variables.
 :::
 
-- Question 1: What are the probabilities when integrating over all values of maximum and minimum temperatures ({1, 1} or {0.5, 0.5})?
+-   Question 1: What are the probabilities when integrating over all values of maximum and minimum temperatures ({1, 1} or {0.5, 0.5})?
 
-- **Answer**: <span class="mohu">It is {1, 1} for maximum and minimum temperatures because they are two separate random variables.</span>
-
+-   **Answer**: [It is {1, 1} for maximum and minimum temperatures because they are two separate random variables.]{.mohu}
 
 ```{r}
 #| code-fold: true
@@ -246,8 +242,8 @@ temp |>
     -   **Example 2:** The sample space for a random variable x representing the outcome of a coin flip is {H, T}
     -   **Example 3:** The sample space for a random variable x representing the outcome of a roll of a die is {1, 2, 3, 4, 5, 6}
 -   When using generalized models, the key is to select a distribution with a sample space that matches the range of values obtainable from the data
-    - Logistic regression - Match Bernoulli distribution <span class="mohu">(Example 2)</span>
-    - Poisson regression - Match Poisson distribution <span class="mohu">(Example 3)</span>
+    -   Logistic regression - Match Bernoulli distribution [(Example 2)]{.mohu}
+    -   Poisson regression - Match Poisson distribution [(Example 3)]{.mohu}
 
 ## Uses of Distributions in Data Analysis
 
@@ -284,8 +280,8 @@ temp |>
 ## Uniform distribution
 
 -   The uniform distribution helps us understand how continuous distributions work
-    
-    - Typically used in simulation studies where parameters are randomly generated
+
+    -   Typically used in simulation studies where parameters are randomly generated
 
 -   For a continuous random variable x that ranges from (a, b), the uniform probability density function is:
 
@@ -399,10 +395,7 @@ lb <- pnorm(-2, mean = 0, sd = 1, lower.tail = TRUE)
 ub <- pnorm(2, mean = 0, sd = 1, lower.tail = TRUE)
 ub - lb
 ```
-
-
 :::
-
 
 ## Univariate Normal Distribution in R: `dnorm`
 
@@ -417,7 +410,6 @@ $$
 ```{r}
 dnorm(x = 0, mean = 0, sd = 1)
 ```
-
 
 ```{r}
 #| code-fold: true
@@ -456,7 +448,7 @@ ggplot(dt) +
     -   Sampling distribution of the variance follows a chi-square distribution
 
     -   Likelihood ratios follow a chi-square distribution
-    
+
     -   F-distributed random variable can be expressed as the ratio of two independent gamma-distributed random variables
 
 -   For a continuous random variable *x* (ranging from 0 to $\infty$), the chi-square distribution is given by:
@@ -495,11 +487,11 @@ dt2_with_x |>
 
 ## Gamma Distribution Practice
 
-- The chi-square distribution is a special case of the gamma distribution. 
+-   The chi-square distribution is a special case of the gamma distribution.
 
-  - Specifically, a chi-square distribution with \(k\) degrees of freedom is equivalent to a gamma distribution with a shape parameter of \(k/2\) and a rate parameter of \(1/2\) (or a scale parameter of 2). 
+    -   Specifically, a chi-square distribution with (k) degrees of freedom is equivalent to a gamma distribution with a shape parameter of (k/2) and a rate parameter of (1/2) (or a scale parameter of 2).
 
-- The gamma distribution is another important continuous distribution, particularly useful for modeling waiting times and positive continuous data. It has two parameters: shape ($\alpha$) and rate ($\beta$).
+-   The gamma distribution is another important continuous distribution, particularly useful for modeling waiting times and positive continuous data. It has two parameters: shape ($\alpha$) and rate ($\beta$).
 
 ```{r}
 #| code-fold: true
@@ -571,11 +563,60 @@ ggplot(gamma_data) +
 
     -   Continuous univariate distributions
 
+        -   Adult heights (Normal)
+
+        -   Time between arrivals (Exponential)
+
+        -   Device lifetimes (Weibull)
+
+        -   Proportions on [0,1] (Beta)
+
     -   Categorical distributions
 
         -   The flip of a penny
 
         -   The flip of a dime
+
+        -   The roll of a fair die (1–6)
+
+        -   Day of the week (Mon–Sun)
+
+-----------------------------
+
+### Visualization of marginal and joint distribution
+
+```{r}
+#| label: fig-categorical-examples
+#| layout-ncol: 2
+#| fig-cap: 
+#|   - "marginal (die) distribution"
+#|   -  "joint (penny × dime) distribution"
+#| fig-width: 6
+#| fig-height: 6
+#| code-fold: true
+library(ggplot2)
+
+# Marginal categorical distribution: fair die
+die <- data.frame(face = factor(1:6), p = rep(1/6, 6))
+p1 <- ggplot(die, aes(x = face, y = p)) +
+  geom_col(fill = "#5DA5DA") +
+  labs(title = "Marginal: Fair Die", x = "Face", y = "Probability") +
+  scale_y_continuous(limits = c(0, 0.25)) +
+  theme_minimal(base_size = 12)
+
+# Joint categorical distribution: penny × dime (independent, fair)
+joint <- expand.grid(penny = c("H", "T"), dime = c("H", "T"))
+joint$p <- 0.25
+p2 <- ggplot(joint, aes(x = penny, y = dime, fill = p)) +
+  geom_tile(color = "white") +
+  geom_text(aes(label = scales::percent(p)), color = "black") +
+  scale_fill_gradient(low = "#CFE8F3", high = "#2166AC", labels = scales::percent) +
+  labs(title = "Joint: Penny × Dime", x = "Penny", y = "Dime", fill = "Probability") +
+  theme_minimal(base_size = 12)
+
+p1
+p2
+```
 
 ## Joint Distribution
 
@@ -583,7 +624,7 @@ ggplot(gamma_data) +
 
     -   These represent multiple variables collected together
 
--   Commonly, the joint distribution function is denoted with all random variables separated by commas
+    -   Commonly, the joint distribution function is denoted with all random variables separated by commas
 
     -   In our example, $f(x,z)$ is the joint distribution of the outcome of flipping both a penny and a dime
 
@@ -599,7 +640,9 @@ ggplot(gamma_data) +
 
     -   Joint distributions – used in maximum likelihood estimation
 
-## Joint Distributions of Independent Random Variables
+--------------------------
+
+### Joint Distributions of Independent Random Variables
 
 -   Random variables are said to be independent if the occurrence of one event makes it neither more nor less probable of another event
 
@@ -607,31 +650,35 @@ ggplot(gamma_data) +
 
 -   In our example, flipping a penny and flipping a dime are independent – so we can complete the following table of their joint distribution:
 
-    |                 | z = $H_d$                          | z = $T_d$                         | Marginal (Penny)              |
-    |------------------|-------------------|------------------|------------------|
-    | $x = H_p$       | $\color{tomato}{f(x=H_p, z=H_d)}$  | $\color{tomato}{f(x=H_p, z=T_d)}$ | $\color{turquoise}{f(z=H_p)}$ |
-    | $x = T_p$       | $\color{tomato}{f(x= T_p, z=H_d)}$ | $\color{tomato}{f(x=T_p, z=T_d)}$ | $\color{turquoise}{f(z=T_d)}$ |
-    | Marginal (Dime) | $\color{turquoise}{f(z=H_d)}$      | $\color{turquoise}{f(z=T_d)}$     |                               |
+    |   | z = $H_d$ | z = $T_d$ | Marginal (Penny) |
+    |----|----|----|----|
+    | $x = H_p$ | $\color{tomato}{f(x=H_p, z=H_d)}$ | $\color{tomato}{f(x=H_p, z=T_d)}$ | $\color{turquoise}{f(z=H_p)}$ |
+    | $x = T_p$ | $\color{tomato}{f(x= T_p, z=H_d)}$ | $\color{tomato}{f(x=T_p, z=T_d)}$ | $\color{turquoise}{f(z=T_d)}$ |
+    | Marginal (Dime) | $\color{turquoise}{f(z=H_d)}$ | $\color{turquoise}{f(z=T_d)}$ |  |
 
-## Joint Distributions of Independent Random Variables
+------------------------------
+
+### Joint Distributions of Independent Random Variables
 
 -   Because the coin flips are independent, this becomes:
 
-|                 | z = $H_d$                            | z = $T_d$                           | Marginal (Penny)              |
-|-----------------|-------------------|-------------------|-----------------|
-| $x = H_p$       | $\color{tomato}{f(x=H_p)f( z=H_d)}$  | $\color{tomato}{f(x=H_p)f( z=T_d)}$ | $\color{turquoise}{f(z=H_p)}$ |
-| $x = T_p$       | $\color{tomato}{f(x= T_p)f( z=H_d)}$ | $\color{tomato}{f(x=T_p)f( z=T_d)}$ | $\color{turquoise}{f(z=T_d)}$ |
-| Marginal (Dime) | $\color{turquoise}{f(z=H_d)}$        | $\color{turquoise}{f(z=T_d)}$       |                               |
+|   | z = $H_d$ | z = $T_d$ | Marginal (Penny) |
+|----|----|----|----|
+| $x = H_p$ | $\color{tomato}{f(x=H_p)f( z=H_d)}$ | $\color{tomato}{f(x=H_p)f( z=T_d)}$ | $\color{turquoise}{f(z=H_p)}$ |
+| $x = T_p$ | $\color{tomato}{f(x= T_p)f( z=H_d)}$ | $\color{tomato}{f(x=T_p)f( z=T_d)}$ | $\color{turquoise}{f(z=T_d)}$ |
+| Marginal (Dime) | $\color{turquoise}{f(z=H_d)}$ | $\color{turquoise}{f(z=T_d)}$ |  |
 
 -   Then, with numbers:
 
-|                 | z = $H_d$               | z = $T_d$               | Marginal (Penny)        |
-|------------------|------------------|------------------|------------------|
-| $x = H_p$       | $\color{tomato}{.25}$   | $\color{tomato}{.25}$   | $\color{turquoise}{.5}$ |
-| $x = T_p$       | $\color{tomato}{.25}$   | $\color{tomato}{.25}$   | $\color{turquoise}{.5}$ |
-| Marginal (Dime) | $\color{turquoise}{.5}$ | $\color{turquoise}{.5}$ |                         |
+|   | z = $H_d$ | z = $T_d$ | Marginal (Penny) |
+|----|----|----|----|
+| $x = H_p$ | $\color{tomato}{.25}$ | $\color{tomato}{.25}$ | $\color{turquoise}{.5}$ |
+| $x = T_p$ | $\color{tomato}{.25}$ | $\color{tomato}{.25}$ | $\color{turquoise}{.5}$ |
+| Marginal (Dime) | $\color{turquoise}{.5}$ | $\color{turquoise}{.5}$ |  |
 
-## Marginalizing Across a Joint Distribution
+---------------
+
+### Marginalizing Across a Joint Distribution
 
 -   If you had a joint distribution, $\color{orchid}{f(x, z)}$, but wanted the marginal distribution of either variable ($f(x)$ or $f(z)$) you would have to **marginalize** across one dimension of the joint distribution.
 
@@ -651,7 +698,7 @@ $$
         f(x) = \int_zf(x,z)dz
         $$
 
-## Conditional Distributions
+## Conditional Distribution
 
 -   For two random variables x and z, a conditional distribution is written as: $f(z|x)$
 
@@ -671,21 +718,56 @@ $$
         Y \sim N(\beta_0+\beta_1X, \sigma^2_e)
         $$
 
-## Example: Conditional Distribution
+------------------
+
+### Example: Conditional Distribution
 
 -   For two discrete random variables with {0, 1} values, the conditional distribution can be shown in a contingency table:
 
-|                 | z = $H_d$               | z = $T_d$               | Marginal (Penny)        |
-|------------------|------------------|------------------|------------------|
-| $x = H_p$       | $\color{tomato}{.25}$   | $\color{tomato}{.25}$   | $\color{turquoise}{.5}$ |
-| $x = T_p$       | $\color{tomato}{.25}$   | $\color{tomato}{.25}$   | $\color{turquoise}{.5}$ |
-| Marginal (Dime) | $\color{turquoise}{.5}$ | $\color{turquoise}{.5}$ |                         |
+|   | z = $H_d$ | z = $T_d$ | Marginal (Penny) |
+|----|----|----|----|
+| $x = H_p$ | $\color{tomato}{.25}$ | $\color{tomato}{.25}$ | $\color{turquoise}{.5}$ |
+| $x = T_p$ | $\color{tomato}{.25}$ | $\color{tomato}{.25}$ | $\color{turquoise}{.5}$ |
+| Marginal (Dime) | $\color{turquoise}{.5}$ | $\color{turquoise}{.5}$ |  |
 
 Conditional: $f(z | x= H_p)$:
 
 $f(z=H_d|x =H_p) = \frac{f(z=H_d, x=H_p)}{f(x = H_p)} = \frac{.25}{.5}=.5$
 
 $f(z = T_d | x = H_p)= \frac{f(z=T_d, x=H_p)}{f(x=H_p)} = \frac{.25}{.5} = .5$
+
+---------------------
+
+### Exercise: calculate conditional probabilities
+
+Using the same penny (x) and dime (z) setup, suppose the joint distribution is slightly modified as follows:
+
+|   | z = $H_d$ | z = $T_d$ |
+|----|----|----|
+| $x = H_p$ | 0.30 | 0.20 |
+| $x = T_p$ | 0.20 | 0.30 |
+
+-   Compute the marginal probabilities: $P(x=H_p)$, $P(x=T_p)$, $P(z=H_d)$, $P(z=T_d)$.
+-   Compute the conditional probabilities: $P(z=H_d\mid x=H_p)$ and $P(x=T_p\mid z=T_d)$.
+-   Briefly show your work (fractions from the table entries).
+
+
+<details>
+<summary>Answer (click to expand)</summary>
+
+Marginals:
+
+- $P(x=H_p) = 0.30 + 0.20 = 0.50$
+- $P(x=T_p) = 0.20 + 0.30 = 0.50$
+- $P(z=H_d) = 0.30 + 0.20 = 0.50$
+- $P(z=T_d) = 0.20 + 0.30 = 0.50$
+
+Conditionals:
+
+- $P(z=H_d\mid x=H_p) = \dfrac{0.30}{0.50} = 0.60$
+- $P(x=T_p\mid z=T_d) = \dfrac{0.30}{0.50} = 0.60$
+
+</details>
 
 # Expected Values and The Algebra of Expectation
 
@@ -816,9 +898,7 @@ $$
 E(cx) = cE(x) \\
 \text{Var}(cx) = c^2\text{Var}(x) \\
 \text{Cov}(cx, dz) = c*d*\text{Cov}(x, z)
-$$
-Imagine you wanted to convert weight from pounds to kilograms (where 1 pound = 0.453 kg) and convert height from inches to cm (where 1 inch = 2.54 cm)
-
+$$ Imagine you wanted to convert weight from pounds to kilograms (where 1 pound = 0.453 kg) and convert height from inches to cm (where 1 inch = 2.54 cm)
 
 ```{r}
 #| output-location: default
@@ -848,15 +928,15 @@ var(x*c_+z*d_); c_^2*var(x) + d_^2*var(z) + 2*c_*d_*cov(x, z)
 
 ## Where We Use This Algebra
 
-- Recall how we calculated the standard error of the conditional main effect using the simple main effect and interaction effect
+-   Recall how we calculated the standard error of the conditional main effect using the simple main effect and interaction effect
 
 $$
 \mathbf{Test = 82.20 + 2.16*Senior + 7.76*New - 3.04*Senior*New}
 $$
 
-- The conditional main effect of Senior when New equals 1 is (2.16 - 3.04) = -0.88
+-   The conditional main effect of Senior when New equals 1 is (2.16 - 3.04) = -0.88
 
-    - We know that $\text{Var}(\beta_{\text{Senior}})$ is 0.575, $\text{Var}(\beta_{\text{Senior*New}})$ is 1.151, and $\text{Cov}(\beta_{\text{Senior}}, \beta_{\text{Senior*New}})$ is -0.575.
+    -   We know that $\text{Var}(\beta_{\text{Senior}})$ is 0.575, $\text{Var}(\beta_{\text{Senior*New}})$ is 1.151, and $\text{Cov}(\beta_{\text{Senior}}, \beta_{\text{Senior*New}})$ is -0.575.
 
 ```{r}
 #| output-location: default
@@ -864,17 +944,16 @@ model1 <- lm(Test ~ Senior + New + Senior * New, data = dataTestExperiment)
 vcov(model1)
 ```
 
-Then, 
+Then,
 
 $$
 \mathbf{Var(\beta_{Senior}+\beta_{Senior*New}) = Var(\beta_{Senior}) + Var(\beta_{Senior*New}) + 2Cov(\beta_{Senior},\beta_{Senior*New})
 \\ = 0.575 + 1.151 - 2* 0.575 = 0.576} 
-$$
-Thus, $SE(\beta_{Senior}+\beta_{Senior*New})=0.759$
+$$ Thus, $SE(\beta_{Senior}+\beta_{Senior*New})=0.759$
 
 ## Combining the GLM with Expectations
 
-- Using the algebra of expectations for predicting Y from X and Z:
+-   Using the algebra of expectations for predicting Y from X and Z:
 
 $$
 \hat{Y}_p=E(Y_p)=E(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+e_p) \\
@@ -882,7 +961,7 @@ $$
 = \beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p
 $$
 
-- The variance of $f(Y_p|X_p, Z_p)$:
+-   The variance of $f(Y_p|X_p, Z_p)$:
 
 $$
 V(Y_P)=V(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+e_p)\\ = V(e_p)=\sigma_e^2
@@ -890,7 +969,7 @@ $$
 
 ## Understanding These Concepts in the Context of Data
 
-- Recall from the regression analysis of the height/weight data that the final model we decided to interpret was Model 5
+-   Recall from the regression analysis of the height/weight data that the final model we decided to interpret was Model 5
 
 $$
 W_p = \beta_0+\beta_1 (H_p-\bar{H}) +\beta_2F_p+\beta_3 (H_p-\bar{H}) F_p + e_p
@@ -909,12 +988,11 @@ summary(mod5)
 
 ## Picturing the GLM with Distributions
 
-- The distributional assumptions of the GLM explain why we do not need to worry about whether our dependent variable is normally distributed
+-   The distributional assumptions of the GLM explain why we do not need to worry about whether our dependent variable is normally distributed
 
-- Our dependent variable should be conditionally normal
+-   Our dependent variable should be conditionally normal
 
-- We can check this assumption by examining the residuals:
-$e_p \sim N(0, \sigma^2_e)$ 
+-   We can check this assumption by examining the residuals: $e_p \sim N(0, \sigma^2_e)$
 
 ```{r}
 #| echo: false
@@ -953,7 +1031,6 @@ ggplot() +
   coord_flip()
 ```
 
-
 ## Assessing Distributional Assumptions Graphically
 
 ```{r}
@@ -964,8 +1041,7 @@ plot(mod5)
 
 If a given test is **significant**, it indicates that your data do not come from a normal distribution
 
-In practice, tests will often provide conflicting information.
-The best way to evaluate normality is to consider both plots and tests together (approximate normality is usually sufficient)
+In practice, tests will often provide conflicting information. The best way to evaluate normality is to consider both plots and tests together (approximate normality is usually sufficient)
 
 ```{r}
 shapiro.test(mod5$residuals)
@@ -973,6 +1049,6 @@ shapiro.test(mod5$residuals)
 
 ## Wrapping Up
 
-- Today was an introduction to mathematical statistics as a way to understand the implications statistical models make about data
+-   Today was an introduction to mathematical statistics as a way to understand the implications statistical models make about data
 
-- Although many of these topics do not seem directly relevant, they help provide insights that untrained analysts may not easily attain
+-   Although many of these topics do not seem directly relevant, they help provide insights that untrained analysts may not easily attain
