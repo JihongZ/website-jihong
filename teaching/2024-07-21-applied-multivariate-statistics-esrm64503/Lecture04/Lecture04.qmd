@@ -219,7 +219,7 @@ c.  companies whose revenue is over \$30 billion in 2025
 Both maximum and minimum temperature values can be considered continuous random variables.
 :::
 
--   Question 1: What are the probabilities when integrating over all values of maximum and minimum temperatures ({1, 1} or {0.5, 0.5})?
+-   Question 1: For the density plot below, what are the total probabilities when integrating over all values of maximum and minimum temperatures ({1, 1} or {0.5, 0.5})?
 
 -   **Answer**: [It is {1, 1} for maximum and minimum temperatures because they are two separate random variables.]{.mohu}
 
@@ -277,7 +277,7 @@ temp |>
 
     -   Normal distribution
 
-    -   Chi-square distribution
+    -   Chi-square distribution (relevant to F-statistics)
 
 -   Each distribution is described by a set of parameters, which we will later see provide the basis for our inferences when we analyze data
 
@@ -309,7 +309,7 @@ temp |>
 -   To demonstrate how PDFs work, we will try a few values:
 
 ```{r}
-conditions <- tribble(
+conditions <- dplyr::tribble(
    ~x, ~a, ~b,
    .5,  0,  1,
   .75,  0,  1,
@@ -354,7 +354,21 @@ $$
 Density (`dnorm`), distribution function (`pnorm`), quantile function (`qnorm`) and random generation (`rnorm`) for the normal distribution with mean equal to `mean` and standard deviation equal to `sd`.
 
 ```{r}
+#| results: hold
+cat("The probability of x = 0 a standard normal distribution with 0 and 1\n")
+pnorm(0, mean = 0, sd = 1)
+
+cat("The probability of x = +1 a standard normal distribution with 0 and 1\n")
+pnorm(1, mean = 0, sd = 1)
+
+cat("The probability of x = -1 a standard normal distribution with 0 and 1\n")
+pnorm(-1, mean = 0, sd = 1)
+```
+
+```{r}
 #| code-fold: true
+#| output-location: 'default'
+#| fig-align: center
 Z = seq(-5, 5, .1) # Z-score
 ggplot() +
   aes(x = Z, y = pnorm(q = Z, lower.tail = TRUE)) +
@@ -363,6 +377,9 @@ ggplot() +
   labs(x = "Z-score", y = "Cumulative probability",
        title = "`pnorm()` gives the cumulative probability function P(X < T)")
 ```
+
+---------------------------
+
 
 ::: panel-tabset
 ### Exercise - pnorm
