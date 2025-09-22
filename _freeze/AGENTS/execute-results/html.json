@@ -1,0 +1,15 @@
+{
+  "hash": "3bee5e528ac6bc10b3603150119beb80",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Repository Guidelines\n\n## Project Structure & Content Organization\n- Root `*.qmd` — top-level pages (e.g., `index.qmd`, `about.qmd`).\n- Section folders — `posts/`, `postsCN/`, `projects/`, `teaching/`, `presentation/`, `notes/`, etc.; each contains content `*.qmd` and assets.\n- Quarto config — `_quarto.yml` (site options), `_publish.yml` (deploy), `_extensions/`.\n- Build artifacts — `_site/` (output), `_freeze/` (cached results; keep versioned for reproducibility).\n- Assets — `images/`, `assets/`, `fonts/`, `template.html`, `toggle.js`.\n\n## Build, Preview, and Publish\n- Preview: `quarto preview` — local server with live reload.\n- Render all: `quarto render` — builds site to `_site/`.\n- Render page: `quarto render path/to/file.qmd` — single page build.\n- Publish: configure `_publish.yml`, then `quarto publish gh-pages` (or desired target).\n- R environment: open `website-jihong.Rproj` in RStudio for integrated preview.\n\n## Content & Coding Conventions\n- Writing: concise, active voice; American English; headings in Title Case; wrap lines at ~100 chars.\n- QMD front matter: include `title`, `description`, `categories`/`tags` when relevant.\n- R code chunks: use named chunks and set seeds for reproducibility.\n  - Example: \n    ```\n\n\n\n\n    \n\n\n\n\n    ```\n- Assets: reference with relative paths (e.g., `images/plot.png`); keep large data in `assets/`.\n\n## LLM Assistance Guidelines\n- Grammar/typo checks: ask for inline edits and retain author voice.\n- R help: request minimal, runnable examples and short explanations tied to the page’s goal.\n- Verification: execute suggested R code locally; keep data seeds and output stable.\n- Citations: if an LLM introduces methods or sources, add references or remove.\n\n## Quality & Review Checklist\n- Build passes: `quarto render` completes without warnings; figures/links work.\n- Reproducibility: chunks run cleanly; no hidden external state; cache only when necessary.\n- Accessibility: provide alt text, semantic headings, and meaningful link text.\n- Diff discipline: prefer smaller PRs per section or page.\n\n## Commit & Pull Request Guidelines\n- Commits: conventional prefixes — `content:`, `fix:`, `style:`, `refactor:`, `chore:`, `ci:`.\n  - Example: `content(posts): add R dplyr join examples`.\n- PRs: link issues, summarize changes, note pages affected, include before/after screenshots for UI changes.\n- Keep `_quarto.yml` changes isolated and described; update navigation when adding sections.\n\n## Security & Configuration Tips\n- Do not commit secrets. Prefer `.Renviron` locally; document needed keys in a non-secret sample.\n- Avoid fetching remote data during builds; cache or vendor sample datasets in `assets/`.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

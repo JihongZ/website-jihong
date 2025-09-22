@@ -66,7 +66,7 @@ filters:
 
 # ESRM 64503: Homework 1
 
-## Question 2
+## Question 1
 
 <details>
 
@@ -90,6 +90,8 @@ $$
 
 ```{r}
 #| output-location: default
+#| results: hide
+#| echo: false
 # R syntax
 library(ESRM64503)
 library(tidyverse)
@@ -127,6 +129,10 @@ $$
 
 ```{r}
 #| output-location: default
+#| results: hide
+#| echo: false
+
+
 # R syntax
 Var_beta_2 <- vcov(model1)[3,3]
 Var_beta_3 <- vcov(model1)[4,4]
