@@ -36,6 +36,7 @@ filters:
 
 ## Today's Class
 
+-   [AI tutor](https://chatgpt.com/g/g-68d1c4616a308191a50f9c73edb2d3d3-appliedma-mentor)
 -   Review Homework 1
 
 -   [The building blocks]{style="color: tomato"}: **The basics of mathematical statistics:**
