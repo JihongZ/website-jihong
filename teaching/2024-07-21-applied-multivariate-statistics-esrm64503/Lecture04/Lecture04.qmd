@@ -157,11 +157,11 @@ Today, we will denote a random variable with lowercase letters: ***x***
 
 **Question**: which one in the following options is random variable:
 
-a.  any company's revenue in 2024
+a.  any company's revenue in 2025
 
-b.  one specific company's monthly revenue in 2024
+b.  one specific company's monthly revenue in 2025
 
-c.  companies whose revenue is over \$30 billion
+c.  companies whose revenue is over \$30 billion in 2025
 
 **My answer**: [only (a)]{.mohu}
 
