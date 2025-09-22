@@ -987,7 +987,7 @@ $$
 -   The variance of $f(Y_p|X_p, Z_p)$:
 
 $$
-V(Y_P)=V(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+e_p)\\ = V(e_p)=\sigma_e^2
+V(\hat{Y_P}|X_p, Z_p)=V(\beta_0+\beta_1X_p+\beta_2Z_p+\beta_3X_pZ_p+e_p)\\ = V(\hat{Y}_p + e_p)=\sigma_e^2
 $$
 
 ## Understanding These Concepts in the Context of Data
