@@ -38,6 +38,7 @@ filters:
 ::: objectives
 [Class Outline]{.redcolor .bigger}
 
+-   [GPT AI Tutor]{https://chatgpt.com/g/g-68cf5bdeb74c8191bba4dfdd768d299b-experimental-design-tutor} for ESRM64103
 -   Planned Contrast
 -   Example: Group Comparison - STEM vs. Non-STEM Groups
     -   ANOVA-style t statistics and regression-style coding in R
