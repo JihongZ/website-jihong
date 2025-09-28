@@ -44,6 +44,8 @@ format:
 
 5.  GLM Example 1: "Regression" vs. "ANOVA"
 
+6.  Quiz at the end of the class
+
 ## Today's Plan
 
 1.  Unit 1: Review dummy coding and centering + A short **In-Class quiz**
@@ -692,3 +694,53 @@ Var_beta_1_new <- Var_beta_1 + Var_beta_3 * 1 + 2 * Cov_beta_1_3 * 1
 
 
 # Unit 3: R practice and Q&A
+
+## Mini Quiz
+
+::: panel-tabset
+**Instructions**: Answer the following questions based on today's lecture content.
+
+### Question 1
+In dummy coding with a 4-group categorical variable (Control, T1, T2, T3), how many dummy variables are needed and what does the intercept represent?
+
+a) 4 dummy variables; intercept = grand mean
+b) 3 dummy variables; intercept = reference group mean
+c) 3 dummy variables; intercept = grand mean
+d) 4 dummy variables; intercept = reference group mean
+
+### Question 2
+In the model $Y_p = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_1X_2$, what does $\beta_1$ represent?
+
+a) Main effect of $X_1$ across all values of $X_2$
+b) Simple main effect of $X_1$ when $X_2 = 0$
+c) Conditional main effect of $X_1$ depending on $X_2$
+d) Interaction effect between $X_1$ and $X_2$
+
+### Question 3
+When centering a continuous predictor around its mean, which of the following does NOT change?
+
+a) The intercept value
+b) The $R^2$ value
+c) The main effect coefficient
+d) The predicted values
+
+### Question 4
+In an interaction model, why should main effects be kept in the model even if they are not significant?
+
+a) To increase the model's $R^2$
+b) Because the interaction adjusts the main effects
+c) To maintain the degrees of freedom
+d) To prevent multicollinearity
+
+### Question 5
+If you want to test whether a conditional main effect is significantly different from zero, which method would NOT work?
+
+a) Use `glht()` function with contrast matrix
+b) Re-center predictors and re-estimate the model
+c) Hand calculations using variance-covariance matrix
+d) Simply look at the original main effect p-value
+
+### Answers
+
+**Answers**: 1-b, 2-b, 3-b, 4-b, 5-d
+:::
