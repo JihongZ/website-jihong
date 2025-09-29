@@ -38,20 +38,24 @@ filters:
 ## Today's Class
 
 -   Review last class - Random variables and their distribution
--   Review Homework System
+-   Self practice and self exercise using AI tutor
+-   [Graduate Certificate in Educational Statistics and Research Methods](https://catalog.uark.edu/graduatecatalog/programsofstudy/educationalstatisticsandresearchmethodsesrm/#gcineducationalstatisticsandresearchmethodstext)
+-   I delayed Homework 2 to Week 11.
 -   [**Maximum Likelihood Estimation**]{style="color: tomato; font-weight:bold;"}
     -   The basics
     -   ML-based Test (Likelihood ratio test, Wald test, Information criteria)
     -   MLEs for GLMs
 
-## More Details about Homework Grade
+## Graduate Certificate in ESRM
 
-1.  You should be able to check your current grade for homework [here](https://jihongzhang.org/teaching/2024-07-21-applied-multivariate-statistics-esrm64503/HWs/Grading_ShinyApp.html).
-    -   You need your 4-digit unique code to check your homework.
-2.  Homework 0: [20]{style="color: tomato; font-weight:bold;"} points; Homework 1: [21]{style="color: tomato; font-weight:bold;"} points
-3.  I adjusted everyone's scores based on how many errors you have in your homework that are "**key parts**"
-    -   If the position within `vcov()` is incorrect (i.e., answer is `vcov(model)[1, 1]`, while the response is `vcov(model)[1, 2]`), you will **lose** 3 points
-4.  If you found your scores incorrect or have any suggestions, feel free to talk to me and I am willing to help at any time.
+- If you take this class, you already finish 25% or more in getting the graduate certificate.
+
+- You may waive the core courses if you take similar class, please consult Dr. Wenjuo Lo (wlo@uark.edu) for more details of the requirement. 
+
+## AI tutor: self practice and self exercise
+
+- [Example Conversation](https://chatgpt.com/share/68dadcab-b210-800f-ab57-05338c1737d8)
+
 
 ## Today's Example Data #1
 
@@ -61,7 +65,7 @@ filters:
 
 -   Purpose: imagine an employer is looking to hire employees for a job where IQ is important
 
-    -   We will use **5 observations** so as to show the math behind the estimation calculations
+    -   We will only use **5 observations** so as to show the math behind the estimation calculations
 
 -   The employer collects two variables:
 
@@ -77,7 +81,6 @@ filters:
 #| results: hide
 # pak::pak("JihongZ/ESRM64503", upgrade = TRUE)
 library(ESRM64503)
-library(kableExtra)
 library(tidyverse)
 
 #data for class example
@@ -92,6 +95,8 @@ dat
 
 ```{r}
 #| echo: false
+
+library(kableExtra)
 show_table(dat)
 ```
 
@@ -390,14 +395,14 @@ The values of $\mu_x$ and $\sigma_x^2$ that maximize $L(\mu_x, \sigma^2_x|x)$ is
 ```{r}
 #| output-location: default
 #| code-fold: true
-#| eval: false
+#| eval: true
 library(plotly)
 cal_LL <- function(x, mu, variance) {
    sum(log(sapply(x, \(x) dnorm(x, mean = mu, sd = sqrt(variance)))))
 }
     
-x <- seq(80, 150, .1)
-y <- seq(3, 8, .1)
+x <- seq(80, 150, 1)
+y <- seq(3, 8, .5)
 x_y <- expand.grid(x, y)
 colnames(x_y) = c("mean", "variance")
 dat2 <- x_y
@@ -406,11 +411,19 @@ dat2 <- dat2 |>
     mutate(LL = cal_LL(x = dat$IQ, mu = mean, variance = variance)) |> 
     ungroup() |> 
     mutate(highlight = ifelse(LL == max(LL), TRUE, FALSE))
-plot_ly(data = dat2, x =~mean, y = ~variance, z = ~LL, 
-        colors = c("royalblue", "tomato"), 
-        color = ~highlight, stroke = "white", alpha_stroke = .5,
-        alpha = .9, type = "scatter3d",
-        width = 600, height = 300) 
+
+fig <- plot_ly(dat2, x =~mean, y = ~variance, z = ~LL, color = ~highlight, colors = c('#BF382A', '#0C4B8E'), alpha = 0.6)
+
+fig <- fig %>% add_markers()
+
+fig <- fig %>% layout(scene = list(xaxis = list(title = 'Weight'),
+
+                     yaxis = list(title = 'Gross horsepower'),
+
+                     zaxis = list(title = '1/4 mile time')))
+
+
+fig
 ```
 
 ----------------------
