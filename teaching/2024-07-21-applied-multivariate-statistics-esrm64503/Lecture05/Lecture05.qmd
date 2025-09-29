@@ -54,8 +54,9 @@ filters:
 
 ## AI tutor: self practice and self exercise
 
-- [Example Conversation](https://chatgpt.com/share/68dadcab-b210-800f-ab57-05338c1737d8)
+- Self practice: [Example Conversation](https://chatgpt.com/share/68dadcab-b210-800f-ab57-05338c1737d8)
 
+- AI assignment: [Interactive assignment](https://chatgpt.com/share/e/68daf35a-c9e8-8013-8099-2a4bb0a2f102)
 
 ## Today's Example Data #1
 
@@ -922,6 +923,8 @@ print("Models are ready! Use model_empty and model_conditional")
 ```
 
 ```{webr-r}
+print("Models are ready! Use model_empty and model_conditional")
+
 # Task 1: LRT Calculation
 # Step 1: Get log-likelihoods (use logLik() function)
 ll_empty <-

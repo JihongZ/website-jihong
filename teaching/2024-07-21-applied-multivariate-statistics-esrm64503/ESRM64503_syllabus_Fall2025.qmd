@@ -28,6 +28,7 @@ citation:
 -   Course time and location: Mon 17:00-19:45; GRAD 229
 -   Instructor: Jihong Zhang, Dr.
 -   Contact Information: jzhang\@uark.edu
+-   AI tutor: [Link to AppliedMA Mentor on OpenAI](https://chatgpt.com/g/g-68d1c4616a308191a50f9c73edb2d3d3-appliedma-mentor)
 -   Personal Website: <http://jihongzhang.org>
 -   Office Location: GRAD 133B
 -   Office Hours: Mon 2:00-4:00 PM
