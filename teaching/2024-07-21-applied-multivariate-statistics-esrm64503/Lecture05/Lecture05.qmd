@@ -14,6 +14,13 @@ execute:
 output-location: default
 code-annotations: below
 format: 
+  html: 
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-expand: true
+    lightbox: true
+    code-fold: false
   uark-revealjs:
     scrollable: true
     chalkboard: true
@@ -24,16 +31,8 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
-  html: 
-    page-layout: full
-    toc: true
-    toc-depth: 2
-    toc-expand: true
-    lightbox: true
-    code-fold: false
 filters:
-  - quarto
-  - line-highlight
+  - webr
 ---
 
 ## Today's Class
@@ -69,9 +68,13 @@ filters:
     -   **Predictor**: IQ scores (labelled as `iq`)
     -   **Outcome**: Job performance (labelled as `perf`)
 
+
+----------------------------
+
 ### Descriptive Statistics
 
 ```{r}
+#| results: hide
 # pak::pak("JihongZ/ESRM64503", upgrade = TRUE)
 library(ESRM64503)
 library(kableExtra)
@@ -83,6 +86,12 @@ dat <- dataIQ |>
   rename(IQ = iq, Performance = perf) |> 
   relocate(ID)
 
+dat
+```
+
+
+```{r}
+#| echo: false
 show_table(dat)
 ```
 
@@ -95,8 +104,7 @@ dat |>
   as.data.frame() |> 
   rownames_to_column(var = "Variable") |> 
   separate(Variable, into = c("Variable", "Stat"), sep = "_") |> 
-  pivot_wider(names_from = "Stat", values_from = "V1") |> 
-  show_table()
+  pivot_wider(names_from = "Stat", values_from = "V1")
 ```
 
 ```{r}
@@ -104,8 +112,7 @@ dat |>
   select(IQ, Performance) |> 
   cov() |> 
   as.data.frame() |> 
-  rownames_to_column("Covariance Matrix") |> 
-  show_table()
+  rownames_to_column("Covariance Matrix")
 ```
 
 ## How Estimation Works (More or Less)
@@ -117,6 +124,8 @@ Most estimation routines do one of **three things**:
 1.  **Minimize Something**: Typically found with names that have “least” in the title. Forms of least squares include “Generalized”, “Ordinary”, “Weighted”, “Diagonally Weighted”, “WLSMV”, and “Iteratively Reweighted.” Typically the estimator of last resort...
 2.  **Maximize Something**: Typically found with names that have “maximum” in the title. Forms include “Maximum likelihood”, “ML”, “Residual Maximum Likelihood” (REML), “Robust ML”. Typically the gold standard of estimators
 3.  **Use Simulation to Sample from Something**: more recent advances in simulation use resampling techniques. Names include “Bayesian Markov Chain Monte Carlo”, “Gibbs Sampling”, “Metropolis Hastings”, “Metropolis Algorithm”, and “Monte Carlo”. Used for complex models where ML is not available or for methods where prior values are needed.
+
+---------------------
 
 ::: callout-note
 -   Loss function in Machine Learning belong to 1st type
@@ -134,7 +143,133 @@ Note: the estimates of regression coefficients provided by `lm` are using the OL
 summary(lm(perf ~ iq, data = dataIQ))
 ```
 
-## An Brief Introduction to Maximum Likelihood Estimation (MLE)
+## Ordinary Least Square (OLS): Minimize Something
+
+### Definition and Core Concept
+
+-   **Ordinary Least Square (OLS)** is an estimation method that finds the "best-fitting" line through data points by **minimizing the sum of squared residuals**
+
+-   **Key Idea**: Among all possible lines, OLS chooses the one that makes the total squared distance between observed values and predicted values as small as possible
+
+    $$
+    \text{Minimize: } \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{n} (y_i - (\beta_0 + \beta_1 x_i))^2
+    $$
+
+-   **Residual**: The difference between observed value and predicted value: $e_i = y_i - \hat{y}_i$
+
+--------------------------
+
+
+### Why "Least Squares"?
+
+-   **Alternative approaches** could minimize:
+    -   Sum of absolute deviations: $\sum |y_i - \hat{y}_i|$ (less common)
+    -   Sum of squared deviations: $\sum (y_i - \hat{y}_i)^2$ ← **OLS choice**
+
+-   **Advantages of squaring**:
+    1.  **Mathematical tractability**: Has closed-form solution using calculus
+    2.  **Penalizes large errors more**: $(-3)^2 = 9$ vs $(-1)^2 = 1$
+    3.  **Eliminates sign issues**: Both positive and negative residuals contribute positively
+
+--------------------------
+
+### Mathematical Foundation
+
+For simple linear regression $y = \beta_0 + \beta_1 x + e$, OLS estimates are:
+
+$$
+\hat{\beta}_1 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^{n}(x_i - \bar{x})^2} = \frac{Cov(x,y)}{Var(x)}
+$$
+
+$$
+\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}
+$$
+
+--------------------------
+
+### OLS Visualization with Our Data
+
+```{r}
+#| code-fold: true
+library(ggplot2)
+
+# Calculate OLS estimates manually
+x <- dat$IQ
+y <- dat$Performance
+n <- length(x)
+x_mean <- mean(x)
+y_mean <- mean(y)
+
+# Calculate slope and intercept
+beta1_hat <- sum((x - x_mean) * (y - y_mean)) / sum((x - x_mean)^2)
+beta0_hat <- y_mean - beta1_hat * x_mean
+
+# Create prediction line
+x_range <- seq(min(x) - 5, max(x) + 5, length.out = 100)
+y_pred <- beta0_hat + beta1_hat * x_range
+
+# Create the plot
+ggplot(dat, aes(x = IQ, y = Performance)) +
+  geom_point(size = 3, color = "tomato", alpha = 0.8) +
+  geom_line(data = data.frame(x = x_range, y = y_pred),
+            aes(x = x, y = y), color = "royalblue", linewidth = 1.2) +
+  geom_segment(aes(xend = IQ, yend = beta0_hat + beta1_hat * IQ),
+               color = "gray40", linetype = "dashed", alpha = 0.7) +
+  labs(title = "OLS Regression: Minimizing Sum of Squared Residuals",
+       subtitle = paste0("ŷ = ", round(beta0_hat, 2), " + ", round(beta1_hat, 4), "x"),
+       x = "IQ", y = "Performance") +
+  theme_minimal() +
+  annotate("text", x = min(x), y = max(y),
+           label = paste0("Sum of Squared Residuals = ",
+                         round(sum((y - (beta0_hat + beta1_hat * x))^2), 3)),
+           hjust = 0, vjust = 1, color = "darkred", size = 4)
+```
+
+--------------------------
+
+### Comparison: OLS vs. Other Possible Lines
+
+```{r}
+#| code-fold: true
+# Create several alternative lines for comparison
+alternative_lines <- data.frame(
+  Method = c("OLS (Optimal)", "Steeper Slope", "Flatter Slope", "Different Intercept"),
+  Intercept = c(beta0_hat, beta0_hat - 5, beta0_hat + 3, beta0_hat + 10),
+  Slope = c(beta1_hat, beta1_hat + 0.05, beta1_hat - 0.03, beta1_hat),
+  Color = c("royalblue", "red", "orange", "purple")
+)
+
+# Calculate SSR for each line
+alternative_lines$SSR <- sapply(1:nrow(alternative_lines), function(i) {
+  pred <- alternative_lines$Intercept[i] + alternative_lines$Slope[i] * x
+  sum((y - pred)^2)
+})
+
+# Create comparison plot
+p <- ggplot(dat, aes(x = IQ, y = Performance)) +
+  geom_point(size = 3, color = "black", alpha = 0.8)
+
+# Add each line
+for(i in 1:nrow(alternative_lines)) {
+  line_data <- data.frame(
+    x = x_range,
+    y = alternative_lines$Intercept[i] + alternative_lines$Slope[i] * x_range
+  )
+  p <- p + geom_line(data = line_data, aes(x = x, y = y),
+                     color = alternative_lines$Color[i], linewidth = 1.2)
+}
+
+p + labs(title = "OLS vs. Alternative Lines: Why OLS is Optimal",
+         subtitle = "OLS minimizes the sum of squared residuals",
+         x = "IQ", y = "Performance") +
+  theme_minimal() +
+  annotate("text", x = 105, y = 15,
+           label = paste0("SSR Values:\n",
+                         paste(alternative_lines$Method, ": ", round(alternative_lines$SSR, 2), collapse = "\n")),
+           hjust = 0, vjust = 1, size = 3.5, color = "darkblue")
+```
+
+## Maximum Likelihood Estimation (MLE): Maximize something
 
 -   MLE has several good statistical properties that make it the mostly commonly used in multivariate statistics:
 
@@ -145,7 +280,7 @@ summary(lm(perf ~ iq, data = dataIQ))
     3.  [**Efficiency**]{.underline}: No other estimator will have a smaller standard error
 
 ::: callout-note
-## Terminology
+### Terminology
 
 **Estimator**: the algorithm that can get the estimates of parameters
 
@@ -154,7 +289,9 @@ summary(lm(perf ~ iq, data = dataIQ))
 **ML-based estimators**: other variants of maximum likelihood like robust maximum likelihood, full information maximum likelihood
 :::
 
-## Maximum Likelihood: Estimates Based on Statistical Distributions
+----------------------
+
+### Maximum Likelihood: Estimates Based on Statistical Distributions
 
 -   Maximum likelihood estimates come from statistical distributions - assumed distributions of data
 
@@ -172,7 +309,9 @@ summary(lm(perf ~ iq, data = dataIQ))
 
     -   Today we will only know values of $x$ and "**guess**" the parameters $\mu_x$ and $\sigma^2_x$
 
-## Key Idea: Constructing a Likelihood Function
+----------------------
+
+### Key Idea: Constructing a Likelihood Function
 
 1.  **A likelihood function** provides a value of a likelihood for a set of statistical parameters given observed data (denoted as $L(\mu_x, \sigma^2_x|x)$)
 
@@ -200,7 +339,9 @@ summary(lm(perf ~ iq, data = dataIQ))
 
 6.  To demonstrate, let's consider the likelihood function for one observation that is used to estimate the mean and the variance of *x*
 
-## Example: One-Observation Likelihood function
+----------------------
+
+### Example: One-Observation Likelihood function
 
 -   Let's assume:
 
@@ -220,7 +361,9 @@ summary(lm(perf ~ iq, data = dataIQ))
 
     -   Because it is too small, typical we use `log` transformation of likelihood, which is called log likelihood. The value is **-16.12**
 
-## More observations: Multiplication of Likelihood
+----------------------
+
+### More observations: Multiplication of Likelihood
 
 -   $L(x_1 = 112|\mu_x = 100, \sigma^2_x = 5)$ can be interpreted as the [**Likelihood of first observation value being 112 given the underlying distribution is a normal distribution with mean as 100 and variance as 5**.]{.underline}
 
@@ -238,18 +381,20 @@ summary(lm(perf ~ iq, data = dataIQ))
 
     -   The set of $\mu_x$ and $\sigma^2_x$ which has the highest log-likelihood are the estimates of MLE
 
-## Visualization of MLE
+----------------------
+
+### Visualization of MLE
 
 The values of $\mu_x$ and $\sigma_x^2$ that maximize $L(\mu_x, \sigma^2_x|x)$ is $\hat\mu_x = 114.4$ and $\hat{\sigma^2_x} = 4.2$. We also know the mean of IQ is 114.2 and the variance of IQ is 5.3. Why the mean is same to estimate mu but variance is different? Answer: [MLE is a biased estimator]{.mohu}
 
 ```{r}
 #| output-location: default
 #| code-fold: true
-#| fig-height: 1200
+#| eval: false
 library(plotly)
- cal_LL <- function(x, mu, variance) {
-      sum(log(sapply(x, \(x) dnorm(x, mean = mu, sd = sqrt(variance)))))
-    }
+cal_LL <- function(x, mu, variance) {
+   sum(log(sapply(x, \(x) dnorm(x, mean = mu, sd = sqrt(variance)))))
+}
     
 x <- seq(80, 150, .1)
 y <- seq(3, 8, .1)
@@ -265,10 +410,12 @@ plot_ly(data = dat2, x =~mean, y = ~variance, z = ~LL,
         colors = c("royalblue", "tomato"), 
         color = ~highlight, stroke = "white", alpha_stroke = .5,
         alpha = .9, type = "scatter3d",
-        width = 1600, height = 800) 
+        width = 600, height = 300) 
 ```
 
-## Maximizing the Log Likelihood Function
+----------------------
+
+### Maximizing the Log Likelihood Function
 
 -   The process of finding the optimal estimates (i.e., $\mu_x$ and $\sigma_x^2$) may be complicated for some models
 
@@ -280,7 +427,9 @@ plot_ly(data = dat2, x =~mean, y = ~variance, z = ~LL,
 
     -   Solution: use **optimization algorithms** of searching for parameter (i.e., Expectation-Maximum algorithm, Newton-Raphson algorithm, Coordinate Descent algorithm)
 
-## Estimate Regression Coefficients
+----------------------
+
+### Estimate Regression Coefficients
 
 $$
 Y \sim N(\beta_0+\beta_1X, \sigma_e)
@@ -304,7 +453,9 @@ $$
 Note that in modern software, the number of parameters is large. The iteration process over $\beta_1$ and other parameters is speeded up via optimization method (i.e., first derivation).
 :::
 
-## Useful Properties of MLEs
+----------------------
+
+### Useful Properties of MLEs
 
 -   Next, we demonstrate three useful properties of MLEs (not just for GLMs)
 
@@ -326,7 +477,9 @@ Note that in modern software, the number of parameters is large. The iteration p
         Y_p =\beta_0+\beta_1(IQ - 114.4) + e_p
         $$
 
-## `nlme` package: Maximum Likelihood
+----------------------
+
+### `nlme` package: Maximum Likelihood
 
 -   `lm()` function in previous lectures uses ordinary least square (OLS) for estimation; To use ML, we can use `nlme` pakage
 
@@ -346,7 +499,9 @@ Note that in modern software, the number of parameters is large. The iteration p
 
     1.  make sure `method` argument is set to "`ML`"
 
-## Continue on `gls` function: Residuals, Information Criteria
+----------------------
+
+### `gls()`: Residuals, Information Criteria
 
 -   `gls` function will return an object of class "gls" representing the linear model fit
 
@@ -377,7 +532,9 @@ BIC(model01)
 logLik(model01)
 ```
 
-## Continue on `gls` function: Fixed Effects
+----------------------
+
+### `gls`: Fixed Effects
 
 -   The coefficients (also referred to as **fixed effects**) are where the estimated regression slopes are listed
 
@@ -419,7 +576,9 @@ anova(lm(iq~1, data = dataIQ))
           Y_p = \beta_0 + \beta_1 (IQ - 114.4) + e_p
           $$
 
-## Model Estimations
+----------------------
+
+### Model Estimations
 
 1.  **Model 02**: The empty model predicting performance
 
@@ -440,7 +599,7 @@ model03a = gls(perf ~ iq_114, data = dataIQ, method = "ML")
 summary(model03a)$tTable |> show_table()
 ```
 
-## Research Questions
+## Model Comparison
 
 -   **Research Questions** in comparing between the two models that can be answered using ML:
     -   Q1: How do we test the hypothesis that IQ predicts performance?
@@ -449,7 +608,9 @@ summary(model03a)$tTable |> show_table()
     -   Q2: If IQ does significantly predict performance, what percentage of variance in performance does it account for?
         -   Relative change in $\sigma^2_e$ from empty model to conditional model
 
-## Likelihood Ratio (Deviance) Tests
+----------------------
+
+### Method 1: Likelihood Ratio (Deviance) Tests
 
 -   The likelihood value from MLEs can help to statistically test competing models assuming the models are nested
 
@@ -467,25 +628,27 @@ summary(model03a)$tTable |> show_table()
 
     -   LRT is tested against a Chi-square distribution with degrees of freedom equal to the difference in number of parameters
 
-## Apply LRT to answer research question 1
+----------------------
+
+### Apply LRT to answer research question 1
 
 -   Q1: How do we test the hypothesis that IQ predicts performance?
 
     -   **Step 1**: This can be translated to statistical language as: "test the null hypothesis that $\beta_1$ is squal to zero":
 
     $$
-      H_0: \beta_1 = 0
-      $$
+    H_0: \beta_1 = 0
+    $$
 
     $$
-      H_1: \beta_1 \neq 0
-      $$
+    H_1: \beta_1 \neq 0
+    $$
 
     -   **Step 2**: The degree of freedom (df) of LRT is one parameter: the difference in number of parameters between the empty model and the conditional model
 
     $$
-     K_{M3a} - K_{M2} = 3 - 2 = 1
-     $$
+    K_{M3a} - K_{M2} = 3 - 2 = 1
+    $$
 
     Note that the empty model (Model 2) has two parameters: $\beta_0$ and $\sigma^2_e$ and the conditional model (Model 3a) has three parameters: $\beta_0$, $\beta_1$ and $\sigma^2_e$
 
@@ -515,7 +678,9 @@ summary(model03a)$tTable |> show_table()
 
     -   **Interpretation**: IQ significantly predicts performance
 
-## Apply Wald Tests to Answer Question 1 (Usually 1 DF tests in Software)
+----------------------
+
+### Apply Wald Tests to Answer Question 1 (Usually 1 DF tests in Software)
 
 -   For each parameter $\theta$, we can form the Wald statistic:
 
@@ -533,7 +698,9 @@ $$
 
 -   We can further add that variances are estimated, switching this standard normal distribution to a **t distribution** (R does this for us for some packages)
 
-## Student t's distribution
+----------------------
+
+### Student t's distribution
 
 Recall that (in your introduction to statistics class) the degree of freedom of t-distribution follows:
 
@@ -569,7 +736,9 @@ ggplot(dat) +
                      name = "") 
 ```
 
-## F Distribution
+----------------------
+
+### F Distribution
 
 The degree of freedom of F distribution are $df_1 = 1$ and $df_2 = N - p = 5 - 2 = 3$. The probability distribution of F statistics can be achieved using `pf` in R. **When we have larger sample size or less parameters to be estimated, same F-statistic will be more likely to be significant. (We have more statistical power!)** Power analysis will tell us what is the minimum sample sample required to make one reasonable statistic significant.
 
@@ -600,7 +769,9 @@ ggplot(dat) +
                      name = "") 
 ```
 
-## Wald test example
+----------------------
+
+### Wald test example
 
 -   R provides the Wald test statistic for us from the `summary()`or `anova()` function:
 -   One provides t-value, and the other provide F-value, but they have same p-values
@@ -609,6 +780,8 @@ ggplot(dat) +
 summary(model03a)$tTable |> show_table()
 anova(model03a) |> show_table()
 ```
+
+----------------------
 
 ### Manual Calculation
 
@@ -634,7 +807,9 @@ pf(F_value_beta1, 1, 3, lower.tail = FALSE) # p-value for f-statistic with df1=1
 
     -   Here, one parameter -- slope of IQ
 
-## Model Comparison with $R^2$
+----------------------
+
+### Method 2: Model Comparison with $R^2$
 
 -   To compute an $R^2$, we use the ML estimates of $\sigma^2_e$:
     -   Empty model: $\sigma^2_e = 4.160 (2.631)$
@@ -655,7 +830,9 @@ $$
 R^2 = \frac{4.160 - 0.234}{4.160} = .944
 $$ The model3a (IQ) can explain **94.4%** unexplained variance by empty model.
 
-## Information Criteria
+----------------------
+
+### Method 3: Information Criteria
 
 -   Information criteria are statistics that help determine the relative fit of a model for **non-nested models**
     -   Comparison is fit-versus-parsimony
@@ -675,7 +852,206 @@ anova(model02, model03a)
 
     -   LRT/Deviance tests are more powerful
 
-## When and Which We should use
+----------------------
+
+## Practice Exercise: Model Comparison Methods
+
+Now let's practice what we learned! Try to complete the following exercises using the methods we discussed.
+
+::: {.panel-tabset}
+
+### Exercise
+
+**Setup:** We have fitted two models to predict job performance from IQ:
+- **Model A (Empty)**: `perf ~ 1`
+- **Model B (Conditional)**: `perf ~ iq_114` (where iq_114 is centered IQ)
+
+**Your Tasks:**
+
+1. **Likelihood Ratio Test (LRT)**:
+   - Calculate the deviance (D) manually using log-likelihoods
+   - Compute the p-value from Chi-square distribution
+   - Compare with `anova()` function results
+
+2. **R-squared Calculation**:
+   - Extract residual variances from both models
+   - Calculate R² as the proportion of variance explained
+   - Interpret the result
+
+3. **Information Criteria**:
+   - Extract AIC and BIC values for both models
+   - Determine which model is preferred by each criterion
+
+```{webr-r}
+#| context: setup
+
+# Setup data and models (already loaded for you)
+library(nlme)
+library(dplyr)
+library(tidyr)
+
+dataIQ <- tribble(
+  ~perf,  ~iq,
+  10, 112,
+  12, 113,
+  14, 115,
+  16, 118,
+  12, 114
+)
+# Prepare data
+dataIQ$iq_114 <- dataIQ$iq - mean(dataIQ$iq)
+
+# Fit models
+model_empty <- gls(perf ~ 1, data = dataIQ, method = "ML")
+model_conditional <- gls(perf ~ iq_114, data = dataIQ, method = "ML")
+
+print("Models are ready! Use model_empty and model_conditional")
+```
+
+```{webr-r}
+# Task 1: LRT Calculation
+# Step 1: Get log-likelihoods (use logLik() function)
+ll_empty <-
+ll_conditional <-
+
+# Step 2: Calculate deviance D = -2 * (LL_null - LL_alternative)
+D <-
+
+# Step 3: Calculate p-value (use pchisq() with df=1, lower.tail=FALSE)
+p_value <-
+
+# Step 4: Compare with anova() function
+# anova(model_empty, model_conditional)
+
+print(paste("Manual D:", D))
+print(paste("Manual p-value:", p_value))
+```
+
+```{webr-r}
+# Task 2: R-squared Calculation
+# Step 1: Extract residual variances (use $sigma^2)
+var_empty <-
+var_conditional <-
+
+# Step 2: Calculate R²
+r_squared <-
+
+print(paste("Empty model variance:", var_empty))
+print(paste("Conditional model variance:", var_conditional))
+print(paste("R-squared:", r_squared))
+print(paste("Percentage explained:", round(r_squared * 100, 1), "%"))
+```
+
+```{webr-r}
+# Task 3: Information Criteria
+# Extract AIC and BIC (use AIC() and BIC() functions)
+aic_empty <-
+aic_conditional <-
+bic_empty <-
+bic_conditional <-
+
+# Compare models
+print("=== AIC Comparison ===")
+print(paste("Empty model AIC:", aic_empty))
+print(paste("Conditional model AIC:", aic_conditional))
+print(paste("AIC difference:", aic_empty - aic_conditional))
+
+print("=== BIC Comparison ===")
+print(paste("Empty model BIC:", bic_empty))
+print(paste("Conditional model BIC:", bic_conditional))
+print(paste("BIC difference:", bic_empty - bic_conditional))
+
+# Which model is preferred? (lower values are better)
+```
+
+### Answer
+
+Here are the complete solutions:
+
+**Task 1: Likelihood Ratio Test (LRT)**
+
+```{webr-r}
+# Step 1: Get log-likelihoods
+ll_empty <- logLik(model_empty)
+ll_conditional <- logLik(model_conditional)
+
+# Step 2: Calculate deviance D = -2 * (LL_null - LL_alternative)
+D <- as.numeric(-2 * (ll_empty - ll_conditional))
+
+# Step 3: Calculate p-value (df = 1 because we added 1 parameter)
+p_value <- pchisq(q = D, df = 1, lower.tail = FALSE)
+
+# Step 4: Compare with anova() function
+anova_result <- anova(model_empty, model_conditional)
+
+print("=== Manual LRT Calculation ===")
+print(paste("Log-likelihood (Empty):", round(ll_empty, 4)))
+print(paste("Log-likelihood (Conditional):", round(ll_conditional, 4)))
+print(paste("Deviance (D):", round(D, 4)))
+print(paste("p-value:", format(p_value, scientific = TRUE)))
+
+print("=== anova() Function Result ===")
+print(anova_result)
+```
+
+**Task 2: R-squared Calculation**
+
+```{webr-r}
+# Step 1: Extract residual variances
+var_empty <- model_empty$sigma^2
+var_conditional <- model_conditional$sigma^2
+
+# Step 2: Calculate R² = (var_empty - var_conditional) / var_empty
+r_squared <- (var_empty - var_conditional) / var_empty
+
+print("=== R-squared Calculation ===")
+print(paste("Empty model variance:", round(var_empty, 4)))
+print(paste("Conditional model variance:", round(var_conditional, 4)))
+print(paste("R-squared:", round(r_squared, 4)))
+print(paste("Percentage explained:", round(r_squared * 100, 1), "%"))
+
+print(paste("Interpretation: IQ explains", round(r_squared * 100, 1), "% of the variance in job performance."))
+```
+
+**Task 3: Information Criteria**
+
+```{webr-r}
+# Extract AIC and BIC values
+aic_empty <- AIC(model_empty)
+aic_conditional <- AIC(model_conditional)
+bic_empty <- BIC(model_empty)
+bic_conditional <- BIC(model_conditional)
+
+print("=== Information Criteria Comparison ===")
+print(paste("Empty model AIC:", round(aic_empty, 2)))
+print(paste("Conditional model AIC:", round(aic_conditional, 2)))
+print(paste("AIC difference (Empty - Conditional):", round(aic_empty - aic_conditional, 2)))
+
+print(paste("\nEmpty model BIC:", round(bic_empty, 2)))
+print(paste("Conditional model BIC:", round(bic_conditional, 2)))
+print(paste("BIC difference (Empty - Conditional):", round(bic_empty - bic_conditional, 2)))
+
+print("=== Model Selection ===")
+if(aic_conditional < aic_empty) {
+  print("AIC prefers: Conditional model (lower AIC)")
+} else {
+  print("AIC prefers: Empty model (lower AIC)")
+}
+
+if(bic_conditional < bic_empty) {
+  print("BIC prefers: Conditional model (lower BIC)")
+} else {
+  print("BIC prefers: Empty model (lower BIC)")
+}
+
+print("Conclusion: Both AIC and BIC strongly prefer the conditional model, indicating that IQ significantly improves model fit.")
+```
+
+:::
+
+----------------------
+
+## When We should use Which
 
 1.  We introduce LRT, Wald test, $R^2$, and information criteria
 
