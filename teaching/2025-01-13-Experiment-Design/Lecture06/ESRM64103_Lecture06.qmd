@@ -510,7 +510,7 @@ In one such experiment, Robert Cialdini and his colleagues studied whether hotel
 
 ## In-class Exercise
 
-- Click [here]() to start AI assessment
+- Click [here](https://chatgpt.com/g/g-68dd5654a88081918d705a6a7d9d705a-ai-assistant) to start AI assessment
   
   - Log in your OpenAI account
   
