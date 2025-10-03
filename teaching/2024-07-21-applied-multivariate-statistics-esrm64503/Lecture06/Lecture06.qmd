@@ -20,7 +20,7 @@ format:
     embed-resources: false
     code-fold: false
     number-sections: false
-    footer: "ESRM 64503 - Lecture 06: Generalized Linear Regression"
+    footer: "ESRM 64503 - Lecture 06: Generalized Linear Models"
     slide-number: c/t
     tbl-colwidths: auto
     output-file: slides-index.html
@@ -59,10 +59,10 @@ filters:
 
     -   **General Linear Models (GLM)**: conditionally normal distribution of data, fixed effects and [no]{style="color: tomato; font-weight: bold"} random effects
     -   **General Linear** [Mixed]{style="color: yellowgreen; font-weight: bold"} **Models (GLMM)**: conditionally normal distribution for data, fixed and **random** effects
-    -   **General[ized]{style="color: royalblue; font-weight: bold"}** L**inear Models**: any conditional distribution for data, fixed effects through [link functions]{style="color: royalblue; font-weight: bold"}, no random effects
+    -   **General[ized]{style="color: royalblue; font-weight: bold"}** **Linear Models**: any conditional distribution for data, fixed effects through [link functions]{style="color: royalblue; font-weight: bold"}, no random effects
     -   **General[ized]{style="color: royalblue; font-weight: bold"}** **Linear [Mixed]{style="color: yellowgreen; font-weight: bold"} Models**: any conditional distribution for data, fixed effects through [link functions]{style="color: royalblue; font-weight: bold"}, fixed and **random** effects
 
--   "Linear" means the fixed effects predict the link-transformed DV in a linear combination of
+-   "Linear" means the fixed effects predict the link-transformed DV in a linear combination of the form:
 
     $$
     g^{-1}(\beta_0 +\beta_1X_1+ \beta_2X_2 + \cdots)
@@ -78,7 +78,7 @@ flowchart RL
                                                                  (any format)")
 ```
 
--   **Substantive theory**: what guides your study
+-   **Substantive theory**: the guiding framework for your study
 
 -   **Hypothetical causal process**: what the statistical model is testing (attempting to falsify) when estimated
 
@@ -720,9 +720,7 @@ flowchart RL
 
 2.  Model for the Means ("Structural Model"):
 
-    -   How predictors are linearly related to the link-transformed outcome
-
-        -   Or predictor non-linearly related to the original scale of outcome
+    -   How predictors are linearly related to the link-transformed outcome (or non-linearly related to the outcome on its original scale)
 
     -   New link-transformed $Y_p = \color{royalblue}{g^{-1}} (\color{tomato}{\mathbf{\beta_0}} + \color{tomato}{\mathbf{\beta_1}}X_p + \color{tomato}{\mathbf{\beta_2}} Z_p + \color{tomato}{\mathbf{\beta_3}} X_pZ_p)$
 
@@ -736,7 +734,7 @@ flowchart RL
 
 1.  Generalized models work by providing [a mapping of the theoretical portion of the model]{.underline} (the right hand side of the equation) to the sample space of the outcome (the left hand side of the equation)
 
-    -   The mapping is done by a feature called a link function
+    -   The mapping is performed by a link function
 
 2.  The link function is a non-linear function that takes the linear model predictors, random/latent terms, and constants and puts them onto the space of the outcome observed variables
 
@@ -817,8 +815,8 @@ $$
 
 1.  To help demonstrate generalized models for binary data, we borrow from an example listed on the [UCLA ATS website](https://stats.idre.ucla.edu/stata/dae/ordered-logistic-regression/).
 2.  The data is available after updating the `ESRM64503` package
-3.  Data come from a survey of 400 college juniors looking at factors that influence the decision to apply to graduate school:
-    -   **Y (outcome)**: student rating of likelihood he/she will apply to grad school ([0 = unlikely]{style="color: tomato"}; [1 = somewhat likely]{style="color: yellowgreen"}; [2 = very likely]{style="color: royalblue"})
+3.  The data come from a survey of 400 college juniors looking at factors that influence the decision to apply to graduate school:
+    -   **Y (outcome)**: a student's rated likelihood of applying to grad school ([0 = unlikely]{style="color: tomato"}; [1 = somewhat likely]{style="color: yellowgreen"}; [2 = very likely]{style="color: royalblue"})
         -   We will first look at Y for two categories ([0 = unlikely]{style="color: tomato; font-weight: bold"}; [**1 = somewhat or very likely**]{style="color: royalblue; font-weight: bold"}) – we merged the 'somewhat likely' and 'very likely' categories for this illustration.
         -   In practice, you would typically use a model designed for three or more ordered categories (like an ordinal logistic regression).
     -   **ParentEd**: indicator (0/1) if one or more parent has graduate degree
@@ -923,7 +921,7 @@ show_table(Desp_PUBLIC) # Student Attends Public University
 
     -   The mean of errors would still be 0 ... by definition
 
-    -   But variance of errors can't possibly be constant over levels of X like we assume in general linear models
+    -   However, the variance of the errors cannot be constant across levels of X, as is assumed in general linear models
 
         -   The mean and variance of a binary outcome are **dependent!**
 
@@ -1065,7 +1063,7 @@ $\boldsymbol{p}_p$ is the only parameter – so we only need to provide a link f
     g(\mathbb{E}(Y)) = \log(\frac{P(Y=1)}{1-P(Y=1)}) = \mathbf{\beta} X^T
     $$ {#eq-logit-e}
 
-    where $g$ called **link function**, $\mathbb{E}(Y)$ is the expectation of Y, $\beta X^T$ is the linear combination of weights and predictors.
+    where $g$ is called the **link function**, $\mathbb{E}(Y)$ is the expectation of Y, $\beta X^T$ is the linear combination of weights and predictors.
 
 A logit can be translated back to a probability with some algebra:
 
@@ -1098,7 +1096,7 @@ exp(-2.007)
 
     **Logit**: We can say the predicted logit value of Y = 1 for an individual when all predictors are zero; i.e., *the average logit is -2.007*
 
-    **Probability**: Alternatively, we can say the expected value of probability of Y = 1 is $\frac{\exp(\beta_0)}{1+\exp(\beta_0)}$ when all predictors are zero; i.e., *the average probability of applying to grad score is* [0.118 (11.8%)]{style="color: tomato; font-weight: bold"}
+    **Probability**: Alternatively, we can say the expected value of probability of Y = 1 is $\frac{\exp(\beta_0)}{1+\exp(\beta_0)}$ when all predictors are zero; i.e., *the average probability of applying to grad school is* [0.118 (11.8%)]{style="color: tomato; font-weight: bold"}
 
     **Odds**: Alternatively, the expected odds of Y = 1 is $\exp(\text{Logit})$ when all predictors are zero. The average odds of applying to grad school is exp(-2.007) = 0.134.
 
@@ -1140,7 +1138,7 @@ For the logit function, $e_p$ has a logistic distribution with a zero mean and a
 
 ----
 
--   Use `ordinal` package and `clm()` function, we can model categorical dependent variables
+-   Use `ordinal` package and `clm()` function, we can model categorical dependent variables.
 
 ```{r}
 library(ordinal)
@@ -1238,7 +1236,7 @@ summary(model1_glm)
 
 1.  **Question #1**: does Model 1 fit better than the empty model (Model 0)?
 
-    This question is equivalent to test the following hypothesis:
+    This question is equivalent to testing the following hypothesis:
 
     $$
     H_0: \beta_0=\beta_1=\beta_2=0\\
@@ -1274,7 +1272,7 @@ summary(model1_glm)
 
         **Logit**: The predicted logit of applying to grad school is [-0.3382]{style="color: tomato"} for a person with a 3.0 GPA, parents without a graduate degree, and attending a private university.
 
-        **Odds Ratio:** The predicted odds of applying are $\exp(-0.3382) = 0.7130$ for this person (When one has GPA 3.0 and other variables are at referenced level, the probability of applying grad school is 0.71 times the probability of not applying).
+        **Odds Ratio:** The predicted odds of applying are $\exp(-0.3382) = 0.7130$ for this person (For a student with a 3.0 GPA and other variables at their reference level, the odds of applying to grad school are 0.71).
 
         **Probability**: The predicted probability of applying is $\exp(-0.3382)/(1+\exp(-0.3382)) =$ [41.62%]{style="color: tomato"} for this person.
         
@@ -1389,7 +1387,7 @@ as.data.frame(cbind(GPA = new_data$GPA3+3, P_Y_0 = Pred_prob[,1], P_Y_1 = Pred_p
 
 -   For logistic models with two responses:
     -   Regression weights are now for LOGITS
-    -   The direction of what is being modeled has to be understood (Y = 0 or = 1)
+    -   The outcome being modeled (Y=0 or Y=1) must be clearly understood
     -   The change in odds and probability is not linear per unit change in the IV, but instead is linear with respect to the logit
     -   Interactions will still modify the conditional main effects
         -   Simple main effects are effects when interacting variables = 0
