@@ -162,7 +162,7 @@ Assume that we include tutoring type as the IV. However, we do not include schoo
     -   Other terminology:
         -   experimental unit: the target being applied treatment to
         -   replicates: experimental unit may be measured multiple times.
--   **Blocking factors** and **nuisance factors** provide the mechanism for explaining and controlling variation among the experimental units from sources that are not of interest and part of the error.
+-   **Blocking factors** and **nuisance factors** help control unwanted variation between experimental units, reducing error in our analysis.
 -   **Block designs help maintain internal validity** by reducing the possibility that the observed effects are due to a **confounding factor.**
     -   Confounding factor = a factor that impacts both IV and DV
 -   While also **maintaining external validity** by allowing the investigator to use less stringent restrictions on the sampling population.
@@ -195,7 +195,7 @@ Assume that we include tutoring type as the IV. However, we do not include schoo
     -   If researchers find that smaller class sizes are associated with higher achievement, they might conclude that reducing class size improves learning. However, [teacher quality]{.bluecolor} could be a confounding variable.
     -   If smaller classes tend to have more experienced or highly qualified teachers, the observed effect on student achievement might be due to teacher quality rather than class size itself.
 
-## Example of Confounding Variable
+--------
 
 :::::: callout-note
 ## Suggestion
@@ -222,6 +222,17 @@ When designing an experiment to study the effect of **class size on student achi
 :::
 :::::
 ::::::
+
+## Another Example of Confounding Variable
+
+-   Consider a study examining the relationship between [online learning]{.redcolor} and [student performance]{.redcolor} during the pandemic.
+    -   If researchers find that students who used online learning platforms performed better, they might conclude that online learning is more effective. However, [socioeconomic status]{.bluecolor} could be a confounding variable.
+    -   Students from higher-income families are more likely to have:
+        -   Access to reliable internet and technology
+        -   Quiet study spaces at home
+        -   Parental support for learning
+        -   Additional tutoring resources
+    -   The observed improvement in performance might be due to these socioeconomic advantages rather than the online learning platform itself.
 
 ## Blocking: When to use this tool
 
@@ -277,7 +288,7 @@ When designing an experiment to study the effect of **class size on student achi
 
 [^1]: [PennStat STAT503](https://online.stat.psu.edu/stat503/lesson/4/4.1)
 
-## Types of nuisance factors:
+## Types of nuisance factors
 
 -   So, nuisance factor:
 
@@ -287,9 +298,65 @@ When designing an experiment to study the effect of **class size on student achi
 
 ![](images/clipboard-2431159556.png)
 
+## In-Class Comprehensive Quiz
+
+::: {.panel-tabset}
+
+## Exercise
+
+**In-Class Quiz: Blocking Factors and Nuisance Factors**
+
+**Research Scenario:** Dr. Smith wants to test the effectiveness of three different math tutoring methods (Method A: one-on-one tutoring, Method B: small group tutoring, Method C: online tutoring) on student math achievement scores. She plans to conduct this study across multiple elementary schools in the district.
+
+**Given this scenario, answer the following questions:**
+
+1. **Dr. Smith realizes that students from different schools may have different baseline math abilities due to varying resources and teaching quality. In this context, "school" would be considered:**
+   a) The main treatment variable
+   b) A blocking factor
+   c) The dependent variable
+   d) An interaction effect
+
+2. **Dr. Smith also notices that student grade level (3rd, 4th, 5th grade) affects math performance, but she cannot control which grade students are in. How should she handle this nuisance factor?**
+   a) Use blocking by randomly assigning students to different grades
+   b) Ignore it since it's uncontrollable
+   c) Use ANCOVA to statistically control for grade level
+   d) Redo the randomization process
+
+3. **After collecting data, Dr. Smith discovers that some teachers were more enthusiastic about certain tutoring methods, potentially affecting results. This represents which type of nuisance factor?**
+   a) Known and controllable - use blocking
+   b) Known but uncontrollable - use ANCOVA
+   c) Unknown and uncontrollable - redo randomization
+   d) This is not a nuisance factor
+
+4. **What would be the main advantage of using schools as blocking factors in Dr. Smith's study?**
+   a) It allows her to study the effect of different schools
+   b) It increases the total number of students in the study
+   c) It makes students within each school more similar, reducing error variance
+   d) It eliminates the need to randomly assign tutoring methods
+
+## Answer
+
+**Answers:**
+
+1. **b) A blocking factor**
+   - School would be a blocking factor because it's likely to affect math achievement (schools have different resources, teaching quality, etc.) but Dr. Smith is not interested in comparing schools. She wants to control for these school-level differences to get a cleaner test of tutoring method effectiveness.
+
+2. **c) Use ANCOVA to statistically control for grade level**
+   - Since grade level is known (she can measure it) but uncontrollable (she can't randomly assign students to grades), ANCOVA is the appropriate method to statistically account for grade level differences.
+
+3. **c) Unknown and uncontrollable - redo randomization**
+   - Teacher enthusiasm was not anticipated or measured beforehand, making it an unknown nuisance factor. The best approach is to improve the randomization process in future studies to ensure teachers are not systematically biased toward certain methods.
+
+4. **c) It makes students within each school more similar, reducing error variance**
+   - By blocking on schools, students within each school are more homogeneous in terms of school-related factors (resources, teaching quality, etc.). This reduces the unexplained variance in the model, making it easier to detect true differences between tutoring methods.
+
+:::
+
+# Unit 2
+
 ## Example of randomized complete block design (RCBD)
 
--   [Aim]{.redcolor}: We are interested in the performance of four lecture method on math scores.
+-   [Aim]{.redcolor}: We are interested in the performance of four lecture methods on math scores.
 -   The following math test scores (higher score = better at math) were obtained for three test forms.
 
 ::::: columns
@@ -314,7 +381,7 @@ When designing an experiment to study the effect of **class size on student achi
 
 -   This design setting is called a **"complete" block design** (CBD). We will look at blocking design variations.
 
-## 1.1. Complete Block Design (CBD) vs. Randomized CBD (RCBD)
+## Complete Block Design (CBD) vs. Randomized CBD (RCBD)
 
 ### Complete Block Design (CBD)
 
@@ -357,7 +424,7 @@ where:
 
 ------------------------------------------------------------------------
 
-## 1.3 Randomized Complete Block Design (RCBD)
+## Randomized Complete Block Design (RCBD)
 
 -   When we have a single blocking factor (Form), we utilize a [randomized complete block design]{.bluecolor} (RCBD)[^2].
 -   *b* blocks, each with *a* treatment levels (a = 4, b = 3)
@@ -404,6 +471,9 @@ where:
 ```{r}
 #| code-fold: true
 #| code-summary: "Output of ANOVA"
+#| results: hold
+#| warning: false
+#| message: false
 library(tidyverse)
 exp <- tribble(
   ~method, ~F1, ~F2, ~F3,
@@ -421,7 +491,7 @@ summary(aov(score ~ block + method, data = exp_l))
 
 ------------------------------------------------------------------------
 
-## 1.4 Proportion of Sum of Square
+### Proportion of Sum of Square
 
 ::::: columns
 ::: column
@@ -459,7 +529,7 @@ stats::TukeyHSD(aov_fit)$method |> round(2)
 :::
 :::::
 
-## 2. Latin Square Design
+## Latin Square Design
 
 -   Allow for **two blocking factors**.
     -   Used to simultaneously control (or eliminate) two sources of nuisance variability.
@@ -468,7 +538,7 @@ stats::TukeyHSD(aov_fit)$method |> round(2)
     -   The number of rows and columns correspond to the number of treatment levels.
     -   So, if we have four treatments then we would need to have four rows and four columns in order to create a Latin square.
 
-## 2.1 Latin Square Design
+## Latin Square Design (Cont.)
 
 -   Compared to RCBD or CRD, Latin square design has two nuisance factors: form and school.
 -   Each treatment occurs only once in each row and once in each column.
@@ -505,7 +575,7 @@ stats::TukeyHSD(aov_fit)$method |> round(2)
 -   That each treatment occurs only once in each row and once in each column.
 :::
 
-## 2.2 Benefits of Latin Square Design?
+## Benefits of Latin Square Design
 
 -   An assumption that we make when using a Latin square design is that the three factors (treatments, and two nuisance factors) do not interact. If this assumption is violated, the Latin Square design error term will be inflated.
 
@@ -526,7 +596,7 @@ Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explai
 :::
 :::::
 
-## 3. Replicated Latin Square Design
+## Replicated Latin Square Design
 
 -   **Sometimes, the** ***df*** **for a Latin square are too small, so we want to replicate the Latin Square to get more participants.**
     -   In this example, I replicate it 2 times – the design is different across the replications.
@@ -541,7 +611,7 @@ Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explai
 
 : Replicated Latin Square Design
 
-## 4. More than two blocking factors? Greco-Roman Squares
+## More than two blocking factors? Greco-Roman Squares
 
 -   **When might this occur?**
     -   Maybe we think “day of the week has an impact”
@@ -562,3 +632,85 @@ Assuming we use single IV to explain the outcome vs. {IV, Gender, Age} to explai
 +-------------+------------------------------------+------------------------------------+------------------------------------+------------------------------------+
 
 -   Important Considerations about the blocking designs: With Blocking Designs, we still randomly assign individuals within each block.
+
+## End-of-Lecture Comprehensive Quiz
+
+::: {.panel-tabset}
+
+## Exercise
+
+**Comprehensive Quiz: Block Design Concepts**
+
+**Research Scenario:** Dr. Johnson is evaluating four different reading intervention programs (Traditional, Phonics-based, Technology-enhanced, and Peer-tutoring) on reading comprehension scores. She is conducting this study across 12 elementary schools in three different districts. Each school has students from grades 3-5, and she knows that both school district and grade level significantly affect reading performance.
+
+**Questions:**
+
+1. **What type of experimental design would be most appropriate for Dr. Johnson's study if she wants to control for both school district and grade level simultaneously?**
+   a) Completely Randomized Design (CRD)
+   b) Randomized Complete Block Design (RCBD) with one blocking factor
+   c) Latin Square Design
+   d) Greco-Roman Square Design
+
+2. **In Dr. Johnson's study, if she uses a Latin Square Design with grade levels as rows and school districts as columns, what would the Latin letters (A, B, C, D) represent?**
+   a) School districts
+   b) Grade levels
+   c) Reading comprehension scores
+   d) The four reading intervention programs
+
+3. **The main difference between a Complete Block Design (CBD) and a Randomized Complete Block Design (RCBD) is:**
+   a) CBD has more blocking factors than RCBD
+   b) RCBD includes random assignment of treatments within blocks, while CBD does not
+   c) CBD is used for continuous variables, RCBD for categorical variables
+   d) There is no difference between CBD and RCBD
+
+4. **Dr. Johnson's statistical model for an RCBD design would be: $Y_{ij} = \mu + \tau_i + \rho_j + \epsilon_{ij}$. In this context, what does $\rho_j$ represent?**
+   a) The effect of intervention program i
+   b) The grand mean
+   c) The effect of blocking factor j
+   d) Random error
+
+5. **If Dr. Johnson finds that she needs more degrees of freedom for her analysis, what design modification should she consider?**
+   a) Use fewer intervention programs
+   b) Use a Replicated Latin Square Design
+   c) Eliminate one of the blocking factors
+   d) Switch to a completely randomized design
+
+6. **Which assumption is MOST critical for the validity of Latin Square Design results?**
+   a) Equal sample sizes in each cell
+   b) Normal distribution of the outcome variable
+   c) No interaction between treatments and blocking factors
+   d) Random sampling from the population
+
+## Answer
+
+**Answers and Explanations:**
+
+1. **c) Latin Square Design**
+   - Since Dr. Johnson wants to control for two blocking factors simultaneously (school district and grade level), a Latin Square Design is most appropriate. This design allows her to control for two sources of nuisance variation while testing the four intervention programs.
+
+2. **d) The four reading intervention programs**
+   - In a Latin Square Design, the Latin letters represent the treatment levels - in this case, the four reading intervention programs (Traditional, Phonics-based, Technology-enhanced, and Peer-tutoring). The rows and columns represent the blocking factors.
+
+3. **b) RCBD includes random assignment of treatments within blocks, while CBD does not**
+   - The key difference is randomization. In RCBD, treatments are randomly assigned within each block to minimize systematic bias. In CBD, treatments may be assigned systematically, which could introduce confounding effects.
+
+4. **c) The effect of blocking factor j**
+   - In the RCBD model, $\rho_j$ represents the effect of the blocking factor (e.g., school district or grade level). This parameter captures the systematic differences between blocks that we want to control for.
+
+5. **b) Use a Replicated Latin Square Design**
+   - When degrees of freedom are insufficient in a Latin Square Design, replication is the standard solution. This involves creating multiple Latin squares with different arrangements, increasing both sample size and degrees of freedom.
+
+6. **c) No interaction between treatments and blocking factors**
+   - The most critical assumption for Latin Square Design is that there are no interactions between the treatment factor and the two blocking factors. If this assumption is violated, the error term becomes inflated, reducing the power and validity of the analysis.
+
+**Key Takeaway:** Block designs are powerful tools for controlling nuisance variation in experimental research. The choice between RCBD, Latin Square, or more complex designs depends on the number of nuisance factors you need to control and the specific requirements of your study context.
+
+:::
+
+## Summary
+
+- **Block designs help control for nuisance factors** that affect the outcome but are not of primary interest
+- **RCBD controls for one blocking factor**, while **Latin Square controls for two blocking factors**
+- **Key benefits**: Reduced error variance, increased statistical power, better control of confounding variables
+- **Key assumption**: No interaction between treatment and blocking factors (especially critical for Latin Square)
+- **When in doubt**: Start with RCBD for one nuisance factor, consider Latin Square for two, and use replication when more degrees of freedom are needed
