@@ -33,6 +33,8 @@ format:
     output-file: slides-index.html
     mermaid:
       theme: forest    
+filters:
+  - webr            
 ---
 
 ::: objectives
@@ -138,7 +140,11 @@ where:
 
 [^1]: Original post can be found [here](https://www.stat.purdue.edu/~xbw/courses/stat514/notes/lec6.blockdesign.pdf)
 
--   Can partition $\mathrm{SS}_{\mathrm{T}}=\sum \sum\left(y_{i j}-\bar{y}_{. .}\right)^{2}$ into:
+-   $\bar{y}_{. .}$: the grand mean across all factor levels. $y_{i j}$: the observed outcome for each individual.
+
+-   $\bar{y}_{i .}$: marginal means of treatment groups; $\bar{y}_{j .}$: marginal means of blocks
+
+-   We can partition the total sum of squares of outcome Y: $\mathrm{SS}_{\mathrm{T}}=\sum \sum\left(y_{i j}-\bar{y}_{. .}\right)^{2}$ into:
 
 $$
 \mathrm{SS}_{\mathrm{T}}= n_b \sum\left(\bar{y}_{i .}-\bar{y}_{. .}\right)^{2}+ n_a \sum\left(\bar{y}_{. j}-\bar{y}_{. .}\right)^{2}+\sum \sum\left(y_{i j}-\bar{y}_{i .}-\bar{y}_{. j}+\bar{y}_{. .}\right)^{2}
@@ -154,7 +160,7 @@ $$
 \mathrm{SS}_{\mathrm{T}} = \mathrm{SS}_{\mathrm{treatment}} + \mathrm{SS}_{\mathrm{block}} + \mathrm{SS}_{\mathrm{Residual}}
 $$
 
-## A littble bit more statistics
+## A little bit more statistics
 
 -   Assume treatment factor has $n_a$ levels and blocking factor has $n_b$ levels:
 
@@ -179,16 +185,17 @@ SS_{Block}
 = \frac{1}{n_a}\sum{(y_{.j})}^2  -(\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}y_{ij})^2/N 
 $$
 
-## Example: Performance of detergents
+## Example 1: Performance of detergents
 
 ::: callout-important
-## Background
+### Background
 
 An experiment was designed to study the performance of four different detergents in cleaning clothes. The following “cleanness” readings (higher=cleaner) were obtained with specially designed equipment for three different types of common stains. Is there a difference between the detergents?
 :::
 
 ```{r}
 #| code-fold: true
+#| results: hide
 library(tidyverse)
 detergents <- tribble(
   ~Detergent, ~Stain1, ~Stain2, ~Stain3,
@@ -197,6 +204,11 @@ detergents <- tribble(
   3, 48, 50, 55,
   4, 42, 37, 49
 )
+```
+
+
+```{r}
+#| echo: false
 kableExtra::kable(detergents) 
 ```
 
@@ -206,7 +218,7 @@ kableExtra::kable(detergents)
 
 ------------------------------------------------------------------------
 
-## Example: Total Sum of Square
+### Statistics: Total Sum of Square
 
 1.  *Sum of square* of all values: $(\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}y_{ij})^2$ = `{r} sum((detergents[, 2:4])^2) |> as.character()`
 2.  *Square of sum* of all values per level: $\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2$ = `{r} ((sum(detergents[, 2:4]))^2/12)  |> as.character()`
@@ -217,9 +229,12 @@ kableExtra::kable(detergents)
 sum((detergents[, 2:4])^2) - (sum(detergents[, 2:4]))^2 / 12
 ```
 
-## Example: Sum of squares for Detergent
+------------------------------------------------------------------------
+
+### Statistics: Sum of squares for treatment groups
 
 ```{r}
+#| results: hold
 treatment_marginal_Sums = rowSums(detergents[, 2:4])
 grand_mean <- mean(unlist(detergents[, 2:4]))
 ## Method 1
@@ -232,9 +247,12 @@ sum(treatment_marginal_Sums^2) / 3 - (sum(detergents[, 2:4]))^2 / 12
 2.  *Square of sum* of all values: $\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2$ = `{r} (sum(detergents[, 2:4]))^2 |> as.character()`
 3.  **Sum of Squares for treatment**: $SS_{treatment}$ = `{r} round(sum(treatment_marginal_Sums^2) / 3 - (sum(detergents[, 2:4]))^2 / 12, 3) |>  as.character()`
 
-## Example: Sum of squares for block
+------------------------------------------------------------------------
+
+### Statistics: Sum of squares for block groups
 
 ```{r}
+#| results: hold
 block_marginal_Sums = colSums(detergents[, 2:4])
 ## Method 1
 4 * sum((block_marginal_Sums/4 - grand_mean)^2)
@@ -243,20 +261,22 @@ block_marginal_Sums = colSums(detergents[, 2:4])
 ```
 
 1.  *Sum of square* per level: $\frac{1}{n_b}\sum{(y_{i.})}^2$ = `{r} ((1 / 4) * sum(block_marginal_Sums^2)) |> as.character()`
-2.  *Square of sum* of all values: $\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2$ = `{r} ((sum(detergents[, 2:4]))^2 / 12)^2 |> as.character()`
-3.  **Sum of Squares for treatment**: $SS_{treatment}$ = `{r} ((1 / 4) * sum(block_marginal_Sums^2) - (sum(detergents[, 2:4]))^2 / 12) |>  as.character()`
+2.  *Square of sum* of all values: $\sum_{i=1}^{n_a}\sum_{j=1}^{n_b}(y_{ij})^2$ = `{r} ((sum(detergents[, 2:4]))^2 / 12) |> as.character()`
+3.  **Sum of Squares for block**: $SS_{block}$ = `{r} ((1 / 4) * sum(block_marginal_Sums^2) - (sum(detergents[, 2:4]))^2 / 12) |>  as.character()`
 
-## F-statistics
+## Results: F-statistics
 
 $$
 F = \frac{SS_{\mathrm{treatment}}/n_a}{SS_\mathrm{residual}/ ((n_a-1)*(n_b-1))}
 $$
 
 ```{r}
+#| results: hold
 SS_total <- sum((detergents[, 2:4])^2) - (sum(detergents[, 2:4]))^2 / 12
 SS_treatment <- 3 * sum((treatment_marginal_Sums/3 - grand_mean)^2)
 SS_block <- 4 * sum((block_marginal_Sums/4 - grand_mean)^2)
 SS_residual = SS_total - SS_treatment - SS_block
+cat("Sum of square of residual errors:\n")
 SS_residual
 ```
 
@@ -267,7 +287,7 @@ F_stat
 
 ------------------------------------------------------------------------
 
-## R Code for Sum of Squares
+### R Code using aov function
 
 ```{r}
 detergents_aov <- detergents |> 
@@ -277,14 +297,15 @@ detergents_aov <- detergents |>
 fit <- aov(value ~ Detergent+Stain, data= detergents_aov)
 summary(fit)
 ```
+Interpretation: Detergents have significant differences, and the Stain type was a useful blocking factor.
 
-## Example: Tutoring session
+## Example 2: Tutoring session
 
 :::::: columns
 ::: {.column width="60%"}
 -   Let’s look at a simple example:
--   Research question: **What is the effect of time of day of** **tutoring session on midterm grades?**
--   The Primary Investigator (PI) of the study wants to control for tutor, believing some tutors may be better in the subject matter than others. Thus, they design a completely randomized block design.
+-   Research question: **What is the effect of time of day (morning session vs. afternoon session) of tutoring session on midterm grades?**
+-   The Primary Investigator (PI) of the study wants to control for different tutor(s), believing some tutors may be better than others. Thus, they design a completely randomized block design.
 -   Each tutor works with students in the morning and afternoon.
     -   In this example, student select their favorite tutor, but are then randomly assigned to either a morning (AM) or afternoon (PM) session.
     -   200 total students: 91 in the morning, 109 in the afternoon
@@ -301,7 +322,7 @@ DV: Midterm Score (in cells)
 
 ------------------------------------------------------------------------
 
-### Example: Variables and Null Hypothesis
+### Variables and Null Hypothesis
 
 :::::: columns
 ::: {.column width="60%"}
@@ -328,7 +349,7 @@ DV: Midterm Score (in cells)
 
 ------------------------------------------------------------------------
 
-### Example: Sum of Squares
+### Sum of Squares
 
 ::::: columns
 ::: {.column width="70%"}
@@ -360,7 +381,7 @@ DV: Midterm Score (in cells)
 
 ------------------------------------------------------------------------
 
-### Example: Mean of Squares and F-statistics
+### Mean of Squares and F-statistics
 
 -   IV: Time (𝑎= 2 )
 -   Nuisance factor: Tutor (𝑏= 4 )
@@ -372,7 +393,7 @@ DV: Midterm Score (in cells)
 
 ------------------------------------------------------------------------
 
-### Example: Sum of Square Formula
+### Sum of Square Formula
 
 $$
 SS_{\mathrm{Total}}=\sum_{i=1}^{n}(y_{ij}-\bar{y}_{..})^2
@@ -394,7 +415,7 @@ sum((scores - mean(scores))^2) # sum of squares of total indivisuals
 
 ------------------------------------------------------------------------
 
-### Example: Marginal Means
+### Marginal Means
 
 -   A **marginal mean** is the mean for one level of the variable, ignoring the other variable
 
@@ -417,7 +438,7 @@ sum((scores - mean(scores))^2) # sum of squares of total indivisuals
 
 ------------------------------------------------------------------------
 
-### Example: SS for Total and Model
+### SS for Total and Time/Model
 
 $$
 SS_{Total} = \sum_{i=1}^{n}(y_{ij}-\bar{y}_{..})^2=15060.48
@@ -441,7 +462,7 @@ $$
 
 ------------------------------------------------------------------------
 
-### Example: Details of ANOVA Table
+### Results of ANOVA Table
 
 -   Then, we can fill out the ANOVA table:
 
@@ -461,7 +482,7 @@ Similarly, for "Blocking" - Tutor, we have $df_{block}$ = 3, $df_{error} = 195$:
 -   The effect of tutoring time was significant $(𝐹(1,195) = 119. 39, 𝑝<. 001 ,\eta^2_{𝑇𝑖𝑚𝑒} =. 298$) with a large effect. Using a Tukey’s test, morning is significantly higher than afternoon sessions (𝑝 \<. 05 ).
 -   The effect of the blocking factor, tutor, was significant ($𝐹(3 , 195) = 28. 72 ,𝑝< . 001 ,\eta^2_{𝑇𝑢𝑡𝑜𝑟} =. 215$) with a large effect. Using a Tukey’s test, Monique’s students were significantly higher than other students, and Bobby’s students were significantly lower than other students in the midterm scores (𝑝\<. 05 ).
 
-## Example: Hardness Reading[^2]
+## Example 3: Hardness Reading[^2]
 
 [^2]: Please check the original post here: [STAT 503](https://online.stat.psu.edu/stat503/lesson/4/4.1)
 
@@ -469,7 +490,7 @@ Similarly, for "Blocking" - Tutor, we have $df_{block}$ = 3, $df_{error} = 195$:
     -   The **treatment factor** is the design of the tip for the machine that determines the hardness of metal. The tip is one component of the testing machine.
 
 ::: callout-note
-## The Rockwell hardness test
+### The Rockwell hardness test
 
 **The Rockwell hardness test** is a hardness test based on indentation hardness of a material. The Rockwell test measures the depth of penetration of an indenter under a large load (major load) compared to the penetration made by a preload (minor load).
 :::
@@ -490,8 +511,7 @@ data.frame(
   Metal = paste0("Metal", 1:8),
   Tip = rep(c("Tip1", "Tip2", "Tip3", "Tip4"), each = 2),
   Hardness = sample(seq(9, 10, by =.1), 8)
-) |> 
-  kableExtra::kable()
+)
 ```
 
 ------------------------------------------------------------------------
@@ -556,7 +576,7 @@ Notice the two-way structure of the experiment. Here we have four blocks and wit
 #| code-fold: true
 library(here)
 dat <- read.csv(here::here("teaching/2025-01-13-Experiment-Design/Lecture08", "tip_hardness.csv"))
-kableExtra::kable(dat)
+head(dat)
 ```
 
 ------------------------------------------------------------------------
@@ -593,18 +613,16 @@ dat |>
   group_by(Tip) |>
   summarize(
     N_Tip = n(),
-    Hardness_Tip = mean(Hardness))
-,
+    Hardness_Tip = mean(Hardness)),
 dat |> 
   group_by(Coupon) |>
   summarize(
     N_Coupon = n(),
     Hardness_Coupon = mean(Hardness)) 
-) |> 
-  kableExtra::kable()
+)
 ```
 
-## Example: Plant Fertilizer[^3]
+## Example 4: Plant Fertilizer[^3]
 
 [^3]: Please check the original post here: [STAT 502 Analysis of Variance and Design of Experiments](https://online.stat.psu.edu/stat502/lesson/7/7.3)
 
@@ -714,38 +732,52 @@ Comparing the two ANOVA tables, we see that the MSE in RCBD has decreased consid
 :::
 ::::::
 
-## Example: Performance of Students at varied environment
+## Example 5: Hours spent at varied environment
 
--   **Background:** Comparing the performances of students (male and female) blocks in different environments (at home and at college). To represent this experiment in the figure will be as follows:
+-   **Background:** Comparing the hours spent on the study for gender (male and female) blocks in different environments (at home and at college). To represent this experiment in the figure will be as follows:
 
 ![](https://media.geeksforgeeks.org/wp-content/uploads/20201015122147/RCBDexample2.PNG)
 
 -   Where *AC*: At College, *AH*: At Home
 
 ```{r}
-stud <- factor(rep(c("male", "female"), each = 2)) 
-perf <- factor(rep(c("ah", "ac" ), times = 2)) 
-perf
-```
-
-```{r}
-y <- c(5.5, 5, 
-	4, 6.2) 
-
+gender <- factor(rep(c("male", "female"), each = 2)) 
+env <- factor(rep(c("ah", "ac" ), times = 2)) 
+y <- c(5.5, 5, 4, 6.2) 
 # y is the hours students 
 # studied in specific places 
-results <- data.frame(y, stud, perf) 
+results <- data.frame(y, gender, env) 
+results
+```
+::: panel-tabset
+### Exercise
 
-fit <- aov(y ~ perf+stud, data = results)				 
+Try to obtain (1) the sum of squares for treatment and block (2) F-statistics. Then, interpret the results. 
+
+```{webr-r}
+gender <- factor(rep(c("male", "female"), each = 2)) 
+env <- factor(rep(c("ah", "ac" ), times = 2)) 
+y <- c(5.5, 5, 4, 6.2) 
+# y is the hours students 
+# studied in specific places 
+results <- data.frame(y, gender, env) 
+results
+```
+
+### Answer
+
+```{r}
+fit <- aov(y ~ gender+env, data = results)				 
 summary(fit)
 ```
 
--   **Explanation**: The value of Mean Sq is `0.7225<<1.8225`,i.e, here blocking wasn’t necessary. And as Pr value is 0.642 \> 0.05 (5% significance) and the hypothesis is accepted - there is no sufficient evidence suggesting females and males have significant differences in performance.
+-   **Explanation**: The value of Mean Sq is `0.7225<<1.8225`,i.e, here blocking wasn't necessary. And as Pr value is 0.642 \> 0.05 (5% significance) we fail to reject the null hypothesis - there is no sufficient evidence suggesting females and males have significant differences in performance.
+:::
 
-# Blocking factor or not?
+## Blocking factor or not?
 
 ::: discussion
-## Effectiveness of Health Promotion Programs {.unnumbered}
+### Effectiveness of Health Promotion Programs {.unnumbered}
 
 -   Researchers are interested in comparing the effectiveness of three health promotion programs with nursing students.
 -   The researcher has the following research question: *Which of the three health promotion programs are most effective at reducing unhealthy coping behaviors?*
@@ -764,7 +796,7 @@ summary(fit)
 data.frame(
   Health_Program = c("Program A", "Program B", "Program C", "Control"),
   N = c(50, 50, 50, 50)
-) |> kableExtra::kable()
+)
 ```
 
 ------------------------------------------------------------------------
@@ -789,3 +821,47 @@ data.frame(
 2.  What is the independent variable of interest? → [HEALTH PROGRAM (4 LEVELS)]{.mohu}
 3.  What is (are) the confounding variables, that the researcher might statistically control for? → [`GENDER`, `STATUS`]{.mohu}
 4.  What is (are) the blocking factors? → [`Schools`, `Classes`]{.mohu}
+
+------------------------------------------------------------------------
+
+# Wrap-up
+
+## Summary
+
+In this lecture, we covered:
+
+1.  **Randomized Complete Block Design (RCBD)**
+    -   Features: Equal block sizes, random assignment within blocks, each treatment appears once per block
+    -   Statistical model: $Y_{ij} = \mu + \tau_i + \rho_j + \epsilon_{ij}$
+    -   Assumptions: No interaction between treatment and block factors
+
+2.  **Sum of Squares Decomposition**
+    -   Total variation partitioned into: $SS_{Total} = SS_{Treatment} + SS_{Block} + SS_{Residual}$
+    -   Marginal means used to calculate treatment and block effects
+    -   F-statistics used to test treatment and block effects
+
+3.  **Benefits of Blocking**
+    -   Reduces error variance (MSE) by removing block-to-block variation
+    -   Increases power of F-tests for treatment effects
+    -   More precise estimation of treatment effects
+
+4.  **Practical Examples**
+    -   Applied RCBD to detergents, tutoring sessions, hardness testing, plant fertilizer, and study environments
+    -   Used R's `aov()` function with formula: `Outcome ~ Treatment + Block`
+    -   Compared RCBD results with completely randomized designs (CRD)
+
+## Key Takeaways
+
+::: callout-important
+-   **When to use RCBD**: When there are known sources of nuisance variation that can be grouped into blocks
+-   **Effect of blocking**: Smaller MSE leads to larger F-statistics and more powerful tests
+-   **Blocking effectiveness**: Check if block factor is significant to confirm it was a good blocking choice
+-   **Model assumptions**: No treatment-by-block interaction (additive model only)
+:::
+
+## Next Steps
+
+-   Complete [Homework 2](https://docs.google.com/forms/d/e/1FAIpQLSfXv9fBlRLaGB5eV79qfL30AVOiul7bSrMWbqns2iCz7IdgHA/viewform?usp=header)
+-   Practice identifying appropriate blocking factors in research scenarios
+-   Review sum of squares calculations and marginal means
+-   Prepare for more advanced blocking designs (Latin squares, factorial designs with blocks)
