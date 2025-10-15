@@ -1,0 +1,13 @@
+---
+title: "homework2"
+format: html
+draft: true
+---
+
+## Prompt
+
+You are a lecturer for a graduate-level course -- experimental design. Based on the content in Lecture7 (@Lecture07/ESRM64103_Lecture07.qmd) and Lecture8 (@Lecture08/ESRM64103_Lecture08.qmd), draft the homework.
+
+### Instruction
+
+For the homework, you create 10 multiple-choice questions including their stem, 4-point options, and key. For questions, use research scenarios as the context for students to better understand concepts in empirical settings.

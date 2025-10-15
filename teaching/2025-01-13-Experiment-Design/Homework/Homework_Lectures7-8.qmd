@@ -1,0 +1,213 @@
+---
+title: "Homework: Block Design"
+subtitle: "Based on Lectures 7 & 8"
+date: "2025-03-14"
+draft: true
+format:
+  html:
+    code-tools: false
+    toc: true
+    toc-depth: 2
+    number-sections: true
+---
+
+## Instructions
+
+This homework consists of 10 multiple-choice questions covering concepts from Lectures 7 and 8 on Block Design. Each question presents a research scenario to help you understand these concepts in empirical settings. Select the best answer for each question.
+
+**Total Points: 9 (1 point each)**
+
+---
+
+## Questions
+
+### Question 1
+
+**Research Scenario:** A researcher is investigating the effectiveness of three different curriculum approaches (inquiry-based, traditional, and technology-enhanced) on student achievement in science. The study will be conducted across five different school districts known to vary significantly in terms of socioeconomic resources and student demographics.
+
+**Which statement best describes why the researcher should use school district as a blocking factor?**
+
+a) School districts represent the primary treatment variable of interest
+b) School districts introduce systematic variation that should be controlled to reduce error variance
+c) School districts should be randomly assigned to different curriculum approaches
+d) School districts eliminate the need for random assignment within blocks
+
+**Key: b**
+
+---
+
+### Question 2
+
+**Research Scenario:** Dr. Martinez wants to test four different reading intervention strategies on reading comprehension scores. She has identified that both grade level (3rd, 4th, 5th, 6th) and school type (urban, suburban, rural) affect reading performance, and she wants to control for both factors simultaneously.
+
+**What experimental design should Dr. Martinez use?**
+
+a) Completely Randomized Design (CRD)
+b) Randomized Complete Block Design (RCBD)
+c) Latin Square Design
+d) Factorial Design with interaction
+
+**Key: c**
+
+---
+
+### Question 3
+
+**Research Scenario:** A university is testing three different online learning platforms (Platform A, B, and C) to determine which leads to higher student engagement scores. During the pilot study, researchers discovered that students' prior GPA significantly affects engagement scores, but they cannot control which GPA level students have.
+
+**How should the researchers handle prior GPA in this study?**
+
+a) Use blocking by randomly assigning students to different GPA levels
+b) Ignore prior GPA since it cannot be controlled
+c) Use ANCOVA to statistically control for prior GPA as a covariate
+d) Redesign the study to only include students with similar GPAs
+
+**Key: c**
+
+---
+
+### Question 4
+
+**Research Scenario:** In a Randomized Complete Block Design (RCBD) studying the effect of four teaching methods on test scores, with students blocked by school (5 schools), the ANOVA table shows:
+
+- SS_Treatment = 450
+- SS_Block = 280
+- SS_Error = 120
+- Total observations = 20
+
+**What is the F-statistic for testing the treatment effect?**
+
+a) F = 450/120 = 3.75
+b) F = (450/3)/(120/12) = 15.00
+c) F = (450/4)/(120/15) = 14.06
+d) F = (280/4)/(120/12) = 7.00
+
+**Key: b**
+
+*Explanation: df_treatment = 4-1 = 3; df_error = (4-1)(5-1) = 12; F = MS_treatment/MS_error = (450/3)/(120/12)*
+
+---
+
+### Question 5
+
+**Research Scenario:** A researcher uses a Latin Square Design with 4 treatments (A, B, C, D), blocking for both teacher experience level (rows: novice, early-career, experienced, veteran) and class size (columns: small, medium, large, extra-large). After data collection, the researcher wants to test whether there's an interaction between treatment and teacher experience.
+
+**What is the PRIMARY limitation of this analysis?**
+
+a) Latin Square Design requires equal sample sizes in each cell
+b) Latin Square Design assumes no interaction between treatments and blocking factors
+c) Latin Square Design can only accommodate two blocking factors maximum
+d) Latin Square Design requires normally distributed outcomes
+
+**Key: b**
+
+---
+
+### Question 6
+
+**Research Scenario:** An educational researcher is comparing four different classroom management strategies on student time-on-task. The study is conducted across 8 schools. The researcher runs two analyses:
+
+- **Analysis 1 (CRD):** MS_Error = 145.6, F = 2.34 (not significant)
+- **Analysis 2 (RCBD with school as block):** MS_Error = 42.3, F = 8.12 (significant)
+
+**What conclusion can be drawn from comparing these two analyses?**
+
+a) The blocking factor (school) was unnecessary and should be removed
+b) Blocking successfully reduced error variance and increased statistical power
+c) The treatment effect is only significant when school is used as the treatment factor
+d) The CRD analysis is more valid because it has more degrees of freedom
+
+**Key: b**
+
+---
+
+### Question 7
+
+**Research Scenario:** A Latin Square Design is set up with 5 treatment levels (5 different instructional videos). However, after running the experiment, the researcher realizes they need more degrees of freedom to adequately test for treatment effects.
+
+**What design modification should the researcher implement?**
+
+a) Reduce the number of treatment levels to 3
+b) Switch to a Completely Randomized Design
+c) Use a Replicated Latin Square Design
+d) Remove one of the blocking factors
+
+**Key: c**
+
+---
+
+
+### Question 8
+
+**Research Scenario:** A study evaluates four different tutoring programs (A, B, C, D) on math achievement. The researcher wants to control for three nuisance factors: school district, student grade level, and time of day (morning vs. afternoon).
+
+**What type of block design would be appropriate for controlling all three blocking factors?**
+
+a) Randomized Complete Block Design (RCBD)
+b) Latin Square Design
+c) Greco-Roman Square Design
+d) This cannot be accomplished with standard block designs
+
+**Key: c**
+
+*Explanation: Greco-Roman squares can control for three blocking factors simultaneously*
+
+---
+
+### Question 9
+
+**Research Scenario:** Dr. Johnson conducted a study comparing three professional development programs for teachers (Program 1, 2, 3) on teaching effectiveness scores. She used school as a blocking factor (4 schools). The ANOVA results showed:
+
+- Treatment effect: F(2, 6) = 18.45, p < .001
+- Block effect: F(3, 6) = 0.89, p = .50
+
+**What is the most appropriate interpretation of these results?**
+
+a) The blocking factor (school) was statistically significant and should be retained
+b) The professional development programs have significant effects, but school was not a useful blocking factor
+c) Both treatment and blocking effects are significant and should be reported
+d) The analysis should be re-run without the blocking factor to increase power
+
+**Key: b**
+
+*Explanation: While the treatment effect is significant, the non-significant block effect suggests that school did not account for much variation. However, this doesn't invalidate the results - it simply means schools were more similar than anticipated*
+
+---
+
+## Answer Key Summary
+
+1. **b** - School districts introduce systematic variation that should be controlled to reduce error variance
+2. **c** - Latin Square Design (controls for two blocking factors)
+3. **c** - Use ANCOVA to statistically control for prior GPA as a covariate
+4. **b** - F = (450/3)/(120/12) = 15.00
+5. **b** - Latin Square Design assumes no interaction between treatments and blocking factors
+6. **b** - Blocking successfully reduced error variance and increased statistical power
+7. **c** - Use a Replicated Latin Square Design
+8. **c** - Greco-Roman Square Design
+9. **b** - The professional development programs have significant effects, but school was not a useful blocking factor
+
+---
+
+## Grading Rubric
+
+- Each question is worth 1 point
+- Total possible points: 10
+- No partial credit per question
+- Final score = (Number of correct answers / 10) × 100%
+
+---
+
+## Learning Objectives Assessed
+
+This homework assesses your understanding of:
+
+1. The rationale for using block designs vs. completely randomized designs
+2. Distinguishing between blocking factors, nuisance factors, and confounding variables
+3. Selecting appropriate block designs (RCBD, Latin Square, Greco-Roman Square)
+4. Interpreting ANOVA tables for block designs
+5. Understanding assumptions and limitations of different block designs
+6. Calculating and interpreting F-statistics in block designs
+7. Recognizing when to use ANCOVA vs. blocking approaches
+8. Understanding the statistical model for RCBD
+9. Interpreting significant vs. non-significant blocking factors
+10. Making design decisions for complex blocking scenarios

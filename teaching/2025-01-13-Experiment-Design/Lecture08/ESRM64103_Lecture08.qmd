@@ -41,6 +41,7 @@ format:
 1.  Review Last week's Lecture
 2.  Review Block Design
 3.  Randomized Complete Block Design with R Programming
+4.  [Homework 2 Link](https://docs.google.com/forms/d/e/1FAIpQLSfXv9fBlRLaGB5eV79qfL30AVOiul7bSrMWbqns2iCz7IdgHA/viewform?usp=header)
 :::
 
 ```{r setup, include=FALSE}
