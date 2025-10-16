@@ -204,6 +204,7 @@ detergents <- tribble(
   3, 48, 50, 55,
   4, 42, 37, 49
 )
+detergents
 ```
 
 
@@ -241,6 +242,7 @@ grand_mean <- mean(unlist(detergents[, 2:4]))
 3 * sum((treatment_marginal_Sums/3 - grand_mean)^2)
 ## Method 2
 sum(treatment_marginal_Sums^2) / 3 - (sum(detergents[, 2:4]))^2 / 12
+
 ```
 
 1.  *Sum of square* per level: $\frac{1}{n_b}\sum{(y_{i.})}^2$ = `{r} (sum(treatment_marginal_Sums^2) / 3) |> as.character()`
@@ -590,6 +592,7 @@ head(dat)
 dat$Tip <- factor(dat$Tip)
 dat$Coupon <- factor(dat$Coupon)
 fit_exp2 <- aov(Hardness ~ Tip + Coupon, data = dat)
+summary(fit_exp2)
 ```
 
 ::: callout-note
