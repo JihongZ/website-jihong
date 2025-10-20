@@ -4,7 +4,6 @@ subtitle: "Matrix Algebra in R"
 author: "Jihong Zhang*, Ph.D"
 institute: | 
   Educational Statistics and Research Methods (ESRM) Program*
-  
   University of Arkansas
 date: "2024-10-07"
 sidebar: false
@@ -34,6 +33,7 @@ format:
     fig-align: center
 filters:
   - quarto
+  - webr
   - line-highlight
 ---
 
@@ -43,23 +43,36 @@ filters:
 -   Multivariate Normal Distribution
 -   Multivariate Linear Analysis
 
-## Graduate Certificate in ESRM Program
+## Spring 2026 Course - Advanced Multivariate Analysis 
 
-1.  See link [here](https://esrm.uark.edu/certificates/index.php)
+1.  See the online syllabus [here](https://jihongzhang.org/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus.html)
 
-# An Brief Introduction to Matrix
+2.  Recommended for ESRM students and others interested in applied statistics in the social sciences.
+
+# A Brief Introduction to Matrices
 
 ## Today's Example Data
 
--   Imagine that I collected data SAT test scores for both the Math (SATM) and Verbal (SATV) sections of 1,000 students
+-   Imagine that I collected SAT test scores for both the Math (SATM) and Verbal (SATV) sections for 1,000 students.
 
 ```{r}
 #| output-location: default
 library(ESRM64503)
 library(kableExtra)
 show_table(head(dataSAT))
+```
+
+---------------
+
+Last several rows of the data:
+
+```{r}
 show_table(tail(dataSAT))
 ```
+
+---------------
+
+Relationship between SATV and SATM:
 
 ```{r}
 plot(dataSAT$SATV, dataSAT$SATM)
@@ -69,11 +82,11 @@ plot(dataSAT$SATV, dataSAT$SATM)
 
 -   Matrix operations are fundamental to all modern statistical software.
 
--   When you installed R, R also comes with required matrix algorithm **library** for you. Two popular are **BLAS** and **LAPACK**
+-   When you installed R, it also came with required matrix algorithm libraries. Two popular ones are **BLAS** and **LAPACK**.
 
-    -   Other optimized libraries include OpenBLAS, AtlasBLAS, GotoBLAS, Intel MKL
+    -   Other optimized libraries include OpenBLAS, AtlasBLAS, GotoBLAS, and Intel MKL.
 
-        `{bash}} Matrix products: default LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib`
+        `{bash} Matrix products: default LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib`
 
 -   From the LAPACK [website](https://www.netlib.org/lapack/),
 
@@ -83,9 +96,9 @@ plot(dataSAT$SATV, dataSAT$SATM)
 
 ## Matrix Elements
 
--   A matrix (denote as capitalized **X**) is composed of a set of elements
+-   A matrix (denoted with a capital **X**) is composed of a set of elements.
 
-    -   Each element is denote by its position in the matrix (row and column)
+    -   Each element is denoted by its position in the matrix (row and column).
 
 ```{r}
 X = matrix(c(
@@ -100,7 +113,7 @@ X
 dim(X) # Number of rows and columns
 ```
 
--   In R, we use `matrix[rowIndex, columnIndex]` to extract the element with the position of rowIndex and columnIndex
+-   In R, use `matrix[rowIndex, columnIndex]` to extract the element at `rowIndex` and `columnIndex`.
 
 ```{r}
 #| results: hold
@@ -111,7 +124,7 @@ X[2, ] # 2nd row vector
 X[, 1] # 1st column vector
 ```
 
--   In statistics, we use $x_{ij}$ to represent one element with the position of *i*th row and *j*th column. For a example matrix $\mathbf{X}$ with the size of 1000 rows and 2 columns.
+-   In statistics, we use $x_{ij}$ to represent the element in the *i*th row and *j*th column. For example, consider a matrix $\mathbf{X}$ with 1,000 rows and 2 columns:
 
     -   The first subscript is the index of the rows
 
@@ -130,7 +143,7 @@ $$
 
 -   A scalar is just a single number
 
--   The name scalar is important: the number "scales" a vector – it can make a vector "longer" or "shorter".
+-   The name scalar is important: the number "scales" a vector—it can make a vector longer or shorter.
 
 -   Scalars are typically written without boldface:
 
@@ -140,7 +153,7 @@ $$
 
 -   Each element of a matrix is a scalar.
 
--   Matrices can be multiplied by scalar so that each elements are multiplied by this scalar
+-   Matrices can be multiplied by a scalar so that each element is multiplied by that scalar.
 
     ```{r}
     3 * X
@@ -148,16 +161,16 @@ $$
 
 ## Matrix Transpose
 
--   The transpose of a matrix is a reorganization of the matrix by switching the indices for the rows and columns
+-   The transpose of a matrix is formed by switching the indices of the rows and columns.
 
-    $$
-    \mathbf{X} = \begin{bmatrix}
-    520 & 580\\
-    520 & 550\\
-    \vdots &  \vdots\\
-    540 & 660\\
-    \end{bmatrix}
-    $$
+$$
+\mathbf{X} = \begin{bmatrix}
+520 & 580\\
+520 & 550\\
+\vdots &  \vdots\\
+540 & 660\\
+\end{bmatrix}
+$$
 
 $$
 \mathbf{X}^T = \begin{bmatrix}
@@ -166,7 +179,7 @@ $$
 \end{bmatrix}
 $$
 
--   An element $x_{ij}$ in the original matrix $\mathbf{X}$ is now $x_{ij}$ in the transposed matrix $\mathbf{X}^T$
+-   An element $x_{ij}$ in the original matrix $\mathbf{X}$ becomes $x_{ji}$ in the transposed matrix $\mathbf{X}^T$.
 
 -   **Transposes are used to align matrices for operations where the sizes of matrices matter (such as matrix multiplication)**
 
@@ -176,11 +189,11 @@ $$
 
 ## Types of Matrices
 
--   **Square Matrix:** A square matrix has the same number of rows and columns
+-   **Square Matrix:** A square matrix has the same number of rows and columns.
 
     -   Correlation / covariance matrices are square matrices
 
--   **Diagonal Matrix**: A diagonal matrix is a square matrix with non-zero diagonal elements ($x_{ij}\neq0$ for $i=j$) and zeros on the off-diagonal elements ($x_{ij} =0$ for $i\neq j$):
+-   **Diagonal Matrix:** A diagonal matrix is a square matrix with nonzero diagonal elements ($x_{ij}\neq 0$ for $i=j$) and zeros on the off-diagonal elements ($x_{ij} = 0$ for $i\neq j$):
 
     $$
     \mathbf{A} = \begin{bmatrix}
@@ -190,43 +203,43 @@ $$
     \end{bmatrix}
     $$
 
-    -   We will use diagonal matrices to transform correlation matrices to covariance matrices
+    -   We will use diagonal matrices to transform correlation matrices into covariance matrices.
 
     ```{r}
     vars = c(2.758, 1.643, 0.879)
     diag(vars)
     ```
 
--   **Symmetric Matrix**: A symmetric matrix is a square matrix where all elements are reflected across the diagonal ($x_{ij} = x_{ji}$)
+-   **Symmetric Matrix:** A symmetric matrix is a square matrix where all elements are reflected across the diagonal ($x_{ij} = x_{ji}$).
 
     -   Correlation and covariance matrices are symmetric matrices
-    -   [**Question**: A diagonal matrix is always a symmetric matrix?]{.underline} [True]{.mohu}
+    -   [**Question**: Is a diagonal matrix always symmetric?]{.underline} [True]{.mohu}
 
 ## Linear Combinations
 
--   Addition of a set of vectors (all multiplied by scalars) is called a linear combination:
+-   The addition of a set of vectors (each multiplied by a scalar) is called a linear combination:
 
-    $$
-    \mathbb{y} = a_1x_1 + a_2x_2 + \cdots + a_kx_k
-    $$
+$$
+\mathbb{y} = a_1x_1 + a_2x_2 + \cdots + a_kx_k = \mathbf{A}^{-1} \mathbf{X}
+$$
 
 -   Here, $\mathbb{y}$ is the linear combination
 
     -   For all *k* vectors, the set of all possible linear combinations is called their **span**
 
-    -   Typically not thought of in most analyses – but when working with things that don't exist (latent variables) becomes somewhat importnat
+    -   This is typically not emphasized in most analyses—but when working with latent variables it becomes important.
 
--   **In Data**, linear combinations happen frequently:
+-   **In data**, linear combinations occur frequently:
 
     -   Linear models (i.e., Regression and ANOVA)
 
     -   Principal components analysis
 
-    -   **Question**: Does generalized linear model contains linear combinations? [True, link function + a linear combination]{.mohu}.
+    -   **Question**: Do generalized linear models contain linear combinations? [True; link function + linear predictor]{.mohu}.
 
 ## Inner (Dot/Cross-) Product of Vectors
 
--   An important concept in vector geometry is that of the inner product of two vectors
+-   An important concept in vector geometry is the inner product of two vectors.
 
     -   The inner product is also called the dot product
 
@@ -238,31 +251,134 @@ $$
 #| results: hold
 x = matrix(c(1, 2), ncol = 1)
 y = matrix(c(2, 3), ncol = 1)
+x
+y
 crossprod(x, y) # R function for dot product of x and y
-t(x) %*% y
+t(x) %*% y # This is formally equivalent to (but usually slightly faster than) the call `t(x) %*% y` (`crossprod`) or `x %*% t(y)` (`tcrossprod`).
 ```
 
-> This is formally equivalent to (but usually slightly faster than) the call `t(x) %*% y` (`crossprod`) or `x %*% t(y)` (`tcrossprod`).
+-------------
 
-Using our **example data `dataSAT`**,
+Using our example data `dataSAT`,
 
 ```{r}
 crossprod(dataSAT$SATV, dataSAT$SATM) # x and y could be variables in our data
 ```
 
--   **In Data**: the angle between vectors is related to the correlation between variables and the projection is related to regression/ANOVA/linear models
+-   **In data:** the angle between vectors relates to the correlation between variables, and projection relates to regression/ANOVA/linear models.
+
+
+## Combine Two Matrices
+
+Use `cbind()` to combine by columns and `rbind()` to combine by rows. Dimensions must be conformable:
+
+- `cbind` requires the same number of rows.
+- `rbind` requires the same number of columns.
+
+```{webr-r}
+# Two 3x1 column vectors
+u <- matrix(c(1, 2, 3), ncol = 1)
+v <- matrix(c(4, 5, 6), ncol = 1)
+
+# Column-bind: 3x2 matrix
+C <- cbind(u, v)
+C
+
+# Two 1x3 row vectors
+u_row <- t(u)
+v_row <- t(v)
+
+# Row-bind: 2x3 matrix
+R <- rbind(u_row, v_row)
+R
+```
+
+--------------------
+
+```{webr-r}
+# Example with 3x2 matrices
+A <- matrix(1:6, nrow = 3, byrow = TRUE)   # 3x2
+B <- matrix(7:12, nrow = 3, byrow = TRUE)  # 3x2
+
+# cbind keeps rows (3) and stacks columns -> 3x4
+cbind(A, B)
+
+# rbind keeps columns (2) and stacks rows -> 6x2
+rbind(A, B)
+```
+
+
+## Mini Exercise: Dot Product
+
+::: panel-tabset
+### Question
+
+Compute the dot product of two column vectors and verify it equals the corresponding element of a matrix product.
+
+1) Define two vectors `a = [1, 3, 5]^T` and `b = [2, 4, 6]^T` as `3x1` matrices.
+
+2) Compute the dot product `a ⋅ b` in two ways:
+
+- Using `crossprod(a, b)`
+- Using `t(a) %*% b`
+
+3) Now form matrices `A = [a  a]` (3x2) and `B = [b  b]` (3x2). Compute `t(A) %*% B`. Which entry of this `2x2` result equals `a ⋅ b`?
+
+```{webr-r}
+#| echo: true
+#| eval: true
+# Starter code (edit and run):
+a <- _________________
+b <- _________________
+
+# 1) Dot product two ways
+crossprod(__, ___)
+t(__) %*% __
+
+# 2) Build A and B then compare
+A <- cbind(__, __)
+B <- cbind(__, __)
+t(__) %*% __
+```
+
+### Answer
+
+```{webr-r}
+#| echo: true
+#| eval: true
+#| output: true
+# Starter code (edit and run):
+a <- matrix(c(1,3,5), ncol = 1)
+b <- matrix(c(2,4,6), ncol = 1)
+
+# 1) Dot product two ways
+crossprod(a, b)
+t(a) %*% b
+
+# 2) Build A and B then compare
+A <- cbind(a, a)
+B <- cbind(b, b)
+t(A) %*% B
+```
+
+The dot product is `a ⋅ b = 1*2 + 3*4 + 5*6 = 44`.
+
+Both `crossprod(a, b)` and `t(a) %*% b` return `44`.
+
+Forming `A = [a  a]` and `B = [b  b]`, the product `t(A) %*% B` is a `2x2` matrix where every entry equals `a ⋅ b = 44`, because each entry is the dot product between a column of `A` and a column of `B`.
+:::
 
 # Matrix Algebra
 
 ## Moving from Vectors to Matrices
 
--   A matrix can be thought of as a collection of vectors
+-   A matrix can be thought of as a collection of vectors.
 
-    -   In R, we use `df$[name]` or `matrix[, index]` to extract single vector
+    -   In R, use `df$[name]` or `matrix[, index]` to extract a single vector.
 
--   Matrix algebra defines a set of operations and entities on matrices
+-   Matrix algebra defines a set of operations and entities on matrices.
 
-    -   I will present a version meant to mirror your previous algebra experiences
+    -   I will present a version meant to mirror your previous algebra experiences.
 
 -   Definitions:
 
@@ -284,11 +400,11 @@ crossprod(dataSAT$SATV, dataSAT$SATM) # x and y could be variables in our data
 
 ## Matrix Addition and Subtraction
 
--   Matrix addition and subtraction are much like vector addition / subtraction
+-   Matrix addition and subtraction are much like vector addition and subtraction.
 
--   **Rules**: Matrices must be the same size (rows and columns)
+-   **Rules:** Matrices must be the same size (rows and columns).
 
-    -   [Be careful!! R may not pop up error message when matrice + vector!]{style="color: red"}
+    -   [Be careful! R may not produce an error message when adding a matrix and a vector.]{style="color: red"}
 
         ```{r}
         #| output-location: column
@@ -300,36 +416,40 @@ crossprod(dataSAT$SATV, dataSAT$SATM) # x and y could be variables in our data
         A+B
         ```
 
--   **Method**: the new matrix is constructed of element-by-element addition/subtraction of the previous matrices
+-   **Method:** the new matrix is constructed by element-by-element addition/subtraction of the previous matrices.
 
--   **Order**: the order of the matrices (pre- and post-) does not matter
+-   **Order:** the order of the matrices (pre- and post-) does not matter.
+
+------------
 
 ```{r}
 #| error: true
 #| output-location: default
 A = matrix(c(1, 2, 3, 4), nrow = 2, byrow = T)
 B = matrix(c(5, 6, 7, 8), nrow = 2, byrow = T)
+C = matrix(c(3, 6), nrow = 2, byrow = T)
 A
 B
 A + B
 A - B
+A + C
 ```
 
 ## Matrix Multiplication
 
--   **The new matrix** has the size of same [number of rows of pre-multiplying]{style="color: tomato; font-weight: bold"} matrix and [same number of columns of post-multiplying]{style="color: royalblue; font-weight: bold"} matrix
+-   **The new matrix** has the same [number of rows as the pre-multiplying]{style="color: tomato; font-weight: bold"} matrix and the [number of columns as the post-multiplying]{style="color: royalblue; font-weight: bold"} matrix.
 
 $$
 \mathbf{A}_{(r \times c)} \mathbf{B}_{(c\times k)} = \mathbf{C}_{(r\times k)}
 $$
 
--   **Rules**: Pre-multiplying matrix must have number of columns equaling to the number of rows of the post-multiplying matrix
+-   **Rules:** The pre-multiplying matrix must have a number of columns equal to the number of rows of the post-multiplying matrix.
 
--   **Method**: the elements of the new matrix consist of the inner (dot) product of [the row vectors of the pre-multiplying matrix]{style="color: tomato; font-weight: bold"} and [the column vectors of the post-multiplying matrix]{style="color: royalblue; font-weight: bold"}
+-   **Method:** the elements of the new matrix consist of the inner (dot) products of [the row vectors of the pre-multiplying matrix]{style="color: tomato; font-weight: bold"} and [the column vectors of the post-multiplying matrix]{style="color: royalblue; font-weight: bold"}.
 
--   **Order**: The order of the matrices matters
+-   **Order:** The order of the matrices matters.
 
--   **R**: use `%*%` operator or `crossprod` to perform matrix multiplication
+-   **R:** Use the `%*%` operator or `crossprod` to perform matrix multiplication.
 
 ```{r}
 #| output-location: default
@@ -341,7 +461,7 @@ A %*% B
 B %*% A
 ```
 
--   **Example**: The inner product of A's 1st row vector and B's 1st column vector equal to AB's first element
+-   **Example:** The inner product of A's first row vector and B's first column vector equals AB's first element.
 
 ```{r}
 #| output-location: default
@@ -349,9 +469,44 @@ crossprod(A[1, ], B[, 1])
 (A%*%B)[1, 1]
 ```
 
+
+## Mean Centered
+
+$$
+X_{(n \times k)}^c = X_{(n \times k)} - I_{(n \times 1)} * \bar{X}_{(1 \times k)} 
+$$
+where n is the number of cases (sample size) and k is the number of variables.
+
+```{r}
+X <- cbind(Sect1 = c(89, 71, 31, 74, 81, 54, 2, 21, 36, 17),
+           Sect2 = c(26, 32, 18, 51, 82, 15, 19, 98, 95, 24))
+XBAR <- colMeans(X)
+n <- nrow(X)
+one <- matrix(1, nrow = n, ncol = 1)
+Xc <- X - one %*% t(XBAR)
+Xc
+```
+
+----
+
+### Self practice
+
+-   Try to mean centered the SATV and SATM of `datSAT`. 
+-   Store your centered matrix as variable name `X_center`
+-   Test your centered matrix using `round(colMeans(X_center), 3)` to see if the means are 0s
+
+```{r}
+X <- dataSAT[, c("SATV", "SATM")]
+ONE <- matrix(1, nrow = nrow(X), ncol = 1)
+X_bar <- colMeans(X)
+X_center <- X - ONE %*% X_bar
+round(colMeans(X_center), 3)
+```
+
+
 ## Identity Matrix
 
--   The identity matrix (denoted as $\mathbf{I}$) is a matrix that pre- and post- multiplied by another matrix results in the original matrix:
+-   The identity matrix (denoted as $\mathbf{I}$) is a matrix that, when pre- or post-multiplied by another matrix, results in the original matrix:
 
     $$
     \mathbf{A}\mathbf{I} = \mathbf{A}
@@ -375,15 +530,20 @@ crossprod(A[1, ], B[, 1])
     \end{bmatrix}
     $$
 
--   **R**: we can create a identity matrix using `diag`
+-   **R:** Create an identity matrix using the `diag()` function.
 
     ```{r}
+    #| output-location: default
+    #| result: hold
     diag(nrow = 3)
+    X = matrix(1:9, nrow = 3, byrow = TRUE)
+    X
+    diag(X)
     ```
 
 ## Zero and One Vector
 
--   The zero and one vector is a column vector of zeros and ones:
+-   The zero and one vectors are column vectors of zeros and ones, respectively:
 
     $$
     \mathbf{0}_{(3\times 1)} = \begin{bmatrix}0\\0\\0\end{bmatrix}
@@ -393,7 +553,7 @@ crossprod(A[1, ], B[, 1])
     \mathbf{1}_{(3\times 1)} = \begin{bmatrix}1\\1\\1\end{bmatrix}
     $$
 
--   When pre- or post- multiplied the matrix ($\mathbf{A}$) is the zero vector:
+-   When pre- or post-multiplied with a matrix ($\mathbf{A}$), the result with the zero vector is:
 
     $$
     \mathbf{A0=0}
@@ -421,9 +581,9 @@ crossprod(B, one_vec) # column-wise sums
 
     -   Second: $\frac{a}{b}=1$
 
--   "Division" in matrices serves a similar role
+-   "Division" in matrices serves a similar role.
 
-    -   For [**square symmetric**]{style="color: tomato; font-weight: bold"} matrices, an inverse matrix is a matrix that when pre- or post- multiplied with another matrix produces the identity matrix:
+    -   For [**square symmetric**]{style="color: tomato; font-weight: bold"} matrices, an inverse matrix is a matrix that, when pre- or post-multiplied with another matrix, produces the identity matrix:
 
         $$
         \mathbf{A^{-1}A=I}
@@ -433,14 +593,14 @@ crossprod(B, one_vec) # column-wise sums
         \mathbf{AA^{-1}=I}
         $$
 
--   **R:** use `solve()` to calculate the matrix inverse
+-   **R:** Use `solve()` to calculate the matrix inverse.
 
 ```{r}
 A <- matrix(rlnorm(9), 3, 3, byrow = T)
 round(solve(A) %*% A, 3)
 ```
 
--   **Caution**: Calculation is complicated, even computers have a tough time. Not all matrix can be inverted:
+-   **Caution:** The calculation is complicated; even computers can struggle. Not all matrices can be inverted:
 
 ```{r}
 #| error: true
@@ -450,24 +610,24 @@ A
 solve(A)%*%A
 ```
 
-## Example: the inverse of variance-covaraince matrix
+## Example: The Inverse of the Variance–Covariance Matrix
 
--   In data: the inverse shows up constantly in statistics
+-   In data analysis, the inverse shows up constantly in statistics.
 
-    -   Models which assume some types of (multivariate) normality need an inverse convariance matrix
+    -   Models that assume some form of (multivariate) normality need an inverse covariance matrix.
 
--   Using our SAT example
+-   Using our SAT example:
 
-    -   Our data matrix was size ($1000\times 2$), which is not invertible
+    -   Our data matrix has size ($1000\times 2$), which is not invertible.
 
-    -   However, $\mathbf{X^TX}$ was size ($2\times 2$) – square and symmetric
+    -   However, $\mathbf{X^TX}$ has size ($2\times 2$)—square and symmetric.
 
     ```{r}
     X = as.matrix(dataSAT[, c("SATV", "SATM")])
     crossprod(X, X)
     ```
 
-    -   The inverse $\mathbf{(X^TX)^{-1}}$ is
+    -   The inverse $\mathbf{(X^TX)^{-1}}$ is:
 
     ```{r}
     solve(crossprod(X, X))
@@ -504,9 +664,9 @@ solve(A)%*%A
 
 ## Advanced Matrix Functions/Operations
 
--   We end our matrix discussion with some advanced topics
+-   We end our matrix discussion with some advanced topics.
 
--   To help us throughout, let's consider the correlation matrix of our SAT data:
+-   To help us throughout, consider the correlation matrix of our SAT data:
 
 ```{r}
 R <- cor(dataSAT[, c("SATV", "SATM")])
@@ -563,6 +723,29 @@ $$
 
 -   If the determinant is not positive, the matrix is called **non-positive definite** $\rightarrow$ the matrix does not have an inverse
 
+## Mini Exercise 2: Inverse Model with Positive Determinant
+
+::: panel-tabset
+
+### Question
+
+Calculate the determinant of A and B
+
+```{webr-r}
+A <- matrix(rlnorm(9), 3, 3, byrow = T)
+B <- matrix(2:10, nrow = 3, ncol = 3, byrow = T)
+```
+
+### Answer
+
+```{webr-r}
+A <- matrix(rlnorm(9), 3, 3, byrow = T)
+B <- matrix(2:10, nrow = 3, ncol = 3, byrow = T)
+det(A)
+det(B)
+```
+:::
+
 ## Wrap Up
 
 1.  Matrices show up nearly anytime multivariate statistics are used, often in the help/manual pages of the package you intend to use for analysis
@@ -603,8 +786,8 @@ $$
 
 ```{r}
 #| output-location: default
-S
-D = sqrt(diag(diag(S)))
+S ## variance-covariance matrix
+D = sqrt(diag(diag(S))) ## Standard deviations for two variables
 D
 R = solve(D) %*% S %*% solve(D)
 R
@@ -653,10 +836,10 @@ gsv_PefCorr
 
 ## Total Sample Variance
 
--   The total sample variance is the sum of the variances of each variable in the sample
+-   The total sample variance is the sum of the variances of each variable in the sample.
 
-    -   The sum of the diagonal elements of the sample covariance matrix
-    -   The trace of the sample covariance matrix
+    -   The sum of the diagonal elements of the sample covariance matrix.
+    -   The trace of the sample covariance matrix.
 
 $$
 \text{Total Sample Variance} = \sum_{v=1}^{V} s^2_{x_i} = \text{tr}\mathbf{S}
@@ -668,29 +851,29 @@ Total sample variance for our SAT example:
 sum(diag(S))
 ```
 
--   The total sample variance does not take into consideration the covariances among the variables
+-   The total sample variance does not take into consideration the covariances among the variables.
 
-    -   Will not equal zero if linearly dependency exists
+    -   It will not equal zero if linear dependency exists.
 
-## Mutlivariate Normal Distribution and Mahalanobis Distance
+## Multivariate Normal Distribution and Mahalanobis Distance
 
--   The PDF of Multivariate Normal Distribution is very similar to univariate normal distribution
+-   The PDF of the multivariate normal distribution is very similar to the univariate normal distribution.
 
 $$
 f(\mathbf{x}_p) = \frac{1}{(2\pi)^{\frac{V}2}|\mathbf{\Sigma}|^{\frac12}}\exp[-\frac{\color{tomato}{(x_p^T - \mu)^T \mathbf{\Sigma}^{-1}(x_p^T-\mu)}}{2}]
 $$
 
-Where $V$ represents number of variables and the highlighed is [Mahalanobis Distance]{style="color: tomato"}.
+Where $V$ represents the number of variables and the highlighted term is the [Mahalanobis distance]{style="color: tomato"}.
 
--   We use $MVN(\mathbf{\mu, \Sigma})$ to represent a multivariate normal distribution with mean vector as $\mathbf{\mu}$ and covariance matrix as $\mathbf{\Sigma}$
+-   We use $MVN(\mathbf{\mu, \Sigma})$ to represent a multivariate normal distribution with mean vector $\mathbf{\mu}$ and covariance matrix $\mathbf{\Sigma}$.
 
--   Similar to squared mean error in univariate distribution, we can calculate squared Mahalanobis Distance for each observable individual in the context of Multivariate Distribution
+-   Similar to the squared error in the univariate case, we can calculate the squared Mahalanobis distance for each observed individual in the context of a multivariate distribution.
 
 $$
 d^2(x_p) = (x_p^T - \mu)^T \Sigma^{-1}(x_p^T-\mu)
 $$
 
--   In R, we can use `mahalanobis` followed by data vector (`x`), mean vector (`center`), and covariance matrix (`cov`) to calculate the **squared Mahalanobis Distance** for one individual
+-   In R, we can use `mahalanobis` with a data vector (`x`), mean vector (`center`), and covariance matrix (`cov`) to calculate the squared Mahalanobis distance for one individual.
 
 ```{r}
 #| output-location: default
@@ -710,7 +893,7 @@ plot(density(mh_dist_all))
 
 ## Multivariate Normal Properties
 
--   The multivariate normal distribution has some useful properties that show up in statistical methods
+-   The multivariate normal distribution has useful properties that appear in statistical methods:
 
 -   If $\mathbf{X}$ is distributed multivariate normally:
 
@@ -719,9 +902,9 @@ plot(density(mh_dist_all))
     3.  A zero covariance between a pair of variables of $\mathbf{X}$ implies that the variables are independent
     4.  Conditional distributions of $\mathbf{X}$ are multivariate normal
 
-## How to use Multivariate Normal Distribution in R
+## How to Use the Multivariate Normal Distribution in R
 
-Similar to other distribution functions, we use `dmvnorm` to get the density given the observations and the parameters (mean vector and covariance matrix). `rmvnorm` can generate multiple samples given the distribution
+Similar to other distribution functions, use `dmvnorm` to get the density given the observations and the parameters (mean vector and covariance matrix). `rmvnorm` generates multiple samples from the distribution.
 
 ```{r}
 #| output-location: default
@@ -739,18 +922,116 @@ LL
 rmvnorm(20, mean = mu, sigma = S) |> show_table()
 ```
 
+## Mini Exercise 3: Self Practice
+
+::: panel-tabset
+### Question
+
+Using a small practice matrix and the tools from this lecture, complete the following steps. Fill in the underlined placeholders where indicated.
+
+1) Build the data matrix `X` with columns `SATV` and `SATM` (as a numeric matrix). Compute:
+
+- The sample mean vector `XBAR` and covariance matrix `S`.
+- The correlation matrix `R` and its trace `tr(R)`.
+
+2) Verify basic matrix operations:
+
+- Center `X` to `Xc = X - ____ %*% t(____)` using a ones vector and the mean vector.
+- Check that `colMeans(Xc)` is (approximately) ____.
+- Confirm `t(Xc) %*% Xc / (____ - 1)` equals ____.
+
+3) Work with products and inverses:
+
+- Compute `XtX = crossprod(____)` and its inverse `XtX_inv = solve(____)`.
+- Verify `round(XtX_inv %*% ____, 6)` equals the identity.
+
+4) Mahalanobis distances and MVN:
+
+- Compute squared Mahalanobis distances for all rows of `X` using `mahalanobis` with center `____` and cov `____`.
+- Plot the density of the distances.
+
+```{webr-r}
+# Starter code (fill in the blanks and run):
+
+# 1) Data matrix and summaries
+# Create a small 2-variable practice matrix (n = 8)
+X <- cbind(Sect1 = c(520, 540, 560, 590, 610, 620, 640, 660),
+           Sect2 = c(510, 555, 570, 600, 605, 635, 650, 670))
+XBAR <- colMeans(____)
+S <- cov(____)
+R <- cor(____)
+XBAR; S; R
+sum(diag(R))  # trace(R)
+
+# 2) Centering with a ones vector
+n <- nrow(____)
+one <- matrix(1, nrow = n, ncol = 1)
+Xc <- ____ - one %*% t(____)
+colMeans(____)
+crossprod(____)/(n - 1)  # should equal ____
+
+# 3) Products and inverses
+XtX <- crossprod(____)
+XtX_inv <- solve(____)
+round(XtX_inv %*% ____, 6)
+
+# 4) Mahalanobis distances
+mh <- mahalanobis(____, center = ____, cov = ____)
+plot(density(mh))
+```
+
+### Answer
+
+```{webr-r}
+# Starter code (edit and run):
+
+# 1) Data matrix and summaries
+# Create a small 2-variable practice matrix (n = 8)
+X <- cbind(Sect1 = c(520, 540, 560, 590, 610, 620, 640, 660),
+           Sect2 = c(510, 555, 570, 600, 605, 635, 650, 670))
+XBAR <- colMeans(X)
+S <- cov(X)
+R <- cor(X)
+XBAR; S; R
+sum(diag(R))  # trace(R)
+
+# 2) Centering with a ones vector
+n <- nrow(X)
+one <- matrix(1, nrow = n, ncol = 1)
+Xc <- X - one %*% t(XBAR)
+colMeans(Xc)
+crossprod(Xc)/(n - 1)  # should equal S
+
+# 3) Products and inverses
+XtX <- crossprod(X)
+XtX_inv <- solve(XtX)
+round(XtX_inv %*% XtX, 6)
+
+# 4) Mahalanobis distances
+mh <- mahalanobis(X, center = XBAR, cov = S)
+plot(density(mh))
+```
+
+
+- `XBAR` is the 2x1 mean vector of `SATV` and `SATM`; `S` is their 2x2 sample covariance matrix; `R` is the correlation matrix and `tr(R)` equals the sum of its diagonal (2.0 for perfectly standardized variables; here it depends on scaling).
+- Centering with a ones vector yields `colMeans(Xc)` approximately zero; and `t(Xc) %*% Xc / (n - 1)` equals `S` by definition of sample covariance.
+- `XtX_inv %*% XtX` equals the identity (up to rounding) when `XtX` is invertible.
+- `mahalanobis(X, XBAR, S)` returns squared distances used in multivariate normal contexts; the density plot visualizes their distribution.
+:::
+
+
 ## Wrapping Up
 
-1.  We are now ready to discuss multivariate models and the art/science of multivariate modeling
+1.  We are now ready to discuss multivariate models and the art/science of multivariate modeling.
 
-2.  Many of the concepts of univariate models carry over
+2.  Many of the concepts from univariate models carry over:
 
     -   Maximum likelihood
     -   Model building via nested models
-    -   All of the concepts involve multivariate distributions
+    -   Concepts involving multivariate distributions
 
-3.  Matrix algebra was necessary so as to concisely talk about our distributions (which will soon be models)
+3.  Matrix algebra was necessary to concisely describe our distributions (which will soon be models).
 
-4.  The multivariate normal distribution will be necessary to understand as it is the most commonly used distribution for estimation of multivariate models
+4.  Understanding the multivariate normal distribution is essential, as it is the most commonly used distribution for estimating multivariate models.
 
-5.  Next class we will get back into data analysis – but for multivariate observations…using R’s lavaan package for path analysis
+5.  Next class, we will return to data analysis—for multivariate observations—using R’s lavaan package for path analysis.
