@@ -719,9 +719,11 @@ $$
 
     -   Is a measure of "generalized" variance of multiple variables
 
--   If the determinant is positive, the matrix is called **positive definite** $\rightarrow$ the matrix has an inverse
+-   If the determinant is positive, the matrix is called positive definite → the matrix has an inverse
 
--   If the determinant is not positive, the matrix is called **non-positive definite** $\rightarrow$ the matrix does not have an inverse
+-   If the determinant is zero, the matrix is called singular matrix → the matrix does not have an inverse, cannot used for multivariate analysis.
+
+-   If the determinant is not positive, the matrix is called non-positive definite → the matrix has an inverse but very rare in multivariate analysis, maybe due to the mistakes in your data.
 
 ## Mini Exercise 2: Inverse Model with Positive Determinant
 

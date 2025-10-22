@@ -1,5 +1,5 @@
 ---
-title: "Lecture 09: Two-way ANOVA"
+title: "Lecture 09: Introduction to Two-Way ANOVA"
 subtitle: "Experimental Design in Education"
 date: "2025-03-07"
 date-modified: "`{r} Sys.Date()`"
@@ -39,15 +39,15 @@ format:
 ## Overview of Lecture 09 & Lecture 10 {.unnumbered}
 
 1.  The rest of the semester
-2.  Advantage of Factorial Design
+2.  Advantages of Factorial Design
 3.  Two-way ANOVA:
-    -   Steps for conducting Two-way ANOVA
+    -   Steps for conducting two-way ANOVA
     -   Hypothesis testing
-    -   Assumptions for two-way ANOVA
+    -   Assumptions of two-way ANOVA
     -   Visualization
     -   Difference between one-way and two-way ANOVA
 
-**Question**: How about the research scenario when more than two independent variables?
+**Question**: What if a study includes more than two independent variables?
 :::
 
 ## Previous lectures
@@ -67,15 +67,15 @@ format:
 ::: {.column .callout-note width="60%"}
 ## Examples of z-test, t-test, and one-way ANOVA
 
-**Z-test:**. A school claims that the average score of students on a national exam is 75. A sample of 40 students has a mean score of 78. A z-test is used to compare the sample mean to the population mean of 75.
+**Z-test:** A school claims that the average score of students on a national exam is 75. A sample of 40 students has a mean score of 78. A z-test compares the sample mean to the population mean of 75.
 
-**T-test:**. A researcher wants to compare the test scores of two different groups of students: one using online learning and the other using traditional classroom learning. A t-test is used to determine if there is a significant difference between the two groups' scores.
+**t-test:** A researcher compares test scores between two groups of students: one using online learning and the other using traditional classroom learning. A t-test determines whether there is a significant difference between the two groups' scores.
 
-**One-way ANOVA:**. A scientist is testing the effectiveness of three different drug treatments on blood pressure reduction. Three groups of patients receive different treatments, and a one-way ANOVA is used to determine if there are significant differences in blood pressure reduction among the three groups.
+**One-way ANOVA:** A scientist tests the effectiveness of three drug treatments on blood pressure reduction. Three groups of patients receive different treatments, and a one-way ANOVA assesses whether there are significant differences among the three groups.
 :::
 :::::
 
-## Block Design Review: IV and Extraneous Factor
+## Block Design: IV and Extraneous Factor
 
 :::::: columns
 :::: {.column width="50%"}
@@ -99,17 +99,17 @@ format:
 ::::::: columns
 :::: {.column width="50%"}
 ::: callout-important
-1.  If one of [extraneous factors]{style="color:tomato"} is expected to have any impact on IV as well, then, it is treated as "[confounding]{style="color:purple"}" factor
-2.  If one of [extraneous factors]{style="color:tomato"} is NOT expected to have any impact on IV, then, it is treated as "[nuisance]{style="color:royalblue"}" factor
-    i)  If the [nuisance]{style="color:royalblue"} variable is [known]{style="color:green; font-weight:bold"} and [controllable]{style="color:green; font-weight:bold"}, we use blocking and control it by including a “blocking” factor in our experiment.
-    ii) If the [nuisance]{style="color:royalblue"} factor is [known]{style="color:green; font-weight:bold"} but [uncontrollable]{style="color:red; font-weight:bold"}, sometimes we can use analysis of covariance (ANCOVA) to remove the effect of the [nuisance]{style="color:royalblue"} factor from the analysis.
-    iii) If the [nuisance]{style="color:royalblue"} factors that are [unknown]{style="color:red; font-weight:bold"} and [uncontrollable]{style="color:red; font-weight:bold"} (sometimes called a “lurking” variable; e.g., teachers' personality/emotions). We use randomization to balance out their impact.
+1.  If an [extraneous factor]{style="color:tomato"} is expected to affect the IV as well, it is treated as a [confounding]{style="color:purple"} factor
+2.  If an [extraneous factor]{style="color:tomato"} is not expected to affect the IV, it is treated as a [nuisance]{style="color:royalblue"} factor
+    i)  If the [nuisance]{style="color:royalblue"} variable is [known]{style="color:green; font-weight:bold"} and [controllable]{style="color:green; font-weight:bold"}, use blocking by including a blocking factor in the experiment.
+    ii) If the [nuisance]{style="color:royalblue"} factor is [known]{style="color:green; font-weight:bold"} but [uncontrollable]{style="color:red; font-weight:bold"}, use ANCOVA to adjust for its effect.
+    iii) If [nuisance]{style="color:royalblue"} factors are [unknown]{style="color:red; font-weight:bold"} and [uncontrollable]{style="color:red; font-weight:bold"} (sometimes called “lurking” variables; e.g., teachers' personality/emotions), use randomization to balance their impact.
 :::
 ::::
 
 :::: {.column width="50%"}
 ::: callout-note
-## Examples of IV, Confounding Factor, and Nuisance Factor
+## Examples of Independent, Confounding Factor, and Nuisance Factor
 
 1.  **Confounding Factor**
     -   A study examines the effect of a new medication (**IV**) on blood pressure (**DV**). **Dietary habits** influence both the medication adherence and blood pressure, making it a confounding factor.
@@ -124,6 +124,51 @@ format:
 ::::
 :::::::
 
+## Factorial Design: History, Popularity, and Blocking
+
+::: callout-note
+### Brief History of Factorial Design
+
+-   Early experiments (18th–19th c.) often varied one factor at a time (OFAT), which missed interactions and was inefficient.
+-   R. A. Fisher (1920s–1930s) at Rothamsted formalized randomization, blocking, and factorial experiments, showing how to estimate main effects and interactions efficiently.
+-   Post–WWII developments (e.g., Box): response surface methods, 2^k and fractional factorials for industrial screening; widespread adoption across agriculture, engineering, pharma, psychology, and education.
+-   Modern practice: DOE software and mixed models generalize factorials to unbalanced, hierarchical, and repeated‑measures settings.
+:::
+
+------------
+
+::: callout-tip
+### Why Factorial Designs Are Popular
+
+-   Detect interactions: quantify whether the effect of one factor depends on another (moderation).
+-   Efficiency and power: estimate multiple effects in one study; including relevant factors reduces residual variance and increases power.
+-   External validity: mirrors real systems where multiple influences co-occur.
+-   Clearer inference: main effects estimated while controlling for other designed factors.
+-   Flexibility: extends to mixed/split‑plot/repeated‑measures and generalized linear models.
+:::
+
+------------
+
+::: callout-caution
+### Factorial vs. Block Designs (Different Purposes)
+
+-   Factorial design: manipulates two or more substantive factors of interest; estimates main effects and interactions.
+-   Blocking: groups units by known nuisance structure (fields, classrooms, batches) to reduce error variance; blocks are not the primary scientific factors.
+-   Often combined: factorial‑with‑blocking (e.g., randomized complete block with crossed treatment factors) or split‑plot factorials when randomization differs across factors.
+-   Popularity depends on field and goal: agriculture uses both extensively; industry favors factorials for screening plus blocking by shift/batch; social sciences use factorials for moderation and handle blocks via design or mixed models.
+:::
+
+------------
+
+::: callout-note
+### Quick Guidance
+
+-   Use blocking when you can form homogeneous groups that differ from each other but are not of substantive interest.
+-   Use factorial design when you have ≥2 substantive factors and care about both separate effects and interactions.
+-   Use factorial‑with‑blocking when both conditions hold; consider split‑plot when application/randomization constraints differ across factors.
+:::
+
+
 ## Types of Factorial Design
 
 2.  When we are interested in comparing the means of dependent variable among several groups **with more than two independent variables**:
@@ -136,14 +181,16 @@ format:
         -   For one IV, each individual is in 1 group or receives 1 treatment
         -   For the other IV, each individual is in each of the groups or receives each of the treatments
 
+---------------------
+
 ::: callout-tip
-## Examples of multiple-way ANOVA
+## Examples of multi-way ANOVA
 
--   For 2 IVs, each person only 1 group = two-way independent ANOVA
--   For 3 IVs, each person receives each treatment = three-way repeated measures ANOVA
--   For 2 IVs, each person receives 1 treatment for 1 IV and each treatment for other IV = two-way mixed ANOVA
+-   For 2 IVs, each person is in only one group = two-way independent ANOVA
+-   For 3 IVs, each person receives each treatment = three-way repeated-measures ANOVA
+-   For 2 IVs, each person receives one treatment for one IV and each treatment for the other IV = two-way mixed ANOVA
 
-Note. “A (number of IVs)=way (type of design) ANOVA” → Number of IVs- the name changes with each additional factor:
+Note. “A (number of IVs)-way (type of design) ANOVA” → The label changes as the number of factors increases.
 :::
 
 ## Difference of Factorial Design
@@ -168,10 +215,10 @@ Note. “A (number of IVs)=way (type of design) ANOVA” → Number of IVs- the 
 :::
 ::::::
 
-## Next lectures III
+## Example of Factorial Design
+
 
 :::::: callout-important
-## Example of Factorial Design
 
 -   Research Question: Is there an interaction between school type and tutoring program on academic achievement?
     -   For this RQ, we might think that the effect of tutoring program depends on the type of school the students attend.
@@ -196,57 +243,57 @@ Note. “A (number of IVs)=way (type of design) ANOVA” → Number of IVs- the 
 :::::
 ::::::
 
-## Next lectures IV: Exercise
 
-::: callout-caution
 ## Example of Factorial Design
 
-*Question*: **What kind of design is used in the following research question:**
+::: callout-caution
 
--   Does the effect of three different [drug treatments]{style="color:red; font-weight:bold"} (separate groups for Drug A, Drug B, Placebo) on the level of self-reported [positive mood]{style="color:green;font-weight:bold"} depend on whether the participant received [psychotherapy]{style="color:purple; font-weight:bold"} (treatment group) treatment or not (control group)?
+*Question*: What kind of design is used in the following research question?
+
+-   Does the effect of three different [drug treatments]{style="color:red; font-weight:bold"} (separate groups for Drug A, Drug B, Placebo) on self-reported [positive mood]{style="color:green;font-weight:bold"} depend on whether the participant received [psychotherapy]{style="color:purple; font-weight:bold"} (treatment group) or not (control group)?
     A.  One-way repeated-measure ANOVA
     B.  2 x 3 split-plot factorial ANOVA
     C.  2 x 3 independent factorial ANOVA
     D.  2 x 3 repeated-measure factorial ANOVA
 -   Answer: [C]{.mohu}
-    -   [We have two IVs; drug treatment and therapy.]{.mohu}
-    -   [One factor, the therapy, has two levels; treatment (therapy=yes), control (therapy=no)]{.mohu}
-    -   [The other factor, the drug treatment, has three levels; Drug A, Drug B, and Placebo]{.mohu}
-    -   [And this design does not have the dependent (or repeated-measure) components.]{.mohu}
-    -   [Generally, the smaller number of levels comes the first.]{.mohu}
+    -   [We have two IVs: drug treatment and therapy.]{.mohu}
+    -   [One factor, therapy, has two levels: treatment (therapy = yes), control (therapy = no).]{.mohu}
+    -   [The other factor, drug treatment, has three levels: Drug A, Drug B, and Placebo.]{.mohu}
+    -   [This design does not have within-subject (repeated-measures) components.]{.mohu}
+    -   [Generally, list the factor with fewer levels first.]{.mohu}
     -   [So, this is an example of 2 x 3 independent factorial ANOVA.]{.mohu}
 :::
 
-## Next lectures V: Exercise
 
-::: callout-caution
 ## Example of Factorial Design
 
-*Question*: **What kind of design is used in the following research question:**\]
+::: callout-caution
 
--   Is there a difference in the [number of hours]{style="color:purple; font-weight:bold"} studied depending on what university was attended (UA, UAFS, UALR) and whether it was Fall, Spring, or Summer semester across academic cohorts (2012 – 2015)? A different sample of students was taken each semester?
+*Question*: What kind of design is used in the following research question?
+
+-   Does the [number of hours]{style="color:purple; font-weight:bold"} studied differ by university (UA, UAFS, UALR) and by semester (Fall, Spring, Summer) across academic cohorts (2012–2015)? A different sample of students was taken each semester.
     A.  3 x 3 x 4 independent factorial ANOVA
     B.  3 x 3 x 4 split-plot factorial ANOVA
     C.  3 x 4 independent factorial ANOVA
     D.  3 x 4 repeated-measure factorial ANOVA
 -   Answer: [A]{.mohu}
-    -   [We have three IVs; school, semester, and cohort; school has three levels (UA, UAFS, UALR), semester has three levels (Fall, Spring, Summer), and cohort has four levels (2012, 2013, 2014, 2015).]{.mohu}
-    -   [And this design does not have the dependent (or repeated-measure) components, because “the different sample of students was taken from each semester.”]{.mohu}
+    -   [We have three IVs: school, semester, and cohort. School has three levels (UA, UAFS, UALR); semester has three levels (Fall, Spring, Summer); cohort has four levels (2012, 2013, 2014, 2015).]{.mohu}
+    -   [This design does not include within-subject (repeated-measures) components because a different sample of students was taken each semester.]{.mohu}
     -   [Generally, the smaller number of levels comes the first.]{.mohu}
     -   [So, this is an example of 3 x 3 x 4 independent factorial ANOVA.]{.mohu}
 :::
 
-## Advantages of Factorial Design I
+## Advantages of Factorial Design
 
--   Factorial design offers several advantages over a one-way ANOVA:
+-   Factorial designs offer several advantages over a one-way ANOVA:
     1.  It allows for greater generalizability of results
         -   More realistic (**external validity**)
-        -   Example: One study of using participants with the age groups including Youth and Childhood vs. One study using only Youth
+        -   Example: Comparing a study with participants from multiple age groups (childhood and youth) versus a study including only youth
     2.  It allows for investigation of interactions (**answer more complicated RQs**)
-        -   We can ask whether the effect of one variable depends on the level of another variable
-        -   Example: cancer trials; *Does the effect of treatment method depends on stage of cancer?*
-    3.  It requires fewer participants than two 1-way treatment designs for the same level of statistical power.
-        -   Smaller error terms means more statistical power!
+        -   We can ask whether the effect of one variable depends on the level of another
+        -   Example: cancer trials; Does the effect of treatment method depend on cancer stage?
+    3.  It requires fewer participants than two one-way designs for the same level of statistical power.
+        -   Smaller error terms mean more statistical power.
 
 ------------------------------------------------------------------------
 
@@ -299,28 +346,28 @@ interaction.plot(cancer_data$Stage, cancer_data$Treatment, cancer_data$Survival,
                  xlab = "Cancer Stage", ylab = "Mean Survival Rate")
 ```
 
-## Interpretation of the Results
+## Interpretation of Results
 
 ::: callout-note
 ### Interpretation of Results
 
--   If the main effect of Tutoring is significant, then grades differ across tutoring conditions, regardless of school type.
+-   If the main effect of tutoring is significant, then grades differ across tutoring conditions, regardless of school type.
 
--   If the main effect of School Type is significant, then grades differ across school types, regardless of tutoring.
+-   If the main effect of school type is significant, then grades differ across school types, regardless of tutoring.
 
 -   If the interaction effect (Tutoring × School) is significant, then the impact of tutoring depends on school type, suggesting that different tutoring programs work better in different school settings.\
 :::
 
-## Advantages of Factorial Design II
+## Advantages of Factorial Design
 
-1.  First advantage of Factorial Design is reducing the error variance so that we can have higher power to examine group differences.
+1.  One advantage of factorial design is reducing error variance, which increases power to detect group differences.
 
 ::: callout-important
-### Example: the effect of level of arousal on math performance
+### Example: Effect of arousal on math performance
 
--   Let’s say we are interested in testing the effect of level of arousal (e.g., anxiety) on math performance, but we already think that gender is associated with performance.
-    -   Adding gender as an IV explains more variance, thus, reducing the amount of error variance of DV.
-    -   **Note.** We define error as anything NOT related to (explained by) the IVs.\
+-   Suppose we want to test the effect of arousal (e.g., anxiety) on math performance and suspect that gender is associated with performance.
+    -   Adding gender as an IV explains more variance and reduces error variance in the DV.
+    -   Note: We define error as anything not explained by the IVs.\
 :::
 
 ![](images/plot4.png)
@@ -351,7 +398,7 @@ interaction.plot(cancer_data$Stage, cancer_data$Treatment, cancer_data$Survival,
 
 ------------------------------------------------------------------------
 
-### Cancer Trial Example: Why is this important
+### Cancer Trial Example: Why Is This Important
 
 ::: callout-important
 ### Why Is This Important?
@@ -367,18 +414,111 @@ interaction.plot(cancer_data$Stage, cancer_data$Treatment, cancer_data$Survival,
     -   This reduces costs and increases statistical power by leveraging shared data across conditions.
 :::
 
+## One-Way vs. Two-Way ANOVA
+
+::: callout-note
+### Key Differences
+
+-   One-way ANOVA
+    -   Tests mean differences across levels of a single factor (one IV).
+    -   Provides one F-test for that factor’s main effect.
+    -   Cannot estimate interactions and ignores potential moderation by a second factor.
+-   Two-way ANOVA
+    -   Tests two main effects (Factor A and Factor B) and their interaction (A × B).
+    -   Estimates each main effect while controlling for the other factor.
+    -   Reveals whether the effect of one factor depends on the level of the other (interaction).
+:::
+
+--------------
+
+::: callout-important
+### Why Prefer Two-Way ANOVA (When Appropriate)
+
+-   Detect interactions
+    -   Real-world effects often depend on context; interactions identify when a treatment works better for some groups/conditions than others.
+-   Improve precision (reduce error variance)
+    -   Including a second relevant factor explains additional variance in the DV, increasing statistical power.
+-   Greater external validity
+    -   Modeling multiple factors better reflects applied settings where several influences co-occur.
+-   Efficiency
+    -   Studying two factors together can require fewer participants than two separate one-way studies for the same power.
+-   Clearer interpretation
+    -   Main effects are estimated while controlling for the other factor, yielding cleaner comparisons than multiple one-way ANOVAs.
+:::
+
+
+## Two-Way ANOVA vs. Mixed-Effects Model
+
+::: callout-note
+### When to Prefer Mixed-Effects over Two-Way ANOVA
+
+-   Hierarchical or nested data
+    -   Examples: students within classrooms, patients within clinics, plots within fields, repeated observations within subjects.
+    -   Rationale: observations within the same group are correlated; random effects model this correlation and protect Type I error.
+    
+-   Many groups you do not want as fixed effects
+    -   Examples: dozens of classrooms/teachers/batches.
+    -   Rationale: estimating many fixed levels is inefficient; random effects treat groups as a sample with partial pooling and population-level inference.
+    
+-   Unbalanced or partially missing cells
+    -   Some groups lack certain factor combinations or have unequal n.
+    -   Mixed models accommodate this more flexibly than classical ANOVA.
+    
+-   Repeated measures/longitudinal data
+    -   Use random intercepts/slopes to capture within-unit correlation and heterogeneity in trajectories.
+    
+-   Heterogeneous variance/correlation structures
+    -   Mixed models allow residual variance/covariance structures beyond homoscedastic, independent errors.
+    
+-   Generalization beyond observed levels
+    -   Inference about “classrooms in general,” not just the ones sampled.
+:::
+
+-----------------
+
+::: callout-tip
+### Typical Modeling Setups
+
+-   Random intercepts: `Score ~ Treatment + (1 | Classroom)`
+    -   Captures classroom baseline differences.
+-   Random intercepts and slopes: `Score ~ Treatment + (1 + Treatment | Classroom)`
+    -   Allows treatment effects to vary across classrooms (cross-level interaction).
+-   Crossed random effects: `Score ~ Treatment + (1 | Student) + (1 | Rater)`
+    -   For designs with multiple random sources not nested within each other.
+-   Split-plot analogs: factors applied at different hierarchy levels
+    -   Mixed models mirror correct error terms via random effects.
+:::
+
+---------------
+
+
+::: callout-caution
+### When Two-Way ANOVA Is Still Appropriate
+
+-   Factors are fully crossed, fixed, and of substantive interest.
+-   Design is (near) balanced with independent observations and homogeneous residual variances.
+-   No nesting or repeated measures; or blocking can be handled as a fixed factor with adequate replication.
+:::
+
+::: callout-note
+### Rule of Thumb
+
+-   If units are grouped within higher-level units or you want population-level inference across many groups, prefer mixed-effects.
+-   If you have few, specific groups of direct interest and assumptions hold, a fixed-effects two-way ANOVA can be sufficient.
+:::
+
 ## Steps for conducting two-way ANOVA
 
--   **Similar to one-way ANOVA**:
+-   Similar to one-way ANOVA:
     1.  Set the null hypothesis and the alternative hypothesis → Research question?
-    2.  Find the critical value of test statistics (i.e., F-critical) based on alpha and df
-    3.  Calculate the observed value of test statistics (i.e., F-observed) based on the information about the collected data (i.e., the sample)
+    2.  Find the critical value of the test statistic (F-critical) based on alpha and df.
+    3.  Calculate the observed value of the test statistic (F-observed) based on the sample.
     4.  Make the statistical conclusion → either reject or retain the null hypothesis
-    5.  State the research conclusion regarding the research question
+    5.  State the research conclusion regarding the research question.
 
 ## Hypothesis testing for two-way ANOVA (I)
 
--   For two-way ANOVA, there are three distinct hypothesis tests :
+-   For two-way ANOVA, there are three distinct hypothesis tests:
     -   Main effect of Factor A
     -   Main effect of Factor B
     -   Interaction of A and B
@@ -396,11 +536,11 @@ Main effect
 
 Interaction
 
-:   Occurs when the effect of one factor on the DV depends on the particular level of the other factor
+:   Occurs when the effect of one factor on the DV depends on the level of the other factor
 
 :   Said another way, when the difference in one factor is moderated by the other
 
-:   Said a third way, if the difference between levels of one factor is different, depending on the other factor
+:   Said a third way, the difference between levels of one factor depends on the other factor
 :::
 
 ## Hypothesis testing for two-way ANOVA (II)
@@ -408,70 +548,151 @@ Interaction
 ::: callout-important
 ## Example
 
-**Background**: A researcher is investigating how study method (Factor A: Lecture vs. Interactive) and test format (Factor B: Multiple-Choice vs. Open-Ended) affect student performance (dependent variable: test scores). The study involves randomly assigning students to one of the two study methods and then assessing their performance on one of the two test formats.
+**Background**: A researcher investigates how study method (Factor A: Lecture vs. Interactive) and test format (Factor B: Multiple-choice vs. Open-ended) affect student performance (DV: test scores). Students are randomly assigned to one of the two study methods and then assessed on one of the two test formats.
 
 -   **Main Effect of Study Method (Factor A):**
-    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students who used the Lecture method and those who used the Interactive method.
-    -   [H1:]{style="color:tomato; font-weight:bold"} There is a significant difference in test scores between the two study methods.
+    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students who used the lecture method and those who used the interactive method.
+    -   [H1:]{style="color:tomato; font-weight:bold"} There is a difference in test scores between the two study methods.
 -   **Main Effect of Test Format (Factor B):**
-    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students taking a Multiple-Choice test and those taking an Open-Ended test.
-    -   [H1:]{style="color:tomato; font-weight:bold"} There is a significant difference in test scores between the two test formats.
+    -   [H0:]{style="color:royalblue; font-weight:bold"} There is no difference in test scores between students taking a multiple-choice test and those taking an open-ended test.
+    -   [H1:]{style="color:tomato; font-weight:bold"} There is a difference in test scores between the two test formats.
 -   **Interaction Effect (Study Method × Test Format):**
-    -   [H0:]{style="color:royalblue; font-weight:bold"} The effect of study method on test scores is the same regardless of test format.
+    -   [H0:]{style="color:royalblue; font-weight:bold"} The effect of study method on test scores is the same across test formats.
     -   [H1:]{style="color:tomato; font-weight:bold"} The effect of study method on test scores depends on the test format (i.e., there is an interaction).
 :::
 
 ## Hypothesis testing for two-way ANOVA (III)
 
-1.  Hypothesis test for the main effect with more than 2 levels
+1.  Hypothesis test for a main effect with more than two levels
     -   Mean differences among levels of one factor:
 
         i)  Differences are tested for statistical significance
-        ii) Each factor is evaluated independently of the other factor(s) in the study
+        ii) Each factor is evaluated independently of the other factor(s) in the study.
 
-    -   Factor A’s Main effect: “Controlling Factor B, are there differences in the DV across Factor A?”
+    -   Factor A’s main effect: “Controlling for Factor B, are there differences in the DV across Factor A?”
 
         $H_0$: $\mu_{A_1}=\mu_{A_2}=\cdots=\mu_{A_k}$
 
-        $H_1$: At least one $\mu_{A_i}$ is different from the control group in Factor A
+        $H_1$: At least one $\mu_{A_i}$ differs from the others in Factor A
 
-    -   Factor B’s Main effect : “Controlling Factor A, are there differences in the DV across Factor B?”
+    -   Factor B’s main effect: “Controlling for Factor A, are there differences in the DV across Factor B?”
 
         $H_0$: $\mu_{B_1}=\mu_{B_2}=\cdots=\mu_{B_k}$
 
-        $H_1$: At least one $\mu_{B_i}$ is different from the control group in Factor A
+        $H_1$: At least one $\mu_{B_i}$ differs from the others in Factor B
 
 ::: callout-caution
-**Question**: what dose "controlling" mean in “Controlling Factor A, ..."?
+**Question**: What does “controlling” mean in “Controlling for Factor A, ...”? 
 
-**Answer**: ["Controlling" means the decrease of error variances by incorporating the effects of factor A on outcome?]{.mohu}
+**Answer**: [“Controlling” means accounting for Factor A’s effect when evaluating Factor B, thereby reducing unexplained (error) variance.]{.mohu}
+:::
+
+## FAQ: Number of Factor Levels
+
+::: callout-note
+### Does the number of groups (levels) matter in two-way ANOVA?
+
+-   Definition: In two-way ANOVA, “groups” are the a × b cells formed by levels of Factor A (a levels) and Factor B (b levels).
+-   Validity: The ANOVA framework supports any a, b ≥ 2; having many levels (e.g., 10+) is not inherently a problem.
+:::
+
+## Two-Way ANOVA vs. Mixed-Effects Model
+
+::: callout-note
+### When to Prefer Mixed-Effects over Two-Way ANOVA
+
+-   Hierarchical or nested data
+    -   Examples: students within classrooms, patients within clinics, plots within fields, repeated observations within subjects.
+    -   Rationale: observations within the same group are correlated; random effects model this correlation and protect Type I error.
+-   Many groups you do not want as fixed effects
+    -   Examples: dozens of classrooms/teachers/batches.
+    -   Rationale: estimating many fixed levels is inefficient; random effects treat groups as a sample with partial pooling and population-level inference.
+-   Unbalanced or partially missing cells
+    -   Some groups lack certain factor combinations or have unequal n.
+    -   Mixed models accommodate this more flexibly than classical ANOVA.
+-   Repeated measures/longitudinal data
+    -   Use random intercepts/slopes to capture within-unit correlation and heterogeneity in trajectories.
+-   Heterogeneous variance/correlation structures
+    -   Mixed models allow residual variance/covariance structures beyond homoscedastic, independent errors.
+-   Generalization beyond observed levels
+    -   Inference about “classrooms in general,” not just the ones sampled.
+:::
+
+::: callout-tip
+### Typical Modeling Setups
+
+-   Random intercepts: `Score ~ Treatment + (1 | Classroom)`
+    -   Captures classroom baseline differences.
+-   Random intercepts and slopes: `Score ~ Treatment + (1 + Treatment | Classroom)`
+    -   Allows treatment effects to vary across classrooms (cross-level interaction).
+-   Crossed random effects: `Score ~ Treatment + (1 | Student) + (1 | Rater)`
+    -   For designs with multiple random sources not nested within each other.
+-   Split-plot analogs: factors applied at different hierarchy levels
+    -   Mixed models mirror correct error terms via random effects.
+:::
+
+::: callout-caution
+### When Two-Way ANOVA Is Still Appropriate
+
+-   Factors are fully crossed, fixed, and of substantive interest.
+-   Design is (near) balanced with independent observations and homogeneous residual variances.
+-   No nesting or repeated measures; or blocking can be handled as a fixed factor with adequate replication.
+:::
+
+::: callout-note
+### Rule of Thumb
+
+-   If units are grouped within higher-level units or you want population-level inference across many groups, prefer mixed-effects.
+-   If you have few, specific groups of direct interest and assumptions hold, a fixed-effects two-way ANOVA can be sufficient.
+:::
+
+---------------
+
+::: callout-tip
+### Practical Considerations with Many Levels
+
+-   Sample size per cell: Ensure adequate and preferably balanced n per cell; power for main effects and interactions depends on per‑cell n and total cells (a × b).
+-   Assumptions: Check residual normality and homogeneity of variances across cells; with many small‑n cells, violations are harder to detect and more influential.
+-   Multiple comparisons: Many levels imply many pairwise tests—use planned contrasts or adjust p‑values (e.g., Tukey, Holm).
+-   Model degrees of freedom: More levels increase df for main effects and interactions; plan total N accordingly to avoid low power.
+-   Empty/near‑empty cells: Sparse cells destabilize interaction estimates; redesign, combine levels (if justified), or increase n.
+:::
+
+---------------
+
+::: callout-caution
+### Alternatives and Modeling Strategies
+
+-   Ordered factors (e.g., doses): Use polynomial trend contrasts rather than all pairwise comparisons.
+-   Many nuisance levels (e.g., classrooms, batches): Consider mixed‑effects models with the high‑level factor as random.
+-   Heteroscedasticity: Consider variance‑stabilizing transforms, Welch‑type methods, GLS, or robust ANOVA.
 :::
 
 ## Hypothesis testing for two-way ANOVA (IV)
 
 ::: callout-note
-## Example: Tutoring Program and Types of Schools on Grades
+### Example: Tutoring Program and School Type on Grades
 
 -   IVs:
     1.  Tutoring Programs: (1) No tutor; (2) Once a week; (3) Daily
     2.  Types of schools: (1) Public (2) Private-secular (3) Private-religious
--   **Research purpose**: to examine the effect of tutoring program (no tutor, once a week, and daily) AND types of school (e.g., public, private-secular, and private-religious) on the students’ grades
--   **Question**: What are the null and alternative hypotheses for the main effects in the example?:
-    -   Factor A’s Main effect: “[Controlling school types, are there differences in the students’ grade across three tutoring programs?]{.mohu}”
+-   **Research purpose**: Examine the effects of tutoring program (no tutor, once a week, daily) and school type (public, private-secular, private-religious) on students’ grades.
+-   **Question**: What are the null and alternative hypotheses for the main effects in this example?
+    -   Factor A’s main effect: [“Controlling for school type, are there differences in students’ grades across the three tutoring programs?”]{.mohu}
 
         $H_0$: $\mu_{\mathrm{no\ tutor}}=\mu_{\mathrm{once\ a\ week}}=\mu_{\mathrm{daily}}$
 
-    -   Factor B’s Main effect : “[Controlling tutoring programs, are there differences in the students’ grades across three school types?]{.mohu}”
+    -   Factor B’s main effect: [“Controlling for tutoring program, are there differences in students’ grades across the three school types?”]{.mohu}
 
         $H_0$: $\mu_{\mathrm{public}}=\mu_{\mathrm{private-religious}}=\mu_{\mathrm{private-secular}}$
 :::
 
 ## Visualization of Two-Way ANOVA (No Interaction)
 
--   The main-effect-only no-interaction statistical form
+-   The main-effects-only, no-interaction model
 
 $$
-\mathrm{Grade} = \beta_0 + \beta_1 \mathrm{Toturing_{Once}} + \beta_2 \mathrm{Toturing_{Daily}} \\ + \beta_3 \mathrm{SchoolType_{PvtS}} + \beta_4 \mathrm{SchoolType_{PvtR}}
+\mathrm{Grade} = \beta_0 + \beta_1 \mathrm{Tutoring_{Once}} + \beta_2 \mathrm{Tutoring_{Daily}} \\ + \beta_3 \mathrm{SchoolType_{PvtS}} + \beta_4 \mathrm{SchoolType_{PvtR}}
 $$
 
 ```{webr-r}
@@ -552,7 +773,7 @@ data <- data.frame(
 ------------------------------------------------------------------------
 
 ::: panel-tabset
-### R Plot
+### R plot
 
 ```{r}
 #| code-fold: true
@@ -586,20 +807,20 @@ ggplot(total_summary, aes(x = School)) +
   theme(legend.position = "none")  # Remove legend for cleaner visualization
 ```
 
-### Summary Statistics
+### Summary statistics
 
 ```{r}
 distinct(tutoring_summary[, c("Tutoring", "Mean_Grade_byTutor")])
 ```
 
-### Interpretation of the Plot
+### Interpretation of the plot
 
 -   The x-axis represents three school types.
 -   The y-axis represents the mean student grades for the different tutoring programs: No Tutor, Once a Week, and Daily.
 -   If the main effect of tutoring is significant, we expect to see noticeable differences in mean grades across tutoring conditions.
 :::
 
-## You turn: Main Effect of School Type
+## Your turn: Main effect of school type
 
 ::: panel-tabset
 ### Marginal Means for each tutoring / school type group
@@ -642,7 +863,7 @@ ggplot(total_summary, aes(x = Tutoring)) +
 ## Combined Visualization
 
 ::: panel-tabset
-### R Plot
+### R plot
 
 ```{webr-r}
 fit <- lm(Grades ~ Tutoring + School, data = data)
@@ -688,6 +909,6 @@ ggplot(data = combined_vis_data, aes(x = School_Levels)) +
     -   Consider more complicated scenarios and answer more complex research questions
     -   Better understanding group differences depending on other characteristics
     -   Save research resources
-3.  Key components of Two-way ANOVA
+3.  Key components of two-way ANOVA
     -   **Main Effects of Single Factors** (today's focus)
     -   Interaction Effects
