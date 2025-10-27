@@ -46,8 +46,6 @@ format:
     -   Assumptions of two-way ANOVA
     -   Visualization
     -   Difference between one-way and two-way ANOVA
-
-**Question**: What if a study includes more than two independent variables?
 :::
 
 ## Previous lectures
@@ -596,57 +594,7 @@ Interaction
 -   Validity: The ANOVA framework supports any a, b ≥ 2; having many levels (e.g., 10+) is not inherently a problem.
 :::
 
-## Two-Way ANOVA vs. Mixed-Effects Model
-
-::: callout-note
-### When to Prefer Mixed-Effects over Two-Way ANOVA
-
--   Hierarchical or nested data
-    -   Examples: students within classrooms, patients within clinics, plots within fields, repeated observations within subjects.
-    -   Rationale: observations within the same group are correlated; random effects model this correlation and protect Type I error.
--   Many groups you do not want as fixed effects
-    -   Examples: dozens of classrooms/teachers/batches.
-    -   Rationale: estimating many fixed levels is inefficient; random effects treat groups as a sample with partial pooling and population-level inference.
--   Unbalanced or partially missing cells
-    -   Some groups lack certain factor combinations or have unequal n.
-    -   Mixed models accommodate this more flexibly than classical ANOVA.
--   Repeated measures/longitudinal data
-    -   Use random intercepts/slopes to capture within-unit correlation and heterogeneity in trajectories.
--   Heterogeneous variance/correlation structures
-    -   Mixed models allow residual variance/covariance structures beyond homoscedastic, independent errors.
--   Generalization beyond observed levels
-    -   Inference about “classrooms in general,” not just the ones sampled.
-:::
-
-::: callout-tip
-### Typical Modeling Setups
-
--   Random intercepts: `Score ~ Treatment + (1 | Classroom)`
-    -   Captures classroom baseline differences.
--   Random intercepts and slopes: `Score ~ Treatment + (1 + Treatment | Classroom)`
-    -   Allows treatment effects to vary across classrooms (cross-level interaction).
--   Crossed random effects: `Score ~ Treatment + (1 | Student) + (1 | Rater)`
-    -   For designs with multiple random sources not nested within each other.
--   Split-plot analogs: factors applied at different hierarchy levels
-    -   Mixed models mirror correct error terms via random effects.
-:::
-
-::: callout-caution
-### When Two-Way ANOVA Is Still Appropriate
-
--   Factors are fully crossed, fixed, and of substantive interest.
--   Design is (near) balanced with independent observations and homogeneous residual variances.
--   No nesting or repeated measures; or blocking can be handled as a fixed factor with adequate replication.
-:::
-
-::: callout-note
-### Rule of Thumb
-
--   If units are grouped within higher-level units or you want population-level inference across many groups, prefer mixed-effects.
--   If you have few, specific groups of direct interest and assumptions hold, a fixed-effects two-way ANOVA can be sufficient.
-:::
-
----------------
+----------------
 
 ::: callout-tip
 ### Practical Considerations with Many Levels
