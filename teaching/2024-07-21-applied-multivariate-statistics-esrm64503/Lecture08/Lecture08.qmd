@@ -347,11 +347,11 @@ $$
 -   Using expected values and linear combination rules, we can show that:
 
 $$
-\boxed{\begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} \sim \mathbf{N}_2 (\boldsymbol{\mu}_i=\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix}, \mathbf{V}_i =\mathbf{R}=\begin{bmatrix}\sigma^2_{e,\text{PERF}} & \sigma_{e,\text{PERF},\text{USE}}\\ \sigma_{e,\text{PERF},\text{USE}}&\sigma^2_{e,\text{USE}}\end{bmatrix})}
+\boxed{\begin{bmatrix}\text{PERF}_i\\\text{USE}_i\end{bmatrix} \sim \mathbf{MVN}_2 (\boldsymbol{\mu}_i=\begin{bmatrix}\beta_{0,\text{PERF}}\\\beta_{0,\text{USE}}\end{bmatrix}, \mathbf{V}=\begin{bmatrix}\sigma^2_{e,\text{PERF}} & \sigma_{e,\text{PERF},\text{USE}}\\ \sigma_{e,\text{PERF},\text{USE}}&\sigma^2_{e,\text{USE}}\end{bmatrix})}
 $$
 
 $$
-\boxed{\mathbf{Y}_i \sim N_2(\mathbf{X}_i\mathbf{B},\mathbf{V}_i)}
+\boxed{\mathbf{Y}_i \sim MVN_2(\mathbf{X}_i\mathbf{B},\mathbf{V}_i)}
 $$
 
 ## Model 2: Multivariate Correlation Model with 2 variables
@@ -619,10 +619,19 @@ mod3_density
     - Math Self-Efficacy (MSE)
 
 ```{r}
+#| output-location: default
 head(dataMath[, c("perf", "msc", "mse")])
 ```
 
+-------------------
+
+![Diagram](exercise3_diagram.png)
+
+-------------------
+
+
 ```{r}
+#| output-location: default
 model04.syntax = "
 # Residual Variances:
 perf ~~ perf 
@@ -649,6 +658,7 @@ model04.fit <- cfa(model04.syntax, data=dataMath, mimic="MPLUS", fixed.x = TRUE,
 What are estimated correlations, standard errors and p.values for the mutual correlations among three variables.
 
 ```{r}
+#| output-location: default
 standardizedsolution(model04.fit)
 ```
 
