@@ -1,6 +1,6 @@
 ---
 title: "Lecture 10: Two-way ANOVA II"
-subtitle: "Experimental Design in Education"
+subtitle: "Statistics in 2-way ANOVA"
 date: "2025-03-07"
 date-modified: "`{r} Sys.Date()`"
 execute: 
@@ -51,21 +51,6 @@ format:
     -   Difference between 1-way and 2-way ANOVA
 
 **Question**: How about the research scenario when more than two independent variables?
-:::
-
-## Steps for conducting two-way ANOVA
-
--   **Similar to one-way ANOVA**:
-    1.  Set the null **hypothesis** and the alternative hypothesis → Research question?
-        -   It is also great to perform **power analysis** to decide on minimum sample size needed.
-        -   Here is a ShinyApp—[ANOVA Power](https://shiny.ieis.tue.nl/anova_power/)— for power analysis of ANOVA
-    2.  Find the critical value of test statistics (i.e., F-critical) based on alpha and DF (done by Software)
-    3.  Calculate the **observed value of test statistics** (i.e., F-observed) based on the information about the collected data (i.e., the sample)
-    4.  Make the statistical **conclusion** → either reject or retain the null hypothesis
-    5.  State the research **conclusion** regarding the research question
-
-::: rmdquote
-Power is the probability of detecting an effect, given that the effect is really there.
 :::
 
 # Hypothesis testing for two-way ANOVA
@@ -385,6 +370,335 @@ ggplot(data = combined_vis_data, aes(x = School_Levels)) +
     -   Effect of Factor [School Type]{.mohu}: the very small horizontal distance
 :::
 
+## Real-World Examples of Interaction Effects
+
+::: panel-tabset
+#### Example 1: Medication & Age
+
+**Research Question**: Does the effectiveness of a new pain medication depend on patient age?
+
+**Factors:**
+
+- Factor A: Medication Type (Drug A vs. Placebo)
+- Factor B: Age Group (Young Adults vs. Elderly)
+
+**Observed Pattern (Interaction Present):**
+
+- **Young Adults**: Drug A shows moderate improvement over placebo (Δ = 15 points)
+- **Elderly**: Drug A shows LARGE improvement over placebo (Δ = 40 points)
+
+**Why the interaction?**
+
+- Elderly patients may have different metabolism rates
+- Age-related changes in pain receptors may make them more responsive to the drug
+- Elderly may have more severe baseline pain, allowing more room for improvement
+
+**Implication**: You cannot simply say "Drug A works" - you must specify "Drug A works **especially well** for elderly patients"
+
+**Visualization:**
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+library(ggplot2)
+medication_data <- data.frame(
+  Age = rep(c("Young Adults", "Elderly"), each = 2),
+  Treatment = rep(c("Placebo", "Drug A"), 2),
+  Pain_Relief = c(30, 45, 35, 75)
+)
+
+ggplot(medication_data, aes(x = Age, y = Pain_Relief, color = Treatment, group = Treatment)) +
+  geom_point(size = 5) +
+  geom_line(linewidth = 1.5) +
+  labs(title = "Interaction: Medication Effectiveness × Age",
+       subtitle = "Drug A is much more effective in elderly patients",
+       x = "Age Group",
+       y = "Pain Relief Score",
+       color = "Treatment") +
+  theme_minimal(base_size = 14) +
+  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10)) +
+  theme(legend.position = "top")
+```
+
+#### Example 2: Teaching Method & Learning Style
+
+**Research Question**: Does the best teaching method depend on students' learning style?
+
+**Factors:**
+
+- Factor A: Teaching Method (Lecture-Based vs. Problem-Based Learning)
+- Factor B: Learning Style (Visual vs. Auditory Learners)
+
+**Observed Pattern (Interaction Present):**
+
+- **Visual Learners**: Problem-Based Learning >> Lecture-Based (80 vs. 65)
+- **Auditory Learners**: Lecture-Based >> Problem-Based Learning (85 vs. 70)
+
+**Why the interaction?**
+
+- Visual learners benefit from hands-on activities with diagrams and visual aids in PBL
+- Auditory learners benefit from verbal explanations and discussions in lectures
+- One-size-fits-all teaching ignores individual differences in cognitive processing
+
+**Implication**: Educational policy should consider **matching** teaching methods to learning styles, not universally adopting one method.
+
+**Visualization:**
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+teaching_data <- data.frame(
+  Learning_Style = rep(c("Visual", "Auditory"), each = 2),
+  Method = rep(c("Lecture", "Problem-Based"), 2),
+  Test_Score = c(65, 80, 85, 70)
+)
+
+ggplot(teaching_data, aes(x = Learning_Style, y = Test_Score, color = Method, group = Method)) +
+  geom_point(size = 5) +
+  geom_line(linewidth = 1.5) +
+  labs(title = "Interaction: Teaching Method × Learning Style",
+       subtitle = "Best teaching method depends on student's learning style (crossing lines!)",
+       x = "Learning Style",
+       y = "Test Score",
+       color = "Teaching Method") +
+  theme_minimal(base_size = 14) +
+  scale_y_continuous(limits = c(50, 90), breaks = seq(50, 90, 10)) +
+  theme(legend.position = "top") +
+  annotate("text", x = 1.5, y = 75, label = "Perfect Crossover!",
+           size = 5, color = "red", fontface = "bold")
+```
+
+#### Example 3: Exercise & Gender
+
+**Research Question**: Does the effect of exercise intensity on weight loss depend on biological sex?
+
+**Factors:**
+
+- Factor A: Exercise Intensity (Low vs. High Intensity)
+- Factor B: Gender (Male vs. Female)
+
+**Observed Pattern (Interaction Present):**
+
+- **Males**: High intensity >> Low intensity (12 kg vs. 6 kg lost)
+- **Females**: High intensity ≈ Low intensity (8 kg vs. 7 kg lost)
+
+**Why the interaction?**
+
+- Males typically have higher muscle mass and testosterone, enabling better response to high-intensity training
+- Females may have hormonal differences affecting metabolism response to exercise intensity
+- High-intensity exercise may increase cortisol more in females, potentially interfering with weight loss
+- Different fat distribution patterns between sexes respond differently to exercise intensity
+
+**Implication**: Exercise prescriptions should be **sex-specific**, not generic.
+
+**Visualization:**
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+exercise_data <- data.frame(
+  Gender = rep(c("Male", "Female"), each = 2),
+  Intensity = rep(c("Low", "High"), 2),
+  Weight_Loss = c(6, 12, 7, 8)
+)
+
+ggplot(exercise_data, aes(x = Gender, y = Weight_Loss, color = Intensity, group = Intensity)) +
+  geom_point(size = 5) +
+  geom_line(linewidth = 1.5) +
+  labs(title = "Interaction: Exercise Intensity × Gender",
+       subtitle = "High intensity exercise is much more effective for males than females",
+       x = "Gender",
+       y = "Weight Loss (kg)",
+       color = "Exercise Intensity") +
+  theme_minimal(base_size = 14) +
+  scale_y_continuous(limits = c(0, 15), breaks = seq(0, 15, 3)) +
+  theme(legend.position = "top")
+```
+
+#### Example 4: Therapy & Severity
+
+**Research Question**: Does the effectiveness of therapy type depend on depression severity?
+
+**Factors:**
+
+- Factor A: Therapy Type (CBT vs. Medication)
+- Factor B: Depression Severity (Mild vs. Severe)
+
+**Observed Pattern (Interaction Present):**
+
+- **Mild Depression**: CBT >> Medication (75% vs. 60% improvement)
+- **Severe Depression**: Medication >> CBT (80% vs. 55% improvement)
+
+**Why the interaction?**
+
+- Mild depression patients can engage effectively with cognitive strategies in CBT
+- Severe depression patients may lack energy/motivation for CBT homework
+- Severe cases need biological intervention (medication) to restore neurochemical balance
+- CBT requires cognitive capacity that may be impaired in severe depression
+
+**Implication**: Treatment selection should be **severity-matched**, not preference-based alone.
+
+**Visualization:**
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+therapy_data <- data.frame(
+  Severity = rep(c("Mild", "Severe"), each = 2),
+  Treatment = rep(c("CBT", "Medication"), 2),
+  Improvement = c(75, 60, 55, 80)
+)
+
+ggplot(therapy_data, aes(x = Severity, y = Improvement, color = Treatment, group = Treatment)) +
+  geom_point(size = 5) +
+  geom_line(linewidth = 1.5) +
+  labs(title = "Interaction: Treatment Type × Depression Severity",
+       subtitle = "Best treatment depends on severity level (crossing interaction!)",
+       x = "Depression Severity",
+       y = "Improvement Rate (%)",
+       color = "Treatment Type") +
+  theme_minimal(base_size = 14) +
+  scale_y_continuous(limits = c(40, 85), breaks = seq(40, 85, 10)) +
+  theme(legend.position = "top") +
+  annotate("text", x = 1.5, y = 67, label = "Crossover Interaction",
+           size = 5, color = "red", fontface = "bold")
+```
+
+#### Example 5: Study Time & IQ
+
+**Research Question**: Does the effect of study time on exam performance depend on intelligence level?
+
+**Factors:**
+
+- Factor A: Study Time (Low: 2 hrs vs. High: 10 hrs)
+- Factor B: IQ Level (Below Average vs. Above Average)
+
+**Observed Pattern (Interaction Present):**
+
+- **Below Average IQ**: High study time >> Low study time (75 vs. 50 points)
+- **Above Average IQ**: High study time ≈ Low study time (85 vs. 82 points)
+
+**Why the interaction?**
+
+- High IQ students can learn material efficiently with less study time
+- Below average IQ students need more repetition and practice (more study time helps significantly)
+- High IQ students may reach a "ceiling effect" - already performing well with minimal study
+- Different cognitive abilities create different learning curves
+
+**Implication**: Educational interventions (increasing study time) may be most beneficial for students who struggle, not top performers.
+
+**Visualization:**
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+study_data <- data.frame(
+  IQ_Level = rep(c("Below Average", "Above Average"), each = 2),
+  Study_Time = rep(c("Low (2h)", "High (10h)"), 2),
+  Exam_Score = c(50, 75, 82, 85)
+)
+
+study_data$IQ_Level <- factor(study_data$IQ_Level, levels = c("Below Average", "Above Average"))
+study_data$Study_Time <- factor(study_data$Study_Time, levels = c("Low (2h)", "High (10h)"))
+
+ggplot(study_data, aes(x = IQ_Level, y = Exam_Score, color = Study_Time, group = Study_Time)) +
+  geom_point(size = 5) +
+  geom_line(linewidth = 1.5) +
+  labs(title = "Interaction: Study Time × IQ Level",
+       subtitle = "Study time matters much more for below-average IQ students",
+       x = "IQ Level",
+       y = "Exam Score",
+       color = "Study Time") +
+  theme_minimal(base_size = 14) +
+  scale_y_continuous(limits = c(40, 90), breaks = seq(40, 90, 10)) +
+  theme(legend.position = "top")
+```
+
+#### Example 6: Caffeine & Time of Day
+
+**Research Question**: Does caffeine's effect on alertness depend on time of day?
+
+**Factors:**
+
+- Factor A: Caffeine Dose (0 mg vs. 200 mg)
+- Factor B: Time of Day (Morning vs. Evening)
+
+**Observed Pattern (Interaction Present):**
+
+- **Morning**: Small caffeine effect (alertness: 65 vs. 75)
+- **Evening**: Large caffeine effect (alertness: 35 vs. 70)
+
+**Why the interaction?**
+
+- Morning: Natural cortisol levels are already high (circadian rhythm), so caffeine adds less
+- Evening: Cortisol levels drop naturally, so caffeine has a larger stimulating effect
+- Adenosine (sleepiness molecule) accumulates throughout the day - caffeine blocks adenosine receptors
+- Baseline alertness differs dramatically by time of day
+
+**Implication**: Timing caffeine intake strategically (avoiding morning when cortisol is high) may be more effective.
+
+**Visualization:**
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+caffeine_data <- data.frame(
+  Time = rep(c("Morning", "Evening"), each = 2),
+  Caffeine = rep(c("No Caffeine", "200mg Caffeine"), 2),
+  Alertness = c(65, 75, 35, 70)
+)
+
+ggplot(caffeine_data, aes(x = Time, y = Alertness, color = Caffeine, group = Caffeine)) +
+  geom_point(size = 5) +
+  geom_line(linewidth = 1.5) +
+  labs(title = "Interaction: Caffeine × Time of Day",
+       subtitle = "Caffeine is much more effective in the evening than morning",
+       x = "Time of Day",
+       y = "Alertness Score",
+       color = "Caffeine Dose") +
+  theme_minimal(base_size = 14) +
+  scale_y_continuous(limits = c(20, 80), breaks = seq(20, 80, 10)) +
+  theme(legend.position = "top")
+```
+:::
+
+## Common Themes: Why Interactions Occur
+
+::: callout-note
+### Underlying Mechanisms for Interactions
+
+1. **Biological Differences**: Age, sex, genetics create different physiological responses
+2. **Baseline/Ceiling Effects**: Different starting points or maximum capacities across groups
+3. **Mechanism Differences**: Treatments work through different pathways in different populations
+4. **Resource Allocation**: Limited cognitive/physical resources are used differently across contexts
+5. **Moderating Variables**: Third variables (not measured) that correlate with factors
+6. **Compensatory Strategies**: Different groups adapt differently to interventions
+7. **Dose-Response Variation**: Sensitivity to "dosage" varies across groups
+:::
+
+-----------
+
+::: callout-warning
+### Critical Insight
+
+**Ignoring interactions leads to incorrect conclusions!**
+
+If you only report main effects in these examples, you would conclude:
+
+- "Drug A works" (missing that it works mainly for elderly)
+- "Problem-based learning is better" (missing that it depends on learning style)
+- "High intensity exercise is better" (missing that it mainly benefits males)
+
+**Always test and visualize interactions before interpreting main effects!**
+:::
+
+
 ## Model 2: Two-Way ANOVA with Interaction
 
 $$
@@ -413,7 +727,7 @@ In the graph, there is an intersection between two lines → This is an interact
 :::
 :::::
 
-# F-statistics
+# Statistical foundations of 2-way ANOVA
 
 ## F-statistics for Two-Way ANOVA
 
@@ -697,9 +1011,11 @@ Answer: [2 IVs: (1) Whether or not having Tattos and Piercings (2) Male of Femal
 ![](images/clipboard-655219567.png)
 :::
 
-## Data input in R
+## Step 1: Data importion
 
 Either you can import a CSV file, or manually import the data points (for small samples).
+
+Imagine you have a data with N = 16. 
 
 ```{r}
 tatto_piercing = rep(c(TRUE, FALSE), each = 8)
@@ -715,66 +1031,6 @@ dat <- data.frame(
 dat
 ```
 
-------------------------------------------------------------------------
-
-### Your turn
-
-Import the following data set into R manually.
-
-```{r}
-#| echo: false
-set.seed(1234)
-Tutor = c("Bobby", "Julia", "Monique", "Ned")
-Time = c("AM", "PM")
-dat_ex1 <- expand.grid(Tutor, Time) |> 
-  as.data.frame() |> 
-  rename(Tutor = Var1, Time = Var2) |> 
-  mutate(Grade = sample(10:20, 8))
-dat_ex1 |> 
-  pivot_wider(values_from = Grade, names_from = Time) |> 
-  kableExtra::kable()
-```
-
-Hint:
-
-```{r}
-#| results: hold
-rep(c("A", "B"), 2)
-rep(c("A", "B"), each = 2)
-```
-
-::: panel-tabset
-### Exercise
-
-```{webr-r}
-# Manually import the data in R
-
-Tutor = rep(______)
-Time = rep(______)
-Grade = c(_______)
-
-dat_ex1 <- data.frame(
-  Tutor = Tutor,
-  Time = Time, 
-  Grade = Grade
-)
-```
-
-### Answer
-
-```{r}
-Tutor = rep(c("Bobby", "Julia", "Monique", "Ned"), 2)
-Time = rep(c("AM", "PM"), each = 4)
-Grade = c(19, 15, 14, 13, 16, 10, 18, 11)
-
-dat_ex11 <- data.frame(
-  Tutor = Tutor,
-  Time = Time, 
-  Grade = Grade
-)
-dat_ex11
-```
-:::
 
 ## Step 2: Sum of Squares of main effects
 
@@ -786,11 +1042,16 @@ $$
 -   $n_a$: sample size for factor A at each level
 -   $M_T$: grand mean of outcome
 
+----------------------------
+
+### Obtain sum of square of tatto piercing
+
 ```{r}
 #| include: false
 summary(aov(data = dat, formula = outcome ~ gender * tatto_piercing))
 ```
 
+#### Manual way
 ```{r}
 M_A_table <-  dat |> 
   group_by(tatto_piercing) |>  
@@ -815,7 +1076,7 @@ sum(M_A_table$N * (M_A_table$Mean - M_T)^2)
 
 ------------------------------------------------------------------------
 
-### Your turn: Sum of squares of Gender
+### Your turn: Obtain sum of squares of gender
 
 ```{webr-r}
 #| context: setup
@@ -833,7 +1094,7 @@ dat
 ```
 
 ::: panel-tabset
-### Your turn
+### Exercise
 
 `dat` object has already been loaded into R. Please, calculate the gender's sum of squares:
 
@@ -869,7 +1130,7 @@ M_B_table$N[1] * (M_B_table$Mean[1] - M_T)^2 +
 ```
 :::
 
-## Step 3: Sum of Squares of Interaction Effect
+## Step 3: Sum of Squares of interaction effect
 
 $$
 SS_{AB} = (\sum n_{ab} (M_{AaBb} - M_T)^2) - SS_A - SS_B
@@ -891,6 +1152,8 @@ cell_means
 
 ### Your turn
 
+The data frame --- `cell_means` is already available to you.
+
 ```{webr-r}
 #| context: setup
 cell_means <- dat |> 
@@ -902,13 +1165,24 @@ cell_means <- dat |>
 ```
 
 ::: panel-tabset
+
 ### Exercise
+
+Note: Sum of squares of interaction effects is the leftover of total sum of squares after removing SS of gender and SS of tutoring program.
+
+$SS_{total} = \Sigma (N_{ab} * (M_{ab} - M_T))$
+
+where $N_{ab}$ is the cell sample size for a-level of factor A and b-level of factor B.
+
+$M_{ab}$ is the cell means of outcome; $M_T$ is the grand mean of outcome.
 
 ```{webr-r}
 SS_gender <- 7.84
 SS_TP <- 28.09
 M_T <- 3.3
-sum(____ * (____ - ___)^2) - ____ - ____
+SS_total <- sum(____ * (____ - ___)^2) 
+SS_GxTP <- SS_total - ____ - ____
+print(SS_GxTP)
 ```
 
 ### Answer
@@ -917,11 +1191,16 @@ sum(____ * (____ - ___)^2) - ____ - ____
 SS_gender <- 7.84
 SS_TP <- 28.09
 M_T <- 3.3
+
+SS_total <- sum(____ * (____ - ___)^2) 
+SS_GxTP <- SS_total - ____ - ____
+print(SS_GxTP)
+
 sum(cell_means$N * (cell_means$Mean - M_T)^2) - SS_gender - SS_TP
 ```
 :::
 
-## Step 4: Degree of freedom and F-statistics
+## Step 4: Calculate Degree of freedom and F-statistics
 
 ::: panel-tabset
 ### Your turn
@@ -942,10 +1221,10 @@ SS_residual = SS_total - SS_gender - SS_TP - SS_GxTP
 SS_total <- sum((dat$outcome - mean(dat$outcome))^2)
 SS_residual = SS_total - SS_gender - SS_TP - SS_GxTP
 
-df_gender = ___
-df_TP = ___
-df_GxTP = __*__
-df_residual = __ - __ - __ - __ - ___
+df_gender = ___ # degree of freedom of factor gender
+df_TP = ___ # degree of freedom of factor tutoring
+df_GxTP = _____ # degree of freedom of interaction term gender x tutoring
+df_residual = __ - __ - __ - __ - ___ # degree of freedom of residuals
 F_gender = (___ / df_gender) / (SS_residual / df_residual)
 F_TP = (___ / df_TP) / (SS_residual / df_residual)
 F_GxTP = (___ / df_GxTP) / (SS_residual / df_residual)
@@ -988,15 +1267,32 @@ F_gender; F_TP; F_GxTP # print out three F-statistics
 
 -   Interaction: Retain the null → Under alpha=.05 level, because F-observed (F=0.63) does not exceed the critical value (F=4.75), we fail to reject the null that the effect of Factor A depends on Factor B. → “There is NO significant interaction between gender and tattoo on risky behavior.”
 
-## ShinyApp for ANOVA
+## Final discussion
 
-[![](images/clipboard-2180015893.png)](https://utrecht-university.shinyapps.io/ANCOVA_Shiny/)
+In this example,
 
-## Other extensions about 2-way ANOVA: I
+-   The interaction effect shows several issues:
 
--   Type I? Type II? Type III?
-    -   Effect sums of squares (SSA, SSB, SSAB) are a decomposition of the total sum of squared deviations from the overall mean (SST).
-    -   How the SST is decomposed depends on characteristics of the data as well as the hypotheses of interest to the researcher.
+    -   Violation of independency assumption
+    -   Violation of normality assumption in the condition of "Male" and "Tattoo=Yes"
+
+-   We can guess/think about one possibility that it might be cause by several reasons. (e.g., too small sample sizes, not randomized assignments of the samples, not a significant interaction effect, etc.)
+
+    -   From the two-way ANOVA results, we found that the interaction effect is not significant.
+
+-   Thus, in this case, it is more reasonable to conduct
+
+    1.  one-way ANOVA for "Group" variable, and
+    2.  one-way ANOVA for "Gender" variable, separately.
+
+    -   For each of one-way ANOVAs, we should check the assumptions, conduct one-way ANOVA, and post-hoc test separately as well.
+
+
+## Type I Sum of Squares
+
+-   Type I / Type II / Type III sum of squares?
+    -   Effect sums of squares ($SS_A$, $SS_B$, $SS_{AB}$) are a decomposition of the total sum of squared deviations from the overall mean (SST).
+    -   How the $SS_T$ is decomposed depends on characteristics of the data as well as the hypotheses of interest to the researcher.
 -   Type I sums of squares (SS) are based on a sequential decomposition.
     -   For example, if your ANOVA model statement is “MODEL Y = A B A\*B”, then, the sum of squares are considered in effect order A, B, A\*B, with each effect adjusted for all preceding effects in the model.
     -   Thus, any variance that is shared between the various effects will be sub-summed by the variable entered earlier.
@@ -1009,7 +1305,7 @@ Pros:
 
 Cons: 1. Order matters! 2. Not appropriate for factorial designs, but might be ok for Blocking designs.
 
-## Other extensions about 2-way ANOVA: II
+## Type II Sum of Squares
 
 -   With Type II SS, each main effect is considered as though it were added after the other main effects but before the interaction.
     -   Any interaction effects are calculated based on a model already containing the main effects.
@@ -1024,10 +1320,10 @@ Pros:
 
 Cons:
 
-1.  For factorial designs with unequal cell samples, Type II sums of squares test hypotheses that are complex functions of the cell ns that ordinarily are not meaningful.
+1.  For factorial designs with unequal cell samples, Type II sums of squares test hypotheses that are complex functions of the cell so that ordinarily are not meaningful.
 2.  Not appropriate for factorial designs.
 
-## Other extensions about 2-way ANOVA: III
+## Type III Sum of Squares
 
 -   Type III SS considers all effects as though they are added last.
     -   Any shared variance ends up not being counted in any of the effects.
@@ -1046,24 +1342,490 @@ Not appropriate for designs with missing cells: for ANOVA designs with missing c
 In general, for the factorial design, we usually report Type III SS, unless you have missing cells in your model.
 :::
 
-## Final discussion
 
-In this example,
+## Exercise: Two-Way ANOVA with Significant Interaction
 
--   The interaction effect shows several issues:
+::: panel-tabset
+### Background
 
-    -   Violation of independency assumption
-    -   Violation of normality assumption in the condition of “Male” and “Tattoo=Yes”
+A researcher is investigating the effect of **learning environment** (Online vs. In-Person) and **feedback type** (Immediate vs. Delayed) on student test scores. The researcher hypothesizes that:
 
--   We can guess/think about one possibility that it might be cause by several reasons. (e.g., too small sample sizes, not randomized assignments of the samples, not a significant interaction effect, etc.)
+1. Students in in-person classes will perform better than online students
+2. Immediate feedback will lead to better performance than delayed feedback
+3. **The benefit of immediate feedback will be stronger in online environments** (interaction effect)
 
-    -   From the two-way ANOVA results, we found that the interaction effect is not significant.
+The study randomly assigned 20 students to one of four conditions:
 
--   Thus, in this case, it is more reasonable to conduct
+  - Online + Immediate Feedback (n=5)
+  - Online + Delayed Feedback (n=5)
+  - In-Person + Immediate Feedback (n=5)
+  - In-Person + Delayed Feedback (n=5)
 
-    1.  one-way ANOVA for “Group” variable, and
-    2.  one-way ANOVA for “Gender” variable, separately.
+**Your Task**: Calculate the sum of squares for both main effects and the interaction effect manually, then compute F-statistics.
 
-    -   For each of one-way ANOVAs, we should check the assumptions, conduct one-way ANOVA, and post-hoc test separately as well.
+### View Data Summary
+
+```{webr-r}
+#| context: setup
+set.seed(456)
+
+# Create data with significant interaction
+learning_env <- rep(c("Online", "In-Person"), each = 10)
+feedback_type <- rep(c("Immediate", "Delayed"), times = 10)
+
+# Test scores - designed to show interaction
+# Online + Immediate: high scores (mean ~85)
+# Online + Delayed: low scores (mean ~70)
+# In-Person + Immediate: moderate scores (mean ~78)
+# In-Person + Delayed: moderate-high scores (mean ~82)
+test_scores <- c(
+  # Online + Immediate
+  87, 83, 88, 86, 81,
+  # Online + Delayed
+  68, 72, 71, 69, 70,
+  # In-Person + Immediate
+  79, 77, 80, 76, 78,
+  # In-Person + Delayed
+  84, 81, 83, 80, 82
+)
+
+exercise_data <- data.frame(
+  Learning_Env = factor(learning_env, levels = c("Online", "In-Person")),
+  Feedback = factor(feedback_type, levels = c("Immediate", "Delayed")),
+  Score = test_scores
+)
+
+# Display the data
+exercise_data
+```
+
+
+```{webr-r}
+# Cell means
+cell_summary <- exercise_data |>
+  group_by(Learning_Env, Feedback) |>
+  summarise(
+    N = n(),
+    Mean = mean(Score),
+    SD = sd(Score)
+  )
+print(cell_summary)
+
+# Marginal means for Learning Environment
+marginal_env <- exercise_data |>
+  group_by(Learning_Env) |>
+  summarise(
+    N = n(),
+    Mean = mean(Score)
+  )
+print(marginal_env)
+
+# Marginal means for Feedback Type
+marginal_feedback <- exercise_data |>
+  group_by(Feedback) |>
+  summarise(
+    N = n(),
+    Mean = mean(Score)
+  )
+print(marginal_feedback)
+
+# Grand mean
+grand_mean <- mean(exercise_data$Score)
+print(paste("Grand Mean:", round(grand_mean, 2)))
+```
+
+### Step 1: Calculate SS for Learning Environment
+
+**Formula**: $SS_A = \sum n_a (M_{Aa} - M_T)^2$
+
+where:
+- $M_{Aa}$ = marginal mean of Learning Environment at each level
+- $n_a$ = sample size for each level of Learning Environment
+- $M_T$ = grand mean
+
+```{webr-r}
+# Calculate marginal means for Learning Environment
+M_Env_table <- exercise_data |>
+  group_by(Learning_Env) |>
+  summarise(
+    N = n(),
+    Mean = mean(Score)
+  )
+
+M_T <- mean(exercise_data$Score)  # Grand mean
+
+# Calculate SS for Learning Environment
+SS_Env <- ___[1] * (___[1] - ___)^2 +
+          ___[2] * (___[2] - ___)^2
+
+print(paste("SS for Learning Environment:", round(SS_Env, 2)))
+```
+
+### Step 2: Calculate SS for Feedback Type
+
+**Formula**: $SS_B = \sum n_b (M_{Bb} - M_T)^2$
+
+```{webr-r}
+# Calculate marginal means for Feedback Type
+M_Feedback_table <- exercise_data |>
+  group_by(____) |>
+  summarise(
+    N = n(),
+    Mean = mean(____)
+  )
+
+M_T <- mean(____)  # Grand mean
+
+# Calculate SS for Feedback Type
+SS_Feedback <- ____$N[1] * (____$Mean[1] - ____)^2 +
+               ____$N[2] * (____$Mean[2] - ____)^2
+
+print(paste("SS for Feedback Type:", round(SS_Feedback, 2)))
+```
+
+### Step 3: Calculate SS for Interaction
+
+**Formula**: $SS_{AB} = (\sum n_{ab} (M_{AaBb} - M_T)^2) - SS_A - SS_B$
+
+```{webr-r}
+# Calculate cell means
+cell_means_table <- exercise_data |>
+  group_by(____, ____) |>
+  summarise(
+    N = n(),
+    Mean = mean(____)
+  )
+
+print(cell_means_table)
+
+# Calculate total SS from cells
+SS_total_cells <- sum(____$N * (____$Mean - ____)^2)
+
+# Calculate interaction SS
+SS_Interaction <- ____ - ____ - ____
+
+print(paste("SS for Interaction:", round(SS_Interaction, 2)))
+```
+
+### Step 4: Calculate F-statistics
+
+```{webr-r}
+# Calculate residual SS
+SS_total <- sum((exercise_data$Score - mean(exercise_data$Score))^2)
+SS_residual <- ____ - ____ - ____ - ____
+
+# Calculate degrees of freedom
+df_Env <- ____  # levels - 1
+df_Feedback <- ____  # levels - 1
+df_Interaction <- ____ * ____  # df_Env * df_Feedback
+df_residual <- 20 - ____ - ____ - ____ - ____
+
+# Calculate F-statistics
+F_Env <- (SS_Env / df_Env) / (____ / ____)
+F_Feedback <- (____ / ____) / (SS_residual / df_residual)
+F_Interaction <- (____ / ____) / (____ / ____)
+
+print(paste("F for Learning Environment:", round(F_Env, 3)))
+print(paste("F for Feedback Type:", round(F_Feedback, 3)))
+print(paste("F for Interaction:", round(F_Interaction, 3)))
+```
+
+### Answer - Step 1
+
+```{webr-r}
+# Calculate marginal means for Learning Environment
+M_Env_table <- exercise_data |>
+  group_by(Learning_Env) |>
+  summarise(
+    N = n(),
+    Mean = mean(Score)
+  )
+
+M_T <- mean(exercise_data$Score)  # Grand mean
+
+# Calculate SS for Learning Environment
+SS_Env <- M_Env_table$N[1] * (M_Env_table$Mean[1] - M_T)^2 +
+          M_Env_table$N[2] * (M_Env_table$Mean[2] - M_T)^2
+
+print(paste("SS for Learning Environment:", round(SS_Env, 2)))
+```
+
+### Answer - Step 2
+
+```{webr-r}
+# Calculate marginal means for Feedback Type
+M_Feedback_table <- exercise_data |>
+  group_by(Feedback) |>
+  summarise(
+    N = n(),
+    Mean = mean(Score)
+  )
+
+M_T <- mean(exercise_data$Score)  # Grand mean
+
+# Calculate SS for Feedback Type
+SS_Feedback <- M_Feedback_table$N[1] * (M_Feedback_table$Mean[1] - M_T)^2 +
+               M_Feedback_table$N[2] * (M_Feedback_table$Mean[2] - M_T)^2
+
+print(paste("SS for Feedback Type:", round(SS_Feedback, 2)))
+```
+
+### Answer - Step 3
+
+```{webr-r}
+# Calculate cell means
+cell_means_table <- exercise_data |>
+  group_by(Learning_Env, Feedback) |>
+  summarise(
+    N = n(),
+    Mean = mean(Score)
+  )
+
+print(cell_means_table)
+
+# Calculate total SS from cells
+SS_total_cells <- sum(cell_means_table$N * (cell_means_table$Mean - M_T)^2)
+
+# Calculate interaction SS
+SS_Interaction <- SS_total_cells - SS_Env - SS_Feedback
+
+print(paste("SS for Interaction:", round(SS_Interaction, 2)))
+```
+
+### Answer - Step 4
+
+```{webr-r}
+# Calculate residual SS
+SS_total <- sum((exercise_data$Score - mean(exercise_data$Score))^2)
+SS_residual <- SS_total - SS_Env - SS_Feedback - SS_Interaction
+
+# Calculate degrees of freedom
+df_Env <- 1  # 2 levels - 1
+df_Feedback <- 1  # 2 levels - 1
+df_Interaction <- 1 * 1  # df_Env * df_Feedback
+df_residual <- 20 - 1 - 1 - 1 - 1
+
+# Calculate F-statistics
+F_Env <- (SS_Env / df_Env) / (SS_residual / df_residual)
+F_Feedback <- (SS_Feedback / df_Feedback) / (SS_residual / df_residual)
+F_Interaction <- (SS_Interaction / df_Interaction) / (SS_residual / df_residual)
+
+print(paste("F for Learning Environment:", round(F_Env, 3)))
+print(paste("F for Feedback Type:", round(F_Feedback, 3)))
+print(paste("F for Interaction:", round(F_Interaction, 3)))
+
+# Calculate p-values
+p_Env <- pf(F_Env, df_Env, df_residual, lower.tail = FALSE)
+p_Feedback <- pf(F_Feedback, df_Feedback, df_residual, lower.tail = FALSE)
+p_Interaction <- pf(F_Interaction, df_Interaction, df_residual, lower.tail = FALSE)
+
+print(paste("p-value for Learning Environment:", round(p_Env, 4)))
+print(paste("p-value for Feedback Type:", round(p_Feedback, 4)))
+print(paste("p-value for Interaction:", round(p_Interaction, 4)))
+```
+
+### Verify with R's aov()
+
+```{webr-r}
+# Verify your calculations with R's built-in ANOVA
+fit <- aov(Score ~ Learning_Env * Feedback, data = exercise_data)
+summary(fit)
+```
+
+### Interpretation
+
+```{webr-r}
+# Visualize the interaction
+library(ggplot2)
+
+interaction_plot <- exercise_data |>
+  group_by(Learning_Env, Feedback) |>
+  summarise(Mean_Score = mean(Score)) |>
+  ggplot(aes(x = Learning_Env, y = Mean_Score, color = Feedback, group = Feedback)) +
+  geom_point(size = 4) +
+  geom_line(linewidth = 1.2) +
+  labs(title = "Interaction Plot: Learning Environment × Feedback Type",
+       x = "Learning Environment",
+       y = "Mean Test Score",
+       color = "Feedback Type") +
+  theme_minimal() +
+  theme(text = element_text(size = 12))
+
+print(interaction_plot)
+```
+
+**Key Findings:**
+
+1. **Main Effect of Learning Environment**: The effect depends on whether it's significant (check your F-statistic and p-value)
+
+2. **Main Effect of Feedback Type**: The effect depends on whether it's significant (check your F-statistic and p-value)
+
+3. **Interaction Effect**: **This should be significant!** The interaction plot shows that:
+   - In **Online** environments, Immediate feedback leads to MUCH higher scores than Delayed feedback
+   - In **In-Person** environments, the difference between Immediate and Delayed feedback is smaller (and reversed!)
+   - This crossing pattern indicates a strong interaction: the effect of feedback type depends on the learning environment
+
+:::
+
+
+## Lecture Summary: Key Takeaways
+
+
+
+::: callout-tip
+
+### 1. Conceptual Understanding
+
+**Two-way ANOVA allows us to:**
+
+- Examine the effects of **two independent variables** simultaneously
+- Test for **three distinct effects**: Main effect A, Main effect B, and Interaction A×B
+- Investigate whether the effect of one factor **depends on** the level of another factor (interaction)
+- Achieve greater statistical power and efficiency compared to multiple one-way ANOVAs
+
+**Main Effects vs. Interaction:**
+
+- **Main Effect**: The average effect of one factor, ignoring (collapsing across) the other factor
+- **Interaction Effect**: When the effect of one factor changes depending on the level of the other factor
+  - Look for **non-parallel lines** in interaction plots
+  - **Crossing lines** indicate strong interactions
+  - When interaction is significant, main effects may be misleading!
+
+:::
+
+-------------------
+
+::: callout-important
+### 2. Statistical Calculations
+
+**Partitioning Variance in Two-Way ANOVA:**
+
+$$
+SS_{Total} = SS_A + SS_B + SS_{AB} + SS_{Residual}
+$$
+
+**Key Formulas:**
+
+- Main Effect A: $SS_A = \sum n_a (M_{Aa} - M_T)^2$
+- Main Effect B: $SS_B = \sum n_b (M_{Bb} - M_T)^2$
+- Interaction: $SS_{AB} = (\sum n_{ab} (M_{AaBb} - M_T)^2) - SS_A - SS_B$
+
+**F-statistics:**
+
+$$
+F = \frac{MS_{effect}}{MS_{residual}} = \frac{SS_{effect}/df_{effect}}{SS_{residual}/df_{residual}}
+$$
+
+**Degrees of Freedom:**
+
+- $df_A = k_A - 1$ (number of levels of Factor A minus 1)
+- $df_B = k_B - 1$ (number of levels of Factor B minus 1)
+- $df_{AB} = df_A \times df_B$ (interaction df)
+- $df_{residual} = N - 1 - df_A - df_B - df_{AB}$
+
+:::
+
+-------------------
+
+::: callout-note
+### 3. Practical Considerations
+
+**Assumptions for Two-Way ANOVA:**
+
+1. **Independence**: Observations must be independent (most critical!)
+2. **Normality**: DV should be normally distributed within each cell
+3. **Homogeneity of Variance**: Equal variances across all cells (Levene's test)
+
+**Robustness:**
+
+- F-test is fairly robust to normality violations with large N and equal cell sizes
+- Recommend at least **15 participants per cell**
+- Use Welch or Brown-Forsythe tests if variances are unequal
+- **Never** compromise on independence assumption
+
+**Type I, II, III Sum of Squares:**
+
+- **Type I**: Sequential (order matters) - appropriate for nested/blocking designs
+- **Type II**: Each main effect adjusted for other main effects - good for model building
+- **Type III**: Each effect adjusted for all others - **recommended for factorial designs** with balanced data
+- With **balanced designs** (equal cell sizes), all three types give identical results!
+
+:::
+
+-------------------
+
+::: callout-warning
+### 4. Interpretation Guidelines
+
+**When Interaction is Significant:**
+
+- Interpret interaction **first** before discussing main effects
+- Main effects may be misleading or uninterpretable when interaction is present
+- Focus on **simple effects**: the effect of one factor at each level of the other
+- Use interaction plots to visualize and explain the pattern
+
+**When Interaction is NOT Significant:**
+
+- Proceed to interpret main effects
+- If main effect is significant with >2 levels, conduct **post-hoc tests** (e.g., Tukey HSD)
+- Report effect sizes (partial η²) alongside p-values
+
+**Reporting Results:**
+
+Include in your report:
+
+1. Descriptive statistics (means, SDs) for all cells
+2. ANOVA table with F-values, df, and p-values
+3. Effect sizes
+4. Interaction plot (even if not significant)
+5. Post-hoc tests if needed
+6. Assumption checks
+
+:::
+
+-------------------
+
+::: callout-tip
+### 5. Common Pitfalls to Avoid
+
+1. **Don't ignore significant interactions!** Main effects alone don't tell the whole story
+2. **Don't forget assumption checks** - especially for small samples
+3. **Don't confuse interaction with correlation** - they are different concepts
+4. **Don't over-interpret non-significant results** - absence of evidence ≠ evidence of absence
+5. **Don't use multiple one-way ANOVAs instead of two-way** - you'll miss interactions and inflate Type I error
+6. **Don't forget to report effect sizes** - statistical significance ≠ practical significance
+
+:::
+
+-------------------
+
+::: callout-important
+### 6. Next Steps in Your Learning
+
+**Extending Two-Way ANOVA:**
+
+- **Three-way ANOVA**: Adding a third factor (exponentially more complex!)
+- **Mixed ANOVA**: Combining between-subjects and within-subjects factors
+- **ANCOVA**: Adding continuous covariates to control for confounding variables
+- **MANOVA**: Multiple dependent variables simultaneously
+- **Repeated Measures ANOVA**: Same subjects measured multiple times
+
+**When to Use Two-Way ANOVA:**
+
+✓ Two categorical independent variables (factors)
+✓ One continuous dependent variable
+✓ Independent observations (between-subjects design)
+✓ Interest in both main effects and interaction
+✓ Adequate sample size (≥15 per cell recommended)
+
+**Alternatives to Consider:**
+
+- **Regression with interactions**: More flexible, can handle continuous IVs
+- **Mixed-effects models**: Better for unbalanced designs or nested data
+- **Non-parametric tests**: When assumptions are severely violated (e.g., Aligned Rank Transform ANOVA)
+
+:::
 
 ## Fin
+
+**Thank you for your attention!**

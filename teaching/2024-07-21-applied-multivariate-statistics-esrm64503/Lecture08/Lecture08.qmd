@@ -733,21 +733,6 @@ anova(model04.fit, model04b.fit)
     2.   According to Likelihood ratio test, Model 04 is significantly better than model 04b, which means the correlation between MSE and MSC is likely to be nonzero. We prefer the model with the correlation larger than 0. 
 :::
 
-
-## Homework 2
-
-1.  You can find the online form [here](https://docs.google.com/forms/d/e/1FAIpQLSe_0DWgrbEeHo_-K4fj0EWdHzH8cuTNx3dHJU6wyERbJyRPHA/viewform?usp=publish-editor).
-
-2.  Use `lavaan` and `dataMath` to test the correlations among Math Performance (`perf`), Math Anxiety (`mas`), and Perceived Usefulness of Mathematics (`use`).
-
-    -   Model 1: All correlations are freely estimated.
-        -   **Q1/Q2/Q3**: What are the estimated correlations/SE/p.values for Performance - Anxiety, Performance - Usefulness, and Anxiety - Usefulness, respectively (the results should have two-digit precision).
-        -   **Q4:** What are AIC and BIC for Model 1 (0-decimal places)
-    -   Model 2: Fix the correlation between math anxiety (`mas`) and perceived usefulness of mathematics (`use`) to 0; Leave the other correlations to be freely estimated.
-        -   **Q5/Q6/Q7**: What are the estimated correlations/SE/p-values for Performance - Anxiety, Performance - Usefulness, and Anxiety - Usefulness, respectively (the results should have two-digit precision)?
-        -   **Q8**: What are AIC and BIC for Model 2 (0-decimal places)?
-    -   **Q10**: Copy and paste your R syntax (make sure you use `lavaan` syntax)
-
 ## Wrapping Up
 
 1.  This lecture was an introduction to the estimation of multivariate linear models for multivariate outcomes using the path analysis/SEM package `lavaan`
