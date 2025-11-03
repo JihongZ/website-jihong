@@ -483,7 +483,7 @@ ggplot(teaching_data, aes(x = Learning_Style, y = Test_Score, color = Method, gr
 
 - **Males**: High intensity >> Low intensity (12 kg vs. 6 kg lost)
 - **Females**: High intensity ≈ Low intensity (8 kg vs. 7 kg lost)
-
+ 
 **Why the interaction?**
 
 - Males typically have higher muscle mass and testosterone, enabling better response to high-intensity training

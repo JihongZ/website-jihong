@@ -56,7 +56,7 @@ bibliography: references.bib
     <div class="card-body">
         <h4 class="card-title"><b>Today's Class</b></h4>
         <ul>
-          <li>Multivaraite regression via path model</li>
+          <li>Multivariate regression via path model</li>
           <li>Model modification</li>
           <li>Comparing and contrasting path analysis</li>
           <ul>
@@ -67,6 +67,7 @@ bibliography: references.bib
     </div>
 </div>
 ```
+
 ```{r}
 #| output-location: default
 library(ESRM64503)
@@ -81,9 +82,9 @@ dim(dataMath)
 
 # Path Analysis
 
--   Previous models considered correlations among observed variables (`perf` and `use`). These models may be limited in answering more complex research questions: whether A is a mediator between B and C
+-   Previous models considered simple pairwise correlations among observed variables (`perf` and `use`). These models may be limited in answering more complex research questions, such as whether variable A mediates the relationship between variable B and variable C
 
--   Path analysis: Multivariate Linear Models where Outcomes can be also Predictors
+-   Path analysis is used to analyze multivariate linear models where outcomes can be also predictors
 
 -   Path analysis details:
 
@@ -93,13 +94,21 @@ dim(dataMath)
 
 -   Example Analyses
 
+-   Procedure:
+
+    - Model building
+    
+    - Model fitting
+    
+    - Model summary
+    
 ## Today's Example Data
 
 -   Data are simulated based on the results reported in:
 
 -   Sample of 350 undergraduates (229 women, 121 men)
 
-    -   In simulation, 10% of variables were missing (using missing completely at random mechanism).
+    -   In simulation, 10% of data points were missing (using missing completely at random mechanism).
 
 ::: callout-tip
 ## Dictionary
@@ -118,9 +127,18 @@ dim(dataMath)
 
 ![](path_diagram.png){fig-align="center"}
 
+-   This path diagram illustrates a multivariate regression model examining relationships among six constructs related to mathematics education
+-   **Red solid arrows** represent hypothesized direct effects (regression paths) between variables
+-   **Blue dashed arrows** indicate residual variances for endogenous variables
+-   The model shows:
+    -   Female as the sole exogenous variable (predictor with no antecedents)
+    -   Five endogenous variables: High School Math Experience, College Math Experience, Mathematics Self-Efficacy, Mathematics Self-Concept, Mathematics Performance, and Perceived Usefulness
+    -   Multiple direct and indirect pathways through which gender and prior experiences influence mathematics outcomes
+    -   A complex network of relationships suggesting mediation effects through self-beliefs (self-efficacy and self-concept)
+
 ## The Big Picture
 
-1.  **Path analysis** is a multivariate statistical method that, when using an identity link, assumes the variables in an analysis are multivariate normally distributed
+1.  **Path analysis** is a multivariate statistical method that, when using an _identity link_, assumes the variables in an analysis are multivariate normally distributed
 
     -   Mean vectors
     -   Covariance matrices
@@ -143,6 +161,8 @@ dim(dataMath)
 - **Exogenous variable(s)**: variables whose variability is not explained by any variables in a model
   - In linear regression, the independent variable(s) are the exogenous variables in the analysis
       - Female (F)
+
+![](path_diagram.png){fig-align="center"}
 
 ## Procedure of Path Analysis Steps
 
@@ -174,7 +194,7 @@ dim(dataMath)
 -   For the MVN, the so-called **T-rule** states that a model must have equal to or fewer parameters than the unique elements of the covariance matrix of all endogenous and exogenous variables (the sum of all variables in the analysis)
 
     -   Let $s = p+q$, the total of all endogenous (p) and exogenous (q) variables
-    -   Then the total unique elements are \$\frac{s(s+1)}{2}
+    -   Then the total unique elements are $\frac{s(s+1)}{2}$
 
 ## More on the "T-rule"
 
@@ -285,13 +305,15 @@ $$ {#eq-reg6}
 
 ## Data Analytic Plan
 
-1.  Constructed our model
+1.  Model building: Constructed our model
 
-2.  Verified it was identified using the t-rule and that it is a recursive model
+2.  Identification checking (new): Verified it was identified using the t-rule and that it is a recursive model
 
-3.  Estimate the model with R
+3.  Model fitting: Estimate the model with R
 
-4.  Check model fit
+4.  Model evaluation (new): Check model fit
+
+5.  Model summary: extract results of models
 
 ## Path Model: `lavaan` syntax
 
@@ -323,8 +345,9 @@ msc  ~~ msc
 cc   ~~ cc  
 hsl  ~~ hsl
 
-#endogenous variable residual covariances
-#none specfied in the original model so these have zeros:
+# endogenous variable residual covariances
+# this is optional, because by default lavaan will assume their residuals are zero-correlated
+# none specfied in the original model so these have zeros:
 perf ~~ 0*use + 0*mse + 0*msc + 0*cc + 0*hsl
 use  ~~ 0*mse + 0*msc + 0*cc + 0*hsl
 mse  ~~ 0*msc + 0*cc + 0*hsl
@@ -348,13 +371,13 @@ inspect(model01.fit, what="converged")
 
 -   Second, we check for abnormally large standard errors:
 
-    -   None too big, relative to the size of the parameter
+    -   None too large, relative to the size of the parameter
 
-    -   Indicates identified mdoel
+    -   Indicates identified model
 
-        ```{r}
-        parameterestimates(model01.fit) |> filter(op != "~~")
-        ```
+```{r}
+parameterestimates(model01.fit) |> filter(op != "~~")
+```
 
 -   Third, we look at the model fit statistics.
 
@@ -447,22 +470,30 @@ Loglikelihood and Information Criteria:
 3.  The RMSEA estimate is 0.126. Good fit is considered 0.05 or less.
 4.  The CFI estimate is .917 and the TLI is .806. Good fit is considered 0.95 or higher.
 
--   Based on the model fit statistics, we can conclude that our model does not do a good job of approximating the covariance matrix – so we cannot make inferences with these results (biased standard errors and effects may occur)
+-   Based on the model fit statistics, we conclude that our model does not adequately approximate the covariance matrix. Therefore, inferences from these results may be unreliable due to potentially biased standard errors and parameter estimates
 
 ## Model Modification Method 1: Check Residual Covariance
 
--   Now that we have concluded that our model fit is poor we must modify the model to make the fit better
+-   Having concluded that our model fit is inadequate, we must modify the model to improve fit
 
-    -   Our modifications are purely statistical – which draws into question their generalizability beyond this sample
+    -   These modifications are data-driven rather than theory-driven, which raises concerns about their generalizability beyond this sample
 
--   Generally, model modification should be guided by theory
+-   Ideally, model modifications should be guided by substantive theory
 
-    -   However, we can inspect the normalized residual covariance matrix (like z- scores) to see where our biggest misfit occurs
-    -   One normalized residual covariance is bigger than +/-1.96: MSC with USE and CC with Female
+    -   However, we can inspect the normalized residual covariance matrix (analogous to z-scores) to identify areas of greatest misfit
+    -   Several normalized residual covariance exceeds the absolute value of 1.96: MSC with USE and CC with Female
 
     ```{r}
-    residuals(model01.fit, type = "normalized")
+    resid(model01.fit, type = "normalized")$cov
     ```
+
+-  `use - msc` (5.051) and `female - cc` (-2.577) have large residuals
+
+```{r}
+sampleCov <- inspect(model01.fit, "sampstat")$cov # covariance matrix from data
+modelImpliedCov <- inspect(model01.fit, "cov.ov") # model implied covariance matrix
+sampleCov - modelImpliedCov
+```
 
 ## Our Destination: Overall Path Model
 
@@ -470,10 +501,10 @@ Loglikelihood and Information Criteria:
 
 -   The largest normalized covariances suggest relationships that may be present that are not being modeled:
 
-    -   Add a direct effect between F and CC
-    -   Add a direct effect between MSC and USE OR Add a residual covariance between MSC and USE
+    -   Add a direct effect between Female and CC
+    -   Add a direct effect (residual covariance) between MSC and USE
 
-## Model Midification Method 2: More Help for Fit
+## Model Modification Method 2: More Help for Fit
 
 -   As we used Maximum Likelihood to estimate our model, another useful feature is that of the modification indices
 
@@ -494,10 +525,10 @@ head(model01.mi, 10)
 -   Note: the MI value is -2 times the change in the log-likelihood and the EPC is the expected parameter value
     -   The MI is like a 1 DF Chi-Square Deviance test
         -   Values greater than 3.84 are likely to be significant changes in the log-likelihood
--   All three are for the same variable: so we can only choose one
-    -   This is where theory would help us decide
+-   All three modifications involve the same variables; therefore, we can only select one
+    -   Substantive theory would ideally guide this decision
 -   As we do not know theory, we will choose to add a residual covariance between USE and MSC ( the “\~\~” symbol)
-    -   Their covariance is unexplained by the model – not a great theoretical statement (but will allow us to make inferences if the model fits)
+    -   This acknowledges that their covariance remains unexplained by the specified model structure—not an ideal theoretical solution, but one that may enable valid inference if adequate model fit is achieved
     -   MI = 41.517
     -   EPC = 70.912
 
@@ -549,15 +580,13 @@ cc   ~~ 0*hsl
 #estimate model
 model02.fit = sem(model02.syntax, data=dataMath, mimic = "MPLUS", estimator = "MLR")
 
-summary(model02.fit, standardized = TRUE)
-
 #see if model converged
 inspect(model02.fit, what="converged")
 ```
 
 ```{r}
 #| echo: true
-#| eval: false
+#| eval: true
 #show summary of model fit statistics and parameters
 summary(model02.fit, standardized=TRUE, fit.measures=TRUE)
 ```
@@ -575,26 +604,27 @@ fitmeasures(model02.fit)[needed_fitIndex]
     -   The RMSEA is 0.049, which indicates good fit
     -   The CFI and TLI both indicate good fit (CFI/TLI \> .90)
     -   The SRMR also indicates good fit
--   Therefore, we can conclude the model adequately approximates the covariance matrix – meaning we can now inspect our model parameters…but first, let’s check our residual covariances and modification indices
+-   Therefore, we conclude the model adequately approximates the covariance matrix, allowing us to proceed with parameter interpretation. However, we first examine the residual covariances and modification indices
 
 ## Normalized Residual Covariances
 
 ```{r}
-residuals(model02.fit, type = "normalized")
+resid(model02.fit, type = "normalized")$cov
 ```
 
--   Only one normalized residual covariance is bigger than +/- 1.96: CC with Female
-    -   Given the number of covariances we have, this is likely okay
+-   the normalized residual covariance of CC with Female exceeds the absolute value of 1.96
+    -   Given the number of covariances in the model, this is likely acceptable
 
-## Modeification Indices for Model 2
+## Modification Indices for Model 2
 
 ```{r}
 model02.mi = modificationindices(model02.fit, sort. = T)
 head(model02.mi, 10)
 ```
 
--   Now, no modification indices are glaringly large, although some are bigger than 3.84
-    -   We discard these as our model now fits (and adding them may not be meaningful)
+-   No modification indices are substantially large, although some exceed 3.84
+
+    -   These are not pursued given that our model demonstrates adequate fit, and adding these parameters may not be theoretically meaningful
 
 ## More on Modification Indices
 
@@ -647,14 +677,14 @@ Regressions:
     female            0.208    0.154    1.348    0.178    0.208    0.075
 ```
 
--   There are two direct effects that are non-significant:
+-   Two direct effects are not statistically significant:
 
     -   $\beta_{F, HSL} = .208$, p = .178
     -   $\beta_{HSL, PERF} = .153$, p = .152
 
--   We leave these in the model 2, but the overall path model seems to suggest they are not needed
+-   Although we retain these effects in Model 2, the overall path model suggests they may not be necessary
 
-    -   So, I will remove them and re-estimate the model
+    -   Therefore, we will remove them and re-estimate the model
 
 # Model 3: Remove non-significant effects
 
@@ -712,19 +742,19 @@ inspect(model03.fit, what="converged")
 fitmeasures(model03.fit)[needed_fitIndex]
 ```
 
--   Again, the largest normalized residual covariance is that of Female and CC
+-   The largest normalized residual covariance remains that between Female and CC
 
 ```{r}
-residuals(model03.fit, type = "normalized")
+residuals(model03.fit, type = "normalized")$cov
 ```
 
--   MI for direct effect of Female on CC is 5.090, indicating that adding this parameter may improve model fit
+-   The modification index for the direct effect of Female on CC is 5.090, indicating that adding this parameter may improve model fit
 
 ```{r}
 modificationindices(model03.fit, sort. = T)[1:3,]
 ```
 
--   So, we will now add a direct effect of Female on CC
+-   Accordingly, we will add a direct effect from Female to CC
 
 # Model 4: Adding Female on CC
 
@@ -736,9 +766,9 @@ model04.syntax = "
 #endogenous variable equations
 perf ~ msc + mse
 use  ~ mse
-mse  ~ (b_hsl_mse)*hsl + (b_cc_mse)*cc + female 
+mse  ~ hsl + cc + female 
 msc  ~ mse + cc + hsl
-cc   ~ (b_hsl_cc)*hsl + female
+cc   ~ hsl + female
 
 #endogenous variable intercepts
 perf ~ 1
@@ -760,15 +790,8 @@ perf ~~ 0*use + 0*mse + 0*msc + 0*cc
 use  ~~ 0*mse + msc + 0*cc  
 mse  ~~ 0*msc + 0*cc 
 msc  ~~ 0*cc 
-
-#indirect effect of interest:
-ind_hsl_mse := b_hsl_cc*b_cc_mse
-
-#total effect of interest:
-tot_hsl_mse := b_hsl_mse + (b_hsl_cc*b_cc_mse)
 "
 model04.fit = sem(model04.syntax, data=dataMath, mimic = "MPLUS", estimator = "MLR")
-
 ```
 
 ## Model 4: Model Fit Index
@@ -776,14 +799,14 @@ model04.fit = sem(model04.syntax, data=dataMath, mimic = "MPLUS", estimator = "M
 ```{r}
 inspect(model04.fit, what="converged")
 fitmeasures(model04.fit)[needed_fitIndex]
-residuals(model04.fit, type = "normalized")
+residuals(model04.fit, type = "standardized")$cov
 model04.mi <- modificationindices(model04.fit, sort. = T)
 head(model04.mi, 5)
 ```
 
 -   We have: an identified model, a converged algorithm, and stable standard errors, so model fit should be inspected
 
--   No normalized residual covariances are larger than +/- 1.96 – so we appear to have good fit
+-   No normalized residual covariances exceed the absolute value of 1.96, indicating adequate model fit
 
 -   We will leave this model as-is and interpret the results
 
@@ -792,7 +815,7 @@ head(model04.mi, 5)
 -   Interpret each of these parameters as you would in regression:
     -   A one-unit increase in HSL brings about a .695 unit increase in CC, holding Female constant
 
-    -   We can interpret the standardized parameter estimates for all variables except gender
+    -   `std.all`: We can also interpret the standardized parameter estimates for all variables except gender
 
     -   A 1-SD increase in HSL means CC increases by 0.153 SD
 
@@ -812,30 +835,30 @@ sort(inspect(model04.fit, what = 'r2'))
     -   MSE – 0.298
     -   MSC – 0.485
     -   PERF – 0.576
--   Note how college experience and perceived usefulness both have low percentages of variance accounted for by the model
-    -   We could have increased the R2 for USE by adding the direct path between MSC and USE instead of the residual covariance
+-   Note that College Experience and Perceived Usefulness both have relatively low proportions of variance explained by the model
+    -   The R² for Perceived Usefulness could have been increased by specifying a direct path from Math Self-Concept to Perceived Usefulness instead of their residual covariance
 
 ## Overall Model Interpretation
 
 -   High School Experience and Female are significant predictors of College Experience ($\beta_{HSL, CC} = .695, p = .006$ and $\beta_{F, CC} = -1.662, p = .021$)
 
-    -   Females lower than males in College Experience
-    -   More High School Experience means more College Experience
+    -   Female students report lower College Experience than male students
+    -   Greater High School Experience is associated with increased College Experience
 
 -   High School Experience, College Experience, and Gender are significant predictors of Math Self-Efficacy ($\beta_{HSL, MSE}= 4.05, p < .001$; $\beta_{CC, MSE}= .383, p < .001$; $\beta_{F, MSE}= 3.819, p = .001$)
 
-    -   More High School and College Experience means higher Math Self-Efficacy
-    -   Females have higher Math Self-Efficacy than Men
+    -   Greater High School and College Experience are associated with higher Math Self-Efficacy
+    -   Female students demonstrate higher Math Self-Efficacy than male students
 
 -   High School Experience, College Experience, and Math Self-Efficacy are significant predictors of Math Self-Concept ($\beta_{HSL, MSC}= 2.894, p < .001$; $\beta_{CC, MSC}= .545, p < .001$; $\beta_{MSE, MSC}= .692, p < .001$)
 
-    -   More High School and College Experience and higher Math Self-Efficacy mean higher Math Self-Concept
+    -   Greater High School Experience, College Experience, and Math Self-Efficacy are associated with higher Math Self-Concept
 
--   Higher Math Self-Efficacy means significantly higher Perceived Usefulness
+-   Higher Math Self-Efficacy is significantly associated with increased Perceived Usefulness
 
--   Higher Math Self-Efficacy and Math Self-Concept result in higher Math Performance scores
+-   Higher Math Self-Efficacy and Math Self-Concept are associated with improved Math Performance scores
 
--   Math Self-Concept and Perceived Usefulness have a significant residual covariance
+-   Math Self-Concept and Perceived Usefulness exhibit a significant residual covariance
 
 ## Wrapping Up
 
