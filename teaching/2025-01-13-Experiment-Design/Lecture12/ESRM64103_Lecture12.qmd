@@ -112,14 +112,105 @@ ANOVA is Analysis of Variance
 
         > To what extent would we have observed ***instructional‑method differences in math scores if the groups had been equivalent in motivation*** (or verbal proficiency)?
 
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| code-fold: true
+#| code-summary: "Visualization: adjusted differences at common covariate"
+#| fig.width: 12
+#| fig.height: 6
+# Visualizing ANCOVA-adjusted differences at a common covariate value
+# Chunk includes a self-contained simulation to create df used below.
+library(dplyr)
+library(ggplot2)
+
+# -------------------------
+# Simulate data to match lecture narrative
+# -------------------------
+set.seed(2025)
+n_students <- 200
+teaching_methods <- c("lecture", "hands-on", "self-paced")
+group <- sample(teaching_methods, n_students, replace = TRUE)
+
+# Covariate: treat as motivation/verbal-like pretest
+pretest <- rnorm(n_students, mean = 65, sd = 6)
+
+# Method-specific intercepts with common slope (homogeneity of regression)
+intercepts <- c("lecture" = 20, "hands-on" = 25, "self-paced" = 23)
+common_slope <- 0.7
+error <- rnorm(n_students, mean = 0, sd = 5)
+
+df <- tibble(
+  student_id = 1:n_students,
+  method = factor(group, levels = teaching_methods),
+  pretest = pretest
+) |>
+  mutate(
+    posttest = intercepts[as.character(method)] + common_slope * pretest + error
+  )
+
+# -------------------------
+# ANCOVA visualization logic
+# -------------------------
+
+# Fit common-slope model for ANCOVA logic
+ancova_mod <- lm(posttest ~ pretest + method, data = df)
+
+# Pooled slope used in adjusted mean formula
+b <- coef(lm(posttest ~ pretest, data = df))["pretest"]
+
+# Grand covariate mean
+grand_x <- mean(df$pretest)
+
+# Compute adjusted means at the grand covariate mean (classic ANCOVA adjusted means)
+adj_means <- df %>%
+  group_by(method) %>%
+  summarize(
+    ybar = mean(posttest),
+    xbar = mean(pretest),
+    .groups = "drop"
+  ) %>%
+  mutate(adj_mean = ybar - b * (xbar - grand_x))
+
+# Build prediction lines (common slope, method-specific intercepts from ancova_mod)
+newx <- data.frame(pretest = seq(min(df$pretest), max(df$pretest), length.out = 100))
+pred_lines <- do.call(rbind, lapply(levels(df$method), function(m) {
+  tmp <- cbind(newx, method = factor(m, levels = levels(df$method)))
+  tmp$yhat <- predict(ancova_mod, newdata = tmp)
+  tmp
+}))
+
+# Plot: observed points, common-slope lines by group, adjusted mean markers at grand covariate mean
+ggplot(df, aes(x = pretest, y = posttest, color = method)) +
+  geom_point(alpha = 0.5) +
+  geom_line(data = pred_lines, aes(x = pretest, y = yhat, color = method), size = 1) +
+  geom_vline(xintercept = grand_x, linetype = "dashed", color = "grey40") +
+  geom_point(
+    data = adj_means,
+    aes(x = grand_x, y = adj_mean, color = method),
+    size = 3, shape = 18, show.legend = FALSE
+  ) +
+  labs(
+    x = "Covariate (e.g., motivation / verbal proficiency)",
+    y = "Math posttest score",
+    color = "Instructional method",
+    title = "Instructional-method differences if groups were equivalent on the covariate",
+    subtitle = "Points = observed; lines = common-slope fits; diamonds = adjusted means at grand covariate mean"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom")
+```
+
+
 ## ANCOVA definition
 
--   ANCOVA is one way to investigate the effects of these factors.
+-   ANCOVA is one way to investigate the group (treatment) effect controlling for some relevant covariates.
 -   Incorporates information on additional variables (e.g., motivation) directly into the model.
-    -   **To estimate differences in math word‑problem performance as if the groups were equivalent in baseline motivation** (or experience, etc.).
+    -   **To estimate differences in math word‑problem performance as if the groups were equivalent in baseline motivation**.
 -   When comparing groups, we claim that people vary in their scores on the DV for a variety of reasons:
     -   **Treatment Effects (i.e., group differences)** - Ex: Instructional Method
-    -   **Individual Differences** - Ex: Motivation to do well on the math test
+    -   **Individual Differences** - Ex: Individuals vary in their motivation to do well on the math test
     -   **Measurement Error** - Ex: The math assessment is unreliable
     -   These two sources (Individual differences and measurement error) contribute to:
         -   ***Experimental Error***
@@ -228,7 +319,7 @@ ggplot(df, aes(x = height, y = yield, color = genotype)) +
   geom_point(size = 3, alpha = 0.8) +
   scale_color_manual(values = c("A" = "#F8766D", "B" = "#00BA38", "C" = "#619CFF")) +
   theme_minimal(base_size = 14) +
-  labs(x = "height", y = "yield", color = "genotype") +
+  labs(x = "height", y = "weight", color = "genotype") +
   theme(legend.position = "top")
 ```
 :::
@@ -873,6 +964,140 @@ p1 + p2
 -   The best safeguard against confounding is random assignment to groups.
 
 -   Make sure that the covariate you are using is reliable!
+
+
+## Final Exercise: Psychology Scenario (ANCOVA) {.unnumbered}
+
+- Scenario: Therapy effectiveness on anxiety reduction
+- Outcome (continuous): post_anxiety
+- IV (categorical, 3 levels): therapy (CBT, Mindfulness, Control)
+- Covariate 1 (categorical): sex (Female/Male)
+- Covariate 2 (continuous): baseline anxiety (pre_anxiety)
+
+::: panel-tabset
+### Starter Code
+
+```{webr-r}
+#| echo: true
+#| message: false
+#| warning: false
+#| context: setup
+# --- Part A: Data simulation (provided) ---
+set.seed(64103)
+n <- 240
+therapy_levels <- c("Control", "CBT", "Mindfulness")
+therapy <- factor(sample(therapy_levels, n, replace = TRUE), levels = therapy_levels)
+sex <- factor(sample(c("Female", "Male"), n, replace = TRUE))
+pre_anxiety <- pmax(0, rnorm(n, mean = 50, sd = 10))
+intercepts <- c(Control = 10, CBT = 5, Mindfulness = 6)
+sex_effect <- c(Female = 0, Male = 1.5)
+beta_pre <- 0.6
+sigma <- 6
+post_anxiety <- intercepts[therapy] + sex_effect[sex] + beta_pre * pre_anxiety + rnorm(n, 0, sigma)
+psy_df <- data.frame(therapy, sex, pre_anxiety, post_anxiety)
+
+# Expose psy_df as context for subsequent cells
+psy_df
+```
+
+```{webr-r}
+#| echo: true
+#| message: false
+#| warning: false
+# --- Part B: Fill in the blanks ---
+
+# 1) Inspect data
+head(psy_df)
+
+# 2) Check homogeneity of regression slopes: include the interaction term
+mod_interaction <- lm(post_anxiety ~ ___ * ___ + ___, data = psy_df)
+anova(mod_interaction)
+
+# 3) Fit ANCOVA without the interaction if negligible
+mod_ancova <- lm(post_anxiety ~ ___ + ___ + ___, data = psy_df)
+anova(mod_ancova)
+summary(mod_ancova)
+
+# 4) Model diagnostics
+par(mfrow = c(1, 2))
+plot(mod_ancova, which = 1)  # residuals vs fitted
+plot(mod_ancova, which = 2)  # QQ plot
+par(mfrow = c(1, 1))
+
+# 5) Adjusted means at grand baseline
+grand_x <- mean(psy_df$___)
+b <- coef(lm(post_anxiety ~ ___, data = psy_df))["___"]
+adj_tbl <- aggregate(cbind(post_anxiety, pre_anxiety) ~ ___ + ___, data = psy_df, mean)
+adj_tbl$adj_mean <- with(adj_tbl, post_anxiety - b * (pre_anxiety - grand_x))
+
+library(ggplot2)
+ggplot(psy_df, aes(___, ___, color = ___, shape = ___)) +
+  geom_point(alpha = 0.4) +
+  geom_vline(xintercept = grand_x, linetype = "dashed") +
+  geom_point(data = adj_tbl, aes(x = grand_x, y = adj_mean), size = 3, inherit.aes = FALSE) +
+  labs(title = "Adjusted means at common baseline (grand pre_anxiety)", x = "Baseline anxiety", y = "Post anxiety") +
+  theme_minimal()
+```
+
+### Answer Key
+
+```{webr-r}
+#| echo: true
+#| message: false
+#| warning: false
+# Full worked solution
+
+# Assumption: homogeneity of regression slopes (pre_anxiety x therapy)
+mod_interaction <- lm(post_anxiety ~ pre_anxiety * therapy + sex, data = psy_df)
+assump <- anova(mod_interaction)
+assump
+
+# If interaction ns, proceed with ANCOVA
+mod_ancova <- lm(post_anxiety ~ pre_anxiety + therapy + sex, data = psy_df)
+anova_tbl <- anova(mod_ancova)
+coef_tbl <- summary(mod_ancova)
+anova_tbl
+coef_tbl
+
+# Adjusted means at grand covariate
+grand_x <- mean(psy_df$pre_anxiety)
+b <- coef(lm(post_anxiety ~ pre_anxiety, data = psy_df))["pre_anxiety"]
+adj_tbl <- aggregate(cbind(post_anxiety, pre_anxiety) ~ therapy + sex, data = psy_df, mean)
+adj_tbl$adj_mean <- with(adj_tbl, post_anxiety - b * (pre_anxiety - grand_x))
+adj_tbl
+
+# Model diagnostics
+par(mfrow = c(2, 2))
+plot(mod_ancova)
+par(mfrow = c(1, 1))
+
+# Simple pairwise comparisons (Bonferroni) on therapy adjusted means
+if (requireNamespace("emmeans", quietly = TRUE)) {
+  library(emmeans)
+  em <- emmeans(mod_ancova, ~ therapy)
+  pairs(em, adjust = "bonferroni")
+}
+
+# Brief interpretation printouts
+cat("\nHomogeneity of slopes p-value (pre_anxiety:therapy):",
+    signif(assump["pre_anxiety:therapy", "Pr(>F)"], 3), "\n")
+cat("ANCOVA F for therapy (adjusted):",
+    signif(anova_tbl["therapy", "F value"], 3),
+    "p=", signif(anova_tbl["therapy", "Pr(>F)"], 3), "\n")
+```
+
+### Result Report
+
+Based on the ANCOVA analysis, we first evaluated the homogeneity of regression slopes by including the pre_anxiety × therapy interaction in the model along with sex. The interaction was not statistically significant, F(2, 233) = 1.29, p = 0.276, supporting the equal‑slopes assumption for ANCOVA. It implies that participants are homogeneous across treatment and control groups in term of their baseline anxiety levels
+
+We then fit the ANCOVA with post_anxiety as the dependent variable, therapy as the primary factor, and pre_anxiety (continuous) and sex (categorical) as covariates. The omnibus ANCOVA indicated a strong effect of baseline anxiety, F(1, 235) = 200.0, p < .001, a significant main effect of therapy after adjustment, F(2, 235) = 16.38, p < .001, and a significant effect of sex, F(1, 235) = 6.73, p = .010. The overall model explained approximately 50% of the variance in post‑intervention anxiety, R² = .505 (adjusted R² = .496), with a residual standard error of 5.94.
+
+Examining adjusted group differences, relative to Control, CBT was associated with lower adjusted post_anxiety (b = −5.07, SE = 0.93, p < .001), and Mindfulness was also associated with lower adjusted post_anxiety (b = −3.87, SE = 0.93, p < .001). Males exhibited higher adjusted post_anxiety than females (b = 1.99, SE = 0.77, p = .010). The pooled slope relating baseline to post anxiety was significantly positive (b = 0.51, SE = 0.04, p < .001), indicating higher post‑treatment anxiety for participants with higher baseline anxiety.
+
+Adjusted means at the grand baseline level were consistent with these effects (illustrative cell‑specific adjusted means shown in the table), with both CBT and Mindfulness yielding lower adjusted anxiety than Control. Model diagnostics (residuals vs. fitted and Q–Q plot) did not reveal notable violations of linear model assumptions.
+:::
+
+
 
 ## Summary
 
