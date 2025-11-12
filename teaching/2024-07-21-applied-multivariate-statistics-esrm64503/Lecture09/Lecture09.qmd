@@ -292,7 +292,7 @@ MSE_i = \beta_{0,MSE} + \beta_{F,MSE}F_i +\beta_{HSL,MSE}HSL_i + \beta_{CC,MSE}C
 $$ {#eq-reg3}
 
 $$
-MSC_i = \beta_{0, MSE} + \beta_{HSL,MSC}HSL_i + \beta_{CC,MSC} CC_i +  \beta_{MSE,MSC} MSE_i + e_{i,MSC}
+MSC_i = \beta_{0, MSC} + \beta_{HSL,MSC}HSL_i + \beta_{CC,MSC} CC_i +  \beta_{MSE,MSC} MSE_i + e_{i,MSC}
 $$ {#eq-reg4}
 
 $$

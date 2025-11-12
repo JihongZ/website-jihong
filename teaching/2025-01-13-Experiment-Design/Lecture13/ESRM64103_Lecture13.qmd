@@ -386,4 +386,11 @@ ggplot(df_long, aes(x = time, y = performance, group = drug, color = drug)) +
     -    Neither will a mixed model in this case.
 -   Luckily, there are other options: logistic regression and Poisson regression are two common approaches for yes/no and count outcomes, respectively.
 
+
+# Final Words
+
+- Course evaluation opens at Nov 20 6:00 AM to Dec 5 11:59 PM
+
+- Strongly recommend to make some comments [hopefully positive :)] so that the department will recognize my teaching work
+
 # Fin {.unnumbered}
