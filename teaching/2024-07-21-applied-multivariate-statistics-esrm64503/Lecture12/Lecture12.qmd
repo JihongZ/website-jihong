@@ -1,9 +1,9 @@
 ---
 title: "Lecture 12: Principal Components Analysis and Exploratory Factor Analysis"
 subtitle: "ESRM 64503 - PCA and EFA"
-author: "Jihong Zhang*, Ph.D"
+author: "Jihong Zhang, Ph.D."
 institute: | 
-  Educational Statistics and Research Methods (ESRM) Program*
+  Educational Statistics and Research Methods (ESRM) Program
   
   University of Arkansas
 date: "2024-10-09"
@@ -42,11 +42,11 @@ bibliography: references.bib
 
 ## Course Evaluation
 
--   [You will get 2 extra credit points if you finish the course evaluation.]{style="color: royalblue; font-weight: bold"}
+-   [You will receive 2 extra credit points if you complete the course evaluation.]{style="color: royalblue; font-weight: bold"}
 
 | **Course**       | **Course Name**             | **Survey Open** | **Survey Close** |
 |------------------|-----------------------------|-----------------|------------------|
-| ESRM 64503 - 001 | APPLIED MULTIVARIATE STATS  | Nov 21          | Dec 6            |
+| ESRM 64503 - 001 | Applied Multivariate Statistics  | Nov 20 6:00 AM     | Dec 5 11:59 PM           |
 
 ## Today's Class
 
@@ -54,32 +54,35 @@ bibliography: references.bib
 
     -   Principal Components-based exploratory approach (PCA)
     -   Maximum Likelihood-based Exploratory Factor Analysis (EFA)
-    -   Exploratory Structural Equation Modeling
+    -   Exploratory Structural Equation Modeling (ESEM)
 
 ```{r}
 #| output-location: default
 library(ESRM64503)
 library(kableExtra)
 library(tidyverse)
-library(DescTools) # Desc() allows you to quick screen data
-library(lavaan) # Desc() allows you to quick screen data
+library(DescTools) # Desc() allows you to quickly screen data
+library(lavaan)
 # options(digits = 3)
 ```
 
 ## The Logic of Exploratory Analysis
 
--   Exploratory analyses attempt to discover hidden structure in data with little to no user input
-    -   Aside from the selection of analysis and estimation
--   The results from exploratory analyses can be misleading
+-   Exploratory analyses attempt to discover hidden structure in data with minimal user input
+    -   Aside from selecting the analysis and estimation method
+    
+-   Results from exploratory analyses can be misleading
     -   If data do not meet assumptions of model or method selected
     -   If data have quirks that are idiosyncratic to the sample selected
     -   If some cases are extreme relative to others
     -   If constraints made by analysis are implausible
+    
 -   Sometimes, exploratory analyses are needed
-    -   Must construct an analysis that capitalizes on the known features of data
+    -   Construct analyses that capitalize on known features of the data
     -   There are better ways to conduct such analyses
+    
 -   Often, exploratory analyses are not needed
-    -   But are conducted anyway – see a lot of reports of scale development that start with the idea that a construct has a certain number of dimensions
+    -   But are conducted anyway—many scale-development reports start with the idea that a construct has a certain number of dimensions
 
 # Advanced Matrix Operations
 
@@ -91,7 +94,7 @@ $$
 \mathbf{\Lambda\Lambda^T = \Lambda^T\Lambda = I}
 $$
 
--   For example, $\mathbf \Lambda$ is a orthogonal matrix
+-   For example, $\mathbf \Lambda$ is an orthogonal matrix
 
     -   $$
         \mathbf \Lambda = \frac{1}{7}\begin{bmatrix}
@@ -103,36 +106,39 @@ $$
 
 
 -   Orthogonal matrices are characterized by two properties
+    
     1.  The dot product of all row vector multiples is the zero vector
         -   Meaning vectors are orthogonal (or uncorrelated)
-    2.  For each row vector, the sum of all elements is one
+    2.  Each row vector has unit length
         -   Meaning vectors are “normalized”
+        
 -   The matrix above is also called **orthonormal**
     -   The diagonal is equal to 1 (each vector has a unit length)
+    
 -   Orthonormal matrices are used in principal components and exploratory factor analysis
 
 ## Eigenvalues and Eigenvectors
 
--   A square matrix $\mathbf{\Sigma}$ can be decomposed into a set of eigenvalues $\mathbf{\lambda}$ and a set of eigenvectors $\mathbf e$:
+-   A square matrix $\mathbf{\Sigma}$ can be decomposed into a set of eigenvalues $\boldsymbol{\lambda}$ and a set of eigenvectors $\mathbf e$:
 
 $$
 \mathbf{\Sigma e} = \lambda \mathbf{e}
 $$
 
 -   Each eigenvalue has a corresponding eigenvector
-    -   The number equal to the number of rows/columns of $\mathbf{\Sigma}$
+    -   The number equals the number of rows/columns of $\mathbf{\Sigma}$
 -   **Principal components analysis** uses eigenvalues and eigenvectors to reconfigure data
 
 ## R Code: Eigenvalues and Eigenvectors
 
--   In R, we can use `eigen()` function to get eigenvalues and eigenvectors of a square matrix (e.g., a correlation matrix).
+-   In R, we can use the `eigen()` function to obtain eigenvalues and eigenvectors of a square matrix (e.g., a correlation matrix).
 
 ```{r}
 library(ESRM64503)
 ## Correlation matrix of SAT-Verbal and SAT-Math
 sat_corrmat = cor(dataSAT[, c("SATV", "SATM")])
 
-## eignvalues and eigenvectors of correlation matrix:
+## eigenvalues and eigenvectors of the correlation matrix:
 sat_eigen = eigen(x = sat_corrmat, symmetric = TRUE)
 sat_eigen$values # eigenvalues
 sat_eigen$vectors # eigenvectors
@@ -152,7 +158,7 @@ $$
 \mathbf{e}_2 = \begin{bmatrix}-0.707 \\ 0.707\end{bmatrix}
 $$
 
--   These terms will have much greater meaning principal components analysis
+-   These terms will have much greater meaning in principal components analysis
 
 ## Spectral Decomposition
 
@@ -162,7 +168,7 @@ $$
 \mathbf{\Sigma =}\sum_{i=1}^{p} \lambda_i\mathbf{e}_i \mathbf{e}_i^T
 $$
 
-where $i$ is the index of row/column of square matrix
+where $i$ indexes the rows/columns of the square matrix
 
 -   For our example, we can get back to our 2\*2 correlation matrix by combining two matrices of eigenvalues and eigenvectors:
 
@@ -185,7 +191,7 @@ corr_rank1 = sat_eigen$values[1] * tcrossprod(sat_eigen$vectors[,1]) #<1>
 corr_rank1
 ```
 
-1.  `tcrossprod`: $\mathbf{e}\mathbf{e}^T$
+1.  `tcrossprod`: computes $\mathbf{e}\mathbf{e}^T$
 
 ```{r}
 corr_rank2 = corr_rank1 + sat_eigen$values[2] * tcrossprod(sat_eigen$vectors[,2])
@@ -201,7 +207,7 @@ tr(\mathbf\Sigma) = \sum_{i=1}^{p}\lambda_i
 $$
 
 ::: callout-note
-The transformation of data: In Mathematics, an **eigenvector** corresponds to the real nonzero eigenvalues which point in the direction stretched by the transformation; **eigenvalue** is considered as a factor by which it is stretched.
+Interpreting the transformation: An eigenvector indicates the direction stretched by the transformation; the corresponding eigenvalue is the factor by which it is stretched.
 :::
 
 -   In our example, the $tr(\mathbf R) = 1.775 + 0.224 \approx 2$
@@ -216,60 +222,60 @@ $$
 |\mathbf\Sigma| = \prod_{i=1}^p \lambda_i
 $$
 
--   In our example, the $|\mathbf R| = 1.775 * 0.224 \approx .3976$
+-   In our example, $|\mathbf R| = 1.775 \times 0.224 \approx 0.398$
 
 # PRINCIPAL COMPONENTS ANALYSIS (PCA)
 
 ## PCA Overview
 
-1.  **Principal Components Analysis** (PCA) is a method for re-expressing the covariance (or often correlation) between a set of variables
+1.  **Principal Components Analysis** (PCA) is a method for re-expressing the covariance (or correlation) among a set of variables
 
     -   The re-expression comes from creating a set of new variables (linear combinations) of the original variables
 
 2.  PCA has two objectives:
 
-    1.  **Data reduction** - Moving from many original variables down to a few "components"
+    1.  **Data reduction** — reducing many original variables to a few “components”
 
-        -   You have 100 variables, but you only need 7 composite scores that summarizes all 100 variables.
+        -   Example: You have 100 variables, but only need 7 composite scores that summarize them.
 
-    2.  **Interpretation** - Determining which original variables contribute most to the new "components"
+    2.  **Interpretation** — determining which original variables contribute most to the new “components”
 
 ## Goals of PCA
 
--   The **goal** of PCA is to find a set of [*k*]{.underline} principal components (composite variables) that:
+-   The goal of PCA is to find a set of [*k*]{.underline} principal components (composite variables) that:
     -   Is much smaller in number than the original set of V variables
     -   Accounts for nearly all of the total variance
-        -   Total variance = trace of covariance/correlation matrix
--   If these two goals can be accomplished, then the set of [*k*]{.underline} principal components contains almost as much information as the original V variables
+        -   Total variance = trace of the covariance/correlation matrix
+-   If these two goals are accomplished, then the set of [*k*]{.underline} principal components contains almost as much information as the original V variables
     -   Meaning – the components can now replace the original variables in any subsequent analyses
 
 ## Questions when using PCA
 
--   PCA analyses proceed by seeking the answers to two questions:
+-   PCA analyses proceed by addressing two questions:
     1.  How many **components** are needed to “adequately” represent the original data?
-        -   e.g., for 10-item depression survey, we may need one composite score of "deperssion"
-        -   The term "[adequately"]{.underline} is fuzzy (and will be in the analysis)
+        -   Example: For a 10-item depression survey, we may need one composite “depression” score
+        -   The term “[adequately]{.underline}” is subjective and depends on context
     2.  (once #1 has been answered): What does each component represent?
-        -   The term [“represent”]{.underline} is also fuzzy
-        -   e.g., what does the "component" score mean? For one component, it can be interpreted as "general depression level". What about two or three components?
+        -   The term [“represent”]{.underline} is also subjective
+        -   Example: With one component, it may represent “general depression level.” What about two or three components?
 
 ## PCA Features
 
 -   PCA often reveals relationships between variables that were not previously suspected
     -   New interpretations of data and variables often stem from PCA
--   PCA usually serves as more of a means to an end rather than an end it itself
+-   PCA usually serves as a means to an end rather than an end in itself
     -   Components (the new variables) are often used in other statistical techniques
         -   Multiple regression/ANOVA
         -   Cluster analysis
--   Unfortunately, PCA is often intermixed with Exploratory Factor Analysis
-    -   Don’t. Please don’t. Please make it stop.
+-   Unfortunately, PCA is often conflated with Exploratory Factor Analysis
+    -   Please avoid using them interchangeably.
 
 ## PCA Formulas
 
 -   Notation: $Z$ are our new components and $\mathbf Y$ is our original data matrix (with N observations and V variables)
-    -   We will let p be our index for a subject
+-   We will let p be our index for a subject
 -   The new components are linear combinations:
-    -   We can generate V number of components at most, same as number of observed variables:
+    -   We can generate at most V components, the same as the number of observed variables:
 
 $$
 \begin{array}{c}
@@ -280,7 +286,7 @@ Z_{p V}=\mathbf{e}_{V}^{T} \mathbf{Y}=e_{1 V} Y_{p 1}+e_{2 V} Y_{p 2}+\cdots+e_{
 \end{array}
 $$
 
--   The weights of the components ($e_{jk}$) come from the eigenvectors of the covariance or correlation matrix for component k and variable j
+-   The weights of the components ($e_{jk}$) come from the eigenvectors of the covariance or correlation matrix (component k and variable j)
 
 ## Diagram of PCA
 
@@ -292,9 +298,9 @@ $$
 
     -   The variance of a component is given by the eigenvalue associated with the eigenvector for the component
 
--   Using the eigenvalue and eigenvectors means:
+-   Using the eigenvalues and eigenvectors means:
 
-    -   Each successive component has **lower variance**
+    -   Each successive component has lower variance
         -   Var(Z1) \> Var(Z2) \> … \> Var(Zv)
     -   All components are **uncorrelated**
     -   The sum of the variances of the principal components is equal to the **total variance**:
@@ -312,11 +318,11 @@ $$
 
 ## PCA in R
 
--   The R function that does principal components is called `prcomp()`
+-   The R function for principal components is `prcomp()`
 
 ```{r}
 data01 <- dataSAT[, c("SATV", "SATM")]
-# PCA of correlation matrix 
+# PCA of the correlation matrix 
 sat_pca_corr = prcomp(x = data01, scale. = TRUE)
 
 # show the results
@@ -337,10 +343,10 @@ summary(sat_pca_corr)
 #| fig-align: center
 #| fig-width: 18
 #| fig-height: 6
-#create same analysis but with covariance matrix (for visual) scale.=FALSE (covariance matrix) 
+# create the same analysis but with the covariance matrix (for visualization), scale.=FALSE
 sat_pca_cov = prcomp(x = data01, scale. = FALSE)
 
-#create augmented data matrix for plot
+# create augmented data matrix for plot
 data01a = data01
 data01a$type = "Raw"
 
@@ -348,7 +354,7 @@ data01b = data.frame(SATV = sat_pca_cov$x[,1], SATM = sat_pca_cov$x[,2], type="P
 data01c = rbind(data01a, data01b)
 
 plot(x = data01c$SATV, y = data01c$SATM, ylab = "SATM/PC2", xlab = "SATV/PC1", cex.main=1.5, frame.plot=FALSE, col=ifelse(data01c$type=="Raw", "red", "blue"))
-legend(0, 400, pch=1, col=c("red", "blue"), c("Data", "PCs"), bty="o",  box.col="darkgreen", cex=1.5)
+legend(0, 400, pch=1, col=c("red", "blue"), c("Data", "PCs"), bty="o", box.col="darkgreen", cex=1.5)
 ```
 
 ## An empirical example: The Growth of Gambling Access
@@ -385,13 +391,13 @@ legend(0, 400, pch=1, col=c("red", "blue"), c("Data", "PCs"), bty="o",  box.col=
 
 ## Research on Pathological Gambling
 
--   In order to study the etiology of pathological gambling, more variability in responses was needed
--   The **Gambling Research Instrument** (**GRI**; Feasel, Henson, & Jones,2002) was created with 41 Likert-type items
+-   To study the etiology of pathological gambling, more variability in responses was needed
+-   The **Gambling Research Instrument** (**GRI**; Feasel, Henson, & Jones, 2002) was created with 41 Likert-type items
     -   Items were developed to measure each criterion
 -   Example items (ratings: *Strongly Disagree* to *Strongly Agree*):
     -   I worry that I am spending too much money on gambling (C3)
     -   There are few things I would rather do than gamble (C1)
--   The instrument was used on a sample of experienced gamblers from a riverboat casino in a Flat Midwestern State
+-   The instrument was administered to a sample of experienced gamblers from a riverboat casino in a Midwestern state
     -   Casino patrons were solicited after playing roulette
 
 ## The GRI Items
@@ -403,9 +409,9 @@ legend(0, 400, pch=1, col=c("red", "blue"), c("Data", "PCs"), bty="o",  box.col=
     -   4: Slightly Agree
     -   5: Agree
     -   6: Strongly Agree
--   To meet the assumptions of factor analysis, we will treat these responses as being continuous
-    -   This is tenuous at best, but often is the case in factor analysis
-    -   Categorical items would be better….but you’d need another course for how to do that
+-   To meet the assumptions of factor analysis, we will treat these responses as continuous
+    -   This is tenuous at best, but common in factor analysis
+    -   Categorical items would be better…but you’d need another course for how to do that
         -   Hint: Item Response Models
 
 ## The Sample
@@ -413,17 +419,17 @@ legend(0, 400, pch=1, col=c("red", "blue"), c("Data", "PCs"), bty="o",  box.col=
 -   Data were collected from two sources:
     -   112 “experienced” gamblers
         -   Many from an actual casino
-    -   1192 college students from a “rectangular” midwestern state
+    -   1192 college students from a Midwestern state
         -   Many never gambled before
 
 ```{r}
 data02 = read.csv(file="gambling_lecture12.csv",header=TRUE)
-#listwise removal of missing data (common in PCA -- but still a problem)
+# listwise removal of missing data (common in PCA—but still a problem)
 data02a = data02[complete.cases(data02),]
 dim(data02a)
 ```
 
--   Today, we will combine both samples and treat them as homogenous – one sample of 1304 subjects
+-   Today, we will combine both samples and treat them as homogeneous—one sample of 1304 subjects
 
 ## Final 10 items on the scale
 
@@ -445,7 +451,7 @@ dim(data02a)
 -   To answer the question of how many components, two methods are used:
     -   **Scree plot** of eigenvalues (looking for the “elbow”)
     -   **Variance** accounted for (should be \> 70%)
--   We will go with 4 components: (variance accounted for VAC = 75%)
+-   We will retain 4 components (variance accounted for, VAC ≈ 75%)
 -   Variance accounted for is for the total sample variance
 
 ```{r}
@@ -494,7 +500,7 @@ round(gambling_pca_cov$rotation, 3)
 #| output-location: column
 head(gambling_pca_cov$x[, 1:4], 5)
 plot(density(gambling_pca_cov$x[, 1]), 
-     main = "first PC")
+     main = "First PC")
 ```
 
 ## PCA Summary
@@ -755,13 +761,13 @@ chi_sq_test(EFA_4factor)
 
 -   As the four-factor solution fit best, we will interpret it
 
--   Unrotated solution of factor loadings:
+-   Unrotated factor loadings:
 
 ```{r}
 EFA_4factor$loadings
 ```
 
--   F1 has the most number of relationships with all items of gambling (general gambling level?), followed by F2 (special type of gambling?), F3, and F4. It is very difficult to know what each factor really means.
+-   F1 relates to the largest number of items (general gambling level?), followed by F2 (specific gambling tendencies?), F3, and F4. It is difficult to know precisely what each factor represents.
 
 ## Step 3: Rotations of Factor Loadings in EFA
 
@@ -773,11 +779,11 @@ EFA_4factor$loadings
 
 ## Step 3: Types of Classical Rotated Solutions
 
--   Multiple types of rotations exist but two broad categories seem to dominate how they are discussed:
+-   Multiple rotation types exist, but two broad categories dominate discussion:
 
--   Orthogonal rotations: rotations that force the factor correlation to zero (orthogonal factors). The name orthogonal relates to the angle between axes of factor solutions being 90 degrees. The most prevalent is the varimax rotation.
+-   Orthogonal rotations: force factor correlations to zero (axes at 90 degrees). The most prevalent is varimax.
 
--   Oblique rotations: rotations that allow for non-zero factor correlations. The name orthogonal relates to the angle between axes of factor solutions not being 90 degrees. The most prevalent is the promax rotation.
+-   Oblique rotations: allow non-zero factor correlations (axes not at 90 degrees). The most prevalent is promax.
 
     -   These rotations provide an estimate of “factor correlation”
 
@@ -808,7 +814,7 @@ $$
     
 ## Example: Orthogonal Rotation via Varimax
 
--   no factor correlation
+-   No factor correlations
 
 ```{r}
 #varimax rotation
@@ -820,9 +826,9 @@ EFA_4factor_varimax$loadings
 
 ## Example: Oblique Rotation via Promax
 
--   It also brought about the following factor correlations:
+-   Promax rotation also yields factor correlations:
 
--   Each factor explain different sets of items
+-   Each factor explains different sets of items
 
 ```{r}
 #promax rotation
@@ -832,9 +838,9 @@ EFA_4factor_varimax$loadings
 
 ## Wrapping Up
 
--   Today we discussed the world of exploratory factor analysis and found the following:
+-   Today we discussed exploratory factor analysis and found the following:
 
-    1. PCA is what people typically run before they found EFA
-    2. ML EFA is a better option to pick (likelihood based)
-    3. Constraints of EFA employed are hidden!
-    4. Rotations can break without you realizing they do (cannot interpret the factors)
+    1. PCA is often run before EFA
+    2. ML-based EFA is often preferable (likelihood-based)
+    3. Some constraints in EFA are implicit/hidden
+    4. Rotations can fail, making factors hard to interpret
