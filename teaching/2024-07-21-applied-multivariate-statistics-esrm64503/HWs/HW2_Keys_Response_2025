@@ -1,0 +1,20 @@
+## Answer
+0.490 / 0.044/ 0.000
+0.252 / 0.054 / 0.000
+0.156 / 0.055 / 0.004
+
+0.469 / 0.045 / 0.000
+0.190 / 0.054 / 0.000
+0.000 / 0.000 / NA
+
+5445.7 / 5480.4
+5450.8 / 5481.7
+
+7.8104 / 0.005
+
+
+## Instruction
+
+- Check the key/answer file HW2_Keys_Response_2025 and response file hw2_answers.csv , screen and grade them. Draft the scores and feedback. Save them to hw2_scores.txt. Feedback including which item is incorrectly answer and what is true answer for each student.
+- One score for each item, in total, 9 points.
+- Tolerate the decimal place due to small rounding and p-value formatting. Widen tolerance or round to 0 decimals for AIC/BIC.

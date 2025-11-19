@@ -49,6 +49,13 @@ format:
 
 # Introduction
 
+## What is Mixed ANOVA
+
+-   A repeated measures ANOVA analyzes data where the same subjects are measured multiple times (a "within-subjects" factor), while a mixed ANOVA combines both a within-subjects factor and a "between-subjects" factor, which has independent groups. 
+
+-   In essence, a mixed ANOVA is a broader category that can be thought of as a more complex repeated measures design, or as a two-way ANOVA with one within-subjects and one between-subjects facto
+
+
 ## Recall: Repeated Measurement ANOVA
 
 ::::: columns
@@ -57,11 +64,11 @@ format:
 
 | Student | No Tutor | Once per Week | Daily |
 |---------|----------|---------------|-------|
-| Sally   |          |               |       |
-| Bob     |          |               |       |
-| Martes  |          |               |       |
+| Sally   |    X      |               |       |
+| Bob     |          |      X         |       |
+| Martes  |          |               |    X   |
 | ...     | ...      | ...           | ...   |
-| Omar    |          |               |       |
+| Omar    |     X     |               |       |
 
 -   With factorial ANOVA, we put each student in only one condition.
 -   Then, we look at their grades at the end of the intervention.
@@ -72,11 +79,11 @@ format:
 
 | Student | No Tutor | Once per Week | Daily |
 |---------|----------|---------------|-------|
-| Sally   |          |               |       |
-| Bob     |          |               |       |
-| Martes  | ...      | ...           | ...   |
-| ...     | ...      | ...           | ...   |
-| Omar    |          |               |       |
+| Sally   |      X    |         X      |    X   |
+| Bob     |      X    |         X      |     X  |
+| Martes  | X      | X           | X   |
+| ...     | X      | X          | X   |
+| Omar    |    X      |        X       |   X    |
 
 -   With repeated measures ANOVA, we put each student in each of the three conditions.
 -   Then, we look at their grades at the end of each intervention.
@@ -84,15 +91,19 @@ format:
 :::
 :::::
 
-## Sphericity check of RM ANOVA
 
--   Check Sphericity!
-
-![](images/clipboard-2225424405.png)
 
 ## RM ANOVA Table
 
--   Repeated Measure ANOVA
+-   Repeated Measure ANOVA (Y:blood concentration of histamine)
+
+| Person | Drug | Time 1 | Time 2 | Time 3 |
+|--------|--------|--------|--------|--------|
+| Person1 | Drug 1 | $Y_{t_1,p_1}$ | $Y_{t_2,p_1}$ | $Y_{t_3,p_1}$ |
+| Person2 | Drug 1 | $Y_{t_1,p_2}$ | $Y_{t_2,p_2}$ | $Y_{t_3,p_2}$ |
+| ... | ... | ... | ... | ... |
+| Person100 | Drug 3 | $Y_{t_1,p_100}$ | $Y_{t_2,p_100}$ | $Y_{t_3,p_100}$ |
+
 
 ![](images/clipboard-7928177.png)
 
@@ -218,6 +229,10 @@ anova_result$`Mauchly's Test for Sphericity`
 ```
 - If **p < .05**, sphericity is violated, and corrections (Greenhouse-Geisser or Huynh-Feldt) must be applied.
 
+
+::: rmdnote
+Sphericity is an assumption for repeated measures ANOVA that states the variances of the differences between all pairs of within-subject conditions are equal. It's a crucial assumption because a violation can lead to an inflated Type I error rate (a false positive).
+:::
 ---
 
 ### Results
