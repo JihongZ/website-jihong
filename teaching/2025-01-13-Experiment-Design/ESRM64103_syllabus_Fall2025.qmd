@@ -156,7 +156,7 @@ The university does not observe religious holidays; however Campus Council has p
 1.  [Homework 0: Demo](https://forms.office.com/r/v5QU6KMgXc) (2 bonus points)
 2.  [Homework 1](https://forms.cloud.microsoft/r/cenc01MdY9)
 3.  Homework 2
-4.  Homework 3
+4.  [Homework 3](https://forms.gle/exSDTJsvsxMiY2EE8)
 
 Please see the online gradebook for your current grade.
 
@@ -211,7 +211,7 @@ Following materials are only allowed for previewing for students registered in E
 +---------+---------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------+
 | 15      | 11/26   | **No Class: Thanksgiving Break**                                                   |                                                                                                                        |
 +---------+---------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------+
-| 16      | 12/03   |                                                                                    | HW#3                                                                                                                   |
+| 16      | 12/03   |                                                                                    | [HW#3 (Final)](https://forms.gle/exSDTJsvsxMiY2EE8)                                                                    |
 |         |         |                                                                                    |                                                                                                                        |
 |         |         |                                                                                    | Due on 12/10 7PM                                                                                                       |
 +---------+---------+------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------+
