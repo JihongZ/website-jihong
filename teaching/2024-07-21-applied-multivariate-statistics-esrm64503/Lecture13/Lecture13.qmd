@@ -106,7 +106,6 @@ summary(CFA_2factor.model, fit.measures = TRUE, standardized = TRUE)
 3. EFA is not necessary and CFA can be the first step. You just keep revising the model structure until you get acceptable model fitting.
 
 4. Another alternative modeling for dependency among items is network modeling.
->>>>>>> a79e7de (local changes)
 
     -   Need to set the right number of constraints for identification
     -   We set the value of factor loadings for a few items on a few of the factors
@@ -115,7 +114,6 @@ summary(CFA_2factor.model, fit.measures = TRUE, standardized = TRUE)
     -   We keep the factor covariance matrix as an identity
         -   Uncorrelated factors (as in EFA) with variances of one
 
-<<<<<<< HEAD
 -   Benefits of using CFA for exploratory analyses:
 
 -   CFA constraints remove rotational indeterminacy of factor loadings – no rotating is needed (or possible)
