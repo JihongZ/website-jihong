@@ -19,18 +19,27 @@ format:
     number-sections: true
     number-depth: 1
 bibliography: references.bib    
+csl: apa.csl
 #jupyter: python3
 ---
 
-# Presentation Outline
+## About me
 
-1.  What is network analysis?
+::: {layout="[[25,55,-20], [100]]" layout-halign="bottom"}
+![](/presentation/2025-12-02-Presentation-USC/figures/Profile_Official.png)
 
-2.  Why use psychological networks?
+![](/presentation/2025-12-02-Presentation-USC/figures/Career.png)
+:::
 
-3.  An empirical example: longitudinal psychological networks of eating disorders
+## Presentation Outline
 
-4.  Q\&A
+- Part **I**:  What is network analysis?
+
+- Part **II**:  Why use psychological networks?
+
+- Part **III**:  Case Study: longitudinal psychological networks of eating disorders
+
+- Part **IV**:  Q\&A
 
 
 # What Is Network Analysis
@@ -41,27 +50,29 @@ Network analysis is a broad area. It has many names in varied fields:
 
 1.  Graphical Models (Computer Science, Machine Learning)
 2.  Bayesian Network (Computer Science, Educational Measurement)
-3.  Social Network (Sociology)
-4.  Latent Factor Model (Psychology, Education)
-5.  Psychological/Psychometric Network (Psychopathology, Psychology)
-
-1 and 2 focus on probabilistic and causal relationships among variables. 3 and 4 focus on network structure and node importance. 5 focuses on the regression coefficients of structural and measurement models.
+3.  Social Network (Sociology, Social psychology)
+4.  **Latent Factor Model** (Psychology, Education)
+5.  **Psychological/Psychometric Network** (Psychopathology, Psychology)
 
 All five analysis methods have a network-shaped diagram. [**Graphical modeling**]{.underline} is a more general term that can comprise the other network models.
 
-## Research Aims
+## Networks have varied interpretation
 
-1.  Bayesian networks (BN) aim to derive the causal relations between variables.
-2.  Social networks aim to examine the network structure (community, density, or centrality) of [individuals]{.underline}.
-3.  Factor analysis aims to identify latent variables.
-4.  Psychological networks aim to examine the associations among observed variables (topological structures) and their positions in the network.
+1.  Bayesian networks (BN) or graphical models using Directed Acyclic Graphs (DAG). They aim to derive the causal relations between variables using probabilistic model. The relations are either conditional probabilities (discrete BN) and regression coefficients (Gaussian BN).
+
+2.  Social networks aim to examine the network structure (community, density, or centrality) of **social units**. The network edges represent the social relationships.
+
+3.  Latent factor model (factor analysis) aims to identify latent variables. The relations represent the regression coefficients.
+
+4.  Psychological networks aim to examine the associations among observed variables (topological structures). The relations represent the partial correlations using Pairwise Markov random fields or the autoregressive parameters using graphical vector autoregression.
+
 
 ## Examples of Varied Networks
 
-::: {layout="[[40,40], [100]]" layout-halign="bottom"}
-![Bayesian Network (Briganti et al., 2023)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/BN_DAG.png){#fig-BN-DAG}
+::: {layout="[[40,40]]" layout-halign="bottom"}
+![A Tutorial on Bayesian Networks for Psychopathology Researchers [@brigantiTutorialBayesianNetworks2023]](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/BN_DAG.png){#fig-BN-DAG}
 
-![Facebook friendship network in a single undergraduate dorm (Lewis et al., 2008)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/SocialNetwork.png){#fig-social-network}
+![The Taste for Privacy: An Analysis of  College Student Privacy Settings in an  Online Social Network [@lewisTastePrivacyAnalysis2008]. Facebook friendship network in a single undergraduate dorm. Red nodes represent students with private profiles; yellow nodes represent students with public profiles.](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/SocialNetwork.png){#fig-social-network}
 :::
 
 ## Psychological Networks and Network Psychometrics
@@ -81,6 +92,7 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 
 ![Exploratory factor analysis and psychological network analysis of Big Five personality (Borsboom et al., 2021)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png){#fig-GGM}
 
+# Why use psychological networks?
 
 ## Common factor or Mutualism?
 
@@ -99,11 +111,18 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 
 [^1]: Source: https://arc.psych.wisc.edu/self-report/big-five-inventory-bfi/
 
+## Conditional probability or partial correlation?
+
+- BayesNet utilizes the conditional probability P(B|A) to indicate the dependence of child node from parent node. There is assumed direction. The estimation easily become more complex when there are a lot of nodes/variables. 
+
+- Psychological networks utilizes the partial correlations for cross-sectional data. There is no direction assumption between A and B. Easy to estimate the network structure, but the trade-off is:
+    
+    - If a BN is the true structure (collider: A -> C <- B), underlying collider structures can introduce spurious negative edges among variables (two symptoms A and B are negatively connected in psychological networks)
 
 
 ## Statistical Goals of Psychological Networks
 
-1.  Explain the pathways of certain psychological phenomena (A -> B -> C -> A).
+1.  Explain the pathways of certain psychological phenomena (A <-> B <-> C <-> A).
 2.  Identify the most important problems that need intervention during treatment.
 3.  Examine group differences in interactions among observed features
 4.  Examine network density: a denser network indicates more dynamic interactions (individuals are more likely to be activated).
@@ -136,9 +155,11 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 
 2.  Why ED may have a network-like structure
 
--   Some consider the development of ED a longitudinal process (Mallorquí-Bagué et al., 2018).
--   Some argue that the relations between risk factors (emotion, interpersonal relations) and ED are complex (i.e., feedback loops).
+-   Some researchers consider the development of ED a longitudinal process (Mallorquí-Bagué et al., 2018).
+-   Some researchers claimed that the relations between varied risk factors (emotion, interpersonal relations) and ED are complex (i.e., feedback loops).
 -   Additionally, some highlight that boys and girls exhibit gender differences in the developmental process of ED.
+
+**Thus, we consider the interplay between ED, emotional issues, and social issues is a complex ecosystem. Understanding this system in a holistic picture can help with the intervention of ED for clinicians.**
 
 ## Question 2: Why can psychological networks be used for this topic?
 
@@ -231,7 +252,7 @@ We have **22** nodes in further network analysis.
 
 ### 3. Overall network evaluation
 
--   Network stability was measured by correlation stability (CS) coefficients (Epskamp et al., 2018), which estimate the accuracy of network structure and centrality measures using bootstrapping.
+-   Network stability was measured by correlation stability (CS) coefficients [@epskampEstimatingPsychologicalNetworks2018], which estimate the accuracy of network structure and centrality measures using bootstrapping.
 
 ### 4. Test group differences
 
@@ -249,14 +270,14 @@ We have **22** nodes in further network analysis.
  
 -   Accuracy: test the accuracy of node centrality differences using bootstrap sampling.
 
-# Results
+## Results
 
-## Overall Network Stability
+### Overall Network Stability
 
 1.  The multigroup network stability statistics were acceptable for contemporaneous and between-subject networks according to the criterion of CS coefficients above 0.7.
 2.  The temporal network was less stable, with CS coefficients ranging from 0.51 to 0.56.
 
-## Group Differences — Temporal Network
+### Temporal Network Structure (left: boys; right: girls)
 
 ::::: columns
 ::: {.column width="50%"}
@@ -296,7 +317,7 @@ We have **22** nodes in further network analysis.
 
 ::::: columns
 ::: {.column width="60%"}
-![](figures/Node_Strength_Table.png){fig-align="center"}
+![Centrality measures: Boys vs. Girls](figures/Node_Strength_Table.png){fig-align="center"}
 :::
 
 ::: {.column width="40%"}
@@ -311,7 +332,7 @@ We have **22** nodes in further network analysis.
 
 ::::: columns
 ::: {.column width="60%"}
-![](figures/Bridge_Strength_Table.png){fig-align="center"}
+![Bridge strength measures how strongly a node connects to nodes in different communities or clusters within the network.](figures/Bridge_Strength_Table.png){fig-align="center"}
 :::
 
 ::: {.column width="40%"}
@@ -362,6 +383,8 @@ There are still some challenges to examine group differences in the longitudinal
 4.  Groups may differ in the most important nodes and also in less important nodes. What does that mean, and how should we interpret it?
 
 5.  Are groups’ edge weights comparable? For example, if the partial correlation between node A and node B differs by group, how should we interpret that?
+
+# Q&A
 
 ## Thank you.
 
