@@ -361,11 +361,6 @@ We compare constrained vs. unconstrained models with LRT to test structural diff
 
 ## Results
 
-### Overall Network Stability
-
-1.  The multigroup network stability statistics were acceptable for contemporaneous and between-subject networks according to the criterion of CS coefficients above 0.7.
-2.  The temporal network was less stable, with CS coefficients ranging from 0.51 to 0.56.
-
 ### Temporal Network Structure (left: boys; right: girls)
 
 ::::: columns
@@ -379,15 +374,27 @@ We compare constrained vs. unconstrained models with LRT to test structural diff
 :::::
 
 ::: {.notes}
-Contemporaneous and between-person layers are stable; temporal effects are moderately stable. I’ll note where to be cautious when interpreting lagged edges.
-
 These plots show temporal connections. I’ll point out shared patterns and key differences by gender, setting up the summary tables on the next slides.
+:::
+
+## Overall Network Stability
+
+::: {.rmdquote}
+### Correlation Stability
+1.  The multigroup network stability statistics were acceptable for contemporaneous and between-subject networks according to the criterion of CS coefficients above 0.7.
+    - Network models also have SEM model fit indices like RMSEA, TLI, CTI etc.  
+    
+2.  The temporal network was less stable, with CS coefficients ranging from 0.51 to 0.56. Less stable indicates higher residual errors overall.
+:::
+
+::: {.notes}
+Contemporaneous and between-person layers are stable; temporal effects are moderately stable. I’ll note where to be cautious when interpreting lagged edges.
 :::
 
 ## Summary: Group Differences — Temporal Network
 
 ::::: columns
-::: {.column width="50%"}
+::: {.column  width="50%"}
 ### Boys
 
 1.  Sparsity: **8.06%** of non-zero edges (temporal)
@@ -397,7 +404,7 @@ These plots show temporal connections. I’ll point out shared patterns and key 
 5.  Node *Awareness* (Awr) exhibited the highest **bridge strength**
 :::
 
-::: {.column width="50%"}
+::: {.column  width="50%"}
 ### Girls
 
 1.  Sparsity: **10.60%** of non-zero edges (temporal)
@@ -407,6 +414,7 @@ These plots show temporal connections. I’ll point out shared patterns and key 
 5.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **bridge strength**
 :::
 :::::
+
 ::: {.notes}
 Boys and girls have similar average temporal strengths, but different bridging. For boys, Awareness bridges communities; for girls, Weight/Shape Dissatisfaction plays that role. This suggests different intervention targets.
 :::
