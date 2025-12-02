@@ -1,6 +1,6 @@
 ---
 title: "Why Network Analysis? A Longitudinal Eating Disorders Case Study"
-subtitle: "Presentation at University of South Carolina"
+subtitle: "USC Quant Brown Bag"
 author: "Jihong Zhang*, Ph.D."
 categories:
   - Presentation
