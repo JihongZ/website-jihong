@@ -1,5 +1,5 @@
 ---
-title: "From Concepts to Case Study: Longitudinal Psychological Networks of Eating Disorders"
+title: "Why Network Analysis? A Longitudinal Eating Disorders Case Study"
 subtitle: "Presentation at University of South Carolina"
 author: "Jihong Zhang*, Ph.D."
 categories:
@@ -31,6 +31,10 @@ csl: apa.csl
 ![](/presentation/2025-12-02-Presentation-USC/figures/Career.png)
 :::
 
+::: {.notes}
+I’ll briefly introduce myself and my current role. I’ll highlight my research focus on network analysis, measurement, and applications in psychology and education. I’ll touch on recent projects and how they connect to today’s talk.
+:::
+
 ## Presentation Outline
 
 - Part **I**:  What is network analysis?
@@ -40,6 +44,10 @@ csl: apa.csl
 - Part **III**:  Case Study: longitudinal psychological networks of eating disorders
 
 - Part **IV**:  Q\&A
+
+::: {.notes}
+I’ll walk through four parts: a quick primer on network analysis, why psychological networks are useful, a case study on eating disorders using longitudinal networks, and then questions. The goal is to build intuition first, then show practical results.
+:::
 
 
 # What Is Network Analysis
@@ -56,6 +64,10 @@ Network analysis is a broad area. It has many names in varied fields:
 
 All five analysis methods have a network-shaped diagram. [**Graphical modeling**]{.underline} is a more general term that can comprise the other network models.
 
+::: {.notes}
+I’ll set the stage by noting that many fields use network-like models but with different names and goals. The unifying idea is variables as nodes and relationships as edges. Psychological networks are one specific approach within this broader space.
+:::
+
 ## Networks have varied interpretation
 
 1.  Bayesian networks (BN) or graphical models using Directed Acyclic Graphs (DAG). They aim to derive the causal relations between variables using probabilistic model. The relations are either conditional probabilities (discrete BN) and regression coefficients (Gaussian BN).
@@ -66,6 +78,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 
 4.  Psychological networks aim to examine the associations among observed variables (topological structures). The relations represent the partial correlations using Pairwise Markov random fields or the autoregressive parameters using graphical vector autoregression.
 
+::: {.notes}
+Different network traditions answer different questions: causality with DAGs, relationships among people in social networks, latent constructs in factor models, and direct variable interrelations in psychological networks. I’ll emphasize how interpretation of edges changes across these approaches.
+:::
+
 
 ## Examples of Varied Networks
 
@@ -75,6 +91,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 ![The Taste for Privacy: An Analysis of  College Student Privacy Settings in an  Online Social Network [@lewisTastePrivacyAnalysis2008]. Facebook friendship network in a single undergraduate dorm. Red nodes represent students with private profiles; yellow nodes represent students with public profiles.](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/SocialNetwork.png){#fig-social-network}
 :::
 
+::: {.notes}
+Here are two visuals: a DAG illustrating probabilistic causal structure, and a social graph showing real-world ties. These examples help anchor the idea that “network” is a general language, adapted to different phenomena.
+:::
+
 ## Psychological Networks and Network Psychometrics
 
 1.  Network psychometrics is a novel area that represents complex phenomena of measured constructs as sets of elements that interact with each other.
@@ -82,7 +102,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
     -   The mutualism model proposes that basic cognitive abilities directly and positively interact during development.
 3.  Interest in psychological networks has grown as [dynamics or reciprocal causation]{.underline} among variables receive more attention.
     -  For example, individual differences in depression may arise from—and be maintained by—vicious cycles of mutual relationships among symptoms (insomnia -> fatigue -> worrying -> insomnia).
-    
+
+::: {.notes}
+Network psychometrics treats symptoms or behaviors as mutually interacting parts of a system. Inspired by mutualism, we look for reinforcing cycles. This viewpoint is useful when feedback loops, not latent traits alone, drive what we observe.
+:::
 
 ## Latent Factor Model vs. Psychological Network Model
 
@@ -91,6 +114,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 -   [**Psychometric networks**]{.underline}, however, assume that associations between observed features are the reason for the development of one system. In this view, "personality" is the network itself.
 
 ![Exploratory factor analysis and psychological network analysis of Big Five personality (Borsboom et al., 2021)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png){#fig-GGM}
+
+::: {.notes}
+Contrast: factor models explain covariation via common causes; network models explain it via direct interactions among observed features. I’ll emphasize when each is useful and how the interpretation of “personality” differs between the two views.
+:::
 
 # Why use psychological networks?
 
@@ -111,6 +138,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 
 [^1]: Source: https://arc.psych.wisc.edu/self-report/big-five-inventory-bfi/
 
+::: {.notes}
+I’ll use “Openness” as an example. Is the shared variance due to a latent factor, or do the items reinforce each other over time? The mutualism perspective suggests growth through interactions among observed skills or traits.
+:::
+
 ## Conditional probability or partial correlation?
 
 - BayesNet utilizes the conditional probability P(B|A) to indicate the dependence of child node from parent node. There is assumed direction. The estimation easily become more complex when there are a lot of nodes/variables. 
@@ -118,6 +149,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 - Psychological networks utilizes the partial correlations for cross-sectional data. There is no direction assumption between A and B. Easy to estimate the network structure, but the trade-off is:
     
     - If a BN is the true structure (collider: A -> C <- B), underlying collider structures can introduce spurious negative edges among variables (two symptoms A and B are negatively connected in psychological networks)
+
+::: {.notes}
+Bayesian networks use conditional probabilities and direction; psychological networks use partial correlations without assumed direction. I’ll highlight trade-offs: BN is expressive but complex; partial correlations are simpler but can mislead under collider structures.
+:::
 
 
 ## Statistical Goals of Psychological Networks
@@ -127,6 +162,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 3.  Examine group differences in interactions among observed features
 4.  Examine network density: a denser network indicates more dynamic interactions (individuals are more likely to be activated).
 5.  Examine clusters/communities of observed features: some symptoms are more likely to co-occur than others.
+
+::: {.notes}
+Our aims: map pathways, find influential symptoms, compare groups, and understand density and communities. These outcomes can guide assessment and intervention strategies.
+:::
 
 # Case Study: Eating Disorder Network
 
@@ -151,6 +190,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 **The motivation is to obtain a holistic picture of the eating disorders ecosystem.**
 **However, the symptom-level dynamics of eating disorders have not been well investigated.**
 
+::: {.notes}
+I’ll motivate ED as an ecosystem involving emotion regulation and interpersonal problems. Theory and evidence suggest reciprocal effects. We want to see symptom-level dynamics rather than only broad trait scores.
+:::
+
 ## Question 1 (cont.): Why do eating disorders have a network-like structure?
 
 2.  Why ED may have a network-like structure
@@ -161,6 +204,10 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 
 **Thus, we consider the interplay between ED, emotional issues, and social issues is a complex ecosystem. Understanding this system in a holistic picture can help with the intervention of ED for clinicians.**
 
+::: {.notes}
+Longitudinal development, feedback loops, and gender differences point to a network with evolving interactions. A holistic network can reveal leverage points for earlier and more targeted interventions.
+:::
+
 ## Question 2: Why can psychological networks be used for this topic?
 
 [Longitudinal network analysis]{.underline} has been widely applied in psychopathology and is a suitable tool for addressing the problems mentioned in the first general question.
@@ -169,9 +216,13 @@ All five analysis methods have a network-shaped diagram. [**Graphical modeling**
 2.  It allows us to identify the most important symptoms (disordered behaviors) in this complex network.
 3.  It can estimate the temporal effects of one symptom on others while controlling for other variables.
 
+::: {.notes}
+Longitudinal psychological networks fit this problem well. They treat ED behaviors and related traits as interrelated nodes and help us find impactful symptoms while separating temporal from concurrent effects.
+:::
+
 ## Question 2 (cont.): How do we estimate these networks?
 
-We estimated network parameters using the **graphical vector autoregressive** (GVAR; Epskamp, 2020; Wild et al., 2010) algorithm.
+We estimated network parameters using the **graphical vector autoregression** (GVAR; Epskamp, 2020; Wild et al., 2010) algorithm.
 
 We estimate three types of network structures:
 
@@ -181,15 +232,23 @@ We estimate three types of network structures:
 
 3.  **Between-individual** network (individual differences)
 
+::: {.notes}
+We use GVAR to separate three layers: temporal (lagged effects), contemporaneous (same-time residual relations), and between-person (stable differences). Seeing these layers together gives a fuller picture.
+:::
+
 ## Question 3: How to compare groups in longitudinal networks
 
 In network analysis, groups can be compared from three aspects:
 
 1.  **Network structure** (e.g., some nodes connected in group A but not in group B).
 
-2.  **Node-level measures**: node centrality (importance) or node bridging strength (e.g., some nodes may be more central in group A but not in group B).
+2.  **Node-level measures**: node centrality (importance) or node bridging strength (e.g., some nodes may be more connected to other communities).
 
 3.  **Network edge weights** (e.g., node 1 and node 2 may have a strong relationship in group A but a weaker relationship in group B).
+
+::: {.notes}
+Group comparisons can target structure, node-level importance, and specific edges. I’ll preview how we test these differences and what they imply for tailored interventions.
+:::
 
 ## Things to Consider
 
@@ -206,11 +265,19 @@ There are no clear rules for node types; it depends on the theoretical model.
 
 If the network of sample A differs from the network of sample B in terms of network structures or centrality measures, are these merely quantitative differences in parameter estimates, or are they measuring different constructs?
 
+::: {.notes}
+Node choice matters: items, subscales, or latent scores each tell a different story. Also, when networks differ, we must ask if we are measuring the same construct or if differences reflect distinct underlying phenomena.
+:::
+
 ## Research Questions
 
 1.  Are there gender differences in the **network characteristics** of longitudinal networks?
 2.  Are there gender differences in the **network structures** of eating disorder longitudinal networks?
 3.  Are there gender differences in **node centrality and bridge strength** of longitudinal networks?
+
+::: {.notes}
+We ask three questions: do networks differ by gender in overall features, in which nodes connect, and in which nodes are most influential or act as bridges?
+:::
 
 ## Data
 
@@ -222,6 +289,10 @@ If the network of sample A differs from the network of sample B in terms of netw
 
 -   Ages ranged from 11 to 17 years, with a mean of 15.2 years.
 
+::: {.notes}
+The study follows high school students across four waves over 18 months. After cleaning, we analyze 1,540 students with a balanced gender split and typical adolescent ages.
+:::
+
 ## Measures
 
 For network analysis, we used subscales and items as nodes.
@@ -231,6 +302,10 @@ For network analysis, we used subscales and items as nodes.
 3.  **Eating disorders**: 12-item short form of the Eating Disorder Examination Questionnaire (EDE-QS). Twelve items measure different disordered eating behaviors.
 
 We have 26 nodes in the initial networks.
+
+::: {.notes}
+We include emotion regulation subscales, interpersonal problem subscales, and ED items. This mix lets us see how emotional and social factors interact with specific ED behaviors.
+:::
 
 ## Data Analysis
 
@@ -242,17 +317,25 @@ We have 26 nodes in the initial networks.
 
 We have **22** nodes in further network analysis.
 
+
 ### 2. Network estimation
 
 -   Multi-group GVAR was applied to estimate boys’ and girls’ temporal, contemporaneous, and between-subject networks.
 
 -   Furthermore, we pruned the networks and identified the most important nodes and edges using the `prune` function in the `psychonetrics` package in R.
 
+::: {.notes}
+We retain theory-driven subscales for emotion and interpersonal problems. For ED items, we reduce redundancy using the goldbricker method to focus on distinct symptoms.
+
+We fit multi-group GVAR for boys and girls, then prune to improve interpretability and highlight robust edges and nodes.
+:::
+
 ## Data Analysis (Cont.)
 
 ### 3. Overall network evaluation
 
 -   Network stability was measured by correlation stability (CS) coefficients [@epskampEstimatingPsychologicalNetworks2018], which estimate the accuracy of network structure and centrality measures using bootstrapping.
+
 
 ### 4. Test group differences
 
@@ -269,6 +352,12 @@ We have **22** nodes in further network analysis.
 -   Compare estimated node centrality and bridge strength by gender.
  
 -   Accuracy: test the accuracy of node centrality differences using bootstrap sampling.
+
+::: {.notes}
+We assess stability via CS coefficients. This checks whether centrality and structure estimates are reliable under resampling.
+
+We compare constrained vs. unconstrained models with LRT to test structural differences. Then we examine centrality, bridge strength, and use bootstrap tests for accuracy of group differences.
+:::
 
 ## Results
 
@@ -288,6 +377,12 @@ We have **22** nodes in further network analysis.
 ![Girls' temporal network](figures/girls_temporal_MG.jpg){width="100%"}
 :::
 :::::
+
+::: {.notes}
+Contemporaneous and between-person layers are stable; temporal effects are moderately stable. I’ll note where to be cautious when interpreting lagged edges.
+
+These plots show temporal connections. I’ll point out shared patterns and key differences by gender, setting up the summary tables on the next slides.
+:::
 
 ## Summary: Group Differences — Temporal Network
 
@@ -312,6 +407,9 @@ We have **22** nodes in further network analysis.
 5.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **bridge strength**
 :::
 :::::
+::: {.notes}
+Boys and girls have similar average temporal strengths, but different bridging. For boys, Awareness bridges communities; for girls, Weight/Shape Dissatisfaction plays that role. This suggests different intervention targets.
+:::
 
 ## Checking which node's importance is different
 
@@ -327,6 +425,9 @@ We have **22** nodes in further network analysis.
 2.  *Weight/shape control by vomiting or taking laxatives* (EDE-VT) has significant gender differences in node in-strength.
 :::
 :::::
+::: {.notes}
+The table compares centrality by gender. Bootstrap tests indicate meaningful differences for specific ED items. I’ll highlight how out-strength and in-strength map to potential symptom drivers and receivers.
+:::
 
 ## Checking which node's bridge strength is difference
 
@@ -344,6 +445,9 @@ We have **22** nodes in further network analysis.
 **Target nodes for intervention on comorbidity.**
 :::
 :::::
+::: {.notes}
+Bridge strength findings identify nodes that connect ED with emotional and interpersonal domains. Differences suggest gender-specific pathways to comorbidity and potential targets for reducing cross-domain activation.
+:::
 
 ## Discussion: Group Commonalities
 
@@ -355,6 +459,10 @@ We have **22** nodes in further network analysis.
 
 4.  For both groups, nodes related to the **overvaluation of weight/shape** (preoccupation or dissatisfaction) are the most influential factors in ED networks, implying these symptoms should be a main focus for eating disorder interventions.
 
+::: {.notes}
+Common patterns: similar overall temporal impact, strong coupling among ED behaviors, and central roles for weight/shape concerns. These are consistent targets across genders.
+:::
+
 ## Discussion: Group Differences
 
 1.  Network structures of boys and girls are significantly different in terms of the likelihood ratio test (LRT).
@@ -362,6 +470,10 @@ We have **22** nodes in further network analysis.
 3.  A lack of emotional awareness is a potential maintenance factor for boys, which is a novel finding.
 4.  Girls' weight/shape dissatisfaction has stronger impacts on emotion issues and interpersonal issues than boys.
 5.  Girls' weight/shape dissatisfaction is likely bridge eating disorders together with other emotional or social issues.
+
+::: {.notes}
+Differences: denser girls’ networks and different bridge nodes imply higher comorbidity risk for girls and distinct maintenance pathways for boys. I’ll connect these to tailored clinical strategies.
+:::
 
 ## Further Directions
 
@@ -384,6 +496,13 @@ There are still some challenges to examine group differences in the longitudinal
 
 5.  Are groups’ edge weights comparable? For example, if the partial correlation between node A and node B differs by group, how should we interpret that?
 
+::: {.notes}
+We need better construct alignment across genders and more simulation work for inference in multi-group longitudinal networks.
+
+
+Interpretation challenges remain: what do density differences mean? How should we read group differences in centrality and edges in applied contexts? These are active areas for methodological development.
+:::
+
 # Q&A
 
 ## Thank you.
@@ -392,4 +511,12 @@ Let me know if you have any questions.
 
 You can also contact me via [**jzhang\@uark.edu**]{.underline}
 
+::: {.notes}
+Thank you for your attention. I’m happy to take questions now, and you can reach me by email for follow-ups.
+:::
+
 ## Reference
+
+::: {.notes}
+References are provided for methods, measures, and prior findings mentioned today. I’m happy to share code and additional materials upon request.
+:::
