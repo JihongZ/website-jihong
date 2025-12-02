@@ -32,10 +32,13 @@ csl: apa.csl
 :::
 
 ::: {.notes}
-I’ll briefly introduce myself and my current role. I’ll highlight my research focus on network analysis, measurement, and applications in psychology and education. I’ll touch on recent projects and how they connect to today’s talk.
+I’ll briefly introduce myself and my current role. I’ll highlight my research focus on network analysis, structural equation modeling, and AI applications in psychology and education. I’ll touch on recent projects and how they connect to today’s talk.
 :::
 
 ## Presentation Outline
+
+::: {.rmdnote}
+### (35 minutes)
 
 - Part **I**:  What is network analysis?
 
@@ -43,10 +46,15 @@ I’ll briefly introduce myself and my current role. I’ll highlight my researc
 
 - Part **III**:  Case Study: longitudinal psychological networks of eating disorders
 
+### (15 minutes)
+
 - Part **IV**:  Q\&A
 
+:::
+
+
 ::: {.notes}
-I’ll walk through four parts: a quick primer on network analysis, why psychological networks are useful, a case study on eating disorders using longitudinal networks, and then questions. The goal is to build intuition first, then show practical results.
+I’ll walk through four parts: a quick primer on network analysis, why psychological networks are useful, a case study on eating disorders using longitudinal networks, and then questions. The goal is to build the concept of network models first, then show practical results.
 :::
 
 
@@ -169,6 +177,22 @@ Our aims: map pathways, find influential symptoms, compare groups, and understan
 
 # Case Study: Eating Disorder Network
 
+## Research background
+
+Eating disorders are serious issues for college students. The eating disorders symptoms are dangerous and co-occur with other psychological issues, which make the intervention more difficult to implement.
+
+Given the complex relationships between eating disorders with other risky behaviors, we need a novel model to untangle those interplay which can help with further intervention.
+
+-   Q1: Can eating disorders combined with other risky factors be considered a network?
+
+-   Q2: How do we estimate the longitudinal effect using network model?
+
+-   Q3: How to compare groups in longitudinal networks
+
+::: {.notes}
+I'll first talk about the background and research questions. I will talk about the rationales of each RQ later.
+:::
+
 ## Question 1: Can eating disorders be considered a network?
 
 ::::: columns
@@ -208,7 +232,7 @@ I’ll motivate ED as an ecosystem involving emotion regulation and interpersona
 Longitudinal development, feedback loops, and gender differences point to a network with evolving interactions. A holistic network can reveal leverage points for earlier and more targeted interventions.
 :::
 
-## Question 2: Why can psychological networks be used for this topic?
+## Question 2: How do we estimate the longitudinal effecct using network model?
 
 [Longitudinal network analysis]{.underline} has been widely applied in psychopathology and is a suitable tool for addressing the problems mentioned in the first general question.
 
@@ -220,7 +244,7 @@ Longitudinal development, feedback loops, and gender differences point to a netw
 Longitudinal psychological networks fit this problem well. They treat ED behaviors and related traits as interrelated nodes and help us find impactful symptoms while separating temporal from concurrent effects.
 :::
 
-## Question 2 (cont.): How do we estimate these networks?
+## Question 2 (cont.): How do we estimate the longitudinal effecct using network model?
 
 We estimated network parameters using the **graphical vector autoregression** (GVAR; Epskamp, 2020; Wild et al., 2010) algorithm.
 
