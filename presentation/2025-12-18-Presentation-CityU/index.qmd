@@ -393,19 +393,13 @@ By treating EEG signals from different brain regions as nodes in a network, we c
 
 ## Data
 
-:::: columns
-::: {.column width="40%"}
 -   **Sample**: 19 participants completed 8 weeks of FA and OM training with 3 visits per week, resulting in 24 sessions.
 
 -   **Training**: in each session, they completed 20-minutes of standardized audio-guided Focus Attention meditation practice. EEG data was collected
 
--   **Measure**: Self-reported mindfulness of body (SMS_Mind) and mind (SMS_-_Body)
-:::
+-   **Measure**: Self-reported State Mindfulness Scale (SMS_Mind) and mind (SMS_Body)
 
-::: {.column width="60%"}
-![Self-reported State Mindfulness Scale Scores over 24 sessions](figures/Test2_SMSBody_Trend.jpg){.preview-image width="150%"}
-:::
-::::
+![Self-reported State Mindfulness Scale Scores over 24 sessions](figures/Test2_SMSBody_Trend.jpg){width=100%}
 
 ::: {.notes}
 Alpha Power (8-12 Hz)
@@ -425,38 +419,44 @@ Function: Linked to memory formation, navigation, mental effort, executive funct
 
 ## Nodes
 
--   Two Self-reported survey Nodes
+-   [2 State Mindfulness Nodes]{.bigger}
     
     - **SMS_Mind**: the subjective quality of mindfulness of mind (e.g., thoughts, emotions, mental acuity)
     
     - **SMS_Body**: the subjective quality of mindfulness of body (e.g., physical and bodily sensations)
     
--   Six EEG Nodes: **Alpha** and **Theta** power separated across respective frontal, temporal-central, and posterior regions
+-   [6 EEG Nodes]{.bigger}: **Alpha** (8-12 Hz; relaxed wakefulness) and **Theta** (4-8 Hz; light sleep) power separated across respective frontal, temporal-central, and posterior regions
     
-    - frontal alpha
-    - frontal theta
-    - temporal-central alpha
-    - temporal-central theta
-    - posterior alpha
-    - posterior theta
+    - [frontal]{.redcolor} alpha
+    - [frontal]{.redcolor} theta
+    - [temporal-central]{.bluecolor} alpha
+    - [temporal-central]{.bluecolor} theta
+    - [posterior]{.green style="background:yellow"} alpha
+    - [posterior]{.green style="background:yellow"} theta
     
-## Results
+## Results: regularization
+
 
 ::::: columns
 ::: {.column width="50%"}
 
-#### Unregularized psychological network
+
+[Unregularized]{.bluecolor} psychological network
 
 ![](figures/EEG/Present_FA_temporal_network_str_full.jpg)
 :::
 
 ::: {.column width="50%"}
 
-#### Regularized psychological network
+[Regularized]{.redcolor} psychological network
 
 ![](figures/EEG/Present_FA_temporal_network_str.jpg)
 :::
 :::::
+
+::: {style="background:black; text-align:center"}
+[Alpha power]{style="color:pink"}; [Theta power]{style="color:blue"}; [Self-report mindfulness]{style="color:green"}
+:::
 
 ## Discussion
 
@@ -467,25 +467,19 @@ Function: Linked to memory formation, navigation, mental effort, executive funct
 
 ::: {.column width="50%"}
 
--  **Brain is dynamic**!
+-  **Brain is dynamical**
 
     1. Posterior alpha can enhance front theta over time
 
 - **Brain region (topography) matters** 
 
-    1. Frontal alpha power enhances mindfulness of body and mind.
+    1. Frontal alpha power enhances mindfulness, while posterior alpha power suppresses mindfulness of body and mind over time.
     
-    2. Posterior alpha power suppresses mindfulness of body and mind over time.
-    
--  **Different brain activities relate to different outcome**
-
-    1. Posterior theta power enhances mindfulness
-    
-    2. Temporal-cental theta power suppresse mindfulness
+    2. Posterior theta power enhances mindfulness, while yemporal-cental theta power suppresse mindfulness
 
 -   **Identify ideal brain states**
 
-    1. According to centraliy measures, front apha and posterior theta play the most important roles in mediation training.
+    1. According to centraliy measures, front apha and posterior theta are most important EEG signal for FA mediation training.
 :::
 ::::: 
 
@@ -536,9 +530,9 @@ I'll first talk about the background and research questions. I will talk about t
 :::::
 
 ::: discussion
-- Advantages of longitudinal network:
+- [Advantages of longitudinal network]{.bigger}
 
-    1.  It considers symptoms cause each other symtoms time.
+    1.  It considers symptoms cause each other over time.
     2.  It allows us to identify some sysmtoms may play the most important roles across time points
     3.  It allows sex-specific developmental patterns of eating disorders
 
@@ -580,7 +574,7 @@ We ask three questions: do networks differ by gender in overall features, in whi
 
 ## Data & Measures
 
-- Data
+- [Sample]{.redcolor}
 
     -   Four waves of data were collected over 18 months.
     
@@ -590,7 +584,7 @@ We ask three questions: do networks differ by gender in overall features, in whi
     
     -   Ages ranged from 11 to 17 years, with a mean of 15.2 years.
 
-- We used subscales and items as nodes:
+- [Measure]{.redcolor}
 
     1.  **Emotion regulation**: Difficulties in Emotion Regulation Scale (DERS-18). Six subscales measure different aspects of emotion dysregulation: Awareness, Clarity, Goals, Non-acceptance, Impulse, Strategies.
     2.  **Interpersonal problems**: Inventory of Interpersonal Problems—Short Circumplex (IIP-SC). Eight subscales measure varied aspects of interpersonal problems (e.g., domineering, cold, avoidant).
@@ -702,10 +696,6 @@ Bridge strength findings identify nodes that connect ED with emotional and inter
 
 2.  For both groups, nodes related to the **overvaluation of weight/shape** (preoccupation or dissatisfaction) are the most influential factors in ED networks, implying these symptoms should be a main focus for eating disorder interventions.
 
-::: {.notes}
-
-:::
-
 ### Group Differences
 
 1.  Overall network structures of boys and girls are significantly different .
@@ -714,7 +704,6 @@ Bridge strength findings identify nodes that connect ED with emotional and inter
 4.  Overall, nodes in the girls’ network are more densely related, suggesting a higher likelihood of comorbidity for girls.
 
 ::: {.notes}
-
 Common patterns: similar overall temporal impact, strong coupling among ED behaviors, and central roles for weight/shape concerns. These are consistent targets across genders.
 
 
@@ -723,7 +712,7 @@ Differences: denser girls’ networks and different bridge nodes imply higher co
 
 # Further studies: AI psychometrics
 
-AI-enhaced psychometrics is becoming more and more importance.
+AI-enhanced psychometrics is becoming more and more importance.
 
 I shared two of my recent projects with you.
 
@@ -733,7 +722,7 @@ I shared two of my recent projects with you.
 ::: {.column width="40%"}
 -   One of my recent project let AI participants can serve as the data points in psychometric assessment given enough accurate human information.
 
--   Interview-informed LLMs have high alignment with real human responses regarding survey responses.
+-   Interview-informed large language models can align with real human responses regarding survey responses very well.
 :::
 
 ::: {.column width="60%"}
