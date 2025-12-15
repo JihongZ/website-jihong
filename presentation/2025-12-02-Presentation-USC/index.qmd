@@ -44,11 +44,14 @@ I’ll briefly introduce myself and my current role. I’ll highlight my researc
 
 - Part **II**:  Why use psychological networks?
 
-- Part **III**:  Case Study: longitudinal psychological networks of eating disorders
+- Part **III**:  Case Study I --- psychological networks of EEG Data
+
+- Part **IV**:  Case Study II --- longitudinal psychological networks of eating disorders
+
 
 ### (15 minutes)
 
-- Part **IV**:  Q\&A
+- Part **V**:  Q\&A
 
 :::
 
@@ -174,6 +177,33 @@ Bayesian networks use conditional probabilities and direction; psychological net
 ::: {.notes}
 Our aims: map pathways, find influential symptoms, compare groups, and understand density and communities. These outcomes can guide assessment and intervention strategies.
 :::
+
+
+# Case Study: A longitudinal EEG network analysis 
+
+## Research background - Intensive Longitudinal Mindfulness (ILM) project
+
+-   In the area of meditation, there are two types of training: 
+    -   focused attention (FA) meditation
+    -   open monitoring (OM) meditation
+
+-   In recent years, brain activities and cognitive processes engaged during FA and OM mediation are of great research interests.
+
+-   We believe that the topographical distribution of alpha and theta activity across different scalp regions (e.g., frontal, temporal-central, posterior) may also carry important information for distinguishing the nature of these meditative states
+
+## Data
+
+:::: columns
+::: {.column width="40%"}
+-   participants completed 8 weeks of FA and OM training 
+
+-   up to 24 EEG-recorded laboratory practice sessions (3 visits per week), during which they completed 20-minutes of standardized audio-guided FA and OM meditation practice (totaling 40 minutes of practice per session).
+:::
+::: {.column width="60%"}
+![Self-reported State Mindfulness Scale Scores over 24 sessions](figures/Test2_SMSBody_Trend.jpg){.preview-image width="150%"}
+:::
+
+::::
 
 # Case Study: Eating Disorder Network
 

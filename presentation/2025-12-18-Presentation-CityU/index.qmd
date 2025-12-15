@@ -1,0 +1,794 @@
+---
+title: "Network and AI-Driven Approaches in Psychometrics and Behavioral Science: Concepts and Empirical Case Studies"
+subtitle: "USC Quant Brown Bag"
+author: "Jihong Zhang*, Ph.D."
+categories:
+  - Presentation
+  - Network Analysis
+  - Eating Disorders
+institute: | 
+  Educational Statistics and Research Methods (ESRM) Program*
+  
+  University of Arkansas
+date: "2025-12-18"
+format: 
+  uark-revealjs:
+    chalkboard: true
+    embed-resources: false
+    code-fold: true
+    number-sections: true
+    number-depth: 1
+bibliography: references.bib    
+csl: apa.csl
+---
+
+## Abstract {visibility="hidden"}
+
+This research seminar examines network-based approaches in psychometrics and behavioral science, integrating conceptual foundations with empirical demonstrations. We first contrast psychological network models with traditional latent variable frameworks to highlight how network analysis captures the dynamic interplay among symptoms, behaviors, and cognitive processes. Two case studies illustrate these advantages: (1) estimating cognitive networks from EEG data using Gaussian graphical modeling to characterize functional dependence among psychological processes; and (2) modeling longitudinal symptom dynamics in eating disorders with graphical vector autoregression to identify temporal risk pathways and gender-specific mechanisms of symptom maintenance. These applications underscore how network methods enhance theoretical interpretation and inform targeted intervention strategies. The seminar concludes by discussing emerging innovations in AI-augmented psychometrics, including large language models and computational tools that expand the possibilities for measurement, simulation, and adaptive decision-making in applied settings.
+  
+## About me
+
+::: {layout="[[25,55,-20], [100]]" layout-halign="bottom"}
+![](/presentation/2025-12-18-Presentation-CityU/figures/Profile_Official.png)
+
+![](/presentation/2025-12-18-Presentation-CityU/figures/Career.png)
+:::
+
+::: {.notes}
+I’ll briefly introduce myself and my current role. I’ll highlight my research focus on network analysis, structural equation modeling, and AI measurement. I’ll touch on recent projects and how they connect to today’s talk.
+:::
+
+## Research Path
+
+![](/presentation/2025-12-18-Presentation-CityU/figures/research_wordcloud2025.png)
+
+::: {.notes}
+Besides psychometric quantitative methods, my empirical research domains focus on cognitive process of students, psychopathology topics like emotion or eating disorders, or AI assessment
+:::
+
+## Presentation Outline
+
+::: {.rmdnote}
+### 30 miniutes
+
+- Part **I**:  Foundations of network analysis
+
+- Part **II**:  Psychological networks in theory and practice
+
+- Part **III**:  Empirical applications: EEG-based networks and longitudinal eating disorder networks
+
+- Part **IV**:  Emerging directions: AI-augmented psychometric research
+
+
+### 15 minutes
+
+- Part **V**:  Q\&A
+
+:::
+
+
+::: {.notes}
+I’ll walk through four parts: a quick primer on network analysis, why psychological networks are useful, a case study on eating disorders using longitudinal networks, and then questions. The goal is to build the concept of network models first, then show practical results.
+:::
+
+## Today's goal
+
+::: {.discussion}
+1. Illustrate the conceptual foundations of network analysis and distinguish psychological network models from traditional latent variable frameworks.
+
+2. Examine how psychological network analysis (PNA) captures dynamic interplay among symptoms, behaviors, and cognitive processes in complex psychological phenomena.
+
+3. Demonstrate two empirical case studies:
+
+   - EEG-based networks to examine brain activities with self-reported mediation quality
+   - Longitudinal eating disorder networks with graphical vector autoregression, including gender-specific risk pathways
+
+4. Explore emerging innovations in AI-augmented psychometric research
+:::
+
+# What Is Network Analysis
+
+## Network Analysis
+
+Network analysis is a broad area. It has many names in varied fields:
+
+1.  Graphical Model (Computer Science, Machine Learning)
+    
+    - History: Statistical physics, such as large system of particles [@lauritzenGraphicalModels1996a]
+    
+2.  Bayesian Network (Computer Science, Educational Measurement)
+3.  Social Network (Sociology, Social psychology)
+4.  **Latent Factor Model or Structural Equation Model** (Psychology, Education)
+5.  **Psychological/Psychometric Network** (Psychopathology, Psychology)
+
+All five analysis methods have a network-shaped diagram. [**Graphical modeling**]{.underline} is a more general term that can comprise the other network models.
+
+::: {.notes}
+I’ll set the stage by noting that many fields use network-like models but with different names and goals. The unifying idea is variables as nodes and relationships as edges. Psychological networks are one specific approach within this broader space.
+:::
+
+## Key Components in the network
+
+All network models share common structural elements:
+
+1.  **Nodes** (vertices): Random variables, individuals, or units of analysis
+
+2.  **Edges** (links): Relationships or connections between nodes
+    - **Directed** vs. **Undirected**
+    - **Weighted** vs. **Unweighted**
+
+3.  **Adjacency matrix**: Mathematical representation of the network
+    - Rows and columns represent nodes
+    - Entries indicate presence/strength of edges
+
+4.  **Paths** and **Cycles**: Sequences of connected nodes
+
+::: {.notes}
+Before diving into how networks differ, let me clarify the universal building blocks that all network models share:
+
+1. **Nodes** (also called vertices) represent the units of analysis. Depending on the network type, nodes can be variables (psychological symptoms, cognitive abilities), individuals (people in social networks), or other entities. The choice of what constitutes a node is theory-driven and depends on your research question.
+
+2. **Edges** (also called links or connections) represent relationships between nodes. Edges can be:
+   - **Directed** (arrows, indicating asymmetric relationships like A → B) or **Undirected** (lines, indicating symmetric relationships like A — B)
+   - **Weighted** (with numerical values indicating strength of relationship) or **Unweighted** (binary presence/absence of connection)
+
+3. **Adjacency matrix** is the mathematical representation of the network. It's a square matrix where rows and columns represent nodes, and entries indicate whether edges exist (and their weights if applicable). For example, entry (i,j) represents the edge from node i to node j. This matrix is symmetric for undirected networks.
+
+4. **Paths** are sequences of nodes connected by edges (e.g., A → B → C). **Cycles** are paths that return to the starting node (e.g., A → B → C → A). These concepts are important for understanding how effects can propagate through the network and create feedback loops.
+
+These universal components provide the language for describing network structure, regardless of what the nodes and edges represent in your specific application.
+:::
+
+## Networks differ in statistical dependence
+
+Different network models represent distinct types of statistical dependence:
+
+1.  **Bayesian networks** (DAG): **Conditional dependence** P(X | Parents)
+
+2.  **Social networks**: **Observed social relationships** among social units
+
+3.  **Latent factor models**: **Marginal dependence** via common latent causes
+    - Observed variables are **conditionally independent** given latent factors
+
+4.  **Psychological networks**: **Conditional dependence given all other variables**
+    - Partial correlations (cross-sectional) or lagged effects (temporal)
+
+::: {.notes}
+This slide highlights the key statistical distinction across network frameworks:
+
+1. Bayesian networks encode conditional dependence through directed edges. Each variable depends on its parents via conditional probability distributions P(X|Parents). Edges represent direct causal influences in the assumed structure model, making them useful for causal inference.
+
+2. Social networks model observed relationships among social units (people, organizations) rather than statistical dependence between random variables. Edges represent connections like friendships or collaborations.
+
+3. Latent factor models explain marginal dependence (correlations) through common latent causes. The crucial property is that observed variables are conditionally independent given the latent factors. We called that local independence. This is the fundamental assumption that distinguishes latent factor models.
+
+4. Psychological networks capture conditional dependence given all other variables in the system. Edges represent partial correlations (controlling for all other nodes) in Gaussian graphical models, or lagged regression coefficients in temporal models (GVAR). No latent variables are assumed—the network itself is the explanatory model.
+
+The key takeaway: These different dependence structures fundamentally change how we interpret edges and what questions each approach can answer. Choosing the right framework depends on your theoretical assumptions about what generates the observed data.
+:::
+
+
+## Examples of Varied Networks
+
+::: {layout="[[40,40]]" layout-halign="bottom"}
+![A Tutorial on Bayesian Networks for Psychopathology Researchers [@brigantiTutorialBayesianNetworks2023]](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/BN_DAG.png){#fig-BN-DAG}
+
+![The Taste for Privacy: An Analysis of  College Student Privacy Settings in an  Online Social Network [@lewisTastePrivacyAnalysis2008]. Facebook friendship network in a single undergraduate dorm. Red nodes represent students with private profiles; yellow nodes represent students with public profiles.](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/SocialNetwork.png){#fig-social-network}
+:::
+
+::: {.notes}
+Here are two visuals: a DAG illustrating probabilistic causal structure, and a social graph showing real-world ties. These examples help anchor the idea that “network” is a general language, adapted to different phenomena.
+:::
+
+## Psychological Networks and Network Psychometrics
+
+:::: columns
+::: {.column width="30%"}
+![](figures/network_book_cover.png)
+:::
+
+::: {.column width="70%"}
+1.  **Network psychometrics** is a novel psychometric area that represents complex phenomena of measured constructs as sets of elements that interact with each other [@isvoranuNetworkPsychometricsGuide2022].
+
+2.  It is inspired by the [mutualism model]{.red} and research in ecosystem modeling [@kan2019].
+    -   The mutualism model proposes that basic cognitive abilities directly and positively interact during development.
+    
+3.  In recent years, interest in psychological networks as [dynamics or reciprocal causation]{.underline} among variables receive more attention.
+:::
+::::    
+
+::: {.notes}
+Network psychometrics treats symptoms or behaviors as mutually interacting parts of a system. Inspired by mutualism, we look for reinforcing cycles. This viewpoint is useful when feedback loops, not latent traits alone, drive what we observe.
+:::
+
+## Latent Factor Model VS. Psychological Network Model
+
+-   [**Latent factor model**]{.underline} (common factor model) assumes that associations between observed features can be explained by one or more common factors (e.g., agreebleness, conscientiousness).
+
+-   [**Psychometric networks**]{.underline}, however, assume that associations between observed features are the reason for the development of one system. In this view, "personality" is the network itself.
+
+![Exploratory factor analysis and psychological network analysis of Big Five personality (Borsboom et al., 2021)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png){#fig-GGM}
+
+::: {.notes}
+Contrast: factor models explain covariation via common causes; network models explain it via direct interactions among observed features. I’ll emphasize when each is useful and how the interpretation of “personality” differs between the two views.
+:::
+
+# Why use psychological networks?
+
+## Common factor or Mutualism?
+
+-   "**Openness**" dimension: 
+
+    - Q5 (Creativity).	... comes up with new ideas: 	Disagree (1)	to Agree (5) [^1]
+    - Q10 (Curiosity). ... curious about lots of different things: 	Disagree (1)	to Agree (5)
+
+-   Does "openness" really exist?
+
+::: {layout="[[25,25,-40]]" layout-halign="bottom"}
+![Common factor](/presentation/2025-12-18-Presentation-CityU/figures/common_factor.png){#fig-commonality}
+
+![Mutualism](/presentation/2025-12-18-Presentation-CityU/figures/multualism.png){#fig-mutualism}
+:::
+
+[^1]: Source: https://arc.psych.wisc.edu/self-report/big-five-inventory-bfi/
+
+::: {.notes}
+I’ll use “Openness” as an example. Is the shared variance due to a latent factor, or do the items reinforce each other over time? The mutualism perspective suggests growth through interactions among observed skills or traits.
+:::
+
+
+## Density, Centrality, Pathways, and Group Differences
+
+:::::: columns
+::: {.column width="50%"}
+**Aim 1. Network Density**
+
+Assess overall connectivity and sparsity (system activation likelihood)
+
+![](figures/EEG/Network_Sparsity.png)
+:::
+
+::: {.column width="50%"}
+**Aim 2. Identify Pathways**
+
+Map symptom interactions and feedback loops (A ↔ B ↔ C ↔ A)
+![](figures/EEG/pathway.png)
+
+:::
+::::::
+
+
+----
+
+::::: columns
+
+::: {.column width="50%"}
+**Aim 3. Intervention Targets**
+
+Identify the most central/influential nodes for treatment
+
+![](figures/EEG/Network_Centrality.png)
+:::
+
+::: {.column width="50%"}
+**Aim 4. Group Differences**
+
+Compare network structures across populations
+
+![](figures/EEG/Network_Comparison.png)
+
+These analytical goals help bridge theory and practice, guiding both our understanding of psychological phenomena and clinical decision-making.
+:::
+
+::::: 
+
+::: {.notes}
+Psychological network analysis serves multiple applied and theoretical goals:
+
+1. **Identify pathways**: We can map how symptoms or behaviors influence each other over time, including feedback loops (e.g., insomnia → fatigue → worry → insomnia). Understanding these pathways reveals mechanisms of symptom maintenance.
+
+
+3. **Group differences**: We can compare network structures across different populations (e.g., by gender, diagnosis, treatment response) to understand how symptom dynamics differ and tailor interventions accordingly.
+2. **Intervention targets**: By calculating node centrality measures, we identify which symptoms are most influential in the network. Targeting these central nodes in treatment may have cascading positive effects on the entire system.
+
+4. **Network density**: A denser network (more edges) indicates stronger interconnections among symptoms. Individuals with denser networks may be more vulnerable because activating one symptom more easily triggers others, increasing risk for comorbidity.
+
+5. **Symptom communities**: Clustering algorithms can identify groups of symptoms that tend to co-occur, revealing distinct sub-syndromes within broader diagnostic categories. This can inform dimensional approaches to psychopathology.
+
+
+:::
+
+## Cross-sectional vs. Longitudinal network
+
+:::: columns
+::: {.column width="50%"}
+1. **Cross-sectional network**
+
+    - Data: Multivariate cross-section data
+    - Model: Gaussian graphical model (GGM)
+    - Dependence: The variables depend on other variables at the same time
+    - Edge Statistics: Partial Correlation ($r$)
+    - Methodology: Correlation analysis
+    
+![](figures/Introduction/undirect_formula.png)        
+:::
+
+::: {.column width="50%"}
+2. **Longitudinal network (today's focus)**
+
+    - Data: Multivariate time-seires data
+    - Model: Graphical vector autoregressive (VAR) model
+    - Dependence: The values of the variables at time $t$ depend linearly on the values at time $t -1$ 
+    - Edge Statistics: Lag-1 regression coefficient ($\beta$)
+    - Methodology: Granger-causality
+    
+![](figures/Introduction/Longitudinal_Network_Formula.png)    
+:::    
+::::
+
+# Case Study: A longitudinal EEG network analysis 
+
+## Brain Networks
+
+:::: {.macwindow}
+
+::: {style="font-size: 1.50em"}
+The human brain is one of the most complex networks in the world.
+:::
+
+::: {style="text-align: right"}
+-- @farahaniApplicationGraphTheory2019
+:::
+
+::::
+
+
+![](figures/EEG/brain_network_procedure.png)
+
+
+
+::: {.notes}
+studies on its static and dynamic properties have undergone explosive growth in recent years
+:::
+
+## Research background 
+
+-   The team utilize a mediation training called [Focused Attention (FA) meditation]{.redcolor} to improve participants' mediation quality.
+
+-   **Key question**: 
+
+    - [What is the relationship between brain activities and participants' mediation outcomes.]{.bluecolor}
+
+-   **Key assumption**: Alpha and theta power across different brain regions (e.g., frontal, temporal-central, posterior) may also carry important information for distinguishing the nature of mediation status
+
+- Why use network analysis for EEG data?
+
+::: discussion
+:::: columns
+::: column
+1.  **Functional connectivity**: Brain regions interact and coordinate during cognitive processes
+<br>
+2.  **Brain dynamics**: Alpha and theta rhythms reflect neural communication across brain regions
+:::
+::: column
+3.  **Topographical patterns**: Multiple scalp regions (frontal or posterior) form interconnected systems
+<br>
+4.  **Temporal changes**: Longitudinal tracking reveals how brain networks evolve with meditation training
+:::
+::::
+:::
+::: {.notes}
+Network analysis is well-suited for EEG data in meditation research for several reasons:
+
+1. **Functional connectivity**: The brain operates as a complex network where different regions interact and coordinate during cognitive processes like meditation. Network models can capture these dependencies among brain regions, revealing how they work together to produce meditative states.
+
+2. **Brain dynamics**: EEG measures oscillatory brain activity (alpha, theta waves). These rhythms don't occur in isolation—they reflect synchronized neural communication across brain regions. Network analysis can model these synchronization patterns and identify which regions are most strongly coupled during FA vs. OM meditation.
+
+3. **Topographical patterns**: We're measuring activity across multiple scalp regions simultaneously (frontal, temporal-central, posterior). Rather than analyzing each region independently, network analysis captures the system-level organization—which regions form functional hubs, how information flows between regions, and which connections are strongest.
+
+4. **Temporal changes**: With 24 sessions over 8 weeks, we can use longitudinal network methods (like GVAR) to examine how brain network structure evolves with meditation training. Do certain connections strengthen? Do different regions become more central over time? This reveals learning-related plasticity in neural networks.
+
+By treating EEG signals from different brain regions as nodes in a network, we can identify the functional architecture of meditation and how it develops with practice.
+:::
+
+## Data
+
+:::: columns
+::: {.column width="40%"}
+-   **Sample**: 19 participants completed 8 weeks of FA and OM training with 3 visits per week, resulting in 24 sessions.
+
+-   **Training**: in each session, they completed 20-minutes of standardized audio-guided Focus Attention meditation practice. EEG data was collected
+
+-   **Measure**: Self-reported mindfulness of body (SMS_Mind) and mind (SMS_-_Body)
+:::
+
+::: {.column width="60%"}
+![Self-reported State Mindfulness Scale Scores over 24 sessions](figures/Test2_SMSBody_Trend.jpg){.preview-image width="150%"}
+:::
+::::
+
+::: {.notes}
+Alpha Power (8-12 Hz)
+
+State: Relaxed wakefulness, quiet contemplation, drowsiness, eyes closed.
+
+Function: Associated with suppressing irrelevant sensory input, internal focus, proactive cognitive control, and memory encoding/retrieval.
+
+Changes: Decreases (desynchronizes) during focused attention or demanding tasks, increases when relaxed.
+
+Theta Power (4-8 Hz)
+
+State: Drowsiness, light sleep, REM sleep, deep relaxation, creativity.
+
+Function: Linked to memory formation, navigation, mental effort, executive functions, and threat prediction.Changes: Increases with cognitive effort, drowsiness, and during sleep; inversely related to alpha in some tasks
+:::
+
+## Nodes
+
+-   Two Self-reported survey Nodes
+    
+    - **SMS_Mind**: the subjective quality of mindfulness of mind (e.g., thoughts, emotions, mental acuity)
+    
+    - **SMS_Body**: the subjective quality of mindfulness of body (e.g., physical and bodily sensations)
+    
+-   Six EEG Nodes: **Alpha** and **Theta** power separated across respective frontal, temporal-central, and posterior regions
+    
+    - frontal alpha
+    - frontal theta
+    - temporal-central alpha
+    - temporal-central theta
+    - posterior alpha
+    - posterior theta
+    
+## Results
+
+::::: columns
+::: {.column width="50%"}
+
+#### Unregularized psychological network
+
+![](figures/EEG/Present_FA_temporal_network_str_full.jpg)
+:::
+
+::: {.column width="50%"}
+
+#### Regularized psychological network
+
+![](figures/EEG/Present_FA_temporal_network_str.jpg)
+:::
+:::::
+
+## Discussion
+
+::::: columns
+::: {.column width="50%"}
+![](figures/EEG/Present_FA_temporal_network_str.jpg)
+:::
+
+::: {.column width="50%"}
+
+-  **Brain is dynamic**!
+
+    1. Posterior alpha can enhance front theta over time
+
+- **Brain region (topography) matters** 
+
+    1. Frontal alpha power enhances mindfulness of body and mind.
+    
+    2. Posterior alpha power suppresses mindfulness of body and mind over time.
+    
+-  **Different brain activities relate to different outcome**
+
+    1. Posterior theta power enhances mindfulness
+    
+    2. Temporal-cental theta power suppresse mindfulness
+
+-   **Identify ideal brain states**
+
+    1. According to centraliy measures, front apha and posterior theta play the most important roles in mediation training.
+:::
+::::: 
+
+# Case Study: Gender Differences for Eating Disorder Networks
+
+
+## Research background
+
+:::: columns
+
+::: column
+
+-   The present study examined sex-specific, symptom-level relationships among emotion regulation (ER), interpersonal problems (IP), and eating disorder (ED) psychopathology in a large sample of Chinese adolescents [@zhangLongitudinalNetworkAnalysis2024a].
+
+-   **Background**: Eating disorders are serious issues for college students. The eating disorders symptoms are dangerous and co-occur with other psychological issues.
+
+-   **Motivation**: Given the complex relationships between eating disorders with other risky behaviors, we need a novel model to untangle those interplay which can help with further intervention.
+
+-   Assumption: [Eating disorders combined with other risky factors be considered a network?]{.redcolor}
+:::
+
+::: column
+
+![](figures/eating_disorders.jpg)
+:::
+::::
+
+::: {.notes}
+I'll first talk about the background and research questions. I will talk about the rationales of each RQ later.
+:::
+
+## Eating Disorder Network?
+
+::::: columns
+::: {.column width="40%"}
+![](figures/structure.jpg){.preview-image width="100%"}
+:::
+
+::: {.column width="60%"}
+1.  Interrelationships among components—emotion regulation, interpersonal problems, and eating disorders:
+
+    -   **Emotion regulation theory** suggests that difficulties in emotion regulation can result in ED behaviors.
+    
+    -   **Interpersonal psychotherapy theory** posits that interpersonal problems may exacerbate ED [@murphyInterpersonalPsychotherapyEating2012].
+    
+    -   Empirical studies consider these three to constitute an "ecosystem" [@ambwaniInterpersonalDysfunctionAffectregulation2014]. Emotion regulation and interpersonal functioning exhibit reciprocal effects on the maintenance of ED.
+:::
+:::::
+
+::: discussion
+- Advantages of longitudinal network:
+
+    1.  It considers symptoms cause each other symtoms time.
+    2.  It allows us to identify some sysmtoms may play the most important roles across time points
+    3.  It allows sex-specific developmental patterns of eating disorders
+
+**The motivation is to obtain a holistic picture of the eating disorders ecosystem.**
+**However, the symptom-level dynamics of eating disorders have not been well investigated.**
+:::
+
+::: {.notes}
+I’ll motivate ED as an ecosystem involving emotion regulation and interpersonal problems. Theory and evidence suggest reciprocal effects. We want to see symptom-level dynamics rather than only broad trait scores.
+
+Longitudinal psychological networks fit this problem well. They treat ED behaviors and related traits as interrelated nodes and help us find impactful symptoms while separating temporal from concurrent effects.
+:::
+
+
+
+
+
+## Group Comparison and Research Questions
+
+-   In network analysis, groups can be compared from three aspects:
+
+    1.  **Network structure** (e.g., some nodes connected in group A but not in group B).
+    
+    2.  **Node-level measures**: node centrality (importance) or node bridging strength (e.g., some nodes may be more connected to other communities).
+    
+    3.  **Network edge weights** (e.g., node 1 and node 2 may have a strong relationship in group A but a weaker relationship in group B).
+
+-   Research Questions:
+
+    2.  Are there gender differences in the **network structures** of eating disorder longitudinal networks?
+    1.  Are there gender differences in the **network importance** of longitudinal networks?
+    3.  Are there gender differences in **key paths** of longitudinal networks?
+
+::: {.notes}
+Group comparisons can target structure, node-level importance, and specific edges. I’ll preview how we test these differences and what they imply for tailored interventions.
+
+We ask three questions: do networks differ by gender in overall features, in which nodes connect, and in which nodes are most influential or act as bridges?
+:::
+
+## Data & Measures
+
+- Data
+
+    -   Four waves of data were collected over 18 months.
+    
+    -   For each wave, demographic information and self-reports on three questionnaires (emotion regulation, interpersonal problems, and eating disorders) were collected from 1,652 high school students in China.
+    
+    -   After data cleaning, N = 1,540 remained, including 53.9% girls and 46.1% boys.
+    
+    -   Ages ranged from 11 to 17 years, with a mean of 15.2 years.
+
+- We used subscales and items as nodes:
+
+    1.  **Emotion regulation**: Difficulties in Emotion Regulation Scale (DERS-18). Six subscales measure different aspects of emotion dysregulation: Awareness, Clarity, Goals, Non-acceptance, Impulse, Strategies.
+    2.  **Interpersonal problems**: Inventory of Interpersonal Problems—Short Circumplex (IIP-SC). Eight subscales measure varied aspects of interpersonal problems (e.g., domineering, cold, avoidant).
+    3.  **Eating disorders**: 12-item short form of the Eating Disorder Examination Questionnaire (EDE-QS). Twelve items measure different disordered eating behaviors.
+
+We have 26 nodes in the initial networks.
+
+::: {.notes}
+The study follows high school students across four waves over 18 months. After cleaning, we analyze 1,540 students with a balanced gender split and typical adolescent ages.
+
+We include emotion regulation subscales, interpersonal problem subscales, and ED items. This mix lets us see how emotional and social factors interact with specific ED behaviors.
+:::
+
+## Results
+
+### Temporal Network Structure (left: boys; right: girls)
+
+[Emotion Disorder]{style="color:orange"}; [Interpersonal Problems]{style="color:blue"}; [Eating Regulation]{style="color:yellow; background:black"}
+
+::::: columns
+::: {.column width="50%"}
+![Boys' temporal network](figures/boys_temporal_MG.jpg){width="100%"}
+:::
+
+::: {.column width="50%"}
+![Girls' temporal network](figures/girls_temporal_MG.jpg){width="100%"}
+:::
+:::::
+
+::: {.notes}
+These plots show temporal connections. I’ll point out shared patterns and key differences by gender, setting up the summary tables on the next slides.
+:::
+
+## Overall Network Structure
+
+### Correlation Stability
+1.  The multigroup network stability statistics were acceptable for contemporaneous and between-subject networks according to the criterion of CS coefficients above 0.7.
+    
+2.  The temporal network was less stable, with CS coefficients ranging from 0.51 to 0.56. Less stable indicates higher residual errors overall.
+
+
+::::: columns
+::: {.column width="50%"}
+### Boys
+
+1.  Sparsity: **8.06%** of non-zero edges (temporal)
+2.  Strength: Mean (SD) of edge weights is 0.127 (0.094).
+3.  Node *weight/shape preoccupation* (EDE-WP) exhibited the highest **InStrength**
+4.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **OutStrength**
+5.  Node *Awareness* (Awr) exhibited the highest **bridge strength**
+:::
+
+::: {.column width="50%"}
+### Girls
+
+1.  Sparsity: **10.60%** of non-zero edges (temporal)
+2.  Strength: Mean (SD) of edge weights is 0.128 (0.102).
+3.  Node *weight/shape preoccupation* (EDE-WP) exhibited the highest **InStrength**
+4.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **OutStrength**
+5.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **bridge strength**
+:::
+::::: 
+
+::: {.notes}
+Contemporaneous and between-person layers are stable; temporal effects are moderately stable. I’ll note where to be cautious when interpreting lagged edges.
+
+Boys and girls have similar average temporal strengths, but different bridging. For boys, Awareness bridges communities; for girls, Weight/Shape Dissatisfaction plays that role. This suggests different intervention targets.
+:::
+
+## Network Hub differences between sex groups
+
+::::: columns
+::: {.column width="60%"}
+![Centrality measures: Boys vs. Girls](figures/Node_Strength_Table.png){fig-align="center"}
+:::
+
+::: {.column width="40%"}
+1.  *Long periods without eating* (EDE-WE) and *Food preoccupation* (EDE-FP) have significant sex differences in node out-strength.
+2.  *Weight/shape control by vomiting or taking laxatives* (EDE-VT) has significant sex differences in node in-strength.
+:::
+:::::
+::: {.notes}
+The table compares centrality by sex. Bootstrap tests indicate meaningful differences for specific ED items. I’ll highlight how out-strength and in-strength map to potential symptom drivers and receivers.
+:::
+
+## Network conncetor difference between sex groups
+
+::::: columns
+::: {.column width="60%"}
+![Bridge strength measures how strongly a node connects to nodes in different communities or clusters within the network.](figures/Bridge_Strength_Table.png){fig-align="center"}
+:::
+
+::: {.column width="40%"}
+1.  *Awareness* (Awr) and *Goals* (Gls) have higher bridge strength in boys than girls.
+2.  *Weight/shape preoccupation* (EDE-WP) and *Binge eating episode* (EDE-BE) have higher bridge strength in boys than girls.
+
+**Target nodes for intervention on comorbidity.**
+:::
+:::::
+::: {.notes}
+Bridge strength findings identify nodes that connect ED with emotional and interpersonal domains. Differences suggest gender-specific pathways to comorbidity and potential targets for reducing cross-domain activation.
+:::
+
+## Discussion 
+
+### Group Commonalities
+
+1.  Emotion dysregulation has interconnections with eating disorders and interpersonal problems.
+
+2.  For both groups, nodes related to the **overvaluation of weight/shape** (preoccupation or dissatisfaction) are the most influential factors in ED networks, implying these symptoms should be a main focus for eating disorder interventions.
+
+::: {.notes}
+
+:::
+
+### Group Differences
+
+1.  Overall network structures of boys and girls are significantly different .
+2.  For boys, a lack of emotional awareness is a potential maintenance factor, which is a novel finding.
+3.  For girls, weight/shape dissatisfaction has stronger impacts on emotion issues and interpersonal issues than boys and likely serve as connector with emotional and social issues.
+4.  Overall, nodes in the girls’ network are more densely related, suggesting a higher likelihood of comorbidity for girls.
+
+::: {.notes}
+
+Common patterns: similar overall temporal impact, strong coupling among ED behaviors, and central roles for weight/shape concerns. These are consistent targets across genders.
+
+
+Differences: denser girls’ networks and different bridge nodes imply higher comorbidity risk for girls and distinct maintenance pathways for boys. I’ll connect these to tailored clinical strategies.
+:::
+
+# Further studies: AI psychometrics
+
+AI-enhaced psychometrics is becoming more and more importance.
+
+I shared two of my recent projects with you.
+
+## AI data augumentation
+
+:::: columns
+::: {.column width="40%"}
+-   One of my recent project let AI participants can serve as the data points in psychometric assessment given enough accurate human information.
+
+-   Interview-informed LLMs have high alignment with real human responses regarding survey responses.
+:::
+
+::: {.column width="60%"}
+![Behavioral Regulation in Exercise Questionnaire](figures/Future_AI/Figure3_output_BREQ_means.png)
+:::
+::::
+
+----
+
+
+## AI conversational assessment: One in-class quiz example
+
+:::: columns
+::: column
+
+
+
+![](figures/AI_Get_Started.png)
+:::
+
+::: column
+![](figures/AI_Feedback.png)
+:::
+::::
+
+::: {.notes}
+We need better construct alignment across genders and more simulation work for inference in multi-group longitudinal networks.
+
+
+Interpretation challenges remain: what do density differences mean? How should we read group differences in centrality and edges in applied contexts? These are active areas for methodological development.
+:::
+
+
+## Wrap-up
+
+1. We talk about the network analysis framework
+
+2. Two case studies showing network analysis can be widely applied to different research areas
+
+3. We need novel AI-driven methodogly in AI era because AI can serve as research tools or data collection tools.
+
+# Q&A
+
+## Thank you.
+
+Let me know if you have any questions.
+
+You can also contact me via [**jzhang\@uark.edu**]{.underline}
+
+::: {.notes}
+Thank you for your attention. I’m happy to take questions now, and you can reach me by email for follow-ups.
+:::
+
+## Reference
+
+::: {.notes}
+References are provided for methods, measures, and prior findings mentioned today. I’m happy to share code and additional materials upon request.
+:::
