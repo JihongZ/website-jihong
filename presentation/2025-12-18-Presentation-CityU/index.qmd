@@ -692,16 +692,13 @@ Bridge strength findings identify nodes that connect ED with emotional and inter
 
 ### Group Commonalities
 
-1.  Emotion dysregulation has interconnections with eating disorders and interpersonal problems.
-
-2.  For both groups, nodes related to the **overvaluation of weight/shape** (preoccupation or dissatisfaction) are the most influential factors in ED networks, implying these symptoms should be a main focus for eating disorder interventions.
+1.  Emotion dysregulation has consistent interconnections with eating disorders and interpersonal problems across genders.
 
 ### Group Differences
 
-1.  Overall network structures of boys and girls are significantly different .
-2.  For boys, a lack of emotional awareness is a potential maintenance factor, which is a novel finding.
-3.  For girls, weight/shape dissatisfaction has stronger impacts on emotion issues and interpersonal issues than boys and likely serve as connector with emotional and social issues.
-4.  Overall, nodes in the girls’ network are more densely related, suggesting a higher likelihood of comorbidity for girls.
+1.  Overall network structures of boys and girls are significantly different.
+2.  Overall, for boys, the most important bridging nodes were awareness and nonacceptance of the DERS, while weight/shape preoccupation and domineering/controlling emerged as the most central nodes.
+3.  For girls, weight/shape dissatisfaction was identified as the most central symptom and the strongest bridging node.
 
 ::: {.notes}
 Common patterns: similar overall temporal impact, strong coupling among ED behaviors, and central roles for weight/shape concerns. These are consistent targets across genders.
