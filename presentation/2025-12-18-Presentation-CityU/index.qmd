@@ -74,16 +74,14 @@ I’ll walk through four parts: a quick primer on network analysis, why psycholo
 ## Today's goal
 
 ::: {.discussion}
-1. Illustrate the conceptual foundations of network analysis and distinguish psychological network models from traditional latent variable frameworks.
+1. Illustrate the conceptual foundations of network 
 
-2. Examine how psychological network analysis (PNA) captures dynamic interplay among symptoms, behaviors, and cognitive processes in complex psychological phenomena.
-
-3. Demonstrate two empirical case studies:
+2. Demonstrate two empirical case studies:
 
    - EEG-based networks to examine brain activities with self-reported mediation quality
    - Longitudinal eating disorder networks with graphical vector autoregression, including gender-specific risk pathways
 
-4. Explore emerging innovations in AI-augmented psychometric research
+3. Conclude with emerging innovations in AI-augmented psychometric research
 :::
 
 # What Is Network Analysis
@@ -95,19 +93,39 @@ Network analysis is a broad area. It has many names in varied fields:
 1.  Graphical Model (Computer Science, Machine Learning)
     
     - History: Statistical physics, such as large system of particles [@lauritzenGraphicalModels1996a]
-    
+
+:::: columns
+::: column
 2.  Bayesian Network (Computer Science, Educational Measurement)
-3.  Social Network (Sociology, Social psychology)
-4.  **Latent Factor Model or Structural Equation Model** (Psychology, Education)
-5.  **Psychological/Psychometric Network** (Psychopathology, Psychology)
 
-All five analysis methods have a network-shaped diagram. [**Graphical modeling**]{.underline} is a more general term that can comprise the other network models.
-
-::: {.notes}
-I’ll set the stage by noting that many fields use network-like models but with different names and goals. The unifying idea is variables as nodes and relationships as edges. Psychological networks are one specific approach within this broader space.
+![](figures/bayesian_network_example.webp)
 :::
 
-## Key Components in the network
+::: column
+3.  Social Network (Sociology, Social psychology)
+
+![The Taste for Privacy: An Analysis of  College Student Privacy Settings in an  Online Social Network [@lewisTastePrivacyAnalysis2008]. Facebook friendship network in a single undergraduate dorm. Red nodes represent students with private profiles; yellow nodes represent students with public profiles.](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/SocialNetwork.png){#fig-social-network}
+:::
+::::
+
+----
+
+:::: columns
+::: column
+4.  **Latent Factor Model or Structural Equation Model** (Psychology, Education)
+:::
+::: column
+5.  **Psychological Network Analysis** (Psychopathology, Psychology)
+:::
+::::
+
+![Exploratory factor analysis and psychological network analysis of Big Five personality (Borsboom et al., 2021)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png){#fig-GGM}
+
+::: {.notes}
+Note that many fields use network-like models but with different names and goals. The unifying idea is variables as nodes and relationships as edges. Psychological networks are one specific approach within this broader space.
+:::
+
+## Commonality: Key Components in the network
 
 All network models share common structural elements:
 
@@ -139,7 +157,7 @@ Before diving into how networks differ, let me clarify the universal building bl
 These universal components provide the language for describing network structure, regardless of what the nodes and edges represent in your specific application.
 :::
 
-## Networks differ in statistical dependence
+## Uniqueness: Statistical dependence & Purpose
 
 Different network models represent distinct types of statistical dependence:
 
@@ -167,19 +185,6 @@ This slide highlights the key statistical distinction across network frameworks:
 The key takeaway: These different dependence structures fundamentally change how we interpret edges and what questions each approach can answer. Choosing the right framework depends on your theoretical assumptions about what generates the observed data.
 :::
 
-
-## Examples of Varied Networks
-
-::: {layout="[[40,40]]" layout-halign="bottom"}
-![A Tutorial on Bayesian Networks for Psychopathology Researchers [@brigantiTutorialBayesianNetworks2023]](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/BN_DAG.png){#fig-BN-DAG}
-
-![The Taste for Privacy: An Analysis of  College Student Privacy Settings in an  Online Social Network [@lewisTastePrivacyAnalysis2008]. Facebook friendship network in a single undergraduate dorm. Red nodes represent students with private profiles; yellow nodes represent students with public profiles.](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/SocialNetwork.png){#fig-social-network}
-:::
-
-::: {.notes}
-Here are two visuals: a DAG illustrating probabilistic causal structure, and a social graph showing real-world ties. These examples help anchor the idea that “network” is a general language, adapted to different phenomena.
-:::
-
 ## Psychological Networks and Network Psychometrics
 
 :::: columns
@@ -201,19 +206,23 @@ Here are two visuals: a DAG illustrating probabilistic causal structure, and a s
 Network psychometrics treats symptoms or behaviors as mutually interacting parts of a system. Inspired by mutualism, we look for reinforcing cycles. This viewpoint is useful when feedback loops, not latent traits alone, drive what we observe.
 :::
 
+
+# Why use psychological networks?
+
 ## Latent Factor Model VS. Psychological Network Model
 
 -   [**Latent factor model**]{.underline} (common factor model) assumes that associations between observed features can be explained by one or more common factors (e.g., agreebleness, conscientiousness).
 
 -   [**Psychometric networks**]{.underline}, however, assume that associations between observed features are the reason for the development of one system. In this view, "personality" is the network itself.
 
-![Exploratory factor analysis and psychological network analysis of Big Five personality (Borsboom et al., 2021)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png){#fig-GGM}
+![Exploratory factor analysis and psychological network analysis of Big Five personality (Borsboom et al., 2021)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png)
+
+
 
 ::: {.notes}
 Contrast: factor models explain covariation via common causes; network models explain it via direct interactions among observed features. I’ll emphasize when each is useful and how the interpretation of “personality” differs between the two views.
 :::
 
-# Why use psychological networks?
 
 ## Common factor or Mutualism?
 
@@ -237,7 +246,7 @@ I’ll use “Openness” as an example. Is the shared variance due to a latent 
 :::
 
 
-## Density, Centrality, Pathways, and Group Differences
+## Research aims: Density, Centrality, Pathways, and Group Differences
 
 :::::: columns
 ::: {.column width="50%"}
@@ -298,7 +307,7 @@ Psychological network analysis serves multiple applied and theoretical goals:
 
 :::
 
-## Cross-sectional vs. Longitudinal network
+## Data types: Cross-sectional vs. Longitudinal network
 
 :::: columns
 ::: {.column width="50%"}
@@ -326,9 +335,11 @@ Psychological network analysis serves multiple applied and theoretical goals:
 :::    
 ::::
 
-# Case Study: A longitudinal EEG network analysis 
+# Case Study: A longitudinal Electroencephalography (EEG) network analysis 
 
-## Brain Networks
+![](figures/eeg-private.jpg)
+
+## Brain Activity Networks
 
 :::: {.macwindow}
 
@@ -359,7 +370,6 @@ studies on its static and dynamic properties have undergone explosive growth in 
 
     - [What is the relationship between brain activities and participants' mediation outcomes.]{.bluecolor}
 
--   **Key assumption**: Alpha and theta power across different brain regions (e.g., frontal, temporal-central, posterior) may also carry important information for distinguishing the nature of mediation status
 
 - Why use network analysis for EEG data?
 
@@ -382,18 +392,18 @@ Network analysis is well-suited for EEG data in meditation research for several 
 
 1. **Functional connectivity**: The brain operates as a complex network where different regions interact and coordinate during cognitive processes like meditation. Network models can capture these dependencies among brain regions, revealing how they work together to produce meditative states.
 
-2. **Brain dynamics**: EEG measures oscillatory brain activity (alpha, theta waves). These rhythms don't occur in isolation—they reflect synchronized neural communication across brain regions. Network analysis can model these synchronization patterns and identify which regions are most strongly coupled during FA vs. OM meditation.
+2. **Brain dynamics**: EEG measures  brain activity (alpha, theta waves). These rhythms don't occur in isolation—they reflect neural communication across brain regions. Network analysis can model these  patterns and identify which regions are most strongly coupled with meditation process.
 
-3. **Topographical patterns**: We're measuring activity across multiple scalp regions simultaneously (frontal, temporal-central, posterior). Rather than analyzing each region independently, network analysis captures the system-level organization—which regions form functional hubs, how information flows between regions, and which connections are strongest.
+3. **Topographical patterns**: We're measuring activity across multiple scalp regions simultaneously (frontal, temporal-central, posterior). Rather than analyzing each region independently, network analysis captures the system-level connectivity, such as which regions is the functional hubs, how information flows between regions, and which connections are strongest.
 
-4. **Temporal changes**: With 24 sessions over 8 weeks, we can use longitudinal network methods (like GVAR) to examine how brain network structure evolves with meditation training. Do certain connections strengthen? Do different regions become more central over time? This reveals learning-related plasticity in neural networks.
+4. **Temporal changes**: With 24 sessions over 8 weeks, we can use longitudinal network methods (like GVAR) to examine how brain network structure evolves with meditation training. 
 
 By treating EEG signals from different brain regions as nodes in a network, we can identify the functional architecture of meditation and how it develops with practice.
 :::
 
 ## Data
 
--   **Sample**: 19 participants completed 8 weeks of FA and OM training with 3 visits per week, resulting in 24 sessions.
+-   **Sample**: 19 participants completed 8 weeks of F training with 3 visits per week, resulting in 24 sessions.
 
 -   **Training**: in each session, they completed 20-minutes of standardized audio-guided Focus Attention meditation practice. EEG data was collected
 
@@ -475,7 +485,7 @@ Function: Linked to memory formation, navigation, mental effort, executive funct
 
     1. Frontal alpha power enhances mindfulness, while posterior alpha power suppresses mindfulness of body and mind over time.
     
-    2. Posterior theta power enhances mindfulness, while yemporal-cental theta power suppresse mindfulness
+    2. Posterior theta power enhances mindfulness, while temporal-cental theta power suppresse mindfulness
 
 -   **Identify ideal brain states**
 
@@ -483,7 +493,15 @@ Function: Linked to memory formation, navigation, mental effort, executive funct
 :::
 ::::: 
 
-# Case Study: Gender Differences for Eating Disorder Networks
+## Conclusion
+
+::: discussion
+-   In neuroscience, psychological network could be very useful to understand brain activity patterns and their relationships with external behaviours.
+
+-   But, can we use it to understand the complex mental disorders? Symptom network seems a very interesting idea.
+:::
+
+# Case Study: Gender Differences for Eating Disorder Symptom Networks
 
 
 ## Research background
@@ -707,6 +725,14 @@ Common patterns: similar overall temporal impact, strong coupling among ED behav
 Differences: denser girls’ networks and different bridge nodes imply higher comorbidity risk for girls and distinct maintenance pathways for boys. I’ll connect these to tailored clinical strategies.
 :::
 
+## Conclusion
+
+::: discussion
+-   Network psychometrics seems very promising to understand complex psychological phenomenon. 
+
+-   Is there any other novel psychometric areas? AI-driven psychometrics.
+:::
+
 # Further studies: AI psychometrics
 
 AI-enhanced psychometrics is becoming more and more importance.
@@ -770,7 +796,7 @@ Let me know if you have any questions.
 You can also contact me via [**jzhang\@uark.edu**]{.underline}
 
 ::: {.notes}
-Thank you for your attention. I’m happy to take questions now, and you can reach me by email for follow-ups.
+Thank you for your attention. You can reach me by email for follow-ups. I’m happy to take questions now.
 :::
 
 ## Reference
