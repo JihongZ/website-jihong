@@ -35,7 +35,7 @@ This research seminar examines network-based approaches in psychometrics and beh
 :::
 
 ::: {.notes}
-I’ll briefly introduce myself and my current role. I’ll highlight my research focus on network analysis, structural equation modeling, and AI measurement. I’ll touch on recent projects and how they connect to today’s talk.
+I’ll briefly introduce myself and my current role.  I’ll touch on recent projects and how they connect to today’s talk.
 :::
 
 ## Research Path
@@ -43,13 +43,13 @@ I’ll briefly introduce myself and my current role. I’ll highlight my researc
 ![](/presentation/2025-12-18-Presentation-CityU/figures/research_wordcloud2025.png)
 
 ::: {.notes}
-Besides psychometric quantitative methods, my empirical research domains focus on cognitive process of students, psychopathology topics like emotion or eating disorders, or AI assessment
+My research mainly focus on quantitative methods in psychology, such as psychological network analysis, diagnostic measurement, structural equation modeling, and AI measurement. Besides psychometric methods, my empirical research domains cover cognitive process of students, psychopathology topics like emotion or eating disorders, academic motivation, or AI assessment
 :::
 
 ## Presentation Outline
 
 ::: {.rmdnote}
-### 30 miniutes
+### 30 minutes
 
 - Part **I**:  Foundations of network analysis
 
@@ -69,11 +69,7 @@ Besides psychometric quantitative methods, my empirical research domains focus o
 
 ::: {.notes}
 I’ll walk through four parts: a quick primer on network analysis, why psychological networks are useful, a case study on eating disorders using longitudinal networks, and then questions. The goal is to build the concept of network models first, then show practical results.
-:::
 
-## Today's goal
-
-::: {.discussion}
 1. Illustrate the conceptual foundations of network 
 
 2. Demonstrate two empirical case studies:
@@ -84,9 +80,10 @@ I’ll walk through four parts: a quick primer on network analysis, why psycholo
 3. Conclude with emerging innovations in AI-augmented psychometric research
 :::
 
+
 # What Is Network Analysis
 
-## Network Analysis
+## Network Analysis in General
 
 Network analysis is a broad area. It has many names in varied fields:
 
@@ -364,11 +361,11 @@ studies on its static and dynamic properties have undergone explosive growth in 
 
 ## Research background 
 
--   The team utilize a mediation training called [Focused Attention (FA) meditation]{.redcolor} to improve participants' mediation quality.
+-   The team utilize a meditation training called [Focused Attention (FA) meditation]{.redcolor} to improve participants' meditation quality.
 
--   **Key question**: 
+-   **Key question**:
 
-    - [What is the relationship between brain activities and participants' mediation outcomes.]{.bluecolor}
+    - [What is the relationship between brain activities and participants' meditation outcomes.]{.bluecolor}
 
 
 - Why use network analysis for EEG data?
@@ -403,11 +400,11 @@ By treating EEG signals from different brain regions as nodes in a network, we c
 
 ## Data
 
--   **Sample**: 19 participants completed 8 weeks of F training with 3 visits per week, resulting in 24 sessions.
+-   **Sample**: 19 participants completed 8 weeks of FA training with 3 visits per week, resulting in 24 sessions.
 
 -   **Training**: in each session, they completed 20-minutes of standardized audio-guided Focus Attention meditation practice. EEG data was collected
 
--   **Measure**: Self-reported State Mindfulness Scale (SMS_Mind) and mind (SMS_Body)
+-   **Measure**: Self-reported State Mindfulness Scale (SMS_Mind) and body (SMS_Body)
 
 ![Self-reported State Mindfulness Scale Scores over 24 sessions](figures/Test2_SMSBody_Trend.jpg){width=100%}
 
@@ -479,19 +476,23 @@ Function: Linked to memory formation, navigation, mental effort, executive funct
 
 -  **Brain is dynamical**
 
-    1. Posterior alpha can enhance front theta over time
+    1. e.g., Posterior alpha can enhance frontal theta over time
 
 - **Brain region (topography) matters** 
 
-    1. Frontal alpha power enhances mindfulness, while posterior alpha power suppresses mindfulness of body and mind over time.
+    1. e.g., Frontal alpha power enhances mindfulness, while posterior alpha power suppresses mindfulness of body and mind over time.
     
-    2. Posterior theta power enhances mindfulness, while temporal-cental theta power suppresse mindfulness
+    2. e.g., Posterior theta power enhances mindfulness, while temporal-central theta power suppresses mindfulness
 
 -   **Identify ideal brain states**
 
-    1. According to centraliy measures, front apha and posterior theta are most important EEG signal for FA mediation training.
+    1. e.g., According to centrality measures, frontal alpha and posterior theta are most important EEG signal for FA meditation training. 
 :::
 ::::: 
+
+::: notes
+If you have high frontal alpha and posterior theta, you tend to have better meditation experience.
+:::
 
 ## Conclusion
 
@@ -551,7 +552,7 @@ I'll first talk about the background and research questions. I will talk about t
 - [Advantages of longitudinal network]{.bigger}
 
     1.  It considers symptoms cause each other over time.
-    2.  It allows us to identify some sysmtoms may play the most important roles across time points
+    2.  It allows us to identify some symptoms may play the most important roles across time points
     3.  It allows sex-specific developmental patterns of eating disorders
 
 **The motivation is to obtain a holistic picture of the eating disorders ecosystem.**
@@ -580,8 +581,8 @@ Longitudinal psychological networks fit this problem well. They treat ED behavio
 
 -   Research Questions:
 
-    2.  Are there gender differences in the **network structures** of eating disorder longitudinal networks?
-    1.  Are there gender differences in the **network importance** of longitudinal networks?
+    1.  Are there gender differences in the **network structures** of eating disorder longitudinal networks?
+    2.  Are there gender differences in the **network importance** of longitudinal networks?
     3.  Are there gender differences in **key paths** of longitudinal networks?
 
 ::: {.notes}
@@ -696,8 +697,8 @@ The table compares centrality by sex. Bootstrap tests indicate meaningful differ
 :::
 
 ::: {.column width="40%"}
-1.  *Awareness* (Awr) and *Goals* (Gls) have higher bridge strength in boys than girls.
-2.  *Weight/shape preoccupation* (EDE-WP) and *Binge eating episode* (EDE-BE) have higher bridge strength in boys than girls.
+1.  *Awareness* (Awr) and *Goals* (Gls) have significant sex differences.
+2.  *Weight/shape preoccupation* (EDE-WP) and *Binge eating episode* (EDE-BE) have significant sex differences.
 
 **Target nodes for intervention on comorbidity.**
 :::
@@ -715,8 +716,8 @@ Bridge strength findings identify nodes that connect ED with emotional and inter
 ### Group Differences
 
 1.  Overall network structures of boys and girls are significantly different.
-2.  Overall, for boys, the most important bridging nodes were awareness and nonacceptance of the DERS, while weight/shape preoccupation and domineering/controlling emerged as the most central nodes.
-3.  For girls, weight/shape dissatisfaction was identified as the most central symptom and the strongest bridging node.
+2.  Overall, for **boys**, the most important bridging nodes were **awareness** and **nonacceptance** of the DERS, while weight/shape preoccupation and domineering/controlling emerged as the most central nodes.
+3.  For **girls**, **weight/shape dissatisfaction** was identified as the most central symptom and the strongest bridging node.
 
 ::: {.notes}
 Common patterns: similar overall temporal impact, strong coupling among ED behaviors, and central roles for weight/shape concerns. These are consistent targets across genders.
@@ -730,16 +731,16 @@ Differences: denser girls’ networks and different bridge nodes imply higher co
 ::: discussion
 -   Network psychometrics seems very promising to understand complex psychological phenomenon. 
 
--   Is there any other novel psychometric areas? AI-driven psychometrics.
+-   Is there any other novel psychometric areas? My answer is AI-driven psychometrics.
 :::
 
 # Further studies: AI psychometrics
 
-AI-enhanced psychometrics is becoming more and more importance.
+AI-enhanced psychometrics is becoming more and more important.
 
 I shared two of my recent projects with you.
 
-## AI data augumentation
+## AI data augmentation
 
 :::: columns
 ::: {.column width="40%"}
@@ -785,7 +786,7 @@ Interpretation challenges remain: what do density differences mean? How should w
 
 2. Two case studies showing network analysis can be widely applied to different research areas
 
-3. We need novel AI-driven methodogly in AI era because AI can serve as research tools or data collection tools.
+3. We need novel AI-driven methodology in AI era because AI can serve as research tools or data collection tools.
 
 # Q&A
 
