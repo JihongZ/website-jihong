@@ -1,6 +1,6 @@
 ---
 title: "Network and AI-Driven Approaches in Psychometrics and Behavioral Science: Concepts and Empirical Case Studies"
-subtitle: "USC Quant Brown Bag"
+subtitle: "Department of Social and Behavioural Science, CityU, HK"
 author: "Jihong Zhang*, Ph.D."
 categories:
   - Presentation
