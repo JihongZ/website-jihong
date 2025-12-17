@@ -1,0 +1,1562 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{luacolor}
+  \usepackage[soul]{lua-ul}
+\else
+  \usepackage{soul}
+\fi
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Network and AI-Driven Approaches in Psychometrics and Behavioral Science: Concepts and Empirical Case Studies},
+  pdfauthor={Jihong Zhang*, Ph.D.},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Network and AI-Driven Approaches in Psychometrics and Behavioral
+Science: Concepts and Empirical Case Studies}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Department of Social and Behavioural Science, CityU, HK}
+\author{Jihong Zhang*, Ph.D.}
+\date{2025-12-18}
+\begin{document}
+\maketitle
+
+
+\subsection{Abstract}\label{abstract}
+
+This research seminar examines network-based approaches in psychometrics
+and behavioral science, integrating conceptual foundations with
+empirical demonstrations. We first contrast psychological network models
+with traditional latent variable frameworks to highlight how network
+analysis captures the dynamic interplay among symptoms, behaviors, and
+cognitive processes. Two case studies illustrate these advantages: (1)
+estimating cognitive networks from EEG data using Gaussian graphical
+modeling to characterize functional dependence among psychological
+processes; and (2) modeling longitudinal symptom dynamics in eating
+disorders with graphical vector autoregression to identify temporal risk
+pathways and gender-specific mechanisms of symptom maintenance. These
+applications underscore how network methods enhance theoretical
+interpretation and inform targeted intervention strategies. The seminar
+concludes by discussing emerging innovations in AI-augmented
+psychometrics, including large language models and computational tools
+that expand the possibilities for measurement, simulation, and adaptive
+decision-making in applied settings.
+
+\subsection{About me}\label{about-me}
+
+\begin{figure}
+
+\begin{minipage}{0.25\linewidth}
+\pandocbounded{\includegraphics[keepaspectratio]{../../presentation/2025-12-18-Presentation-CityU/figures/Profile_Official.png}}\end{minipage}%
+%
+\begin{minipage}{0.55\linewidth}
+\pandocbounded{\includegraphics[keepaspectratio]{../../presentation/2025-12-18-Presentation-CityU/figures/Career.png}}\end{minipage}%
+%
+\begin{minipage}{0.20\linewidth}
+~\end{minipage}%
+
+\end{figure}%
+
+I'll briefly introduce myself and my current role. I'll touch on recent
+projects and how they connect to today's talk.
+
+\subsection{Research Path}\label{research-path}
+
+\pandocbounded{\includegraphics[keepaspectratio]{../../presentation/2025-12-18-Presentation-CityU/figures/research_wordcloud2025.png}}
+
+My research mainly focus on quantitative methods in psychology, such as
+psychological network analysis, diagnostic measurement, structural
+equation modeling, and AI measurement. Besides psychometric methods, my
+empirical research domains cover cognitive process of students,
+psychopathology topics like emotion or eating disorders, academic
+motivation, or AI assessment
+
+\subsection{Presentation Outline}\label{presentation-outline}
+
+\subsubsection{30 minutes}\label{minutes}
+
+\begin{itemize}
+\item
+  Part \textbf{I}: Foundations of network analysis
+\item
+  Part \textbf{II}: Psychological networks in theory and practice
+\item
+  Part \textbf{III}: Empirical applications: EEG-based networks and
+  longitudinal eating disorder networks
+\item
+  Part \textbf{IV}: Emerging directions: AI-augmented psychometric
+  research
+\end{itemize}
+
+\subsubsection{15 minutes}\label{minutes-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Part \textbf{V}: Q\&A
+\end{itemize}
+
+I'll walk through four parts: a quick primer on network analysis, why
+psychological networks are useful, a case study on eating disorders
+using longitudinal networks, and then questions. The goal is to build
+the concept of network models first, then show practical results.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Illustrate the conceptual foundations of network
+\item
+  Demonstrate two empirical case studies:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    EEG-based networks to examine brain activities with self-reported
+    mediation quality
+  \item
+    Longitudinal eating disorder networks with graphical vector
+    autoregression, including gender-specific risk pathways
+  \end{itemize}
+\item
+  Conclude with emerging innovations in AI-augmented psychometric
+  research
+\end{enumerate}
+
+\section{What Is Network Analysis}\label{what-is-network-analysis}
+
+\subsection{Network Analysis in
+General}\label{network-analysis-in-general}
+
+Network analysis is a broad area. It has many names in varied fields:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Graphical Model (Computer Science, Machine Learning)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    History: Statistical physics, such as large system of particles
+    (Lauritzen, 1996)
+  \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Bayesian Network (Computer Science, Educational Measurement)
+\end{enumerate}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/bayesian_network_example.webp}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Social Network (Sociology, Social psychology)
+\end{enumerate}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../../teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/SocialNetwork.png}}
+
+}
+
+\caption{\label{fig-social-network}The Taste for Privacy: An Analysis of
+College Student Privacy Settings in an Online Social Network (Lewis et
+al., 2008). Facebook friendship network in a single undergraduate dorm.
+Red nodes represent students with private profiles; yellow nodes
+represent students with public profiles.}
+
+\end{figure}%
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \textbf{Latent Factor Model or Structural Equation Model} (Psychology,
+  Education)
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  \textbf{Psychological Network Analysis} (Psychopathology, Psychology)
+\end{enumerate}
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../../teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png}}
+
+}
+
+\caption{\label{fig-GGM}Exploratory factor analysis and psychological
+network analysis of Big Five personality (Borsboom et al., 2021)}
+
+\end{figure}%
+
+Note that many fields use network-like models but with different names
+and goals. The unifying idea is variables as nodes and relationships as
+edges. Psychological networks are one specific approach within this
+broader space.
+
+\subsection{Commonality: Key Components in the
+network}\label{commonality-key-components-in-the-network}
+
+All network models share common structural elements:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Nodes} (vertices): Random variables, individuals, or units of
+  analysis
+\item
+  \textbf{Edges} (links): Relationships or connections between nodes
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Directed} vs.~\textbf{Undirected}
+  \item
+    \textbf{Weighted} vs.~\textbf{Unweighted}
+  \end{itemize}
+\item
+  \textbf{Adjacency matrix}: Mathematical representation of the network
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Rows and columns represent nodes
+  \item
+    Entries indicate presence/strength of edges
+  \end{itemize}
+\item
+  \textbf{Paths} and \textbf{Cycles}: Sequences of connected nodes
+\end{enumerate}
+
+Before diving into how networks differ, let me clarify the universal
+building blocks that all network models share:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Nodes} (also called vertices) represent the units of analysis.
+  Depending on the network type, nodes can be variables (psychological
+  symptoms, cognitive abilities), individuals (people in social
+  networks), or other entities. The choice of what constitutes a node is
+  theory-driven and depends on your research question.
+\item
+  \textbf{Edges} (also called links or connections) represent
+  relationships between nodes. Edges can be:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Directed} (arrows, indicating asymmetric relationships like
+    A → B) or \textbf{Undirected} (lines, indicating symmetric
+    relationships like A --- B)
+  \item
+    \textbf{Weighted} (with numerical values indicating strength of
+    relationship) or \textbf{Unweighted} (binary presence/absence of
+    connection)
+  \end{itemize}
+\item
+  \textbf{Adjacency matrix} is the mathematical representation of the
+  network. It's a square matrix where rows and columns represent nodes,
+  and entries indicate whether edges exist (and their weights if
+  applicable). For example, entry (i,j) represents the edge from node i
+  to node j. This matrix is symmetric for undirected networks.
+\item
+  \textbf{Paths} are sequences of nodes connected by edges (e.g., A → B
+  → C). \textbf{Cycles} are paths that return to the starting node
+  (e.g., A → B → C → A). These concepts are important for understanding
+  how effects can propagate through the network and create feedback
+  loops.
+\end{enumerate}
+
+These universal components provide the language for describing network
+structure, regardless of what the nodes and edges represent in your
+specific application.
+
+\subsection{Uniqueness: Statistical dependence \&
+Purpose}\label{uniqueness-statistical-dependence-purpose}
+
+Different network models represent distinct types of statistical
+dependence:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Bayesian networks} (DAG): \textbf{Conditional dependence} P(X
+  \textbar{} Parents)
+\item
+  \textbf{Social networks}: \textbf{Observed social relationships} among
+  social units
+\item
+  \textbf{Latent factor models}: \textbf{Marginal dependence} via common
+  latent causes
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Observed variables are \textbf{conditionally independent} given
+    latent factors
+  \end{itemize}
+\item
+  \textbf{Psychological networks}: \textbf{Conditional dependence given
+  all other variables}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Partial correlations (cross-sectional) or lagged effects (temporal)
+  \end{itemize}
+\end{enumerate}
+
+This slide highlights the key statistical distinction across network
+frameworks:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Bayesian networks encode conditional dependence through directed
+  edges. Each variable depends on its parents via conditional
+  probability distributions P(X\textbar Parents). Edges represent direct
+  causal influences in the assumed structure model, making them useful
+  for causal inference.
+\item
+  Social networks model observed relationships among social units
+  (people, organizations) rather than statistical dependence between
+  random variables. Edges represent connections like friendships or
+  collaborations.
+\item
+  Latent factor models explain marginal dependence (correlations)
+  through common latent causes. The crucial property is that observed
+  variables are conditionally independent given the latent factors. We
+  called that local independence. This is the fundamental assumption
+  that distinguishes latent factor models.
+\item
+  Psychological networks capture conditional dependence given all other
+  variables in the system. Edges represent partial correlations
+  (controlling for all other nodes) in Gaussian graphical models, or
+  lagged regression coefficients in temporal models (GVAR). No latent
+  variables are assumed---the network itself is the explanatory model.
+\end{enumerate}
+
+The key takeaway: These different dependence structures fundamentally
+change how we interpret edges and what questions each approach can
+answer. Choosing the right framework depends on your theoretical
+assumptions about what generates the observed data.
+
+\subsection{Psychological Networks and Network
+Psychometrics}\label{psychological-networks-and-network-psychometrics}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/network_book_cover.png}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Network psychometrics} is a novel psychometric area that
+  represents complex phenomena of measured constructs as sets of
+  elements that interact with each other (Isvoranu et al., 2022).
+\item
+  It is inspired by the {mutualism model} and research in ecosystem
+  modeling (Kan et al., 2019).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The mutualism model proposes that basic cognitive abilities directly
+    and positively interact during development.
+  \end{itemize}
+\item
+  In recent years, interest in psychological networks as \ul{dynamics or
+  reciprocal causation} among variables receive more attention.
+\end{enumerate}
+
+Network psychometrics treats symptoms or behaviors as mutually
+interacting parts of a system. Inspired by mutualism, we look for
+reinforcing cycles. This viewpoint is useful when feedback loops, not
+latent traits alone, drive what we observe.
+
+\section{Why use psychological
+networks?}\label{why-use-psychological-networks}
+
+\subsection{Latent Factor Model VS. Psychological Network
+Model}\label{latent-factor-model-vs.-psychological-network-model}
+
+\begin{itemize}
+\item
+  \ul{\textbf{Latent factor model}} (common factor model) assumes that
+  associations between observed features can be explained by one or more
+  common factors (e.g., agreebleness, conscientiousness).
+\item
+  \ul{\textbf{Psychometric networks}}, however, assume that associations
+  between observed features are the reason for the development of one
+  system. In this view, ``personality'' is the network itself.
+\end{itemize}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{../../teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png}}
+
+}
+
+\caption{Exploratory factor analysis and psychological network analysis
+of Big Five personality (Borsboom et al., 2021)}
+
+\end{figure}%
+
+Contrast: factor models explain covariation via common causes; network
+models explain it via direct interactions among observed features. I'll
+emphasize when each is useful and how the interpretation of
+``personality'' differs between the two views.
+
+\subsection{Common factor or
+Mutualism?}\label{common-factor-or-mutualism}
+
+\begin{itemize}
+\item
+  ``\textbf{Openness}'' dimension:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Q5 (Creativity). \ldots{} comes up with new ideas: Disagree (1) to
+    Agree (5) \footnote{Source:
+      https://arc.psych.wisc.edu/self-report/big-five-inventory-bfi/}
+  \item
+    Q10 (Curiosity). \ldots{} curious about lots of different things:
+    Disagree (1) to Agree (5)
+  \end{itemize}
+\item
+  Does ``openness'' really exist?
+\end{itemize}
+
+\begin{figure}
+
+\begin{minipage}{0.28\linewidth}
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../../presentation/2025-12-18-Presentation-CityU/figures/common_factor.png}}
+
+}
+
+\caption{\label{fig-commonality}Common factor}
+
+\end{figure}%
+
+\end{minipage}%
+%
+\begin{minipage}{0.28\linewidth}
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{../../presentation/2025-12-18-Presentation-CityU/figures/multualism.png}}
+
+}
+
+\caption{\label{fig-mutualism}Mutualism}
+
+\end{figure}%
+
+\end{minipage}%
+%
+\begin{minipage}{0.44\linewidth}
+~\end{minipage}%
+
+\end{figure}%
+
+I'll use ``Openness'' as an example. Is the shared variance due to a
+latent factor, or do the items reinforce each other over time? The
+mutualism perspective suggests growth through interactions among
+observed skills or traits.
+
+\subsection{Research aims: Density, Centrality, Pathways, and Group
+Differences}\label{research-aims-density-centrality-pathways-and-group-differences}
+
+\textbf{Aim 1. Network Density}
+
+Assess overall connectivity and sparsity (system activation likelihood)
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/EEG/Network_Sparsity.png}}
+
+\textbf{Aim 2. Identify Pathways}
+
+Map symptom interactions and feedback loops (A ↔ B ↔ C ↔ A)
+\pandocbounded{\includegraphics[keepaspectratio]{figures/EEG/pathway.png}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Aim 3. Intervention Targets}
+
+Identify the most central/influential nodes for treatment
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/EEG/Network_Centrality.png}}
+
+\textbf{Aim 4. Group Differences}
+
+Compare network structures across populations
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/EEG/Network_Comparison.png}}
+
+These analytical goals help bridge theory and practice, guiding both our
+understanding of psychological phenomena and clinical decision-making.
+
+Psychological network analysis serves multiple applied and theoretical
+goals:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Identify pathways}: We can map how symptoms or behaviors
+  influence each other over time, including feedback loops (e.g.,
+  insomnia → fatigue → worry → insomnia). Understanding these pathways
+  reveals mechanisms of symptom maintenance.
+\item
+  \textbf{Group differences}: We can compare network structures across
+  different populations (e.g., by gender, diagnosis, treatment response)
+  to understand how symptom dynamics differ and tailor interventions
+  accordingly.
+\item
+  \textbf{Intervention targets}: By calculating node centrality
+  measures, we identify which symptoms are most influential in the
+  network. Targeting these central nodes in treatment may have cascading
+  positive effects on the entire system.
+\item
+  \textbf{Network density}: A denser network (more edges) indicates
+  stronger interconnections among symptoms. Individuals with denser
+  networks may be more vulnerable because activating one symptom more
+  easily triggers others, increasing risk for comorbidity.
+\item
+  \textbf{Symptom communities}: Clustering algorithms can identify
+  groups of symptoms that tend to co-occur, revealing distinct
+  sub-syndromes within broader diagnostic categories. This can inform
+  dimensional approaches to psychopathology.
+\end{enumerate}
+
+\subsection{Data types: Cross-sectional vs.~Longitudinal
+network}\label{data-types-cross-sectional-vs.-longitudinal-network}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Cross-sectional network}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Data: Multivariate cross-section data
+  \item
+    Model: Gaussian graphical model (GGM)
+  \item
+    Dependence: The variables depend on other variables at the same time
+  \item
+    Edge Statistics: Partial Correlation (\(r\))
+  \item
+    Methodology: Correlation analysis
+  \end{itemize}
+\end{enumerate}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/Introduction/undirect_formula.png}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  \textbf{Longitudinal network (today's focus)}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Data: Multivariate time-seires data
+  \item
+    Model: Graphical vector autoregressive (VAR) model
+  \item
+    Dependence: The values of the variables at time \(t\) depend
+    linearly on the values at time \(t -1\)
+  \item
+    Edge Statistics: Lag-1 regression coefficient (\(\beta\))
+  \item
+    Methodology: Granger-causality
+  \end{itemize}
+\end{enumerate}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/Introduction/Longitudinal_Network_Formula.png}}
+
+\section{Case Study: A longitudinal Electroencephalography (EEG) network
+analysis}\label{case-study-a-longitudinal-electroencephalography-eeg-network-analysis}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/eeg-private.jpg}}
+
+\subsection{Brain Activity Networks}\label{brain-activity-networks}
+
+The human brain is one of the most complex networks in the world.
+
+-- Farahani et al. (2019)
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/EEG/brain_network_procedure.png}}
+
+studies on its static and dynamic properties have undergone explosive
+growth in recent years
+
+\subsection{Research background}\label{research-background}
+
+\begin{itemize}
+\item
+  The team utilize a meditation training called {Focused Attention (FA)
+  meditation} to improve participants' meditation quality.
+\item
+  \textbf{Key question}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    {What is the relationship between brain activities and participants'
+    meditation outcomes.}
+  \end{itemize}
+\item
+  Why use network analysis for EEG data?
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Functional connectivity}: Brain regions interact and
+  coordinate during cognitive processes
+\item
+  \textbf{Brain dynamics}: Alpha and theta rhythms reflect neural
+  communication across brain regions
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  \textbf{Topographical patterns}: Multiple scalp regions (frontal or
+  posterior) form interconnected systems
+\item
+  \textbf{Temporal changes}: Longitudinal tracking reveals how brain
+  networks evolve with meditation training
+\end{enumerate}
+
+Network analysis is well-suited for EEG data in meditation research for
+several reasons:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Functional connectivity}: The brain operates as a complex
+  network where different regions interact and coordinate during
+  cognitive processes like meditation. Network models can capture these
+  dependencies among brain regions, revealing how they work together to
+  produce meditative states.
+\item
+  \textbf{Brain dynamics}: EEG measures brain activity (alpha, theta
+  waves). These rhythms don't occur in isolation---they reflect neural
+  communication across brain regions. Network analysis can model these
+  patterns and identify which regions are most strongly coupled with
+  meditation process.
+\item
+  \textbf{Topographical patterns}: We're measuring activity across
+  multiple scalp regions simultaneously (frontal, temporal-central,
+  posterior). Rather than analyzing each region independently, network
+  analysis captures the system-level connectivity, such as which regions
+  is the functional hubs, how information flows between regions, and
+  which connections are strongest.
+\item
+  \textbf{Temporal changes}: With 24 sessions over 8 weeks, we can use
+  longitudinal network methods (like GVAR) to examine how brain network
+  structure evolves with meditation training.
+\end{enumerate}
+
+By treating EEG signals from different brain regions as nodes in a
+network, we can identify the functional architecture of meditation and
+how it develops with practice.
+
+\subsection{Data}\label{data}
+
+\begin{itemize}
+\item
+  \textbf{Sample}: 19 participants completed 8 weeks of FA training with
+  3 visits per week, resulting in 24 sessions.
+\item
+  \textbf{Training}: in each session, they completed 20-minutes of
+  standardized audio-guided Focus Attention meditation practice. EEG
+  data was collected
+\item
+  \textbf{Measure}: Self-reported State Mindfulness Scale (SMS\_Mind)
+  and body (SMS\_Body)
+\end{itemize}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{figures/Test2_SMSBody_Trend.jpg}
+
+}
+
+\caption{Self-reported State Mindfulness Scale Scores over 24 sessions}
+
+\end{figure}%
+
+Alpha Power (8-12 Hz)
+
+State: Relaxed wakefulness, quiet contemplation, drowsiness, eyes
+closed.
+
+Function: Associated with suppressing irrelevant sensory input, internal
+focus, proactive cognitive control, and memory encoding/retrieval.
+
+Changes: Decreases (desynchronizes) during focused attention or
+demanding tasks, increases when relaxed.
+
+Theta Power (4-8 Hz)
+
+State: Drowsiness, light sleep, REM sleep, deep relaxation, creativity.
+
+Function: Linked to memory formation, navigation, mental effort,
+executive functions, and threat prediction.Changes: Increases with
+cognitive effort, drowsiness, and during sleep; inversely related to
+alpha in some tasks
+
+\subsection{Nodes}\label{nodes}
+
+\begin{itemize}
+\item
+  {2 State Mindfulness Nodes}
+
+  \begin{itemize}
+  \item
+    \textbf{SMS\_Mind}: the subjective quality of mindfulness of mind
+    (e.g., thoughts, emotions, mental acuity)
+  \item
+    \textbf{SMS\_Body}: the subjective quality of mindfulness of body
+    (e.g., physical and bodily sensations)
+  \end{itemize}
+\item
+  {6 EEG Nodes}: \textbf{Alpha} (8-12 Hz; relaxed wakefulness) and
+  \textbf{Theta} (4-8 Hz; light sleep) power separated across respective
+  frontal, temporal-central, and posterior regions
+
+  \begin{itemize}
+  \tightlist
+  \item
+    {frontal} alpha
+  \item
+    {frontal} theta
+  \item
+    {temporal-central} alpha
+  \item
+    {temporal-central} theta
+  \item
+    {posterior} alpha
+  \item
+    {posterior} theta
+  \end{itemize}
+\end{itemize}
+
+\subsection{Results: regularization}\label{results-regularization}
+
+{Unregularized} psychological network
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/EEG/Present_FA_temporal_network_str_full.jpg}}
+
+{Regularized} psychological network
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/EEG/Present_FA_temporal_network_str.jpg}}
+
+{Alpha power}; {Theta power}; {Self-report mindfulness}
+
+\subsection{Discussion}\label{discussion}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/EEG/Present_FA_temporal_network_str.jpg}}
+
+\begin{itemize}
+\item
+  \textbf{Brain is dynamical}
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    e.g., Posterior alpha can enhance frontal theta over time
+  \end{enumerate}
+\item
+  \textbf{Brain region (topography) matters}
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item
+    e.g., Frontal alpha power enhances mindfulness, while posterior
+    alpha power suppresses mindfulness of body and mind over time.
+  \item
+    e.g., Posterior theta power enhances mindfulness, while
+    temporal-central theta power suppresses mindfulness
+  \end{enumerate}
+\item
+  \textbf{Identify ideal brain states}
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    e.g., According to centrality measures, frontal alpha and posterior
+    theta are most important EEG signal for FA meditation training.
+  \end{enumerate}
+\end{itemize}
+
+If you have high frontal alpha and posterior theta, you tend to have
+better meditation experience.
+
+\subsection{Conclusion}\label{conclusion}
+
+\begin{itemize}
+\item
+  In neuroscience, psychological network could be very useful to
+  understand brain activity patterns and their relationships with
+  external behaviours.
+\item
+  But, can we use it to understand the complex mental disorders? Symptom
+  network seems a very interesting idea.
+\end{itemize}
+
+\section{Case Study: Gender Differences for Eating Disorder Symptom
+Networks}\label{case-study-gender-differences-for-eating-disorder-symptom-networks}
+
+\subsection{Research background}\label{research-background-1}
+
+\begin{itemize}
+\item
+  The present study examined sex-specific, symptom-level relationships
+  among emotion regulation (ER), interpersonal problems (IP), and eating
+  disorder (ED) psychopathology in a large sample of Chinese adolescents
+  (Zhang et al., 2024).
+\item
+  \textbf{Background}: Eating disorders are serious issues for college
+  students. The eating disorders symptoms are dangerous and co-occur
+  with other psychological issues.
+\item
+  \textbf{Motivation}: Given the complex relationships between eating
+  disorders with other risky behaviors, we need a novel model to
+  untangle those interplay which can help with further intervention.
+\item
+  Assumption: {Eating disorders combined with other risky factors be
+  considered a network?}
+\end{itemize}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/eating_disorders.jpg}}
+
+I'll first talk about the background and research questions. I will talk
+about the rationales of each RQ later.
+
+\subsection{Eating Disorder Network?}\label{eating-disorder-network}
+
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{figures/structure.jpg}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Interrelationships among components---emotion regulation,
+  interpersonal problems, and eating disorders:
+
+  \begin{itemize}
+  \item
+    \textbf{Emotion regulation theory} suggests that difficulties in
+    emotion regulation can result in ED behaviors.
+  \item
+    \textbf{Interpersonal psychotherapy theory} posits that
+    interpersonal problems may exacerbate ED (Murphy et al., 2012).
+  \item
+    Empirical studies consider these three to constitute an
+    ``ecosystem'' (Ambwani et al., 2014). Emotion regulation and
+    interpersonal functioning exhibit reciprocal effects on the
+    maintenance of ED.
+  \end{itemize}
+\end{enumerate}
+
+\begin{itemize}
+\item
+  {Advantages of longitudinal network}
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    It considers symptoms cause each other over time.
+  \item
+    It allows us to identify some symptoms may play the most important
+    roles across time points
+  \item
+    It allows sex-specific developmental patterns of eating disorders
+  \end{enumerate}
+\end{itemize}
+
+\textbf{The motivation is to obtain a holistic picture of the eating
+disorders ecosystem.} \textbf{However, the symptom-level dynamics of
+eating disorders have not been well investigated.}
+
+I'll motivate ED as an ecosystem involving emotion regulation and
+interpersonal problems. Theory and evidence suggest reciprocal effects.
+We want to see symptom-level dynamics rather than only broad trait
+scores.
+
+Longitudinal psychological networks fit this problem well. They treat ED
+behaviors and related traits as interrelated nodes and help us find
+impactful symptoms while separating temporal from concurrent effects.
+
+\subsection{Group Comparison and Research
+Questions}\label{group-comparison-and-research-questions}
+
+\begin{itemize}
+\item
+  In network analysis, groups can be compared from three aspects:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item
+    \textbf{Network structure} (e.g., some nodes connected in group A
+    but not in group B).
+  \item
+    \textbf{Node-level measures}: node centrality (importance) or node
+    bridging strength (e.g., some nodes may be more connected to other
+    communities).
+  \item
+    \textbf{Network edge weights} (e.g., node 1 and node 2 may have a
+    strong relationship in group A but a weaker relationship in group
+    B).
+  \end{enumerate}
+\item
+  Research Questions:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Are there gender differences in the \textbf{network structures} of
+    eating disorder longitudinal networks?
+  \item
+    Are there gender differences in the \textbf{network importance} of
+    longitudinal networks?
+  \item
+    Are there gender differences in \textbf{key paths} of longitudinal
+    networks?
+  \end{enumerate}
+\end{itemize}
+
+Group comparisons can target structure, node-level importance, and
+specific edges. I'll preview how we test these differences and what they
+imply for tailored interventions.
+
+We ask three questions: do networks differ by gender in overall
+features, in which nodes connect, and in which nodes are most
+influential or act as bridges?
+
+\subsection{Data \& Measures}\label{data-measures}
+
+\begin{itemize}
+\item
+  {Sample}
+
+  \begin{itemize}
+  \item
+    Four waves of data were collected over 18 months.
+  \item
+    For each wave, demographic information and self-reports on three
+    questionnaires (emotion regulation, interpersonal problems, and
+    eating disorders) were collected from 1,652 high school students in
+    China.
+  \item
+    After data cleaning, N = 1,540 remained, including 53.9\% girls and
+    46.1\% boys.
+  \item
+    Ages ranged from 11 to 17 years, with a mean of 15.2 years.
+  \end{itemize}
+\item
+  {Measure}
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \textbf{Emotion regulation}: Difficulties in Emotion Regulation
+    Scale (DERS-18). Six subscales measure different aspects of emotion
+    dysregulation: Awareness, Clarity, Goals, Non-acceptance, Impulse,
+    Strategies.
+  \item
+    \textbf{Interpersonal problems}: Inventory of Interpersonal
+    Problems---Short Circumplex (IIP-SC). Eight subscales measure varied
+    aspects of interpersonal problems (e.g., domineering, cold,
+    avoidant).
+  \item
+    \textbf{Eating disorders}: 12-item short form of the Eating Disorder
+    Examination Questionnaire (EDE-QS). Twelve items measure different
+    disordered eating behaviors.
+  \end{enumerate}
+\end{itemize}
+
+We have 26 nodes in the initial networks.
+
+The study follows high school students across four waves over 18 months.
+After cleaning, we analyze 1,540 students with a balanced gender split
+and typical adolescent ages.
+
+We include emotion regulation subscales, interpersonal problem
+subscales, and ED items. This mix lets us see how emotional and social
+factors interact with specific ED behaviors.
+
+\subsection{Results}\label{results}
+
+\subsubsection{Temporal Network Structure (left: boys; right:
+girls)}\label{temporal-network-structure-left-boys-right-girls}
+
+{Emotion Disorder}; {Interpersonal Problems}; {Eating Regulation}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{figures/boys_temporal_MG.jpg}
+
+}
+
+\caption{Boys' temporal network}
+
+\end{figure}%
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{figures/girls_temporal_MG.jpg}
+
+}
+
+\caption{Girls' temporal network}
+
+\end{figure}%
+
+These plots show temporal connections. I'll point out shared patterns
+and key differences by gender, setting up the summary tables on the next
+slides.
+
+\subsection{Overall Network Structure}\label{overall-network-structure}
+
+\subsubsection{Correlation Stability}\label{correlation-stability}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The multigroup network stability statistics were acceptable for
+  contemporaneous and between-subject networks according to the
+  criterion of CS coefficients above 0.7.
+\item
+  The temporal network was less stable, with CS coefficients ranging
+  from 0.51 to 0.56. Less stable indicates higher residual errors
+  overall.
+\end{enumerate}
+
+\subsubsection{Boys}\label{boys}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sparsity: \textbf{8.06\%} of non-zero edges (temporal)
+\item
+  Strength: Mean (SD) of edge weights is 0.127 (0.094).
+\item
+  Node \emph{weight/shape preoccupation} (EDE-WP) exhibited the highest
+  \textbf{InStrength}
+\item
+  Node \emph{weight/shape dissatisfaction} (EDE-WD) exhibited the
+  highest \textbf{OutStrength}
+\item
+  Node \emph{Awareness} (Awr) exhibited the highest \textbf{bridge
+  strength}
+\end{enumerate}
+
+\subsubsection{Girls}\label{girls}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sparsity: \textbf{10.60\%} of non-zero edges (temporal)
+\item
+  Strength: Mean (SD) of edge weights is 0.128 (0.102).
+\item
+  Node \emph{weight/shape preoccupation} (EDE-WP) exhibited the highest
+  \textbf{InStrength}
+\item
+  Node \emph{weight/shape dissatisfaction} (EDE-WD) exhibited the
+  highest \textbf{OutStrength}
+\item
+  Node \emph{weight/shape dissatisfaction} (EDE-WD) exhibited the
+  highest \textbf{bridge strength}
+\end{enumerate}
+
+Contemporaneous and between-person layers are stable; temporal effects
+are moderately stable. I'll note where to be cautious when interpreting
+lagged edges.
+
+Boys and girls have similar average temporal strengths, but different
+bridging. For boys, Awareness bridges communities; for girls,
+Weight/Shape Dissatisfaction plays that role. This suggests different
+intervention targets.
+
+\subsection{Network Hub differences between sex
+groups}\label{network-hub-differences-between-sex-groups}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{figures/Node_Strength_Table.png}}
+
+}
+
+\caption{Centrality measures: Boys vs.~Girls}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Long periods without eating} (EDE-WE) and \emph{Food
+  preoccupation} (EDE-FP) have significant sex differences in node
+  out-strength.
+\item
+  \emph{Weight/shape control by vomiting or taking laxatives} (EDE-VT)
+  has significant sex differences in node in-strength.
+\end{enumerate}
+
+The table compares centrality by sex. Bootstrap tests indicate
+meaningful differences for specific ED items. I'll highlight how
+out-strength and in-strength map to potential symptom drivers and
+receivers.
+
+\subsection{Network conncetor difference between sex
+groups}\label{network-conncetor-difference-between-sex-groups}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{figures/Bridge_Strength_Table.png}}
+
+}
+
+\caption{Bridge strength measures how strongly a node connects to nodes
+in different communities or clusters within the network.}
+
+\end{figure}%
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Awareness} (Awr) and \emph{Goals} (Gls) have significant sex
+  differences.
+\item
+  \emph{Weight/shape preoccupation} (EDE-WP) and \emph{Binge eating
+  episode} (EDE-BE) have significant sex differences.
+\end{enumerate}
+
+\textbf{Target nodes for intervention on comorbidity.}
+
+Bridge strength findings identify nodes that connect ED with emotional
+and interpersonal domains. Differences suggest gender-specific pathways
+to comorbidity and potential targets for reducing cross-domain
+activation.
+
+\subsection{Discussion}\label{discussion-1}
+
+\subsubsection{Group Commonalities}\label{group-commonalities}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Emotion dysregulation has consistent interconnections with eating
+  disorders and interpersonal problems across genders.
+\end{enumerate}
+
+\subsubsection{Group Differences}\label{group-differences}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Overall network structures of boys and girls are significantly
+  different.
+\item
+  Overall, for \textbf{boys}, the most important bridging nodes were
+  \textbf{awareness} and \textbf{nonacceptance} of the DERS, while
+  weight/shape preoccupation and domineering/controlling emerged as the
+  most central nodes.
+\item
+  For \textbf{girls}, \textbf{weight/shape dissatisfaction} was
+  identified as the most central symptom and the strongest bridging
+  node.
+\end{enumerate}
+
+Common patterns: similar overall temporal impact, strong coupling among
+ED behaviors, and central roles for weight/shape concerns. These are
+consistent targets across genders.
+
+Differences: denser girls' networks and different bridge nodes imply
+higher comorbidity risk for girls and distinct maintenance pathways for
+boys. I'll connect these to tailored clinical strategies.
+
+\subsection{Conclusion}\label{conclusion-1}
+
+\begin{itemize}
+\item
+  Network psychometrics seems very promising to understand complex
+  psychological phenomenon.
+\item
+  Is there any other novel psychometric areas? My answer is AI-driven
+  psychometrics.
+\end{itemize}
+
+\section{Further studies: AI
+psychometrics}\label{further-studies-ai-psychometrics}
+
+AI-enhanced psychometrics is becoming more and more important.
+
+I shared two of my recent projects with you.
+
+\subsection{AI data augmentation}\label{ai-data-augmentation}
+
+\begin{itemize}
+\item
+  One of my recent project let AI participants can serve as the data
+  points in psychometric assessment given enough accurate human
+  information.
+\item
+  Interview-informed large language models can align with real human
+  responses regarding survey responses very well.
+\end{itemize}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{figures/Future_AI/Figure3_output_BREQ_means.png}}
+
+}
+
+\caption{Behavioral Regulation in Exercise Questionnaire}
+
+\end{figure}%
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{AI conversational assessment: One in-class quiz
+example}\label{ai-conversational-assessment-one-in-class-quiz-example}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/AI_Get_Started.png}}
+
+\pandocbounded{\includegraphics[keepaspectratio]{figures/AI_Feedback.png}}
+
+We need better construct alignment across genders and more simulation
+work for inference in multi-group longitudinal networks.
+
+Interpretation challenges remain: what do density differences mean? How
+should we read group differences in centrality and edges in applied
+contexts? These are active areas for methodological development.
+
+\subsection{Wrap-up}\label{wrap-up}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  We talk about the network analysis framework
+\item
+  Two case studies showing network analysis can be widely applied to
+  different research areas
+\item
+  We need novel AI-driven methodology in AI era because AI can serve as
+  research tools or data collection tools.
+\end{enumerate}
+
+\section{Q\&A}\label{qa}
+
+\subsection{Thank you.}\label{thank-you.}
+
+Let me know if you have any questions.
+
+You can also contact me via \ul{\textbf{jzhang@uark.edu}}
+
+Thank you for your attention. You can reach me by email for follow-ups.
+I'm happy to take questions now.
+
+\subsection{Reference}\label{reference}
+
+References are provided for methods, measures, and prior findings
+mentioned today. I'm happy to share code and additional materials upon
+request.
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-ambwaniInterpersonalDysfunctionAffectregulation2014}
+Ambwani, S., Slane, J. D., Thomas, K. M., Hopwood, C. J., \& Grilo, C.
+M. (2014). Interpersonal dysfunction and affect-regulation difficulties
+in disordered eating among men and women. \emph{Eating Behaviors},
+\emph{15}(4), 550--554.
+\url{https://doi.org/10.1016/j.eatbeh.2014.08.005}
+
+\bibitem[\citeproctext]{ref-farahaniApplicationGraphTheory2019}
+Farahani, F., Karwowski, W., \& Lighthall, N. (2019). Application of
+{Graph Theory} for {Identifying Connectivity Patterns} in {Human Brain
+Networks}: {A Systematic Review}. \emph{Frontiers in Neuroscience},
+\emph{13}, 585. \url{https://doi.org/10.3389/fnins.2019.00585}
+
+\bibitem[\citeproctext]{ref-isvoranuNetworkPsychometricsGuide2022}
+Isvoranu, A.-M., Epskamp, S., Waldorp, L., \& Borsboom, D. (Eds.).
+(2022). \emph{Network {Psychometrics} with {R}: {A Guide} for
+{Behavioral} and {Social Scientists}}. Routledge.
+\url{https://doi.org/10.4324/9781003111238}
+
+\bibitem[\citeproctext]{ref-kan2019}
+Kan, K.-J., Maas, H. L. J. van der, \& Levine, S. Z. (2019). Extending
+psychometric network analysis: Empirical evidence against {\emph{g}} in
+favor of mutualism? \emph{Intelligence}, \emph{73}, 52--62.
+\url{https://doi.org/10.1016/j.intell.2018.12.004}
+
+\bibitem[\citeproctext]{ref-lauritzenGraphicalModels1996a}
+Lauritzen, S. L. (1996). \emph{Graphical {Models}}. Clarendon Press.
+\url{https://books.google.com?id=mGQWkx4guhAC}
+
+\bibitem[\citeproctext]{ref-lewisTastePrivacyAnalysis2008}
+Lewis, K., Kaufman, J., \& Christakis, N. (2008). The {Taste} for
+{Privacy}: {An Analysis} of {College Student Privacy Settings} in an
+{Online Social Network}. \emph{Journal of Computer-Mediated
+Communication}, \emph{14}(1), 79--100.
+\url{https://doi.org/10.1111/j.1083-6101.2008.01432.x}
+
+\bibitem[\citeproctext]{ref-murphyInterpersonalPsychotherapyEating2012}
+Murphy, R., Straebler, S., Basden, S., Cooper, Z., \& Fairburn, C. G.
+(2012). Interpersonal {Psychotherapy} for {Eating Disorders}.
+\emph{Clinical Psychology \& Psychotherapy}, \emph{19}(2), 150--158.
+\url{https://doi.org/10.1002/cpp.1780}
+
+\bibitem[\citeproctext]{ref-zhangLongitudinalNetworkAnalysis2024a}
+Zhang, J., Cui, S., Zickgraf, H. F., Barnhart, W. R., Xu, Y., Wang, Z.,
+Ji, F., Chen, G., \& He, J. (2024). A {Longitudinal Network Analysis} of
+{Emotion Regulation}, {Interpersonal Problems}, and {Eating Disorder
+Psychopathology} in {Chinese Adolescents}. \emph{International Journal
+of Eating Disorders}, \emph{57}(12), 2415--2426.
+\url{https://doi.org/10.1002/eat.24292}
+
+\end{CSLReferences}
+
+
+
+
+\end{document}

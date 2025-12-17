@@ -35,7 +35,11 @@ This research seminar examines network-based approaches in psychometrics and beh
 :::
 
 ::: {.notes}
-I’ll briefly introduce myself and my current role.  I’ll touch on recent projects and how they connect to today’s talk.
+Let me briefly introduce myself and my current role. My Name is Jihong Zhang.
+
+I am a assistant professor of ESRM program at UArk.
+
+I got my PhD degree in educational measurement & statistics program, focusing on Bayesian psychometric modeling at University of Iowa.
 :::
 
 ## Research Path
@@ -43,7 +47,7 @@ I’ll briefly introduce myself and my current role.  I’ll touch on recent pro
 ![](/presentation/2025-12-18-Presentation-CityU/figures/research_wordcloud2025.png)
 
 ::: {.notes}
-My research mainly focus on quantitative methods in psychology, such as psychological network analysis, diagnostic measurement, structural equation modeling, and AI measurement. Besides psychometric methods, my empirical research domains cover cognitive process of students, psychopathology topics like emotion or eating disorders, academic motivation, or AI assessment
+My research mainly focus on quantitative methods in psychology, such as psychological network analysis, diagnostic measurement, structural equation modeling, and AI measurement. Besides methodology, my empirical research domains cover students' learning process, psychopathology topics like emotion regulation or eating disorders, academic motivation, or AI assessment
 :::
 
 ## Presentation Outline
@@ -105,6 +109,10 @@ Network analysis is a broad area. It has many names in varied fields:
 :::
 ::::
 
+::: {.notes}
+Note that many fields use network-like models but with different names and goals. The unifying idea is variables as nodes and relationships as edges. Psychological networks are one specific approach within this broader space.
+:::
+
 ----
 
 :::: columns
@@ -118,9 +126,7 @@ Network analysis is a broad area. It has many names in varied fields:
 
 ![Exploratory factor analysis and psychological network analysis of Big Five personality (Borsboom et al., 2021)](/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Images/Lecture12_Network/GGM.png){#fig-GGM}
 
-::: {.notes}
-Note that many fields use network-like models but with different names and goals. The unifying idea is variables as nodes and relationships as edges. Psychological networks are one specific approach within this broader space.
-:::
+
 
 ## Commonality: Key Components in the network
 
@@ -738,8 +744,6 @@ Differences: denser girls’ networks and different bridge nodes imply higher co
 
 AI-enhanced psychometrics is becoming more and more important.
 
-I shared two of my recent projects with you.
-
 ## AI data augmentation
 
 :::: columns
@@ -754,10 +758,13 @@ I shared two of my recent projects with you.
 :::
 ::::
 
+::: notes
+In the future, AI will be invoved into psychometric studies, such as AI scoring, item generation, automate assessment.
+:::
 ----
 
 
-## AI conversational assessment: One in-class quiz example
+## AI conversational assessment: One in-class quiz example {visibility="hidden"}
 
 :::: columns
 ::: column
