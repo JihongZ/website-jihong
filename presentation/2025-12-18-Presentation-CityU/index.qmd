@@ -55,33 +55,29 @@ My research mainly focus on quantitative methods in psychology, such as psycholo
 ::: {.rmdnote}
 ### 30 minutes
 
-- Part **I**:  Foundations of network analysis
+- **Part I**:  Foundations of network analysis
 
-- Part **II**:  Psychological networks in theory and practice
+    - What is network analysis
+    - Why use psychological networks
+    - Latent factor models vs. Network analysis
 
-- Part **III**:  Empirical applications: EEG-based networks and longitudinal eating disorder networks
+- **Part II**:  Empirical applications 
 
-- Part **IV**:  Emerging directions: AI-augmented psychometric research
+    - EEG-based networks
+    - Eating disorder symptom networks
+
+- **Part III**:  Emerging directions: AI-augmented psychometric research
 
 
 ### 15 minutes
 
-- Part **V**:  Q\&A
+- Part **IV**:  Q\&A
 
 :::
 
 
 ::: {.notes}
-I’ll walk through four parts: a quick primer on network analysis, why psychological networks are useful, a case study on eating disorders using longitudinal networks, and then questions. The goal is to build the concept of network models first, then show practical results.
-
-1. Illustrate the conceptual foundations of network 
-
-2. Demonstrate two empirical case studies:
-
-   - EEG-based networks to examine brain activities with self-reported mediation quality
-   - Longitudinal eating disorder networks with graphical vector autoregression, including gender-specific risk pathways
-
-3. Conclude with emerging innovations in AI-augmented psychometric research
+I’ll walk through four parts: a brief introduction to network analysis, why psychological networks are useful, a case study on EEG network for mediation, eating disorders using longitudinal networks, and then questions. 
 :::
 
 
@@ -338,7 +334,7 @@ Psychological network analysis serves multiple applied and theoretical goals:
 :::    
 ::::
 
-# Case Study: A longitudinal Electroencephalography (EEG) network analysis 
+# Case Study 1: A longitudinal Electroencephalography (EEG) network analysis 
 
 ![](figures/eeg-private.jpg)
 
@@ -358,8 +354,6 @@ The human brain is one of the most complex networks in the world.
 
 
 ![](figures/EEG/brain_network_procedure.png)
-
-
 
 ::: {.notes}
 studies on its static and dynamic properties have undergone explosive growth in recent years
@@ -384,12 +378,14 @@ studies on its static and dynamic properties have undergone explosive growth in 
 2.  **Brain dynamics**: Alpha and theta rhythms reflect neural communication across brain regions
 :::
 ::: column
-3.  **Topographical patterns**: Multiple scalp regions (frontal or posterior) form interconnected systems
+3.  **Topographical patterns**: Multiple brain regions (frontal or posterior) form interconnected systems
 <br>
-4.  **Temporal changes**: Longitudinal tracking reveals how brain networks evolve with meditation training
+4.  **Temporal changes**: Allow us to track Longitudinal effects which indicates brain network activities developing with meditation training
 :::
 ::::
 :::
+
+
 ::: {.notes}
 Network analysis is well-suited for EEG data in meditation research for several reasons:
 
@@ -412,7 +408,14 @@ By treating EEG signals from different brain regions as nodes in a network, we c
 
 -   **Measure**: Self-reported State Mindfulness Scale (SMS_Mind) and body (SMS_Body)
 
+:::: columns
+::: column
 ![Self-reported State Mindfulness Scale Scores over 24 sessions](figures/Test2_SMSBody_Trend.jpg){width=100%}
+:::
+::: column
+![](figures/Meditation-man-meditating-1536x865.jpeg)
+:::
+::::
 
 ::: {.notes}
 Alpha Power (8-12 Hz)
@@ -446,13 +449,17 @@ Function: Linked to memory formation, navigation, mental effort, executive funct
     - [temporal-central]{.bluecolor} theta
     - [posterior]{.green style="background:yellow"} alpha
     - [posterior]{.green style="background:yellow"} theta
-    
+
+::: notes
+For EEG nodes, there are 3 (region) X 2 (brain waves) = 6 nodes.
+
+:::
+
 ## Results: regularization
 
 
 ::::: columns
 ::: {.column width="50%"}
-
 
 [Unregularized]{.bluecolor} psychological network
 
@@ -469,6 +476,12 @@ Function: Linked to memory formation, navigation, mental effort, executive funct
 
 ::: {style="background:black; text-align:center"}
 [Alpha power]{style="color:pink"}; [Theta power]{style="color:blue"}; [Self-report mindfulness]{style="color:green"}
+:::
+
+::: notes
+Pink nodes represent Alpha waves, blue nodes represent theta wave, green nodes represent outcomes. We start from original network which including all longitudnal effects between brain activities with meditation outcomes. In the original form, we see they are interconnected with each other. Utilizing regularization technique, we can then extract key paths from the network.
+
+Then how to interpret the network.
 :::
 
 ## Discussion
@@ -497,7 +510,12 @@ Function: Linked to memory formation, navigation, mental effort, executive funct
 ::::: 
 
 ::: notes
-If you have high frontal alpha and posterior theta, you tend to have better meditation experience.
+1. Alpha wave and theta wave may change over time, which means your brain is active during the meditation.
+
+2. Brain wave detected from different brain regions play different roles. Some may decrease the quality and some may increase. They may conflict with each other.
+
+
+3. Last, We also identify ideal brain status for meditation. If you have high frontal alpha and posterior theta, you tend to have better meditation experience.
 :::
 
 ## Conclusion
@@ -505,16 +523,20 @@ If you have high frontal alpha and posterior theta, you tend to have better medi
 ::: discussion
 -   In neuroscience, psychological network could be very useful to understand brain activity patterns and their relationships with external behaviours.
 
--   But, can we use it to understand the complex mental disorders? Symptom network seems a very interesting idea.
+-   But, you may wonder if it can be used to analyze the complex mental disorders? 
 :::
 
-# Case Study: Gender Differences for Eating Disorder Symptom Networks
+::: notes
+Due to the time limit, I did not show you the full details of the research. But you can tell that, in neurosicence.
+:::
 
+
+# Case Study 2: Gender Differences for Eating Disorder Symptom Networks
 
 ## Research background
 
-:::: columns
 
+:::: columns
 ::: column
 
 -   The present study examined sex-specific, symptom-level relationships among emotion regulation (ER), interpersonal problems (IP), and eating disorder (ED) psychopathology in a large sample of Chinese adolescents [@zhangLongitudinalNetworkAnalysis2024a].
@@ -533,7 +555,11 @@ If you have high frontal alpha and posterior theta, you tend to have better medi
 ::::
 
 ::: {.notes}
-I'll first talk about the background and research questions. I will talk about the rationales of each RQ later.
+This project is a collaborative project with Prof. He from CUHK ShenZhen. They have a longitudinal data about eating disorder symptoms of chinese adloscents. They suspected that ED symptoms are not isolated and highly relevant to other problems such as social issues, or emotion regulation. 
+
+Some who have eating disorders often have bad emotion contorls and unstable friendship. 
+
+So, that is the initial motivation... We want to undertand...
 :::
 
 ## Eating Disorder Network?
@@ -566,12 +592,10 @@ I'll first talk about the background and research questions. I will talk about t
 :::
 
 ::: {.notes}
-I’ll motivate ED as an ecosystem involving emotion regulation and interpersonal problems. Theory and evidence suggest reciprocal effects. We want to see symptom-level dynamics rather than only broad trait scores.
+I’ll justify ED as an ecosystem involving emotion regulation and interpersonal problems. Theory and evidence suggest reciprocal effects. We want to see symptom-level dynamics rather than only broad trait scores.
 
 Longitudinal psychological networks fit this problem well. They treat ED behaviors and related traits as interrelated nodes and help us find impactful symptoms while separating temporal from concurrent effects.
 :::
-
-
 
 
 
@@ -588,7 +612,9 @@ Longitudinal psychological networks fit this problem well. They treat ED behavio
 -   Research Questions:
 
     1.  Are there gender differences in the **network structures** of eating disorder longitudinal networks?
+    
     2.  Are there gender differences in the **network importance** of longitudinal networks?
+    
     3.  Are there gender differences in **key paths** of longitudinal networks?
 
 ::: {.notes}
@@ -640,16 +666,13 @@ We include emotion regulation subscales, interpersonal problem subscales, and ED
 :::::
 
 ::: {.notes}
-These plots show temporal connections. I’ll point out shared patterns and key differences by gender, setting up the summary tables on the next slides.
+These plots show longitudinal effects among interpersonal issues (blue), emotion regulation issue (yellow), and eating disorders (orange) . I’ll point out shared patterns and key differences by gender, setting up the summary tables on the next slides.
 :::
 
 ## Overall Network Structure
 
 ### Correlation Stability
-1.  The multigroup network stability statistics were acceptable for contemporaneous and between-subject networks according to the criterion of CS coefficients above 0.7.
-    
-2.  The temporal network was less stable, with CS coefficients ranging from 0.51 to 0.56. Less stable indicates higher residual errors overall.
-
+1.  The multigroup network stability statistics were acceptable.
 
 ::::: columns
 ::: {.column width="50%"}
@@ -657,9 +680,6 @@ These plots show temporal connections. I’ll point out shared patterns and key 
 
 1.  Sparsity: **8.06%** of non-zero edges (temporal)
 2.  Strength: Mean (SD) of edge weights is 0.127 (0.094).
-3.  Node *weight/shape preoccupation* (EDE-WP) exhibited the highest **InStrength**
-4.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **OutStrength**
-5.  Node *Awareness* (Awr) exhibited the highest **bridge strength**
 :::
 
 ::: {.column width="50%"}
@@ -667,19 +687,16 @@ These plots show temporal connections. I’ll point out shared patterns and key 
 
 1.  Sparsity: **10.60%** of non-zero edges (temporal)
 2.  Strength: Mean (SD) of edge weights is 0.128 (0.102).
-3.  Node *weight/shape preoccupation* (EDE-WP) exhibited the highest **InStrength**
-4.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **OutStrength**
-5.  Node *weight/shape dissatisfaction* (EDE-WD) exhibited the highest **bridge strength**
 :::
 ::::: 
 
 ::: {.notes}
 Contemporaneous and between-person layers are stable; temporal effects are moderately stable. I’ll note where to be cautious when interpreting lagged edges.
 
-Boys and girls have similar average temporal strengths, but different bridging. For boys, Awareness bridges communities; for girls, Weight/Shape Dissatisfaction plays that role. This suggests different intervention targets.
+Boys and girls have similar average temporal strengths and density.
 :::
 
-## Network Hub differences between sex groups
+## Network Hub (Important Symptoms) differences between sex groups
 
 ::::: columns
 ::: {.column width="60%"}
@@ -695,7 +712,7 @@ Boys and girls have similar average temporal strengths, but different bridging. 
 The table compares centrality by sex. Bootstrap tests indicate meaningful differences for specific ED items. I’ll highlight how out-strength and in-strength map to potential symptom drivers and receivers.
 :::
 
-## Network conncetor difference between sex groups
+## Network conncetor (Bridge Symptoms) differences between sex groups
 
 ::::: columns
 ::: {.column width="60%"}
@@ -737,29 +754,31 @@ Differences: denser girls’ networks and different bridge nodes imply higher co
 ::: discussion
 -   Network psychometrics seems very promising to understand complex psychological phenomenon. 
 
--   Is there any other novel psychometric areas? My answer is AI-driven psychometrics.
+-   Is there any other novel psychometric areas? My answer is AI psychometrics.
 :::
 
 # Further studies: AI psychometrics
 
 AI-enhanced psychometrics is becoming more and more important.
 
-## AI data augmentation
+## AI data augmentation for test development
 
 :::: columns
-::: {.column width="40%"}
+::: {.column width="30%"}
 -   One of my recent project let AI participants can serve as the data points in psychometric assessment given enough accurate human information.
 
 -   Interview-informed large language models can align with real human responses regarding survey responses very well.
 :::
 
-::: {.column width="60%"}
+::: {.column width="70%"}
 ![Behavioral Regulation in Exercise Questionnaire](figures/Future_AI/Figure3_output_BREQ_means.png)
 :::
 ::::
 
 ::: notes
-In the future, AI will be invoved into psychometric studies, such as AI scoring, item generation, automate assessment.
+In the future, AI will be invoved into psychometric studies, such as AI scoring, item generation, automate assessment. One key challenge of psychometrics, sometime we do not have enough samples with high quality. AI agents with simulated persona may help me. 
+
+We are still at the very early stage of AI psychometrics. A lot challeges exists, such as ethnic issues, validity of AI. However, I think as AI grows, we will see more AI-drive methods in psychometrics.
 :::
 ----
 
@@ -791,9 +810,9 @@ Interpretation challenges remain: what do density differences mean? How should w
 
 1. We talk about the network analysis framework
 
-2. Two case studies showing network analysis can be widely applied to different research areas
+2. Two case studies showing how network analysis can be applied to different research areas
 
-3. We need novel AI-driven methodology in AI era because AI can serve as research tools or data collection tools.
+3. In the future, we need novel AI-driven methodology in AI era because AI can serve as research tools or data collection tools.
 
 # Q&A
 
