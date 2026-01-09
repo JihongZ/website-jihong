@@ -16,29 +16,33 @@ format:
       margin-width: 350px
 ---
 
-## To-do
+## New Year's resolutions (2026)
 
--  [ ] Write a blog post about the community detection in psychometric network analysis.
--  [ ] Finish the data analysis of network analysis of physical activity.
--  [ ] Review Ji's code of rank factor scores.
--  [ ] Run the whole simulation of Large Language Model + Interview Data.
+-   Publish \>= 3 first-authored papers including in-review
 
-## Upcoming Project Topic
+-   Submit \>= 3 state or nation level grants
+
+-   3 times jogging weekly
+
+## 2026 Project Topic
+
+## 2025 Project Topic
 
 ### Network psychometrics
 
-@. How to score individuals in the longitudinal network analysis?
-@. Use network analysis to examine the testlet effect.
-@. Apply the network analysis to self-reported variables in the mediation task?
-@. Diagnosis issues of individuals in the network analysis?
-@. Develop ranking factor scores for factor analysis (Authors: Ji L., Xinya L., Jihong Z.)
-@. Compare item selection performance for regularized factor analysis and network analysis. (Authors: Jiayin C., Xinya L., Jihong Z.)
-@. Apply cross-section network analysis to after-school staffs' physical activity. (Authors: Anqi D., Jihong Z.)
-@. Apply longitudinal network analysis to EEG data of mediation task (Authors: Yanli (Jeff) Lin, Jihong Z.)
+1.  How to score individuals in the longitudinal network analysis?
+2.  Use network analysis to examine the testlet effect.
+3.  Apply the network analysis to self-reported variables in the mediation task?
+4.  Diagnosis issues of individuals in the network analysis?
+5.  Develop ranking factor scores for factor analysis (Authors: Ji L., Xinya L., Jihong Z.)
+6.  Compare item selection performance for regularized factor analysis and network analysis. (Authors: Jiayin C., Xinya L., Jihong Z.)
+7.  Apply cross-sectional network analysis to after-school staffs' physical activity. (Authors: Anqi D., Jihong Z.)
+8.  ~~Apply longitudinal network analysis to EEG data of mediation task (Authors: Yanli (Jeff) Lin, Jihong Z.)~~
 
 ### Large language models in Education and Psychology
-@. CDM-driven LLMs for interview data analysis.
-@. Test psychometric difference between LLM-generated and human-generated using measurement invariance (DIF). Use the multi-agent system to detect DIF.
-@. Use LLM to convert interview data into survey response (Jihong Z., Nicole Bonge)
-@. Test the stability of LLM-generated survey responses under different conditions (Xinya L., Jihong Z.)
-@. Training Generated AI algorithm using large education item pools (Hong Jiao, Xinya L., Jihong Z.).
+
+1.  CDM-driven LLMs for interview data analysis.
+2.  Test psychometric difference between LLM-generated and human-generated using measurement invariance (DIF). Use the multi-agent system to detect DIF.
+3.  ~~Use LLM to convert interview data into survey response (Jihong Z., Nicole Bonge)~~
+4.  Test the stability of LLM-generated survey responses under different conditions (Xinya L., Jihong Z.)
+5.  Training Generated AI algorithm using large education item pools (Hong Jiao, Xinya L., Jihong Z.).
