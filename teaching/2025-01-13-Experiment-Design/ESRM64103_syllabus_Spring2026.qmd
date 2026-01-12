@@ -30,7 +30,7 @@ citation-location: document
 
 -   Course Code: ESRM 64103
 -   Credits: 3 CH
--   Course time and location: Tuesday \| 5:00 PM - 7:45 PM; GRAD 239
+-   Course time and location: Tuesday \| 5:00 PM - 7:45 PM; GRAD 229
 -   Instructor: Dr. Jihong Zhang
 -   Contact Information: [jzhang\@uark.edu](mailto:jzhang@uark.edu)
 -   AI Tutor: [OpenAI Website](https://chatgpt.com/g/g-68cf5bdeb74c8191bba4dfdd768d299b-experimental-design-tutor)
