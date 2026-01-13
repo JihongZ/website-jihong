@@ -85,9 +85,8 @@ format:
 -   Tell me:
 
     1.  Your name
-    2.  Department name
-    3.  Which year in your program
-    4.  Why you are interested in Experimental design
+    2.  Your department and program
+    3.  Why you are interested in Experimental design
 
 ## About this class
 
