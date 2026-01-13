@@ -8,16 +8,6 @@ institute: |
   University of Arkansas
 date: "2025-01-13"
 format:
-  html:
-    code-tools: true
-    code-line-numbers: false
-    code-fold: false
-    number-offset: 1
-    fig.width: 10
-    fig-align: center
-    message: false
-    grid:
-      sidebar-width: 350px
   uark-revealjs:
     chalkboard: true
     embed-resources: false
@@ -31,6 +21,17 @@ format:
     output-file: slides-index.html
     mermaid:
       theme: forest
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
+  
 ---
 
 # Overview
@@ -39,7 +40,7 @@ format:
 
 1.  Self introduction
 
-2.  The syllabus
+2.  [The syllabus](../ESRM64103_syllabus_Spring2026.qmd)
 
     1.  Goal of this class
 
@@ -92,11 +93,11 @@ format:
 
 -   No examination
 
--   Light homeworks, 3-5 assignments with multiple-choice questions and light calculations
+-   Light homework load, 3-5 assignments with multiple-choice questions and light calculations
 
--   To teach big picture and general directions rather than statistical details
+-   Provide big picture and general directions rather than statistical details
 
--   A lot of examples
+-   A lot of empirical examples
 
 -   All materials use R!
 
@@ -110,7 +111,7 @@ format:
 
 ## Learning Path of Graduate Certificate
 
-### Statistics Learning Path:
+### Statistics Path:
 
 1.  **ESRM 64003 — Educational Statistics and Data Processing**: Establish fundamental statistical skills.
 2.  **ESRM 64103 — Experimental Design**: Learn research design methodologies.
@@ -118,7 +119,7 @@ format:
 4.  [Elective]{.underline}: **ESRM 64503 — Applied Multivariate Statistics**: Extend analysis to multiple dependent and independent variables.
 5.  [Elective]{.underline}: **ESRM 65203 — Structural Equation Modeling**: Develop expertise in complex model testing.
 
-### Measurement Learning Path:
+### Measurement Path:
 
 1.  **ESRM 64003 — Educational Statistics and Data Processing**: Gain foundational knowledge in statistics.
 2.  **ESRM 64103 — Experimental Design**: Acquire skills in designing educational research.
@@ -130,13 +131,13 @@ format:
 
 1.  **Unit 1** (17:00 - 17:45): Lectures about concepts
 2.  **Unit 2** (18:00 - 18:45): Examples
-3.  **Unit 3** (19:00 - 19:45): Self Practice with R Code on your laptop and Ask Questions
+3.  **Unit 3** (19:00 - 19:45): (Optional) Self Practice with R Code on your laptop and Ask Questions
 
 ## What To Expect This Semester
 
 -   **Philosophy**: Focus on accessibility + learning-by-doing
 
-    -   The AMS class heavily emphasize on hands-on task-oriented practices
+    -   The class heavily emphasize on hands-on task-oriented practices
 
     -   **No** anxiety-prone tasks (e.g., hand calculations, memorizing formulas)
 
@@ -156,7 +157,7 @@ format:
 
 -   Participants will have the opportunity to earn **up to 100 total points** in this course.
 
--   **Up to 80 points** can be earned from homework assignment **(3\~6 assignments in total)**
+-   **Up to 80 points** can be earned from homework assignment **(3\~4 assignments in total)**
 
 -   **Up to 20 points** may be earned from submitting in-class quiz. In-class quiz will be delivered randomly in class. These will be graded on effort only—incorrect answers will not be penalized.
 
@@ -410,27 +411,23 @@ format:
 
 -   To operate certain tasks, you need to use functions contained in R packages
 
-    -   There are two ways of using R functions
-
-    -   **Direct way**: you don't have to load your package first
-
-    -   ![][8]
-
-    -   **Use-after-load way**: Package is loaded in your session before you can call the function name without specifying the package name
+    -   Note: Package is loaded in your session before you can call the function name without specifying the package name
 
         ```{r}
         #| eval: false
         #| echo: true
         #| code-fold: false
-        require(pak)
-        pkg_install("ggplot2", upgrade = TRUE)
+        install.packages("remotes") # if you did not install the remotes package before
+        library(remotes)
+        remotes::install_github("JihongZ/ESRM64103", force = TRUE)
         ```
+
 
   [8]: figures/function.png {width="100%"}
 
 ## R functions (Cont.)
 
--   How do you know you already load the package or not
+-   Question: How do you know whether the package has been loaded or not
 
 -   You can use `sessionInfo` function
 
@@ -440,13 +437,16 @@ format:
     sessionInfo()
     ```
 
--   It outputs multiple info:
+-----
+
+-   `sessionInfo()` outputs multiple info:
 
     -   R version, Operations System, Matrix operation package, Locale
 
     -   **Attached packages** (you can call the functions of those package)
 
     -   **Loaded package via a namespace (and not attached)**, which you cannot call functions and need to `library` or `require` them
+
 
 ## Run R code
 

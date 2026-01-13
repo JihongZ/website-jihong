@@ -41,9 +41,7 @@ citation-location: document
 
 # Course Overview
 
-Welcome to **ESRM 64103: Experimental Design in Education**.
-This course is designed to strengthen your ability to analyze and interpret research data using analysis-of-variance (ANOVA) techniques.
-Building on your foundation from ESRM 64003 (*Educational Statistics and Data Processing*), you will gain skills essential for advanced ESRM coursework.Prerequisites: ESRM 64003 (*Educational Statistics and Data Processing*) or an equivalent course with a grade of C or better.
+Welcome to **ESRM 64103: Experimental Design in Education**. This course is designed to strengthen your ability to analyze and interpret research data using analysis-of-variance (ANOVA) techniques. Building on your foundation from ESRM 64003 (*Educational Statistics and Data Processing*), you will gain skills essential for advanced ESRM coursework.Prerequisites: ESRM 64003 (*Educational Statistics and Data Processing*) or an equivalent course with a grade of C or better.
 
 ## Course Objectives
 
@@ -88,24 +86,17 @@ Topics covered in this course include:
 
 ## Attendance
 
-Attendance is expected at the graduate level.
-If you know you will be out of town when an assignment is due, please make arrangements to complete and submit your work in advance.
-Deadlines are set to provide the maximum allowable time for completion.
+Attendance is expected at the graduate level. If you know you will be out of town when an assignment is due, please make arrangements to complete and submit your work in advance. Deadlines are set to provide the maximum allowable time for completion.
 
 # Assignments
 
 ## Homework
 
-Homework assignments are designed for both instructional and assessment purposes.
-Each homework will be assigned approximately every two weeks and will consist of questions related to course content, including material from lectures and computer-based exercises.
-**You are strongly encouraged to complete and submit each homework by the specified due date via the online Homework Portal (see [Homework portal](#sec-homeworkportal)).** Timely submission is essential for staying on track with the course schedule.
+Homework assignments are designed for both instructional and assessment purposes. Each homework will be assigned approximately every two weeks and will consist of questions related to course content, including material from lectures and computer-based exercises. **You are strongly encouraged to complete and submit each homework by the specified due date via the online Homework Portal (see [Homework portal](#sec-homeworkportal)).** Timely submission is essential for staying on track with the course schedule.
 
 ## Grading Criteria
 
-This is a graduate-level course.
-Students are expected to read assigned textbook chapters and lecture notes, attend all in-person classes, complete all assignments thoroughly, and actively participate in class activities.
-Consistent engagement in these activities is typically associated with successful course performance.
-Grades will be determined according to the following point system:
+This is a graduate-level course. Students are expected to read assigned textbook chapters and lecture notes, attend all in-person classes, complete all assignments thoroughly, and actively participate in class activities. Consistent engagement in these activities is typically associated with successful course performance. Grades will be determined according to the following point system:
 
 |               | Raw Score | Percentage |
 |---------------|-----------|------------|
@@ -130,48 +121,31 @@ The grading scale for this course is as follows:
 
 ## AI Statement
 
-Specific permissions will be provided to students regarding the use of generative artificial intelligence tools on certain graded activities in this course.
-In these instances, I will communicate explicit permission as well as expectations and any pertinent limitations for use and attribution.
-Without this permission, the use of generative artificial intelligence tools in any capacity while completing academic work submitted for credit, independently or collaboratively, will be considered academic dishonesty and reported to the Office of Academic Initiatives and Integrity.
+Specific permissions will be provided to students regarding the use of generative artificial intelligence tools on certain graded activities in this course. In these instances, I will communicate explicit permission as well as expectations and any pertinent limitations for use and attribution. Without this permission, the use of generative artificial intelligence tools in any capacity while completing academic work submitted for credit, independently or collaboratively, will be considered academic dishonesty and reported to the Office of Academic Initiatives and Integrity.
 
 ## Academic Integrity
 
-As a core part of its mission, the University of Arkansas provides students with the opportunity to further their educational goals through programs of study and research in an environment that promotes freedom of inquiry and academic responsibility.
-Accomplishing this mission is only possible when intellectual honesty and individual integrity prevail.
+As a core part of its mission, the University of Arkansas provides students with the opportunity to further their educational goals through programs of study and research in an environment that promotes freedom of inquiry and academic responsibility. Accomplishing this mission is only possible when intellectual honesty and individual integrity prevail.
 
-Each University of Arkansas student is required to be familiar with and abide by the University's **Academic Integrity Policy** at [honesty.uark.edu/policy](https://honesty.uark.edu/policy).
-Students with questions about how these policies apply to a particular course or assignment should immediately contact their instructor.
+Each University of Arkansas student is required to be familiar with and abide by the University's **Academic Integrity Policy** at [honesty.uark.edu/policy](https://honesty.uark.edu/policy). Students with questions about how these policies apply to a particular course or assignment should immediately contact their instructor.
 
 ## Emergency Preparedness
 
-The University of Arkansas is committed to providing a safe and healthy environment for study and work.
-In that regard, the university has developed a campus safety plan and an emergency preparedness plan to respond to a variety of emergency situations.
-The emergency preparedness plan can be found at [emergency.uark.edu](https://emergency.uark.edu).
-Additionally, the university uses a campus-wide emergency notification system, UARKAlert, to communicate important emergency information via email and text messaging.
-To learn more and to sign up: <http://safety.uark.edu/emergency-preparedness/emergency-notification-system/>
+The University of Arkansas is committed to providing a safe and healthy environment for study and work. In that regard, the university has developed a campus safety plan and an emergency preparedness plan to respond to a variety of emergency situations. The emergency preparedness plan can be found at [emergency.uark.edu](https://emergency.uark.edu). Additionally, the university uses a campus-wide emergency notification system, UARKAlert, to communicate important emergency information via email and text messaging. To learn more and to sign up: <http://safety.uark.edu/emergency-preparedness/emergency-notification-system/>
 
 ## Inclement Weather
 
-If you have any questions about whether or not class will be canceled due to inclement weather, please contact me.
-If I cancel class, I will notify you via email and/or Blackboard.
-In general, students need to know how and when they will be notified in the event that class is cancelled for weather-related reasons.
-Please see [here](http://safety.uark.edu/inclement-weather/) for more information.
+If you have any questions about whether or not class will be canceled due to inclement weather, please contact me. If I cancel class, I will notify you via email and/or Blackboard. In general, students need to know how and when they will be notified in the event that class is cancelled for weather-related reasons. Please see [here](http://safety.uark.edu/inclement-weather/) for more information.
 
 ## Access and Accommodations
 
-Your experience in this class is important to me.
-University of Arkansas [Academic Policy Series 1520.10](https://provost.uark.edu/policies/152010.php) requires that students with disabilities are provided reasonable accommodations to ensure their equal access to course content.
-If you have already established accommodations with the Center for Educational Access (CEA), please request your accommodations letter early in the semester and contact me privately, so that we have adequate time to arrange your approved academic accommodations.
+Your experience in this class is important to me. University of Arkansas [Academic Policy Series 1520.10](https://provost.uark.edu/policies/152010.php) requires that students with disabilities are provided reasonable accommodations to ensure their equal access to course content. If you have already established accommodations with the Center for Educational Access (CEA), please request your accommodations letter early in the semester and contact me privately, so that we have adequate time to arrange your approved academic accommodations.
 
-If you have **not** yet established services through CEA, but have a documented disability and require accommodations *(conditions include but not limited to: mental health, attention-related, learning, vision, hearing, physical, health or temporary impacts)*, contact CEA directly to set up an Access Plan.
-CEA facilitates the interactive process that establishes reasonable accommodations.
-For more information on CEA registration procedures contact 479–575–3104, [ada\@uark.edu](mailto:ada@uark.edu) or visit [cea.uark.edu.](https://cea.uark.edu/)
+If you have **not** yet established services through CEA, but have a documented disability and require accommodations *(conditions include but not limited to: mental health, attention-related, learning, vision, hearing, physical, health or temporary impacts)*, contact CEA directly to set up an Access Plan. CEA facilitates the interactive process that establishes reasonable accommodations. For more information on CEA registration procedures contact 479–575–3104, [ada\@uark.edu](mailto:ada@uark.edu) or visit [cea.uark.edu.](https://cea.uark.edu/)
 
 ## Academic Support
 
-A complete list and brief description of academic support programs can be found on the University's Academic Support site, along with links to the specific services, hours, and locations.
-Faculty are encouraged to be familiar with these programs and to assist students with finding an using the support services that will help them be successful.
-Please see [here](http://www.uark.edu/academics/academic-support.php) for more information.
+A complete list and brief description of academic support programs can be found on the University's Academic Support site, along with links to the specific services, hours, and locations. Faculty are encouraged to be familiar with these programs and to assist students with finding an using the support services that will help them be successful. Please see [here](http://www.uark.edu/academics/academic-support.php) for more information.
 
 ## Religious Holidays
 
@@ -190,64 +164,61 @@ Please see the online gradebook for your current grade.
 
 # Schedule
 
-Following materials are only allowed for previewing for students registered in ESRM 64103.
-DO NOT DISTRIBUTE THEM on the internet.
-They will be removed after the course ended.
-**All homework are due at noon on next Wednesday.**
+Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon on next Wednesday.**
 
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| Week    | Date    | Topic                                                                 | HW                                                        |
-+:========+:========+:======================================================================+:==========================================================+
-| 1       | 01/13   | [Lec1: Introduction and Overview](Lecture01/ESRM64103_Lecture01.qmd)  | [Homework 0: Demo](https://forms.office.com/r/v5QU6KMgXc) |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 2       | 01/20   | Lec1 (Online): [R programming](Lecture01/MakeFriendsWithR.qmd)        |                                                           |
-|         |         |                                                                       |                                                           |
-|         |         | Exercise: [R Exercise](Lecture01/R_Exercises.qmd)                     |                                                           |
-|         |         |                                                                       |                                                           |
-|         |         | Data: [heights.csv](Lecture01/heights.csv)                            |                                                           |
-|         |         |                                                                       |                                                           |
-|         |         | Data: [wide.sav](Lecture01/wide.sav)                                  |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 3       | 01/27   | [Lec2: Hypothesis testing](Lecture02/ESRM64103_Lecture02.qmd)         | HW#1                                                      |
-|         |         |                                                                       |                                                           |
-|         |         |                                                                       | Due on 02/03 Noon                                         |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 4       | 02/03   | [Lec3: One-way ANOVA](Lecture03/ESRM64103_Lecture03.qmd)              | HW#1 Answer                                               |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 5       | 02/10   | [Lec4: ANOVA Assumption Checking](Lecture04/ESRM64103_Lecture04.qmd)  |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 6       | 02/17   | [Lec5: Comparison and Contrast](Lecture05/ESRM64103_Lecture05.qmd)    |                                                           |
-|         |         |                                                                       |                                                           |
-|         |         | Data: [week5_example.csv](Lecture05/week5_example.csv)                |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 7       | 02/24   | [Lec6: Validity](Lecture06/ESRM64103_Lecture06.qmd)                   |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 8       | 03/03   | [Lec7: Power Analysis Foundations](Lecture07/ESRM64103_Lecture07.qmd) | @lakensSimulationBasedPowerAnalysis2021                   |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 9       | 03/10   | [Lec8: Power Analysis Statistics](Lecture08/ESRM64103_Lecture08.qmd)  | HW#2                                                      |
-|         |         |                                                                       |                                                           |
-|         |         | [exp1_data.csv](Lecture08/exp1_data.csv)                              | Due on 03/17 Noon                                         |
-|         |         |                                                                       |                                                           |
-|         |         | [tip_hardness.csv](Lecture08/tip_hardness.csv)                        |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 10      | 03/17   | [Lec9: Two-Way ANOVA (1)](Lecture09/ESRM64103_Lecture09.qmd)          | HW#2 Answer                                               |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 11      | 03/24   | Spring Break: No Class                                                |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 12      | 03/31   | [Lec10: Two-Way ANOVA (2)](Lecture10/ESRM64103_Lecture10.qmd)         |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 13      | 04/07   | [Lec11: Repeated Measure ANOVA](Lecture11/ESRM64103_Lecture11.qmd)    |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 14      | 04/14   | [Lec12: ANCOVA](Lecture12/ESRM64103_Lecture12.qmd)                    |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 15      | 04/21   | [Lec13: Mixed ANOVA](Lecture13/ESRM64103_Lecture13.qmd)               |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 16      | 04/28   | **Last Class: Q & A**                                                 | HW#3 (Final)                                              |
-|         |         |                                                                       |                                                           |
-|         |         |                                                                       | Due on 05/05 Noon                                         |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
-| 17      | 05/05   | Final week: Final Homework Due                                        |                                                           |
-+---------+---------+-----------------------------------------------------------------------+-----------------------------------------------------------+
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| Week     | Date     | Topic                                                                | HW                                                        |
++:=========+:=========+:=====================================================================+:==========================================================+
+| 1        | 01/13    | [Lec1: Introduction and Overview](Lecture01/ESRM64103_Lecture01.qmd) | [Homework 0: Demo](https://forms.office.com/r/v5QU6KMgXc) |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 2        | 01/20    | Lec2: [R programming](Lecture01/MakeFriendsWithR.qmd)                |                                                           |
+|          |          |                                                                      |                                                           |
+|          |          | Exercise: [R Exercise](Lecture01/R_Exercises.qmd)                    |                                                           |
+|          |          |                                                                      |                                                           |
+|          |          | Data: [heights.csv](Lecture01/heights.csv)                           |                                                           |
+|          |          |                                                                      |                                                           |
+|          |          | Data: [wide.sav](Lecture01/wide.sav)                                 |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 3        | 01/27    | [Lec3: Hypothesis testing](Lecture02/ESRM64103_Lecture02.qmd)        | HW#1                                                      |
+|          |          |                                                                      |                                                           |
+|          |          |                                                                      | Due on 02/03 Noon                                         |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 4        | 02/03    | [Lec4: One-way ANOVA](Lecture03/ESRM64103_Lecture03.qmd)             | HW#1 Answer                                               |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 5        | 02/10    | [Lec5: ANOVA Assumption Checking](Lecture04/ESRM64103_Lecture04.qmd) |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 6        | 02/17    | [Lec6: Comparison and Contrast](Lecture05/ESRM64103_Lecture05.qmd)   |                                                           |
+|          |          |                                                                      |                                                           |
+|          |          | Data: [week5_example.csv](Lecture05/week5_example.csv)               |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 7        | 02/24    | [Lec7: Validity](Lecture06/ESRM64103_Lecture06.qmd)                  |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 8        | 03/03    | [Lec8: Block Design](Lecture07/ESRM64103_Lecture07.qmd)              | @lakensSimulationBasedPowerAnalysis2021                   |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 9        | 03/10    | [Lec9: Power Analysis](Lecture08/ESRM64103_Lecture08.qmd)            | HW#2                                                      |
+|          |          |                                                                      |                                                           |
+|          |          | [exp1_data.csv](Lecture08/exp1_data.csv)                             | Due on 03/17 Noon                                         |
+|          |          |                                                                      |                                                           |
+|          |          | [tip_hardness.csv](Lecture08/tip_hardness.csv)                       |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 10       | 03/17    | [Lec10: Two-Way ANOVA (1)](Lecture09/ESRM64103_Lecture09.qmd)        | HW#2 Answer                                               |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 11       | 03/24    | Spring Break: No Class                                               |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 12       | 03/31    | [Lec11: Two-Way ANOVA (2)](Lecture10/ESRM64103_Lecture10.qmd)        |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 13       | 04/07    | [Lec12: Repeated Measure ANOVA](Lecture11/ESRM64103_Lecture11.qmd)   |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 14       | 04/14    | [Lec13: ANCOVA](Lecture12/ESRM64103_Lecture12.qmd)                   |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 15       | 04/21    | [Lec14: Mixed ANOVA](Lecture13/ESRM64103_Lecture13.qmd)              |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 16       | 04/28    | **Last Class: Q & A**                                                | HW#3 (Final)                                              |
+|          |          |                                                                      |                                                           |
+|          |          |                                                                      | Due on 05/05 Noon                                         |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
+| 17       | 05/05    | Final week: Final Homework Due                                       |                                                           |
++----------+----------+----------------------------------------------------------------------+-----------------------------------------------------------+
 
 : Weekly Schedule {tbl-colwidths="\[10,10,45,20\]"}
 
