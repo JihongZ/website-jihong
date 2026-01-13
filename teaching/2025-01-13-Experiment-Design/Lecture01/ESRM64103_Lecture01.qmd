@@ -6,7 +6,7 @@ institute: |
   Educational Statistics and Research Methods (ESRM) Program*
 
   University of Arkansas
-date: "2025-01-13"
+date: "2026-01-13"
 format:
   uark-revealjs:
     chalkboard: true
@@ -171,7 +171,15 @@ format:
 
 ## Homework Delivery Format
 
-1.  [Online Microsoft form]{.underline}
+:::: columns
+::: column
+1.  [Online google form]{.underline}
+:::
+
+::: column
+![](images/homework_screenshot.png)
+:::
+::::
 
 ## Our Other Responsibility
 
