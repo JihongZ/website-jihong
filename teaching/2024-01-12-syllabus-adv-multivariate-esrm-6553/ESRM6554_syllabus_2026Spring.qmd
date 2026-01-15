@@ -25,7 +25,7 @@ citation:
 -   **Instructor:** Jihong Zhang
 -   **Contact Information:** jzhang\@uark.edu
 -   **Personal Website:** http://jihongzhang.org
--   **Office Location:** GRAD 0109
+-   **Office Location:** GRAD 133B
 -   **Office Hours:** Th 1:30-4:30PM
 -   **Office Phone** +1 479-575-5235
 -   **Classroom:** GRAD 229
@@ -207,7 +207,7 @@ Weekly breakdown of topics and readings：
 +-------------+---------+-------------------------------------------+----------------------------------------------------------------------------------------+-------------------------------------------------+---------------------------------------------------------------------------------------+
 | 9           | 03/11   | Model Continuous Data: Real Data II       | BPM Chapter 9                                                                          | [Lecture08_Mar11](Lecture08/Lecture08.qmd)      | 1.  [Lecture07.R (updated)](Lecture07/Code/Lecture07.R)                               |
 +-------------+---------+-------------------------------------------+----------------------------------------------------------------------------------------+-------------------------------------------------+---------------------------------------------------------------------------------------+
-| 10          | 03/18   | Modeling Observed Dichotomous Data        | BPM Chapter 11                                                                         | [Lecture09_Mar25](Lecture09/Lecture09.qmd)      | 1.  [Lecture09.R](Lecture09/Code/Lecture09.R)                                         |
+| 10          | 03/18   | Modeling Observed Dichotomous Data        | BPM Chapter 11                                                                         | [Lecture09_Mar18](Lecture09/Lecture09.qmd)      | 1.  [Lecture09.R](Lecture09/Code/Lecture09.R)                                         |
 |             |         |                                           |                                                                                        |                                                 | 2.  [Lecture09.stan](Lecture09/Code/Lecture09.stan)                                   |
 +-------------+---------+-------------------------------------------+----------------------------------------------------------------------------------------+-------------------------------------------------+---------------------------------------------------------------------------------------+
 | 11          | 03/25   | Spring Break                              |                                                                                        |                                                 |                                                                                       |
