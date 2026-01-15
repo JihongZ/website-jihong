@@ -39,7 +39,7 @@ citation:
     -   Probability distributions, such as likelihood, priors and posteriors;
     -   Theoretical foundations of Bayesian inference;
 2.  **Bayesian analysis in Stan**
-    -   Basic Stan coding;
+    -   Bayesian estimation using Stan coding;
     -   R package `cmdstanr` ;
     -   Efficient programming using vectorization;
 3.  **Bayesian Inference and Computational Methods**
@@ -108,7 +108,6 @@ It is assumed that students have has solid statistical training up to and includ
 -   R and R packages (tidyverse)
 -   Stan is gaining in popularity and has an avid user community.
     -   To use Stan in R, you need to download [rstan](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started) or [cmdstanr](https://mc-stan.org/cmdstanr/) package.
--   (Optional) Mplus, JAGS, [WinBUGS](http://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/)
 
 # Assignments
 
@@ -120,16 +119,16 @@ It is assumed that students have has solid statistical training up to and includ
 
 Students will complete a project utilizing your knowledge learnt from the class. You may work individually. I will provide data and questions for this project OR you can use data that is of interest to you in your GA position or dissertation research. The primary objective of the research project is to facilitate the application and understanding of concepts learned in this course.
 
-There will be a short project proposal due around week 15 - it can be sooner if you want to get started early. Required for this proposal is an NCME-type conference proposal (800 words maximum). Please see [Individual Paper Presentations](https://higherlogicdownload.s3.amazonaws.com/NCME/4b7590fc-3903-444d-b89d-c45b7fa3da3f/UploadedImages/2024_Annual_Meeting/NCME_2024_Call_for_Proposals_Final.pdf) for more details
+There will be a short project proposal due around week 15 - it can be sooner if you want to get started early. Required for this proposal is an conference-type proposal (800 words maximum). Please see [Individual Paper Presentations](https://higherlogicdownload.s3.amazonaws.com/NCME/4b7590fc-3903-444d-b89d-c45b7fa3da3f/UploadedImages/2024_Annual_Meeting/NCME_2024_Call_for_Proposals_Final.pdf) for more details
 
-Typical components of the research proposal include:
+Typical 5 components of the research proposal include:
 
 -   Title (no more than 12 words)
 -   Summary of research (no more than 800 words)
     -   Background of research
-    -   Research questions/hypotheses
+    -   Research Questions
     -   Method (Data, Analysis Plan)
-    -   Preliminary findings
+    -   Preliminary Results
     -   References/Table/Figure
 
 ## In-Class Short Quiz
