@@ -5,7 +5,7 @@ listing:
   - id: lectures
     contents: 
       - teaching/2025-01-13-Experiment-Design/ESRM64103_syllabus_Spring2026.qmd
-      - teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus_Fall2025.qmd
+      - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus_2026Spring.qmd
     sort: "date desc"
     type: grid
 sidebar: id-history
@@ -30,6 +30,6 @@ format:
     -   This seminar covers basics of R, data wrangling, data visualization, project version control via git etc. (Typically offered: **Spring**)
 3.  **ESRM64503. [Applied Multivariate Statistics](teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus_Fall2025.qmd).** 3 Hours.
     -   Multivariate statistical procedures as applied to educational research settings including discriminant analysis, principal components analysis, factor analysis, canonical correlation, and cluster analysis. Emphasis on use of existing computer statistical packages. Prerequisite: [ESRM64103](https://catalog.uark.edu/search/?P=ESRM%2064103 "ESRM 64103") and [ESRM64203](https://catalog.uark.edu/search/?P=ESRM%2064203 "ESRM 64203"), both with a grade of C or better. (Typically offered: **Spring**)
-4.  **ESRM65503. [Advanced Multivariate Statistics](teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus.qmd).** 3 Hours.
+4.  **ESRM65503. [Advanced Multivariate Statistics](teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus_2026Spring.qmd).** 3 Hours.
     -   Builds on the foundation provided in Multivariate and introduces techniques that extend methodological elements of canonical, discriminant, factor analytic, and longitudinal analyses, providing the mathematical and theoretical foundations necessary for these designs. Prerequisite: [ESRM64503](https://catalog.uark.edu/search/?P=ESRM%2064503 "ESRM 64503") with a grade of C or better. (Typically offered: **Spring Even Years**)
 :::

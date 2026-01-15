@@ -1,5 +1,5 @@
 ---
-title: "ESRM 6553: Advanced Multivariate Analysis"
+title: "ESRM 6553: Advanced (Bayesian) Multivariate Analysis"
 subtitle: "Spring 2024, Mondays, 5:00-7:45PM, Classroom GRAD 0229"
 author: "Jihong Zhang"
 date: "Jan 13 2024" 

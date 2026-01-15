@@ -23,50 +23,12 @@ format:
 
 ## Today's Lecture Objectives
 
-1.  Introduce myself
-2.  Syllabus
-3.  Extra Course Information
-4.  Introduce Bayesian Analysis
+1.  Introduce Bayesian Analysis
 
 but, before we begin...
 
-## Introduce myself
 
-Let me introduce myself first...
-
-::: {layout-nrow="1"}
-![University if Iowa](../Images/UI.jpg){width="350"}
-
-![Hong Kong: Victoria Harbour](../Images/HK.jpg){width="350"}
-
-![Chinese University of Hong Kong](../Images/CUHK.jpg){width="350"}
-:::
-
-## Syllabus
-
-[Syllabus of ESRM 6553](https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/index.pdf)
-
-## Course Time
-
--   Monday 5PM to 7:45PM:
-
-    -   5PM to 6:15PM: First half class
-
-    -   6:15PM to 6:30PM: 15-min break
-
-    -   6:30PM to 7:45PM: Second half class
-
-## Office Hours
-
--   Tuesday 1:30PM to 4:30PM
-
--   You should be able to find me in GRAD Room 109
-
-## Materials
-
--   I will provide R codes and slides at the weekends before next class. You may download them on Blackboard or My website (jihongzhang.org)
-
-## Quiz: What is Bayesian?
+## Background: What is Bayesian?
 
 1.  [How to Pronounce Bayesian (Real Life Examples!)](https://www.youtube.com/watch?v=0e38NuBFqaQ)
     -   "B-Asian" or "Bayes-ian"?
@@ -102,11 +64,8 @@ Let me introduce myself first...
 
 #### A toy example:
 
-<<<<<<< HEAD:posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
-I originally thought the ratio of male Asian faculty to female is about 1:2 (**Prior**). But the data we sampled from 2000 doctoral students suggested gender ratio is 1:1 (**Data; Likelihood that the true ratio we don't know**). Based on Bayes's rule, estimate for the ratio is probably 1:1.5 (**Posterior**) after combining these two statements.
-=======
-I originally thought the ratio of male Asian faculty to female is about 1:2 (**Prior**). We obtained the information from 2000 doctoral candidates suggested gender ratio is 1:1 (**Data; Likelihood give the true ratio we don't know**). Based on Bayes's rule, estimate for the ratio is probably 1:1.5 (**Posterior**) after combining these two statements.
->>>>>>> 6e75efe (update 2024 CV):posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/Lecture01/Lecture01.qmd
+The ratio of male Asian faculty to female is about 1:2 (**Prior**). We obtained the information from 2000 doctoral candidates suggested gender ratio is 1:1 (**Data; Likelihood give the true ratio we don't know**). Based on Bayes's rule, estimate for the ratio is probably 1:1.5 (**Posterior**) after combining these two statements.
+
 
 ## Bayesian Analysis: Why It Is Used? {.smaller}
 
@@ -141,25 +100,17 @@ There are at least four main reasons why people use Bayesian Analysis:
 
 ## Bayesian Analysis is popular
 
-<<<<<<< HEAD:posts/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
 ![Funding available only for NIH, CDC, FDA, AHRQ, and ACF 2020 Spring. Source: https://report.nih.gov/](../Images/histogram_fundingamount.png){width="100%"}
 
 ## What topics Bayesian Analysis can cover?
 
 ![Funding available only for NIH, CDC, FDA, AHRQ, and ACF 2020 Spring. Source: https://report.nih.gov/](../Images/circle_topics.png){width="100%"}
-=======
-![Funding available only for NIH, CDC, FDA, AHRQ, and ACF 2020 Spring. Source: https://report.nih.gov/](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/Images/histogram_fundingamount.png)
-
-## What topics Bayesian Analysis can cover?
-
-![Funding available only for NIH, CDC, FDA, AHRQ, and ACF 2020 Spring. Source: https://report.nih.gov/](/posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/Images/circle_topics.png)
 
 ## Wrapping Up
 
 1.  We know what is "Bayesian" and its components.
 2.  Why Bayesian Estimation is different from other estimation, say maximum likelihood
 3.  We also know that Bayesian analysis is popular in many fields, especially complex data
->>>>>>> 6e75efe (update 2024 CV):posts/2024-01-12-syllabus-adv-multivariate-esrm-6554/Lecture01/Lecture01.qmd
 
 ## Next Class
 
