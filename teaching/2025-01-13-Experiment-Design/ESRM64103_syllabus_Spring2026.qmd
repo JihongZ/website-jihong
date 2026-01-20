@@ -22,7 +22,7 @@ csl: apa.csl
 citation-location: document
 ---
 
-![](images/logo_ESRM64103.png){fig-align="center" width="512"}
+![](images/logo_ESRM64103.png){fig-align="center" width="512" fig-alt="A icon of ESRM64103."}
 
 # General Information
 

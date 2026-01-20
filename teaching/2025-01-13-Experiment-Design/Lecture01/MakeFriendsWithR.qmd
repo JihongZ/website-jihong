@@ -16,13 +16,13 @@ format:
 
 # How to use this file
 
-1.  This file is created using Quarto, one type of file you can review all R code on this webpage.
+1.  This file was created using Quarto, a type of document that allows you to review and execute all R code on this webpage.
 
-2.  To test one certain chunk of code, you click the "copy" icon in the upper right hand side of the chunk block (see screenshot below)
+2.  To test a certain chunk of code, click the "copy" icon in the upper right corner of the chunk block (see screenshot below)
 
     -   ![](figures/R-copy-paste.png)
 
-    -   Try copy the following code
+    -   Try copying the following code
 
         ```{r}
         a = 1 + 1
@@ -30,9 +30,9 @@ format:
         print(b)
         ```
 
-3.  To review the whole file, click `</> Code` next to the title of this paper.
+3.  To review the whole file, click `</> Code` next to the title of this page.
     Find `View Source` and click the button.
-    Then, you can paste to the newly created Quarto Document.
+    Then, you can paste the content into a newly created Quarto Document.
 
     ![](figures/code-copy-paste.png)
 
@@ -82,6 +82,13 @@ It's free, open-source, and has a vast ecosystem of packages for data analysis, 
 #   - Use underscores or dots: my_data or my.data
 #   - Avoid spaces and special characters (except . and _)
 #   - Don't start with numbers: 1data is invalid, data1 is valid
+
+
+## install some neccessary packages
+install.packages("dplyr")
+install.packages("foreign")
+install.packages("tidyr")
+install.packages("psych")
 ```
 
 # Basic Data Types in R
@@ -144,48 +151,116 @@ sum(c(1,2,3,4))    # Sum of values
 mean(c(1,2,3,4))   # Mean of values
 ```
 
-# Vectors - The Building Blocks
+# Getting Help
 
 ```{r}
 #| eval: FALSE
-# Vectors are the most basic data structure in R
-# They can contain elements of the same type
+# R has excellent help documentation
+?mean                    # Help for a function
+??"regression"          # Search for functions containing "regression"
+help(mean)              # Same as ?mean
+example(mean)           # Run examples for a function
 
-# Creating vectors
+# Online resources:
+# - R Documentation: https://www.rdocumentation.org/
+# - Stack Overflow: https://stackoverflow.com/questions/tagged/r
+# - R-bloggers: https://www.r-bloggers.com/
+# - RStudio Community: https://community.rstudio.com/
+
+# Installing and loading packages
+install.packages("package_name")  # Install once
+library(package_name)             # Load each session
+require(package_name)             # Alternative to library()
+```
+
+# Vectors - The Building Blocks
+
+Vectors are the most basic data structure in R. They are one-dimensional arrays that can contain multiple elements of the same type (e.g., all numbers, all text, or all logical values).
+
+## Creating Vectors
+
+```{r}
+#| eval: FALSE
+# Use the c() function (combine) to create vectors
 numeric_vector <- c(1, 2, 3, 4, 5)
 character_vector <- c("apple", "banana", "cherry")
 logical_vector <- c(TRUE, FALSE, TRUE)
 
-# Using the colon operator for sequences
+# Display the vectors
+numeric_vector
+character_vector
+logical_vector
+```
+
+## Creating Sequences
+
+```{r}
+#| eval: FALSE
+# Using the colon operator for simple sequences
 sequence <- 1:10
 sequence
 
-# Using seq() function for more control
+# You can also create descending sequences
+10:1
+```
+
+## Using seq() for More Control
+
+```{r}
+#| eval: FALSE
+# seq() gives you more control over sequences
+# Create a sequence from 1 to 10, incrementing by 2
 seq(from = 1, to = 10, by = 2)
+
+# Create a sequence with exactly 5 equally-spaced values between 1 and 10
 seq(1, 10, length.out = 5)
+```
 
-# Using rep() to repeat values
+## Repeating Values with rep()
+
+```{r}
+#| eval: FALSE
+# Repeat a single value multiple times
 rep(5, times = 3)
-rep(c(1, 2), times = 3)
-rep(c(1, 2), each = 3)
 
-# Vector operations
+# Repeat an entire vector multiple times
+rep(c(1, 2), times = 3)
+
+# Repeat each element multiple times before moving to the next
+rep(c(1, 2), each = 3)
+```
+
+## Vector Operations
+
+```{r}
+#| eval: FALSE
+# R performs operations element-wise on vectors
 x <- c(1, 2, 3, 4, 5)
 y <- c(10, 20, 30, 40, 50)
 
-x + y    # Element-wise addition
-x * y    # Element-wise multiplication
-x^2      # Element-wise exponentiation
+# Element-wise addition
+x + y
+
+# Element-wise multiplication
+x * y
+
+# Element-wise exponentiation
+x^2
+
+# You can also perform operations with a single value (vectorization)
+x + 10
+x * 2
 ```
 
 # Categorical/Factor Vectors (Factors)
 
+Factors are used for categorical variables in R. They store both the values and the levels (categories), which is essential for statistical analysis and plotting. R uses factors to understand categorical variables properly.
+
+## Creating Basic Factors
+
 ```{r}
 #| eval: FALSE
-# Factors are used for categorical variables in R
-# They store both the values and the levels (categories)
-
-# Creating factors from character vectors
+# Create a factor from a character vector
 gender <- c("Male", "Female", "Male", "Female", "Male")
 gender_factor <- factor(gender)
 gender_factor
@@ -193,63 +268,117 @@ gender_factor
 # Check the levels (categories)
 levels(gender_factor)
 
-# Creating factors with specific levels
+# See how many observations in each category
+table(gender_factor)
+```
+
+## Creating Factors with Specific Levels
+
+```{r}
+#| eval: FALSE
+# You can specify the order of levels explicitly
+# This is useful when you want a specific order for plotting or analysis
 education <- c("High School", "College", "Graduate", "High School")
-education_factor <- factor(education, 
+education_factor <- factor(education,
                           levels = c("High School", "College", "Graduate"))
 education_factor
 
-# Ordered factors (for ordinal data)
+# View the levels in the order you specified
+levels(education_factor)
+```
+
+## Ordered Factors (Ordinal Data)
+
+```{r}
+#| eval: FALSE
+# Use ordered = TRUE for ordinal data (categories with a meaningful order)
 satisfaction <- c("Low", "Medium", "High", "Medium", "Low")
-satisfaction_ordered <- factor(satisfaction, 
-                              levels = c("Low", "Medium", "High"),
-                              ordered = TRUE)
+satisfaction_ordered <- factor(satisfaction,
+                               levels = c("Low", "Medium", "High"),
+                               ordered = TRUE)
 satisfaction_ordered
 
-# Basic factor operations
-table(gender_factor)  # Frequency table
-summary(gender_factor)  # Summary statistics
+# Notice the < signs indicating the order
+print(satisfaction_ordered)
+```
 
-# Converting factors
-as.character(gender_factor)  # Back to character
-as.numeric(gender_factor)    # To numeric (level numbers)
+## Factor Operations and Summaries
 
-# Creating factors from numeric data
-age_groups <- c(25, 30, 35, 25, 40, 30)
-age_factor <- factor(age_groups)
-age_factor
+```{r}
+#| eval: FALSE
+# Get frequency counts
+table(gender_factor)
+```
 
-# Grouping ages into meaningful categories
+## Converting Between Data Types
+
+```{r}
+#| eval: FALSE
+# Convert factor back to character
+as.character(gender_factor)
+
+# Convert to numeric (gives you the underlying level numbers, not always useful)
+as.numeric(gender_factor)
+
+# Be careful: converting numeric to factor
+age_values <- c(25, 30, 35, 25, 40, 30)
+age_factor <- factor(age_values)
+age_factor  # Notice it treats each unique number as a separate category
+```
+
+## Grouping Continuous Data into Categories
+
+### Method 1: Using cut() Function
+
+```{r}
+#| eval: FALSE
+# cut() is ideal for dividing continuous data into intervals
 ages <- c(22, 25, 30, 35, 40, 45, 50, 55, 60, 65)
 
-# Method 1: Using cut() function to create age groups
-age_categories <- cut(ages, 
-                     breaks = c(0, 30, 50, 100), 
-                     labels = c("Young", "Middle", "Senior"),
-                     include.lowest = TRUE)
+age_categories <- cut(ages,
+                      breaks = c(0, 30, 50, 100),  # Define the breakpoints
+                      labels = c("Young", "Middle", "Senior"),  # Label each interval
+                      include.lowest = TRUE)  # Include the lowest value in the first interval
 age_categories
 
-# Method 2: Using ifelse() for custom grouping
+# Check the distribution
+table(age_categories)
+```
+
+### Method 2: Using ifelse() for Custom Grouping
+
+```{r}
+#| eval: FALSE
+# ifelse() gives you more control over custom conditions
+ages <- c(22, 25, 30, 35, 40, 45, 50, 55, 60, 65)
+
 age_groups_custom <- ifelse(ages < 30, "Young",
-                           ifelse(ages < 50, "Middle", "Senior"))
-age_groups_factor <- factor(age_groups_custom, 
-                           levels = c("Young", "Middle", "Senior"),
-                           ordered = TRUE)
+                            ifelse(ages < 50, "Middle", "Senior"))
+
+# Convert to an ordered factor
+age_groups_factor <- factor(age_groups_custom,
+                            levels = c("Young", "Middle", "Senior"),
+                            ordered = TRUE)
 age_groups_factor
 
-# Check the distribution
+# View the distribution
 table(age_groups_factor)
 summary(age_groups_factor)
-
-# Factors in data analysis
-# Factors are essential for statistical analysis and plotting
-# They help R understand categorical variables properly
 ```
+
+## Why Use Factors?
+
+Factors are essential because they:
+
+- Help R recognize categorical data in statistical models (e.g., ANOVA, regression)
+- Control the order of categories in plots and tables
+- Store data more efficiently than character strings
+- Prevent typos from creating unintended new categories
 
 # R Objects
 
 ```{r}
-# Each objects can be saved into the R environment (the workspace here)
+# Each object can be saved into the R environment (the workspace here)
 #   You can save the results of a function call to a variable of any name
 MyObject = print(x = 10)
 class(MyObject)
@@ -325,63 +454,55 @@ matrix1 * matrix2  # Element-wise multiplication
 
 # Importing and Exporting Data
 
--   The data frame is an R object that is a rectangular array of data.
-    The variables in the data frame can be any class (e.g., numeric, character) and go across the columns.
-    The observations are across the rows.
+-   A data frame is an R object that stores data in a rectangular (table) format.
+    Each column represents a variable and can be of different types (e.g., numeric, character, factor).
+    Each row represents an observation or case.
 
 -   We will start by importing data from a comma-separated values (csv) file.
 
 -   We will use the read.csv() function.
-    Here, the argument `stringsAsFactors` keeps R from creating data strings
+    Here, the argument `stringsAsFactors = FALSE` prevents R from automatically converting character strings into factors (categorical variables), giving us more control over data types
 
--   We will use `here::here()` function to quickly point to the target data file.
+-   We can use the `here::here()` function to create reliable file paths that work across different operating systems and project structures.
 
 ```{r}
 #| error: true
 #| eval: false
-# You can also set the directory using setwd(). Here, I set my directory to 
-#   my root folder:
+# You can also set the working directory using setwd().
+# For example, to set it to your home folder:
 # setwd("~")
 
-getwd()
-dir()
-# If I tried to re-load the data, I would get an error:
-HeightsData = read.csv(file = here::here("teaching/2025-01-13-Experiment-Design/Lecture01", "heights.csv"), stringsAsFactors = FALSE)
+getwd()  # Get current working directory
+dir()    # List files in current directory
 ```
 
 ```{r}
-# Method 2: I can use the full path to the file:
-# HeightsData = 
-#   read.csv(
-#     file = "/Users/jihong/Documents/website-jihong/teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/data/heights.csv", 
-#     stringsAsFactors = FALSE)
-
-# Or, I can reset the current directory and use the previous syntax:
-# setwd("/Users/jihong/Documents/website-jihong/teaching/2024-07-21-applied-multivariate-statistics-esrm64503/Lecture01/data/")
-
-HeightsData = read.csv(file = "teaching/2025-01-13-Experiment-Design/Lecture01/heights.csv",
+# The following might give an error if the file path is not correct from your current directory:
+HeightsData = read.csv(file = "heights.csv",
                        stringsAsFactors = FALSE)
 HeightsData
 ```
 
 ```{r}
-# Note: Windows users will have to either change the direction of the slash
-#   or put two slashes between folder levels.
+# Note: Windows users need to use either forward slashes (/) or
+# double backslashes (\\) in file paths. Single backslashes (\) don't work in R.
+# Example: "C:/Users/name/file.csv" or "C:\\Users\\name\\file.csv"
 
-# To show my data in RStudio, I can either double click it in the 
-#   Environment tab or use the View() function
+# To view your data in RStudio, you can either:
+# 1) Double-click the data frame in the Environment tab, or
+# 2) Use the View() function
 # View(HeightsData)
 
-# You can see the variable names and contents by using the $:
+# You can access individual variables (columns) using the $ operator:
 HeightsData$ID
 
-# To read in SPSS files, we will need the foreign library. The foreign
-#   library comes installed with R (so no need to use install.packages()).
+# To read SPSS files, we need the foreign package.
+# The foreign package comes pre-installed with R (no need to use install.packages()).
 library(foreign)
 
-# The read.spss() function imports the SPSS file to an R data frame if the 
-#   argument to.data.frame is TRUE
-WideData = read.spss(file = "teaching/2025-01-13-Experiment-Design/Lecture01/wide.sav", 
+# The read.spss() function imports an SPSS file.
+# Setting to.data.frame = TRUE converts it to an R data frame (rather than a list)
+WideData = read.spss(file = "wide.sav", 
                      to.data.frame = TRUE)
 WideData
 ```
@@ -410,8 +531,8 @@ HeightsData[, "ID"]     # All rows, column named "ID"
 HeightsData$ID          # Same as above (preferred method)
 
 # Subsetting data frames
-subset(HeightsData, Height > 170)
-HeightsData[HeightsData$Height > 170, ]
+subset(HeightsData, HeightIN > 70)
+HeightsData[HeightsData$HeightIN > 70, ]
 ```
 
 ## Exercise
@@ -429,11 +550,15 @@ HeightsData[HeightsData$Height > 170, ]
 # Merging R data frame objects
 
 ```{r}
-# The WideData and HeightsData have the same set of ID numbers. We can use the merge() function to merge them into a single data frame. Here, x is the name of the left-side data frame and y is the name of the right-side data frame. The arguments by.x and by.y are the name of the variable(s) by which we will merge:
+# The WideData and HeightsData have the same set of ID numbers.
+# We can use the merge() function to merge them into a single data frame.
+# Here, x is the name of the left-side data frame and y is the name of the
+# right-side data frame. The arguments by.x and by.y specify the variable(s)
+# by which we will merge:
 AllData = merge(x = WideData, y = HeightsData, by.x = "ID", by.y = "ID")
 AllData
 
-## Method 2: Use dplyr method, |> can be typed using `command + shift + M`
+## Method 2: Use dplyr method (the pipe operator |> can be typed using Ctrl+Shift+M on Windows or Cmd+Shift+M on Mac)
 library(dplyr)
 WideData |> 
   left_join(HeightsData, by = "ID")
@@ -449,11 +574,11 @@ WideData |>
 
 ```{r}
 # Sometimes, certain packages require repeated measures data to be in a long
-# format. 
+# format (where each measurement is on a separate row rather than in separate columns). 
 
-library(dplyr) # contains variable selection 
+library(dplyr) # contains variable selection
 
-## Wrong Way
+## Wrong Way (pivoting DV and Age separately creates unwanted combinations)
 AllDataLong <- AllData |> 
   tidyr::pivot_longer(starts_with("DVTime"), names_to = "DV", values_to = "DV_Value") |> 
   tidyr::pivot_longer(starts_with("AgeTime"), names_to = "Age", values_to = "Age_Value") 
@@ -463,7 +588,7 @@ OnePerson <- AllDataLong  |>
 
 OnePerson
 
-## Correct Way
+## Correct Way (pivot both variables together, then separate and widen properly)
 AllDataLong <- AllData |> 
   tidyr::pivot_longer(c(starts_with("DVTime"), starts_with("AgeTime"))) |> 
   tidyr::separate(name, into = c("Variable", "Time"), sep = "Time") |> 
@@ -482,11 +607,11 @@ OnePerson
 
 ### Practice: Wide to Long with dplyr
 
-In this exercise, practice reshaping repeated-measures data from wide to long using a dplyr pipeline (with tidyr helpers inside the pipe).
+In this exercise, you will practice reshaping repeated-measures data from wide format to long format using a dplyr pipeline (with tidyr functions).
 
-1.  Create the small wide data frame below.
-2.  Reshape to long so that you have columns `id`, `time`, `dv`, and `age`.
-3.  Compute the mean of `dv` by `time` as a quick check.
+1.  Create the small wide data frame shown below.
+2.  Reshape it to long format so that you have four columns: `id`, `time`, `dv`, and `age`.
+3.  Compute the mean of `dv` by `time` as a verification step.
 
 ```{r}
 # Load packages
@@ -534,7 +659,7 @@ toy_long |>
 
 ```{r}
 #| eval: FALSE
-# dplyr provides a grammar for data manipulation
+# The dplyr package provides an intuitive set of functions for data manipulation
 
 # Select columns
 AllData |> 
@@ -568,18 +693,18 @@ AllDataLong |>
 # Gathering Descriptive Statistics
 
 ```{r}
-# The psych package makes getting descriptive statistics very easy.
-## install.packages("psych")
+# The psych package provides convenient functions for computing descriptive statistics.
+## If you haven't installed it yet, run: install.packages("psych")
 library(psych)
 
-# We can use describe() to get descriptive statistics across all cases:
+# Use describe() to get comprehensive descriptive statistics for all variables:
 DescriptivesWide = describe(AllData)
 DescriptivesWide
 
 DescriptivesLong = describe(AllDataLong)
 DescriptivesLong
 
-# We can use describeBy() to get descriptive statistics by groups:
+# Use describeBy() to compute descriptive statistics separately for each group:
 DescriptivesLongID = describeBy(AllDataLong, group = AllDataLong$ID)
 DescriptivesLongID
 
@@ -596,7 +721,7 @@ quantile(AllDataLong$DV, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
 # Transforming Data
 
 ```{r}
-# Transforming data is accomplished by the creation of new variables. 
+# You can transform data by creating new variables. 
 AllDataLong$AgeC = AllDataLong$Age - mean(AllDataLong$Age)
 
 # You can also use functions to create new variables. Here we create new terms
@@ -658,52 +783,53 @@ table(hw0_feedback$Feedback)
 
 ```{r}
 #| eval: FALSE
-# Conditional statements
+# Conditional statements (if-else)
 x <- 10
 if (x > 5) {
   print("x is greater than 5")
 } else {
   print("x is less than or equal to 5")
 }
-## Method 2
-ifelse(x > 5, 
-       print("x is greater than 5"), 
+
+## Alternative method using ifelse() function (vectorized)
+ifelse(x > 5,
+       print("x is greater than 5"),
        print("x is less than or equal to 5"))
 
-# Loops
+# For loops (repeat code a specific number of times)
 for (i in 1:5) {
   print(paste("Iteration", i))
 }
 
-# While loop
+# While loops (repeat code while a condition is TRUE)
 i <- 1
 while (i <= 5) {
   print(paste("While iteration", i))
   i <- i + 1
 }
 
-# Apply functions (more R-like than loops)
+# Apply functions (more efficient and "R-like" than explicit loops)
 numbers <- 1:10
-sapply(numbers, function(x) x^2)
-lapply(numbers, function(x) x^2)
+sapply(numbers, function(x) x^2)  # Returns a vector
+lapply(numbers, function(x) x^2)  # Returns a list
 ```
 
 # Working with Missing Data
 
 ```{r}
 #| eval: FALSE
-# R uses NA to represent missing data
-# Check for missing values
-is.na(AllDataLong$DV)
-sum(is.na(AllDataLong$DV))
-complete.cases(AllDataLong)
+# R uses NA (Not Available) to represent missing data
+# Check for missing values in a variable
+is.na(AllDataLong$DV)              # Returns TRUE/FALSE for each value
+sum(is.na(AllDataLong$DV))        # Count the number of missing values
+complete.cases(AllDataLong)        # Check which rows have no missing data
 
-# Remove rows with missing data
+# Remove rows that contain any missing data
 AllDataLong_complete <- na.omit(AllDataLong)
-# or
+# Alternative method (same result):
 AllDataLong_complete <- AllDataLong[complete.cases(AllDataLong), ]
 
-# Replace missing values
+# Replace missing values with the mean (simple imputation)
 AllDataLong$DV_imputed <- ifelse(is.na(AllDataLong$DV), 
                                  mean(AllDataLong$DV, na.rm = TRUE), 
                                  AllDataLong$DV)
@@ -725,31 +851,11 @@ AllDataLong$DV_imputed <- ifelse(is.na(AllDataLong$DV),
 # 10. Practice regularly!
 
 # Useful keyboard shortcuts in RStudio:
-# Ctrl+Enter (Cmd+Enter on Mac): Run current line/selection
-# Ctrl+Shift+Enter: Run entire script
-# Ctrl+Shift+M: Insert pipe operator |>
-# Ctrl+Shift+C: Comment/uncomment lines
-# Ctrl+Shift+R: Insert code section
+# Ctrl+Enter (Cmd+Enter on Mac): Run the current line or selected code
+# Ctrl+Shift+Enter (Cmd+Shift+Enter on Mac): Run the entire script
+# Ctrl+Shift+M (Cmd+Shift+M on Mac): Insert the pipe operator |>
+# Ctrl+Shift+C (Cmd+Shift+C on Mac): Comment or uncomment selected lines
+# Ctrl+Shift+R (Cmd+Shift+R on Mac): Insert a code section header
 ```
 
-# Getting Help
 
-```{r}
-#| eval: FALSE
-# R has excellent help documentation
-?mean                    # Help for a function
-??"regression"          # Search for functions containing "regression"
-help(mean)              # Same as ?mean
-example(mean)           # Run examples for a function
-
-# Online resources:
-# - R Documentation: https://www.rdocumentation.org/
-# - Stack Overflow: https://stackoverflow.com/questions/tagged/r
-# - R-bloggers: https://www.r-bloggers.com/
-# - RStudio Community: https://community.rstudio.com/
-
-# Installing and loading packages
-install.packages("package_name")  # Install once
-library(package_name)             # Load each session
-require(package_name)             # Alternative to library()
-```
