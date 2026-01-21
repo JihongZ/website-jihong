@@ -8,12 +8,12 @@ categories:
   - Lecture
 draft: false
 draft-mode: unlinked
-format: pdf
-#  html:
-#    code-tools: false
-#    code-line-numbers: false
-#    toc-depth: 2
-#    toc-expand: true
+format: 
+  html:
+    code-tools: false
+    code-line-numbers: false
+    toc-depth: 2
+    toc-expand: true
 citation:
   type: webpage
   issued: 2025-01-13
