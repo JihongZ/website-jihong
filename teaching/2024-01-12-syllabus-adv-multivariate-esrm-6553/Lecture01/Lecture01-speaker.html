@@ -169,24 +169,25 @@ Jihong Zhang
 <section id="todays-lecture-objectives" class="slide level2">
 <h2>Today’s Lecture Objectives</h2>
 <ol type="1">
-<li class="fragment">Introduction to Bayesian Analysis</li>
+<li>Introduction to Bayesian Analysis</li>
 </ol>
 <p>but, before we begin…</p>
 </section>
 <section id="background-what-is-bayesian" class="slide level2">
 <h2>Background: What is Bayesian?</h2>
+<p><span style="color: royalblue;"><strong>Simple Definition</strong>: Bayesian statistics is a method that combines what we already know (prior knowledge) with new evidence (data) to update our beliefs about uncertain things. Everything is treated as having some level of uncertainty that can be expressed as a probability.</span></p>
 <ol type="1">
-<li class="fragment"><a href="https://www.youtube.com/watch?v=0e38NuBFqaQ">How to Pronounce Bayesian (Real Life Examples!)</a>
+<li><a href="https://www.youtube.com/watch?v=0e38NuBFqaQ">How to Pronounce Bayesian (Real Life Examples!)</a>
 <ul>
-<li class="fragment">“B-Asian” or “Bayes-ian”?</li>
-<li class="fragment">What does “Bayesian” mean? Assign probabilities to everything!</li>
+<li>“B-Asian” or “Bayes-ian”?</li>
+<li>What does “Bayesian” mean? Assign probabilities to everything!</li>
 </ul></li>
-<li class="fragment"><a href="https://www.youtube.com/watch?v=dNeo7FNlOyY">Frequentist vs Bayesian</a>
+<li><a href="https://www.youtube.com/watch?v=dNeo7FNlOyY">Frequentist vs Bayesian</a>
 <ul>
-<li class="fragment">Example: In the U.S., are there more male or female Asian faculty?
+<li>Example: In the U.S., are there more male or female Asian faculty?
 <ul>
-<li class="fragment">Frequentist: If “Male:Female = 1:1 out of Asian Faculty” is fixed, how is the probability that the data happens?</li>
-<li class="fragment">Bayesian: If I believe Male:Female = 1:2 but the data says 1:1, to what degree do I need to update my belief?</li>
+<li>Frequentist: If “Male:Female = 1:1 out of Asian Faculty” is fixed, how is the probability that the data happens?</li>
+<li>Bayesian: If I believe Male:Female = 1:2 but the data says 1:1, to what degree do I need to update my belief?</li>
 </ul></li>
 </ul></li>
 </ol>
@@ -194,25 +195,25 @@ Jihong Zhang
 <section id="bayesian-model-components" class="slide level2">
 <h2>Bayesian Model Components</h2>
 <ol type="1">
-<li class="fragment">What we see: Observed Data (the data you actually collect)</li>
-<li class="fragment">What we cannot see: Future Data, Data yet to be collected, Parameters, Population Distribution</li>
+<li>What we see: Observed Data (the data you actually collect)</li>
+<li>What we cannot see: Future Data, Data yet to be collected, Parameters, Population Distribution</li>
 </ol>
 </section>
 <section class="slide level2">
 
 <p><strong>Take home Note: Everything is random in Bayesian</strong></p>
 <ul>
-<li class="fragment">Observed Data: Some <strong>random</strong> information given a unknown generation process</li>
-<li class="fragment">Parameter: The <strong>random</strong> components controlling the generation process</li>
+<li>Observed Data: Some <strong>random</strong> information given a unknown generation process</li>
+<li>Parameter: The <strong>random</strong> components controlling the generation process</li>
 </ul>
 </section>
 <section class="slide level2">
 
 <p><strong>Take home Note: Every random component can be expressed as probability!</strong></p>
 <ul>
-<li class="fragment">The probability of observed data given parameters: <span class="math inline">\(p(\text{Observed Data}|\text{Parameters})\)</span> = <strong>Data Likelihood</strong></li>
-<li class="fragment">The probability of parameters: <span class="math inline">\(p(\text{Parameters})\)</span> = <strong>Prior Distribution</strong></li>
-<li class="fragment">The probability of parameters given observed data: <span class="math inline">\(p(\text{Parameters}|\text{Observed Data})\)</span> = <strong>Posterior Distribution</strong>*</li>
+<li>The probability of observed data given parameters: <span class="math inline">\(p(\text{Observed Data}|\text{Parameters})\)</span> = <strong>Data Likelihood</strong></li>
+<li>The probability of parameters: <span class="math inline">\(p(\text{Parameters})\)</span> = <strong>Prior Distribution</strong></li>
+<li>The probability of parameters given observed data: <span class="math inline">\(p(\text{Parameters}|\text{Observed Data})\)</span> = <strong>Posterior Distribution</strong>*</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -226,27 +227,27 @@ Jihong Zhang
 <h2>Bayesian Analysis: Why It Is Used?</h2>
 <p>There are at least four main reasons why people use Bayesian Analysis:</p>
 <ol type="1">
-<li class="fragment">Missing data
+<li>Missing data
 <ul>
-<li class="fragment">Multiple imputation (fill in missing data points with external information)</li>
-<li class="fragment">More complicated model for certain types of missing data</li>
+<li>Multiple imputation (fill in missing data points with external information)</li>
+<li>More complicated model for certain types of missing data</li>
 </ul></li>
-<li class="fragment">Lack of software capable of handling large-sized analyses
+<li>Lack of software capable of handling large-sized analyses
 <ul>
-<li class="fragment">Have a zero-inflated Poisson model with 1000 observations and 1000 parameters? No problem in Bayesian!</li>
+<li>Have a zero-inflated Poisson model with 1000 observations and 1000 parameters? No problem in Bayesian!</li>
 </ul></li>
 </ol>
 </section>
 <section id="bayesian-analysis-why-it-is-used-cont." class="slide level2">
 <h2>Bayesian Analysis: Why It Is Used? (Cont.)</h2>
 <ol start="3" type="1">
-<li class="fragment">New complex models not available in frequentist framework
+<li>New complex models not available in frequentist framework
 <ul>
-<li class="fragment">Have a new model? (A model that estimates the probability students choose the right answers then choose the wrong answers in a multiple choice test?)</li>
+<li>Have a new model? (A model that estimates the probability students choose the right answers then choose the wrong answers in a multiple choice test?)</li>
 </ul></li>
-<li class="fragment">Enjoy the Bayesian thinking process
+<li>Enjoy the Bayesian thinking process
 <ul>
-<li class="fragment">It is a way of thinking that everything is random and everything can be expressed as probability. It is a way of thinking that we can update our belief as we collect more data. It is a way of thinking that we can use our prior knowledge to help us understand the data.</li>
+<li>It is a way of thinking that everything is random and everything can be expressed as probability. It is a way of thinking that we can update our belief as we collect more data. It is a way of thinking that we can use our prior knowledge to help us understand the data.</li>
 </ul></li>
 </ol>
 </section>
@@ -258,17 +259,17 @@ Jihong Zhang
 <section id="bayesian-analysis-issues" class="slide level2">
 <h2>Bayesian Analysis: Issues</h2>
 <ol type="1">
-<li class="fragment">Subjective vs.&nbsp;Objective
+<li>Subjective vs.&nbsp;Objective
 <ul>
-<li class="fragment">Prior distribution is subjective. It is based on your prior knowledge.</li>
-<li class="fragment">However, 1) Scientific judgement is always subjective 2) you can use objective prior distribution to avoid this issue.</li>
+<li>Prior distribution is subjective. It is based on your prior knowledge.</li>
+<li>However, 1) Scientific judgement is always subjective 2) you can use objective prior distribution to avoid this issue.</li>
 </ul></li>
-<li class="fragment">Computationally Intensive
+<li>Computationally Intensive
 <ul>
-<li class="fragment">It is not a problem anymore. We have computers.</li>
-<li class="fragment">But we still need weeks or months to get results for some complex models and large datasets</li>
+<li>It is not a problem anymore. We have computers.</li>
+<li>But we still need weeks or months to get results for some complex models and large datasets</li>
 </ul></li>
-<li class="fragment">Difficult to understand</li>
+<li>Difficult to understand</li>
 </ol>
 </section>
 <section id="bayesian-analysis-is-popular" class="slide level2">
@@ -284,11 +285,11 @@ Jihong Zhang
 <h3 id="the-scenario">The Scenario</h3>
 <p>Suppose you are a doctor and a patient comes in for a rare disease screening:</p>
 <ul>
-<li class="fragment"><p>The disease affects 1% of the population (<strong>Prior Information</strong>)</p></li>
-<li class="fragment"><p>You have a diagnostic test that:</p>
+<li><p>The disease affects 1% of the population (<strong>Prior Information</strong>)</p></li>
+<li><p>You have a diagnostic test that:</p>
 <ul>
-<li class="fragment">Correctly identifies 95% of people who have the disease (<strong>Sensitivity</strong>)</li>
-<li class="fragment">Correctly identifies 90% of people who don’t have the disease (<strong>Specificity</strong>)</li>
+<li>Correctly identifies 95% of people who have the disease (<strong>Sensitivity</strong>)</li>
+<li>Correctly identifies 90% of people who don’t have the disease (<strong>Specificity</strong>)</li>
 </ul></li>
 </ul>
 <p><strong>Question</strong>: If a patient tests positive, what is the probability they actually have the disease?</p>
@@ -334,23 +335,23 @@ Jihong Zhang
 </table>
 <p><strong>Key Terms</strong>:</p>
 <ul>
-<li class="fragment"><strong>Sensitivity</strong> = True Positive Rate = 95%</li>
-<li class="fragment"><strong>Specificity</strong> = True Negative Rate = 90%</li>
+<li><strong>Sensitivity</strong> = True Positive Rate = 95%</li>
+<li><strong>Specificity</strong> = True Negative Rate = 90%</li>
 </ul>
 </section>
 <section id="case-study-setting-up-the-problem" class="slide level2">
 <h2>Case Study: Setting Up the Problem</h2>
 <h3 id="what-we-know-define-our-probabilities">What We Know (Define Our Probabilities):</h3>
 <ol type="1">
-<li class="fragment"><p><strong>Prior Distribution</strong>: <span class="math inline">\(P(\text{Disease}) = 0.01\)</span> and <span class="math inline">\(P(\text{No Disease}) = 0.99\)</span></p></li>
-<li class="fragment"><p><strong>Likelihood</strong>: The probability of test results given disease status</p>
+<li><p><strong>Prior Distribution</strong>: <span class="math inline">\(P(\text{Disease}) = 0.01\)</span> and <span class="math inline">\(P(\text{No Disease}) = 0.99\)</span></p></li>
+<li><p><strong>Likelihood</strong>: The probability of test results given disease status</p>
 <ul>
-<li class="fragment"><span class="math inline">\(P(\text{Positive Test}|\text{Disease}) = 0.95\)</span> (true positive)</li>
-<li class="fragment"><span class="math inline">\(P(\text{Positive Test}|\text{No Disease}) = 0.10\)</span> (false positive)</li>
+<li><span class="math inline">\(P(\text{Positive Test}|\text{Disease}) = 0.95\)</span> (true positive)</li>
+<li><span class="math inline">\(P(\text{Positive Test}|\text{No Disease}) = 0.10\)</span> (false positive)</li>
 </ul></li>
-<li class="fragment"><p><strong>What We Want</strong>: <strong>Posterior Distribution</strong></p>
+<li><p><strong>What We Want</strong>: <strong>Posterior Distribution</strong></p>
 <ul>
-<li class="fragment"><span class="math inline">\(P(\text{Disease}|\text{Positive Test}) = ?\)</span></li>
+<li><span class="math inline">\(P(\text{Disease}|\text{Positive Test}) = ?\)</span></li>
 </ul></li>
 </ol>
 <p>Question: Can you guess how large is this probability?</p>
@@ -372,18 +373,18 @@ Jihong Zhang
 <h2>Case Study: Interpretation</h2>
 <h3 id="why-is-the-probability-so-low">Why Is the Probability So Low?</h3>
 <ol type="1">
-<li class="fragment"><strong>Prior matters</strong>: The disease is rare (1%), so most people don’t have it</li>
-<li class="fragment"><strong>False positives</strong>: 10% false positive rate means many healthy people test positive</li>
-<li class="fragment"><strong>Bayesian updating</strong>: We updated our belief from 1% (prior) to 8.76% (posterior)</li>
+<li><strong>Prior matters</strong>: The disease is rare (1%), so most people don’t have it</li>
+<li><strong>False positives</strong>: 10% false positive rate means many healthy people test positive</li>
+<li><strong>Bayesian updating</strong>: We updated our belief from 1% (prior) to 8.76% (posterior)</li>
 </ol>
 <h3 id="key-insight">Key Insight:</h3>
 <ul>
-<li class="fragment">Out of 10,000 people:
+<li>Out of 10,000 people:
 <ul>
-<li class="fragment">100 have the disease (1%); 95 test positive ✓</li>
-<li class="fragment">9,900 are healthy (99%); 990 test positive (false alarm!)</li>
-<li class="fragment">Total positive tests: 95 + 990 = 1,085</li>
-<li class="fragment">Probability of disease given positive: <span class="math inline">\(\frac{95}{1,085} \approx 8.76\%\)</span></li>
+<li>100 have the disease (1%); 95 test positive ✓</li>
+<li>9,900 are healthy (99%); 990 test positive (false alarm!)</li>
+<li>Total positive tests: 95 + 990 = 1,085</li>
+<li>Probability of disease given positive: <span class="math inline">\(\frac{95}{1,085} \approx 8.76\%\)</span></li>
 </ul></li>
 </ul>
 </section>
@@ -399,19 +400,19 @@ Jihong Zhang
 <section id="case-study-take-home-messages" class="slide level2">
 <h2>Case Study: Take-Home Messages</h2>
 <ol type="1">
-<li class="fragment"><strong>Prior information is powerful</strong>: The 1% base rate strongly influences the result</li>
-<li class="fragment"><strong>Bayesian updating is iterative</strong>: We can keep updating as new data arrives</li>
-<li class="fragment"><strong>Counterintuitive results</strong>: A “95% accurate” test doesn’t mean 95% chance of disease</li>
-<li class="fragment"><strong>Everything is probability</strong>: Disease status, test results, all expressed as probabilities</li>
+<li><strong>Prior information is powerful</strong>: The 1% base rate strongly influences the result</li>
+<li><strong>Bayesian updating is iterative</strong>: We can keep updating as new data arrives</li>
+<li><strong>Counterintuitive results</strong>: A “95% accurate” test doesn’t mean 95% chance of disease</li>
+<li><strong>Everything is probability</strong>: Disease status, test results, all expressed as probabilities</li>
 </ol>
 <p>This is the essence of Bayesian thinking: <strong>combining prior knowledge with data to update beliefs!</strong></p>
 </section>
 <section id="wrapping-up" class="slide level2">
 <h2>Wrapping Up</h2>
 <ol type="1">
-<li class="fragment">We understand what “Bayesian” means and its components.</li>
-<li class="fragment">How Bayesian estimation differs from other estimation methods, such as maximum likelihood</li>
-<li class="fragment">We also know that Bayesian analysis is popular in many fields, especially for complex data</li>
+<li>We understand what “Bayesian” means and its components.</li>
+<li>How Bayesian estimation differs from other estimation methods, such as maximum likelihood</li>
+<li>We also know that Bayesian analysis is popular in many fields, especially for complex data</li>
 </ol>
 </section>
 <section id="next-class" class="slide level2">

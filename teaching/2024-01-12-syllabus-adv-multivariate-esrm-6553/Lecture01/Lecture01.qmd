@@ -10,7 +10,7 @@ title-slide-attributes:
 format: 
   revealjs:
     logo: ../Images/UA_Logo_Horizontal.png
-    incremental: true  # choose "false "if want to show all together
+    incremental: false  # choose "false "if want to show all together
     theme: [serif, ../pp.scss]
     footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>
     transition: slide
@@ -29,6 +29,8 @@ but, before we begin...
 
 
 ## Background: What is Bayesian?
+
+<span style="color: royalblue;">**Simple Definition**: Bayesian statistics is a method that combines what we already know (prior knowledge) with new evidence (data) to update our beliefs about uncertain things. Everything is treated as having some level of uncertainty that can be expressed as a probability.</span>
 
 1.  [How to Pronounce Bayesian (Real Life Examples!)](https://www.youtube.com/watch?v=0e38NuBFqaQ)
     -   "B-Asian" or "Bayes-ian"?
