@@ -30,7 +30,9 @@ but, before we begin...
 
 ## Background: What is Bayesian?
 
-<span style="color: royalblue;">**Simple Definition**: Bayesian statistics is a method that combines what we already know (prior knowledge) with new evidence (data) to update our beliefs about uncertain things. Everything is treated as having some level of uncertainty that can be expressed as a probability.</span>
+**Where does the word "Bayesian" come from?**
+
+The term "Bayesian" is named after **Thomas Bayes** (1701-1761), an English statistician and Presbyterian minister. He developed a mathematical theorem that describes how to update probabilities based on new evidence. His work was published posthumously in 1763 and has since become the foundation of Bayesian statistics.
 
 1.  [How to Pronounce Bayesian (Real Life Examples!)](https://www.youtube.com/watch?v=0e38NuBFqaQ)
     -   "B-Asian" or "Bayes-ian"?
@@ -41,6 +43,8 @@ but, before we begin...
         -   Bayesian: If I believe Male:Female = 1:2 but the data says 1:1, to what degree do I need to update my belief?
 
 ## Bayesian Model Components
+
+<span style="color: royalblue;">**Simple Definition**: Bayesian statistics is a method that combines what we already know (prior knowledge) with new evidence (data) to update our beliefs about uncertain things. Everything is treated as having some level of uncertainty that can be expressed as a probability.</span>
 
 1.  What we see: Observed Data (the data you actually collect)
 2.  What we cannot see: Future Data, Data yet to be collected, Parameters, Population Distribution
