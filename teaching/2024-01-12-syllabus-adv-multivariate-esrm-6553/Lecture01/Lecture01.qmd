@@ -32,7 +32,7 @@ but, before we begin...
 
 **Where does the word "Bayesian" come from?**
 
-The term "Bayesian" is named after **Thomas Bayes** (1701-1761), an English statistician and Presbyterian minister. He developed a mathematical theorem that describes how to update probabilities based on new evidence. His work was published posthumously in 1763 and has since become the foundation of Bayesian statistics.
+The term "Bayesian" is named after **Thomas Bayes** (1701-1761), an English statistician. He developed a mathematical theorem that describes how to update probabilities based on new evidence. His work was published posthumously in 1763 and has since become the foundation of Bayesian statistics.
 
 1.  [How to Pronounce Bayesian (Real Life Examples!)](https://www.youtube.com/watch?v=0e38NuBFqaQ)
     -   "B-Asian" or "Bayes-ian"?
