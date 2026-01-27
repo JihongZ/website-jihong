@@ -92,6 +92,8 @@ moments::skewness(rnorm(100, 0, 1)) # should be close to 0
 ------------------------------------------------------------------------
 
 ```{r}
+#| code-fold: true
+#| code-summary: a skewed normal distribution using beta distribution
 set.seed(1234)
 # Simulate a skewed normal distribution using beta distribution
 neg_skewed_data <- rbeta(10000,5,2)
@@ -103,6 +105,8 @@ hist(pos_skewed_data, main = "Positive Skewed Distribution")
 ------------------------------------------------------------------------
 
 ```{r}
+#| code-fold: true
+#| code-summary: skewed normal distribution using beta distribution
 library(ggplot2)
 library(tidyr)
 data.frame(
