@@ -5,6 +5,7 @@ date: "2025-08-18"
 execute: 
   eval: true
   echo: true
+  warning: false
 format: 
   html:
     code-tools: true
@@ -33,32 +34,34 @@ format:
 
 ## Presentation Outline
 
--   Types of Statistics
+-   **Types of Statistics**
     -   Descriptive: Summarize data (central tendency, variability, shape)
-    -   Inferential: Makes population inferences from samples
--   Hypothesis Testing
+    -   Inferential: Make population inferences from samples
+    -   Predictive: Make predictions for new data
+-   **Hypothesis Testing Steps**
     1.  State $H_0$ and $H_A$
-    2.  Set α level
+    2.  Set $\alpha$ level
     3.  Compute test statistics
-    4.  Conduct test
--   ANOVA Fundamentals
-    -   One DV, one IV with multiple levels
-    -   Between/within designs
+    4.  Conduct test and make decision
+-   **ANOVA Fundamentals**
+    -   One dependent variable (DV), one independent variable (IV) with multiple levels
+    -   Between-subjects and within-subjects designs
     -   Interaction effects
--   Test Components
-    -   Error types (I & II)
-    -   Variance analysis ($SS_T$, $SS_B$, $SS_W$)
+-   **Test Components**
+    -   Error types (Type I and Type II)
+    -   Variance decomposition ($SS_{Total}$, $SS_{Between}$, $SS_{Within}$)
     -   F-statistics and critical values
--   Examples
-    -   Political attitudes (Democrats, Republicans, Independents)
--   Decision Making
-    -   Compare F-observed vs F-critical
-    -   Compare p-value vs α
-    -   Interpret at (1-α) confidence level
+-   **Examples**
+    -   Political attitudes study
+    -   Sleep and academic performance study
+-   **Decision Making**
+    -   Compare $F_{observed}$ vs $F_{critical}$
+    -   Compare p-value vs $\alpha$
+    -   Interpret at $(1-\alpha)$ confidence level
 
 ## Types of Statistics
 
-We can classify the statistics regarding its purposes:
+Statistics can be classified by purpose:
 
 1. Descriptive Statistics
 2. Inferential Statistics
@@ -77,14 +80,14 @@ We can classify the statistics regarding its purposes:
 ```{r}
 # install.packages("moments")
 moments::skewness(c(1:10, 100))
-moments::skewness(rnorm(100, 0, 1))
+moments::skewness(rnorm(100, 0, 1)) # should be close to 0
 ```
 
 ------------------------------------------------------------------------
 
 -   **Examples** of skewness with two graphs:
 
-![](images/clipboard-2603774303.png)
+![Examples of positive and negative skewness in distributions](images/clipboard-2603774303.png)
 
 ------------------------------------------------------------------------
 
@@ -123,7 +126,7 @@ data.frame(
         -   Sample is analyzed using descriptive statistics
         -   Inferential statistics used to make conclusions about population
 
-![](images/clipboard-3795101287.png)
+![The relationship between population, sample, and inference](images/clipboard-3795101287.png)
 
 ------------------------------------------------------------------------
 
@@ -133,7 +136,7 @@ data.frame(
 
 -   **Example**: A simple example would be for a book buyer to predict how many copies of a particular book should be shipped to their store for the next month.
 
-![](images/clipboard-3105485841.png)
+![Example of predictive statistics workflow](images/clipboard-3105485841.png)
 
 ## Which type of statistics to use
 
@@ -153,15 +156,15 @@ data.frame(
 
     -   [Not statistics. Sci-Fi]{.heimu}
 
-5.  Which type of statistics used by ChatGPT?
+5.  Which type of statistics is used by ChatGPT?
 
-    ![](images/clipboard-793465966.png){width="500"}
+    ![ChatGPT uses predictive statistics for text generation](images/clipboard-793465966.png){width="500"}
 
 ## Statistical Hypothesis Testing Steps
 
-**To perform inferential statistics, we need to go through following steps:**
+**Steps for Inferential Statistical Testing:**
 
-1.  State null hypothesis (H₀) and alternative hypothesis ($H_A$)
+1.  State null hypothesis ($H_0$) and alternative hypothesis ($H_A$)
     -   Null hypothesis must be some statement that is **statistically testable**.
 2.  Set alpha α (type I error rate) to determine significance levels
     -   rejection region vs. p-value
@@ -219,15 +222,13 @@ data.frame(
 
 ## Background
 
--   [A political scientist is interested in politicians’ attitudes toward tax reform and conducts a survey of Republicans, Independents, and Democrats.]{.underline}
--   Political scientist study on tax reform attitudes:
-    -   Groups: Democrats, Republicans, Independents
-    -   Data shows attitude scores (higher score = greater concern for tax reform)
-    -   Analysis conducted at α = .05
-    -   Data includes:
-        -   `party`: Democrats (4), Republicans (5), Independents (8)
-        -   `scores`: attitudes scores for the survey respondents
-            -   [The higher the score, the greater the concern for tax reform]{.underline}
+-   A political scientist studies tax reform attitudes across political groups:
+    -   **Groups**: Democrats (n=4), Republicans (n=5), Independents (n=8)
+    -   **Outcome measure**: Attitude scores (higher score = greater concern for tax reform)
+    -   **Analysis**: Conducted at $\alpha = .05$
+    -   **Variables**:
+        -   `party`: Political affiliation
+        -   `scores`: Attitude scores for survey respondents
 
 ------------------------------------------------------------------------
 
@@ -244,11 +245,11 @@ library(dplyr)
 exp_political_attitude
 ```
 
-## Descriptive Statistics: summary statistics
+## Descriptive Statistics: Summary Statistics
 
--   Standard deviations and variances for each group
+-   Calculate mean, standard deviation, and variance for each political group
 
--   Grand mean: 5.625
+-   Grand mean across all groups: 5.625
 
 ```{r}
 # Grand mean
@@ -263,7 +264,7 @@ mean_byGroup <- exp_political_attitude |>
 mean_byGroup
 ```
 
-## Descriptive Statistics: histogram
+## Descriptive Statistics: Bar Plot
 
 ```{r}
 library(ggplot2)
@@ -288,15 +289,18 @@ ggplot(data = mean_byGroup) +
 3.  Quick Review of F-statistics:
 
     $$
-    F_{obs} = \frac{SS_b/df_b}{SS_w/df_w} 
+    F_{obs} = \frac{SS_b/df_b}{SS_w/df_w}
     $$
 
-    -   $df_b$ = 3 (groups) - 1 = 2, $df_w$ = 16 (samples) - 3 (groups) =13
-    -   $SS_b$ = $\Sigma n_j(\bar{Y}_j - \bar{Y})^2$ = 43.75; where $n_j$ is group sample sizes, $\bar{Y}_j$ is group means, and $\bar{Y}$ is the grand mean.
+    -   Degrees of freedom: $df_b$ = 3 (groups) - 1 = 2, $df_w$ = 16 (samples) - 3 (groups) = 13
 
-    <!-- -->
+    -   Between-group sum of squares:
+        $$SS_b = \sum_{j=1}^{g} n_j(\bar{Y}_j - \bar{Y})^2 = 43.75$$
+        where $n_j$ is group sample size, $\bar{Y}_j$ is group mean, and $\bar{Y}$ is the grand mean.
 
-    -   $SS_w$ =$\Sigma_{j=1}^{3} \Sigma_{1}^{n_j}(Y_{ij}-\bar{Y_j})^2$ = 14.00; where $\bar{Y}_{ij}$ is the individual i's score in group j
+    -   Within-group sum of squares:
+        $$SS_w = \sum_{j=1}^{3} \sum_{i=1}^{n_j}(Y_{ij}-\bar{Y}_j)^2 = 14.00$$
+        where $Y_{ij}$ is individual $i$'s score in group $j$.
 
     ```{r}
     #| eval: false
@@ -311,28 +315,28 @@ ggplot(data = mean_byGroup) +
     sum(SSw_dt$Diff_sq)
     ```
 
-    -   F_critical (df_num = 2, df_deno = 13) = 3.81
-    -   F_observed = 20.31
+    -   $F_{critical}$ (df_num = 2, df_deno = 13) = 3.81
+    -   $F_{observed}$ = 20.31
 
     ```{r}
-    mod1 <- lm(scores ~ party, data = exp_political_attitude)
-    anova(mod1)
+    anova_model <- lm(scores ~ party, data = exp_political_attitude)
+    anova(anova_model)
     ```
 
-Results show rejection of H₀ (F_obs \> F_critical)
+Results show rejection of $H_0$ ($F_{obs}$ > $F_{critical}$)
 
 ## Step 1: State the null hypothesis and alternative hypothesis
 
-1.  Formulate the null hypothesis (𝐻₀) and the alternative hypothesis (𝐻ₐ)
+1.  Formulate the **null hypothesis** ($H_0$) and the **alternative hypothesis** ($H_A$)
     -   Prior to any statistical tests, start with a working hypothesis based on an initial guess about the phenomenon.
     -   Example: Investigating whether political groups affect their attitudes.
         -   Research question: "Is there a variance in attitude score among different groups?"
-        -   Hypothesis: "[**Different political groups will show varied attitudes.**]{.underline}"
+        -   Hypothesis: **"Different political groups will show varied attitudes."**
     -   Operational Definitions:
-        -   Null hypothesis (𝐻₀): No observed difference or effect ("[Something is something]{.underline}").
+        -   **Null hypothesis** ($H_0$): No observed difference or effect ("Something is something").
             -   Group A's mean - Group B's mean = 0
-        -   Alternative hypothesis (𝐻ₐ): Noticeable difference or effect, contrary to 𝐻₀. ("[Something is not something]{.underline}")
-    -   The adequacy of the data will dictate if 𝐻₀ can be confidently rejected.
+        -   **Alternative hypothesis** ($H_A$): Noticeable difference or effect, contrary to $H_0$ ("Something is not something")
+    -   The adequacy of the data will dictate if $H_0$ can be confidently rejected.
 
 ## Step 2: Rejection region (alpha)
 
@@ -374,13 +378,13 @@ ggplot(data_to_plot) +
 
 ------------------------------------------------------------------------
 
-1.  Set the alpha $\alpha$ (i.e., type I error rate)—rejection rate, vs. p-value
+1.  Set the alpha $\alpha$ (i.e., type I error rate)—rejection rate vs. p-value
 
-    -   Alpha can determine several values for the statistical hypothesis testing: the critical value of the test statistics, the rejection region, etc.
+    -   Alpha determines several values for statistical hypothesis testing: the critical value of the test statistics, the rejection region, etc.
 
-    -   Large sample size needs lower alpha level : .01/.001 (more restrict rejection rate)
+    -   Large sample sizes typically use lower alpha levels: .01 or .001 (more restrictive rejection rate)
 
-2.  When we conduct a hypothesis testing, these four cases might be occurred
+2.  When we conduct hypothesis testing, four possible outcomes can occur:
 
 +----------------------+-------------------------+--------------------------+
 |                      | **Reality**             |                          |
@@ -400,81 +404,88 @@ ggplot(data_to_plot) +
 
 ## Step 3: Compute the test statistics
 
--   Investigate where the variability of outcome come from?
+-   Investigate where the variability in the outcome comes from.
 
-    -   In this study, do people's attitude scores differ because of political parties?
+    -   In this study: Do people's attitude scores differ because of their political party affiliation?
 
-    -   Imagine we have two factors: A and B, the variability of outcome can be separated as following:
+    -   When we have factors influencing the outcome, the total variability can be decomposed as follows:
 
-![](images/clipboard-2219252399.png)
+![Sources of variability: Total variance can be decomposed into between-group and within-group variance](images/clipboard-2219252399.png)
 
 ------------------------------------------------------------------------
 
 ### F-statistics
 
--   **Core idea of F-stats**: comparing the variances between groups and within groups to ascertain if the means of different groups are significantly different from each other.
+-   **Core idea**: Comparing the variances between groups and within groups to ascertain if the means of different groups are significantly different from each other.
 
--   **Logic**: if the **between-group variance** (due to systematic differences caused by the independent variable) is significantly greater than the **within-group variance** (attributable to random error), the observed differences between group means are likely not due to chance.
+-   **Logic**: If the **between-group variance** (due to systematic differences caused by the independent variable) is significantly greater than the **within-group variance** (attributable to random error), the observed differences between group means are likely not due to chance.
 
--   F-statistics under **1-way ANOVA:**
+-   **F-statistics formula for one-way ANOVA:**
 
     $$
-    F_{obs} = \frac{SS_b/df_b}{SS_w/df_w}$$
+    F_{obs} = \frac{SS_{between}/df_{between}}{SS_{within}/df_{within}}
+    $$
 
-    -   $df_b$ = 3 (groups) - 1 = 2, $df_w$ = 16 (samples) - 3 (groups) =13
-    -   $SS_b$ = $\Sigma n_j(\bar{Y}_j - \bar{Y})^2$ = 43.75;
-        -   the variability in the differences between groups (weighted by the sample size of the group)
-    -   $SS_w$ =$\Sigma_{j=1}^{3} \Sigma_{1}^{n_j}(Y_{ij}-\bar{Y_j})^2$ = 14.00; where $\bar{Y}_{ij}$ is the individual i's score in group j
-        -   Random error with groups - people differ in attitudes for the unkown reason
+    -   Degrees of freedom: $df_{between}$ = 3 (groups) - 1 = 2, $df_{within}$ = 16 (samples) - 3 (groups) = 13
+    -   $SS_{between}$ = $\sum n_j(\bar{Y}_j - \bar{Y})^2$ = 43.75
+        -   Variability in the differences between groups (weighted by group sample size)
+    -   $SS_{within}$ = $\sum_{j=1}^{3} \sum_{i=1}^{n_j}(Y_{ij}-\bar{Y}_j)^2$ = 14.00; where $Y_{ij}$ is individual $i$'s score in group $j$
+        -   Random error within groups—individuals differ in attitudes for unknown reasons
 
 ## Step 4: Conduct a hypothesis testing
 
--   In addition to the comparison of the critical value and the observed value of the test statistics, we also can compare the alpha and the p-value:
+-   In addition to the comparison of the critical value and the observed value of the test statistics, we can also compare the alpha and the p-value:
 
 ::::: columns
 ::: column
-![](images/clipboard-3877350302.png){width="100%"}
+![F-distribution showing rejection regions for different alpha levels](images/clipboard-3877350302.png){width="100%"}
 :::
 
 ::: column
--   We determine F_crit by setting α value.
-    -   α = (acceptable) type I error rate = probability that we wrongly reject $H_0$ when $H_0$ is true
--   From the data, we can obtain F_obs with p-value.
-    -   p-value = probability of data sets have F-stats larger than F_obs
--   If the F statistic from the data (=F_obs) is larger than the F critical, then you are in the rejection region and you can reject the $H_0$ and accept the $H_A$ with (1-α) level of confidence.
--   If the p-value obtained from the ANOVA is less than α, then reject H0 and accept the HA with (1-α) level of confidence.
+-   We determine $F_{crit}$ by setting $\alpha$ value.
+    -   $\alpha$ = (acceptable) type I error rate = probability that we wrongly reject $H_0$ when $H_0$ is true
+-   From the data, we obtain $F_{obs}$ with p-value.
+    -   p-value = probability of datasets having F-statistics larger than $F_{obs}$
+-   If the F statistic from the data ($F_{obs}$) is larger than $F_{critical}$, then you are in the rejection region and can reject $H_0$ and accept $H_A$ with $(1-\alpha)$ level of confidence.
+-   If the p-value obtained from the ANOVA is less than $\alpha$, then reject $H_0$ and accept $H_A$ with $(1-\alpha)$ level of confidence.
 :::
 :::::
 
 ## Step 5: Results Report
 
-A one-way ANOVA was conducted to compare the level of concern for tax reform among three political groups: Democrats, Republicans, and Independents. There was a significant effect of political affiliation on tax reform concern at the p \< .001 level for the three conditions \[F(2, 13) = 20.31, p \< .001\]. This result indicates significant differences in the attitudes toward tax reform among the groups.
+A one-way ANOVA was conducted to compare the level of concern for tax reform among three political groups: Democrats, Republicans, and Independents. There was a significant effect of political affiliation on tax reform concern at the $p < .001$ level for the three conditions [$F(2, 13) = 20.31$, $p < .001$]. This result indicates significant differences in attitudes toward tax reform among the groups.
 
 ## Note: Relationship Between P-values and Type I Error
 
-1.  p-values: the probability of observing data as extreme as, or more extreme than, the data observed [under the assumption that the null hypothesis is true]{.underline}.
-    -   Lower the p-values are, we are less likely to see the observed data given the null hypothesis is true
-    -   Question: Given that we already have the observed data, does **lower p-values means the null hypothesis is unlikely to be true**, which is our goal for inferential statistics?
-    -   Answer: [p(observed data exists \| H0 = true) is not equal to p(H0 = true \| observed data exists), P-values are often misconstrued as the probability that the null hypothesis is true given the observed data. However, this interpretation is incorrect.]{.heimu}
-2.  Type I error, also known as a "false positive," occurs when the null hypothesis is incorrectly rejected when it is, in fact, true.
-3.  The alpha level set before conducting a test (commonly α = 0.05) essentially defines the cut-off point for the p-value below which the null hypothesis will be rejected.
-    -   **A p-value that is less than the alpha level** suggests a low probability that the observed data would occur if the null hypothesis were true. Consequently, rejecting the null hypothesis in this context implies that there is a statistically significant difference likely not due to random chance.
+1.  **P-values**: The probability of observing data as extreme as, or more extreme than, the data observed **under the assumption that the null hypothesis is true**.
+
+    -   The lower the p-value, the less likely we would see the observed data given the null hypothesis is true
+
+    -   **Question**: Given that we already have the observed data, does a lower p-value mean the null hypothesis is unlikely to be true?
+
+    -   **Answer**: No. $P(\text{observed data} | H_0 = \text{true}) \neq P(H_0 = \text{true} | \text{observed data})$. P-values are often misconstrued as the probability that the null hypothesis is true given the observed data. However, this interpretation is incorrect.
+
+2.  **Type I error**, also known as a "false positive," occurs when the null hypothesis is incorrectly rejected when it is, in fact, true.
+
+3.  The alpha level $\alpha$ set before conducting a test (commonly $\alpha = 0.05$) defines the cutoff point for the p-value below which the null hypothesis will be rejected.
+
+    -   A p-value less than the alpha level suggests a low probability that the observed data would occur if the null hypothesis were true. Consequently, rejecting the null hypothesis in this context implies there is a statistically significant difference likely not due to random chance.
 
 ## Note: Limitations of p-values
 
 Relying solely on p-values to reject the null hypothesis can be problematic for several reasons:
 
--   **Binary Decision Making**: The use of a threshold (e.g., α = 0.05) to determine whether to reject the null hypothesis reduces the complexity of the data and the underlying phenomena to a binary decision. This can oversimplify the interpretation and overlook the nuances in the data.
+-   **Binary Decision Making**: The use of a threshold (e.g., $\alpha = 0.05$) to determine whether to reject the null hypothesis reduces the complexity of the data to a binary decision. This can oversimplify the interpretation and overlook nuances in the data.
 
-    -   Confidence Intervals. Bayesian statistics - reporting posterior distribution.
+    -   **Alternatives**: Confidence intervals, Bayesian statistics (reporting posterior distributions)
 
--   **Neglect of Effect Size**: P-values do not convey the size or importance of an effect. A very small effect can produce a small p-value if the sample size is large enough, leading to a rejection of the null hypothesis even when the effect may not be practically significant.
+-   **Neglect of Effect Size**: P-values do not convey the size or practical importance of an effect. A very small effect can produce a small p-value if the sample size is large enough, leading to rejection of the null hypothesis even when the effect may not be practically significant.
 
-    -   Independent of sample size.
+    -   **Solution**: Report effect sizes that are independent of sample size
 
 -   **Probability of Extremes Under the Null**: Since p-values quantify the extremeness of the observed data under the null hypothesis, they do not address whether similarly extreme data could also occur under alternative hypotheses. This can lead to an overemphasis on the null hypothesis and potentially disregard other plausible explanations for the data.
 
-    -   Explore theory. Find other explanations. Tried varied models.
+    -   **Solution**: Explore theory, find alternative explanations, try varied models
 
 # Example 2: the Effect of Sleep on Academic Performance (Simulation)
 
@@ -522,22 +533,22 @@ head(sleep_data)
 
     -   **More than 8 hours**: Mean = 78, SD = 7
 
-## You turn:
+## Your Turn:
 
 #### F-test
 
 -   **Analysis**: One-way ANOVA was conducted to compare the average exam scores among the three groups.
 
--   **Results**: F_observed = XX.XX, p = 0.001
+-   **Results**: $F_{observed}$ = _[Calculate from your analysis]_, $p$ = _[Report p-value]_
 
 #### Interpretation
 
--   **Alpha Level**: α = 0.05
+-   **Alpha Level**: $\alpha = 0.05$
 
--   **P-value Interpretation**: [The p-value (0.001) is less than the alpha level (0.05), indicating a statistically significant difference in exam scores among the different sleep groups.]{.heimu}
+-   **P-value Interpretation**: [Compare your p-value to alpha and interpret the result]{.heimu}
 
--   **Conclusion**: [The results suggest that the amount of sleep significantly affects academic performance, with students getting 6 hours or more of sleep performing better on average than those with less sleep. The findings highlight the importance of adequate sleep among students for optimal academic outcomes.]{.heimu}
+-   **Conclusion**: [Based on the results, what can you conclude about the effect of sleep duration on academic performance?]{.heimu}
 
 ## Homework 1
 
-Due on 2025/09/10 5PM.
+Due on next Tuesday 5PM.
