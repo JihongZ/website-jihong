@@ -275,6 +275,127 @@ ggplot(data = mean_byGroup) +
   theme(text = element_text(size = 15))
 ```
 
+------------------------------------------------------------------------
+
+## Descriptive Statistics: Multiple Variables
+
+In research, we often need to compute descriptive statistics for multiple continuous variables simultaneously. Here are several approaches:
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show data simulation code"
+# Generate simulated student performance data
+set.seed(2025)
+n_students <- 100
+
+student_data <- data.frame(
+  student_id = 1:n_students,
+  math_score = rnorm(n_students, mean = 75, sd = 12),
+  reading_score = rnorm(n_students, mean = 78, sd = 10),
+  science_score = rnorm(n_students, mean = 72, sd = 11),
+  study_hours = rgamma(n_students, shape = 2, scale = 3),
+  attendance_rate = rbeta(n_students, shape1 = 8, shape2 = 2) * 100
+)
+```
+
+### Method 1: Base R with `sapply()`
+
+```{r}
+# Select only continuous variables
+continuous_vars <- student_data[, c("math_score", "reading_score", "science_score", "study_hours", "attendance_rate")]
+
+# Compute mean, sd, and range for each variable
+desc_stats <- data.frame(
+  Mean = sapply(continuous_vars, mean),
+  SD = sapply(continuous_vars, sd),
+  Min = sapply(continuous_vars, min),
+  Max = sapply(continuous_vars, max),
+  Range = sapply(continuous_vars, function(x) max(x) - min(x))
+)
+
+round(desc_stats, 2)
+```
+
+------------------------------------------------------------------------
+
+### Method 2: Using `dplyr` package with `across()`
+
+```{r}
+library(dplyr)
+
+student_data |>
+  summarise(
+    across(
+      c(math_score, reading_score, science_score, study_hours, attendance_rate),
+      list(
+        Mean = ~mean(.x),
+        SD = ~sd(.x),
+        Min = ~min(.x),
+        Max = ~max(.x),
+        Range = ~max(.x) - min(.x)
+      ),
+      .names = "{.col}_{.fn}"
+    )
+  ) |>
+  tidyr::pivot_longer(
+    everything(),
+    names_to = c("Variable", "Statistic"),
+    names_sep = "_(?=[^_]+$)",
+    values_to = "Value"
+  ) |>
+  tidyr::pivot_wider(
+    names_from = Statistic,
+    values_from = Value
+  ) |>
+  mutate(across(where(is.numeric), ~round(.x, 2)))
+```
+
+------------------------------------------------------------------------
+
+### Method 3: Using `psych::describe()`
+
+The `psych` package provides a comprehensive `describe()` function:
+
+```{r}
+library(psych)
+
+continuous_vars |>
+  describe() |>
+  select(n, mean, sd, min, max, range) |>
+  round(2)
+```
+
+### Grouped Descriptive Statistics
+
+You can also compute descriptives by groups:
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show grouping variable code"
+# Add a grouping variable
+student_data$program <- sample(c("STEM", "Arts", "Social Sciences"),
+                               n_students, replace = TRUE,
+                               prob = c(0.4, 0.3, 0.3))
+```
+
+```{r}
+# Compute descriptives by program
+student_data |>
+  group_by(program) |>
+  summarise(
+    N = n(),
+    Math_Mean = mean(math_score),
+    Math_SD = sd(math_score),
+    Reading_Mean = mean(reading_score),
+    Reading_SD = sd(reading_score),
+    Science_Mean = mean(science_score),
+    Science_SD = sd(science_score)
+  ) |>
+  mutate(across(where(is.numeric) & !N, ~round(.x, 2)))
+```
+
+------------------------------------------------------------------------
+
 ## Steps of ANOVA
 
 1.  State the null hypothesis and alternative hypothesis:
@@ -436,20 +557,14 @@ ggplot(data_to_plot) +
 
 -   In addition to the comparison of the critical value and the observed value of the test statistics, we can also compare the alpha and the p-value:
 
-::::: columns
-::: column
-![F-distribution showing rejection regions for different alpha levels](images/clipboard-3877350302.png){width="100%"}
-:::
+![F-distribution showing rejection regions for different alpha levels](images/clipboard-3877350302.png)
 
-::: column
 -   We determine $F_{crit}$ by setting $\alpha$ value.
     -   $\alpha$ = (acceptable) type I error rate = probability that we wrongly reject $H_0$ when $H_0$ is true
 -   From the data, we obtain $F_{obs}$ with p-value.
     -   p-value = probability of datasets having F-statistics larger than $F_{obs}$
 -   If the F statistic from the data ($F_{obs}$) is larger than $F_{critical}$, then you are in the rejection region and can reject $H_0$ and accept $H_A$ with $(1-\alpha)$ level of confidence.
 -   If the p-value obtained from the ANOVA is less than $\alpha$, then reject $H_0$ and accept $H_A$ with $(1-\alpha)$ level of confidence.
-:::
-:::::
 
 ## Step 5: Results Report
 
@@ -551,4 +666,4 @@ head(sleep_data)
 
 ## Homework 1
 
-Due on next Tuesday 5PM.
+Due on next Tuesday Noon.
