@@ -396,6 +396,7 @@ student_data |>
 
 ------------------------------------------------------------------------
 
+
 ## Steps of ANOVA
 
 1.  State the null hypothesis and alternative hypothesis:
@@ -569,6 +570,14 @@ ggplot(data_to_plot) +
 ## Step 5: Results Report
 
 A one-way ANOVA was conducted to compare the level of concern for tax reform among three political groups: Democrats, Republicans, and Independents. There was a significant effect of political affiliation on tax reform concern at the $p < .001$ level for the three conditions [$F(2, 13) = 20.31$, $p < .001$]. This result indicates significant differences in attitudes toward tax reform among the groups.
+
+-------------------
+
+## Limitation of ANOVA
+
+<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7422207333860130818" height="1194" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+
+-------------------
 
 ## Note: Relationship Between P-values and Type I Error
 
