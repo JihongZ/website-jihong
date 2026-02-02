@@ -30,7 +30,7 @@ format:
     slide-number: c/t
     tbl-colwidths: auto
     scrollable: true
-    output-file: slides-index.html
+    output-file: slides-index-poweranalysis.html
     mermaid:
       theme: forest
 filters:
