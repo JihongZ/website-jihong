@@ -598,6 +598,10 @@ A one-way ANOVA was conducted to compare the level of concern for tax reform amo
 3.  The alpha level $\alpha$ set before conducting a test (commonly $\alpha = 0.05$) defines the cutoff point for the p-value below which the null hypothesis will be rejected.
 
     -   A p-value less than the alpha level suggests a low probability that the observed data would occur if the null hypothesis were true. Consequently, rejecting the null hypothesis in this context implies there is a statistically significant difference likely not due to random chance.
+    
+    - If you set up a high alpha level (0.1), you are more likely to have p-value lower than alpha, which means you are more likely reject the null hypothesis that may be true, which means you may make Type 1 error.
+    
+    - If you set up a low alpha level (0.001), you are less likely to have p-value lower than alpha, which means you are more likely retain the null hypothesis that may be false, which means you may make Type 2 error.
 
 ## Note: Limitations of p-values
 
@@ -614,6 +618,10 @@ Relying solely on p-values to reject the null hypothesis can be problematic for 
 -   **Probability of Extremes Under the Null**: Since p-values quantify the extremeness of the observed data under the null hypothesis, they do not address whether similarly extreme data could also occur under alternative hypotheses. This can lead to an overemphasis on the null hypothesis and potentially disregard other plausible explanations for the data.
 
     -   **Solution**: Explore theory, find alternative explanations, try varied models
+
+## A short quiz
+
+[Google form link](https://forms.gle/6Tgu1H3Y8Vttmqep6)
 
 # Example 2: the Effect of Sleep on Academic Performance (Simulation)
 
@@ -679,4 +687,4 @@ head(sleep_data)
 
 ## Homework 1
 
-Due on next Tuesday Noon.
+Due on next Tuesday Noon. Here is the [google form link](https://forms.gle/9RoxJe9GeCFncp5S9).
