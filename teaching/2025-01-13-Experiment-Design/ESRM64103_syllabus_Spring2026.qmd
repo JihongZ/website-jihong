@@ -186,6 +186,8 @@ Following materials are only allowed for previewing for students registered in E
 | 4       | 02/03   | [Lec4: One-way ANOVA](Lecture03/ESRM64103_Lecture03.qmd)                                               | [HW#1](https://forms.gle/9RoxJe9GeCFncp5S9)               |
 |         |         |                                                                                                        |                                                           |
 |         |         | HW1 Start Code: [ESRM64103_HW1_Start.r](Lecture02/ESRM64103_HW1_Start.r)                               | Due on 02/10 Noon                                         |
+|         |         |                                                                                                        |                                                           |
+|         |         | Quiz1: [Google Form](https://forms.gle/hXScj4WsULXdvyJH9)                                              |                                                           |
 +---------+---------+--------------------------------------------------------------------------------------------------------+-----------------------------------------------------------+
 | 5       | 02/10   | [Lec5: Assumption Checking](Lecture04/ESRM64103_Lecture04.qmd)                                         | HW#1 Answer                                               |
 +---------+---------+--------------------------------------------------------------------------------------------------------+-----------------------------------------------------------+
