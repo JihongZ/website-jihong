@@ -249,6 +249,10 @@ library(dplyr)
 exp_political_attitude
 ```
 
+## Workflow of data analysis in R
+
+![Data Analysis Workflow in R](images/workflow_in_R.png)
+
 ## Descriptive Statistics: Summary Statistics
 
 -   Calculate mean, standard deviation, and variance for each political group
@@ -258,7 +262,8 @@ exp_political_attitude
 ```{r}
 # Grand mean
 mean(exp_political_attitude$scores)
-exp_political_attitude$party <- factor(exp_political_attitude$party, levels = c("Democrat", "Republican", "Independent"))
+exp_political_attitude$party <- factor(exp_political_attitude$party, 
+                                       levels = c("Democrat", "Republican", "Independent"))
 mean_byGroup <- exp_political_attitude |> 
   group_by(party) |> 
   summarise(Mean = mean(scores),
