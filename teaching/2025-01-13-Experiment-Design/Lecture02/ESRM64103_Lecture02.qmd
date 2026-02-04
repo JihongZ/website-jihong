@@ -467,6 +467,7 @@ GrandMean <- mean(exp_political_attitude$scores)
 ## Between-group Sum of Squares
 cat("Between-group Sum of Squares: ", sum(mean_byGroup$N * (mean_byGroup$Mean - GrandMean)^2))
 
+
 ## Within-group Sum of Squares
 SSw_dt <- exp_political_attitude |> 
   group_by(party) |> 
@@ -474,6 +475,14 @@ SSw_dt <- exp_political_attitude |>
          Diff_sq = (scores - GroupMean)^2) 
 
 cat("Within-group Sum of Squares: ", sum(SSw_dt$Diff_sq))
+```
+
+```{r}
+SS_b <- sum(mean_byGroup$N * (mean_byGroup$Mean - GrandMean)^2)
+SS_w <- sum(SSw_dt$Diff_sq)
+df_b = 2
+df_w = 16 - 3 
+F_bw = (SS_b / df_b) / (SS_w / df_w)
 ```
 
 -   $F_{critical}$ (df_num = 2, df_deno = 13) = 3.81
