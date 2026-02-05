@@ -11,6 +11,21 @@ execute:
   echo: true
   warning: false
 format: 
+  revealjs:
+    logo: ../Images/UA_Logo_Horizontal.png
+    incremental: true  # choose "false "if want to show all together
+    theme: [serif, ../pp.scss]
+    footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>
+    # transition: slide
+    background-transition: fade
+    slide-number: true
+    chalkboard: true
+    number-sections: false
+    output-file: slides-index.html
+    code-block-bg: true
+    code-block-border-left: "#31BAE9"
+    code-line-numbers: true
+    code-annotations: hover
   html:
     code-tools: true
     code-line-numbers: false
@@ -22,21 +37,7 @@ format:
     message: false
     grid:
       sidebar-width: 350px
-  revealjs:
-    logo: ../Images/UA_Logo_Horizontal.png
-    incremental: true  # choose "false "if want to show all together
-    theme: [serif, ../pp.scss]
-    footer:  <https://jihongzhang.org/posts/2024-01-12-syllabus-adv-multivariate-esrm-6553>
-    transition: slide
-    background-transition: fade
-    slide-number: true
-    chalkboard: true
-    number-sections: false
-    output-file: slides-index.html
-    code-block-bg: true
-    code-block-border-left: "#31BAE9"
-    code-line-numbers: true
-    code-annotations: hover
+  
 ---
 
 ## Today's Lecture Objectives
@@ -235,7 +236,7 @@ $$
 P(p_1) = \frac{(p_1)^{a-1} (1-p_1)^{\beta-1}}{B(\alpha,\beta)}
 $$
 
-Where denominator $B$ is:
+Where denominator, $B$, is a normalization constant to ensure that the total probability is 1:
 
 $$
 B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}
@@ -246,6 +247,39 @@ and (fun fact: derived by *Daniel Bernoulli (1700-1782)*),
 $$
 \Gamma(\alpha) = \int_0^{\infty}t^{\alpha-1}e^{-t}dt
 $$
+
+
+------------------------------------------------------------------------
+
+### Beta Functions in R
+
+Think about 3 sets of 10 dices. They have varied probability of "1".
+
+Question1: any fair dice among 30 dices?
+
+Question2: which set have relatively fair dices.
+
+Hint: $1 / 6 = 0.16666...$
+
+
+
+```{r}
+set.seed(4)
+alpha = 2
+beta = 2
+rbeta(n = 10, shape1 = alpha, shape2 = beta) # randomly generate p1 given beta(2, 2)
+
+alpha = 1
+beta = 1
+rbeta(n = 10, shape1 = alpha, shape2 = beta) # randomly generate p1 given beta(1, 1)
+```
+
+```{r}
+alpha = 200
+beta = 996
+rbeta(n = 10, shape1 = alpha, shape2 = beta) # randomly generate p1 given beta(200, 996)
+```
+
 
 ------------------------------------------------------------------------
 
