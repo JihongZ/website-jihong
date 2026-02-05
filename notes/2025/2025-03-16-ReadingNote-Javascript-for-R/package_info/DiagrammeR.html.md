@@ -12,6 +12,7 @@ keep-md: true
 
 
 
+
 ::: objectives
 ## Overview {.unnumbered}
 
@@ -71,10 +72,12 @@ create_graph() |>
 
 ::: {.cell-output-display}
 
+
 ```{=html}
 <div class="grViz html-widget html-fill-item" id="htmlwidget-5d9bb2ea43e515392e32" style="width:100%;height:464px;"></div>
 <script type="application/json" data-for="htmlwidget-5d9bb2ea43e515392e32">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"-0.658871714452341,0.380468358446846!\"] \n  \"2\" [fillcolor = \"#F0F8FF\", fontcolor = \"#000000\", pos = \"0.190718754261513,-0.147451195705517!\"] \n  \"1\"->\"2\" \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ```
+
 
 :::
 :::

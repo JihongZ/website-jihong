@@ -11,6 +11,7 @@ format:
     code-tools: true
     code-line-numbers: false
     code-fold: false
+    code-summary: 'Click here to see R code'
     number-offset: 1
     fig.width: 10
     fig-align: center
@@ -249,6 +250,10 @@ library(dplyr)
 exp_political_attitude
 ```
 
+## Workflow of data analysis in R
+
+![Data Analysis Workflow in R](images/workflow_in_R.png)
+
 ## Descriptive Statistics: Summary Statistics
 
 -   Calculate mean, standard deviation, and variance for each political group
@@ -258,7 +263,8 @@ exp_political_attitude
 ```{r}
 # Grand mean
 mean(exp_political_attitude$scores)
-exp_political_attitude$party <- factor(exp_political_attitude$party, levels = c("Democrat", "Republican", "Independent"))
+exp_political_attitude$party <- factor(exp_political_attitude$party, 
+                                       levels = c("Democrat", "Republican", "Independent"))
 mean_byGroup <- exp_political_attitude |> 
   group_by(party) |> 
   summarise(Mean = mean(scores),
@@ -322,7 +328,7 @@ round(desc_stats, 2)
 
 ------------------------------------------------------------------------
 
-### Method 2: Using `dplyr` package with `across()`
+### Method 2: Using `dplyr` package with `across()` {visibility="hidden"}
 
 ```{r}
 library(dplyr)
@@ -356,7 +362,7 @@ student_data |>
 
 ------------------------------------------------------------------------
 
-### Method 3: Using `psych::describe()`
+### Method 3: Using `psych::describe()` {visibility="hidden"}
 
 The `psych` package provides a comprehensive `describe()` function:
 
@@ -398,8 +404,33 @@ student_data |>
   mutate(across(where(is.numeric) & !N, ~round(.x, 2)))
 ```
 
+
+
 ------------------------------------------------------------------------
 
+### Workflow of Example 1
+
+```{r}
+#| code-fold: true
+#| eval: false
+remotes::install_github("JihongZ/ESRM64103")
+library(ESRM64103)
+library(dplyr)
+exp_political_attitude
+exp_political_attitude$party <- factor(exp_political_attitude$party, 
+                                       levels = c("Democrat", "Republican", "Independent"))
+mean_byGroup <- exp_political_attitude |> 
+  group_by(party) |> 
+  summarise(Mean = mean(scores),
+            SD = round(sd(scores), 2),
+            Vars = round(var(scores), 2),
+            N = n())
+mean_byGroup
+anova_model <- lm(scores ~ party, data = exp_political_attitude)
+anova(anova_model)
+```
+
+![](images/exp1_workflow.svg)
 
 ## Steps of ANOVA
 
@@ -412,7 +443,7 @@ student_data |>
 
 2.  Set the significant alpha = 0.05
 
-3.  Quick Review of F-statistics:
+3.  Calculate Observed F-statistics:
 
     $$
     F_{obs} = \frac{SS_b/df_b}{SS_w/df_w}
@@ -428,26 +459,39 @@ student_data |>
         $$SS_w = \sum_{j=1}^{3} \sum_{i=1}^{n_j}(Y_{ij}-\bar{Y}_j)^2 = 14.00$$
         where $Y_{ij}$ is individual $i$'s score in group $j$.
 
-    ```{r}
-    #| eval: false
-    GrandMean <- mean(exp_political_attitude$scores)
-    ## Between-group Sum of Squares
-    sum(mean_byGroup$N * (mean_byGroup$Mean - GrandMean)^2)
-    ## Within-group Sum of Squares
-    SSw_dt <- exp_political_attitude |> 
-      group_by(party) |> 
-      mutate(GroupMean = mean(scores),
-             Diff_sq = (scores - GroupMean)^2) 
-    sum(SSw_dt$Diff_sq)
-    ```
+### R code to calcuate F statistics
 
-    -   $F_{critical}$ (df_num = 2, df_deno = 13) = 3.81
-    -   $F_{observed}$ = 20.31
+```{r}
+#| eval: true
+GrandMean <- mean(exp_political_attitude$scores)
+## Between-group Sum of Squares
+cat("Between-group Sum of Squares: ", sum(mean_byGroup$N * (mean_byGroup$Mean - GrandMean)^2))
 
-    ```{r}
-    anova_model <- lm(scores ~ party, data = exp_political_attitude)
-    anova(anova_model)
-    ```
+
+## Within-group Sum of Squares
+SSw_dt <- exp_political_attitude |> 
+  group_by(party) |> 
+  mutate(GroupMean = mean(scores),
+         Diff_sq = (scores - GroupMean)^2) 
+
+cat("Within-group Sum of Squares: ", sum(SSw_dt$Diff_sq))
+```
+
+```{r}
+SS_b <- sum(mean_byGroup$N * (mean_byGroup$Mean - GrandMean)^2)
+SS_w <- sum(SSw_dt$Diff_sq)
+df_b = 2
+df_w = 16 - 3 
+F_bw = (SS_b / df_b) / (SS_w / df_w)
+```
+
+-   $F_{critical}$ (df_num = 2, df_deno = 13) = 3.81
+-   $F_{observed}$ = 20.31
+
+```{r}
+anova_model <- lm(scores ~ party, data = exp_political_attitude)
+anova(anova_model)
+```
 
 Results show rejection of $H_0$ ($F_{obs}$ > $F_{critical}$)
 
@@ -598,6 +642,10 @@ A one-way ANOVA was conducted to compare the level of concern for tax reform amo
 3.  The alpha level $\alpha$ set before conducting a test (commonly $\alpha = 0.05$) defines the cutoff point for the p-value below which the null hypothesis will be rejected.
 
     -   A p-value less than the alpha level suggests a low probability that the observed data would occur if the null hypothesis were true. Consequently, rejecting the null hypothesis in this context implies there is a statistically significant difference likely not due to random chance.
+    
+    - If you set up a high alpha level (0.1), you are more likely to have p-value lower than alpha, which means you are more likely reject the null hypothesis that may be true, which means you may make Type 1 error.
+    
+    - If you set up a low alpha level (0.001), you are less likely to have p-value lower than alpha, which means you are more likely retain the null hypothesis that may be false, which means you may make Type 2 error.
 
 ## Note: Limitations of p-values
 
@@ -614,6 +662,10 @@ Relying solely on p-values to reject the null hypothesis can be problematic for 
 -   **Probability of Extremes Under the Null**: Since p-values quantify the extremeness of the observed data under the null hypothesis, they do not address whether similarly extreme data could also occur under alternative hypotheses. This can lead to an overemphasis on the null hypothesis and potentially disregard other plausible explanations for the data.
 
     -   **Solution**: Explore theory, find alternative explanations, try varied models
+
+## A short quiz
+
+[Google form link](https://forms.gle/6Tgu1H3Y8Vttmqep6)
 
 # Example 2: the Effect of Sleep on Academic Performance (Simulation)
 
@@ -679,4 +731,4 @@ head(sleep_data)
 
 ## Homework 1
 
-Due on next Tuesday Noon.
+Due on next Tuesday Noon. Here is the [google form link](https://forms.gle/9RoxJe9GeCFncp5S9).

@@ -20,6 +20,7 @@ format:
       margin-width: 0px
 ---
 
+
 ::: {.cell}
 
 :::
@@ -36,6 +37,7 @@ format:
 
 ::: {.cell}
 ::: {.cell-output-display}
+
 `````{=html}
 <table class=" lightable-classic-2" style='font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'>
  <thead>
@@ -93,6 +95,7 @@ format:
 </table>
 
 `````
+
 :::
 :::
 
@@ -101,6 +104,7 @@ format:
 
 
 ## Gantt Plot for Research Plan
+
 
 
 
@@ -207,7 +211,6 @@ colors = domainByGroup.map(d => colorMap.get(d))
 ::::
 :::::
 ::::::
-
 
 ::::::{.cell}
 
