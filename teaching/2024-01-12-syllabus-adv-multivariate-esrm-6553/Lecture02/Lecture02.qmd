@@ -11,6 +11,17 @@ execute:
   echo: true
   warning: false
 format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    code-summary: 'Click here to see R code'
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
   revealjs:
     logo: ../Images/UA_Logo_Horizontal.png
     incremental: true  # choose "false "if want to show all together
@@ -25,18 +36,7 @@ format:
     code-block-bg: true
     code-block-border-left: "#31BAE9"
     code-line-numbers: true
-    code-annotations: hover
-  html:
-    code-tools: true
-    code-line-numbers: false
-    code-fold: false
-    code-summary: 'Click here to see R code'
-    number-offset: 1
-    fig.width: 10
-    fig-align: center
-    message: false
-    grid:
-      sidebar-width: 350px
+    code-annotations: hover    
   
 ---
 
