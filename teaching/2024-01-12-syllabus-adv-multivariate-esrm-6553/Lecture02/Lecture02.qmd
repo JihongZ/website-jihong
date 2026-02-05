@@ -20,8 +20,6 @@ format:
     fig.width: 10
     fig-align: center
     message: false
-    grid:
-      sidebar-width: 350px
   revealjs:
     logo: ../Images/UA_Logo_Horizontal.png
     incremental: true  # choose "false "if want to show all together
