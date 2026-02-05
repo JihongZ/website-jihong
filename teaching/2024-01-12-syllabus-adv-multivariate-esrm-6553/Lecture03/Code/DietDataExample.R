@@ -1,6 +1,7 @@
 library(ggplot2) # R package for data visualization
+library(here)
 # read in data
-dat <- read.csv("DietData.csv")
+dat <- read.csv(here("teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Code", "DietData.csv"))
 dat$DietGroup <- factor(dat$DietGroup, levels = 1:3)
 head(dat)
 
@@ -50,7 +51,7 @@ summary(EmptyModel)
 
 library(cmdstanr)
 # compile model -- this method is for stand-alone stan files (uses cmdstanr)
-model00.fromFile = cmdstan_model(stan_file = "EmptyModel.stan")
+model00.fromFile = cmdstan_model(stan_file = here("~/github/website-jihong/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Code", "EmptyModel.stan"))
 
 # build R list containing data for Stan: Must be named what "data" are listed in analysis
 stanData = list(
@@ -75,6 +76,8 @@ model00.samples = model00.fromFile$sample(
   iter_warmup = 10000,
   iter_sampling = 10000
 )
+
+model00.samples$summary()[c('variable','mean', 'rhat')][1:3, ]
 
 ## Using rstan
 library(rstan)

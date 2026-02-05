@@ -9,7 +9,7 @@ parameters {
 }
 
 model {
-  beta0 ~ normal(50, 10); // prior for beta0
+  beta0 ~ normal(10, 10); // prior for beta0
   sigma ~ uniform(0, 10); // prior for sigma
   weightLB ~ normal(beta0, sigma); // model for observed data
 }

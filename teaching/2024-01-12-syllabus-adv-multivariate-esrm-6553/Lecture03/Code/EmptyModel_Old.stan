@@ -13,11 +13,13 @@ model {
   sigma ~ uniform(0, 100000); // prior for sigma
   weightLB ~ normal(beta0, sigma); // model for observed data
 }
-generated quantities {
-  vector[N] weightLB_pred; 
+generated quantities{
   // simulated data
-  for (n in 1:N) {
-     weightLB_pred[n] = normal_rng(beta0, sigma);
+  vector[N] weightLB_pred; // predicted value (conditional mean)
+  // WAIC and LOO for model comparison
+  array[N] real log_lik;
+  for (person in 1:N){
+    weightLB_pred[person] = beta0;
+    log_lik[person] = normal_lpdf(weightLB[person] | weightLB_pred[person], sigma);
   }
-  
 }

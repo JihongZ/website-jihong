@@ -29,7 +29,7 @@ format:
 
 ## Today's Lecture Objectives
 
-1.  An Introduction to MCMC
+1.  An Introduction to MCMC (Markov Chain Monte Carlo)
 
 2.  An Introduction to Stan
 
@@ -393,6 +393,12 @@ graph LR;
 :::
 :::::
 
+## Installation of Stan
+
+Here is the link of [CmdStan Installation](https://mc-stan.org/docs/cmdstan-guide/installation.html#building-cmdstan).
+
+Here is the link of [cmdstanr](https://mc-stan.org/cmdstanr/) R package.
+
 ------------------------------------------------------------------------
 
 ### Stan Syntax
@@ -620,31 +626,6 @@ model00.samples = model00.fromFile$sample(
 
 ------------------------------------------------------------------------
 
-### Running Markov Chains in `rstan`
-
-```{r}
-#| eval: false
-rstan_options(auto_write = TRUE)
-options(mc.cores = parallel::detectCores()) #<1>
-
-# example MCMC analysis in rstan
-model00.rstan = stan(#<2>
-  model_code = stanModel,
-  model_name = "Empty model",
-  data = stanData,
-  warmup = 10000,
-  iter = 20000,#<3>
-  chains = 4,
-  verbose = TRUE
-)
-```
-
-1.  The first two lines of syntax enable running one chain per thread (parallel processing)
-2.  Use `stan()` to compile and sample posterior distribution
-3.  `iter` represents number of sampling and warmup iterations
-
-------------------------------------------------------------------------
-
 ### MCMC Process
 
 ::: nonincremental
@@ -757,7 +738,7 @@ bayesplot::mcmc_dens(model00.samples$draws("beta0"))
 ### Assessing Our Chains
 
 ```{r filename="DietDataExample.R"}
-model00.samples$summary()
+model00.samples$summary()[1:5]
 ```
 
 -   The `summary()` function reports the PSRF (also known as rhat)
@@ -861,7 +842,7 @@ bayesplot::mcmc_dens(model00.samples$draws('sigma')) +
 ```{r}
 library(rstanarm)
 # Set this manually if desired:
-ncores <- parallel::detectCores(logical = FALSE)
+ncores <- parallel::detectCores(logical = FALSE) - 1
 ###
 options(mc.cores = ncores)
 set.seed(5078022)
