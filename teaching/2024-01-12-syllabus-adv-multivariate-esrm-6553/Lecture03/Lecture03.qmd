@@ -393,11 +393,6 @@ graph LR;
 :::
 :::::
 
-## Installation of Stan
-
-Here is the link of [CmdStan Installation](https://mc-stan.org/docs/cmdstan-guide/installation.html#building-cmdstan).
-
-Here is the link of [cmdstanr](https://mc-stan.org/cmdstanr/) R package.
 
 ------------------------------------------------------------------------
 

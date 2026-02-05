@@ -9,7 +9,19 @@ title-slide-attributes:
   data-background-opacity: "0.9"
 execute: 
   echo: true
+  warning: false
 format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    code-summary: 'Click here to see R code'
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
+    grid:
+      sidebar-width: 350px
   revealjs:
     logo: ../Images/UA_Logo_Horizontal.png
     incremental: true  # choose "false "if want to show all together
@@ -20,6 +32,7 @@ format:
     slide-number: true
     chalkboard: true
     number-sections: false
+    output-file: slides-index.html
     code-block-bg: true
     code-block-border-left: "#31BAE9"
     code-line-numbers: true
@@ -36,28 +49,32 @@ format:
 
 4.  Bayesian update
 
-but, before we begin... [Music: Good Bayesian](https://www.youtube.com/watch?v=qV6Wc_f1Cgo)
+but, before we begin... 
 
 [Music: Good Bayesian](https://www.youtube.com/watch?v=qV6Wc_f1Cgo)
 
-[Anil Seth](https://www.anilseth.com/)
-
-## Quiz: What is Bayesian?
+## Refresh the memory: What is Bayesian?
 
 1.  What are key components of Bayesian models?
 
-    1.  Likelihood function - **data**
-    2.  Prior distribution - belief / previous evidences of **parameters**
-    3.  Posterior distribution - updated information of parameters given our data and model
-    4.  Posterior predictive distribution - future / predicted data
+::: mohu
+1.  Likelihood function - **data** distribution
+2.  Prior distribution - belief / previous evidences of **parameters**
+3.  Posterior distribution - updated information of parameters given our data and model
+4.  Posterior predictive distribution - future / predicted data
+:::
 
 2.  What are the differences between Bayesian with Frequentist analysis?
 
-    1.  prior distribution: Bayesian
-    2.  hypothesis of fixed parameters: frequentist
-    3.  estimation process: MCMC vs. MLE
-    4.  posterior distribution vs. point estimates of parameters
-    5.  credible interval (plausibility of the parameters having those values) vs. confidence interval (the proportion of infinite samples having the fixed parameters)
+::: mohu
+1.  prior distribution: Bayesian
+2.  hypothesis of fixed parameters: frequentist
+3.  estimation process: MCMC vs. Maximum likelihhood estimation (MLE) or ordinary least square (OLS)
+4.  posterior distribution vs. point estimates of parameters
+5.  credible interval (plausibility of the parameters having those values) vs. confidence interval (the proportion of infinite samples having the fixed parameters)
+:::    
+    
+
 
 ## Bayes' Theorem: How Bayesian Statistics Work
 
@@ -74,6 +91,15 @@ Where:
 3.  $P(Data|\theta)$: the likelihood function (conditional distributin) of the observed data, given the parameters
 4.  $P(\theta)$: the [prior distribution]{.underline} of parameter $\theta$
 5.  $P(Data)$: the marginal distribution of the observed data
+
+
+## Preparation: Install CmdStan
+
+-   [CmdStan and cmdstanr Installation](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan) 
+
+-   [cmdstanr Users' Guide](https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html#troubleshooting-the-installation)
+
+-   [Build source CmdStan Installation](https://mc-stan.org/docs/cmdstan-guide/installation.html#building-cmdstan).    
 
 ------------------------------------------------------------------------
 
@@ -100,6 +126,7 @@ Where:
     P(p_1|X) = \frac{P(X|p_1)P(p_1)}{P(X)} \propto P(X|p_1) P(p_1)
     $$
 
+
 ------------------------------------------------------------------------
 
 ## Step 1: Choose the Likelihood function (Model)
@@ -116,18 +143,25 @@ Where:
 
 ### Log-likelihood Function along "Parameter"
 
+Assume each event is independent, the multiplication of the probabilities of each event is the "Likelihood". Log transform of Likelihood is easier for further analysis.
+
 $$
 LL(p_1|\{0, 1, 0, 1, 1\})
 $$
 
+Goal: find the most possible p1 value (the probability of the event) so that the data \{0, 1, 0, 1, 1\} has the highest likelihood
+
 ```{r}
 #| echo: true
 #| code-line-numbers: "2"
-p1 = seq(0, 1, length.out = 21)
-Likelihood = (p1)^3 * (1-p1)^2
-plot(x = p1, y = log(Likelihood))
+## iterate over different plausible values of p1 ranging [0, 1]
+p1 = seq(0, 1, length.out = 21) 
+Likelihood = (p1)^3 * (1-p1)^2 
+LogLikelihood = log(Likelihood)
+plot(x = p1, y = LogLikelihood)
 p1[which.max(Likelihood)] # p1 = 0.6 = 3 / 5
 ```
+
 
 ------------------------------------------------------------------------
 
@@ -428,6 +462,7 @@ paste0("Sample Posterior Mean: ", mean(uninfo2$p1 * uninfo2$pdf)) # 0.1731
 
 ```{r}
 library(cmdstanr)
+set_cmdstan_path("~/cmdstan/")
 register_knitr_engine(override = FALSE)
 ```
 
@@ -512,9 +547,7 @@ fit2$summary()
 
 ------------------------------------------------------------------------
 
-## Install CmdStan
 
-[cmdstanr Installation](https://mc-stan.org/cmdstanr/articles/cmdstanr.html#installing-cmdstan) [cmdstanr Users' Guide](https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html#troubleshooting-the-installation)
 
 ## Next Class
 

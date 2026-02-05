@@ -229,7 +229,7 @@ body.quarto-dark .menu-text:hover > .menutext-cn {
 }
 
 /* 萌娘百科上的黑幕效果 */
-.heimu, .heimu a, a .heimu, .heimu a.new {
+.heimu, .heimu a, a .heimu, .heimu a.new, .heimu li{
     background-color: #252525;
     color: #252525;
     text-shadow: none;
