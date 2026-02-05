@@ -33,11 +33,9 @@ format:
 
 ::: {#hero-heading .nice-paragraph}
 
-<span style="font-family:'Roboto Condensed', sans-serif; font-weight: 600;">About Me</span>
+I am a tenure-track Assistant Professor of [Educational Statistics and Research Methods](https://esrm.uark.edu/directory/uid/jzhang/name/Jihong+Zhang/) in the Department of Counseling, Leadership, and Research Methods, at the University of Arkansas. I'm also a faculty affiliate with the [Center for Public Health & Technology Research](https://publichealthtech-center.uark.edu). My research program advances modern psychometric methodology while bridging psychometrics, behavioral science, and data science.
 
-I am a tenure-track Assistant Professor of [Educational Statistics and Research Methods](https://esrm.uark.edu/directory/uid/jzhang/name/Jihong+Zhang/) in the Department of Counseling, Leadership, and Research Methods, at the University of Arkansas. I'm also a faculty affiliate with the [Center for Public Health & Technology Research](https://publichealthtech-center.uark.edu) at the University of Arkansas. My research program advances modern psychometric methodology while bridging educational measurement, behavioral science, and data science.
-
-My work focuses on two synergistic strands of methodological development. The first centers on psychological network analysis, including network analysis of EEG data, mental-health symptoms, physical activities, and the examination of dynamic processes in eating disorders. The second explores AI-powered psychometrics, including interview-informed large language models for survey response generation, machine-learning–based equating and assessment design, and emerging multi-agent systems supporting human–AI collaboration in educational decision-making.
+My work focuses on two synergistic strands of methodological development. The first centers on psychological network analysis, including network analysis of EEG data, mental-health symptoms, educational data, and exercise science. The second explores AI-powered psychometrics, including interview-informed large language models for survey response generation, machine-learning–based equating and assessment design, and emerging multi-agent systems supporting human–AI collaboration in educational decision-making.
 
 [![](images/dog.png){width="20"} LEARN MORE ABOUT ME →](about.qmd)
 :::
