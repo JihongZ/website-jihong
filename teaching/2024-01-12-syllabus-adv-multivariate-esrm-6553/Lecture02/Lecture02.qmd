@@ -559,7 +559,13 @@ fit2$summary()
 
 ------------------------------------------------------------------------
 
+## Exercise
 
+1. Install cmdstan and cmdstanr
+
+2. Practice beta prior distribution with hyperparameter {2, 3}, {10, 15}
+
+3. Summarize the results
 
 ## Next Class
 
