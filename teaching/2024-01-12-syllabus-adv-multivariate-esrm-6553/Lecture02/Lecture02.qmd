@@ -210,11 +210,17 @@ $$
 
     -   the probabilities much higher/lower than $\frac{1}{6}$ are very unlikely
 
--   Let's consider a Beta distribution:
+-   Let's consider a Beta distribution as the prior distribution of $p_1$:
 
     $$
     p_1 \sim Beta(\alpha, \beta)
     $$
+    
+or
+
+$$
+P(p_1) \equiv Beta(\alpha, \beta)
+$$
 
 ------------------------------------------------------------------------
 
@@ -252,9 +258,64 @@ $$
 
 -   To make sure $P(p_1 = \frac{1}{6})$ is the largest, we can:
 
-    -   Many choices: $\alpha =2$ and $\beta = 6$ has the same mode as $\alpha = 100$ and $\beta = 496$; (hint: $\beta = 5\alpha - 4$)
+    -   Many choices of prior distribution: 
+    
+        -   $\alpha =2$ and $\beta = 6$ has the same mode as $\alpha = 100$ and $\beta = 496$;
+        
+        -   hint: when the relationship between $\alpha$ and $\eta$ follows $\beta = 5\alpha - 4$
 
     -   The differences between choices is how strongly we feel in our beliefs
+
+
+---------------------------------------------------------------------
+
+### Visualize prior distribution $P(p_1)$
+
+```{r}
+#| code-fold: true
+dbeta <- function(p1, alpha, beta) {
+  # probability density function
+  PDF = ((p1)^(alpha-1)*(1-p1)^(beta-1)) / beta(alpha, beta)
+  return(PDF)
+}
+
+condition <- data.frame(
+  alpha = c(2, 20, 100, 200),
+  beta = c(6, 96, 496, 996)
+)
+pdf_bycond <- condition %>% 
+  nest_by(alpha, beta) %>% 
+  mutate(data = list(
+    dbeta(p1 = (1:99)/100, alpha = alpha, beta = beta)
+  ))
+
+## prepare data for plotting pdf by conditions
+pdf_forplot <- Reduce(cbind, pdf_bycond$data) %>% 
+  t() %>% 
+  as.data.frame() ## merge conditions together
+colnames(pdf_forplot) <- (1:99)/100 # add p1 values as x-axis
+pdf_forplot <- pdf_forplot %>% 
+  mutate(Alpha_Beta = c( # add alpha_beta conditions as colors
+    "(2, 6)",
+    "(20, 96)",
+    "(100, 496)",
+    "(200, 996)"
+  )) %>% 
+  pivot_longer(-Alpha_Beta, names_to = 'p1', values_to = 'pdf') %>% 
+  mutate(p1 = as.numeric(p1),
+         Alpha_Beta = factor(Alpha_Beta,levels = unique(Alpha_Beta)))
+
+pdf_forplot %>% 
+  ggplot() +
+  geom_vline(xintercept = 0.17, col = "black") +
+  geom_point(aes(x = p1, y = pdf, col = Alpha_Beta)) +
+  geom_path(aes(x = p1, y = pdf, col = Alpha_Beta, group = Alpha_Beta)) + 
+  scale_color_discrete(name = "Prior choices")
+
+```
+
+**Question: WHY NOT USE NORMAL DISTRIBUTION?**
+
 
 ------------------------------------------------------------------------
 
@@ -307,55 +368,6 @@ alpha_beta_variance_plot %>%
 ```
 :::
 :::
-
-------------------------------------------------------------------------
-
-### Visualize prior distribution $P(p_1)$
-
-```{r}
-#| code-fold: true
-dbeta <- function(p1, alpha, beta) {
-  # probability density function
-  PDF = ((p1)^(alpha-1)*(1-p1)^(beta-1)) / beta(alpha, beta)
-  return(PDF)
-}
-
-condition <- data.frame(
-  alpha = c(2, 20, 100, 200),
-  beta = c(6, 96, 496, 996)
-)
-pdf_bycond <- condition %>% 
-  nest_by(alpha, beta) %>% 
-  mutate(data = list(
-    dbeta(p1 = (1:99)/100, alpha = alpha, beta = beta)
-  ))
-
-## prepare data for plotting pdf by conditions
-pdf_forplot <- Reduce(cbind, pdf_bycond$data) %>% 
-  t() %>% 
-  as.data.frame() ## merge conditions together
-colnames(pdf_forplot) <- (1:99)/100 # add p1 values as x-axis
-pdf_forplot <- pdf_forplot %>% 
-  mutate(Alpha_Beta = c( # add alpha_beta conditions as colors
-    "(2, 6)",
-    "(20, 96)",
-    "(100, 496)",
-    "(200, 996)"
-  )) %>% 
-  pivot_longer(-Alpha_Beta, names_to = 'p1', values_to = 'pdf') %>% 
-  mutate(p1 = as.numeric(p1),
-         Alpha_Beta = factor(Alpha_Beta,levels = unique(Alpha_Beta)))
-
-pdf_forplot %>% 
-  ggplot() +
-  geom_vline(xintercept = 0.17, col = "black") +
-  geom_point(aes(x = p1, y = pdf, col = Alpha_Beta)) +
-  geom_path(aes(x = p1, y = pdf, col = Alpha_Beta, group = Alpha_Beta)) + 
-  scale_color_discrete(name = "Prior choices")
-
-```
-
-**Question: WHY NOT USE NORMAL DISTRIBUTION?**
 
 ------------------------------------------------------------------------
 
