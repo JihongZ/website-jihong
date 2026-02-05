@@ -1,6 +1,6 @@
 ---
-title: "Lecture 02"
-subtitle: "Introduction to Bayesian Concepts"
+title: "Lecture 02: Introduction to Bayesian Concepts"
+subtitle: ""
 author: "Jihong Zhang"
 institute: "Educational Statistics and Research Methods"
 title-slide-attributes:
@@ -103,7 +103,7 @@ Where:
 
 ------------------------------------------------------------------------
 
-**A Live Bayesian Example**
+## Example One: Six-sided die
 
 -   Suppose we want to assess the probability of rolling a "1" on a six-sided die:
 
@@ -127,7 +127,10 @@ Where:
     $$
 
 
-------------------------------------------------------------------------
+## Baysian Inference Diagram
+
+![Baysian Inference Diagram](images/bayesian_analysis.svg)
+
 
 ## Step 1: Choose the Likelihood function (Model)
 
