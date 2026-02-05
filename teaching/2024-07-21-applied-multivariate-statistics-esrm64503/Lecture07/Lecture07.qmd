@@ -45,7 +45,7 @@ filters:
 
 ## Spring 2026 Course - Advanced Multivariate Analysis 
 
-1.  See the online syllabus [here](https://jihongzhang.org/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus.html)
+1.  See the online syllabus [here](https://jihongzhang.org/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM65503_syllabus_2026Spring.html)
 
 2.  Recommended for ESRM students and others interested in applied statistics in the social sciences.
 

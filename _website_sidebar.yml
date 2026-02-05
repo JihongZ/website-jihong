@@ -142,7 +142,7 @@ website:
         - section: "ESRM6553: Advanced MVA (Fall2024)"
           contents:
             - text: 'Syllabus'
-              file: teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus.qmd
+              file: teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM65503_syllabus_2026Spring.qmd
             - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture01/Lecture01.qmd
             - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture02/Lecture02.qmd
             - teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Lecture03.qmd

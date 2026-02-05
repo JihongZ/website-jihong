@@ -65,7 +65,7 @@ Journals in the mathematical sciences have relatively low IF, see the reason [he
 I have designed my statistics courses to be interactive, flexible, and accessible, ensuring that students engage deeply with the material. Each session includes carefully selected readings and guided reflection questions. To enhance accessibility, I use the R package **{Quarto}** to create dynamic, HTML-based lecture slides and exercise that can be viewed online, downloaded as PDFs, or navigated interactively. This multi-format approach supports diverse learning styles and encourages active participation in complex statistical topics.
 
 -   Course
-    -   ESRM 6553: Advanced Multivariate Analysis (see [Interactive Website](%22https://jihongzhang.org/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM6554_syllabus.html%22))
+    -   ESRM 6553: Advanced Multivariate Analysis (see [Interactive Website](%22https://jihongzhang.org/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/ESRM65503_syllabus.html%22))
     -   ESRM 64503: Applied Multivariate Analysis (see [Interactive Website](%22https://jihongzhang.org/teaching/2024-07-21-applied-multivariate-statistics-esrm64503/ESRM64503_syllabus.html%22))
 
 ![Screenshot of one interactive exercise (see website [here](%22https://jihongzhang.org/teaching/2025-01-13-Adv-Seminar-Intro-to-R/Lecture09/ESRM6990V_Lecture09.html#histograms-and-binwidth%22))](exercise.png)
