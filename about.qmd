@@ -58,6 +58,12 @@ div(class="timeline",
 -   Diagnostic Classification Models
 :::
 
+### About Me
+
+Beyond these core areas, I contribute to the advancement of Bayesian latent variable modeling and related techniques such as factor analysis, diagnostic classification models, generalizability theory, and structural equation modeling. Across these methods, I am also interested in the integration of rigorous quantitative approaches with impactful applications in education and clinical psychology spanning inclusive education, learning disabilities, motivation, mathematics anxiety, and behavioral-health outcomes.
+
+Through ongoing partnerships in education, psychology, and technology, my work aims to shape the future of psychometrics by enhancing the validity, interpretability, and practical utility of assessment in real-world contexts—whether in classrooms, clinical settings, or digitally mediated environments.
+
 ### News
 
 ::: macwindow
