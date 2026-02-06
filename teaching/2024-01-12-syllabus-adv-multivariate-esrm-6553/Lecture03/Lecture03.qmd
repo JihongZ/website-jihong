@@ -9,7 +9,16 @@ title-slide-attributes:
   data-background-opacity: "0.9"
 execute: 
   echo: true
-format: 
+format:
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    code-summary: 'Click here to see R code'
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
   revealjs:
     logo: ../Images/UA_Logo_Horizontal.png
     incremental: true  # choose "false "if want to show all together
@@ -25,6 +34,7 @@ format:
     code-line-numbers: true
     code-annotations: hover
     code-copy: false
+    output-file: slides-index.html
 ---
 
 ## Today's Lecture Objectives
@@ -402,6 +412,7 @@ graph LR;
 #| echo: false
 library(cmdstanr)
 register_knitr_engine(override = FALSE) 
+set_cmdstan_path("~/cmdstan/")
 ```
 
 A Stan file saved as `EmptyModel.stan`
