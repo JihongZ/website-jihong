@@ -5,6 +5,7 @@ date: "2025-08-18"
 execute: 
   eval: false
   echo: true
+  warning: false
 format: 
   html:
     code-tools: true
@@ -60,31 +61,31 @@ format:
 
 ## ANOVA Basics
 
--   **Analysis of Variance (ANOVA)** compares multiple group means (more than two groups).
--   If comparing only 2 groups, either a t-test or an F-test can be used.
--   When more than 2 groups are compared, an F-test (ANOVA) is required.
+-   **Analysis of Variance (ANOVA)** is a statistical method for comparing means across three or more groups.
+-   When comparing only 2 groups, a t-test is typically used (though mathematically equivalent to ANOVA with 2 groups).
+-   When comparing 3 or more groups, ANOVA using the F-test is the appropriate method to avoid inflating Type I error.
 
 ## Why Use ANOVA Instead of Multiple t-tests?
 
-1.  Computational complexity increases as the number of groups increases.
-2.  Multiple t-tests inflate the Type I error rate.
-3.  ANOVA provides an omnibus test to detect any significant difference.
-4.  Example demonstrating inflated Type I error with multiple t-tests.
+1.  **Computational efficiency**: As the number of groups increases, the number of pairwise comparisons grows rapidly (k groups require k(k-1)/2 comparisons).
+2.  **Controls Type I error**: Multiple t-tests inflate the family-wise error rate. For example, with 4 groups and α = 0.05, conducting 6 t-tests results in an actual error rate of approximately 0.26, not 0.05.
+3.  **Omnibus test**: ANOVA provides a single test to determine if any group differences exist before conducting pairwise comparisons.
+4.  **Statistical power**: ANOVA is more powerful than multiple t-tests when properly applied with post-hoc corrections.
 
 ## Logic of ANOVA
 
 -   ANOVA compares group means by analyzing [variance components]{.underline}.
 -   Two independent variance estimates:
-    1.  **Between-group variability** (treatment effect)
-    2.  **Within-group variability** (error or chance)
--   Illustration: Graph showing variance breakdown.
+    1.  **Between-group variability**: Differences among group means (reflects treatment effect)
+    2.  **Within-group variability**: Differences within each group (reflects random error or chance)
+-   If the between-group variability is substantially larger than the within-group variability, we conclude that groups differ significantly.
 
 ## Components of ANOVA
 
-1.  **Total Sum of Squares** ($SS_{total}$): Total variance of outcomes in the data.
-2.  **Sum of Squares Between** ($SS_{between}$): Variability of outcomes due to the group(s).
-3.  **Sum of Squares Within** ($SS_{within}$): Variability due to error (some we do not test yet).
-    -   Relationship: $SS_{total} = SS_{between} + SS_{within}$
+1.  **Total Sum of Squares** ($SS_{total}$): Total variability in the outcome variable across all observations.
+2.  **Sum of Squares Between** ($SS_{between}$): Variability attributable to differences between group means (systematic variation).
+3.  **Sum of Squares Within** ($SS_{within}$): Variability within groups, representing random error (unsystematic variation).
+    -   Key relationship: $SS_{total} = SS_{between} + SS_{within}$
 
 ------------------------------------------------------------------------
 
@@ -131,6 +132,8 @@ res <-  summary(anova_result)
 res
 ```
 
+**Interpretation**: With small within-group variability (SD = 1) and clear separation between groups (means of 20 and 25), the F-statistic is large and highly significant. The between-group variance substantially exceeds the within-group variance, providing strong evidence that the groups differ.
+
 ------------------------------------------------------------------------
 
 ### If $SS_{between}$ \< $SS_{within}$ ...
@@ -175,14 +178,16 @@ res <-  summary(anova_result)
 res
 ```
 
+**Interpretation**: With larger within-group variability (SD = 5), the overlap between groups increases. Even though the between-group variance remains the same, it is now smaller relative to the within-group variance. This results in a smaller F-statistic and reduced statistical power to detect group differences.
+
 ## Practical Steps in One-way ANOVA
 
-1.  Compute total variability.
-2.  Decompose total variability into model-related and error-related components.
-3.  Compute the F-statistic: $F_{obs} = \frac{SS_{between}/df_{between}}{SS_{within}/df_{within}}=  \frac{MS_{between}}{MS_{within}}$
-4.  Construct the ANOVA table, determine alpha level and draw conclusions.
-5.  Examine Homogeneity of Variance
-6.  Conduct Post-Hoc Analysis
+1.  Compute the total variability in the outcome variable.
+2.  Partition the total variability into between-group (model) and within-group (error) components.
+3.  Calculate the F-statistic: $F_{obs} = \frac{SS_{between}/df_{between}}{SS_{within}/df_{within}}=  \frac{MS_{between}}{MS_{within}}$
+4.  Construct the ANOVA table, set the alpha level (typically 0.05), and draw conclusions based on the p-value.
+5.  Check the homogeneity of variance assumption (Levene's test or Bartlett's test).
+6.  If the overall F-test is significant, conduct post-hoc pairwise comparisons (e.g., Tukey HSD) to identify which specific groups differ.
 
 ## Assumptions of ANOVA
 
@@ -192,9 +197,9 @@ res
 
 ## Homogeneity of Variance
 
--   ANOVA assumes that variances are equal across groups.
--   Unequal variances can lead to incorrect conclusions (biased results).
--   Example illustrating different variance conditions.
+-   **Assumption**: ANOVA assumes that the variance of the outcome variable is approximately equal across all groups (homoscedasticity).
+-   **Why it matters**: When variances differ substantially across groups, the F-test can become either too liberal (inflated Type I error) or too conservative (reduced power).
+-   **Checking the assumption**: Use visual inspection (boxplots), Levene's test, or Bartlett's test to assess variance equality before interpreting ANOVA results.
 
 ::: callout-note
 ## We will talk more details about this in the next lecture
@@ -227,7 +232,7 @@ res
 
 ## Example Scenario
 
--   **Research Aim**: Investigating the effect of an teaching intervention on children's [verbal acquisition]{.underline}.
+-   **Research Aim**: Investigating the effect of a teaching intervention on children's [verbal acquisition]{.underline}.
 -   **IV (Factor):** Intervention groups (G1, G2, G3, Control).
 -   **DV:** Verbal acquisition scores.
 -   **Hypotheses:**
@@ -248,25 +253,33 @@ library(car) # used for leveneTest; install.packages("car")
 
 ```{r}
 set.seed(1234)
-rnorm(10, 20, 10) # generate 10 data points from a normal distribution of mean as 20 and SD as 10
+rnorm(10, 20, 10) # generate 10 data points from a normal distribution with mean = 20 and SD = 10
 ```
 
--   Context: the example research focus on whether three different teaching methods (labeled as G1, G2, G3) on students' test scores.
+**Explanation**: The `rnorm()` function generates random values from a normal distribution. The `set.seed()` function ensures reproducibility by fixing the random number generation sequence.
 
--   In total, 40 students are assigned to three teaching group and one default teaching group. Each group have 10 samples.
+-   Context: This example focuses on whether three different teaching methods (labeled as G1, G2, G3) affect students' test scores.
+
+-   In total, 40 students are assigned to three teaching groups and one control group. Each group has 10 students.
 
 ```{r}
 #| eval: true
 set.seed(1234)
+# Create dataset with EQUAL variances (SD = 5 for all groups)
 data <- data.frame(
   group = rep(c("G1", "G2", "G3", "Control"), each = 10),
   score = c(rnorm(10, 20, 5), rnorm(10, 25, 5), rnorm(10, 30, 5), rnorm(10, 22, 5))
 )
+# Create dataset with UNEQUAL variances (SD varies from 0.1 to 10 across groups)
 data_unequal <- data.frame(
   group = rep(c("G1", "G2", "G3", "Control"), each = 10),
   score = c(rnorm(10, 20, 10), rnorm(10, 25, 5), rnorm(10, 30, 1), rnorm(10, 22, .1))
 )
 ```
+
+**Note**: We create two datasets to demonstrate the importance of homogeneity of variance:
+- `data`: Equal variances (homoscedastic) - meets ANOVA assumptions
+- `data_unequal`: Unequal variances (heteroscedastic) - violates ANOVA assumptions
 
 ------------------------------------------------------------------------
 
@@ -274,15 +287,22 @@ data_unequal <- data.frame(
 
 ```{r}
 #| eval: true
+# ANOVA with equal variances
 anova_result <- aov(score ~ group, data = data)
 summary(anova_result)
+# ANOVA with unequal variances
 anova_result2 <- aov(score ~ group, data = data_unequal)
 summary(anova_result2)
 ```
 
+**Comparison**:
+- Both ANOVAs show significant F-statistics (p < 0.05), indicating group differences
+- However, the unequal variance dataset violates ANOVA assumptions, making these results potentially unreliable
+- For `data_unequal`, we should use Welch's ANOVA instead: `oneway.test(score ~ group, data = data_unequal)`
+
 ## Checking Homogeneity of Variance (HoV)
 
-### Method 1: Visual Inspection of Variance Equality
+### Method 1: Visual Inspection
 
 #### Equal Variances across groups
 
@@ -312,6 +332,7 @@ ggplot(data_unequal, aes(x = group, y = score)) +
 
 ```{r}
 #| eval: true
+#| results: hold
 
 cat("Equal group:\n")
 bartlett.test(score ~ group, data = data)
@@ -319,7 +340,10 @@ cat("Unequal group:\n" )
 bartlett.test(score ~ group, data = data_unequal)
 ```
 
-Bartlett test of HoV for equal-group sample is non-significant, suggesting we have no evidence against the null hypothesis and should consider groups are homogeneous.
+**Interpretation**:
+
+- **Equal variance data**: The Bartlett test is non-significant (p > 0.05), indicating we have no evidence against the null hypothesis. We can assume the groups have homogeneous variances.
+- **Unequal variance data**: The Bartlett test is significant (p < 0.05), indicating strong evidence that variances differ across groups. This violates the homogeneity of variance assumption, and we should consider using Welch's ANOVA or other robust alternatives.
 
 ------------------------------------------------------------------------
 
@@ -330,6 +354,11 @@ Bartlett test of HoV for equal-group sample is non-significant, suggesting we ha
 leveneTest(score ~ group, data = data)
 leveneTest(score ~ group, data = data_unequal)
 ```
+
+**Interpretation**:
+
+- **Equal variance data**: Levene's test shows p > 0.05, confirming homogeneity of variance across groups.
+- **Unequal variance data**: Levene's test shows p < 0.05, indicating significant differences in variances. This suggests the homogeneity assumption is violated and alternative methods should be considered.
 
 ### When to use each test
 
@@ -354,17 +383,27 @@ leveneTest(score ~ group, data = data_unequal)
 
 ### Tukey Honest Significant Differences (HSD) Test
 
--   Create a set of confidence intervals on the differences between the means of the pairwise levels of a factor with the specified family-wise probability of coverage.
+-   **Purpose**: Conducts all possible pairwise comparisons between group means while controlling the family-wise error rate at the specified alpha level (typically 0.05).
 
--   When comparing the means for the levels of a factor in an analysis of variance, a simple comparison using t-tests will inflate the probability of declaring a significant difference when it is not in fact present.
+-   **Why it's needed**: Simple pairwise t-tests after a significant ANOVA inflate the Type I error rate. Tukey HSD adjusts for multiple comparisons to maintain the overall error rate.
 
--   Based on Tukey's 'Honest Significant Differences' method
+-   **How it works**: Creates confidence intervals for all pairwise mean differences using the studentized range distribution, which accounts for the number of groups being compared.
+
+-   **Interpretation**: If a confidence interval does not include zero, or if p adj < 0.05, the pair of groups differs significantly.
 
 ```{r}
 #| eval: true
 tukey_result <- TukeyHSD(anova_result)
 print(tukey_result$group)
 ```
+
+**Interpretation**: The Tukey HSD test provides pairwise comparisons between all groups while controlling for family-wise error rate. The output shows:
+
+- **diff**: The difference in means between each pair of groups
+- **lwr & upr**: The 95% confidence interval for the difference
+- **p adj**: The adjusted p-value for multiple comparisons
+
+Pairs with p adj < 0.05 indicate statistically significant differences between those groups.
 
 ------------------------------------------------------------------------
 
@@ -398,7 +437,7 @@ data |>
   )
 ```
 
--   A one-way analysis of variance (ANOVA) was conducted to examine the effect of teaching method on students' test scores. The results indicated a statistically significant difference in test scores across the three teaching methods, ( F(3, 27) = 11.45, p \< .001 ). Post-hoc comparisons using the Tukey HSD test revealed that the Interactive method (G3) ( M = 28.06, SD = 3.33 ) resulted in significantly higher scores than the Traditional method ( M = 18.17, SD = 4.47) with the p-value lower than .001, but no significant difference was found between the Interactive (G1) and the traditional methods ( p = .99 ). These results suggest that using interactive teaching methods can improve student performance compared to traditional methods.
+-   A one-way analysis of variance (ANOVA) was conducted to examine the effect of teaching method on students' test scores. The results indicated a statistically significant difference in test scores across the four groups, (F(3, 36) = 11.45, p < .001). Post-hoc comparisons using the Tukey HSD test revealed that the Interactive method (G3) (M = 28.06, SD = 3.33) resulted in significantly higher scores than the Traditional method (M = 18.17, SD = 4.47) with p < .001. However, no significant difference was found between G1 and the Control group (p = .99). These results suggest that certain teaching methods can significantly improve student performance compared to traditional approaches.
 
 ## Real-world Applications of ANOVA
 
@@ -440,8 +479,11 @@ anova_weighted <- aov(score ~ group, data = data, weights = weights)
 summary(anova_weighted)
 ```
 
--   The weights modify the influence of each observation in the model.
--   Helps in cases where data reliability varies across groups.
+**Interpretation**:
+
+-   The weights modify the influence of each observation in the model. In this example, G2 observations receive double weight (2.0), G3 observations receive half weight (0.5), and G1 and Control receive standard weights.
+-   Notice how the F-statistic and p-value change compared to the unweighted analysis, reflecting the differential contribution of each group.
+-   This approach is useful when data reliability varies across groups or when correcting for sampling design effects.
 
 ## Where Do We Get Weights for ANOVA?
 
@@ -463,7 +505,11 @@ anova_weighted <- aov(score ~ group, data = data, weights = weights)
 summary(anova_weighted)
 ```
 
--   Ensures fair representation in the analysis.
+**Interpretation**:
+
+-   In this example, we apply conditional weighting where observations from "LargeSchool" receive half the weight (0.5) compared to other groups (weight = 1).
+-   This prevents larger schools from dominating the analysis due to their overrepresentation in the sample.
+-   The weighted analysis ensures fair representation across schools of different sizes, providing more generalizable results.
 
 ## Conclusion and Interpretation
 
