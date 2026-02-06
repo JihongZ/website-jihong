@@ -42,7 +42,7 @@ pubs <- pubs |>
   arrange(desc(year)) |> 
   mutate(
     pubs_formated = paste0(str_replace(format_publications("MbRDAB4AAAAJ"), 
-                                       "Zhang, J.", "**Zhang, J.**"))
+                                       "Zhang, J.", "[Zhang, J.]{style='font-weight:600;'}"))
   ) |> 
   mutate(publication_pdf_path = paste0("publications/", year, "/", str_replace(title, "[:|?]", "_"), ".pdf")) |> 
   mutate(
