@@ -56,8 +56,9 @@ By the end of this course, you will be able to:
 
 *Note: This is not a mathematics course, but a strong conceptual grasp of the methods is essential for meaningful application and interpretation.*
 
-## Course Topics
 
+
+## Course Topics
 Topics covered in this course include:
 
 -   Overview of ANOVA Designs
@@ -119,39 +120,53 @@ The grading scale for this course is as follows:
 
 # Academic Policies
 
+::: {.callout-note collapse="true"}
 ## AI Statement
 
 Specific permissions will be provided to students regarding the use of generative artificial intelligence tools on certain graded activities in this course. In these instances, I will communicate explicit permission as well as expectations and any pertinent limitations for use and attribution. Without this permission, the use of generative artificial intelligence tools in any capacity while completing academic work submitted for credit, independently or collaboratively, will be considered academic dishonesty and reported to the Office of Academic Initiatives and Integrity.
+:::
 
+::: {.callout-note collapse="true"}
 ## Academic Integrity
 
 As a core part of its mission, the University of Arkansas provides students with the opportunity to further their educational goals through programs of study and research in an environment that promotes freedom of inquiry and academic responsibility. Accomplishing this mission is only possible when intellectual honesty and individual integrity prevail.
 
 Each University of Arkansas student is required to be familiar with and abide by the University's **Academic Integrity Policy** at [honesty.uark.edu/policy](https://honesty.uark.edu/policy). Students with questions about how these policies apply to a particular course or assignment should immediately contact their instructor.
+:::
 
+::: {.callout-note collapse="true"}
 ## Emergency Preparedness
 
 The University of Arkansas is committed to providing a safe and healthy environment for study and work. In that regard, the university has developed a campus safety plan and an emergency preparedness plan to respond to a variety of emergency situations. The emergency preparedness plan can be found at [emergency.uark.edu](https://emergency.uark.edu). Additionally, the university uses a campus-wide emergency notification system, UARKAlert, to communicate important emergency information via email and text messaging. To learn more and to sign up: <http://safety.uark.edu/emergency-preparedness/emergency-notification-system/>
+:::
 
+::: {.callout-note collapse="true"}
 ## Inclement Weather
 
 If you have any questions about whether or not class will be canceled due to inclement weather, please contact me. If I cancel class, I will notify you via email and/or Blackboard. In general, students need to know how and when they will be notified in the event that class is cancelled for weather-related reasons. Please see [here](http://safety.uark.edu/inclement-weather/) for more information.
+:::
 
+::: {.callout-note collapse="true"}
 ## Access and Accommodations
 
 Your experience in this class is important to me. University of Arkansas [Academic Policy Series 1520.10](https://provost.uark.edu/policies/152010.php) requires that students with disabilities are provided reasonable accommodations to ensure their equal access to course content. If you have already established accommodations with the Center for Educational Access (CEA), please request your accommodations letter early in the semester and contact me privately, so that we have adequate time to arrange your approved academic accommodations.
 
 If you have **not** yet established services through CEA, but have a documented disability and require accommodations *(conditions include but not limited to: mental health, attention-related, learning, vision, hearing, physical, health or temporary impacts)*, contact CEA directly to set up an Access Plan. CEA facilitates the interactive process that establishes reasonable accommodations. For more information on CEA registration procedures contact 479–575–3104, [ada\@uark.edu](mailto:ada@uark.edu) or visit [cea.uark.edu.](https://cea.uark.edu/)
+:::
 
+::: {.callout-note collapse="true"}
 ## Academic Support
 
 A complete list and brief description of academic support programs can be found on the University's Academic Support site, along with links to the specific services, hours, and locations. Faculty are encouraged to be familiar with these programs and to assist students with finding an using the support services that will help them be successful. Please see [here](http://www.uark.edu/academics/academic-support.php) for more information.
+:::
 
+::: {.callout-note collapse="true"}
 ## Religious Holidays
 
 The university does not observe religious holidays; however Campus Council has passed the following resolution concerning individual observance of religious holidays and class attendance:
 
-> When members of any religion seek to be excused from class for religious reasons, they are expected to provide their instructors with a schedule of religious holidays that they intend to observe, in writing, before the completion of the first week of classes.
+When members of any religion seek to be excused from class for religious reasons, they are expected to provide their instructors with a schedule of religious holidays that they intend to observe, in writing, before the completion of the first week of classes.
+:::
 
 # Homework Portal {#sec-homeworkportal}
 
@@ -164,7 +179,7 @@ Please see the online gradebook for your current grade.
 
 # Schedule
 
-Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon on next Wednesday.**
+Following materials are only allowed for previewing for students registered in ESRM 64103. DO NOT DISTRIBUTE THEM on the internet. They will be removed after the course ended. **All homework are due at noon of the day of next class**.
 
 +------+-------+--------------------------------------------------------------------------------------------------------+-----------------------------------------------------------+
 | Week | Date  | Topic                                                                                                  | HW                                                        |

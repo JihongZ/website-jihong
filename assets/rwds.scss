@@ -103,18 +103,19 @@ $caution: #EE6331;
 $body-bg: $soft-color1; // body background color
 $code-bg: #eef1e0; // code block's bg
 $code-color: var(--bs-code-color);
-$body-color: #404041;
+$body-color: #333f48;
 $headings-color: #404041;
 $menutext-bg: #000000;
-$input-group-addon-bg: $darkteal;
+$text-link-color: #c74b1e; // hyperlink color
+$link-hover-color: #c74b1e;
+$breadcrumb-divider-color: #c74b1e;
 $link-color: $cui-qing;
-$link-hover-color: $orange;
-$breadcrumb-divider-color: $orange;
 $breadcrumb-border-radius:  0.30em;
 
 //* Enhanced sidebar styles *//
 $nav-menu-text-font: "Roboto Condensed";
 $paragraph-text-font: "Libre Franklin";
+
 nav#TOC.toc-active {
   font-family: $nav-menu-text-font, sans-serif;
   font-size: 0.8rem;
@@ -193,16 +194,16 @@ div.column-container { // margin text should be left aligned
     }
 }
 
-
+// Headling text
 h1, h2 {text-transform: capitalize;}
 
 h1, h2, h2#toc-title, h3, h4, 
 figcaption,
 .callout-title-container, 
 details.code-fold{
-  font-family: $nav-menu-text-font, sans-serif;
-  letter-spacing: -0.5px;
-  font-weight: 500;
+  font-family: $paragraph-text-font, sans-serif;
+  letter-spacing: -0.7px;
+  font-weight: 300;
 }
 
 details.code-fold {
@@ -220,33 +221,35 @@ div.card-body.post-contents {
     font-weight: 300;
   }
 }
+
 h1.title { // title of the post
+  font-family: $paragraph-text-font, sans-serif;
   text-align: center;
   font-size: 2rem;
   line-height: 1.5;
-  letter-spacing: -0.5px;
+  letter-spacing: -1.5px;
   font-weight: 600;
 }
 p.subtitle.lead, div.description {
   text-align: center;
 }
 
+// paragraph text
+
 body, p, li { // main font family of post content
   font-family: $paragraph-text-font, sans-serif;
-  color: #333f48;
+  color: $body-color;
   font-size: 1rem;
   line-height: 1.75rem;
   font-weight: 300;
   //font-size: 20px;
 }
-label {
+
+label, div#refs {
   font-family: $paragraph-text-font, sans-serif;
 }
 
-strong {
-  font-family: $paragraph-text-font, sans-serif;
-  font-weight: 600;
-}
+
 
 // Styling for <p> elements
 p {
@@ -261,11 +264,11 @@ p {
     text-decoration-thickness: 1px;
     text-decoration-skip-ink: none; // overthorough the text
   }
-  
+  strong {font-weight: 500;}
   // Inline Code
   code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
     border: 1px solid #b9c680;
-    color: #404041;
+    color: $code-color;
     background-color: #eef1e0;
     padding: .1em;
     letter-spacing: -0.6px;
@@ -301,11 +304,6 @@ div.quarto-title-banner {
 
 /* Quarto title block */
 div.quarto-title.column-body {
-  h1 {
-    font-family: $nav-menu-text-font, sans-serif;
-    font-size: 2rem;
-    font-weight: 500;
-  }
   display: block;
   border: 1px solid $gray;
   backdrop-filter: blur(4px);
@@ -320,7 +318,7 @@ div.quarto-title.column-body {
 // Inside quarto document, add a animation to links (box shadow move from left to right)
 // Select all <a> elements without the `lightbox` (zoom-in img) or the `nav-link` class (tabset)
 #quarto-document-content a:not(.lightbox, .nav-link, .about-link) {
-  color: $hutao-hong;
+  color: $text-link-color;
   box-shadow: inset 0 0 0 0 $freeze-purple;
   text-decoration-line: none;
   transition: color .5s ease-in-out, box-shadow .5s ease-in-out;
