@@ -698,7 +698,7 @@ digraph flowchart {
 
 ------------------------------------------------------------------------
 
-### Post-hoc test: 
+### Post-hoc test
 
 [Tukey’s HSD]{.bluecolor}
 
@@ -717,6 +717,64 @@ TukeyHSD(aov_result) # call TukeyHSD followed by the model to perform Tukey mult
 -   Adjusts p-values to reduce Type I error
 -   Report adjusted p-values (typically larger that original p-values)
 
+
+### Tukey Honest Significant Differences (HSD) Test
+
+-   **Purpose**: Conducts all possible pairwise comparisons between group means while controlling the family-wise error rate at the specified alpha level (typically 0.05).
+
+-   **Why it's needed**: Simple pairwise t-tests after a significant ANOVA inflate the Type I error rate. Tukey HSD adjusts for multiple comparisons to maintain the overall error rate.
+
+-   **How it works**: Creates confidence intervals for all pairwise mean differences using the studentized range distribution, which accounts for the number of groups being compared.
+
+-   **Interpretation**: If a confidence interval does not include zero, or if p adj < 0.05, the pair of groups differs significantly.
+
+```{r}
+#| eval: true
+tukey_result <- TukeyHSD(anova_result)
+print(tukey_result$group)
+```
+
+**Interpretation**: The Tukey HSD test provides pairwise comparisons between all groups while controlling for family-wise error rate. The output shows:
+
+- **diff**: The difference in means between each pair of groups
+- **lwr & upr**: The 95% confidence interval for the difference
+- **p adj**: The adjusted p-value for multiple comparisons
+
+Pairs with p adj < 0.05 indicate statistically significant differences between those groups.
+
+------------------------------------------------------------------------
+
+```{r}
+#| eval: true
+plot(tukey_result)
+```
+
+## Interpreting Results
+
+### ANOVA Statistics
+
+```         
+           Df Sum Sq Mean Sq F value   Pr(>F)    
+group        3  724.1  241.37   11.45 2.04e-05 ***
+Residuals   36  759.2   21.09                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+```{r}
+#| eval: true
+#| code-fold: true
+
+library(dplyr)
+data |> 
+  group_by(group) |> 
+  summarise(
+    Mean = mean(score),
+    SD = sd(score)
+  )
+```
+
+-   A one-way analysis of variance (ANOVA) was conducted to examine the effect of teaching method on students' test scores. The results indicated a statistically significant difference in test scores across the four groups, (F(3, 36) = 11.45, p < .001). Post-hoc comparisons using the Tukey HSD test revealed that the Interactive method (G3) (M = 28.06, SD = 3.33) resulted in significantly higher scores than the Traditional method (M = 18.17, SD = 4.47) with p < .001. However, no significant difference was found between G1 and the Control group (p = .99). These results suggest that certain teaching methods can significantly improve student performance compared to traditional approaches.
 ## ANOVA Example: Intervention and Verbal Acquisition
 
 ### Background

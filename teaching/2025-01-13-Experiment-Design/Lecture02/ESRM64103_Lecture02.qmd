@@ -695,6 +695,15 @@ sleep_data <- data.frame(
 head(sleep_data)
 ```
 
+```{r}
+#| code-fold: true
+## There are two columns: (1) Sleep_Group (Group variable, IV) (2) Exam_Score (Outcome, DV)
+mod <- lm(Exam_Score ~ Sleep_Group, data = sleep_data)
+mod_aov <- aov(mod)
+summary(mod_aov) # F-value = 14.15, p < .05
+```
+
+
 ## Descriptive Statistics
 
 -   **Groups**:

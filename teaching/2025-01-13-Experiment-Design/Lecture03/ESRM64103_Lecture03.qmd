@@ -2,11 +2,16 @@
 title: "Lecture 03: Introduction to One-way ANOVA"
 subtitle: "Experimental Design in Education"
 date: "2025-08-18"
-execute: 
+execute:
   eval: false
   echo: true
   warning: false
-format: 
+filters:
+  - webr
+webr:
+  packages: ['ggplot2', 'dplyr']
+  show-startup-message: false
+format:
   html:
     code-tools: true
     code-line-numbers: false
@@ -29,7 +34,7 @@ format:
     scrollable: true
     output-file: slides-index.html
     mermaid:
-      theme: forest  
+      theme: forest
 ---
 
 ## Lecture Outline
@@ -62,7 +67,9 @@ format:
 ## ANOVA Basics
 
 -   **Analysis of Variance (ANOVA)** is a statistical method for comparing means across three or more groups.
+
 -   When comparing only 2 groups, a t-test is typically used (though mathematically equivalent to ANOVA with 2 groups).
+
 -   When comparing 3 or more groups, ANOVA using the F-test is the appropriate method to avoid inflating Type I error.
 
 ## Why Use ANOVA Instead of Multiple t-tests?
@@ -75,15 +82,19 @@ format:
 ## Logic of ANOVA
 
 -   ANOVA compares group means by analyzing [variance components]{.underline}.
--   Two independent variance estimates:
+
+-   Two independent variance component estimates:
     1.  **Between-group variability**: Differences among group means (reflects treatment effect)
     2.  **Within-group variability**: Differences within each group (reflects random error or chance)
+    
 -   If the between-group variability is substantially larger than the within-group variability, we conclude that groups differ significantly.
 
 ## Components of ANOVA
 
 1.  **Total Sum of Squares** ($SS_{total}$): Total variability in the outcome variable across all observations.
+
 2.  **Sum of Squares Between** ($SS_{between}$): Variability attributable to differences between group means (systematic variation).
+
 3.  **Sum of Squares Within** ($SS_{within}$): Variability within groups, representing random error (unsystematic variation).
     -   Key relationship: $SS_{total} = SS_{between} + SS_{within}$
 
@@ -91,9 +102,14 @@ format:
 
 ### If $SS_{between}$ \> $SS_{within}$ ...
 
+-   Assume that we want to examine the effect of one drug on one disease (higher score means severity of the disease symptom). There are two group: one control group (placebo) and one treatment group. 
+
+-   The distributions of scores for two groups are like: 
+
 ```{r}
 #| eval: true
 #| echo: false
+#| code-fold: true
 library(ggplot2)
 library(dplyr)
 set.seed(1234)
@@ -132,7 +148,7 @@ res <-  summary(anova_result)
 res
 ```
 
-**Interpretation**: With small within-group variability (SD = 1) and clear separation between groups (means of 20 and 25), the F-statistic is large and highly significant. The between-group variance substantially exceeds the within-group variance, providing strong evidence that the groups differ.
+**Interpretation**: `Residuals` represents the ***within-group variability***. `group` represents the ***between-group variability***. With small within-group variability (SS = 31.43) and clear separation between groups, the F-statistic is large and highly significant. The between-group variance substantially exceeds the within-group variance, providing strong evidence that the groups differ.
 
 ------------------------------------------------------------------------
 
@@ -178,7 +194,11 @@ res <-  summary(anova_result)
 res
 ```
 
-**Interpretation**: With larger within-group variability (SD = 5), the overlap between groups increases. Even though the between-group variance remains the same, it is now smaller relative to the within-group variance. This results in a smaller F-statistic and reduced statistical power to detect group differences.
+**Interpretation**: With larger within-group variability (SS = 785.8), the overlap between groups increases. Even though the between-group variance remains the same, it is now smaller relative to the within-group variance. This results in a smaller F-statistic and reduced statistical power to detect group differences.
+
+::: rmdquote
+F-statistic check whether groups are separated on average, while for each group, samples are clustered within each group.
+:::
 
 ## Practical Steps in One-way ANOVA
 
@@ -241,7 +261,7 @@ res
 
 ## Performing ANOVA in R
 
-### Load Libraries
+### Load R packages 
 
 ```{r}
 #| eval: true
@@ -252,6 +272,7 @@ library(car) # used for leveneTest; install.packages("car")
 ### Generate Sample Data
 
 ```{r}
+#| eval: true
 set.seed(1234)
 rnorm(10, 20, 10) # generate 10 data points from a normal distribution with mean = 20 and SD = 10
 ```
@@ -261,6 +282,10 @@ rnorm(10, 20, 10) # generate 10 data points from a normal distribution with mean
 -   Context: This example focuses on whether three different teaching methods (labeled as G1, G2, G3) affect students' test scores.
 
 -   In total, 40 students are assigned to three teaching groups and one control group. Each group has 10 students.
+
+
+---------
+
 
 ```{r}
 #| eval: true
@@ -278,6 +303,7 @@ data_unequal <- data.frame(
 ```
 
 **Note**: We create two datasets to demonstrate the importance of homogeneity of variance:
+
 - `data`: Equal variances (homoscedastic) - meets ANOVA assumptions
 - `data_unequal`: Unequal variances (heteroscedastic) - violates ANOVA assumptions
 
@@ -300,6 +326,262 @@ summary(anova_result2)
 - However, the unequal variance dataset violates ANOVA assumptions, making these results potentially unreliable
 - For `data_unequal`, we should use Welch's ANOVA instead: `oneway.test(score ~ group, data = data_unequal)`
 
+
+## In-class Exercise: compare between and within SS
+
+::: {.callout-note}
+## Interactive Exercise
+This exercise uses WebR to run R code directly in your browser. Click "Run Code" to execute the code and see the results. You can also modify the code and re-run it to explore different scenarios!
+:::
+
+### Research Context
+
+A psychology researcher is investigating the effectiveness of different study techniques on exam performance. The researcher randomly assigns 60 college students to three different study groups:
+
+- **Group 1 (Spaced Practice)**: Students study material across multiple sessions over several weeks
+- **Group 2 (Massed Practice)**: Students study material in intensive "cramming" sessions
+- **Group 3 (Mixed Practice)**: Students use a combination of spaced and massed practice
+
+Each group contains 20 students. The researcher measures final exam scores (0-100 scale).
+
+### Exercise Questions
+
+1. Simulate data for two scenarios:
+   - **Scenario A**: Study technique has a **strong effect** (large between-group variance relative to within-group variance)
+   - **Scenario B**: Study technique has a **weak effect** (small between-group variance relative to within-group variance)
+
+2. For each scenario:
+   - Calculate $SS_{between}$ and $SS_{within}$
+   - Compute the F-statistic
+   - Interpret whether study technique significantly affects exam performance
+
+### Scenario A: Strong Treatment Effect
+
+::: {.panel-tabset}
+
+#### Exercise
+
+**Your Task:** Complete the code below by filling in the missing sections to conduct ANOVA and extract variance components.
+
+```{webr-r}
+set.seed(2025)
+
+# Scenario A: Large between-group differences, small within-group variance
+# Group means differ substantially: 70, 80, 85
+# Within-group SD is small: 5 for all groups
+data_strong <- data.frame(
+  group = rep(c("Spaced", "Massed", "Mixed"), each = 20),
+  score = c(
+    rnorm(20, mean = 70, sd = 5),  # Spaced practice
+    rnorm(20, mean = 80, sd = 5),  # Massed practice
+    rnorm(20, mean = 85, sd = 5)   # Mixed practice
+  )
+)
+
+# TODO: Conduct ANOVA
+# Hint: Use aov() function with the formula score ~ group
+# anova_strong <- aov(___ ~ ___, data = ___)
+# anova_summary_a <- ___(___)
+
+```
+
+::: {.callout-note icon=false}
+## Hints for completing the exercise
+
+1. **Conduct ANOVA**: Use `aov([Outcome_Name] ~ [Group_Name], data = data_strong)` to run the analysis
+2. **Get summary**: Use `summary()` on the ANOVA result
+:::
+
+#### Answer
+
+**Complete Solution with Full Code:**
+
+```{webr-r}
+set.seed(2025)
+
+# Scenario A: Large between-group differences, small within-group variance
+# Group means differ substantially: 70, 80, 85
+# Within-group SD is small: 5 for all groups
+data_strong <- data.frame(
+  group = rep(c("Spaced", "Massed", "Mixed"), each = 20),
+  score = c(
+    rnorm(20, mean = 70, sd = 5),  # Spaced practice
+    rnorm(20, mean = 80, sd = 5),  # Massed practice
+    rnorm(20, mean = 85, sd = 5)   # Mixed practice
+  )
+)
+
+
+# Conduct ANOVA
+anova_strong <- aov(score ~ group, data = data_strong)
+anova_summary_a <- summary(anova_strong)
+
+anova_summary_a
+```
+
+::: {.callout-tip icon=false collapse="true"}
+## Interpretation (Click to expand)
+
+**Variance Components:**
+
+When you run the code above, you'll observe:
+
+- $MS_{between}$ is substantially larger (variability due to different study techniques)
+- $MS_{within}$ is relatively small (variability within each group)
+
+**Statistical Results:**
+
+The F-statistic will be large and highly significant (p < .001).
+
+**Conclusion:**
+
+The between-group variability is **much larger** than the within-group variability. This indicates that study technique has a **strong and significant effect** on exam performance. The F-statistic is very large and highly significant, providing strong evidence that at least two study techniques produce different mean exam scores.
+
+The groups are well-separated, with minimal overlap. Students within each group perform similarly to each other (small $SS_{within}$), but there are substantial differences between the average performance of different study technique groups (large $SS_{between}$).
+:::
+
+:::
+
+---
+
+### Scenario B: Weak Treatment Effect
+
+::: {.panel-tabset}
+
+#### Exercise
+
+**Your Task:** Complete the code below by filling in the missing sections to conduct ANOVA and extract variance components.
+
+```{webr-r}
+set.seed(2025)
+
+# Scenario B: Small between-group differences, large within-group variance
+# Group means differ only slightly: 75, 77, 78
+# Within-group SD is large: 12 for all groups
+data_weak <- data.frame(
+  group = rep(c("Spaced", "Massed", "Mixed"), each = 20),
+  score = c(
+    rnorm(20, mean = 75, sd = 12),  # Spaced practice
+    rnorm(20, mean = 77, sd = 12),  # Massed practice
+    rnorm(20, mean = 78, sd = 12)   # Mixed practice
+  )
+)
+
+# TODO: Conduct ANOVA
+# Hint: Use aov() function with the formula score ~ group
+# anova_weak <- aov(___ ~ ___, data = ___)
+# anova_summary_b <- ___(___)
+
+
+```
+
+::: {.callout-note icon=false}
+## Hints for completing the exercise
+
+1. **Conduct ANOVA**: Use `aov(score ~ group, data = data_weak)` to run the analysis
+2. **Get summary**: Use `summary()` on the ANOVA result
+
+**Question to consider:** How do the variance components in this scenario compare to Scenario A? What does this tell you about the treatment effect?
+:::
+
+#### Answer
+
+**Complete Solution with Full Code:**
+
+```{webr-r}
+set.seed(2025)
+
+# Scenario B: Small between-group differences, large within-group variance
+# Group means differ only slightly: 75, 77, 78
+# Within-group SD is large: 12 for all groups
+data_weak <- data.frame(
+  group = rep(c("Spaced", "Massed", "Mixed"), each = 20),
+  score = c(
+    rnorm(20, mean = 75, sd = 12),  # Spaced practice
+    rnorm(20, mean = 77, sd = 12),  # Massed practice
+    rnorm(20, mean = 78, sd = 12)   # Mixed practice
+  )
+)
+
+library(ggplot2)
+library(dplyr)
+
+mean_tbl_b <- data_weak |>
+  group_by(group) |>
+  summarise(
+    group_mean = mean(score),
+    group_sd = sd(score),
+    .groups = 'drop'
+  )
+
+ggplot(data_weak, aes(x = group, y = score, color = group)) +
+  geom_jitter(width = 0.2, alpha = 0.6, size = 2) +
+  geom_point(data = mean_tbl_b, aes(y = group_mean),
+             size = 5, shape = 18) +
+  stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1),
+               geom = "errorbar", width = 0.2, linewidth = 1) +
+  theme_minimal() +
+  labs(
+    title = "Scenario B: Weak Treatment Effect",
+    subtitle = "Minimal separation between groups with large within-group variance",
+    x = "Study Technique",
+    y = "Exam Score",
+    caption = "Diamond = group mean; Error bars = ±1 SD"
+  ) +
+  theme(legend.position = "none")
+
+# Conduct ANOVA
+anova_weak <- aov(score ~ group, data = data_weak)
+anova_summary_b <- summary(anova_weak)
+
+anova_summary_b
+```
+
+::: {.callout-tip icon=false collapse="true"}
+## Interpretation (Click to expand)
+
+**Variance Components:**
+
+When you run the code above, you'll observe:
+
+- $SS_{between}$ and $MS_{between}$ and relatively small (variability due to different study techniques)
+
+- $SS_{within}$ and $MS_{within}$ are substantially larger (variability within each group)
+
+**Statistical Results:**
+
+The F-statistic will be small and not statistically significant (p > .05).
+
+**Conclusion:**
+
+The between-group variability is **much smaller** than the within-group variability. This indicates that study technique has **little to no effect** on exam performance. The F-statistic is small and not statistically significant, providing insufficient evidence to conclude that study techniques differ in their effectiveness.
+
+There is substantial overlap between groups. The variability in exam scores within each study technique group is large ($SS_{within}$), overwhelming any small differences that might exist between the average performance of different groups ($SS_{between}$). Individual differences among students (captured by $SS_{within}$) are more important than the study technique they used.
+:::
+
+:::
+
+---
+
+### Key Takeaways from Exercise
+
+::: {.callout-important}
+## Understanding the Ratio $MS_{between} / MS_{within}$
+
+1. **Large ratio (Scenario A)**: When $MS_{between} \gg MS_{within}$, the treatment effect is strong and detectable. Groups are well-separated with minimal within-group variability.
+
+2. **Small ratio (Scenario B)**: When $MS_{between} \ll MS_{within}$, the treatment effect is weak and difficult to detect. Groups overlap substantially due to large within-group variability.
+
+3. **The F-statistic** is essentially this ratio (adjusted for degrees of freedom):
+   $$F = \frac{MS_{between}}{MS_{within}} = \frac{SS_{between}/df_{between}}{SS_{within}/df_{within}}$$
+
+4. **Practical implication**: To detect treatment effects, researchers should:
+   - Maximize between-group differences (strong manipulation)
+   - Minimize within-group variance (careful measurement, homogeneous samples, experimental control)
+:::
+
+
+
 ## Checking Homogeneity of Variance (HoV)
 
 ### Method 1: Visual Inspection
@@ -308,6 +590,7 @@ summary(anova_result2)
 
 ```{r}
 #| eval: true
+#| code-fold: true
 ggplot(data, aes(x = group, y = score)) +
   geom_boxplot() +
   theme_minimal() +
@@ -320,6 +603,7 @@ ggplot(data, aes(x = group, y = score)) +
 
 ```{r}
 #| eval: true
+#| code-fold: true
 ggplot(data_unequal, aes(x = group, y = score)) +
   geom_boxplot() +
   theme_minimal() +
@@ -329,6 +613,8 @@ ggplot(data_unequal, aes(x = group, y = score)) +
 ------------------------------------------------------------------------
 
 ### Method 2: Using Bartlett’s Test
+
+*Null Hypothesis* ($H_0$): Groups are same within-group variability.
 
 ```{r}
 #| eval: true
@@ -378,66 +664,6 @@ leveneTest(score ~ group, data = data_unequal)
   - Larger sample sizes are available
   - Maximum statistical power is desired (under normality)
   - Preliminary testing for parametric procedures with normal data
-
-## Post-hoc Analysis
-
-### Tukey Honest Significant Differences (HSD) Test
-
--   **Purpose**: Conducts all possible pairwise comparisons between group means while controlling the family-wise error rate at the specified alpha level (typically 0.05).
-
--   **Why it's needed**: Simple pairwise t-tests after a significant ANOVA inflate the Type I error rate. Tukey HSD adjusts for multiple comparisons to maintain the overall error rate.
-
--   **How it works**: Creates confidence intervals for all pairwise mean differences using the studentized range distribution, which accounts for the number of groups being compared.
-
--   **Interpretation**: If a confidence interval does not include zero, or if p adj < 0.05, the pair of groups differs significantly.
-
-```{r}
-#| eval: true
-tukey_result <- TukeyHSD(anova_result)
-print(tukey_result$group)
-```
-
-**Interpretation**: The Tukey HSD test provides pairwise comparisons between all groups while controlling for family-wise error rate. The output shows:
-
-- **diff**: The difference in means between each pair of groups
-- **lwr & upr**: The 95% confidence interval for the difference
-- **p adj**: The adjusted p-value for multiple comparisons
-
-Pairs with p adj < 0.05 indicate statistically significant differences between those groups.
-
-------------------------------------------------------------------------
-
-```{r}
-#| eval: true
-plot(tukey_result)
-```
-
-## Interpreting Results
-
-### ANOVA Statistics
-
-```         
-           Df Sum Sq Mean Sq F value   Pr(>F)    
-group        3  724.1  241.37   11.45 2.04e-05 ***
-Residuals   36  759.2   21.09                     
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
-
-```{r}
-#| eval: true
-#| code-fold: true
-
-library(dplyr)
-data |> 
-  group_by(group) |> 
-  summarise(
-    Mean = mean(score),
-    SD = sd(score)
-  )
-```
-
--   A one-way analysis of variance (ANOVA) was conducted to examine the effect of teaching method on students' test scores. The results indicated a statistically significant difference in test scores across the four groups, (F(3, 36) = 11.45, p < .001). Post-hoc comparisons using the Tukey HSD test revealed that the Interactive method (G3) (M = 28.06, SD = 3.33) resulted in significantly higher scores than the Traditional method (M = 18.17, SD = 4.47) with p < .001. However, no significant difference was found between G1 and the Control group (p = .99). These results suggest that certain teaching methods can significantly improve student performance compared to traditional approaches.
 
 ## Real-world Applications of ANOVA
 
