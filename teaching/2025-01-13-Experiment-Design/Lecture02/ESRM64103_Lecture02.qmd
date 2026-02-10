@@ -676,7 +676,7 @@ Relying solely on p-values to reject the null hypothesis can be problematic for 
 -   We can simulate the data
 
 ```{r}
-#| eval: false
+#| eval: true
 # Set seed for reproducibility
 set.seed(42)
 
@@ -696,7 +696,7 @@ head(sleep_data)
 ```
 
 ```{r}
-#| code-fold: true
+#| eval: true
 ## There are two columns: (1) Sleep_Group (Group variable, IV) (2) Exam_Score (Outcome, DV)
 mod <- lm(Exam_Score ~ Sleep_Group, data = sleep_data)
 mod_aov <- aov(mod)
