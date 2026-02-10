@@ -695,12 +695,39 @@ sleep_data <- data.frame(
 head(sleep_data)
 ```
 
+### Method: R function 
 ```{r}
 #| eval: true
 ## There are two columns: (1) Sleep_Group (Group variable, IV) (2) Exam_Score (Outcome, DV)
 mod <- lm(Exam_Score ~ Sleep_Group, data = sleep_data)
 mod_aov <- aov(mod)
 summary(mod_aov) # F-value = 14.15, p < .05
+```
+
+### Method: Manual coding
+
+```{r}
+GrandMean <- mean(sleep_data$Exam_Score) ## grand mean of score
+
+mean_byGroup <- sleep_data |> 
+  group_by(Sleep_Group) |> 
+  summarise(
+    N = n(),
+    Mean = mean(Exam_Score)
+  )
+
+SS_b <-  sum(mean_byGroup$N * (mean_byGroup$Mean - GrandMean)^2)
+
+SSw_dt <- sleep_data |> 
+  group_by(Sleep_Group) |> 
+  mutate(GroupMean = mean(Exam_Score),
+         Diff_sq = (Exam_Score - GroupMean)^2)
+SS_w <- sum(SSw_dt$Diff_sq)
+
+
+df_b = 2
+df_w = 100 - 3 
+F_bw = (SS_b / df_b) / (SS_w / df_w)
 ```
 
 
