@@ -701,6 +701,7 @@ head(sleep_data)
 ## There are two columns: (1) Sleep_Group (Group variable, IV) (2) Exam_Score (Outcome, DV)
 mod <- lm(Exam_Score ~ Sleep_Group, data = sleep_data)
 mod_aov <- aov(mod)
+anova(mod)
 summary(mod_aov) # F-value = 14.15, p < .05
 ```
 
@@ -709,6 +710,7 @@ summary(mod_aov) # F-value = 14.15, p < .05
 ```{r}
 GrandMean <- mean(sleep_data$Exam_Score) ## grand mean of score
 
+library(dplyr) # R package that can perform group_by and |> 
 mean_byGroup <- sleep_data |> 
   group_by(Sleep_Group) |> 
   summarise(
@@ -716,8 +718,10 @@ mean_byGroup <- sleep_data |>
     Mean = mean(Exam_Score)
   )
 
+## between-group sum of square
 SS_b <-  sum(mean_byGroup$N * (mean_byGroup$Mean - GrandMean)^2)
 
+## within-group sum of square
 SSw_dt <- sleep_data |> 
   group_by(Sleep_Group) |> 
   mutate(GroupMean = mean(Exam_Score),
@@ -725,9 +729,10 @@ SSw_dt <- sleep_data |>
 SS_w <- sum(SSw_dt$Diff_sq)
 
 
-df_b = 2
-df_w = 100 - 3 
+df_b = 2 # between-group degree of freedom
+df_w = 100 - 3 # with-group
 F_bw = (SS_b / df_b) / (SS_w / df_w)
+SS_b + SS_w
 ```
 
 
