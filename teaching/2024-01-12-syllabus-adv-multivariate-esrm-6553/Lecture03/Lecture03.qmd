@@ -9,6 +9,7 @@ title-slide-attributes:
   data-background-opacity: "0.9"
 execute: 
   echo: true
+  warning: false
 format:
   html:
     code-tools: true
@@ -57,16 +58,16 @@ but, before we begin...
 
 ## In previous class...
 
-1.  We work with a simplest Bayesian model: roll "1" from a 6-size dice
+1.  We worked with the simplest Bayesian model: roll "1" from a 6-size dice
 2.  We talked about the selection of prior distributions from uninformative to informative priors
 3.  We talked about binomial distribution as the likelihood function
 4.  The posterior distribution is directly derived by update $\alpha$ and $\beta$
 
-## Markov Chain Monte Carlo Estimation
+## Markov Chain Monte Carlo (MCMC) Estimation
 
 Today, we dive deeper into the estimation process.
 
-1.  Bayesian analysis is all about estimating the **posterior distribution**.
+1.  Bayesian analysis is about estimating the **posterior distribution** and **model evaluation**.
 2.  Up until now, we've worked with the posterior distribution that are well-known
     -   Beta-Binomial conjugate pairs had a Beta posterior distribution
 
@@ -82,7 +83,7 @@ Today, we dive deeper into the estimation process.
 
 -   Oftentimes, however, posterior distributions are not easily obtainable
     -   No longer able to use properties of the distribution to estimate parameters
--   It is possible to use an optimization algorithm (e..g., Newton-Raphson or Expectation-Maximization) to find maximum value of posterior distribution
+-   It is possible to use an optimization algorithm (e.g., Newton-Raphson or Expectation-Maximization) to find maximum value of posterior distribution
     -   But, such algorithms may be very time consuming for high-dimensional problems
 -   Instead: "sketch" the posterior by sampling from it - then use that sketch to make inference
     -   Sampling is done via MCMC
@@ -93,7 +94,7 @@ Today, we dive deeper into the estimation process.
 
 ::::: columns
 ::: {.column width="50%"}
-1.  MCMC algorithm interactively draws samples from the posterior distribution
+1.  To construct "posterior distribution", MCMC algorithm iteratively draws samples from the posterior distribution
     -   For fairly simplistic models, each iteration has independent samples
     -   Most models have some layers of dependency included
         -   which can slow down the sample process from the posterior distribution
@@ -114,7 +115,7 @@ Today, we dive deeper into the estimation process.
     1.  Direct sampling from the posterior distribution (i.e., *Gibbs sampling*)
         -   Often used when conjugate priors are specified
         -   Popular software: BUGS, JAGS, Mplus
-    2.  Indirect (rejection-based) sampling from the posterior distribution (e.g, Metropolis-Hastings, Hamiltonian Monte Carlo)
+    2.  Indirect (rejection-based) sampling from the posterior distribution (e.g., Metropolis-Hastings, Hamiltonian Monte Carlo)
         -   Popular software: Stan
 
 ------------------------------------------------------------------------
@@ -124,9 +125,9 @@ Today, we dive deeper into the estimation process.
 -   Efficiency is the main reason for many algorithms
     -   Efficiency in this context: How quickly the algorithm converges and provides adequate coverage ("sketching") of the posterior distribution
     -   No one algorithm is uniformly most efficient for all models (here model = likelihood $\times$ prior)
--   The good news is that many software packages (stan, JAGS, Mplus, especially) don't make you choose which specific algorithm to use
--   The bad news is that sometimes your model may take a large amount of time to reach convergence (think days or weaks)
--   Alternatively, you can code your own custom algorithm to make things run smoother (different priors/ sampling strategies)
+-   The good news is that many software packages (Stan, JAGS, Mplus, especially) don't make you choose which specific algorithm to use.
+-   The bad news is that sometimes your model may take a large amount of time to reach convergence (think days or weeks)
+-   Alternatively, you can code your own custom algorithm to make things run smoother (different priors/ sampling strategies).
 
 ------------------------------------------------------------------------
 
@@ -154,29 +155,29 @@ Today, we dive deeper into the estimation process.
 
 -   To demonstrate each type of algorithm, we will use a model for a normal distribution
 
-    1.  We will investigate each, brief
+    1.  We will investigate each briefly
 
-    2.  We will then switch over to stan to show the syntax and let stan work
+    2.  We will then switch over to Stan to show the syntax and let Stan work
 
-    3.  Finnaly, we will conclude by talking about assessing convergence and how to report parameter estimates
+    3.  Finally, we will conclude by talking about assessing convergence and how to report parameter estimates
 
 ------------------------------------------------------------------------
 
 ## Example Data: Post-Diet Weights
 
-Download example data [UCLA website](https://stats.idre.ucla.edu/spss/library/spss-libraryhow-do-i-handle-interactions-of-continuous-andcategorical-variables/)
+- Download example data [UCLA website](https://stats.idre.ucla.edu/spss/library/spss-libraryhow-do-i-handle-interactions-of-continuous-andcategorical-variables/)
 
-Information about data:
+- Information about data:
 
--   In this example data file, it contains **30** subjects who used one of three diets: diet 1 (diet=1), diet 2 (diet=2), and a control group (diet=3).
--   The file **DietData.csv** contains the data we needed.
--   Variables in the data set are:
-    1.  Respondent: Respondent ID 1-30
-    2.  DietGroup: 1, 2, 3 representing the group to which a respondent was assigned
-    3.  HeightIN: The respondents' height in inches
-    4.  WeightLB (*Dependent Variable*): The respondents' weight in pounds
--   **Research Question**: [Are there differences in final weights between the three diet groups, and, if so, what the nature of the differences?]{.underline}
--   Before we conduct the analysis, let's look at the data
+    -   In this example data file, it contains **30** subjects who used one of three diets: diet 1 (diet=1), diet 2 (diet=2), and a control group (diet=3).
+    -   The file **DietData.csv** contains the data we needed.
+    -   Variables in the data set are:
+        1.  Respondent: Respondent ID 1-30
+        2.  DietGroup: 1, 2, 3 representing the group to which a respondent was assigned
+        3.  HeightIN: The respondents' height in inches
+        4.  WeightLB (*Dependent Variable*): The respondents' weight in pounds
+    -   **Research Question**: [Are there differences in final weights between the three diet groups, and, if so, what the nature of the differences?]{.underline}
+    -   Before we conduct the analysis, let's look at the data
 
 ------------------------------------------------------------------------
 
@@ -197,7 +198,8 @@ head(dat)
 ```{r}
 # Histplot for WeightLB - Dependent Variable
 ggplot(dat) +
-  geom_histogram(aes(x = WeightLB, y = ..density..), position = "identity", binwidth = 20, fill = 'grey', col = 'grey') +
+  geom_histogram(aes(x = WeightLB, y = ..density..), 
+                 position = "identity", binwidth = 20, fill = 'grey', col = 'grey') +
   geom_density(aes(x = WeightLB), alpha = .2, size = 1.2) +
   theme_classic()
 ```
@@ -209,9 +211,10 @@ ggplot(dat) +
 ### Visualize Data: HeightIN Variable
 
 ```{r}
-# Histgram for HeightIN - Independent Variable
+# Histogram for HeightIN - Independent Variable
 ggplot(dat) +
-  geom_histogram(aes(x = HeightIN, y = ..density..), position = "identity", binwidth = 2, fill = 'grey', col = 'grey') +
+  geom_histogram(aes(x = HeightIN, y = ..density..), 
+                 position = "identity", binwidth = 2, fill = 'grey', col = 'grey') +
   geom_density(aes(x = HeightIN), alpha = .2, size = 1.2) +
   theme_classic()
 ```
@@ -221,7 +224,7 @@ ggplot(dat) +
 ### Visualize Data: WeightLB by DietGroup
 
 ```{r}
-# Histgram for WeightLB x Group
+# Histogram for WeightLB x Group
 ggplot(dat, aes(x = WeightLB, fill = DietGroup, col = DietGroup)) +
   geom_histogram(aes(y = ..density..), position = "identity", binwidth = 20, alpha = 0.3) +
   geom_density(alpha = .2, size = 1.2) +
@@ -233,7 +236,7 @@ ggplot(dat, aes(x = WeightLB, fill = DietGroup, col = DietGroup)) +
 ### Visualizing Data: WeightLB by HeightIN by DietGroup
 
 ```{r}
-# Histgram for WeightLB x HeightIN x Group
+# Histogram for WeightLB x HeightIN x Group
 ggplot(dat, aes(y = WeightLB, x = HeightIN, col = DietGroup, shape = DietGroup)) +
   geom_smooth(method = 'lm', se = FALSE) +
   geom_point() +
@@ -367,13 +370,13 @@ graph LR;
 
     -   Actually does several methods of estimation (ML, Variational Bayes)
 
--   You create a model using Stan's syntax
+-   You create a model using Stan's syntax (`.stan`)
 
     -   Stan translates your model to a custom-built C++ syntax
 
     -   Stan then compiles your model into its own executable program
 
--   You then run the program to estimate your model
+-   You then run the program to estimate your model in R
 
     -   If you use R, the interface can be seamless
 
@@ -412,7 +415,7 @@ graph LR;
 #| echo: false
 library(cmdstanr)
 register_knitr_engine(override = FALSE) 
-set_cmdstan_path("~/cmdstan/")
+set_cmdstan_path("~/.cmdstan/cmdstan-2.34.1/")
 ```
 
 A Stan file saved as `EmptyModel.stan`
@@ -606,7 +609,8 @@ stanData = list(
 
 ```{r filename="DietDataExample.R"}
 #| eval: true
-#| result: 'hide'
+#| results: hide
+#| message: false
 # run MCMC chain (sample from posterior)
 model00.samples = model00.fromFile$sample(
   data = stanData, #<1>
@@ -614,14 +618,15 @@ model00.samples = model00.fromFile$sample(
   chains = 4, #<3>
   parallel_chains = 4, #<4>
   iter_warmup = 10000, #<5>
-  iter_sampling = 10000 #<6>
+  iter_sampling = 10000, #<6>
+  show_messages = FALSE # Change it to TRUE to show MCMC
 )
 ```
 
 1.  Data list
 2.  Random number seed
 3.  Number of chains (and parallel chains)
-4.  Number of warmup iterations (more details shirtly)
+4.  Number of warmup iterations (more details shortly)
 5.  Number of sampling iterations
 
 ::: nonincremental
@@ -632,12 +637,20 @@ model00.samples = model00.fromFile$sample(
 
 ------------------------------------------------------------------------
 
+### Sampling posterior distribution of beta0
+
+```{r}
+bayesplot::mcmc_trace(model00.samples$draws("beta0"))
+```
+
+------------------------------------------------------------------------
+
 ### MCMC Process
 
 ::: nonincremental
 -   The MCMC algorithm runs as a series of discrete iterations
 
--   Within each iteration, each parameters in the model has an opportunity to change its value
+-   Within each iteration, each parameter in the model has an opportunity to change its value
 
     -   For each parameter, a new parameter is sampled at random from the current belief of posterior distribution
 
@@ -654,7 +667,9 @@ model00.samples = model00.fromFile$sample(
 
 ------------------------------------------------------------------------
 
-### Example of Poor Convergence
+## Example of Poor Convergence
+
+To compare with the previous MCMC results (`model00.samples`), next, let's create a `model00Poor.samples` with strange and strong prior.
 
 ::::: columns
 ::: {.column width="50%"}
@@ -714,12 +729,12 @@ bayesplot::mcmc_trace(model00Poor.samples$draws("beta0"))
 
 1.  As convergence is assessed using multiple chains, more than one should be run
     1.  Between-chain variance estimates improve with the number of chains, so I typically use four chains
-    2.  Other than two; more than one should work
+    2.  At least two chains are needed; more than two should work better
 2.  Warmup/burnin period should be long enough to ensure chains move to center of posterior distribution
-    1.  Difficult to determine ahead of time
+    1.  This is difficult to determine ahead of time
     2.  More complex models need more warmup/burnin to converge
 3.  Sampling iterations should be long enough to thoroughly sample posterior distribution
-    1.  Difficulty to determine ahead of time
+    1.  This is difficult to determine ahead of time
     2.  Need smooth densities across bulk posterior
 4.  Often, multiple analyses (with different settings) is what is needed
 
@@ -755,7 +770,7 @@ model00.samples$summary()[1:5]
 
     -   `lp__` is so-called posterior log-likelihood, does not necessarily need examined, but may be used for model comparison
 
-    -   `ess` columns show effect sample size for chains (factoring in autocorrelation between correlations)
+    -   `ess` columns show effective sample size for chains (factoring in autocorrelation between iterations)
 
         -   More is better
 
@@ -795,7 +810,7 @@ model00.samples$summary()[1:5]
 
     -   The standard deviation of the sampled values in the all chains
 
-    -   The is the analogous to the standard error from ML
+    -   This is analogous to the standard error from ML
 
 -   Bayesian credible intervals are formed by taking quantiles of the posterior distribution
 
@@ -803,7 +818,7 @@ model00.samples$summary()[1:5]
 
     -   Interpretation slightly different - the probability the parameter lies within the interval
 
-    -   95% credible interval nodes that parameter is within interval with 95% confidence
+    -   95% credible interval notes that the parameter is within interval with 95% confidence
 
 -   Additionally, highest density posterior intervals can be formed
 
@@ -866,8 +881,24 @@ summary(refm_fit)
 
 ## Wrapping up
 
-1.  MCMC algorithm includes the Bayes' theorm and sampling approaches
+1.  MCMC algorithm includes Bayes' theorem and sampling approaches
 2.  Stan syntax: need `.stan` storing the model information and `.r` storing R codes to run and summarize the model
 3.  `cmdstanr` will compile the `.stan` and run the MCMC
-4.  To run MCMC, you need to specify number of chains, interations, burnins. You also translate data information into a data list
+4.  To run MCMC, you need to specify number of chains, iterations, burnins. You also translate data information into a data list
 5.  After you finish estimation, check the convergence using $\hat{R}$ and visual inspection of traceplot
+
+**Key terminology introduced in this lecture:**
+
+- **MCMC (Markov Chain Monte Carlo)**: Algorithm for sampling from posterior distributions
+- **Conjugate prior**: Prior distribution from the same family as the posterior distribution
+- **Gibbs sampling**: Direct sampling from the posterior distribution
+- **Metropolis-Hastings**: Rejection-based sampling method
+- **Hamiltonian Monte Carlo (HMC)**: Efficient rejection-based sampling used by Stan
+- **Warmup/Burnin period**: Initial iterations before the chain converges to the posterior
+- **Convergence**: State where the Markov chain samples from the target posterior distribution
+- **Traceplot**: Visual diagnostic showing parameter values across iterations
+- **PSRF (Potential Scale Reduction Factor)** or **$\hat{R}$ (rhat)**: Convergence diagnostic comparing between-chain to within-chain variance
+- **ESS (Effective Sample Size)**: Number of independent samples accounting for autocorrelation
+- **EAP (Expected a Posteriori)**: Posterior mean estimate
+- **Credible interval**: Bayesian interval containing the parameter with specified probability
+- **Stan blocks**: `data`, `parameters`, and `model` sections in Stan syntax
