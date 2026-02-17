@@ -9,7 +9,8 @@ format:
   html:
     code-tools: true
     code-line-numbers: false
-    code-fold: false
+    code-fold: true
+    code-summary: 'Click to see R code'
     number-offset: 1
     fig.width: 10
     fig-align: center
@@ -51,7 +52,7 @@ filters:
     -   Degrees of freedom for between-group ($df_b$) and within-group ($df_w$)
     -   Find the critical F-value.
 3.  **Compute test statistic**:
-    -   Calculate **F-ratio** based on between-group and within-group variance.
+    -   Calculate **F-ratio** based on between-group and within-group sum of squares.
 4.  **Compare results**:
     -   Either compare $F_{\text{obs}}$ with $F_{\text{crit}}$ or $p$-value with $\alpha$.
     -   If $p < \alpha$, reject $H_0$.
@@ -60,14 +61,15 @@ filters:
 
 1.  The way to compare the means of multiple groups (i.e., more than two groups)
 
--   Compared to multiple t-tests, the ANOVA does not inflate Type I error rates.
-    -   For F-test in ANOVA, Type I error rate is not inflated
-    -   Type I error rate is inflated when we do multiple comparison
--   **Family-wise error rate (FWER)**: probability of at least one Type I error occur = $1 −  (1 − \alpha)^c$ where c =number of tests. Frequently used FWER methods include Bonferroni or FDR.
+    -   Compared to multiple t-tests, the ANOVA does not inflate Type I error rates.
+        -   For F-test in ANOVA, Type I error rate is not inflated (testing the $H_0$ once a time)
+        -   Type I error rate is inflated when we do multiple comparison (testing multiple $H_0$s given the same data)
+    -   **Family-wise error rate (FWER)**: probability of at least one Type I error occur = $1 −  (1 − \alpha)^c$ where c =number of tests. Frequently used FWER methods include Bonferroni or FDR.
 
 ------------------------------------------
 
 ```{r}
+#| code-fold: true
 library(purrr)
 alpha <-  .05
 c <- seq(10)
@@ -103,13 +105,13 @@ plot(x = c, y = prob_TypeOneError, type = "b",
     -   **Not robust** to violations of independence—if independence is violated, ANOVA is inappropriate.
     -   **Moderately robust** to HOV violations if sample sizes are equal.
 
-## Assumption 1: Independence
+## Assumption 1: Independence among samples
 
 -   **Definition**: Each observation should be independent of others.
 -   **Violations**:
     -   Clustering of data (e.g., repeated measures).
     -   Participants influencing each other (e.g., classroom discussions).
--   **Check (Optional)**: Use the [Durbin-Watson test]{.redcolor}.
+-   **Check (Optional)**: Use the [Durbin-Watson test]{.redcolor} to check Serial Correlation.
 -   **Solution**: Repeated Measures ANOVA, Mixed ANOVA, Multilevel Model
 -   **Consequences**: If independence is violated, [ANOVA results are not valid]{.red}.
 
@@ -162,12 +164,16 @@ anova_independent <- aov(score ~ group, data = independent_data)
 # Compare results
 cat("ANOVA with DEPENDENT data:\n")
 print(summary(anova_dependent))
+cat("--------------------------\n")
 cat("\nANOVA with INDEPENDENT data:\n")
 print(summary(anova_independent))
 
+
 # Check Durbin-Watson test
+cat("--------------------------\n")
 cat("\nDurbin-Watson test for dependent data:")
 print(lmtest::dwtest(anova_dependent))
+cat("--------------------------\n")
 cat("\nDurbin-Watson test for independent data:")
 print(lmtest::dwtest(anova_independent))
 ```
@@ -180,7 +186,7 @@ print(lmtest::dwtest(anova_independent))
 
 ------------------------------------------------------------------------
 
-### Durbin-Watson (DW) Test
+### Background: Durbin-Watson (DW) Test
 
 ::: callout-note
 -   The Durbin-Watson test is primarily used for detecting **autocorrelation** in time-series data.
@@ -322,7 +328,7 @@ These results suggest there is no autocorrelation at the alpha level of .05.
 --------------------------------
 
 ::: panel-tabset
-### In-class quiz
+### Exercise
 
 -   Below is the R code that has loaded two datasets for you. `dat1` and `dat2`, try to examine which dataset violates independence.
 
@@ -418,6 +424,7 @@ print(dwtest(score ~ group, data = dat2))
 
 ```{r}
 #| eval: true
+#| code-fold: true
 #| results: hold
 set.seed(123)  # For reproducibility
 sample_normal_data <- rnorm(200, mean = 50, sd = 10)  # Generate normal data
@@ -444,7 +451,7 @@ ks.test(scale(sample_nonnormal_data), "pnorm")
 
 
 ::: panel-tabset
-### In-class quiz II
+### Exercise II
 
 Perform Shapiro-Wilk and Kolmogorov-Smirnov for both datasets. Tell me which test works or does not work and why.
 
@@ -510,7 +517,7 @@ group_data |>
 --------
 
 ::: panel-tabset
-### In-class quiz III
+### Exercise III
 
 Perform Shapiro-Wilk for each group datasets. Tell me which group is not normal.
 
@@ -523,7 +530,6 @@ group_data2 <- data.frame(
             sample(seq(50, 100, .01), 30, replace = TRUE),  # Group B
             round(rnorm(30, mean = 48, sd = 9), 2))   # Group C
 )
-
 ```
 
 ```{webr-r}
@@ -730,7 +736,7 @@ TukeyHSD(aov_result) # call TukeyHSD followed by the model to perform Tukey mult
 
 ```{r}
 #| eval: true
-tukey_result <- TukeyHSD(anova_result)
+tukey_result <- TukeyHSD(aov_result)
 print(tukey_result$group)
 ```
 
@@ -762,7 +768,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 ```{r}
-#| eval: true
+#| eval: false
 #| code-fold: true
 
 library(dplyr)
@@ -775,6 +781,7 @@ data |>
 ```
 
 -   A one-way analysis of variance (ANOVA) was conducted to examine the effect of teaching method on students' test scores. The results indicated a statistically significant difference in test scores across the four groups, (F(3, 36) = 11.45, p < .001). Post-hoc comparisons using the Tukey HSD test revealed that the Interactive method (G3) (M = 28.06, SD = 3.33) resulted in significantly higher scores than the Traditional method (M = 18.17, SD = 4.47) with p < .001. However, no significant difference was found between G1 and the Control group (p = .99). These results suggest that certain teaching methods can significantly improve student performance compared to traditional approaches.
+
 ## ANOVA Example: Intervention and Verbal Acquisition
 
 ### Background
@@ -828,8 +835,8 @@ head(data)
 
 ```{r}
 # Summary statistics by group
-data %>%
-  group_by(group) %>%
+data|>
+  group_by(group)|>
   summarise(
     mean_score = mean(verbal_score),
     sd_score = sd(verbal_score),
@@ -916,8 +923,14 @@ ggplot(data, aes(sample = verbal_score)) +
 
 ```{r}
 #| results: hold
+#| warning: false
+library(car) # for leveneTest
+library(onewaytests) # for bf.test
+data$group <- as.factor(data$group)
 car::leveneTest(verbal_score ~ group, data = data)
-stats::bartlett.test(verbal_score ~ group, data = data)
+cat("-----------------------------\n")
+bartlett.test(verbal_score ~ group, data = data)
+cat("-----------------------------\n")
 onewaytests::bf.test(verbal_score ~ group, data = data)
 ```
 
@@ -958,7 +971,15 @@ round(tukey_results$group, 3)
 ### Step 6: Family-wise Error Rate Control
 
 `glht` function in multcomp package allow us to perform family-wise error rate control (using `adjusted p-values`).
-Alternatively, we can use `TukeyHSD` to adjust p values to control inflated Type I errpr.
+Alternatively, we can use `TukeyHSD` to adjust p values to control inflated Type I error.
+
+$$
+Y = \beta_0G_0+\beta_1G_1 +\beta_2G_2 +\beta_3G_3
+$$
+
+-   When $\{G_0, G_1, G_2, G_3\}$ = $\{0, 1, 0, 0\}$, $Y = \beta_1$, which is the group difference between G1 with the control group
+-   When $\{G_0, G_1, G_2, G_3\}$ = $\{0, 0, 1, 0\}$, $Y = \beta_2$, which is the group difference between G2 with the control group
+-   When $\{G_0, G_1, G_2, G_3\}$ = $\{0, -1, 1, 0\}$, $Y = \beta_2 - \beta_1$, which is the group difference between G2 with G1
 
 ```{r}
 #| warning: false
@@ -994,11 +1015,11 @@ summary(cht, test = adjusted("fdr"))
 #| code-line-numbers: false
 #| code-summary: "TukeyHSD method"
              diff    lwr    upr p adj
-G1-Control  7.611  1.545 13.677 0.008
-G2-Control 10.715  4.649 16.782 0.000
-G3-Control 14.720  8.654 20.786 0.000
+G1-Control  7.611  1.545 13.677 0.008 **
+G2-Control 10.715  4.649 16.782 0.000 ***
+G3-Control 14.720  8.654 20.786 0.000 ***
 G2-G1       3.104 -2.962  9.170 0.543
-G3-G1       7.109  1.042 13.175 0.015
+G3-G1       7.109  1.042 13.175 0.015 *
 G3-G2       4.005 -2.062 10.071 0.318
 ```
 :::
