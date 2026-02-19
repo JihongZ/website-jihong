@@ -61,8 +61,12 @@ model {
     betaHxG3*heightXgroup3, sigma);
 }
 "
+
+## Option 1: save it to local
 write.table(FullModelOld, "FullModel_Old.stan", row.names = FALSE, col.names = FALSE, quote = FALSE)
-mod_full_old <- cmdstan_model("FullModel_Old.stan")
+
+## Option 2: read it directly from R
+mod_full_old <- cmdstan_model(write_stan_file(FullModelOld))
 data_full_old <- list(
   N = nrow(dat),
   weightLB = dat$WeightLB,
@@ -112,8 +116,13 @@ model {
   weightLB ~ normal(X*beta, sigma);       // linear model
 }
 "
+
+## Option 1: save it to local directory
 write.table(FullModelNew, "FullModel_New.stan", row.names = FALSE, col.names = FALSE, quote = FALSE)
-mod_full_new <- cmdstan_model("FullModel_New.stan")
+
+## Option 2: read it directly from R. 
+mod_full_new <- cmdstan_model(write_stan_file(FullModelNew))
+
 X = model.matrix(FullModelFormula, data = dat)
 data_full_new <- list(
   N = nrow(dat),
@@ -145,7 +154,6 @@ fit_full_new$time()
 
 
 # New Stan Code -----------------------------------------------------------
-mod_full_new <- cmdstan_model("FullModel_New.stan")
 FullModelFormula = as.formula("WeightLB ~ HeightIN60 + DietGroup + HeightIN60*DietGroup")
 X = model.matrix(FullModelFormula, data = dat)
 data_full_new <- list(
@@ -178,7 +186,29 @@ summary(beta_group2)
 
 
 # Compute quantities ------------------------------------------------------
-mod_full_compute <- cmdstan_model("FullModel_compute.stan")
+
+FullModelCompute <- "
+data{
+  int<lower=0> N;         // number of observations
+  int<lower=0> P;         // number of predictors (plus column for intercept)
+  matrix[N, P] X;         // model.matrix() from R 
+  vector[N] weightLB;     // outcome
+  real sigmaRate;         // hyperparameter: prior rate parameter for residual standard deviation
+}
+parameters {
+  vector[P] beta;         // vector of coefficients for Beta
+  real<lower=0> sigma;    // residual standard deviation
+}
+model {
+  sigma ~ exponential(sigmaRate);         // prior for sigma
+  weightLB ~ normal(X*beta, sigma);       // linear model
+}
+generated quantities{
+  real slopeG2;
+  slopeG2 = beta[2] + beta[5];
+}
+"
+mod_full_compute <- cmdstan_model(write_stan_file(FullModelCompute))
 fit_full_compute <- mod_full_compute$sample(
   data = data_full_new,
   seed = 1234,
@@ -190,7 +220,44 @@ fit_full_compute$summary('slopeG2')
 bayesplot::mcmc_dens_chains(fit_full_compute$draws('slopeG2'))
 
 ## group comparison
-mod_full_contrast <- cmdstan_model("FullModel_contrast.stan")
+FullModelcontrast <- "
+data{
+  int<lower=0> N;         // number of observations
+  int<lower=0> P;         // number of predictors (plus column for intercept)
+  matrix[N, P] X;         // model.matrix() from R 
+  vector[N] weightLB;     // outcome
+  real sigmaRate;         // hyperparameter: prior rate parameter for residual standard deviation
+  int<lower=0> nContrasts;
+  matrix[nContrasts, P] contrast; // C matrix 
+}
+parameters {
+  vector[P] beta;         // vector of coefficients for Beta
+  real<lower=0> sigma;    // residual standard deviation
+}
+model {
+  sigma ~ exponential(sigmaRate);         // prior for sigma
+  weightLB ~ normal(X*beta, sigma);       // linear model
+}
+generated quantities{
+  vector[nContrasts] computedEffects;
+  computedEffects = contrast*beta;
+  // compute R2
+  real rss;
+  real tss;
+  real R2;
+  real R2adj;
+  {// anything in these brackets will not appear in summary table
+    vector[N] pred = X*beta;
+    rss = dot_self(weightLB-pred); // dot_self is stan function for matrix square
+    tss = dot_self(weightLB-mean(weightLB));
+  }
+  R2 = 1-rss/tss;
+  R2adj = 1-(rss/(N-P))/(tss/(N-1));
+}
+
+
+"
+mod_full_contrast <- cmdstan_model(write_stan_file(FullModelcontrast))
 contrast_dat <- list(
   nContrasts = 2,
   contrast = matrix(

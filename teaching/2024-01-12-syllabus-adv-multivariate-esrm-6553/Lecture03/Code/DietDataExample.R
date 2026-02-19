@@ -51,7 +51,7 @@ summary(EmptyModel)
 
 library(cmdstanr)
 # compile model -- this method is for stand-alone stan files (uses cmdstanr)
-model00.fromFile = cmdstan_model(stan_file = here("~/github/website-jihong/teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Code", "EmptyModel.stan"))
+model00.fromFile = cmdstan_model(stan_file = here("teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Code", "EmptyModel.stan"))
 
 # build R list containing data for Stan: Must be named what "data" are listed in analysis
 stanData = list(
@@ -79,24 +79,8 @@ model00.samples = model00.fromFile$sample(
 
 model00.samples$summary()[c('variable','mean', 'rhat')][1:3, ]
 
-## Using rstan
-library(rstan)
-rstan_options(auto_write = TRUE)
-options(mc.cores = parallel::detectCores())
-
-# example MCMC analysis in rstan
-model00.rstan = stan(
-  model_code = stanModel,
-  model_name = "Empty model",
-  data = stanData,
-  warmup = 10000,
-  iter = 20000,
-  chains = 4,
-  verbose = TRUE
-)
-
 ## Model 0 with poor convergence
-model00Poor.fromFile = cmdstan_model(stan_file = "EmptyModelPoor.stan")
+model00Poor.fromFile = cmdstan_model(stan_file = here("teaching/2024-01-12-syllabus-adv-multivariate-esrm-6553/Lecture03/Code", "EmptyModelPoor.stan"))
 model00Poor.samples = model00Poor.fromFile$sample(
   data = stanData,
   seed = 1,

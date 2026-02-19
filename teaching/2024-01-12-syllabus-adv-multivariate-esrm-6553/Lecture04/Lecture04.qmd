@@ -31,7 +31,7 @@ format:
 
 ## Today's Lecture Objectives
 
-1.  Making Stan Syntax Shorter
+1.  Explain Stan Syntax for linear regression model
 
 2.  Computing Functions of Model Parameters
 
@@ -49,12 +49,14 @@ library(cmdstanr)
 library(bayesplot)
 library(tidyr)
 library(dplyr)
+library(kableExtra)
 color_scheme_set('brightblue')
 dat <- read.csv(here::here("teaching", "2024-01-12-syllabus-adv-multivariate-esrm-6553", "Lecture03", "Code", "DietData.csv"))
 dat$DietGroup <- factor(dat$DietGroup, levels = 1:3)
 dat$HeightIN60 <- dat$HeightIN - 60
-kableExtra::kable( rbind(head(dat), tail(dat)) ) |> kableExtra::kable_classic_2() |> 
-  kableExtra::kable_styling(full_width = F, font_size = 15)
+kable( rbind(head(dat), tail(dat)) ) |> 
+  kable_classic_2() |> 
+  kable_styling(full_width = F, font_size = 15)
 ```
 :::
 
@@ -154,9 +156,11 @@ $$
 :::
 :::::
 
+`model.matrix` creates a design (or model) matrix ($X$), e.g., by expanding factors to a set of dummy variables (depending on the contrasts) and expanding interactions similarly.
+
 ```{r}
 FullModelFormula = as.formula("WeightLB ~ HeightIN60 + DietGroup + HeightIN60*DietGroup")
-model.matrix(FullModelFormula, data = dat) |> head()
+model.matrix(FullModelFormula, data = dat) |> unique()
 ```
 
 ## Linear Models with Matrices (Cont.)
@@ -232,7 +236,8 @@ summary_lm$adj.r.squared
 
 ## Vectorize prior distributions
 
-Previously, we defined a normal distribution for each regression coefficient $$
+Previously, we defined a normal distribution for each regression coefficient 
+$$
 \beta_0 \sim normal(0, 1) \\
 \vdots \\
 \beta_p \sim normal(0, 1)
