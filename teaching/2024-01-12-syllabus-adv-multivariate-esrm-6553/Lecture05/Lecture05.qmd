@@ -10,8 +10,18 @@ title-slide-attributes:
 execute: 
   echo: true
   eval: false
-format: 
+format:
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: true
+    code-summary: 'Click here to see R code'
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
   revealjs:
+    output-file: slides-index.html
     logo: ../Images/UA_Logo_Horizontal.png
     incremental: true  # choose "false "if want to show all together
     theme: [serif, ../pp.scss]

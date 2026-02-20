@@ -13,7 +13,7 @@ format:
   html:
     code-tools: true
     code-line-numbers: false
-    code-fold: false
+    code-fold: true
     code-summary: 'Click here to see R code'
     number-offset: 1
     fig.width: 10
