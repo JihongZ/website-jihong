@@ -9,6 +9,7 @@ title-slide-attributes:
   data-background-opacity: "0.9"
 execute: 
   echo: true
+  warning: false
 format: 
   html:
     code-tools: true
