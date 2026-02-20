@@ -10,6 +10,15 @@ title-slide-attributes:
 execute: 
   echo: true
 format: 
+  html:
+    code-tools: true
+    code-line-numbers: false
+    code-fold: false
+    code-summary: 'Click here to see R code'
+    number-offset: 1
+    fig.width: 10
+    fig-align: center
+    message: false
   revealjs:
     logo: ../Images/UA_Logo_Horizontal.png
     incremental: true  # choose "false "if want to show all together
@@ -27,6 +36,7 @@ format:
     highlight-style: arrow
     code-block-border-left: true
     code-block-background: "#b22222"
+    output-file: slides-index.html
 ---
 
 ## Today's Lecture Objectives
